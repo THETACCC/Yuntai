@@ -66,7 +66,7 @@ public class DialogueTreeEditor : EditorWindow
     // 修改为基于项目的存储键
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
-    [MenuItem("Tools/Dialogue Tree Editor")]
+    [MenuItem("Tools/Dialogue Tree Editor/Open Editor")]
     public static void OpenWindow()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
@@ -74,6 +74,96 @@ public class DialogueTreeEditor : EditorWindow
         window.minSize = new Vector2(800, 600);
         window.Show();
         window.ForceInitialize();
+    }
+
+    [MenuItem("Tools/Dialogue Tree Editor/Create New")]
+    public static void CreateNewFromMenu()
+    {
+        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
+        window.titleContent = new GUIContent("Dialogue Tree Editor");
+        window.minSize = new Vector2(800, 600);
+        window.Show();
+        window.ForceInitialize();
+
+        if (window.hasUnsavedChanges)
+        {
+            if (!EditorUtility.DisplayDialog("New Document",
+                "You have unsaved changes. Create new document without saving?",
+                "Yes", "Cancel"))
+            {
+                return;
+            }
+        }
+        window.NewDialogueTree();
+    }
+
+    [MenuItem("Tools/Dialogue Tree Editor/Load")]
+    public static void LoadFromMenu()
+    {
+        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
+        window.titleContent = new GUIContent("Dialogue Tree Editor");
+        window.minSize = new Vector2(800, 600);
+        window.Show();
+        window.ForceInitialize();
+        window.LoadDialogueTree();
+    }
+
+    [MenuItem("Tools/Dialogue Tree Editor/Export")]
+    public static void ExportDialogueFromMenu()
+    {
+        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
+        window.titleContent = new GUIContent("Dialogue Tree Editor");
+        if (window != null && window.graphView != null)
+        {
+            window.ExportDialogueSequence();
+        }
+        else
+        {
+            window.ForceInitialize();
+            if (window.graphView != null)
+            {
+                window.ExportDialogueSequence();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "Please open the Dialogue Tree Editor first and create some dialogue nodes.", "OK");
+            }
+        }
+    }
+
+    /*
+    [MenuItem("Tools/Dialogue Tree Editor1/Save Current", true)]
+    public static bool ValidateSaveCurrent()
+    {
+        var window = GetWindow<DialogueTreeEditor>(false, "", false);
+        return window != null && window.graphView != null;
+    }
+    */
+
+    [MenuItem("Tools/Dialogue Tree Editor/Save Current")]
+    public static void SaveCurrentFromMenu()
+    {
+        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
+        window.titleContent = new GUIContent("Dialogue Tree Editor");
+        if (window != null && window.graphView != null)
+        {
+            window.SaveDialogueTree();
+        }
+    }
+
+    [MenuItem("Tools/Dialogue Tree Editor/Save As...")]
+    public static void SaveAsFromMenu()
+    {
+        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
+        window.titleContent = new GUIContent("Dialogue Tree Editor");
+        if (window != null && window.graphView != null)
+        {
+            window.SaveAsDialogueTree();
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Error", "Please open the Dialogue Tree Editor first and create some dialogue nodes.", "OK");
+        }
     }
 
     private void OnEnable()
