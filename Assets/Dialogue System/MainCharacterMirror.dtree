@@ -1,0 +1,51 @@
+{
+    "nodes": [
+        {
+            "id": "da303932-0fba-49d0-913e-388783462a90",
+            "index": 0,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "Just normal me",
+            "positionX": 486.0,
+            "positionY": 265.0,
+            "choices": [
+                "Check Hand",
+                "Check Eyes"
+            ]
+        },
+        {
+            "id": "cd3d5354-9560-4555-a2f2-c765abd55488",
+            "index": 2,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "my eyes",
+            "positionX": 843.0,
+            "positionY": 429.0,
+            "choices": []
+        },
+        {
+            "id": "ce1ed56d-52c3-4a76-b4cc-b9a611433f6e",
+            "index": 1,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "my hand",
+            "positionX": 843.0,
+            "positionY": 152.0,
+            "choices": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "da303932-0fba-49d0-913e-388783462a90",
+            "inputNodeId": "ce1ed56d-52c3-4a76-b4cc-b9a611433f6e",
+            "choiceIndex": 0,
+            "choiceText": "Check Hand"
+        },
+        {
+            "outputNodeId": "da303932-0fba-49d0-913e-388783462a90",
+            "inputNodeId": "cd3d5354-9560-4555-a2f2-c765abd55488",
+            "choiceIndex": 1,
+            "choiceText": "Check Eyes"
+        }
+    ]
+}

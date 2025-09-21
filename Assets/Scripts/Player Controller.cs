@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         Vector2 playerPosition = transform.position;
 
         // Debugging: Log the player's position and the closest point
-        Debug.Log("Player Position: " + playerPosition);
+        //Debug.Log("Player Position: " + playerPosition);
 
         // Check if the player's position is inside the bounding area
         if (!boundingArea.OverlapPoint(playerPosition))
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
             Vector2 closestPoint = boundingArea.ClosestPoint(playerPosition);
 
             // Debugging: Log the closest point
-            Debug.Log("Closest Point: " + closestPoint);
+            //Debug.Log("Closest Point: " + closestPoint);
 
             // Move the player to the closest point
             transform.position = closestPoint;
