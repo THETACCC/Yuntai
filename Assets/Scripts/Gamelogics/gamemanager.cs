@@ -30,6 +30,23 @@ public class Gamemanager : MonoBehaviour
         DontDestroyOnLoad(playermanager);
     }
 
+    private void Start()
+    {
+        phase = GamePhase.Moving;
+
+    }
+
+    public void StartDialogue()
+    {
+        phase = GamePhase.Talking;
+    }
+
+    public void EndDialogue()
+    {
+        phase = GamePhase.Moving;
+    }
+
+
 
 }
 

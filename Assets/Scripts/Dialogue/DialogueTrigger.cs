@@ -18,6 +18,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Gamemanager.instance.StartDialogue();
                 DialogueManager.instance.LoadDialogueFromResources(jsonFile);
                 DialogueManager.instance.StartDialogue();
             }

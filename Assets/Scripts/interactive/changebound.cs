@@ -21,6 +21,8 @@ public class changebound : MonoBehaviour
 
     void Start()
     {
+        virtualcamera = GameObject.FindGameObjectWithTag("VirtualCam");
+
         bound_1 = boundingarea_1.GetComponent<PolygonCollider2D>();
         bound_2 = boundingarea_2.GetComponent<PolygonCollider2D>();
         confiner = virtualcamera.GetComponent<CinemachineConfiner2D>();

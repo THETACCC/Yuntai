@@ -11,6 +11,10 @@ public class SceneController : MonoBehaviour
     [Tooltip("If true, zeroes out the player's Rigidbody2D velocity when teleporting.")]
     public bool resetPlayerVelocity2D = true;
 
+    public GameObject CameraBound;
+    public FindBound findbound;
+
+
     private void Awake()
     {
         if (instance == null)
@@ -23,6 +27,12 @@ public class SceneController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        findbound = CameraBound.GetComponent<FindBound>();
+    }
+
 
     /// <summary>
     /// Loads the scene asynchronously and teleports the player to the SpawnPoint with the given numeric id.
@@ -56,6 +66,9 @@ public class SceneController : MonoBehaviour
 
         // Teleport
         player.transform.position = targetSpawn.position;
+
+        // CameraRelated
+        findbound.AssignNearestBound(player.transform, "Bounds");
 
         // Optional: reset 2D velocity so the player doesn't slide off spawn
         if (resetPlayerVelocity2D)

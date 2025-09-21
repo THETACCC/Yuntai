@@ -22,7 +22,15 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -79,7 +87,9 @@ public class DialogueManager : MonoBehaviour
                 UIGroup.alpha = 1 - t;
             },
             () => {
-                gameObject.SetActive(false);
+
+                Gamemanager.instance.EndDialogue();
+                //gameObject.SetActive(false);
             }));
     }
 

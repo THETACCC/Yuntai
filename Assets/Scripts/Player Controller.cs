@@ -31,24 +31,37 @@ public class PlayerController : MonoBehaviour
         boundingArea = confiner.m_BoundingShape2D as PolygonCollider2D;
 
 
-        speed = Mathf.Clamp(speed, 0f, max_hspeed);
-        horizontal = Input.GetAxisRaw("Horizontal");
-        if ((Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D)))
+        if(Gamemanager.instance.phase == GamePhase.Moving)
         {
-            speed += velocity * acceleration* Time.deltaTime;
-        }
-        else if ((Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.A)))
-        {
-            speed += velocity * acceleration * Time.deltaTime;
-        }
-        else if ((Input.GetKey(KeyCode.A)) && (Input.GetKey(KeyCode.D)))
-        {
-            speed -= velocity * acceleration * Time.deltaTime;
+            speed = Mathf.Clamp(speed, 0f, max_hspeed);
+            horizontal = Input.GetAxisRaw("Horizontal");
+            if ((Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D)))
+            {
+                speed += velocity * acceleration * Time.deltaTime;
+            }
+            else if ((Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.A)))
+            {
+                speed += velocity * acceleration * Time.deltaTime;
+            }
+            else if ((Input.GetKey(KeyCode.A)) && (Input.GetKey(KeyCode.D)))
+            {
+                speed -= velocity * acceleration * Time.deltaTime;
+            }
+            else
+            {
+                speed -= velocity * acceleration * Time.deltaTime;
+            }
         }
         else
         {
-            speed -= velocity * acceleration * Time.deltaTime;
+            speed = 0f;
         }
+
+
+
+
+        //Other Functions
+
         Flip();
         ConfinePlayerToBoundingArea();
         //Physics2D.IgnoreLayerCollision(7, 8);
