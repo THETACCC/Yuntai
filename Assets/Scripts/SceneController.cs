@@ -14,6 +14,7 @@ public class SceneController : MonoBehaviour
     public GameObject CameraBound;
     public FindBound findbound;
 
+    [SerializeField] Animator transitionAnim;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         findbound = CameraBound.GetComponent<FindBound>();
+        //transitionAnim.SetTrigger("Start");
     }
 
 
