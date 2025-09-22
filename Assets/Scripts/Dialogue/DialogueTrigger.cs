@@ -1,9 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public TextAsset jsonFile;
-    public bool isReadyToTrigger = false;
+    public TextAsset mainDialogueJsonFile;
+    public TextAsset postDialogueJsonFile;
+
+    public bool isReadyToTrigger = false; //是否可以触发对话
+    public bool isMainDialogueFinished = false; //主要对话是否结束
+
+    public UnityEvent OnDialogueCompleted;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,9 +24,21 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Gamemanager.instance.StartDialogue();
-                DialogueManager.instance.LoadDialogueFromResources(jsonFile);
-                DialogueManager.instance.StartDialogue();
+                if (!isMainDialogueFinished)
+                {
+                    DialogueManager.instance.currentTrigger = this;
+                    Gamemanager.instance?.StartDialogue();
+                    DialogueManager.instance.LoadDialogueFromResources(mainDialogueJsonFile);
+                    DialogueManager.instance.StartDialogue();
+                } else
+                {
+                    if (postDialogueJsonFile != null)
+                    {
+                        Gamemanager.instance?.StartDialogue();
+                        DialogueManager.instance.LoadDialogueFromResources(postDialogueJsonFile);
+                        DialogueManager.instance.StartDialogue();
+                    }
+                }
             }
         }
     }

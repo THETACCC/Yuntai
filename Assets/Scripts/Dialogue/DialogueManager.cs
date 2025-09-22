@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] GameObject choiceParent;
     [SerializeField] GameObject choicePrefab;
 
-    
+    public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
 
     private void Awake()
@@ -78,6 +78,8 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        DialogueDefaultSequence.instance.isButtonActice = false;
+
         //animation
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear,
@@ -87,8 +89,10 @@ public class DialogueManager : MonoBehaviour
                 UIGroup.alpha = 1 - t;
             },
             () => {
-
-                Gamemanager.instance.EndDialogue();
+                //End things
+                UIGroup.alpha = 0;
+                Gamemanager.instance?.EndDialogue();
+                currentTrigger.isMainDialogueFinished = true;
                 //gameObject.SetActive(false);
             }));
     }
