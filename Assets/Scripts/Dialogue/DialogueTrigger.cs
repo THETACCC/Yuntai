@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private TextAsset jsonFile;
+    public TextAsset jsonFile;
     public bool isReadyToTrigger = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,6 +22,22 @@ public class DialogueTrigger : MonoBehaviour
                 DialogueManager.instance.LoadDialogueFromResources(jsonFile);
                 DialogueManager.instance.StartDialogue();
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isReadyToTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isReadyToTrigger = false;
         }
     }
 }

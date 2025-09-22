@@ -1,0 +1,48 @@
+{
+    "nodes": [
+        {
+            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "index": 0,
+            "name": "Stewardess",
+            "avatarAddr": "avatars/default.png",
+            "content": "不准过去！那边是头等舱。",
+            "positionX": 569.6000366210938,
+            "positionY": 611.2000122070313,
+            "choices": []
+        },
+        {
+            "id": "4f690308-519e-423f-94ba-20c34964b485",
+            "index": 1,
+            "name": "Me",
+            "avatarAddr": "avatars/default.png",
+            "content": "I wanna peeeeee",
+            "positionX": 860.0,
+            "positionY": 611.2000122070313,
+            "choices": []
+        },
+        {
+            "id": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "index": 2,
+            "name": "Me",
+            "avatarAddr": "avatars/default.png",
+            "content": "厕所在飞机后面。",
+            "positionX": 1176.7999267578125,
+            "positionY": 611.2000122070313,
+            "choices": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "inputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "inputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}

@@ -94,8 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 82935524454280155}
   - component: {fileID: 900734632522922850}
-  - component: {fileID: 8417865392977882059}
   - component: {fileID: 398603539414528650}
+  - component: {fileID: 2921966396280651360}
+  - component: {fileID: 8261822741656849573}
   m_Layer: 0
   m_Name: InteractiveDia
   m_TagString: Untagged
@@ -171,20 +172,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8417865392977882059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8038144794689732738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: f8793807c28fd3c44a8762780c9be19d, type: 3}
-  InteractIndicator: {fileID: 3415938358529677299}
 --- !u!58 &398603539414528650
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -220,3 +207,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2921966396280651360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038144794689732738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+--- !u!114 &8261822741656849573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038144794689732738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractIndicator: {fileID: 3415938358529677299}
