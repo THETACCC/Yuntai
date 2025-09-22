@@ -131,15 +131,6 @@ public class DialogueTreeEditor : EditorWindow
         }
     }
 
-    /*
-    [MenuItem("Tools/Dialogue Tree Editor1/Save Current", true)]
-    public static bool ValidateSaveCurrent()
-    {
-        var window = GetWindow<DialogueTreeEditor>(false, "", false);
-        return window != null && window.graphView != null;
-    }
-    */
-
     [MenuItem("Tools/Dialogue Tree Editor/Save Current")]
     public static void SaveCurrentFromMenu()
     {
@@ -505,6 +496,15 @@ public class DialogueTreeEditor : EditorWindow
             {
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
+
+                // Center on node 0 after loading
+                EditorApplication.delayCall += () => {
+                    if (graphView != null)
+                    {
+                        graphView.CenterOnNode0();
+                    }
+                };
+
                 Debug.Log($"Dialogue tree loaded from: {path}");
             }
             else
@@ -665,6 +665,30 @@ public class DialogueGraphView : GraphView
     {
         DeleteElements(graphElements.ToList());
         nextNodeIndex = 0;
+    }
+
+    public void CenterOnNode0()
+    {
+        var node0 = nodes.Cast<DialogueNode>().FirstOrDefault(n => n.NodeIndex == 0);
+        if (node0 != null)
+        {
+            // Get the position of node 0
+            var nodePosition = node0.GetPosition();
+            var nodeBounds = new Rect(nodePosition.position, nodePosition.size);
+
+            // Calculate the center point of the node
+            var nodeCenter = nodeBounds.center;
+
+            // Get the viewport rect
+            var viewportRect = contentRect;
+
+            // Calculate the target position to center the node in the viewport
+            var targetScale = Vector3.one; // Reset zoom to 1:1
+            var targetPosition = -nodeCenter + viewportRect.center / targetScale;
+
+            // Update the view transform to center on the node
+            UpdateViewTransform(targetPosition, targetScale);
+        }
     }
 
     private void OnMouseDown(MouseDownEvent evt)
