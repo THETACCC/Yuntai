@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class DialogueTrigger : MonoBehaviour
     public bool isReadyToTrigger = false; //是否可以触发对话
     public bool isMainDialogueFinished = false; //主要对话是否结束
 
-    public UnityEvent OnDialogueCompleted;
+    //public UnityEvent OnDialogueCompleted;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,14 +27,14 @@ public class DialogueTrigger : MonoBehaviour
                 {
                     DialogueManager.instance.currentTrigger = this;
                     Gamemanager.instance?.StartDialogue();
-                    DialogueManager.instance.LoadDialogueFromResources(mainDialogueJsonFile);
+                    DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
                     DialogueManager.instance.StartDialogue();
                 } else
                 {
                     if (postDialogueJsonFile != null)
                     {
                         Gamemanager.instance?.StartDialogue();
-                        DialogueManager.instance.LoadDialogueFromResources(postDialogueJsonFile);
+                        DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
                         DialogueManager.instance.StartDialogue();
                     }
                 }
@@ -57,5 +56,10 @@ public class DialogueTrigger : MonoBehaviour
         {
             isReadyToTrigger = false;
         }
+    }
+
+    public void Test()
+    {
+        Debug.Log("222222222222222222");
     }
 }

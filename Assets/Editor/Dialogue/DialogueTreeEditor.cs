@@ -7,6 +7,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
+// 事件调用数据结构
+[System.Serializable]
+public class DialogueEventCall
+{
+    public string targetObjectName = "";  // 目标对象名称
+    public string componentTypeName = ""; // Component 类型名称（如 "GameManager", "AudioSource"）
+    public string methodName = "";        // 方法名
+    public string stringParameter = "";   // 字符串参数
+    public int intParameter = 0;          // 整数参数
+    public float floatParameter = 0f;     // 浮点数参数
+    public bool boolParameter = false;    // 布尔参数
+    public ParameterType parameterType = ParameterType.None; // 参数类型
+}
+
+[System.Serializable]
+public enum ParameterType
+{
+    None,
+    String,
+    Int,
+    Float,
+    Bool
+}
+
 // 数据结构用于序列化
 [System.Serializable]
 public class DialogueTreeData
@@ -26,6 +50,7 @@ public class DialogueNodeData
     public float positionX;
     public float positionY;
     public List<string> choices = new List<string>();
+    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>(); // 替换 eventName
 }
 
 [System.Serializable]
@@ -47,6 +72,7 @@ public class ExportDialogueData
     public string content;
     public List<ExportChoice> choices = new List<ExportChoice>();
     public string nextNodeId;
+    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>(); // 替换 eventName
 }
 
 [System.Serializable]
@@ -590,6 +616,33 @@ public class DialogueTreeEditor : EditorWindow
                     formattedJson += ",\n      \"choices\": []";
                 }
 
+                // 添加事件调用数组
+                if (item.eventCalls.Count > 0)
+                {
+                    formattedJson += ",\n      \"eventCalls\": [\n";
+                    for (int j = 0; j < item.eventCalls.Count; j++)
+                    {
+                        var eventCall = item.eventCalls[j];
+                        formattedJson += "        {\n";
+                        formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(eventCall.targetObjectName)}\",\n";
+                        formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(eventCall.componentTypeName)}\",\n";
+                        formattedJson += $"          \"methodName\": \"{EscapeJsonString(eventCall.methodName)}\",\n";
+                        formattedJson += $"          \"parameterType\": \"{eventCall.parameterType}\",\n";
+                        formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(eventCall.stringParameter)}\",\n";
+                        formattedJson += $"          \"intParameter\": {eventCall.intParameter},\n";
+                        formattedJson += $"          \"floatParameter\": {eventCall.floatParameter},\n";
+                        formattedJson += $"          \"boolParameter\": {eventCall.boolParameter.ToString().ToLower()}\n";
+                        formattedJson += "        }";
+                        if (j < item.eventCalls.Count - 1) formattedJson += ",";
+                        formattedJson += "\n";
+                    }
+                    formattedJson += "      ]";
+                }
+                else
+                {
+                    formattedJson += ",\n      \"eventCalls\": []";
+                }
+
                 formattedJson += "\n    }";
                 if (i < exportData.Count - 1) formattedJson += ",";
                 formattedJson += "\n";
@@ -886,7 +939,8 @@ public class DialogueGraphView : GraphView
                 avatarAddr = node.AvatarAddr,
                 content = node.DialogueText,
                 choices = new List<ExportChoice>(),
-                nextNodeId = null
+                nextNodeId = null,
+                eventCalls = new List<DialogueEventCall>(node.EventCalls) // 添加事件调用
             };
             exportDict[node.GetId()] = exportData;
         }
@@ -944,7 +998,8 @@ public class DialogueGraphView : GraphView
                     content = node.DialogueText ?? "",
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
-                    choices = new List<string>(node.Choices ?? new List<string>())
+                    choices = new List<string>(node.Choices ?? new List<string>()),
+                    eventCalls = new List<DialogueEventCall>(node.EventCalls ?? new List<DialogueEventCall>()) // 序列化事件调用
                 };
                 treeData.nodes.Add(nodeData);
             }
@@ -1000,6 +1055,7 @@ public class DialogueGraphView : GraphView
                 new Vector2(nodeData.positionX, nodeData.positionY), nodeData.index);
             node.SetId(nodeData.id);
             node.SetChoices(nodeData.choices);
+            node.SetEventCalls(nodeData.eventCalls); // 加载事件调用
             nodeDict[nodeData.id] = node;
         }
 
@@ -1063,7 +1119,8 @@ public class DialogueGraphView : GraphView
         {
             var position = node.GetPosition();
             var choicesStr = string.Join("~", node.Choices);
-            nodeData.Add($"{node.CharacterName}|{node.AvatarAddr}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}");
+            var eventCallsStr = JsonUtility.ToJson(new SerializableEventCallList { eventCalls = node.EventCalls });
+            nodeData.Add($"{node.CharacterName}|{node.AvatarAddr}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}|{eventCallsStr}");
         }
 
         return string.Join(";", nodeData);
@@ -1093,12 +1150,27 @@ public class DialogueGraphView : GraphView
                 var y = float.Parse(nodeData[4]) + offset.y;
                 var choicesStr = nodeData[5];
 
+                List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+                if (nodeData.Length > 6)
+                {
+                    try
+                    {
+                        var eventCallList = JsonUtility.FromJson<SerializableEventCallList>(nodeData[6]);
+                        eventCalls = eventCallList.eventCalls;
+                    }
+                    catch
+                    {
+                        // 如果解析失败，使用空列表
+                    }
+                }
+
                 var node = CreateDialogueNode(characterName, avatarAddr, dialogueText, new Vector2(x, y));
                 if (!string.IsNullOrEmpty(choicesStr))
                 {
                     var choices = choicesStr.Split('~').ToList();
                     node.SetChoices(choices);
                 }
+                node.SetEventCalls(eventCalls);
             }
         }
     }
@@ -1121,12 +1193,21 @@ public class DialogueGraphView : GraphView
     }
 }
 
+// 用于序列化的辅助类
+[System.Serializable]
+public class SerializableEventCallList
+{
+    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+}
+
 // 对话节点类
 public class DialogueNode : Node
 {
     private TextField characterNameField;
     private TextField avatarAddrField;
     private TextField dialogueTextField;
+    private VisualElement eventsContainer; // 事件容器
+    private Button addEventButton; // 添加事件按钮
     private VisualElement choicesContainer;
     private Button addChoiceButton;
     private Port inputPort;
@@ -1139,6 +1220,7 @@ public class DialogueNode : Node
     public string AvatarAddr { get; private set; }
     public string DialogueText { get; private set; }
     public List<string> Choices { get; private set; } = new List<string>();
+    public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>(); // 事件调用列表
     public int NodeIndex => nodeIndex;
 
     public event System.Action OnNodeChanged;
@@ -1158,6 +1240,7 @@ public class DialogueNode : Node
         CreateCharacterNameField();
         CreateAvatarAddrField();
         CreateDialogueTextField();
+        CreateEventsSection(); // 创建事件部分
         CreateChoicesSection();
 
         RefreshExpandedState();
@@ -1201,7 +1284,7 @@ public class DialogueNode : Node
             value = CharacterName
         };
 
-        characterNameField.style.minWidth = 200;
+        characterNameField.style.minWidth = 300;
 
         characterNameField.RegisterValueChangedCallback(evt =>
         {
@@ -1219,7 +1302,7 @@ public class DialogueNode : Node
             value = AvatarAddr
         };
 
-        avatarAddrField.style.minWidth = 200;
+        avatarAddrField.style.minWidth = 300;
 
         avatarAddrField.RegisterValueChangedCallback(evt =>
         {
@@ -1238,7 +1321,7 @@ public class DialogueNode : Node
             multiline = true
         };
 
-        dialogueTextField.style.minWidth = 200;
+        dialogueTextField.style.minWidth = 300;
         dialogueTextField.style.minHeight = 60;
 
         dialogueTextField.RegisterValueChangedCallback(evt =>
@@ -1250,10 +1333,271 @@ public class DialogueNode : Node
         mainContainer.Add(dialogueTextField);
     }
 
+    // 创建事件部分 - 类似UnityEvent的界面
+    private void CreateEventsSection()
+    {
+        var eventsLabel = new Label("Events (UnityEvent):");
+        eventsLabel.style.marginTop = 10;
+        eventsLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        mainContainer.Add(eventsLabel);
+
+        eventsContainer = new VisualElement();
+        eventsContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.3f));
+        eventsContainer.style.borderTopColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        eventsContainer.style.borderTopWidth = 1;
+        eventsContainer.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        eventsContainer.style.borderBottomWidth = 1;
+        eventsContainer.style.borderLeftColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        eventsContainer.style.borderLeftWidth = 1;
+        eventsContainer.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        eventsContainer.style.borderRightWidth = 1;
+        eventsContainer.style.paddingTop = 5;
+        eventsContainer.style.paddingBottom = 5;
+        eventsContainer.style.paddingLeft = 5;
+        eventsContainer.style.paddingRight = 5;
+        eventsContainer.style.marginTop = 2;
+        mainContainer.Add(eventsContainer);
+
+        addEventButton = new Button(() => {
+            AddEventCall();
+            NotifyChange();
+        })
+        {
+            text = "+ Add Event"
+        };
+        addEventButton.style.marginTop = 2;
+        mainContainer.Add(addEventButton);
+
+        UpdateEventsDisplay();
+    }
+
+    private void AddEventCall()
+    {
+        EventCalls.Add(new DialogueEventCall());
+        UpdateEventsDisplay();
+    }
+
+    private void RemoveEventCall(int index)
+    {
+        if (index >= 0 && index < EventCalls.Count)
+        {
+            EventCalls.RemoveAt(index);
+            UpdateEventsDisplay();
+        }
+    }
+
+    private void UpdateEventsDisplay()
+    {
+        eventsContainer.Clear();
+
+        if (EventCalls.Count == 0)
+        {
+            var noEventsLabel = new Label("List is Empty");
+            noEventsLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+            noEventsLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+            noEventsLabel.style.paddingLeft = 10;
+            noEventsLabel.style.paddingTop = 5;
+            noEventsLabel.style.paddingBottom = 5;
+            eventsContainer.Add(noEventsLabel);
+            return;
+        }
+
+        for (int i = 0; i < EventCalls.Count; i++)
+        {
+            int currentIndex = i;
+            var eventCall = EventCalls[i];
+
+            var eventContainer = new VisualElement();
+            eventContainer.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.5f));
+            eventContainer.style.marginTop = 3;
+            eventContainer.style.paddingTop = 5;
+            eventContainer.style.paddingBottom = 5;
+            eventContainer.style.paddingLeft = 5;
+            eventContainer.style.paddingRight = 5;
+
+            // 标题栏
+            var titleRow = new VisualElement();
+            titleRow.style.flexDirection = FlexDirection.Row;
+            titleRow.style.alignItems = Align.Center;
+
+            var titleLabel = new Label($"Event {i}");
+            titleLabel.style.flexGrow = 1;
+            titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+
+            var removeButton = new Button(() => {
+                RemoveEventCall(currentIndex);
+                NotifyChange();
+            })
+            {
+                text = "×"
+            };
+            removeButton.style.width = 20;
+            removeButton.style.height = 18;
+            removeButton.style.fontSize = 12;
+
+            titleRow.Add(titleLabel);
+            titleRow.Add(removeButton);
+            eventContainer.Add(titleRow);
+
+            // 目标对象字段
+            var targetField = new TextField("Target GameObject:")
+            {
+                value = eventCall.targetObjectName
+            };
+            targetField.style.marginTop = 3;
+            targetField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < EventCalls.Count)
+                {
+                    EventCalls[currentIndex].targetObjectName = evt.newValue;
+                    NotifyChange();
+                }
+            });
+            eventContainer.Add(targetField);
+
+            // Component 类型字段
+            var componentField = new TextField("Component Type:")
+            {
+                value = eventCall.componentTypeName
+            };
+            componentField.style.marginTop = 3;
+            componentField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < EventCalls.Count)
+                {
+                    EventCalls[currentIndex].componentTypeName = evt.newValue;
+                    NotifyChange();
+                }
+            });
+            eventContainer.Add(componentField);
+
+            // 方法名字段
+            var methodField = new TextField("Method Name:")
+            {
+                value = eventCall.methodName
+            };
+            methodField.style.marginTop = 3;
+            methodField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < EventCalls.Count)
+                {
+                    EventCalls[currentIndex].methodName = evt.newValue;
+                    NotifyChange();
+                }
+            });
+            eventContainer.Add(methodField);
+
+            // 参数类型选择
+            var parameterTypeContainer = new VisualElement();
+            parameterTypeContainer.style.flexDirection = FlexDirection.Row;
+            parameterTypeContainer.style.marginTop = 3;
+            parameterTypeContainer.style.alignItems = Align.Center;
+
+            var parameterLabel = new Label("Parameter:");
+            parameterLabel.style.width = 70;
+
+            var parameterTypeField = new EnumField("", eventCall.parameterType);
+            parameterTypeField.style.flexGrow = 1;
+            parameterTypeField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < EventCalls.Count)
+                {
+                    EventCalls[currentIndex].parameterType = (ParameterType)evt.newValue;
+                    UpdateEventsDisplay(); // 重新显示以更新参数输入框
+                    NotifyChange();
+                }
+            });
+
+            parameterTypeContainer.Add(parameterLabel);
+            parameterTypeContainer.Add(parameterTypeField);
+            eventContainer.Add(parameterTypeContainer);
+
+            // 根据参数类型显示相应的输入框
+            if (eventCall.parameterType != ParameterType.None)
+            {
+                var parameterContainer = new VisualElement();
+                parameterContainer.style.marginTop = 3;
+                parameterContainer.style.paddingLeft = 70;
+
+                switch (eventCall.parameterType)
+                {
+                    case ParameterType.String:
+                        var stringField = new TextField()
+                        {
+                            value = eventCall.stringParameter
+                        };
+                        stringField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (currentIndex < EventCalls.Count)
+                            {
+                                EventCalls[currentIndex].stringParameter = evt.newValue;
+                                NotifyChange();
+                            }
+                        });
+                        parameterContainer.Add(stringField);
+                        break;
+
+                    case ParameterType.Int:
+                        var intField = new IntegerField()
+                        {
+                            value = eventCall.intParameter
+                        };
+                        intField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (currentIndex < EventCalls.Count)
+                            {
+                                EventCalls[currentIndex].intParameter = evt.newValue;
+                                NotifyChange();
+                            }
+                        });
+                        parameterContainer.Add(intField);
+                        break;
+
+                    case ParameterType.Float:
+                        var floatField = new FloatField()
+                        {
+                            value = eventCall.floatParameter
+                        };
+                        floatField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (currentIndex < EventCalls.Count)
+                            {
+                                EventCalls[currentIndex].floatParameter = evt.newValue;
+                                NotifyChange();
+                            }
+                        });
+                        parameterContainer.Add(floatField);
+                        break;
+
+                    case ParameterType.Bool:
+                        var boolField = new Toggle()
+                        {
+                            value = eventCall.boolParameter
+                        };
+                        boolField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (currentIndex < EventCalls.Count)
+                            {
+                                EventCalls[currentIndex].boolParameter = evt.newValue;
+                                NotifyChange();
+                            }
+                        });
+                        parameterContainer.Add(boolField);
+                        break;
+                }
+
+                eventContainer.Add(parameterContainer);
+            }
+
+            eventsContainer.Add(eventContainer);
+        }
+    }
+
     private void CreateChoicesSection()
     {
         var choicesLabel = new Label("Player Choices:");
         choicesLabel.style.marginTop = 10;
+        choicesLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         mainContainer.Add(choicesLabel);
 
         choicesContainer = new VisualElement();
@@ -1414,6 +1758,13 @@ public class DialogueNode : Node
 
         RefreshExpandedState();
         RefreshPorts();
+    }
+
+    // 设置事件调用的方法
+    public void SetEventCalls(List<DialogueEventCall> eventCalls)
+    {
+        EventCalls = eventCalls ?? new List<DialogueEventCall>();
+        UpdateEventsDisplay();
     }
 
     public int GetChoiceIndexForPort(Port port)

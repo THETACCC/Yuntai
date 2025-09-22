@@ -12,7 +12,7 @@ public class DialogueCollisionTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Gamemanager.instance.StartDialogue();
-            DialogueManager.instance.LoadDialogueFromResources(jsonFile);
+            DialogueManager.instance.LoadDialogueFromFile(jsonFile);
             DialogueManager.instance.StartDialogue();
         }
     }

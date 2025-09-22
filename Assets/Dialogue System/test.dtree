@@ -1,0 +1,45 @@
+{
+    "nodes": [
+        {
+            "id": "edf95664-9244-491f-9374-ee1de61fc4ae",
+            "index": 0,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "1111",
+            "positionX": 2441.33349609375,
+            "positionY": -22.666667938232423,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "63f46d9d-01f9-4253-a06e-f0b19eb0d858",
+            "index": 1,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "22222",
+            "positionX": 2914.666748046875,
+            "positionY": -22.666667938232423,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "NPC1",
+                    "componentTypeName": "DialogueTrigger",
+                    "methodName": "Test",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "edf95664-9244-491f-9374-ee1de61fc4ae",
+            "inputNodeId": "63f46d9d-01f9-4253-a06e-f0b19eb0d858",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}
