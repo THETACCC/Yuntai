@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueStarter : MonoBehaviour
+public class UI_E : MonoBehaviour
 {
     //scenes
-    [SerializeField] private TextAsset jsonFile;
     public GameObject InteractIndicator;
     private bool isPlayerInTrigger = false;
 
@@ -31,19 +30,6 @@ public class DialogueStarter : MonoBehaviour
             isPlayerInTrigger = false;
             InteractIndicator.SetActive(false);
 
-        }
-    }
-
-    private void Update()
-    {
-        if (isPlayerInTrigger)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Gamemanager.instance.StartDialogue();
-                DialogueManager.instance.LoadDialogueFromResources(jsonFile);
-                DialogueManager.instance.StartDialogue();
-            }
         }
     }
 }
