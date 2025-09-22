@@ -46,6 +46,9 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAndTeleportRoutine(string sceneName, int spawnId)
     {
+        // Make the Screen Go Black
+        transitionAnim.SetTrigger("End");
+        yield return new WaitForSeconds(1.5f);
         // Start loading the scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
@@ -78,6 +81,11 @@ public class SceneController : MonoBehaviour
             var rb2d = player.GetComponent<Rigidbody2D>();
             if (rb2d) rb2d.velocity = Vector2.zero;
         }
+
+        //Start Transition
+        yield return new WaitForSeconds(0.5f);
+        transitionAnim.SetTrigger("Start");
+
     }
 
     /// <summary>
