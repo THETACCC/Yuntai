@@ -205,22 +205,16 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueDefaultSequence.instance.isButtonActice = false;
 
-        //animation
         StartCoroutine(Tweening.StartTweening(
-            TweeningCurve.Linear,
-            1f,
-            (t) =>
-            {
-                UIGroup.alpha = 1 - t;
-            },
+            TweeningCurve.Linear, 1f,
+            t => UIGroup.alpha = 1 - t,
             () => {
-                //End things
                 UIGroup.alpha = 0;
                 Gamemanager.instance?.EndDialogue();
-                currentTrigger.isMainDialogueFinished = true;
-                //gameObject.SetActive(false);
+                if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
             }));
     }
+
 
     public void LoadDialogueFromFile(TextAsset dialogueJsonFile)
     {
@@ -243,15 +237,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        dialogueData.currentIndex = 0;
-        //animation
-        StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, (t) =>
-        {
-            UIGroup.alpha = t;
-        }));
-
-        UpdateDialogue();
+        StartDialogueAtIndex(0);
     }
+
 
     public void SetDialogueIndex(int index)
     {
@@ -262,6 +250,34 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueData.currentIndex = dialogueData.conversations[dialogueData.currentIndex].nextIndex;
     }
+
+    // 从某个 index 开始（不换 JSON）
+    public void StartDialogueAtIndex(int startIndex)
+    {
+        if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
+        {
+            Debug.LogError("[DialogueManager] dialogueData is null or empty. Load a JSON first.");
+            return;
+        }
+
+        dialogueData.currentIndex = startIndex;
+        // show UI
+        StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
+        UpdateDialogue();
+    }
+
+    // 从指定 JSON + 指定 index 开始
+    public void StartDialogueFromJson(TextAsset json, int startIndex = 0)
+    {
+        if (json == null)
+        {
+            Debug.LogError("[DialogueManager] JSON is null.");
+            return;
+        }
+        LoadDialogueFromFile(json);
+        StartDialogueAtIndex(startIndex);
+    }
+
 }
 
 // 新增：事件调用数据结构（与编辑器中的保持一致）
