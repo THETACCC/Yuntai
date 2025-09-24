@@ -1,0 +1,51 @@
+{
+    "nodes": [
+        {
+            "id": "64fce8e5-c27b-4882-a718-a97d72991c95",
+            "index": 0,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "999",
+            "positionX": 2922.0,
+            "positionY": 35.333335876464847,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "536814c1-9ecb-4881-99e4-c7c1cf57156e",
+            "index": 1,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "9888",
+            "positionX": 3376.666748046875,
+            "positionY": 35.333335876464847,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "48a13873-36ba-46bd-99c5-1c2b299b83de",
+            "index": 2,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "7777",
+            "positionX": 3815.33349609375,
+            "positionY": 21.999998092651368,
+            "choices": [],
+            "eventCalls": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "64fce8e5-c27b-4882-a718-a97d72991c95",
+            "inputNodeId": "536814c1-9ecb-4881-99e4-c7c1cf57156e",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "536814c1-9ecb-4881-99e4-c7c1cf57156e",
+            "inputNodeId": "48a13873-36ba-46bd-99c5-1c2b299b83de",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}

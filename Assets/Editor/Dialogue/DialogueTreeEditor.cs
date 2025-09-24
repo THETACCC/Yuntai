@@ -62,21 +62,21 @@ public class DialogueConnectionData
     public string choiceText;
 }
 
-// 导出格式的数据结构
+// 运行时格式的数据结构
 [System.Serializable]
-public class ExportDialogueData
+public class RuntimeDialogueData
 {
     public int index;
     public string name;
     public string avatarAddr;
     public string content;
-    public List<ExportChoice> choices = new List<ExportChoice>();
+    public List<RuntimeChoice> choices = new List<RuntimeChoice>();
     public string nextNodeId;
     public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>(); // 替换 eventName
 }
 
 [System.Serializable]
-public class ExportChoice
+public class RuntimeChoice
 {
     public string text;
     public string nextNodeId;
@@ -132,29 +132,6 @@ public class DialogueTreeEditor : EditorWindow
         window.Show();
         window.ForceInitialize();
         window.LoadDialogueTree();
-    }
-
-    [MenuItem("Tools/Dialogue Tree Editor/Export")]
-    public static void ExportDialogueFromMenu()
-    {
-        DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
-        window.titleContent = new GUIContent("Dialogue Tree Editor");
-        if (window != null && window.graphView != null)
-        {
-            window.ExportDialogueSequence();
-        }
-        else
-        {
-            window.ForceInitialize();
-            if (window.graphView != null)
-            {
-                window.ExportDialogueSequence();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Error", "Please open the Dialogue Tree Editor first and create some dialogue nodes.", "OK");
-            }
-        }
     }
 
     [MenuItem("Tools/Dialogue Tree Editor/Save Current")]
@@ -361,12 +338,6 @@ public class DialogueTreeEditor : EditorWindow
             LoadDialogueTree();
         });
         loadButton.text = "Load";
-        loadButton.style.marginRight = 10;
-
-        var exportButton = new Button(() => {
-            ExportDialogueSequence();
-        });
-        exportButton.text = "Export";
 
         toolbar.Add(newButton);
         toolbar.Add(createNodeButton);
@@ -375,7 +346,6 @@ public class DialogueTreeEditor : EditorWindow
         toolbar.Add(saveButton);
         toolbar.Add(saveAsButton);
         toolbar.Add(loadButton);
-        toolbar.Add(exportButton);
 
         rootVisualElement.Add(toolbar);
     }
@@ -434,9 +404,9 @@ public class DialogueTreeEditor : EditorWindow
     {
         string path = EditorUtility.SaveFilePanel(
             "Save Dialogue Tree",
-            Path.Combine(Application.dataPath, "DialogueTrees"),
-            string.IsNullOrEmpty(currentFilePath) ? "DialogueTree" : Path.GetFileNameWithoutExtension(currentFilePath),
-            "dtree"
+            Path.Combine(Application.dataPath, "StreamingAssets"),
+            string.IsNullOrEmpty(currentFilePath) ? "DialogueSequence" : Path.GetFileNameWithoutExtension(currentFilePath),
+            "json"
         );
 
         if (!string.IsNullOrEmpty(path))
@@ -458,19 +428,23 @@ public class DialogueTreeEditor : EditorWindow
             Directory.CreateDirectory(directory);
         }
 
-        DialogueTreeData treeData = graphView.SerializeDialogueTree();
-        string json = JsonUtility.ToJson(treeData, true);
-
         try
         {
-            File.WriteAllText(path, json);
-            AssetDatabase.Refresh();
+            // 保存运行时JSON格式作为主要文件
+            SaveRuntimeJsonFile(path);
+
+            // 自动保存对应的.dtree文件用于编辑器加载
+            string dtreePath = Path.ChangeExtension(path, ".dtree");
+            SaveEditorFormatFile(dtreePath);
+
             hasUnsavedChanges = false;
 
             if (!isAutoSave)
             {
                 Debug.Log($"Dialogue tree saved to: {path}");
-                EditorUtility.DisplayDialog("Save Successful", $"Dialogue tree saved to:\n{path}", "OK");
+                Debug.Log($"Editor file saved to: {dtreePath}");
+                EditorUtility.DisplayDialog("Save Successful",
+                    $"Runtime file saved to:\n{path}\n\nEditor file saved to:\n{dtreePath}", "OK");
             }
         }
         catch (System.Exception e)
@@ -481,6 +455,108 @@ public class DialogueTreeEditor : EditorWindow
                 EditorUtility.DisplayDialog("Save Failed", $"Failed to save dialogue tree:\n{e.Message}", "OK");
             }
         }
+    }
+
+    private void SaveRuntimeJsonFile(string path)
+    {
+        List<RuntimeDialogueData> exportData = graphView.GetDialogueSequence();
+
+        var nodeIdToIndex = new Dictionary<string, int>();
+        var allNodes = graphView.nodes.Cast<DialogueNode>().OrderBy(n => n.NodeIndex).ToList();
+        foreach (var node in allNodes)
+        {
+            nodeIdToIndex[node.GetId()] = node.NodeIndex;
+        }
+
+        string formattedJson = "{\n  \"conversations\": [\n";
+        for (int i = 0; i < exportData.Count; i++)
+        {
+            var item = exportData[i];
+            formattedJson += "    {\n";
+            formattedJson += $"      \"index\": {item.index},\n";
+            formattedJson += $"      \"name\": \"{EscapeJsonString(item.name)}\",\n";
+            formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            formattedJson += $"      \"content\": \"{EscapeJsonString(item.content)}\"";
+
+            // 处理 nextIndex - 默认的下一个节点
+            int nextIndex = -1;
+            if (!string.IsNullOrEmpty(item.nextNodeId) && nodeIdToIndex.ContainsKey(item.nextNodeId))
+            {
+                nextIndex = nodeIdToIndex[item.nextNodeId];
+            }
+            formattedJson += $",\n      \"nextIndex\": {nextIndex}";
+
+            // 处理choices数组
+            if (item.choices.Count > 0)
+            {
+                formattedJson += ",\n      \"choices\": [\n";
+                for (int j = 0; j < item.choices.Count; j++)
+                {
+                    var choice = item.choices[j];
+                    int targetIndex = -1;
+
+                    if (!string.IsNullOrEmpty(choice.nextNodeId) && nodeIdToIndex.ContainsKey(choice.nextNodeId))
+                    {
+                        targetIndex = nodeIdToIndex[choice.nextNodeId];
+                    }
+
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"text\": \"{EscapeJsonString(choice.text)}\",\n";
+                    formattedJson += $"          \"targetIndex\": {targetIndex}\n";
+                    formattedJson += "        }";
+                    if (j < item.choices.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
+                }
+                formattedJson += "      ]";
+            }
+            else
+            {
+                formattedJson += ",\n      \"choices\": []";
+            }
+
+            // 添加事件调用数组
+            if (item.eventCalls.Count > 0)
+            {
+                formattedJson += ",\n      \"eventCalls\": [\n";
+                for (int j = 0; j < item.eventCalls.Count; j++)
+                {
+                    var eventCall = item.eventCalls[j];
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(eventCall.targetObjectName)}\",\n";
+                    formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(eventCall.componentTypeName)}\",\n";
+                    formattedJson += $"          \"methodName\": \"{EscapeJsonString(eventCall.methodName)}\",\n";
+                    formattedJson += $"          \"parameterType\": \"{eventCall.parameterType}\",\n";
+                    formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(eventCall.stringParameter)}\",\n";
+                    formattedJson += $"          \"intParameter\": {eventCall.intParameter},\n";
+                    formattedJson += $"          \"floatParameter\": {eventCall.floatParameter},\n";
+                    formattedJson += $"          \"boolParameter\": {eventCall.boolParameter.ToString().ToLower()}\n";
+                    formattedJson += "        }";
+                    if (j < item.eventCalls.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
+                }
+                formattedJson += "      ]";
+            }
+            else
+            {
+                formattedJson += ",\n      \"eventCalls\": []";
+            }
+
+            formattedJson += "\n    }";
+            if (i < exportData.Count - 1) formattedJson += ",";
+            formattedJson += "\n";
+        }
+        formattedJson += "  ],\n";
+        formattedJson += "  \"currentIndex\": 0\n";
+        formattedJson += "}";
+
+        File.WriteAllText(path, formattedJson);
+    }
+
+    private void SaveEditorFormatFile(string path)
+    {
+        DialogueTreeData treeData = graphView.SerializeDialogueTree();
+        string json = JsonUtility.ToJson(treeData, true);
+        File.WriteAllText(path, json);
     }
 
     public void LoadDialogueTree()
@@ -497,14 +573,23 @@ public class DialogueTreeEditor : EditorWindow
 
         string path = EditorUtility.OpenFilePanel(
             "Load Dialogue Tree",
-            Path.Combine(Application.dataPath, "DialogueTrees"),
+            Path.Combine(Application.dataPath, "StreamingAssets"),
             "dtree"
         );
 
         if (!string.IsNullOrEmpty(path))
         {
             LoadFromFile(path);
-            currentFilePath = path;
+            // 设置对应的JSON文件路径作为当前文件
+            string jsonPath = Path.ChangeExtension(path, ".json");
+            if (File.Exists(jsonPath))
+            {
+                currentFilePath = jsonPath;
+            }
+            else
+            {
+                currentFilePath = path;
+            }
             EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
         }
     }
@@ -543,123 +628,6 @@ public class DialogueTreeEditor : EditorWindow
         {
             Debug.LogError($"Failed to load dialogue tree: {e.Message}");
             EditorUtility.DisplayDialog("Load Failed", $"Failed to load dialogue tree:\n{e.Message}", "OK");
-        }
-    }
-
-    public void ExportDialogueSequence()
-    {
-        if (graphView == null) return;
-
-        string path = EditorUtility.SaveFilePanel(
-            "Export Dialogue Sequence",
-            Path.Combine(Application.dataPath, "StreamingAssets"),
-            "DialogueSequence",
-            "json"
-        );
-
-        if (string.IsNullOrEmpty(path)) return;
-
-        try
-        {
-            List<ExportDialogueData> exportData = graphView.GetDialogueSequence();
-
-            var nodeIdToIndex = new Dictionary<string, int>();
-            var allNodes = graphView.nodes.Cast<DialogueNode>().OrderBy(n => n.NodeIndex).ToList();
-            foreach (var node in allNodes)
-            {
-                nodeIdToIndex[node.GetId()] = node.NodeIndex;
-            }
-
-            string formattedJson = "{\n  \"conversations\": [\n";
-            for (int i = 0; i < exportData.Count; i++)
-            {
-                var item = exportData[i];
-                formattedJson += "    {\n";
-                formattedJson += $"      \"index\": {item.index},\n";
-                formattedJson += $"      \"name\": \"{EscapeJsonString(item.name)}\",\n";
-                formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
-                formattedJson += $"      \"content\": \"{EscapeJsonString(item.content)}\"";
-
-                // 处理 nextIndex - 默认的下一个节点
-                int nextIndex = -1;
-                if (!string.IsNullOrEmpty(item.nextNodeId) && nodeIdToIndex.ContainsKey(item.nextNodeId))
-                {
-                    nextIndex = nodeIdToIndex[item.nextNodeId];
-                }
-                formattedJson += $",\n      \"nextIndex\": {nextIndex}";
-
-                // 处理choices数组
-                if (item.choices.Count > 0)
-                {
-                    formattedJson += ",\n      \"choices\": [\n";
-                    for (int j = 0; j < item.choices.Count; j++)
-                    {
-                        var choice = item.choices[j];
-                        int targetIndex = -1;
-
-                        if (!string.IsNullOrEmpty(choice.nextNodeId) && nodeIdToIndex.ContainsKey(choice.nextNodeId))
-                        {
-                            targetIndex = nodeIdToIndex[choice.nextNodeId];
-                        }
-
-                        formattedJson += "        {\n";
-                        formattedJson += $"          \"text\": \"{EscapeJsonString(choice.text)}\",\n";
-                        formattedJson += $"          \"targetIndex\": {targetIndex}\n";
-                        formattedJson += "        }";
-                        if (j < item.choices.Count - 1) formattedJson += ",";
-                        formattedJson += "\n";
-                    }
-                    formattedJson += "      ]";
-                }
-                else
-                {
-                    formattedJson += ",\n      \"choices\": []";
-                }
-
-                // 添加事件调用数组
-                if (item.eventCalls.Count > 0)
-                {
-                    formattedJson += ",\n      \"eventCalls\": [\n";
-                    for (int j = 0; j < item.eventCalls.Count; j++)
-                    {
-                        var eventCall = item.eventCalls[j];
-                        formattedJson += "        {\n";
-                        formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(eventCall.targetObjectName)}\",\n";
-                        formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(eventCall.componentTypeName)}\",\n";
-                        formattedJson += $"          \"methodName\": \"{EscapeJsonString(eventCall.methodName)}\",\n";
-                        formattedJson += $"          \"parameterType\": \"{eventCall.parameterType}\",\n";
-                        formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(eventCall.stringParameter)}\",\n";
-                        formattedJson += $"          \"intParameter\": {eventCall.intParameter},\n";
-                        formattedJson += $"          \"floatParameter\": {eventCall.floatParameter},\n";
-                        formattedJson += $"          \"boolParameter\": {eventCall.boolParameter.ToString().ToLower()}\n";
-                        formattedJson += "        }";
-                        if (j < item.eventCalls.Count - 1) formattedJson += ",";
-                        formattedJson += "\n";
-                    }
-                    formattedJson += "      ]";
-                }
-                else
-                {
-                    formattedJson += ",\n      \"eventCalls\": []";
-                }
-
-                formattedJson += "\n    }";
-                if (i < exportData.Count - 1) formattedJson += ",";
-                formattedJson += "\n";
-            }
-            formattedJson += "  ],\n";
-            formattedJson += "  \"currentIndex\": 0\n";
-            formattedJson += "}";
-
-            File.WriteAllText(path, formattedJson);
-            AssetDatabase.Refresh();
-            Debug.Log($"Dialogue sequence exported to: {path}");
-            EditorUtility.DisplayDialog("Export Successful", $"Dialogue sequence exported to:\n{path}", "OK");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to export dialogue sequence: {e.Message}");
-            EditorUtility.DisplayDialog("Export Failed", $"Failed to export dialogue sequence:\n{e.Message}", "OK");
         }
     }
 
@@ -821,15 +789,6 @@ public class DialogueGraphView : GraphView
             },
             DropdownMenuAction.AlwaysEnabled);
 
-        evt.menu.AppendAction("Export",
-            action => {
-                if (editorWindow != null)
-                {
-                    editorWindow.ExportDialogueSequence();
-                }
-            },
-            DropdownMenuAction.AlwaysEnabled);
-
         evt.menu.AppendSeparator();
 
         evt.menu.AppendAction("Create New",
@@ -924,21 +883,21 @@ public class DialogueGraphView : GraphView
         nextNodeIndex = allNodes.Count;
     }
 
-    public List<ExportDialogueData> GetDialogueSequence()
+    public List<RuntimeDialogueData> GetDialogueSequence()
     {
-        var exportDict = new Dictionary<string, ExportDialogueData>();
+        var exportDict = new Dictionary<string, RuntimeDialogueData>();
         var nodes = this.nodes.Cast<DialogueNode>().ToList();
         var edges = this.edges.ToList();
 
         foreach (var node in nodes)
         {
-            var exportData = new ExportDialogueData
+            var exportData = new RuntimeDialogueData
             {
                 index = node.NodeIndex,
                 name = node.CharacterName,
                 avatarAddr = node.AvatarAddr,
                 content = node.DialogueText,
-                choices = new List<ExportChoice>(),
+                choices = new List<RuntimeChoice>(),
                 nextNodeId = null,
                 eventCalls = new List<DialogueEventCall>(node.EventCalls) // 添加事件调用
             };
@@ -963,7 +922,7 @@ public class DialogueGraphView : GraphView
                 }
                 else if (choiceIndex >= 0 && choiceIndex < node.Choices.Count)
                 {
-                    var choice = new ExportChoice
+                    var choice = new RuntimeChoice
                     {
                         text = node.Choices[choiceIndex],
                         nextNodeId = targetNode.GetId()

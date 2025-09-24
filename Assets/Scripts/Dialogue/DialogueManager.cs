@@ -142,7 +142,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // 新增：通过反射调用方法
+    // 通过反射调用方法
     private void InvokeMethod(Component component, DialogueEventCall eventCall)
     {
         Type componentType = component.GetType();
@@ -281,6 +281,11 @@ public class DialogueManager : MonoBehaviour
         StartDialogueAtIndex(startIndex);
     }
 
+    //get current dialogue index
+    public int GetCurrentDialogueIndex()
+    {
+        return dialogueData.currentIndex;
+    }
 }
 
 // 新增：事件调用数据结构（与编辑器中的保持一致）

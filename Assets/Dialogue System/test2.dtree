@@ -1,0 +1,51 @@
+{
+    "nodes": [
+        {
+            "id": "978ea06f-adb3-47f8-ab44-63d0965d7ae6",
+            "index": 0,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "New Dialogue",
+            "positionX": 2934.0,
+            "positionY": -53.333335876464847,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "fd077e52-f071-40a2-90b7-9e4d249ad39b",
+            "index": 1,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "666666",
+            "positionX": 3386.666748046875,
+            "positionY": -62.0,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "e01d273e-86ba-4d9b-a44d-e20976afd406",
+            "index": 2,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "77777",
+            "positionX": 3856.666748046875,
+            "positionY": -111.33333587646485,
+            "choices": [],
+            "eventCalls": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "978ea06f-adb3-47f8-ab44-63d0965d7ae6",
+            "inputNodeId": "fd077e52-f071-40a2-90b7-9e4d249ad39b",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "fd077e52-f071-40a2-90b7-9e4d249ad39b",
+            "inputNodeId": "e01d273e-86ba-4d9b-a44d-e20976afd406",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}

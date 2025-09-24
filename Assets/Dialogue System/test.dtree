@@ -32,12 +32,29 @@
                     "parameterType": 0
                 }
             ]
+        },
+        {
+            "id": "2465ec7b-b557-4483-90aa-a2940be5e053",
+            "index": 2,
+            "name": "Character",
+            "avatarAddr": "avatars/default.png",
+            "content": "111111",
+            "positionX": 3412.0,
+            "positionY": -90.0,
+            "choices": [],
+            "eventCalls": []
         }
     ],
     "connections": [
         {
             "outputNodeId": "edf95664-9244-491f-9374-ee1de61fc4ae",
             "inputNodeId": "63f46d9d-01f9-4253-a06e-f0b19eb0d858",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "63f46d9d-01f9-4253-a06e-f0b19eb0d858",
+            "inputNodeId": "2465ec7b-b557-4483-90aa-a2940be5e053",
             "choiceIndex": -1,
             "choiceText": ""
         }
