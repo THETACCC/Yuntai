@@ -11,7 +11,7 @@ public class ToNextLoop : MonoBehaviour
     public void toNextLoop()
     {
         // Loop +1
-        
+        LoopTracker.I?.IncrementLoop();
 
         SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
     }
