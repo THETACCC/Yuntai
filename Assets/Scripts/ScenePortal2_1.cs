@@ -18,7 +18,7 @@ public class ScenePortal2_1 : ScenePortal
                 if(!isPlayerActed)
                 {
                     SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
-                    LoopTracker.I?.DecrementLoop();
+
                 }
                 else
                 {

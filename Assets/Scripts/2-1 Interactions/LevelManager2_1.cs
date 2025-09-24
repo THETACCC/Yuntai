@@ -5,7 +5,8 @@ using UnityEngine;
 public class LevelManager2_1 : MonoBehaviour
 {
     public bool isZhouShu = false;
-    
+
+    public int myLoop = 2;
 
 
     public bool isPlayerEscaped = false;
@@ -29,6 +30,7 @@ public class LevelManager2_1 : MonoBehaviour
 
     public void Start()
     {
+        LoopTracker.I?.SetLoop(myLoop);
         BathroomPortal.scenename = SceneName_NotEscaped;
         BathroomPortal.SpawnPointLocation = SpawnPointLocation_NotEscaped;
     }
