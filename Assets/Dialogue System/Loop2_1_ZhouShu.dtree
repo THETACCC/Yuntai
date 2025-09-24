@@ -1,0 +1,45 @@
+{
+    "nodes": [
+        {
+            "id": "116dec64-a924-4160-8508-7b214d1f8254",
+            "index": 0,
+            "name": "ZhouShu",
+            "avatarAddr": "avatars/default.png",
+            "content": "1111",
+            "positionX": 294.4000244140625,
+            "positionY": 289.5999755859375,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "c9aea572-bf54-4639-a938-8f51644e2179",
+            "index": 1,
+            "name": "Zhoushu",
+            "avatarAddr": "avatars/default.png",
+            "content": "222",
+            "positionX": 648.7999877929688,
+            "positionY": 289.5999755859375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SpeakZhoushu",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "116dec64-a924-4160-8508-7b214d1f8254",
+            "inputNodeId": "c9aea572-bf54-4639-a938-8f51644e2179",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}

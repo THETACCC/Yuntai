@@ -467,7 +467,7 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: c61b35c304a25724ca0b3af42559146d, type: 3}
+      objectReference: {fileID: 4900000, guid: 82f81e05ad4804341a4e7ceb63925d02, type: 3}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Name
       value: ZhouShu
@@ -2054,6 +2054,57 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5836277, y: 3.3053303}
   m_EdgeRadius: 0
+--- !u!1 &1279740580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1279740581}
+  - component: {fileID: 1279740582}
+  m_Layer: 0
+  m_Name: LevelManager2_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1279740581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.54214, y: -2.7781453, z: 0.10740055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279740582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b200464ce5502aa40874df46e98d3680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isZhouShu: 0
+  isPlayerEscaped: 0
+  SceneName_NotEscaped: Level1-2
+  SpawnPointLocation_NotEscaped: 0
+  SceneName_Escaped: Level2-1
+  SpawnPointLocation_Escaped: 1
+  BathroomPortal: {fileID: 2115542605}
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,9 +2526,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainDialogueJsonFile: {fileID: 4900000, guid: 1f4eaf0bc49d26146b65b4ba1ee2f718, type: 3}
   postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
   usePostDialogue: 0
   delay: 0
-  linkTrigger: {fileID: 0}
 --- !u!4 &1511649204
 Transform:
   m_ObjectHideFlags: 0
@@ -3455,48 +3507,27 @@ PrefabInstance:
       propertyPath: SpawnPointLocation
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7367271266033095690, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 2115542607}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
 --- !u!4 &2115542604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 2115542603}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2115542605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 578562779672608513, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
-  m_PrefabInstance: {fileID: 2115542603}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2115542606 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
-  m_PrefabInstance: {fileID: 2115542603}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2115542607
+--- !u!114 &2115542605 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7367271266033095690, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+  m_PrefabInstance: {fileID: 2115542603}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115542606}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e47d221a2aff924aa88120d7a92ab88, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a71bb4e004424469e03e95652c3244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenename: Level1-2
-  SpawnPointLocation: 0
-  InteractIndicator: {fileID: 2115542605}
-  isPlayerActed: 1
-  scenename_Escaped: Level1-1
-  SpawnPointLocation_Escaped: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3508,3 +3539,4 @@ SceneRoots:
   - {fileID: 621417086}
   - {fileID: 1803819324}
   - {fileID: 1511649204}
+  - {fileID: 1279740581}
