@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
 
+    public bool isDialogueActive = false;
     [SerializeField] CanvasGroup UIGroup;
     [SerializeField] Image avatar;
     [SerializeField] TextMeshProUGUI speaker;
@@ -212,6 +213,7 @@ public class DialogueManager : MonoBehaviour
                 UIGroup.alpha = 0;
                 Gamemanager.instance?.EndDialogue();
                 if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
+                isDialogueActive = false;
             }));
     }
 
@@ -237,6 +239,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
+        isDialogueActive = true;
         StartDialogueAtIndex(0);
     }
 

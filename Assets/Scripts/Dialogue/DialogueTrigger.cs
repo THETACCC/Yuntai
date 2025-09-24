@@ -23,19 +23,23 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!isMainDialogueFinished)
+                if (!DialogueManager.instance.isDialogueActive)
                 {
-                    DialogueManager.instance.currentTrigger = this;
-                    Gamemanager.instance?.StartDialogue();
-                    DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
-                    DialogueManager.instance.StartDialogue();
-                } else
-                {
-                    if (postDialogueJsonFile != null)
+                    if (!isMainDialogueFinished)
                     {
+                        DialogueManager.instance.currentTrigger = this;
                         Gamemanager.instance?.StartDialogue();
-                        DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
+                        DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
                         DialogueManager.instance.StartDialogue();
+                    }
+                    else
+                    {
+                        if (postDialogueJsonFile != null)
+                        {
+                            Gamemanager.instance?.StartDialogue();
+                            DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
+                            DialogueManager.instance.StartDialogue();
+                        }
                     }
                 }
             }
