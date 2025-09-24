@@ -6,7 +6,8 @@ public class LevelManager2_1 : MonoBehaviour
 {
     public bool isZhouShu = false;
 
-    public int myLoop = 2;
+
+    [SerializeField] private int myLoop = 2;
 
 
     public bool isPlayerEscaped = false;
