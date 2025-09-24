@@ -2217,6 +2217,7 @@ GameObject:
   - component: {fileID: 870144634}
   - component: {fileID: 870144633}
   - component: {fileID: 870144632}
+  - component: {fileID: 870144635}
   - component: {fileID: 870144631}
   m_Layer: 0
   m_Name: DeathTrigger
@@ -2237,7 +2238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ab792e8c4f3164aa22f6ebacb726f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 46a820ad56ff82649ae74b003bd0192e, type: 3}
+  jsonFile: {fileID: 4900000, guid: c0404875dee103f49b4ad863fbb867d3, type: 3}
 --- !u!61 &870144632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2350,6 +2351,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870144635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870144630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c58604cd8c1f64baa02fd2a32b1605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenename: Level1-1
+  SpawnPointLocation: 0
 --- !u!1 &949510533
 GameObject:
   m_ObjectHideFlags: 0

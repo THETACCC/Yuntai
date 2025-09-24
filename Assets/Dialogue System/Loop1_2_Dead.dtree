@@ -1,0 +1,45 @@
+{
+    "nodes": [
+        {
+            "id": "8424205e-5f4e-465a-b3c5-a5d13e1e9dc5",
+            "index": 0,
+            "name": "Me",
+            "avatarAddr": "avatars/default.png",
+            "content": "......",
+            "positionX": 119.19999694824219,
+            "positionY": 233.60000610351563,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "39e239b8-c32f-41e9-97d5-3cda4f1be413",
+            "index": 1,
+            "name": "Me",
+            "avatarAddr": "avatars/default.png",
+            "content": "Blood...",
+            "positionX": 501.6000061035156,
+            "positionY": 233.60000610351563,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "DeathTrigger",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "8424205e-5f4e-465a-b3c5-a5d13e1e9dc5",
+            "inputNodeId": "39e239b8-c32f-41e9-97d5-3cda4f1be413",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
+}

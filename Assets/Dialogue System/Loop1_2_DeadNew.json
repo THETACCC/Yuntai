@@ -1,0 +1,34 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": "Me",
+      "avatarAddr": "avatars/default.png",
+      "content": "......",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "Me",
+      "avatarAddr": "avatars/default.png",
+      "content": "Blood...",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "DeathTrigger",
+          "componentTypeName": "ToNextLoop",
+          "methodName": "toNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}
