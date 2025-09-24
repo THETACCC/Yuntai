@@ -1943,7 +1943,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ab792e8c4f3164aa22f6ebacb726f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: c0404875dee103f49b4ad863fbb867d3, type: 3}
+  mainDialogueJsonFile: {fileID: 4900000, guid: c0404875dee103f49b4ad863fbb867d3, type: 3}
+  postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
 --- !u!61 &870144632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2760,9 +2763,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainDialogueJsonFile: {fileID: 4900000, guid: e933946871905f747b3bfcc18597e449, type: 3}
   postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
   usePostDialogue: 0
   delay: 0
-  linkTrigger: {fileID: 0}
 --- !u!4 &1518795195
 Transform:
   m_ObjectHideFlags: 0

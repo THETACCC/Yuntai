@@ -5,13 +5,12 @@ public class DialogueTrigger : MonoBehaviour
     public TextAsset mainDialogueJsonFile;
     public TextAsset postDialogueJsonFile;
 
-
-
     public bool isReadyToTrigger = false; //是否可以触发对话
     public bool isMainDialogueFinished = false; //主要对话是否结束
 
     //public UnityEvent OnDialogueCompleted;
 
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,28 +24,33 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!DialogueManager.instance.isDialogueActive)
-                {
-                    if (!isMainDialogueFinished)
-                    {
-                        DialogueManager.instance.currentTrigger = this;
-                        Gamemanager.instance?.StartDialogue();
-                        DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
-                        DialogueManager.instance.StartDialogue();
-                    }
-                    else
-                    {
-                        if (postDialogueJsonFile != null)
-                        {
-                            Gamemanager.instance?.StartDialogue();
-                            DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
-                            DialogueManager.instance.StartDialogue();
-                        }
-                    }
-                }
+                TriggerDialogue();
             }
         }
 
+    }
+
+    public void TriggerDialogue()
+    {
+        if (!DialogueManager.instance.isDialogueActive)
+        {
+            if (!isMainDialogueFinished)
+            {
+                DialogueManager.instance.currentTrigger = this;
+                Gamemanager.instance?.StartDialogue();
+                DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
+                DialogueManager.instance.StartDialogue();
+            }
+            else
+            {
+                if (postDialogueJsonFile != null)
+                {
+                    Gamemanager.instance?.StartDialogue();
+                    DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
+                    DialogueManager.instance.StartDialogue();
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
