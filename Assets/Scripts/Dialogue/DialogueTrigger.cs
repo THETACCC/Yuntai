@@ -5,6 +5,8 @@ public class DialogueTrigger : MonoBehaviour
     public TextAsset mainDialogueJsonFile;
     public TextAsset postDialogueJsonFile;
 
+
+
     public bool isReadyToTrigger = false; //是否可以触发对话
     public bool isMainDialogueFinished = false; //主要对话是否结束
 
@@ -44,6 +46,7 @@ public class DialogueTrigger : MonoBehaviour
                 }
             }
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
