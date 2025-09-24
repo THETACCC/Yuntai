@@ -10,6 +10,9 @@ public class ToNextLoop : MonoBehaviour
 
     public void toNextLoop()
     {
+        // Loop +1
+        LoopManager.instance.IncreaseLoop();
+
         SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
     }
 }
