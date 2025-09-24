@@ -437,6 +437,28 @@ public class DialogueTreeEditor : EditorWindow
             string dtreePath = Path.ChangeExtension(path, ".dtree");
             SaveEditorFormatFile(dtreePath);
 
+            // 确保文件写入完成后刷新Asset Database
+            System.IO.File.SetLastWriteTime(path, System.DateTime.Now);
+            System.IO.File.SetLastWriteTime(dtreePath, System.DateTime.Now);
+
+            // 强制刷新Asset Database并导入文件
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+            // 延迟导入特定文件以确保显示
+            EditorApplication.delayCall += () =>
+            {
+                if (path.StartsWith(Application.dataPath))
+                {
+                    string relativePath = "Assets" + path.Substring(Application.dataPath.Length);
+                    AssetDatabase.ImportAsset(relativePath);
+                }
+                if (dtreePath.StartsWith(Application.dataPath))
+                {
+                    string relativeTreePath = "Assets" + dtreePath.Substring(Application.dataPath.Length);
+                    AssetDatabase.ImportAsset(relativeTreePath);
+                }
+            };
+
             hasUnsavedChanges = false;
 
             if (!isAutoSave)
