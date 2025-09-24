@@ -9,7 +9,7 @@ public class ScenePortal : MonoBehaviour
     public string scenename;
     public int SpawnPointLocation;
     public GameObject InteractIndicator;
-    private bool isPlayerInTrigger = false;
+    protected bool isPlayerInTrigger = false;
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(isPlayerInTrigger)
         {

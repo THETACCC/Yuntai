@@ -29,6 +29,13 @@ public class LoopTracker : MonoBehaviour
         Debug.Log($"[LoopTracker] Loop -> {Loop}");
     }
 
+    public void DecrementLoop()
+    {
+        Loop--;
+        OnLoopChanged?.Invoke(Loop);
+        Debug.Log($"[LoopTracker] Loop -> {Loop}");
+    }
+
     public void SetFlag(string key, bool value)
     {
         flags[key] = value;
