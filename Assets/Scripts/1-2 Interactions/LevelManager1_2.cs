@@ -19,7 +19,7 @@ public class LevelManager1_2 : MonoBehaviour
         [Min(0f)] public float maxIntensity;
     }
 
-    [Header("闪烁节奏（例：长-短-长）")]
+    [Header("闪烁节奏")]
     public List<BlinkStep> blinkPattern = new()
     {
         new BlinkStep{ cycle=1.0f, onTime=0.20f, minIntensity=0.25f, maxIntensity=0.9f },
@@ -31,16 +31,16 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Min(0f)] private float dimTargetIntensity = 0.2f;
     [SerializeField, Min(0f)] private float dimDuration = 1.0f;
 
-    [Header("红灯（在变暗结束后激活）")]
+    [Header("红灯")]
     [SerializeField] private GameObject redLightObject;
 
-    [Header("红灯亮起到显示玩家 Sprite 的延迟(秒)")]
-    [SerializeField, Min(0f)] private float revealDelayAfterRed = 1.0f;
-
-    [Header("对话触发器（可选；不填就去 Player 身上找）")]
+    [Header("对话触发器")]
     [SerializeField] private DialogueTrigger dialogueTrigger;
     [SerializeField] private bool autoTriggerDialogueAfterPlayer = false;
     [SerializeField, Min(0f)] private float dialogueDelayAfterPlayer = 0f;
+
+    [Header("音效")]
+    [SerializeField] private AudioSource snd_toilet;  
 
     // runtime
     private GameObject playerObject;
@@ -48,23 +48,24 @@ public class LevelManager1_2 : MonoBehaviour
 
     private void Awake()
     {
-        // 一进场就把游戏置为 Loading，禁走动
+        // 开场禁止移动
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Loading;
 
-        // 找 Player，并先隐藏所有 Sprite
+        // 找 Player 并先隐藏所有 Sprite
         playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject)
         {
             CachePlayerSprites();
             SetPlayerSpritesVisible(false);
 
-            if (!dialogueTrigger)
-                dialogueTrigger = playerObject.GetComponentInChildren<DialogueTrigger>(true);
         }
         else
         {
             Debug.LogWarning("[LevelManager1_2] 没找到 tag=Player 的激活对象。");
         }
+
+        if (!dialogueTrigger)
+            Debug.Log("No dialogue trigger!!");
     }
 
     private void Start()
@@ -82,39 +83,48 @@ public class LevelManager1_2 : MonoBehaviour
 
     private IEnumerator RunLightsThenRevealPlayer()
     {
-        // 闪烁（按步）
-        foreach (var step in blinkPattern)
-        {
-            LightControl.StartBlink(lightToBlinkAndDim, step.cycle, step.onTime, step.minIntensity, step.maxIntensity);
-            yield return new WaitForSeconds(step.cycle);
-        }
+        // —— 0) 黑屏 2.5 秒 ——
+        lightToBlinkAndDim.intensity = 0f;
+        yield return new WaitForSeconds(2.5f);
 
-        // 停止闪烁 → 渐暗
+        // —— 1) 连续闪烁 4~5 秒 ——
+        var step = (blinkPattern != null && blinkPattern.Count > 0)
+            ? blinkPattern[0]
+            : new BlinkStep { cycle = 1.0f, onTime = 0.20f, minIntensity = 0.25f, maxIntensity = 0.9f };
+
+        LightControl.StartBlink(lightToBlinkAndDim, step.cycle, step.onTime, step.minIntensity, step.maxIntensity);
+        yield return new WaitForSeconds(Random.Range(4f, 5f));
         LightControl.StopBlink(lightToBlinkAndDim);
+
+        // —— 2) global light Dim ——
         LightControl.Dim(lightToBlinkAndDim, dimTargetIntensity, dimDuration);
         yield return new WaitForSeconds(dimDuration);
 
-        // 红灯亮
+        // —— 3) 红光亮 —— 
         if (redLightObject) redLightObject.SetActive(true);
 
-        // 再等 1 秒
-        if (revealDelayAfterRed > 0f)
-            yield return new WaitForSeconds(revealDelayAfterRed);
+        // —— 4) 等 2 秒 —— 
+        yield return new WaitForSeconds(2f);
 
-        // 显示 Player 的 Sprites
+        // —— 5) 播放厕所音效，等它播完 —— 
+        if (snd_toilet)
+        {
+            snd_toilet.Play();
+            if (snd_toilet.clip) yield return new WaitForSeconds(snd_toilet.clip.length);
+            else while (snd_toilet.isPlaying) yield return null;
+        }
+
+        // —— 6) 再等 2 秒 —— 
+        yield return new WaitForSeconds(2f);
+
+        // —— 7) 角色出现—— 
         SetPlayerSpritesVisible(true);
 
+        // —— 8) 等 0.7 秒 → 对话框 —— 
         yield return new WaitForSeconds(0.7f);
-
-        // 触发对话
-        if (autoTriggerDialogueAfterPlayer && dialogueTrigger)
-        {
-            if (dialogueDelayAfterPlayer > 0f)
-                yield return new WaitForSeconds(dialogueDelayAfterPlayer);
-
-            dialogueTrigger.TriggerDialogue();
-        }
+        dialogueTrigger?.TriggerDialogue();    
     }
+
 
     private void CachePlayerSprites()
     {
@@ -128,5 +138,4 @@ public class LevelManager1_2 : MonoBehaviour
         foreach (var sr in _playerSprites)
             if (sr) sr.enabled = visible;
     }
-
 }
