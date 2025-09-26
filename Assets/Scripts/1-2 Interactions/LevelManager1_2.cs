@@ -100,6 +100,8 @@ public class LevelManager1_2 : MonoBehaviour
         LightControl.Dim(lightToBlinkAndDim, dimTargetIntensity, dimDuration);
         yield return new WaitForSeconds(dimDuration);
 
+        yield return new WaitForSeconds(1.3f);
+
         // —— 3) 红光亮 —— 
         if (redLightObject) redLightObject.SetActive(true);
 
