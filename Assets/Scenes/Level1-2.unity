@@ -1662,25 +1662,25 @@ MonoBehaviour:
   myLoop: 1
   lightToBlinkAndDim: {fileID: 1873177025}
   blinkPattern:
-  - cycle: 2
-    onTime: 0.9
-    minIntensity: 0.2
+  - cycle: 1.5
+    onTime: 1.2
+    minIntensity: 0
     maxIntensity: 0.9
   - cycle: 1
-    onTime: 0.7
+    onTime: 0.8
     minIntensity: 0
     maxIntensity: 0.9
-  - cycle: 1.5
-    onTime: 0.9
+  - cycle: 1.8
+    onTime: 1.5
     minIntensity: 0
-    maxIntensity: 0.5
+    maxIntensity: 0.9
   dimTargetIntensity: 0.2
   dimDuration: 1
   redLightObject: {fileID: 1542764681}
-  revealDelayAfterRed: 1
   dialogueTrigger: {fileID: 725164012}
-  autoTriggerDialogueAfterPlayer: 1
+  autoTriggerDialogueAfterPlayer: 0
   dialogueDelayAfterPlayer: 0
+  snd_toilet: {fileID: 725164013}
 --- !u!4 &725164011
 Transform:
   m_ObjectHideFlags: 0
@@ -1723,7 +1723,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 79b015c425ff7cc4d80d969378b5c947, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
