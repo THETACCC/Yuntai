@@ -607,7 +607,7 @@ public class DialogueTreeEditor : EditorWindow
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
 
-                // Center on node 0 after loading
+                // Enhanced center on node 0 after loading
                 EditorApplication.delayCall += () => {
                     if (graphView != null)
                     {
@@ -687,28 +687,94 @@ public class DialogueGraphView : GraphView
         nextNodeIndex = 0;
     }
 
+    // Enhanced CenterOnNode0 method with proper viewport handling and NaN checking
     public void CenterOnNode0()
     {
         var node0 = nodes.Cast<DialogueNode>().FirstOrDefault(n => n.NodeIndex == 0);
-        if (node0 != null)
+        if (node0 == null)
         {
-            // Get the position of node 0
-            var nodePosition = node0.GetPosition();
-            var nodeBounds = new Rect(nodePosition.position, nodePosition.size);
-
-            // Calculate the center point of the node
-            var nodeCenter = nodeBounds.center;
-
-            // Get the viewport rect
-            var viewportRect = contentRect;
-
-            // Calculate the target position to center the node in the viewport
-            var targetScale = Vector3.one; // Reset zoom to 1:1
-            var targetPosition = -nodeCenter + viewportRect.center / targetScale;
-
-            // Update the view transform to center on the node
-            UpdateViewTransform(targetPosition, targetScale);
+            Debug.LogWarning("Node 0 not found for centering");
+            return;
         }
+
+        // Get the position of node 0 using multiple methods
+        var nodePosition = node0.GetPosition();
+
+        // Check for NaN values in position - this is the main issue
+        if (float.IsNaN(nodePosition.x) || float.IsNaN(nodePosition.y) ||
+            float.IsNaN(nodePosition.width) || float.IsNaN(nodePosition.height))
+        {
+            Debug.Log("Node 0 position contains NaN values, retrying centering...");
+            EditorApplication.delayCall += () => CenterOnNode0();
+            return;
+        }
+
+        // Try to get the layout bounds if position is still invalid
+        var layoutBounds = node0.layout;
+        if (nodePosition.size == Vector2.zero && layoutBounds.size != Vector2.zero)
+        {
+            nodePosition = layoutBounds;
+        }
+
+        var nodeBounds = new Rect(nodePosition.position, nodePosition.size);
+
+        // Validate that we have proper bounds
+        if (nodeBounds.size == Vector2.zero)
+        {
+            // If size is zero, node might not be fully initialized yet
+            // Try again with another delay
+            Debug.Log("Node 0 not fully initialized, retrying centering...");
+            EditorApplication.delayCall += () => CenterOnNode0();
+            return;
+        }
+
+        // Get the actual GraphView's world bound (this accounts for window size properly)
+        var graphViewBounds = worldBound;
+
+        // Validate viewport - use worldBound instead of contentRect
+        if (graphViewBounds.width <= 0 || graphViewBounds.height <= 0)
+        {
+            // Viewport not ready, try again
+            Debug.Log("GraphView bounds not ready, retrying centering...");
+            EditorApplication.delayCall += () => CenterOnNode0();
+            return;
+        }
+
+        // Calculate the center point of the node in world space
+        var nodeCenter = nodeBounds.center;
+
+        // Double check nodeCenter for NaN
+        if (float.IsNaN(nodeCenter.x) || float.IsNaN(nodeCenter.y))
+        {
+            Debug.LogError("Node center calculation resulted in NaN, using default position");
+            nodeCenter = Vector2.zero; // Fallback to origin
+        }
+
+        // Calculate the center of the actual visible GraphView area
+        var viewportCenter = new Vector2(graphViewBounds.width * 0.5f, graphViewBounds.height * 0.5f);
+
+        // Calculate the target position to center the node in the viewport
+        // We need to account for the current zoom level
+        var currentZoom = contentViewContainer.transform.scale.x;
+        if (float.IsNaN(currentZoom) || currentZoom <= 0)
+        {
+            currentZoom = 1f; // Fallback zoom
+        }
+
+        var targetPosition = -nodeCenter * currentZoom + viewportCenter;
+
+        // Validate target position
+        if (float.IsNaN(targetPosition.x) || float.IsNaN(targetPosition.y))
+        {
+            Debug.LogError("Target position calculation resulted in NaN");
+            return;
+        }
+
+        // Update the view transform to center on the node
+        // Keep current zoom level, just adjust position
+        UpdateViewTransform(targetPosition, new Vector3(currentZoom, currentZoom, 1f));
+
+        Debug.Log($"Successfully centered on Node 0 at position: {nodeCenter}, viewport: {viewportCenter}, zoom: {currentZoom}, target: {targetPosition}");
     }
 
     private void OnMouseDown(MouseDownEvent evt)
