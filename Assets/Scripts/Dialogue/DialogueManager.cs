@@ -67,6 +67,16 @@ public class DialogueManager : MonoBehaviour
         contentText.text = currentConversation.content;
         speaker.text = currentConversation.name;
 
+        Sprite s = Resources.Load<Sprite>(dialogueData.conversations[dialogueData.currentIndex].avatarAddr);
+        if (s != null)
+        {
+            avatar.sprite = s;
+        } else
+        {
+            Debug.LogError("Failed to load image from address: Resources/" + dialogueData.conversations[dialogueData.currentIndex].avatarAddr);
+        }
+        
+
         // Handle choices
         if (currentConversation.choices.Length > 0)
         {

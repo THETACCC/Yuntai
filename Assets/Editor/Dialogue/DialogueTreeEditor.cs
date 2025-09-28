@@ -6,32 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using DialogueSystem;
 
-// 事件调用数据结构
-[System.Serializable]
-public class DialogueEventCall
-{
-    public string targetObjectName = "";  // 目标对象名称
-    public string componentTypeName = ""; // Component 类型名称（如 "GameManager", "AudioSource"）
-    public string methodName = "";        // 方法名
-    public string stringParameter = "";   // 字符串参数
-    public int intParameter = 0;          // 整数参数
-    public float floatParameter = 0f;     // 浮点数参数
-    public bool boolParameter = false;    // 布尔参数
-    public ParameterType parameterType = ParameterType.None; // 参数类型
-}
 
-[System.Serializable]
-public enum ParameterType
-{
-    None,
-    String,
-    Int,
-    Float,
-    Bool
-}
-
-// 数据结构用于序列化
 [System.Serializable]
 public class DialogueTreeData
 {
@@ -50,7 +27,7 @@ public class DialogueNodeData
     public float positionX;
     public float positionY;
     public List<string> choices = new List<string>();
-    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>(); // 替换 eventName
+    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
 }
 
 [System.Serializable]

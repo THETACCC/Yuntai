@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using DialogueSystem;
 
 /// <summary>
-/// 专门用于执行对话事件调用的类，从 DialogueManager 中分离出来
+/// Specialized class for executing dialogue event calls, separated from DialogueManager
 /// </summary>
 public static class DialogueEventExecutor
 {
-    // 缓存已查找的组件类型，避免重复反射
+    // Cache for looked-up component types to avoid repeated reflection
     private static readonly Dictionary<string, Type> typeCache = new Dictionary<string, Type>();
 
-    // 预定义的常用命名空间，按优先级排序
+    // Predefined common namespaces, sorted by priority
     private static readonly string[] commonNamespaces = {
-        "", // 无命名空间 (当前程序集的类型)
+        "", // No namespace (types in current assembly)
         "UnityEngine.",
         "UnityEngine.UI.",
         "TMPro."
     };
 
     /// <summary>
-    /// 执行对话事件调用列表
+    /// Execute a list of dialogue event calls
     /// </summary>
-    /// <param name="eventCalls">事件调用列表</param>
+    /// <param name="eventCalls">List of event calls</param>
     public static void Execute(List<DialogueEventCall> eventCalls)
     {
         if (eventCalls == null || eventCalls.Count == 0) return;
@@ -40,22 +41,22 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 执行单个事件调用
+    /// Execute a single event call
     /// </summary>
-    /// <param name="eventCall">事件调用数据</param>
+    /// <param name="eventCall">Event call data</param>
     private static void ExecuteSingleEvent(DialogueEventCall eventCall)
     {
         try
         {
-            // 1. 查找目标GameObject
+            // 1. Find target GameObject
             var targetObject = FindTargetObject(eventCall.targetObjectName);
             if (targetObject == null) return;
 
-            // 2. 获取目标组件
+            // 2. Get target component
             var component = GetTargetComponent(targetObject, eventCall.componentTypeName);
             if (component == null) return;
 
-            // 3. 调用方法
+            // 3. Invoke method
             InvokeMethod(component, eventCall);
         }
         catch (Exception e)
@@ -65,7 +66,7 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 验证事件调用数据是否有效
+    /// Validate if event call data is valid
     /// </summary>
     private static bool IsValidEventCall(DialogueEventCall eventCall)
     {
@@ -75,7 +76,7 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 查找目标GameObject
+    /// Find target GameObject
     /// </summary>
     private static GameObject FindTargetObject(string objectName)
     {
@@ -88,7 +89,7 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 获取目标组件
+    /// Get target component
     /// </summary>
     private static Component GetTargetComponent(GameObject targetObject, string componentTypeName)
     {
@@ -108,17 +109,17 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 获取组件类型，使用缓存优化性能
+    /// Get component type with caching for performance optimization
     /// </summary>
     private static Type GetComponentType(string typeName)
     {
-        // 先检查缓存
+        // Check cache first
         if (typeCache.TryGetValue(typeName, out Type cachedType))
         {
             return cachedType;
         }
 
-        // 尝试从不同命名空间查找类型
+        // Try to find type from different namespaces
         Type foundType = null;
         foreach (var nameSpace in commonNamespaces)
         {
@@ -129,13 +130,13 @@ public static class DialogueEventExecutor
             if (foundType != null) break;
         }
 
-        // 缓存结果（即使是 null 也缓存，避免重复查找）
+        // Cache result (even if null, to avoid repeated lookups)
         typeCache[typeName] = foundType;
         return foundType;
     }
 
     /// <summary>
-    /// 通过反射调用方法
+    /// Invoke method via reflection
     /// </summary>
     private static void InvokeMethod(Component component, DialogueEventCall eventCall)
     {
@@ -160,7 +161,7 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 准备方法参数
+    /// Prepare method parameters
     /// </summary>
     private static (object[] parameters, Type[] parameterTypes) PrepareMethodParameters(DialogueEventCall eventCall)
     {
@@ -176,14 +177,14 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 查找方法，支持精确匹配和名称匹配
+    /// Find method with support for exact matching and name matching
     /// </summary>
     private static MethodInfo FindMethod(Type componentType, string methodName, Type[] parameterTypes)
     {
-        // 先尝试精确匹配参数类型
+        // Try exact parameter type matching first
         var method = componentType.GetMethod(methodName, parameterTypes);
 
-        // 如果精确匹配失败，尝试按名称匹配（适用于重载方法或无参数方法）
+        // If exact matching fails, try name matching (for overloaded methods or parameterless methods)
         if (method == null)
         {
             method = componentType.GetMethod(methodName);
@@ -193,14 +194,14 @@ public static class DialogueEventExecutor
     }
 
     /// <summary>
-    /// 清除类型缓存（可选，用于内存管理）
+    /// Clear type cache (optional, for memory management)
     /// </summary>
     public static void ClearTypeCache()
     {
         typeCache.Clear();
     }
 
-    // 日志方法 - 可以根据项目需求自定义
+    // Logging methods - can be customized based on project needs
     private static void LogSuccess(string message)
     {
         Debug.Log($"[DialogueEvent] {message}");
