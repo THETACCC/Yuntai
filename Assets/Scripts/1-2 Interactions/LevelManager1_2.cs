@@ -41,6 +41,7 @@ public class LevelManager1_2 : MonoBehaviour
 
     [Header("音效")]
     [SerializeField] private AudioSource snd_toilet;
+    [SerializeField] private AudioSource snd_RedLight;
 
     // ========= 演绎5A =========
     [Header("【演绎】玩家自动移动")]
@@ -143,6 +144,7 @@ public class LevelManager1_2 : MonoBehaviour
 
         // —— 3) 红光亮 ——
         if (redLightObject) redLightObject.SetActive(true);
+        snd_RedLight.Play();
 
         // —— 4) 等 2 秒 ——
         yield return new WaitForSeconds(2f);
