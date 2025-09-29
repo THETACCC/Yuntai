@@ -3,28 +3,47 @@
         {
             "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "index": 0,
-            "name": "???",
-            "avatarAddr": "avatars/default.png",
-            "content": "Description of PassengerA",
+            "name": "Me",
+            "avatarAddr": "avatars/IMG_5310_0",
+            "content": "(Seems like a family of three. The little boy in the middle is playing with a puppet.)",
             "positionX": 569.6000366210938,
             "positionY": 611.2000122070313,
-            "choices": []
+            "choices": [],
+            "eventCalls": []
         },
         {
             "id": "4f690308-519e-423f-94ba-20c34964b485",
             "index": 1,
-            "name": "Me",
-            "avatarAddr": "avatars/default.png",
-            "content": "I wanna peeeeee",
-            "positionX": 957.6000366210938,
+            "name": "Little Boy",
+            "avatarAddr": "avatars/IMG_1749_1",
+            "content": "Dad! Look, this one can bend around from the back, so cool!",
+            "positionX": 1175.199951171875,
             "positionY": 611.2000122070313,
-            "choices": []
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
+            "index": 2,
+            "name": "Me",
+            "avatarAddr": "avatars/IMG_5310_0",
+            "content": "There’s no need to talk now, just head to the restroom.",
+            "positionX": 1680.7999267578125,
+            "positionY": 612.0,
+            "choices": [],
+            "eventCalls": []
         }
     ],
     "connections": [
         {
             "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "inputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "inputNodeId": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
             "choiceIndex": -1,
             "choiceText": ""
         }

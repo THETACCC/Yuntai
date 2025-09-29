@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.005126953, y: 0, z: -1.2767334, w: 0}
+  m_margin: {x: 126.87909, y: 0, z: -1.2767334, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.3244019, y: 0, z: 2.4283447, w: 42.879013}
+  m_margin: {x: 124.36438, y: 0, z: 2.4283447, w: 42.879013}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -383,12 +383,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04afa59c2c665d49a3935bba53bfd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDialogueActive: 0
   UIGroup: {fileID: 7089507770865848480}
   avatar: {fileID: 3735983040271020865}
   speaker: {fileID: 7988425733755368296}
   contentText: {fileID: 2333800187457151811}
   choiceParent: {fileID: 8618830318166284581}
   choicePrefab: {fileID: 4901889701349265064, guid: c644908215d66c24881a69f673049d8d, type: 3}
+  currentTrigger: {fileID: 0}
   dialogueData:
     conversations: []
     currentIndex: 0
@@ -572,8 +574,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -817, y: 74}
-  m_SizeDelta: {x: 216.5, y: 303}
+  m_AnchoredPosition: {x: -738, y: 74}
+  m_SizeDelta: {x: 365.33334, y: 326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3928955751245037242
 CanvasRenderer:
@@ -603,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8242c23302201aa4ba124a01d88e7cfb, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
