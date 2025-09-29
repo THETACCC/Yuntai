@@ -4245,7 +4245,7 @@ MonoBehaviour:
   - renderer: {fileID: 780555531}
     faceFrontSmile: {fileID: 1579702807, guid: e894d6ba2a5a88445b1528bafdd0b162, type: 3}
   - renderer: {fileID: 1209192874}
-    faceFrontSmile: {fileID: 0}
+    faceFrontSmile: {fileID: 21300000, guid: 592d6fc62525c5e4791df113c28b4ef4, type: 3}
   faceDelayAfterLastOn: 1
 --- !u!4 &725164011
 Transform:
@@ -4386,7 +4386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainDialogueJsonFile: {fileID: 4900000, guid: c68a9b9a6a7456c4fbcb17d6b98a110a, type: 3}
+  mainDialogueJsonFile: {fileID: 4900000, guid: c0404875dee103f49b4ad863fbb867d3, type: 3}
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
@@ -6432,11 +6432,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalScale.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.27
+      value: -2.92
       objectReference: {fileID: 0}
     - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6502,6 +6502,10 @@ PrefabInstance:
       propertyPath: jsonFile
       value: 
       objectReference: {fileID: 4900000, guid: 12ffc68168ff69442bfc8bd4bdcba346, type: 3}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: acec3bd6e59511c4990a71d9ddca35d2, type: 3}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.03
