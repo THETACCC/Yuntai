@@ -4,27 +4,63 @@
             "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "index": 0,
             "name": "???",
-            "avatarAddr": "avatars/default.png",
-            "content": "Description of ZhouShu",
+            "avatarAddr": "avatars/IMG_5311_4",
+            "content": "Mmm——",
             "positionX": 569.6000366210938,
             "positionY": 611.2000122070313,
-            "choices": []
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "4ac484e4-36cd-4a49-b428-8f9b65b2fdd2",
+            "index": 2,
+            "name": "???",
+            "avatarAddr": "avatars/IMG_5311_4",
+            "content": "Ugh——",
+            "positionX": 1555.199951171875,
+            "positionY": 611.2000122070313,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "f6788112-3fe6-4f4c-92fa-a71a3edff304",
+            "index": 3,
+            "name": "Me",
+            "avatarAddr": "avatars/IMG_5310_0",
+            "content": "(I should leave her alone.)",
+            "positionX": 1906.39990234375,
+            "positionY": 611.2000122070313,
+            "choices": [],
+            "eventCalls": []
         },
         {
             "id": "4f690308-519e-423f-94ba-20c34964b485",
             "index": 1,
             "name": "Me",
-            "avatarAddr": "avatars/default.png",
-            "content": "I wanna peeeeee",
-            "positionX": 957.6000366210938,
+            "avatarAddr": "avatars/IMG_5310_0",
+            "content": "(A strangely dressed girl, looks about my age, she seems troubled.)",
+            "positionX": 986.4000244140625,
             "positionY": 611.2000122070313,
-            "choices": []
+            "choices": [],
+            "eventCalls": []
         }
     ],
     "connections": [
         {
             "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "inputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "inputNodeId": "4ac484e4-36cd-4a49-b428-8f9b65b2fdd2",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "4ac484e4-36cd-4a49-b428-8f9b65b2fdd2",
+            "inputNodeId": "f6788112-3fe6-4f4c-92fa-a71a3edff304",
             "choiceIndex": -1,
             "choiceText": ""
         }

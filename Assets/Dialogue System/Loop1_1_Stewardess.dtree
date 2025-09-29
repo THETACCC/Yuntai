@@ -1,46 +1,100 @@
 {
     "nodes": [
         {
-            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
-            "index": 0,
-            "name": "Stewardess",
-            "avatarAddr": "avatars/default.png",
-            "content": "不准过去！那边是头等舱。",
-            "positionX": 569.6000366210938,
-            "positionY": 611.2000122070313,
-            "choices": []
-        },
-        {
             "id": "4f690308-519e-423f-94ba-20c34964b485",
             "index": 1,
             "name": "Me",
-            "avatarAddr": "avatars/default.png",
-            "content": "I wanna peeeeee",
-            "positionX": 860.0,
-            "positionY": 611.2000122070313,
-            "choices": []
+            "avatarAddr": "avatars/IMG_5310_0",
+            "content": "(She’s smiling politely, her manners flawless, but for some reason it feels deeply unsettling.)",
+            "positionX": 796.0,
+            "positionY": 614.3999633789063,
+            "choices": [],
+            "eventCalls": []
         },
         {
             "id": "430d113b-89fd-483b-bc3c-a741adb19420",
             "index": 2,
+            "name": "Stewardess",
+            "avatarAddr": "avatars/IMG_1747_0.png",
+            "content": "Is there anything else I can't help you with, ma'am? If not, please step aside.",
+            "positionX": 1504.0,
+            "positionY": 614.3999633789063,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "35094a72-6bee-4e2b-b3c7-8dcfc59a3ff7",
+            "index": 3,
+            "name": "Stewardess",
+            "avatarAddr": "avatars/IMG_1742_2",
+            "content": "The economy class restroom is at the other end.",
+            "positionX": 240.0,
+            "positionY": 630.3999633789063,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "b0e0bc2f-2d2b-4f35-8360-20e2ac4d2757",
+            "index": 4,
             "name": "Me",
-            "avatarAddr": "avatars/default.png",
-            "content": "厕所在飞机后面。",
-            "positionX": 1176.7999267578125,
-            "positionY": 611.2000122070313,
-            "choices": []
+            "avatarAddr": "avatars/IMG_5310_0.png",
+            "content": "......",
+            "positionX": 2174.39990234375,
+            "positionY": 614.3999633789063,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "5feb4a57-dac5-47b9-a83b-da9f78fc0480",
+            "index": 5,
+            "name": "Me",
+            "avatarAddr": "avatars/IMG_5310_0.png",
+            "content": "(Her eyes just now were terrifying. I’d better move on.)",
+            "positionX": 2594.39990234375,
+            "positionY": 614.3999633789063,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "index": 0,
+            "name": "Stewardess",
+            "avatarAddr": "avatars/IMG_1742_2",
+            "content": "Sorry ma'am. I'm afraid I can't let you disturb our guests in the front.",
+            "positionX": -368.0,
+            "positionY": 630.3999633789063,
+            "choices": [],
+            "eventCalls": []
         }
     ],
     "connections": [
         {
+            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "inputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
             "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "inputNodeId": "35094a72-6bee-4e2b-b3c7-8dcfc59a3ff7",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "35094a72-6bee-4e2b-b3c7-8dcfc59a3ff7",
             "inputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
             "choiceIndex": -1,
             "choiceText": ""
         },
         {
-            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
-            "inputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "outputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "inputNodeId": "b0e0bc2f-2d2b-4f35-8360-20e2ac4d2757",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "b0e0bc2f-2d2b-4f35-8360-20e2ac4d2757",
+            "inputNodeId": "5feb4a57-dac5-47b9-a83b-da9f78fc0480",
             "choiceIndex": -1,
             "choiceText": ""
         }
