@@ -1,0 +1,61 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": "Me",
+      "avatarAddr": "avatars/IMG_5310_0",
+      "content": "Miss?",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "Stewardess",
+      "avatarAddr": "avatars/IMG_1747_0",
+      "content": "......",
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": "Me",
+      "avatarAddr": "avatars/IMG_5310_0",
+      "content": "Why are you standing next to my seat? Did something happen?",
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 3,
+      "name": "Stewardess",
+      "avatarAddr": "avatars/IMG_1747_0",
+      "content": "......",
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 4,
+      "name": "Me",
+      "avatarAddr": "avatars/IMG_5310_0",
+      "content": "Ma’am?",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager1_2",
+          "componentTypeName": "LevelManager1_2",
+          "methodName": "DoSpecialThingWhenInBound1",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

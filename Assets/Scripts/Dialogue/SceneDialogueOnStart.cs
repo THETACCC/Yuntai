@@ -16,5 +16,7 @@ public class SceneStartDialogue : DialogueTrigger
 
         TriggerDialogue();
     }
+
+
 }
 

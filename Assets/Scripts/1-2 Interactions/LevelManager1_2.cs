@@ -228,6 +228,13 @@ public class LevelManager1_2 : MonoBehaviour
         if (dialogueAfterFacesDelay > 0f)
             yield return new WaitForSeconds(dialogueAfterFacesDelay);
 
+        // 恢复玩家可动 + 切到 Talking 再开始对话2
+        if (_playerCtrl) _playerCtrl.enabled = true;
+        if (_playerRb) _playerRb.isKinematic = false;
+        if (_playerRb) _playerRb.velocity = Vector2.zero;
+
+        //if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Talking;
+
         dialogueTrigger2?.TriggerDialogue();
 
         _eventRoutine = null;
