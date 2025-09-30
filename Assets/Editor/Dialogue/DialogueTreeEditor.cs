@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using DialogueSystem;
+using UnityEditor.UIElements;
 
 
 [System.Serializable]
@@ -22,7 +23,7 @@ public class DialogueNodeData
     public string id;
     public int index;
     public string name;
-    public string avatarAddr;
+    public string avatarAssetPath; // 存储Asset路径用于编辑器加载
     public string content;
     public float positionX;
     public float positionY;
@@ -45,11 +46,11 @@ public class RuntimeDialogueData
 {
     public int index;
     public string name;
-    public string avatarAddr;
+    public string avatarAddr; // Runtime使用的路径字符串
     public string content;
     public List<RuntimeChoice> choices = new List<RuntimeChoice>();
     public string nextNodeId;
-    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>(); // 替换 eventName
+    public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
 }
 
 [System.Serializable]
@@ -66,7 +67,6 @@ public class DialogueTreeEditor : EditorWindow
     private string currentFilePath = "";
     private new bool hasUnsavedChanges = false;
 
-    // 修改为基于项目的存储键
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
     [MenuItem("Tools/Dialogue Tree Editor/Open Editor")]
@@ -139,7 +139,6 @@ public class DialogueTreeEditor : EditorWindow
 
     private void OnEnable()
     {
-        // 获取基于项目的当前文件路径
         currentFilePath = EditorPrefs.GetString(CURRENT_FILE_KEY, "");
         rootVisualElement.Clear();
         EditorApplication.delayCall += DelayedInitialize;
@@ -150,13 +149,10 @@ public class DialogueTreeEditor : EditorWindow
         CreateToolbar();
         CreateGraphView();
 
-        // 初始化时重置未保存标志
         hasUnsavedChanges = false;
 
-        // 只有在文件存在且属于当前项目时才自动加载
         if (!string.IsNullOrEmpty(currentFilePath) && File.Exists(currentFilePath))
         {
-            // 检查文件是否在当前项目路径下
             string projectPath = Application.dataPath;
             string projectDirectory = Directory.GetParent(projectPath).FullName;
 
@@ -166,7 +162,6 @@ public class DialogueTreeEditor : EditorWindow
             }
             else
             {
-                // 如果文件不在当前项目下，清除路径
                 currentFilePath = "";
                 EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
             }
@@ -182,7 +177,6 @@ public class DialogueTreeEditor : EditorWindow
             CreateGraphView();
         }
 
-        // 确保窗口标题正确设置
         titleContent = new GUIContent("Dialogue Tree Editor");
     }
 
@@ -202,7 +196,6 @@ public class DialogueTreeEditor : EditorWindow
 
     private void CheckUnsavedChangesBeforeClose()
     {
-        // 只有在真正有内容且有未保存更改时才询问
         if (hasUnsavedChanges && graphView != null && graphView.GetNodeCount() > 0)
         {
             int result = EditorUtility.DisplayDialogComplex("Unsaved Changes",
@@ -272,7 +265,7 @@ public class DialogueTreeEditor : EditorWindow
         var createNodeButton = new Button(() => {
             if (graphView != null)
             {
-                graphView.CreateDialogueNode("Character", "avatars/default.png", "New Dialogue");
+                graphView.CreateDialogueNode("Character", null, "New Dialogue");
                 MarkAsChanged();
             }
         });
@@ -338,7 +331,6 @@ public class DialogueTreeEditor : EditorWindow
 
     private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
     {
-        // 只在有实际内容变化时才标记为已更改
         if (graphView != null && graphView.GetNodeCount() > 0)
         {
             MarkAsChanged();
@@ -356,7 +348,7 @@ public class DialogueTreeEditor : EditorWindow
     public void NewDialogueTree()
     {
         currentFilePath = "";
-        hasUnsavedChanges = false; // 明确重置标志
+        hasUnsavedChanges = false;
         EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
 
         if (graphView != null)
@@ -398,7 +390,6 @@ public class DialogueTreeEditor : EditorWindow
     {
         if (graphView == null) return;
 
-        // 确保保存目录存在
         string directory = Path.GetDirectoryName(path);
         if (!Directory.Exists(directory))
         {
@@ -407,21 +398,16 @@ public class DialogueTreeEditor : EditorWindow
 
         try
         {
-            // 保存运行时JSON格式作为主要文件
             SaveRuntimeJsonFile(path);
 
-            // 自动保存对应的.dtree文件用于编辑器加载
             string dtreePath = Path.ChangeExtension(path, ".dtree");
             SaveEditorFormatFile(dtreePath);
 
-            // 确保文件写入完成后刷新Asset Database
             System.IO.File.SetLastWriteTime(path, System.DateTime.Now);
             System.IO.File.SetLastWriteTime(dtreePath, System.DateTime.Now);
 
-            // 强制刷新Asset Database并导入文件
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
-            // 延迟导入特定文件以确保显示
             EditorApplication.delayCall += () =>
             {
                 if (path.StartsWith(Application.dataPath))
@@ -477,7 +463,6 @@ public class DialogueTreeEditor : EditorWindow
             formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
             formattedJson += $"      \"content\": \"{EscapeJsonString(item.content)}\"";
 
-            // 处理 nextIndex - 默认的下一个节点
             int nextIndex = -1;
             if (!string.IsNullOrEmpty(item.nextNodeId) && nodeIdToIndex.ContainsKey(item.nextNodeId))
             {
@@ -485,7 +470,6 @@ public class DialogueTreeEditor : EditorWindow
             }
             formattedJson += $",\n      \"nextIndex\": {nextIndex}";
 
-            // 处理choices数组
             if (item.choices.Count > 0)
             {
                 formattedJson += ",\n      \"choices\": [\n";
@@ -513,7 +497,6 @@ public class DialogueTreeEditor : EditorWindow
                 formattedJson += ",\n      \"choices\": []";
             }
 
-            // 添加事件调用数组
             if (item.eventCalls.Count > 0)
             {
                 formattedJson += ",\n      \"eventCalls\": [\n";
@@ -579,7 +562,6 @@ public class DialogueTreeEditor : EditorWindow
         if (!string.IsNullOrEmpty(path))
         {
             LoadFromFile(path);
-            // 设置对应的JSON文件路径作为当前文件
             string jsonPath = Path.ChangeExtension(path, ".json");
             if (File.Exists(jsonPath))
             {
@@ -607,7 +589,6 @@ public class DialogueTreeEditor : EditorWindow
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
 
-                // Enhanced center on node 0 after loading
                 EditorApplication.delayCall += () => {
                     if (graphView != null)
                     {
@@ -687,7 +668,6 @@ public class DialogueGraphView : GraphView
         nextNodeIndex = 0;
     }
 
-    // Enhanced CenterOnNode0 method with proper viewport handling and NaN checking
     public void CenterOnNode0()
     {
         var node0 = nodes.Cast<DialogueNode>().FirstOrDefault(n => n.NodeIndex == 0);
@@ -697,10 +677,8 @@ public class DialogueGraphView : GraphView
             return;
         }
 
-        // Get the position of node 0 using multiple methods
         var nodePosition = node0.GetPosition();
 
-        // Check for NaN values in position - this is the main issue
         if (float.IsNaN(nodePosition.x) || float.IsNaN(nodePosition.y) ||
             float.IsNaN(nodePosition.width) || float.IsNaN(nodePosition.height))
         {
@@ -709,7 +687,6 @@ public class DialogueGraphView : GraphView
             return;
         }
 
-        // Try to get the layout bounds if position is still invalid
         var layoutBounds = node0.layout;
         if (nodePosition.size == Vector2.zero && layoutBounds.size != Vector2.zero)
         {
@@ -718,60 +695,46 @@ public class DialogueGraphView : GraphView
 
         var nodeBounds = new Rect(nodePosition.position, nodePosition.size);
 
-        // Validate that we have proper bounds
         if (nodeBounds.size == Vector2.zero)
         {
-            // If size is zero, node might not be fully initialized yet
-            // Try again with another delay
             Debug.Log("Node 0 not fully initialized, retrying centering...");
             EditorApplication.delayCall += () => CenterOnNode0();
             return;
         }
 
-        // Get the actual GraphView's world bound (this accounts for window size properly)
         var graphViewBounds = worldBound;
 
-        // Validate viewport - use worldBound instead of contentRect
         if (graphViewBounds.width <= 0 || graphViewBounds.height <= 0)
         {
-            // Viewport not ready, try again
             Debug.Log("GraphView bounds not ready, retrying centering...");
             EditorApplication.delayCall += () => CenterOnNode0();
             return;
         }
 
-        // Calculate the center point of the node in world space
         var nodeCenter = nodeBounds.center;
 
-        // Double check nodeCenter for NaN
         if (float.IsNaN(nodeCenter.x) || float.IsNaN(nodeCenter.y))
         {
             Debug.LogError("Node center calculation resulted in NaN, using default position");
-            nodeCenter = Vector2.zero; // Fallback to origin
+            nodeCenter = Vector2.zero;
         }
 
-        // Calculate the center of the actual visible GraphView area
         var viewportCenter = new Vector2(graphViewBounds.width * 0.5f, graphViewBounds.height * 0.5f);
 
-        // Calculate the target position to center the node in the viewport
-        // We need to account for the current zoom level
         var currentZoom = contentViewContainer.transform.scale.x;
         if (float.IsNaN(currentZoom) || currentZoom <= 0)
         {
-            currentZoom = 1f; // Fallback zoom
+            currentZoom = 1f;
         }
 
         var targetPosition = -nodeCenter * currentZoom + viewportCenter;
 
-        // Validate target position
         if (float.IsNaN(targetPosition.x) || float.IsNaN(targetPosition.y))
         {
             Debug.LogError("Target position calculation resulted in NaN");
             return;
         }
 
-        // Update the view transform to center on the node
-        // Keep current zoom level, just adjust position
         UpdateViewTransform(targetPosition, new Vector3(currentZoom, currentZoom, 1f));
 
         Debug.Log($"Successfully centered on Node 0 at position: {nodeCenter}, viewport: {viewportCenter}, zoom: {currentZoom}, target: {targetPosition}");
@@ -816,7 +779,7 @@ public class DialogueGraphView : GraphView
     {
         evt.menu.AppendAction("Create Dialogue Node",
             action => {
-                CreateDialogueNode("Character", "avatars/default.png", "New Dialogue",
+                CreateDialogueNode("Character", null, "New Dialogue",
                     GetLocalMousePosition(action.eventInfo.localMousePosition));
                 if (editorWindow != null)
                 {
@@ -900,9 +863,9 @@ public class DialogueGraphView : GraphView
         }
     }
 
-    public DialogueNode CreateDialogueNode(string characterName, string avatarAddr, string content, Vector2 position = default)
+    public DialogueNode CreateDialogueNode(string characterName, Sprite avatarSprite, string content, Vector2 position = default)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarAddr, content, nextNodeIndex++);
+        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, nextNodeIndex++);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => {
             if (editorWindow != null)
@@ -956,15 +919,18 @@ public class DialogueGraphView : GraphView
 
         foreach (var node in nodes)
         {
+            // 将Sprite转换为Runtime路径
+            string runtimeAvatarPath = ConvertSpriteToRuntimePath(node.AvatarSprite);
+
             var exportData = new RuntimeDialogueData
             {
                 index = node.NodeIndex,
                 name = node.CharacterName,
-                avatarAddr = node.AvatarAddr,
+                avatarAddr = runtimeAvatarPath,
                 content = node.DialogueText,
                 choices = new List<RuntimeChoice>(),
                 nextNodeId = null,
-                eventCalls = new List<DialogueEventCall>(node.EventCalls) // 添加事件调用
+                eventCalls = new List<DialogueEventCall>(node.EventCalls)
             };
             exportDict[node.GetId()] = exportData;
         }
@@ -1002,6 +968,31 @@ public class DialogueGraphView : GraphView
         return exportDict.Values.OrderBy(d => d.index).ToList();
     }
 
+    // 将Sprite转换为运行时路径
+    private string ConvertSpriteToRuntimePath(Sprite sprite)
+    {
+        if (sprite == null) return "";
+
+        string assetPath = AssetDatabase.GetAssetPath(sprite);
+
+        // 检查是否在Resources文件夹内
+        int resourcesIndex = assetPath.IndexOf("Resources/");
+        if (resourcesIndex >= 0)
+        {
+            // 提取Resources/之后的路径并移除扩展名
+            string resourcePath = assetPath.Substring(resourcesIndex + 10);
+            resourcePath = Path.ChangeExtension(resourcePath, null);
+            return resourcePath;
+        }
+        else
+        {
+            // 如果不在Resources文件夹，警告用户
+            Debug.LogWarning($"Avatar sprite '{sprite.name}' at path '{assetPath}' is not in a Resources folder. " +
+                           $"It won't be loadable at runtime! Please move it to a Resources folder.");
+            return sprite.name; // 返回sprite名称作为fallback
+        }
+    }
+
     public DialogueTreeData SerializeDialogueTree()
     {
         var treeData = new DialogueTreeData();
@@ -1018,12 +1009,12 @@ public class DialogueGraphView : GraphView
                     id = node.GetId(),
                     index = node.NodeIndex,
                     name = node.CharacterName ?? "",
-                    avatarAddr = node.AvatarAddr ?? "",
+                    avatarAssetPath = node.AvatarSprite != null ? AssetDatabase.GetAssetPath(node.AvatarSprite) : "",
                     content = node.DialogueText ?? "",
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
                     choices = new List<string>(node.Choices ?? new List<string>()),
-                    eventCalls = new List<DialogueEventCall>(node.EventCalls ?? new List<DialogueEventCall>()) // 序列化事件调用
+                    eventCalls = new List<DialogueEventCall>(node.EventCalls ?? new List<DialogueEventCall>())
                 };
                 treeData.nodes.Add(nodeData);
             }
@@ -1075,11 +1066,22 @@ public class DialogueGraphView : GraphView
 
         foreach (var nodeData in sortedNodes)
         {
-            var node = CreateDialogueNodeWithIndex(nodeData.name, nodeData.avatarAddr, nodeData.content,
+            // 从Asset路径加载Sprite
+            Sprite avatarSprite = null;
+            if (!string.IsNullOrEmpty(nodeData.avatarAssetPath))
+            {
+                avatarSprite = AssetDatabase.LoadAssetAtPath<Sprite>(nodeData.avatarAssetPath);
+                if (avatarSprite == null)
+                {
+                    Debug.LogWarning($"Failed to load sprite at path: {nodeData.avatarAssetPath}");
+                }
+            }
+
+            var node = CreateDialogueNodeWithIndex(nodeData.name, avatarSprite, nodeData.content,
                 new Vector2(nodeData.positionX, nodeData.positionY), nodeData.index);
             node.SetId(nodeData.id);
             node.SetChoices(nodeData.choices);
-            node.SetEventCalls(nodeData.eventCalls); // 加载事件调用
+            node.SetEventCalls(nodeData.eventCalls);
             nodeDict[nodeData.id] = node;
         }
 
@@ -1119,9 +1121,9 @@ public class DialogueGraphView : GraphView
         }
     }
 
-    private DialogueNode CreateDialogueNodeWithIndex(string characterName, string avatarAddr, string content, Vector2 position, int index)
+    private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite, string content, Vector2 position, int index)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarAddr, content, index);
+        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, index);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => {
             if (editorWindow != null)
@@ -1144,7 +1146,8 @@ public class DialogueGraphView : GraphView
             var position = node.GetPosition();
             var choicesStr = string.Join("~", node.Choices);
             var eventCallsStr = JsonUtility.ToJson(new SerializableEventCallList { eventCalls = node.EventCalls });
-            nodeData.Add($"{node.CharacterName}|{node.AvatarAddr}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}|{eventCallsStr}");
+            var avatarPath = node.AvatarSprite != null ? AssetDatabase.GetAssetPath(node.AvatarSprite) : "";
+            nodeData.Add($"{node.CharacterName}|{avatarPath}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}|{eventCallsStr}");
         }
 
         return string.Join(";", nodeData);
@@ -1168,11 +1171,18 @@ public class DialogueGraphView : GraphView
             if (nodeData.Length >= 6)
             {
                 var characterName = nodeData[0];
-                var avatarAddr = nodeData[1];
+                var avatarPath = nodeData[1];
                 var dialogueText = nodeData[2];
                 var x = float.Parse(nodeData[3]) + offset.x;
                 var y = float.Parse(nodeData[4]) + offset.y;
                 var choicesStr = nodeData[5];
+
+                // 加载Sprite
+                Sprite avatarSprite = null;
+                if (!string.IsNullOrEmpty(avatarPath))
+                {
+                    avatarSprite = AssetDatabase.LoadAssetAtPath<Sprite>(avatarPath);
+                }
 
                 List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
                 if (nodeData.Length > 6)
@@ -1188,7 +1198,7 @@ public class DialogueGraphView : GraphView
                     }
                 }
 
-                var node = CreateDialogueNode(characterName, avatarAddr, dialogueText, new Vector2(x, y));
+                var node = CreateDialogueNode(characterName, avatarSprite, dialogueText, new Vector2(x, y));
                 if (!string.IsNullOrEmpty(choicesStr))
                 {
                     var choices = choicesStr.Split('~').ToList();
@@ -1217,7 +1227,6 @@ public class DialogueGraphView : GraphView
     }
 }
 
-// 用于序列化的辅助类
 [System.Serializable]
 public class SerializableEventCallList
 {
@@ -1228,10 +1237,10 @@ public class SerializableEventCallList
 public class DialogueNode : Node
 {
     private TextField characterNameField;
-    private TextField avatarAddrField;
+    private ObjectField avatarField; // 改用ObjectField
     private TextField dialogueTextField;
-    private VisualElement eventsContainer; // 事件容器
-    private Button addEventButton; // 添加事件按钮
+    private VisualElement eventsContainer;
+    private Button addEventButton;
     private VisualElement choicesContainer;
     private Button addChoiceButton;
     private Port inputPort;
@@ -1241,18 +1250,18 @@ public class DialogueNode : Node
     private int nodeIndex;
 
     public string CharacterName { get; private set; }
-    public string AvatarAddr { get; private set; }
+    public Sprite AvatarSprite { get; private set; } // 改用Sprite
     public string DialogueText { get; private set; }
     public List<string> Choices { get; private set; } = new List<string>();
-    public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>(); // 事件调用列表
+    public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>();
     public int NodeIndex => nodeIndex;
 
     public event System.Action OnNodeChanged;
 
-    public DialogueNode(string characterName = "Character", string avatarAddr = "avatars/default.png", string dialogueText = "New Dialogue", int index = 0)
+    public DialogueNode(string characterName = "Character", Sprite avatarSprite = null, string dialogueText = "New Dialogue", int index = 0)
     {
         this.CharacterName = characterName;
-        this.AvatarAddr = avatarAddr;
+        this.AvatarSprite = avatarSprite;
         this.DialogueText = dialogueText;
         this.nodeIndex = index;
         this.nodeId = System.Guid.NewGuid().ToString();
@@ -1262,9 +1271,9 @@ public class DialogueNode : Node
         CreateInputPort();
         CreateDefaultOutputPort();
         CreateCharacterNameField();
-        CreateAvatarAddrField();
+        CreateAvatarField(); // 改用新方法
         CreateDialogueTextField();
-        CreateEventsSection(); // 创建事件部分
+        CreateEventsSection();
         CreateChoicesSection();
 
         RefreshExpandedState();
@@ -1319,22 +1328,69 @@ public class DialogueNode : Node
         mainContainer.Add(characterNameField);
     }
 
-    private void CreateAvatarAddrField()
+    // 新的Avatar字段 - 使用ObjectField
+    private void CreateAvatarField()
     {
-        avatarAddrField = new TextField("Avatar Path:")
+        var avatarContainer = new VisualElement();
+
+        avatarField = new ObjectField("Avatar Sprite:")
         {
-            value = AvatarAddr
+            objectType = typeof(Sprite),
+            value = AvatarSprite,
+            allowSceneObjects = false // 只允许选择Asset
         };
 
-        avatarAddrField.style.minWidth = 300;
+        avatarField.style.minWidth = 300;
 
-        avatarAddrField.RegisterValueChangedCallback(evt =>
+        // 创建警告标签（默认隐藏）
+        var warningLabel = new Label();
+        warningLabel.style.color = new StyleColor(Color.red);
+        warningLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        warningLabel.style.paddingLeft = 5;
+        warningLabel.style.paddingTop = 2;
+        warningLabel.style.display = DisplayStyle.None;
+
+        avatarField.RegisterValueChangedCallback(evt =>
         {
-            AvatarAddr = evt.newValue;
+            AvatarSprite = evt.newValue as Sprite;
+
+            // 实时检查是否在Resources文件夹
+            if (AvatarSprite != null)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
+                if (!assetPath.Contains("/Resources/"))
+                {
+                    warningLabel.text = $"⚠ WARNING: '{AvatarSprite.name}' is NOT in a Resources folder!\nPath: {assetPath}\nMove it to a Resources folder or it won't load at runtime!";
+                    warningLabel.style.display = DisplayStyle.Flex;
+                    Debug.LogError($"Avatar Sprite Error: '{AvatarSprite.name}' at '{assetPath}' is not in a Resources folder and will not be loadable at runtime!");
+                }
+                else
+                {
+                    warningLabel.style.display = DisplayStyle.None;
+                }
+            }
+            else
+            {
+                warningLabel.style.display = DisplayStyle.None;
+            }
+
             NotifyChange();
         });
 
-        mainContainer.Add(avatarAddrField);
+        avatarContainer.Add(avatarField);
+        avatarContainer.Add(warningLabel);
+        mainContainer.Add(avatarContainer);
+
+        // 初始检查
+        if (AvatarSprite != null)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
+            if (!assetPath.Contains("/Resources/"))
+            {
+                warningLabel.text = $"⚠ WARNING: '{AvatarSprite.name}' is NOT in a Resources folder!\nPath: {assetPath}\nMove it to a Resources folder or it won't load at runtime!";
+                warningLabel.style.display = DisplayStyle.Flex;
+            }
+        }
     }
 
     private void CreateDialogueTextField()
@@ -1357,7 +1413,6 @@ public class DialogueNode : Node
         mainContainer.Add(dialogueTextField);
     }
 
-    // 创建事件部分 - 类似UnityEvent的界面
     private void CreateEventsSection()
     {
         var eventsLabel = new Label("Events (UnityEvent):");
@@ -1439,7 +1494,6 @@ public class DialogueNode : Node
             eventContainer.style.paddingLeft = 5;
             eventContainer.style.paddingRight = 5;
 
-            // 标题栏
             var titleRow = new VisualElement();
             titleRow.style.flexDirection = FlexDirection.Row;
             titleRow.style.alignItems = Align.Center;
@@ -1463,7 +1517,6 @@ public class DialogueNode : Node
             titleRow.Add(removeButton);
             eventContainer.Add(titleRow);
 
-            // 目标对象字段
             var targetField = new TextField("Target GameObject:")
             {
                 value = eventCall.targetObjectName
@@ -1479,7 +1532,6 @@ public class DialogueNode : Node
             });
             eventContainer.Add(targetField);
 
-            // Component 类型字段
             var componentField = new TextField("Component Type:")
             {
                 value = eventCall.componentTypeName
@@ -1495,7 +1547,6 @@ public class DialogueNode : Node
             });
             eventContainer.Add(componentField);
 
-            // 方法名字段
             var methodField = new TextField("Method Name:")
             {
                 value = eventCall.methodName
@@ -1511,7 +1562,6 @@ public class DialogueNode : Node
             });
             eventContainer.Add(methodField);
 
-            // 参数类型选择
             var parameterTypeContainer = new VisualElement();
             parameterTypeContainer.style.flexDirection = FlexDirection.Row;
             parameterTypeContainer.style.marginTop = 3;
@@ -1527,7 +1577,7 @@ public class DialogueNode : Node
                 if (currentIndex < EventCalls.Count)
                 {
                     EventCalls[currentIndex].parameterType = (ParameterType)evt.newValue;
-                    UpdateEventsDisplay(); // 重新显示以更新参数输入框
+                    UpdateEventsDisplay();
                     NotifyChange();
                 }
             });
@@ -1536,7 +1586,6 @@ public class DialogueNode : Node
             parameterTypeContainer.Add(parameterTypeField);
             eventContainer.Add(parameterTypeContainer);
 
-            // 根据参数类型显示相应的输入框
             if (eventCall.parameterType != ParameterType.None)
             {
                 var parameterContainer = new VisualElement();
@@ -1784,7 +1833,6 @@ public class DialogueNode : Node
         RefreshPorts();
     }
 
-    // 设置事件调用的方法
     public void SetEventCalls(List<DialogueEventCall> eventCalls)
     {
         EventCalls = eventCalls ?? new List<DialogueEventCall>();
