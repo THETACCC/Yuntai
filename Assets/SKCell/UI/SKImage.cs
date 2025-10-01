@@ -7,7 +7,7 @@ namespace SKCell
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(SKLocalization))]
-    [AddComponentMenu("SKCell/SKImage")]
+    [AddComponentMenu("SKCell/UI/SKImage")]
     public class SKImage : Image
     {
         //Localization
@@ -19,7 +19,7 @@ namespace SKCell
         }
         private void Initialize()
         {
-            skLocal = CommonUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
+            skLocal = SKUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
         }
 
         public void UpdateLocalID(int localID)

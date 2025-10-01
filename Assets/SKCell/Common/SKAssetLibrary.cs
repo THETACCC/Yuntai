@@ -13,9 +13,11 @@ namespace SKCell
     /// </summary>
     public static class SKAssetLibrary
     {
+        public const string INVENTORY_ASSET_PATH = "Assets/SKCell/Resources/SKCell/SKInventoryAsset.asset";
         public const string LOCAL_ASSET_PATH = "Assets/SKCell/Resources/SKCell/SKLocalizationConfigAsset.asset";
         public const string FONT_ASSET_PATH = "Assets/SKCell/Resources/SKCell/SKFontAsset.asset";
         public const string TEXTURE_ASSET_PATH = "Assets/SKCell/Sprites/";
+        public const string SPRITE_ASSET_PATH = "Assets/SKCell/Resources/SKCell/Sprites/";
         public const string DEFAULT_FONT_PATH = "Assets/SKCell/Font/SK_Default_Font.ttf";
         public const string ENV_ASSET_PATH = "Assets/SKCell/Resources/SKCell/SKEnvironmentAsset.asset";
         public const string UI_ANIM_DIR_PATH = "Assets/SKCell/Resources/SKCell/Animations";
@@ -23,6 +25,7 @@ namespace SKCell
         public const string MATERIAL_PATH = "Assets/SKCell/Resources/SKCell/Materials";
 
         public const string PREFAB_PATH = "Assets/SKCell/Resources/SKCell/Prefabs";
+        public const string RESOURCES_PREFAB_PATH = "SKCell/Prefabs";
         public const string RESOURCES_JSON_PATH_SUFFIX = "/SKCell//Resources/SKCell/Json/";
         public const string PANEL_PREFAB_PATH = "/Resources/SKCell/UI/Panels";
 
@@ -69,10 +72,10 @@ namespace SKCell
             {
 #if UNITY_EDITOR
                 if (localizationAsset == null)
-                    localizationAsset = AssetDatabase .LoadAssetAtPath<SKLocalizationAsset>(LOCAL_ASSET_PATH);
+                    localizationAsset = AssetDatabase.LoadAssetAtPath<SKLocalizationAsset>(LOCAL_ASSET_PATH);
 #endif
                 if (localizationAsset == null)
-                    localizationAsset = new SKLocalizationAsset(CommonUtils.SKLoadObjectFromJson<SKLocalizationAssetJson>("SKLocalizationAsset.json"));
+                    localizationAsset = new SKLocalizationAsset(SKUtils.SKLoadObjectFromJson<SKLocalizationAssetJson>("SKLocalizationAsset.json"));
 
                 return localizationAsset;
             }
@@ -81,6 +84,30 @@ namespace SKCell
                 localizationAsset = value;
             }
         }
+
+        private static SKInventoryAsset inventoryAsset;
+        public static SKInventoryAsset InventoryAsset
+        {
+            get
+            {
+                if (inventoryAsset == null)
+                {
+                    inventoryAsset = Resources.Load<SKInventoryAsset>("SKCell/SKInventoryAsset");
+                    if (inventoryAsset == null)
+                    {
+                        inventoryAsset = ScriptableObject.CreateInstance<SKInventoryAsset>();
+
+#if UNITY_EDITOR
+                        string assetPath = "Assets/SKCell/Resources/SKCell/SKInventoryAsset.asset";
+                        AssetDatabase.CreateAsset(inventoryAsset, assetPath);
+                        AssetDatabase.SaveAssets();
+#endif
+                    }
+                }
+                return inventoryAsset;
+            }
+        }
+
         private static SKFontAsset fontAsset;
         public static SKFontAsset FontAsset
         {
@@ -120,6 +147,18 @@ namespace SKCell
                     texture_A = AssetDatabase.LoadAssetAtPath<Texture>(TEXTURE_ASSET_PATH+"/A.png");
 #endif
                 return texture_A;
+            }
+        }
+        private static Texture texture_Transparent;
+        public static Texture Texture_Transparent
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (texture_Transparent == null)
+                    texture_Transparent = AssetDatabase.LoadAssetAtPath<Texture>(TEXTURE_ASSET_PATH + "/Transparent.png");
+#endif
+                return texture_Transparent;
             }
         }
         private static Texture texture_Logo;
@@ -259,6 +298,62 @@ namespace SKCell
             }
         }
 
+        private static Sprite squareSprite;
+        public static Sprite SquareSprite
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (squareSprite == null)
+                    squareSprite = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_ASSET_PATH + "sq.png");
+#endif
+                if (squareSprite == null)
+                    squareSprite = Resources.Load<Sprite>(RES_SPRITE_PATH + "sq");
+                return squareSprite;
+            }
+        }
+        private static Sprite gradientOneSidedSprite;
+        public static Sprite GradientOneSidedSprite
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (gradientOneSidedSprite == null)
+                    gradientOneSidedSprite = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_ASSET_PATH + "gradient_0.png");
+#endif
+                if (gradientOneSidedSprite == null)
+                    gradientOneSidedSprite = Resources.Load<Sprite>(RES_SPRITE_PATH + "gradient_0");
+                return gradientOneSidedSprite;
+            }
+        }
+        private static Sprite gradientTwoSidedSprite;
+        public static Sprite GradientTwoSidedSprite
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (gradientTwoSidedSprite == null)
+                    gradientTwoSidedSprite = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_ASSET_PATH + "gradient_1.png");
+#endif
+                if (gradientTwoSidedSprite == null)
+                    gradientTwoSidedSprite = Resources.Load<Sprite>(RES_SPRITE_PATH + "gradient_1");
+                return gradientTwoSidedSprite;
+            }
+        }
+        private static Sprite gradientCircleSprite;
+        public static Sprite GradientCircleSprite
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (gradientCircleSprite == null)
+                    gradientCircleSprite = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_ASSET_PATH + "gradient_2.png");
+#endif
+                if (gradientCircleSprite == null)
+                    gradientCircleSprite = Resources.Load<Sprite>(RES_SPRITE_PATH + "gradient_2");
+                return gradientCircleSprite;
+            }
+        }
         public static void Initialize()
         {
            // localizationAsset = null;

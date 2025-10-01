@@ -82,7 +82,7 @@ namespace SKCell
                 return SKColorPalette_Pure.instance;
             }
         }
-        public static SKColorPalette_Standard stadard
+        public static SKColorPalette_Standard standard
         {
             get
             {
@@ -367,7 +367,7 @@ namespace SKCell
     {
         public static SKColorPalette_Standard standard;
     }
-    public class SKColorPalette_Standard : Singleton<SKColorPalette_Standard>
+    public class SKColorPalette_Standard : SKSingleton<SKColorPalette_Standard>
     {
         public SKColor Red
         {
@@ -459,7 +459,7 @@ namespace SKCell
         }
     }
 
-    public class SKColorPalette_Pure :Singleton <SKColorPalette_Pure>
+    public class SKColorPalette_Pure :SKSingleton <SKColorPalette_Pure>
     {
         public SKColor Red
         {

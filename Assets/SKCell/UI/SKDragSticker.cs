@@ -11,7 +11,7 @@ namespace SKCell
     /// A sticky field to drag into.
     /// </summary>
     [RequireComponent(typeof(Image))]
-    [AddComponentMenu("SKCell/SKDragSticker")]
+    [AddComponentMenu("SKCell/UI/SKDragSticker")]
     public class SKDragSticker : MonoBehaviour
     {
         public int stickerID = 0;
@@ -36,7 +36,7 @@ namespace SKCell
             if (selfBound == null)
                 selfBound = GetComponent<RectTransform>();
 
-            cld = gameObject.AddComponent<BoxCollider2D>();
+            cld = gameObject.GetOrAddComponent<BoxCollider2D>();
             cld.size = new Vector2(selfBound.rect.width, selfBound.rect.height);
             cld.isTrigger = true;
         }

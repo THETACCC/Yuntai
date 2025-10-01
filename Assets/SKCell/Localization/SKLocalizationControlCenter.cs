@@ -15,6 +15,7 @@ namespace SKCell
     [ExecuteInEditMode]
     public class SKLocalizationControlWindow : EditorWindow
     {
+        public static string[] textSubpageTitles = { "General" };
 
         static bool initialized = false;
 
@@ -24,9 +25,9 @@ namespace SKCell
         static Vector2 scrollPos = Vector2.zero;
         static int subPage = 0;
         static List<LocalizedTextConfig> builtTextList = new List<LocalizedTextConfig>();
-        static string[] textSubpageTitles = { "General", "Scene Titles", "Consumables", "Characters", "Player", "Feathers", "Other Items", "Firefly Frontier", "Relics", "Restpoints" };
+     
 
-        [MenuItem("SKCell/Localization Center")]
+        [MenuItem("Tools/SKCell/Localization Center", priority = 3)]
         public static void Initialize()
         {
             SKLocalizationControlWindow window = GetWindow<SKLocalizationControlWindow>("Localization Center");
@@ -70,6 +71,7 @@ namespace SKCell
             }
             GUI.skin.label.fontSize = 18;
             GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+            GUI.skin.label.font = SKAssetLibrary.DefaultFont;
             if (page == CurrentPageSelection.MainPage)
             {
                 GUILayout.Label("Localization Control Center");
@@ -86,7 +88,7 @@ namespace SKCell
             {
                 GUILayout.Label("Localization Control Center - Image Localization");
             }
-            EditorGUI.DrawRect(new Rect(new Vector2(0, 35), new Vector2(1400, 7)), Color.gray);
+            EditorGUI.DrawRect(new Rect(new Vector2(0, 32), new Vector2(1400, 4)), Color.gray);
             EditorGUI.LabelField(new Rect(new Vector2(0, 45), new Vector2(1400, 14)), $"Current supported languages:  {supportedLangDescrip}");
         }
 
@@ -343,12 +345,12 @@ namespace SKCell
 
         private static void SaveJsonAsset()
         {
-            CommonUtils.SKSaveObjectToJson(new SKLocalizationAssetJson(asset), "SKLocalizationAsset.json");
+            SKUtils.SKSaveObjectToJson(new SKLocalizationAssetJson(asset), "SKLocalizationAsset.json");
         }
 
         private static void LoadJsonAsset()
         {
-            asset.UpdateInfo(CommonUtils.SKLoadObjectFromJson<SKLocalizationAssetJson>("SKLocalizationAsset.json"));
+            asset.UpdateInfo(SKUtils.SKLoadObjectFromJson<SKLocalizationAssetJson>("SKLocalizationAsset.json"));
             UpdateSupportedLangDescrip();
         }
         #region Minor Utilities
@@ -421,7 +423,7 @@ namespace SKCell
         {
             if (asset == null)
             {
-                CommonUtils.EditorLogWarning("No localization asset found!");
+                SKUtils.EditorLogWarning("No localization asset found!");
                 return;
             }
             string s = "";
@@ -584,7 +586,7 @@ namespace SKCell
         {
             if (textConfig == null && imageConfig == null)
             {
-                CommonUtils.EditorLogError("LocalizedInfo Initialization Error: All configs are null.");
+                SKUtils.EditorLogError("LocalizedInfo Initialization Error: All configs are null.");
                 return;
             }
             curLanguage = language;
@@ -606,7 +608,7 @@ namespace SKCell
         {
             if (textConfig == null && imageConfig == null)
             {
-                CommonUtils.EditorLogError("LocalizedInfo Initialization Error: All configs are null.");
+                SKUtils.EditorLogError("LocalizedInfo Initialization Error: All configs are null.");
                 return;
             }
             curLanguage = language;

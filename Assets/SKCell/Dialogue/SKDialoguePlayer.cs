@@ -6,10 +6,11 @@ using UnityEngine.Events;
 
 namespace SKCell
 {
+    [AddComponentMenu("SKCell/Dialogue/SKDialoguePlayer")]
     public class SKDialoguePlayer : MonoBehaviour
     {
         public SKDialogueAsset asset;
-
+        public bool playOnStart = false;
         [Header("Scene Components")]
         public SKUIPanel panel;
         public SKText contentText;
@@ -31,12 +32,13 @@ namespace SKCell
         private List<SKDialogueEditorNode> curChoices;
         private bool typewriterFinishExecuted = false, curSentenceLinkExecuted=false;
 
-        #region Public Methods
         private void Start()
         {
             textAnimator = contentText.GetComponent<SKTextAnimator>();
             textAnimator.onTypeWriterFinished += OnTypewriterFinished;
             contentButton.onClick.AddListener(OnContentButtonPressed);
+            if (playOnStart)
+                Play();
         }
         private void OnApplicationQuit()
         {
@@ -44,8 +46,11 @@ namespace SKCell
             {
                 asset.event_properties = new List<SKDE_EventProperty>();
                 asset.int_properties = new List<SKDE_IntProperty> { };
-            }   
+            }
         }
+
+        #region Public Methods
+
         /// <summary>
         /// Play the current dialogue asset.
         /// </summary>
@@ -60,7 +65,7 @@ namespace SKCell
                 curChoices.Clear(); 
             if (curNode.type!= SKDialogueEditorNodeType.Start)
             {
-                CommonUtils.EditorLogError("SKDialoguePlayer: First node is not start. Please make sure there is a start node to begin with.");
+                SKUtils.EditorLogError("SKDialoguePlayer: First node is not start. Please make sure there is a start node to begin with.");
             }
             panel.SetState(SKUIPanelState.Active);
             StartPlay();
@@ -72,6 +77,14 @@ namespace SKCell
         {
             this.asset = asset;
             Play();
+        }
+
+        /// <summary>
+        /// Continue the dialogue flow by one step. (e.g. clicking on the sentence text -> fast forward / go to next sentence)
+        /// </summary>
+        public void SentenceNextStep()
+        {
+            OnContentButtonPressed();
         }
 
         /// <summary>
@@ -269,10 +282,10 @@ namespace SKCell
             curChoices = choices;
             choicePanel.SetState(choices.Count==0?SKUIPanelState.Inactive:SKUIPanelState.Active);
             foreach (var go in choiceObjects)
-                CommonUtils.SetActiveEfficiently(go, false);
+                SKUtils.SetActiveEfficiently(go, false);
             for (int i = 0; i < choices.Count; i++)
             {
-                CommonUtils.SetActiveEfficiently(choiceObjects[i], true);
+                SKUtils.SetActiveEfficiently(choiceObjects[i], true);
                 if(choices[i].textType == SKDialogueEditorNodeTextType.Text)
                 {
                     choiceTexts[i].UpdateTextDirectly(choices[i].info.content);

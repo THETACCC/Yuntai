@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 namespace SKCell {
-    public class SKVideoManager : Singleton<SKVideoManager>
+    public class SKVideoManager : SKSingleton<SKVideoManager>
     {
         /// <summary>
         /// Plays video in scene. Uses resources path.

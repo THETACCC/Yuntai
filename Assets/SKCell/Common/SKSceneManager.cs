@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace SKCell
 {
-    [AddComponentMenu("SKCell/SKSceneManager")]
+    [AddComponentMenu("SKCell/Misc/SKSceneManager")]
 
-    public class SKSceneManager : MonoSingleton<SKSceneManager>
+    public class SKSceneManager : SKMonoSingleton<SKSceneManager>
     {
         private static AsyncOperation async = null;
         private static float actualAsyncProgress = 0;
@@ -72,11 +72,9 @@ namespace SKCell
 
             onStartLoad.Invoke();
             //Load the loading scene first
-            async = SceneManager.LoadSceneAsync(loadingSceneName);
-            while (!async.isDone)
-            {
-                yield return new WaitForSecondsRealtime(0.02f);
-            }
+
+            SceneManager.LoadScene(loadingSceneName);
+            yield return new WaitForSeconds(0.05f);
             onLoadingSceneLoaded.Invoke();
 
             loadFader.SetState(SKUIPanelState.Inactive);
@@ -113,12 +111,12 @@ namespace SKCell
 
             //Cast fader
             loadFader.SetState(SKUIPanelState.Active);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.18f);
             //Load complete
             async.allowSceneActivation = true;
             onNextSceneLoaded.Invoke();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
             loadFader.SetState(SKUIPanelState.Inactive);
 
             async = null;
@@ -137,7 +135,7 @@ namespace SKCell
         {
             if (async == null)
             {
-                CommonUtils.EditorLogWarning("GetLoadProcess can only be called under an async process.");
+                SKUtils.EditorLogWarning("GetLoadProcess can only be called under an async process.");
                 return 0;
             }
             if (async.isDone)

@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 namespace SKCell
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Image))]
-    [AddComponentMenu("SKCell/SKImageProcessing")]
+    [AddComponentMenu("SKCell/Effects/SKImageProcessing")]
     public class SKImageProcessing : PostEffectsBase
     {
         #region Properties
         [Tooltip("Do not enable this unless you want this to update dynamically.")]
         public bool updateOnPlay = true;
+
+        [SKFolder("Blend Mode")]
+        public BlendMode srcBlend = BlendMode.SrcAlpha;
+        public BlendMode dstBlend = BlendMode.OneMinusSrcAlpha;
 
         [SKFolder("Alpha Fade")]
         [Range(0, 1)]
@@ -60,6 +65,11 @@ namespace SKCell
             }
         }
         #endregion
+        protected override void Start()
+        {
+            base.Start();
+            UpdateFields();
+        }
         private void OnEnable()
         {
             alphaShader = Shader.Find("SKCell/ImageProcessing");
@@ -80,6 +90,13 @@ namespace SKCell
                     return;
                 }
             }
+            UpdateFields();
+        }
+        private void UpdateFields()
+        {
+            _Material.SetInt("_SrcBlendMode", (int)srcBlend);
+            _Material.SetInt("_DstBlendMode", (int)dstBlend);
+
             _Material.SetFloat("_AlphaLX", leftX * 2);
             _Material.SetFloat("_AlphaRX", ((1 - rightX) - 0.5f) * 2);
             _Material.SetFloat("_AlphaTY", ((1 - topY) - 0.5f) * 2);
@@ -90,9 +107,7 @@ namespace SKCell
             _Material.SetFloat("_Contrast", contrast);
             _Material.SetFloat("_Hue", colorShift);
 
-            _Material.SetTexture("_AlphaMask", alphaMask);
-
-            _Material.SetInt("_ShowOutline", CommonUtils.BoolToInt(active));
+            _Material.SetInt("_ShowOutline", SKUtils.BoolToInt(active));
             _Material.SetFloat("_EdgeAlphaThreshold", rimAlphaThreshold);
             _Material.SetFloat("_BaseAlphaThreshold", baseAlphaThreshold);
             _Material.SetFloat("_EdgeDampRate", dampRate);

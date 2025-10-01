@@ -12,7 +12,7 @@ namespace SKCell
     [DisallowMultipleComponent]
     [RequireComponent(typeof(SKLocalization))]
     [RequireComponent(typeof(SKTextAnimator))]
-    [AddComponentMenu("SKCell/SKText")]
+    [AddComponentMenu("SKCell/UI/SKText")]
     public class SKText : TextMeshProUGUI
     {
         //Localization
@@ -38,8 +38,8 @@ namespace SKCell
         }
         private void Initialize()
         {
-            skLocal = CommonUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
-            textAnimator = CommonUtils.GetComponentNonAlloc<SKTextAnimator>(gameObject);
+            skLocal = SKUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
+            textAnimator = SKUtils.GetComponentNonAlloc<SKTextAnimator>(gameObject);
         }
         /// <summary>
         /// Change the text to newText. 
@@ -60,7 +60,7 @@ namespace SKCell
         {
             if (!skLocal)
             {
-                skLocal = CommonUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
+                skLocal = SKUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
             }
             skLocal.localID = localID;
             ApplyLocalization(SKEnvironment.curLanguage);
@@ -73,7 +73,7 @@ namespace SKCell
         {
             if (!skLocal)
             {
-                skLocal = CommonUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
+                skLocal = SKUtils.GetComponentNonAlloc<SKLocalization>(gameObject);
             }
             skLocal.localID = localID;
         }

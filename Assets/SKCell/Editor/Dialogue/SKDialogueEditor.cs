@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.Events;
 
-namespace SKCell {
+namespace SKCell 
+{
     public class SKDialogueEditor : EditorWindow
     {
         static Color COL_BACKGROUND = new Color(.1f, .1f, .1f);
@@ -31,11 +30,11 @@ namespace SKCell {
         private GameObject prevSelection;
         private SKDialogueAsset f_asset;
 
-        float zoom = 1.0f;
+
         float panX = 0;
         float panY = 0;
 
-        [MenuItem("SKCell/Diagolue Editor")]
+        [MenuItem("Tools/SKCell/Diagolue Editor", priority = 2)]
         static void OpenWindow()
         {
             SKDialogueEditor editor = EditorWindow.GetWindow<SKDialogueEditor>("SK Dialogue Editor",typeof(UnityEditor.SceneView));
@@ -45,7 +44,11 @@ namespace SKCell {
         {
             Init();
         }
-        
+
+        private void OnBecameVisible()
+        {
+            InitializeGUIStyles();
+        }
 
         private void OnLostFocus()
         {
@@ -162,7 +165,7 @@ namespace SKCell {
             inspector_buttonStyle.normal.textColor = COL_TITLE;
             inspector_buttonStyle.hover.background = MakeTex(2, 2, new Color(.3f, .3f, .3f, 0.9f));
             inspector_buttonStyle.hover.textColor = new Color(1f, .95f, .5f, 0.6f);
-        }
+        } 
 
         public void SaveAsset()
         {
@@ -170,7 +173,6 @@ namespace SKCell {
         }
         public void LoadAsset(SKDialogueAsset asset)
         {
-            InitializeGUIStyles();
             if (asset == null)
             {
                 this.asset = null;
@@ -391,6 +393,9 @@ namespace SKCell {
         }
         void DrawNode(SKDialogueEditorNode node, int id)
         {
+            if (node == null)
+                return;
+
             node.rect = GUI.Window(id, node.rect, DrawNodeWindow,node.name);
 
             Rect iconRect = new Rect(node.rect.x-20, node.rect.y-20,  25, 25);
@@ -570,11 +575,11 @@ namespace SKCell {
         {
             foreach(var from in node.linkedFromNodes)
             {
-                CommonUtils.RemoveFromList(from.linkedNodesID, node.uid);
+                SKUtils.RemoveFromList(from.linkedNodesID, node.uid);
             }
             foreach (var to in node.linkedNodes)
             {
-                CommonUtils.RemoveFromList(to.linkedFromNodesID, node.uid);
+                SKUtils.RemoveFromList(to.linkedFromNodesID, node.uid);
             }
             nodes.Remove(node);
         }
@@ -715,13 +720,13 @@ namespace SKCell {
 
         void UnlinkNodes(SKDialogueEditorNode from, SKDialogueEditorNode to)
         {
-            CommonUtils.RemoveFromList(from.linkedNodesID, to.uid);
-            CommonUtils.RemoveFromList(to.linkedFromNodesID, from.uid);
+            SKUtils.RemoveFromList(from.linkedNodesID, to.uid);
+            SKUtils.RemoveFromList(to.linkedFromNodesID, from.uid);
         }
         void LinkNodes(SKDialogueEditorNode from, SKDialogueEditorNode to)
         {
-            CommonUtils.InsertToList(from.linkedNodesID, to.uid,false);
-            CommonUtils.InsertToList(to.linkedFromNodesID, from.uid,false);
+            SKUtils.InsertToList(from.linkedNodesID, to.uid,false);
+            SKUtils.InsertToList(to.linkedFromNodesID, from.uid,false);
         }
         SKDialogueEditorNode GetMouseOverNode()
         {

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using System.Collections.Generic;
 
 namespace SKCell
 {
@@ -27,6 +24,7 @@ namespace SKCell
 
         public bool DispatchEvent(int id)
         {
+           // SKCommonTimer.print("event count: " + dict.Keys.Count);
             if (dict.ContainsKey(id))
             {
                 if(dict[id].action!=null)
@@ -77,7 +75,7 @@ namespace SKCell
             }
             else
             {
-                CommonUtils.EditorLogWarning($"EventHandler.RemoveListener() --- target event id not found.");
+                SKUtils.EditorLogWarning($"EventHandler.RemoveListener() --- target event id not found.");
                 return false;
             }
         }
@@ -90,7 +88,7 @@ namespace SKCell
         /// <returns></returns>
         public bool RegisterEvent(SKEvent t_event, int id)
         {
-            return CommonUtils.InsertOrUpdateKeyValueInDictionary(dict, id, t_event);
+            return SKUtils.InsertOrUpdateKeyValueInDictionary(dict, id, t_event);
         }
 
         /// <summary>
@@ -101,7 +99,7 @@ namespace SKCell
 
         public bool RemoveEvent(int id)
         {
-            return CommonUtils.RemoveKeyInDictionary(dict, id);
+            return SKUtils.RemoveKeyInDictionary(dict, id);
         }
     }
 }

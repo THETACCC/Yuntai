@@ -31,10 +31,19 @@ namespace SKCell
     {
         public string name;
         public bool onTop = true;
-        public SKInspectorButtonAttribute(string name, bool onTop=true)
+        public readonly Color color = Color.white;
+
+        public SKInspectorButtonAttribute(string name, bool onTop = true)
         {
             this.name = name;
             this.onTop = onTop;
+        }
+
+        public SKInspectorButtonAttribute(string name, float r, float g, float b, bool onTop = true)
+        {
+            this.name = name;
+            this.onTop = onTop;
+            this.color = new Color(r, g, b);
         }
     }
 
@@ -73,6 +82,17 @@ namespace SKCell
         public string Message { get; }
 
         public SKFieldAliasAttribute(string message)
+        {
+            Message = message;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    public class SKInspectorTextAttribute : PropertyAttribute
+    {
+        public string Message { get; }
+
+        public SKInspectorTextAttribute(string message)
         {
             Message = message;
         }

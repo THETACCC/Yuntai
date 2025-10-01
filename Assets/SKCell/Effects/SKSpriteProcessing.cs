@@ -4,7 +4,7 @@ namespace SKCell
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(SpriteRenderer))]
-    [AddComponentMenu("SKCell/SKSpriteProcessing")]
+    [AddComponentMenu("SKCell/Effects/SKSpriteProcessing")]
     public class SKSpriteProcessing : PostEffectsBase
     {
         #region Properties
@@ -28,6 +28,9 @@ namespace SKCell
         public float bottomY = 0;
         [Range(-2, 0)]
         public float alphaSmooth = 0;
+
+        [Range(0, 3)]
+        public float alphaMultiplier = 1;
 
         [SKFolder("Color Properties")]
         [Range(0, 1)]
@@ -97,8 +100,9 @@ namespace SKCell
             _Material.SetFloat("_Saturation", saturation);
             _Material.SetFloat("_Contrast", contrast);
             _Material.SetFloat("_Hue", colorShift);
+            _Material.SetFloat("_AlphaMultiplier", alphaMultiplier);
 
-            _Material.SetInt("_ShowOutline", CommonUtils.BoolToInt(active));
+            _Material.SetInt("_ShowOutline", SKUtils.BoolToInt(active));
             _Material.SetFloat("_EdgeAlphaThreshold", rimAlphaThreshold);
             _Material.SetFloat("_BaseAlphaThreshold", baseAlphaThreshold);
             _Material.SetFloat("_EdgeDampRate", dampRate);
@@ -107,7 +111,7 @@ namespace SKCell
 
         void Update()
         {
-            if (!updateOnPlay)
+            if (Application.isPlaying && !updateOnPlay)
             {
                 return;
             }

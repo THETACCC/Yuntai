@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace SKCell
 {
     [DisallowMultipleComponent]
-    [AddComponentMenu("SKCell/SKToggleGroup")]
+    [AddComponentMenu("SKCell/UI/SKToggleGroup")]
     public class SKToggleGroup : MonoBehaviour
     {
         [HideInInspector] public List<SKToggle> toggles = new List<SKToggle>();
@@ -29,7 +29,7 @@ namespace SKCell
         {
             if (maxActiveToggleCount < minActiveToggleCount)
             {
-                CommonUtils.EditorLogWarning($"SKToggleGroup: Max count cannot be smaller than min count! Gamobject:{name}");
+                SKUtils.EditorLogWarning($"SKToggleGroup: Max count cannot be smaller than min count! Gamobject:{name}");
             }
             Invoke("ApplyInitialConstraint", 0.2f);
         }

@@ -7,7 +7,7 @@ namespace SKCell
     /// <summary>
     /// Provides public localization functions
     /// </summary>
-    public class SKLocalizationManager : SKModuleBase
+    public class SKLocalizationManager
     {
         private static List<SKText> texts = new List<SKText>();
         private static List<SKImage> images = new List<SKImage>();
@@ -77,21 +77,37 @@ namespace SKCell
         public static void Localize(GameObject go)
         {
             LanguageSupport language = SKEnvironment.curLanguage;
-            SKText text = CommonUtils.GetComponentNonAlloc<SKText>(go);
+            SKText text = SKUtils.GetComponentNonAlloc<SKText>(go);
             if (text != null)
             {
                 text.ApplyLocalization(language);
             }
-            SKImage image = CommonUtils.GetComponentNonAlloc<SKImage>(go);
+            SKImage image = SKUtils.GetComponentNonAlloc<SKImage>(go);
             if (image != null)
             {
                 image.ApplyLocalization(language);
             }
             if (text == null && image == null)
             {
-                CommonUtils.EditorLogWarning($"Localization Error: Not a localizable object. Gameobject: {go.name}");
+                SKUtils.EditorLogWarning($"Localization Error: Not a localizable object. Gameobject: {go.name}");
             }
         }
+
+        public static void LocalizeAllChildren(GameObject go)
+        {
+            List<Transform> children = go.transform.GetAllChildren();
+            List<SKText> texts = new List<SKText>();
+            foreach (Transform child in children)
+            {
+                SKText t;
+                if (child.TryGetComponent<SKText>(out t))
+                {
+                    texts.Add(t);
+                }
+            }
+            LocalizeObjects(LocalizationType.Text, texts);
+        }
+
 
         /// <summary>
         /// Find all objects that need to be localized in the scene
@@ -100,31 +116,6 @@ namespace SKCell
         {
             texts = new List<SKText>(GameObject.FindObjectsOfType<SKText>(true));
             images = new List<SKImage>(GameObject.FindObjectsOfType<SKImage>());
-        }
-
-        internal override void Start()
-        {
-            
-        }
-
-        internal override void Tick()
-        {
-           
-        }
-
-        internal override void FixedTick()
-        {
-
-        }
-
-        internal override void Dispose()
-        {
-            
-        }
-
-        internal override void Initialize()
-        {
-            
         }
     }
 }

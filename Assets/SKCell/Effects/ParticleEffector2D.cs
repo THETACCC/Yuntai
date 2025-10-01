@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SKCell {
     [RequireComponent(typeof(Collider2D))]
+    [AddComponentMenu("SKCell/Effects/ParticleEffector2D")]
     public sealed class ParticleEffector2D : MonoBehaviour
     {
         public ParticleEffector2DMode mode = ParticleEffector2DMode.SpawnRelease;
@@ -29,7 +30,7 @@ namespace SKCell {
 
                 if (mode == ParticleEffector2DMode.SpawnRelease)
                 {
-                    GameObject go = CommonUtils.SpawnObject(fx_Prefab);
+                    GameObject go = SKUtils.SpawnObject(fx_Prefab);
                     if (go == null || collision == null)
                         return;
 
@@ -39,11 +40,11 @@ namespace SKCell {
                         go.transform.position = collision.transform.position + offset;
                     if (soundFileName.Length > 0)
                     {
-                        CommonUtils.PlaySound(soundFileName);
+                        SKAudioManager.instance.PlaySound(soundFileName);
                     }
-                    CommonUtils.InvokeAction(releaseTime, () =>
+                    SKUtils.InvokeAction(releaseTime, () =>
                     {
-                        CommonUtils.ReleaseObject(go);
+                        SKUtils.ReleaseObject(go);
                     });
                 }
                 else if (mode == ParticleEffector2DMode.PlayStop)
@@ -74,18 +75,18 @@ namespace SKCell {
             {
                 if (mode == ParticleEffector2DMode.SpawnRelease)
                 {
-                    GameObject go = CommonUtils.SpawnObject(fx_Prefab);
+                    GameObject go = SKUtils.SpawnObject(fx_Prefab);
                     if (go == null || collision == null)
                         return;
 
                     go.transform.position = collision.transform.position + offset;
                     if (soundFileName.Length > 0)
                     {
-                        CommonUtils.PlaySound(soundFileName);
+                        SKAudioManager.instance.PlaySound(soundFileName);
                     }
-                    CommonUtils.InvokeAction(releaseTime, () =>
+                    SKUtils.InvokeAction(releaseTime, () =>
                     {
-                        CommonUtils.ReleaseObject(go);
+                        SKUtils.ReleaseObject(go);
                     });
                 }
             }

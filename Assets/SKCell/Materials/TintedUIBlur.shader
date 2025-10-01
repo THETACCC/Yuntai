@@ -3,31 +3,19 @@ Shader "SKCell/TintedUIBlur" {
 		_Size("Blur", Range(0, 30)) = 3
 		[HideInInspector] _MainTex("Masking Texture", 2D) = "white" {}
 		_AdditiveColor("Additive Tint color", Color) = (0, 0, 0, 0)
-		_MultiplyColor("Multiply Tint color", Color) = (1, 1, 1, 1)
+		_MultiplyColor("Multiplicative Tint color", Color) = (1, 1, 1, 1)
 		[Toggle(MAKE_DESATURATED)] _MakeDesaturated("Desaturate", Float) = 0
 	}
 
 		Category{
-
-			// We must be transparent, so other objects are drawn before this one.
 			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Opaque" }
 
 			SubShader
 			{
-				//Stencil
-				//{
-				//	Ref 55
-				//	Comp Equal
-				//}
-				// Horizontal blur
 				GrabPass
 				{
 					"_HBlur"
 				}
-			/*
-			ZTest Off
-			Blend SrcAlpha OneMinusSrcAlpha
-			*/
 
 			Cull Off
 			Lighting Off
@@ -190,6 +178,7 @@ Shader "SKCell/TintedUIBlur" {
 										sum.b * _MultiplyColor.b + _AdditiveColor.b,
 										tex2D(_MainTex, i.uvmain).a);
 #endif
+					result.a *= _MultiplyColor.a;
 					return result;
 				}
 				ENDCG

@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-using SKCell;
-public class Input_DialogueScene : MonoBehaviour
+namespace SKCell.Test
 {
-    [SerializeField] SKDialoguePlayer player;
-    void Start()
+    public class Input_DialogueScene : MonoBehaviour
     {
-        CommonUtils.InvokeAction(.2f, () =>
+        [SerializeField] SKDialoguePlayer player;
+        void Start()
         {
             player.Play();
-        });
+        }
     }
 }

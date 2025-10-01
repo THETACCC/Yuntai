@@ -25,7 +25,7 @@ namespace SKCell
 
         private static Regex _tableNameRegex = new Regex(@"\(([^>])+\)");
 
-        [MenuItem("SKCell/Build CSV Files")]
+        [MenuItem("Tools/SKCell/Tools/Build CSV Files")]
         public static void BuildCSVFile()
         {
             LoadConfig();
@@ -91,14 +91,14 @@ namespace SKCell
 
                     path = path.Replace("//", "/");
                     CSV.WriteCSV(ConstomPath + path + ".csv", pair.Value);
-                    CommonUtils.EditorLogNormal( "[CSVParser] CSV Generated：" + ConstomPath + path);
+                    SKUtils.EditorLogNormal( "[CSVParser] CSV Generated：" + ConstomPath + path);
                 }
 
                 AssetDatabase.Refresh();
             }
             catch (Exception e)
             {
-                CommonUtils.EditorLogError("[CSVParser] CSV Parse Error：" + tableName + "  " + e);
+                SKUtils.EditorLogError("[CSVParser] CSV Parse Error：" + tableName + "  " + e);
             }
             finally
             {
@@ -267,8 +267,6 @@ namespace SKCell
                 }
             }
         }
-
-        //
 
         private static readonly string _configPath = SourcePath + "CSVMaker.conf";
         private static List<KeyValuePair<string, string>> _replaceParamTableName;
