@@ -1,15 +1,26 @@
 {
     "nodes": [
         {
-            "id": "9c887f5d-3adc-4238-b7da-12509d803510",
+            "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "index": 0,
             "name": "Character",
-            "avatarAssetPath": "Assets/Resources/avatars/IMG_1749_0.png",
+            "avatarAssetPath": "",
             "content": "New Dialogue",
-            "positionX": 231.33334350585938,
-            "positionY": -152.0,
+            "positionX": 232.6666717529297,
+            "positionY": -42.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [
+                {
+                    "targetObjectName": "NPC1",
+                    "componentTypeName": "DialogueTrigger",
+                    "methodName": "Test",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
         }
     ],
     "connections": []

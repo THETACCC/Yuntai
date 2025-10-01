@@ -1494,6 +1494,7 @@ public class DialogueNode : Node
             eventContainer.style.paddingLeft = 5;
             eventContainer.style.paddingRight = 5;
 
+            // 标题栏
             var titleRow = new VisualElement();
             titleRow.style.flexDirection = FlexDirection.Row;
             titleRow.style.alignItems = Align.Center;
@@ -1517,149 +1518,251 @@ public class DialogueNode : Node
             titleRow.Add(removeButton);
             eventContainer.Add(titleRow);
 
-            var targetField = new TextField("Target GameObject:")
+            // GameObject选择器
+            GameObject currentGameObject = null;
+            if (!string.IsNullOrEmpty(eventCall.targetObjectName))
             {
-                value = eventCall.targetObjectName
+                currentGameObject = GameObject.Find(eventCall.targetObjectName);
+            }
+
+            var gameObjectField = new ObjectField("Target GameObject:")
+            {
+                objectType = typeof(GameObject),
+                value = currentGameObject,
+                allowSceneObjects = true
             };
-            targetField.style.marginTop = 3;
-            targetField.RegisterValueChangedCallback(evt =>
+            gameObjectField.style.marginTop = 3;
+            gameObjectField.RegisterValueChangedCallback(evt =>
             {
                 if (currentIndex < EventCalls.Count)
                 {
-                    EventCalls[currentIndex].targetObjectName = evt.newValue;
+                    var selectedGO = evt.newValue as GameObject;
+                    EventCalls[currentIndex].targetObjectName = selectedGO != null ? selectedGO.name : "";
+                    UpdateEventsDisplay(); // 刷新以更新Component列表
                     NotifyChange();
                 }
             });
-            eventContainer.Add(targetField);
+            eventContainer.Add(gameObjectField);
 
-            var componentField = new TextField("Component Type:")
+            // Component类型下拉框（如果GameObject已选择）
+            if (currentGameObject != null)
             {
-                value = eventCall.componentTypeName
-            };
-            componentField.style.marginTop = 3;
-            componentField.RegisterValueChangedCallback(evt =>
-            {
-                if (currentIndex < EventCalls.Count)
+                var components = currentGameObject.GetComponents<Component>();
+                var componentNames = new List<string> { "None" };
+                var componentTypes = new List<System.Type> { null };
+
+                foreach (var comp in components)
                 {
-                    EventCalls[currentIndex].componentTypeName = evt.newValue;
-                    NotifyChange();
+                    if (comp != null)
+                    {
+                        componentNames.Add(comp.GetType().Name);
+                        componentTypes.Add(comp.GetType());
+                    }
                 }
-            });
-            eventContainer.Add(componentField);
 
-            var methodField = new TextField("Method Name:")
-            {
-                value = eventCall.methodName
-            };
-            methodField.style.marginTop = 3;
-            methodField.RegisterValueChangedCallback(evt =>
-            {
-                if (currentIndex < EventCalls.Count)
+                int selectedComponentIndex = 0;
+                if (!string.IsNullOrEmpty(eventCall.componentTypeName))
                 {
-                    EventCalls[currentIndex].methodName = evt.newValue;
-                    NotifyChange();
+                    selectedComponentIndex = componentNames.IndexOf(eventCall.componentTypeName);
+                    if (selectedComponentIndex < 0) selectedComponentIndex = 0;
                 }
-            });
-            eventContainer.Add(methodField);
 
-            var parameterTypeContainer = new VisualElement();
-            parameterTypeContainer.style.flexDirection = FlexDirection.Row;
-            parameterTypeContainer.style.marginTop = 3;
-            parameterTypeContainer.style.alignItems = Align.Center;
-
-            var parameterLabel = new Label("Parameter:");
-            parameterLabel.style.width = 70;
-
-            var parameterTypeField = new EnumField("", eventCall.parameterType);
-            parameterTypeField.style.flexGrow = 1;
-            parameterTypeField.RegisterValueChangedCallback(evt =>
-            {
-                if (currentIndex < EventCalls.Count)
+                var componentDropdown = new PopupField<string>("Component:", componentNames, selectedComponentIndex);
+                componentDropdown.style.marginTop = 3;
+                componentDropdown.RegisterValueChangedCallback(evt =>
                 {
-                    EventCalls[currentIndex].parameterType = (ParameterType)evt.newValue;
-                    UpdateEventsDisplay();
-                    NotifyChange();
-                }
-            });
+                    if (currentIndex < EventCalls.Count)
+                    {
+                        int index = componentNames.IndexOf(evt.newValue);
+                        EventCalls[currentIndex].componentTypeName = evt.newValue != "None" ? evt.newValue : "";
+                        UpdateEventsDisplay(); // 刷新以更新Method列表
+                        NotifyChange();
+                    }
+                });
+                eventContainer.Add(componentDropdown);
 
-            parameterTypeContainer.Add(parameterLabel);
-            parameterTypeContainer.Add(parameterTypeField);
-            eventContainer.Add(parameterTypeContainer);
-
-            if (eventCall.parameterType != ParameterType.None)
-            {
-                var parameterContainer = new VisualElement();
-                parameterContainer.style.marginTop = 3;
-                parameterContainer.style.paddingLeft = 70;
-
-                switch (eventCall.parameterType)
+                // Method下拉框（如果Component已选择）
+                if (selectedComponentIndex > 0 && componentTypes[selectedComponentIndex] != null)
                 {
-                    case ParameterType.String:
-                        var stringField = new TextField()
+                    var selectedComponent = currentGameObject.GetComponent(componentTypes[selectedComponentIndex]);
+                    if (selectedComponent != null)
+                    {
+                        var methods = componentTypes[selectedComponentIndex]
+                            .GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly)
+                            .Where(m => !m.IsSpecialName && m.GetParameters().Length <= 1)
+                            .ToList();
+
+                        var methodNames = new List<string> { "None" };
+                        var methodInfos = new List<System.Reflection.MethodInfo> { null };
+
+                        foreach (var method in methods)
                         {
-                            value = eventCall.stringParameter
-                        };
-                        stringField.RegisterValueChangedCallback(evt =>
+                            var parameters = method.GetParameters();
+                            if (parameters.Length == 0)
+                            {
+                                methodNames.Add(method.Name + " ()");
+                                methodInfos.Add(method);
+                            }
+                            else if (parameters.Length == 1)
+                            {
+                                var paramType = parameters[0].ParameterType;
+                                if (paramType == typeof(int) || paramType == typeof(float) ||
+                                    paramType == typeof(string) || paramType == typeof(bool))
+                                {
+                                    methodNames.Add($"{method.Name} ({paramType.Name})");
+                                    methodInfos.Add(method);
+                                }
+                            }
+                        }
+
+                        int selectedMethodIndex = 0;
+                        if (!string.IsNullOrEmpty(eventCall.methodName))
+                        {
+                            // 尝试匹配method名称（不包括参数）
+                            for (int j = 0; j < methodInfos.Count; j++)
+                            {
+                                if (methodInfos[j] != null && methodInfos[j].Name == eventCall.methodName)
+                                {
+                                    selectedMethodIndex = j;
+                                    break;
+                                }
+                            }
+                        }
+
+                        var methodDropdown = new PopupField<string>("Function:", methodNames, selectedMethodIndex);
+                        methodDropdown.style.marginTop = 3;
+                        methodDropdown.RegisterValueChangedCallback(evt =>
                         {
                             if (currentIndex < EventCalls.Count)
                             {
-                                EventCalls[currentIndex].stringParameter = evt.newValue;
-                                NotifyChange();
-                            }
-                        });
-                        parameterContainer.Add(stringField);
-                        break;
+                                int index = methodNames.IndexOf(evt.newValue);
+                                if (index > 0 && methodInfos[index] != null)
+                                {
+                                    var method = methodInfos[index];
+                                    EventCalls[currentIndex].methodName = method.Name;
 
-                    case ParameterType.Int:
-                        var intField = new IntegerField()
-                        {
-                            value = eventCall.intParameter
-                        };
-                        intField.RegisterValueChangedCallback(evt =>
-                        {
-                            if (currentIndex < EventCalls.Count)
-                            {
-                                EventCalls[currentIndex].intParameter = evt.newValue;
+                                    // 自动设置参数类型
+                                    var parameters = method.GetParameters();
+                                    if (parameters.Length == 0)
+                                    {
+                                        EventCalls[currentIndex].parameterType = ParameterType.None;
+                                    }
+                                    else if (parameters.Length == 1)
+                                    {
+                                        var paramType = parameters[0].ParameterType;
+                                        if (paramType == typeof(int))
+                                            EventCalls[currentIndex].parameterType = ParameterType.Int;
+                                        else if (paramType == typeof(float))
+                                            EventCalls[currentIndex].parameterType = ParameterType.Float;
+                                        else if (paramType == typeof(string))
+                                            EventCalls[currentIndex].parameterType = ParameterType.String;
+                                        else if (paramType == typeof(bool))
+                                            EventCalls[currentIndex].parameterType = ParameterType.Bool;
+                                    }
+                                }
+                                else
+                                {
+                                    EventCalls[currentIndex].methodName = "";
+                                    EventCalls[currentIndex].parameterType = ParameterType.None;
+                                }
+                                UpdateEventsDisplay();
                                 NotifyChange();
                             }
                         });
-                        parameterContainer.Add(intField);
-                        break;
+                        eventContainer.Add(methodDropdown);
 
-                    case ParameterType.Float:
-                        var floatField = new FloatField()
+                        // 参数输入框（如果方法需要参数）
+                        if (selectedMethodIndex > 0 && methodInfos[selectedMethodIndex] != null)
                         {
-                            value = eventCall.floatParameter
-                        };
-                        floatField.RegisterValueChangedCallback(evt =>
-                        {
-                            if (currentIndex < EventCalls.Count)
+                            var parameters = methodInfos[selectedMethodIndex].GetParameters();
+                            if (parameters.Length == 1)
                             {
-                                EventCalls[currentIndex].floatParameter = evt.newValue;
-                                NotifyChange();
-                            }
-                        });
-                        parameterContainer.Add(floatField);
-                        break;
+                                var paramContainer = new VisualElement();
+                                paramContainer.style.marginTop = 3;
+                                paramContainer.style.paddingLeft = 10;
 
-                    case ParameterType.Bool:
-                        var boolField = new Toggle()
-                        {
-                            value = eventCall.boolParameter
-                        };
-                        boolField.RegisterValueChangedCallback(evt =>
-                        {
-                            if (currentIndex < EventCalls.Count)
-                            {
-                                EventCalls[currentIndex].boolParameter = evt.newValue;
-                                NotifyChange();
+                                var paramType = parameters[0].ParameterType;
+
+                                if (paramType == typeof(string))
+                                {
+                                    var stringField = new TextField("Parameter:")
+                                    {
+                                        value = eventCall.stringParameter
+                                    };
+                                    stringField.RegisterValueChangedCallback(evt =>
+                                    {
+                                        if (currentIndex < EventCalls.Count)
+                                        {
+                                            EventCalls[currentIndex].stringParameter = evt.newValue;
+                                            NotifyChange();
+                                        }
+                                    });
+                                    paramContainer.Add(stringField);
+                                }
+                                else if (paramType == typeof(int))
+                                {
+                                    var intField = new IntegerField("Parameter:")
+                                    {
+                                        value = eventCall.intParameter
+                                    };
+                                    intField.RegisterValueChangedCallback(evt =>
+                                    {
+                                        if (currentIndex < EventCalls.Count)
+                                        {
+                                            EventCalls[currentIndex].intParameter = evt.newValue;
+                                            NotifyChange();
+                                        }
+                                    });
+                                    paramContainer.Add(intField);
+                                }
+                                else if (paramType == typeof(float))
+                                {
+                                    var floatField = new FloatField("Parameter:")
+                                    {
+                                        value = eventCall.floatParameter
+                                    };
+                                    floatField.RegisterValueChangedCallback(evt =>
+                                    {
+                                        if (currentIndex < EventCalls.Count)
+                                        {
+                                            EventCalls[currentIndex].floatParameter = evt.newValue;
+                                            NotifyChange();
+                                        }
+                                    });
+                                    paramContainer.Add(floatField);
+                                }
+                                else if (paramType == typeof(bool))
+                                {
+                                    var boolField = new Toggle("Parameter:")
+                                    {
+                                        value = eventCall.boolParameter
+                                    };
+                                    boolField.RegisterValueChangedCallback(evt =>
+                                    {
+                                        if (currentIndex < EventCalls.Count)
+                                        {
+                                            EventCalls[currentIndex].boolParameter = evt.newValue;
+                                            NotifyChange();
+                                        }
+                                    });
+                                    paramContainer.Add(boolField);
+                                }
+
+                                eventContainer.Add(paramContainer);
                             }
-                        });
-                        parameterContainer.Add(boolField);
-                        break;
+                        }
+                    }
                 }
-
-                eventContainer.Add(parameterContainer);
+            }
+            else
+            {
+                // 如果没有选择GameObject，显示提示
+                var hintLabel = new Label("Select a GameObject first");
+                hintLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                hintLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+                hintLabel.style.marginTop = 3;
+                hintLabel.style.paddingLeft = 10;
+                eventContainer.Add(hintLabel);
             }
 
             eventsContainer.Add(eventContainer);

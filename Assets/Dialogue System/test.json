@@ -3,11 +3,22 @@
     {
       "index": 0,
       "name": "Character",
-      "avatarAddr": "avatars/IMG_1749_0",
+      "avatarAddr": "",
       "content": "New Dialogue",
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "NPC1",
+          "componentTypeName": "DialogueTrigger",
+          "methodName": "Test",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
     }
   ],
   "currentIndex": 0
