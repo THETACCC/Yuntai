@@ -1,18 +1,13 @@
+using SKCell;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuntimeData : MonoBehaviour
+public class RuntimeData : SKMonoSingleton<RuntimeData>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Scene
+    public static bool isSceneLoading;
+    public static SceneTitle activeSceneTitle;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
