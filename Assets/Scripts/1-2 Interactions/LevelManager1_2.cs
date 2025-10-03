@@ -78,6 +78,12 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField] private List<FaceTarget> faceTargets = new();     // 乘客、小男孩、乘务员等
     [SerializeField, Min(0f)] private float faceDelayAfterLastOn = 0f; // 最后一次点亮到换脸的延迟
 
+    [Header("厕所关闭互动")]
+    // 流程结束后再显示的物体
+    [SerializeField] private GameObject objectToReveal;
+    [SerializeField] private bool autoDeactivateOnStart = true;
+
+
     // —— runtime 缓存 ——
     private Rigidbody2D _playerRb;
     private PlayerController _playerCtrl;
@@ -117,6 +123,10 @@ public class LevelManager1_2 : MonoBehaviour
             Debug.LogWarning("[LevelManager1_2] 未设置 lightToBlinkAndDim，灯光流程不会开始。");
             return;
         }
+
+        if (autoDeactivateOnStart && objectToReveal && objectToReveal.activeSelf)
+            objectToReveal.SetActive(false);
+
 
         StartCoroutine(RunLightsThenRevealPlayer());
     }
@@ -165,6 +175,10 @@ public class LevelManager1_2 : MonoBehaviour
 
         // —— 8) 等 0.7 秒 → 对话框 ——
         yield return new WaitForSeconds(0.7f);
+
+        if (objectToReveal && !objectToReveal.activeSelf)
+            objectToReveal.SetActive(true);
+
         dialogueTrigger?.TriggerDialogue();
     }
 
