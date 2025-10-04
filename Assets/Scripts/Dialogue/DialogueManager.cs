@@ -23,6 +23,8 @@ public class DialogueManager : MonoBehaviour
     public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
 
+    public bool isDialogueFinished = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -100,6 +102,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         DialogueDefaultSequence.instance.isButtonActice = false;
+        isDialogueFinished = true;
 
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear, 1f,
@@ -109,6 +112,7 @@ public class DialogueManager : MonoBehaviour
                 Gamemanager.instance?.EndDialogue();
                 if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
                 isDialogueActive = false;
+                isDialogueFinished = false;
             }));
     }
 
