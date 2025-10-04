@@ -3,7 +3,7 @@
     {
       "index": 0,
       "name": "Me",
-      "avatarAddr": "avatars/IMG_5310_0",
+      "avatarAddr": "",
       "content": "!!!!",
       "nextIndex": 1,
       "choices": [],
@@ -12,7 +12,7 @@
     {
       "index": 1,
       "name": "Me",
-      "avatarAddr": "avatars/IMG_5310_0",
+      "avatarAddr": "",
       "content": "......It was just a nightmare.",
       "nextIndex": 2,
       "choices": [],
@@ -21,11 +21,32 @@
     {
       "index": 2,
       "name": "Me",
-      "avatarAddr": "avatars/IMG_5310_0",
+      "avatarAddr": "",
       "content": "I’d better get up and move around, and stop by the restroom.",
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "Player_Sit",
+          "componentTypeName": "_1_1_PlayerSitUp",
+          "methodName": "SetSelfAlphaZero",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        },
+        {
+          "targetObjectName": "Player_Sit",
+          "componentTypeName": "_1_1_PlayerSitUp",
+          "methodName": "MakePlayerOpaque",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
     }
   ],
   "currentIndex": 0
