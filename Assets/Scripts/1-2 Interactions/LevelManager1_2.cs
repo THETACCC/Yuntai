@@ -67,6 +67,19 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField] private bool triggerDialogueAfterFaces = true;    // 开/关
     [SerializeField, Min(0f)] private float dialogueAfterFacesDelay = 2f; // 换脸后等待时长（秒）
 
+    // —— 音效（5B 用）——
+    [Header("【演绎5B】音效")]
+    [SerializeField] private AudioSource snd_breakBones;
+    [SerializeField] private AudioSource snd_breakBones2;
+    [SerializeField] private AudioSource snd_boyJump;
+
+    // —— 乘务员扭头图 —— 
+    [Header("【演绎5B】乘务员扭头 Sprite")]
+    [SerializeField] private SpriteRenderer stewardessRenderer;
+    [SerializeField] private Sprite stewardessHeadTurn1;
+    [SerializeField] private Sprite stewardessHeadTurn2;
+
+
     [System.Serializable]
     public struct FaceTarget
     {
@@ -204,9 +217,17 @@ public class LevelManager1_2 : MonoBehaviour
         _eventRoutine = StartCoroutine(EventSequence_BoyBlocksAndSmile());
     }
 
+    // 5B入口：外部事件调用它
+    public void DoSequence5B()
+    {
+        if (_eventRoutine != null) return;                // 防重入
+        _eventRoutine = StartCoroutine(EventSequence_5B());
+    }
+
+
     private Coroutine _eventRoutine;
 
-    // ========= 演绎主流程 =========
+    // ========= 5A演绎主流程 =========
     private IEnumerator EventSequence_BoyBlocksAndSmile()
     {
         // 1) 关玩家输入 + 禁用 PlayerController（避免它的 Confine/速度写入跟你打架）
@@ -253,6 +274,110 @@ public class LevelManager1_2 : MonoBehaviour
 
         _eventRoutine = null;
     }
+
+    //5B演绎流程
+    private IEnumerator EventSequence_5B()
+    {
+        // —— 和 5A 一样：临时禁用玩家控制，防止过程被打断 —— 
+        if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Eventing;
+
+        bool hadController = false;
+        if (_playerCtrl)
+        {
+            hadController = _playerCtrl.enabled;
+            _playerCtrl.enabled = false;
+        }
+
+        bool hadKinematic = false;
+        if (_playerRb)
+        {
+            hadKinematic = _playerRb.isKinematic;
+            _playerRb.velocity = Vector2.zero;
+            _playerRb.isKinematic = true;
+        }
+
+        // 选灯（如果没填 sceneLights 就用主 lightToBlinkAndDim）
+        var lights = new List<URPLight2D>();
+        if (sceneLights != null && sceneLights.Count > 0) lights.AddRange(sceneLights);
+        else if (lightToBlinkAndDim) lights.Add(lightToBlinkAndDim);
+
+        if (lights.Count == 0)
+        {
+            Debug.LogWarning("[LevelManager1_2][5B] 没有可操作的灯光，流程照常执行但不会闪黑。");
+        }
+
+        // 记录原强度
+        var original = new float[lights.Count];
+        for (int i = 0; i < lights.Count; i++) original[i] = lights[i] ? lights[i].intensity : 1f;
+
+        // ========== Step 1 ==========
+        // 首先播放 break bones 音效，然后“黑一下再亮起一次”，黑的时候把乘务员换成扭头1
+        if (snd_breakBones) snd_breakBones.Play();
+        yield return PulseOnce(
+            lights, original,
+            offTime: flickerOffTime,
+            onTime: flickerOnTime,
+            onWhileDark: () =>
+            {
+                if (stewardessRenderer && stewardessHeadTurn1)
+                    stewardessRenderer.sprite = stewardessHeadTurn1;
+            }
+        );
+
+        // 稍作间隔以形成分镜节奏（可按需要调小/去掉）
+        yield return new WaitForSeconds(0.05f);
+
+        // ========== Step 2 ==========
+        // 再次黑灯 + 播放 break bones2，黑的时候把乘务员换成扭头2
+        if (snd_breakBones2) snd_breakBones2.Play();
+        yield return PulseOnce(
+            lights, original,
+            offTime: flickerOffTime,
+            onTime: flickerOnTime,
+            onWhileDark: () =>
+            {
+                if (stewardessRenderer && stewardessHeadTurn2)
+                    stewardessRenderer.sprite = stewardessHeadTurn2;
+            }
+        );
+
+        yield return new WaitForSeconds(0.05f);
+
+        // ========== Step 3 ==========
+        // 再次黑灯 + 播放小男孩 jump 音效，亮起
+        if (snd_boyJump) snd_boyJump.Play();
+        yield return PulseOnce(
+            lights, original,
+            offTime: flickerOffTime,
+            onTime: flickerOnTime,
+            onWhileDark: null   // 这一拍不换图
+        );
+
+        // ========== 结局与 5A 一样：统一转头微笑 ==========
+        // 等待 faceDelayAfterLastOn（如果>0），然后把 faceTargets 的脸替换成 faceFrontSmile
+        if (faceDelayAfterLastOn > 0f) yield return new WaitForSeconds(faceDelayAfterLastOn);
+        for (int i = 0; i < faceTargets.Count; i++)
+        {
+            var ft = faceTargets[i];
+            if (ft.renderer && ft.faceFrontSmile)
+                ft.renderer.sprite = ft.faceFrontSmile;
+        }
+
+        // 和 5A 一致地给一个对话延迟与触发（如果你 5A 是这么做的）
+        if (triggerDialogueAfterFaces && dialogueAfterFacesDelay > 0f)
+            yield return new WaitForSeconds(dialogueAfterFacesDelay);
+
+        if (triggerDialogueAfterFaces)
+            dialogueTrigger2?.TriggerDialogue();
+
+        // —— 恢复玩家控制 —— 
+        if (_playerCtrl) _playerCtrl.enabled = hadController;
+        if (_playerRb) _playerRb.isKinematic = hadKinematic;
+        if (_playerRb) _playerRb.velocity = Vector2.zero;
+
+        _eventRoutine = null;
+    }
+
 
     // ========= 工具：移动到目标点 =========
     private IEnumerator MoveObjectTo(Transform t, Vector3 targetPos, float speed, bool lockY)
@@ -350,4 +475,38 @@ public class LevelManager1_2 : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator PulseOnce(
+    List<URPLight2D> lights, float[] original,
+    float offTime, float onTime,
+    System.Action onWhileDark)
+    {
+        if (lights != null && lights.Count > 0)
+        {
+            // 黑
+            for (int i = 0; i < lights.Count; i++)
+                if (lights[i]) lights[i].intensity = 0f;
+
+            // 黑下去的瞬间做替换/事件
+            onWhileDark?.Invoke();
+
+            // 保持黑
+            if (offTime > 0f) yield return new WaitForSeconds(offTime);
+
+            // 亮
+            for (int i = 0; i < lights.Count; i++)
+                if (lights[i]) lights[i].intensity = original[i];
+
+            // 保持亮片刻（形成“一次”的节奏）
+            if (onTime > 0f) yield return new WaitForSeconds(onTime);
+        }
+        else
+        {
+            // 没灯可控：只做 onWhileDark 回调与节拍等待，保证流程不断
+            onWhileDark?.Invoke();
+            if (offTime > 0f) yield return new WaitForSeconds(offTime);
+            if (onTime > 0f) yield return new WaitForSeconds(onTime);
+        }
+    }
+
 }
