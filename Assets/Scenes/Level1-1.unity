@@ -1613,6 +1613,85 @@ PolygonCollider2D:
       - {x: 25.705254, y: -17.072594}
       - {x: 25.693958, y: 1.4731655}
   m_UseDelaunayMesh: 0
+--- !u!1 &367917595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367917597}
+  - component: {fileID: 367917596}
+  m_Layer: 0
+  m_Name: DialogueFinishLitsener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &367917596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367917595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f190de6d47850ef45ad28e014eaae7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowedJsonFiles:
+  - {fileID: 4900000, guid: 1f4eaf0bc49d26146b65b4ba1ee2f718, type: 3}
+  fireOnLastClick: 0
+  fireWhenFullyClosed: 1
+  onLastClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullyClosed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 550904811}
+        m_TargetAssemblyTypeName: _1_1_PlayerSitUp, Assembly-CSharp
+        m_MethodName: SetSelfAlphaZero
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 550904811}
+        m_TargetAssemblyTypeName: _1_1_PlayerSitUp, Assembly-CSharp
+        m_MethodName: MakePlayerOpaque
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  verboseLog: 0
+--- !u!4 &367917597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367917595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.204839, y: 1.1725898, z: -0.63510275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &384769708
 GameObject:
   m_ObjectHideFlags: 0
@@ -8300,14 +8379,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoints
       objectReference: {fileID: 0}
-    - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 21.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -12.01
-      objectReference: {fileID: 0}
     - target: {fileID: 3226782936490935484, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 26.8
@@ -9755,3 +9826,4 @@ SceneRoots:
   - {fileID: 1759201109}
   - {fileID: 319775046}
   - {fileID: 550904810}
+  - {fileID: 367917597}
