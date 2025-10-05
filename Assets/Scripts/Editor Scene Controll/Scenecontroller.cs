@@ -8,6 +8,12 @@ public class Scenecontroller : SKMonoSingleton<Scenecontroller>
     [Header("Scene Info")]
     public SceneInfo sceneInfo;
 
+    [Header("CameraReference")]
+    public FindBound findBound;
+    [Tooltip("Reference point used to choose the nearest bound. Defaults to this transform.")]
+    public Transform reference;
+
+
     [Header("Spawn Settings")]
     [Tooltip("Spawn point id to use right after a scene loads.")]
     public int defaultSpawnId = 0;
@@ -26,6 +32,7 @@ public class Scenecontroller : SKMonoSingleton<Scenecontroller>
             {
                 LoadSceneSetup();
                 TryTeleportToSpawn(_pendingSpawnId);
+                findBound.AssignNearestBound(reference, "Bounds");
                 _pendingTeleport = false;
             });
         });
