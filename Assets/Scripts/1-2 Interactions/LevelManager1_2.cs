@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
@@ -32,6 +33,8 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Min(0f)] private float dimDuration = 1.0f;
 
     [Header("红灯")]
+    [SerializeField] private GameObject BathroomSign;
+    [SerializeField] private Sprite Sign_on;
     [SerializeField] private GameObject redLightObject;
 
     [Header("对话触发器")]
@@ -42,6 +45,7 @@ public class LevelManager1_2 : MonoBehaviour
     [Header("音效")]
     [SerializeField] private AudioSource snd_toilet;
     [SerializeField] private AudioSource snd_RedLight;
+    [SerializeField] private AudioSource snd_toiletDoor;
 
     // ========= 演绎5A =========
     [Header("【演绎】玩家自动移动")]
@@ -178,6 +182,8 @@ public class LevelManager1_2 : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
 
         // —— 3) 红光亮 ——
+        var sr = BathroomSign ? BathroomSign.GetComponent<SpriteRenderer>() : null;
+        if (sr && Sign_on) sr.sprite = Sign_on;
         if (redLightObject) redLightObject.SetActive(true);
         snd_RedLight.Play();
 
@@ -196,6 +202,7 @@ public class LevelManager1_2 : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // —— 7) 角色出现——
+        snd_toiletDoor.Play();
         SetPlayerSpritesVisible(true);
 
         // —— 8) 等 0.7 秒 → 对话框 ——
@@ -472,11 +479,14 @@ public class LevelManager1_2 : MonoBehaviour
     }
 
     // ========= 工具：抛物线跳跃 =========
+    // ========= 工具：抛物线跳跃 =========
     private IEnumerator JumpObjectTo(Transform t, Vector3 targetPos, float duration, float height, AnimationCurve arc)
     {
         if (!t) yield break;
 
         Vector3 start = t.position;
+        float fixedZ = start.z;                           // 记录起始 Z
+        Vector3 targetNoZ = new Vector3(targetPos.x, targetPos.y, fixedZ);  
         float timer = 0f;
         if (arc == null || arc.length == 0) arc = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
@@ -485,17 +495,18 @@ public class LevelManager1_2 : MonoBehaviour
             timer += Time.deltaTime;
             float u = Mathf.Clamp01(timer / duration);
 
-            // 水平插值
-            Vector3 pos = Vector3.Lerp(start, targetPos, u);
-            // 垂直抬升（抛物线）
+            Vector3 pos = Vector3.Lerp(start, targetNoZ, u);      
             float yOffset = arc.Evaluate(u) * height;
-            pos.y = Mathf.Lerp(start.y, targetPos.y, u) + yOffset;
+            pos.y = Mathf.Lerp(start.y, targetNoZ.y, u) + yOffset; 
+            pos.z = fixedZ;                                        
 
             t.position = pos;
             yield return null;
         }
-        t.position = targetPos;
+
+        t.position = new Vector3(targetNoZ.x, targetNoZ.y, fixedZ);
     }
+
 
     // ========= 工具：闪灯 + 统一换脸 =========
     private IEnumerator FlickerLightsThenFace()
