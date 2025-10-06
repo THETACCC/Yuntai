@@ -26,7 +26,7 @@ public class DialogueDefaultSequence : MonoBehaviour
         button.enabled = isButtonActice;
         if (isButtonActice)
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
             {
                 GoToNextDialogue();
             }

@@ -394,6 +394,7 @@ MonoBehaviour:
   dialogueData:
     conversations: []
     currentIndex: 0
+  isDialogueFinished: 0
 --- !u!1 &5511939448898947230
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,19 +515,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 16788920208499163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8245177319901010169}
-        m_TargetAssemblyTypeName: DialogueDefaultSequence, Assembly-CSharp
-        m_MethodName: GoToNextDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8245177319901010169
 MonoBehaviour:
   m_ObjectHideFlags: 0

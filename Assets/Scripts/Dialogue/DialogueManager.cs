@@ -45,6 +45,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+        //进入下一行的代码在DialogueDefaultSequence里
 
     }
 
