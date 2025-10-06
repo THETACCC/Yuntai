@@ -22,7 +22,7 @@ public class FlowManager : SKMonoSingleton<FlowManager>
 
     public void LoadScene(SceneInfo info)
     {
-        Scenecontroller.instance.LoadSceneAsset(info);
+        SceneControllerEditor.instance.LoadSceneAsset(info);
 
     }
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scenecontroller : SKMonoSingleton<Scenecontroller>
+public class SceneControllerEditor : SKMonoSingleton<SceneControllerEditor>
 {
     [Header("Scene Info")]
     public SceneInfo sceneInfo;
