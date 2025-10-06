@@ -41,6 +41,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         //LoadDialogueFromResources();
+        UIGroup.alpha = 0;
     }
 
     private void Update()
