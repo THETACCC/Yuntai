@@ -218,6 +218,7 @@ public class DialogueData
 {
     public List<Conversation> conversations;
     public int currentIndex; //conversation index
+    
 }
 
 [Serializable]
