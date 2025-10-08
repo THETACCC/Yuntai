@@ -284,9 +284,8 @@ public class LevelManager1_2 : MonoBehaviour
             yield return new WaitForSeconds(dialogueAfterFacesDelay);
 
         // 恢复玩家可动 + 切到 Talking 再开始对话2
-        if (_playerCtrl) _playerCtrl.enabled = true;
-        if (_playerRb) _playerRb.isKinematic = false;
-        if (_playerRb) _playerRb.velocity = Vector2.zero;
+        RestorePlayerControl();
+
 
         //if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Talking;
 
@@ -440,6 +439,9 @@ public class LevelManager1_2 : MonoBehaviour
         }
 
         if (finalBlackExtraHold > 0f) yield return new WaitForSeconds(finalBlackExtraHold);
+
+        RestorePlayerControl();   // 先恢复玩家正常移动
+        _eventRoutine = null;
 
         nextLoop?.toNextLoop();
         yield break;
@@ -617,5 +619,18 @@ public class LevelManager1_2 : MonoBehaviour
         if (_playerRb) _playerRb.MovePosition(target);
         else t.position = target;
     }
+
+    // 统一恢复玩家移动 + 物理 + 阶段
+    private void RestorePlayerControl()
+    {
+        if (_playerCtrl) _playerCtrl.enabled = true;
+
+        if (_playerRb)
+        {
+            _playerRb.isKinematic = false;
+            _playerRb.velocity = Vector2.zero;
+        }
+    }
+
 
 }
