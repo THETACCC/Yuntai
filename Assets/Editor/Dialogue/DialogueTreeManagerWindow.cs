@@ -11,7 +11,7 @@ public class EditorInputDialog : EditorWindow
     private string dialogTitle = "";
     private string message = "";
 
-    public static string Show(string title, string message, string defaultValue = "")
+    public static void ShowAsync(string title, string message, string defaultValue, System.Action<string> onResult)
     {
         var window = CreateInstance<EditorInputDialog>();
         window.titleContent = new GUIContent(title);
@@ -20,14 +20,23 @@ public class EditorInputDialog : EditorWindow
         window.inputText = defaultValue;
         window.minSize = new Vector2(300, 100);
         window.maxSize = new Vector2(300, 100);
+        window.onResult = onResult;
+        window.ShowUtility(); // 非阻塞版本
+    }
 
-        window.ShowModal();
+    // 新增字段与关闭回调
+    private System.Action<string> onResult;
 
-        return window.inputText;
+    private void OnDestroy()
+    {
+        onResult?.Invoke(inputText);
     }
 
     private void OnGUI()
     {
+        if (position.width <= 0 || position.height <= 0)
+            return;
+
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField(message, EditorStyles.wordWrappedLabel);
         EditorGUILayout.Space(5);
@@ -231,13 +240,18 @@ public class DialogueTreeManagerWindow : EditorWindow
             GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
             if (GUI.Button(deleteRect, "Del", EditorStyles.miniButton))
             {
-                if (EditorUtility.DisplayDialog("Delete Folder",
-                    $"Delete folder '{folder.name}'? All files will move to 'All Dialogues' folder.",
-                    "Delete", "Cancel"))
+                string folderName = folder.name;
+                EditorApplication.delayCall += () =>
                 {
-                    DeleteVirtualFolder(folder, parentFolder);
-                }
+                    if (EditorUtility.DisplayDialog("Delete Folder",
+                        $"Delete folder '{folderName}'? All files will move to 'All Dialogues' folder.",
+                        "Delete", "Cancel"))
+                    {
+                        DeleteVirtualFolder(folder, parentFolder);
+                    }
+                };
             }
+
             GUI.backgroundColor = Color.white;
         }
         else
@@ -331,14 +345,19 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void EditDescription(VirtualFolder folder)
     {
-        string newDesc = EditorInputDialog.Show("Edit Description", "Enter folder description:", folder.description);
-
-        if (newDesc != null) // null 表示取消，空字符串表示清空
+        EditorApplication.delayCall += () =>
         {
-            folder.description = newDesc.Trim();
-            SaveVirtualFolderStructure();
-        }
+            EditorInputDialog.ShowAsync("Edit Description", "Enter folder description:", folder.description, (newDesc) =>
+            {
+                if (newDesc != null)
+                {
+                    folder.description = newDesc.Trim();
+                    SaveVirtualFolderStructure();
+                }
+            });
+        };
     }
+
 
     private void DrawFile(string guid, int indentLevel, VirtualFolder parentFolder)
     {
@@ -376,14 +395,19 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void RenameFolder(VirtualFolder folder)
     {
-        string newName = EditorInputDialog.Show("Rename Folder", "Enter new folder name:", folder.name);
-
-        if (!string.IsNullOrWhiteSpace(newName))
+        EditorApplication.delayCall += () =>
         {
-            folder.name = newName.Trim();
-            SaveVirtualFolderStructure();
-        }
+            EditorInputDialog.ShowAsync("Rename Folder", "Enter new folder name:", folder.name, (newName) =>
+            {
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    folder.name = newName.Trim();
+                    SaveVirtualFolderStructure();
+                }
+            });
+        };
     }
+
 
     private void HandleFileDrag(Rect rect, string guid, VirtualFolder parentFolder)
     {
@@ -632,9 +656,10 @@ public class DialogueTreeManagerWindow : EditorWindow
             }
 
             File.WriteAllText(savePath, json);
-            AssetDatabase.Refresh();
-
+            // 延迟刷新，避免 OnGUI 期间刷新引发 layout 异常
+            EditorApplication.delayCall += AssetDatabase.Refresh;
             Debug.Log($"Saved folder structure to: {savePath}");
+
         }
         catch (System.Exception e)
         {
