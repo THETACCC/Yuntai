@@ -9,10 +9,58 @@ using System.IO;
 using DialogueSystem;
 using UnityEditor.UIElements;
 
+// ==================== 新增：变量相关数据结构 ====================
+[System.Serializable]
+public enum VariableType
+{
+    Bool,
+    Int,
+    Float,
+    String
+}
 
+[System.Serializable]
+public enum ComparisonType
+{
+    Equal,              // ==
+    NotEqual,           // !=
+    Greater,            // >
+    Less,               // <
+    GreaterOrEqual,     // >=
+    LessOrEqual,        // <=
+    Contains,           // String contains
+    StartsWith,         // String starts with
+    EndsWith            // String ends with
+}
+
+[System.Serializable]
+public class DialogueVariable
+{
+    public string name;
+    public VariableType type;
+    public string defaultValue; // 统一用string存储，使用时转换
+}
+
+[System.Serializable]
+public class ChoiceCondition
+{
+    public string variableName;
+    public ComparisonType comparison;
+    public string compareValue;
+}
+
+[System.Serializable]
+public enum ConditionLogic
+{
+    AND,
+    OR
+}
+
+// ==================== 修改后的数据结构 ====================
 [System.Serializable]
 public class DialogueTreeData
 {
+    public List<DialogueVariable> variables = new List<DialogueVariable>(); // 新增
     public List<DialogueNodeData> nodes = new List<DialogueNodeData>();
     public List<DialogueConnectionData> connections = new List<DialogueConnectionData>();
 }
@@ -23,12 +71,20 @@ public class DialogueNodeData
     public string id;
     public int index;
     public string name;
-    public string avatarAssetPath; // 存储Asset路径用于编辑器加载
+    public string avatarAssetPath;
     public string content;
     public float positionX;
     public float positionY;
-    public List<string> choices = new List<string>();
+    public List<ChoiceData> choices = new List<ChoiceData>(); // 修改为ChoiceData
     public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+}
+
+[System.Serializable]
+public class ChoiceData
+{
+    public string text;
+    public List<ChoiceCondition> conditions = new List<ChoiceCondition>(); // 新增
+    public ConditionLogic conditionLogic = ConditionLogic.AND; // 新增
 }
 
 [System.Serializable]
@@ -40,13 +96,12 @@ public class DialogueConnectionData
     public string choiceText;
 }
 
-// 运行时格式的数据结构
 [System.Serializable]
 public class RuntimeDialogueData
 {
     public int index;
     public string name;
-    public string avatarAddr; // Runtime使用的路径字符串
+    public string avatarAddr;
     public string content;
     public List<RuntimeChoice> choices = new List<RuntimeChoice>();
     public string nextNodeId;
@@ -58,14 +113,18 @@ public class RuntimeChoice
 {
     public string text;
     public string nextNodeId;
+    public List<ChoiceCondition> conditions = new List<ChoiceCondition>(); // 新增
+    public ConditionLogic conditionLogic = ConditionLogic.AND; // 新增
 }
 
-// 编辑器窗口类
+// ==================== 修改后的编辑器窗口类 ====================
 public class DialogueTreeEditor : EditorWindow
 {
     private DialogueGraphView graphView;
+    private VariablesPanel variablesPanel;
     private string currentFilePath = "";
     private new bool hasUnsavedChanges = false;
+    private List<DialogueVariable> variables = new List<DialogueVariable>();
 
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
@@ -74,7 +133,7 @@ public class DialogueTreeEditor : EditorWindow
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
         window.titleContent = new GUIContent("Dialogue Tree Editor");
-        window.minSize = new Vector2(800, 600);
+        window.minSize = new Vector2(1000, 600);
         window.Show();
         window.ForceInitialize();
     }
@@ -84,7 +143,7 @@ public class DialogueTreeEditor : EditorWindow
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
         window.titleContent = new GUIContent("Dialogue Tree Editor");
-        window.minSize = new Vector2(800, 600);
+        window.minSize = new Vector2(1000, 600);
         window.Show();
         window.ForceInitialize();
 
@@ -105,7 +164,7 @@ public class DialogueTreeEditor : EditorWindow
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
         window.titleContent = new GUIContent("Dialogue Tree Editor");
-        window.minSize = new Vector2(800, 600);
+        window.minSize = new Vector2(1000, 600);
         window.Show();
         window.ForceInitialize();
         window.LoadDialogueTree();
@@ -147,7 +206,7 @@ public class DialogueTreeEditor : EditorWindow
     private void DelayedInitialize()
     {
         CreateToolbar();
-        CreateGraphView();
+        CreateMainLayout();
 
         hasUnsavedChanges = false;
 
@@ -174,7 +233,7 @@ public class DialogueTreeEditor : EditorWindow
         {
             rootVisualElement.Clear();
             CreateToolbar();
-            CreateGraphView();
+            CreateMainLayout();
         }
 
         titleContent = new GUIContent("Dialogue Tree Editor");
@@ -184,8 +243,11 @@ public class DialogueTreeEditor : EditorWindow
     {
         if (graphView != null)
         {
-            rootVisualElement.Remove(graphView);
             graphView = null;
+        }
+        if (variablesPanel != null)
+        {
+            variablesPanel = null;
         }
     }
 
@@ -238,95 +300,32 @@ public class DialogueTreeEditor : EditorWindow
 
     private void CreateToolbar()
     {
-        var toolbar = new VisualElement();
-        toolbar.style.flexDirection = FlexDirection.Row;
-        toolbar.style.height = 30;
-        toolbar.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f));
-        toolbar.style.paddingLeft = 10;
-        toolbar.style.paddingRight = 10;
-        toolbar.style.paddingTop = 5;
-        toolbar.style.paddingBottom = 5;
-
-        var newButton = new Button(() => {
-            if (hasUnsavedChanges)
-            {
-                if (!EditorUtility.DisplayDialog("New Document",
-                    "You have unsaved changes. Create new document without saving?",
-                    "Yes", "Cancel"))
-                {
-                    return;
-                }
-            }
-            NewDialogueTree();
-        });
-        newButton.text = "New";
-        newButton.style.marginRight = 10;
-
-        var createNodeButton = new Button(() => {
-            if (graphView != null)
-            {
-                graphView.CreateDialogueNode("Character", null, "New Dialogue");
-                MarkAsChanged();
-            }
-        });
-        createNodeButton.text = "Create Node";
-        createNodeButton.style.marginRight = 10;
-
-        var deleteSelectedButton = new Button(() => {
-            if (graphView != null)
-            {
-                graphView.DeleteSelectedElements();
-                MarkAsChanged();
-            }
-        });
-        deleteSelectedButton.text = "Delete Selected";
-        deleteSelectedButton.style.marginRight = 10;
-
-        var duplicateButton = new Button(() => {
-            if (graphView != null)
-            {
-                graphView.DuplicateSelectedNodes();
-                MarkAsChanged();
-            }
-        });
-        duplicateButton.text = "Duplicate";
-        duplicateButton.style.marginRight = 10;
-
-        var saveButton = new Button(() => {
-            SaveDialogueTree();
-        });
-        saveButton.text = "Save (Ctrl+S)";
-        saveButton.style.marginRight = 10;
-
-        var saveAsButton = new Button(() => {
-            SaveAsDialogueTree();
-        });
-        saveAsButton.text = "Save As...";
-        saveAsButton.style.marginRight = 10;
-
-        var loadButton = new Button(() => {
-            LoadDialogueTree();
-        });
-        loadButton.text = "Load";
-
-        toolbar.Add(newButton);
-        toolbar.Add(createNodeButton);
-        toolbar.Add(deleteSelectedButton);
-        toolbar.Add(duplicateButton);
-        toolbar.Add(saveButton);
-        toolbar.Add(saveAsButton);
-        toolbar.Add(loadButton);
-
-        rootVisualElement.Add(toolbar);
+        // 工具栏已移除，所有功能通过右键菜单访问
     }
 
-    private void CreateGraphView()
+    private void CreateMainLayout()
     {
+        var mainContainer = new VisualElement();
+        mainContainer.style.flexDirection = FlexDirection.Row;
+        mainContainer.style.flexGrow = 1;
+
+        // 创建变量面板
+        variablesPanel = new VariablesPanel(this);
+        variablesPanel.style.width = 250;
+        variablesPanel.style.borderRightWidth = 2;
+        variablesPanel.style.borderRightColor = new StyleColor(new Color(0.1f, 0.1f, 0.1f));
+        variablesPanel.SetVariables(variables);
+
+        // 创建GraphView
         graphView = new DialogueGraphView();
         graphView.SetEditorWindow(this);
-        graphView.StretchToParentSize();
+        graphView.style.flexGrow = 1;
         graphView.graphViewChanged += OnGraphViewChanged;
-        rootVisualElement.Add(graphView);
+
+        mainContainer.Add(variablesPanel);
+        mainContainer.Add(graphView);
+
+        rootVisualElement.Add(mainContainer);
     }
 
     private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -345,15 +344,30 @@ public class DialogueTreeEditor : EditorWindow
 
     public bool HasUnsavedChanges => hasUnsavedChanges;
 
+    public List<DialogueVariable> GetVariables() => variables;
+
+    public void NotifyVariablesChanged()
+    {
+        if (graphView != null)
+        {
+            graphView.RefreshAllNodesConditions();
+        }
+    }
+
     public void NewDialogueTree()
     {
         currentFilePath = "";
         hasUnsavedChanges = false;
         EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
+        variables.Clear();
 
         if (graphView != null)
         {
             graphView.ClearGraph();
+        }
+        if (variablesPanel != null)
+        {
+            variablesPanel.SetVariables(variables);
         }
     }
 
@@ -453,7 +467,23 @@ public class DialogueTreeEditor : EditorWindow
             nodeIdToIndex[node.GetId()] = node.NodeIndex;
         }
 
-        string formattedJson = "{\n  \"conversations\": [\n";
+        string formattedJson = "{\n  \"variables\": [\n";
+
+        // 导出变量定义
+        for (int i = 0; i < variables.Count; i++)
+        {
+            var variable = variables[i];
+            formattedJson += "    {\n";
+            formattedJson += $"      \"name\": \"{EscapeJsonString(variable.name)}\",\n";
+            formattedJson += $"      \"type\": \"{variable.type}\",\n";
+            formattedJson += $"      \"defaultValue\": \"{EscapeJsonString(variable.defaultValue)}\"\n";
+            formattedJson += "    }";
+            if (i < variables.Count - 1) formattedJson += ",";
+            formattedJson += "\n";
+        }
+        formattedJson += "  ],\n";
+
+        formattedJson += "  \"conversations\": [\n";
         for (int i = 0; i < exportData.Count; i++)
         {
             var item = exportData[i];
@@ -485,7 +515,31 @@ public class DialogueTreeEditor : EditorWindow
 
                     formattedJson += "        {\n";
                     formattedJson += $"          \"text\": \"{EscapeJsonString(choice.text)}\",\n";
-                    formattedJson += $"          \"targetIndex\": {targetIndex}\n";
+                    formattedJson += $"          \"targetIndex\": {targetIndex}";
+
+                    // 导出条件
+                    if (choice.conditions.Count > 0)
+                    {
+                        formattedJson += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < choice.conditions.Count; k++)
+                        {
+                            var condition = choice.conditions[k];
+                            formattedJson += "            {\n";
+                            formattedJson += $"              \"variableName\": \"{EscapeJsonString(condition.variableName)}\",\n";
+                            formattedJson += $"              \"comparison\": \"{condition.comparison}\",\n";
+                            formattedJson += $"              \"compareValue\": \"{EscapeJsonString(condition.compareValue)}\"\n";
+                            formattedJson += "            }";
+                            if (k < choice.conditions.Count - 1) formattedJson += ",";
+                            formattedJson += "\n";
+                        }
+                        formattedJson += "          ],\n";
+                        formattedJson += $"          \"conditionLogic\": \"{choice.conditionLogic}\"\n";
+                    }
+                    else
+                    {
+                        formattedJson += "\n";
+                    }
+
                     formattedJson += "        }";
                     if (j < item.choices.Count - 1) formattedJson += ",";
                     formattedJson += "\n";
@@ -537,6 +591,7 @@ public class DialogueTreeEditor : EditorWindow
     private void SaveEditorFormatFile(string path)
     {
         DialogueTreeData treeData = graphView.SerializeDialogueTree();
+        treeData.variables = new List<DialogueVariable>(variables);
         string json = JsonUtility.ToJson(treeData, true);
         File.WriteAllText(path, json);
     }
@@ -586,6 +641,12 @@ public class DialogueTreeEditor : EditorWindow
 
             if (treeData != null)
             {
+                variables = treeData.variables ?? new List<DialogueVariable>();
+                if (variablesPanel != null)
+                {
+                    variablesPanel.SetVariables(variables);
+                }
+
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
 
@@ -623,7 +684,263 @@ public class DialogueTreeEditor : EditorWindow
     }
 }
 
-// GraphView 主视图类
+// ==================== 新增：变量面板类 ====================
+public class VariablesPanel : VisualElement
+{
+    private DialogueTreeEditor editorWindow;
+    private List<DialogueVariable> variables;
+    private ScrollView scrollView;
+    private VisualElement listContainer;
+
+    public VariablesPanel(DialogueTreeEditor editor)
+    {
+        this.editorWindow = editor;
+
+        style.backgroundColor = new StyleColor(new Color(0.22f, 0.22f, 0.22f));
+        style.paddingTop = 5;
+        style.paddingBottom = 5;
+        style.paddingLeft = 5;
+        style.paddingRight = 5;
+
+        CreateHeader();
+        CreateScrollView();
+    }
+
+    private void CreateHeader()
+    {
+        var header = new Label("Variables");
+        header.style.fontSize = 14;
+        header.style.unityFontStyleAndWeight = FontStyle.Bold;
+        header.style.marginBottom = 5;
+        header.style.unityTextAlign = TextAnchor.MiddleCenter;
+        Add(header);
+
+        var addButton = new Button(ShowAddVariableMenu);
+        addButton.text = "+ Add Variable";
+        addButton.style.marginBottom = 8;
+        Add(addButton);
+    }
+
+    private void ShowAddVariableMenu()
+    {
+        var menu = new GenericMenu();
+        menu.AddItem(new GUIContent("Bool"), false, () => AddVariable(VariableType.Bool));
+        menu.AddItem(new GUIContent("Int"), false, () => AddVariable(VariableType.Int));
+        menu.AddItem(new GUIContent("Float"), false, () => AddVariable(VariableType.Float));
+        menu.AddItem(new GUIContent("String"), false, () => AddVariable(VariableType.String));
+        menu.ShowAsContext();
+    }
+
+    private void AddVariable(VariableType type)
+    {
+        string baseName = type.ToString().ToLower() + "Var";
+        string name = baseName;
+        int counter = 1;
+
+        while (variables.Any(v => v.name == name))
+        {
+            name = baseName + counter;
+            counter++;
+        }
+
+        var variable = new DialogueVariable
+        {
+            name = name,
+            type = type,
+            defaultValue = GetDefaultValueForType(type)
+        };
+
+        variables.Add(variable);
+        editorWindow.MarkAsChanged();
+        editorWindow.NotifyVariablesChanged(); // 通知变量改变
+        RefreshDisplay();
+    }
+
+    private string GetDefaultValueForType(VariableType type)
+    {
+        switch (type)
+        {
+            case VariableType.Bool: return "false";
+            case VariableType.Int: return "0";
+            case VariableType.Float: return "0.0";
+            case VariableType.String: return "";
+            default: return "";
+        }
+    }
+
+    private void CreateScrollView()
+    {
+        scrollView = new ScrollView();
+        scrollView.style.flexGrow = 1;
+
+        listContainer = new VisualElement();
+        scrollView.Add(listContainer);
+
+        Add(scrollView);
+    }
+
+    public void SetVariables(List<DialogueVariable> vars)
+    {
+        this.variables = vars;
+        RefreshDisplay();
+    }
+
+    private void RefreshDisplay()
+    {
+        listContainer.Clear();
+
+        foreach (var variable in variables)
+        {
+            AddVariableUI(variable);
+        }
+    }
+
+    private void AddVariableUI(DialogueVariable variable)
+    {
+        var varRow = new VisualElement();
+        varRow.style.flexDirection = FlexDirection.Row;
+        varRow.style.marginBottom = 3;
+        varRow.style.paddingTop = 3;
+        varRow.style.paddingBottom = 3;
+        varRow.style.paddingLeft = 3;
+        varRow.style.paddingRight = 3;
+        varRow.style.backgroundColor = new StyleColor(new Color(0.18f, 0.18f, 0.18f));
+
+        // 类型图标
+        var typeLabel = new Label(GetTypeIcon(variable.type));
+        typeLabel.style.width = 20;
+        typeLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        typeLabel.style.fontSize = 12;
+        typeLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        typeLabel.style.marginRight = 5;
+
+        // 根据类型设置颜色
+        typeLabel.style.color = GetTypeColor(variable.type);
+
+        // 变量名
+        var nameField = new TextField();
+        nameField.value = variable.name;
+        nameField.style.flexGrow = 1;
+        nameField.style.minWidth = 60;
+        nameField.style.marginRight = 5;
+        nameField.RegisterValueChangedCallback(evt =>
+        {
+            if (!string.IsNullOrEmpty(evt.newValue) && !variables.Any(v => v != variable && v.name == evt.newValue))
+            {
+                variable.name = evt.newValue;
+                editorWindow.MarkAsChanged();
+                editorWindow.NotifyVariablesChanged(); // 通知变量名称改变
+            }
+            else
+            {
+                nameField.SetValueWithoutNotify(variable.name);
+            }
+        });
+
+        // 默认值输入
+        VisualElement valueField = null;
+        switch (variable.type)
+        {
+            case VariableType.Bool:
+                var boolField = new Toggle();
+                boolField.value = variable.defaultValue == "true";
+                boolField.style.width = 40;
+                boolField.RegisterValueChangedCallback(evt =>
+                {
+                    variable.defaultValue = evt.newValue.ToString().ToLower();
+                    editorWindow.MarkAsChanged();
+                });
+                valueField = boolField;
+                break;
+
+            case VariableType.Int:
+                var intField = new IntegerField();
+                int.TryParse(variable.defaultValue, out int intValue);
+                intField.value = intValue;
+                intField.style.width = 60;
+                intField.RegisterValueChangedCallback(evt =>
+                {
+                    variable.defaultValue = evt.newValue.ToString();
+                    editorWindow.MarkAsChanged();
+                });
+                valueField = intField;
+                break;
+
+            case VariableType.Float:
+                var floatField = new FloatField();
+                float.TryParse(variable.defaultValue, out float floatValue);
+                floatField.value = floatValue;
+                floatField.style.width = 60;
+                floatField.RegisterValueChangedCallback(evt =>
+                {
+                    variable.defaultValue = evt.newValue.ToString();
+                    editorWindow.MarkAsChanged();
+                });
+                valueField = floatField;
+                break;
+
+            case VariableType.String:
+                var stringField = new TextField();
+                stringField.value = variable.defaultValue;
+                stringField.style.width = 80;
+                stringField.RegisterValueChangedCallback(evt =>
+                {
+                    variable.defaultValue = evt.newValue;
+                    editorWindow.MarkAsChanged();
+                });
+                valueField = stringField;
+                break;
+        }
+
+        // 删除按钮
+        var deleteButton = new Button(() =>
+        {
+            variables.Remove(variable);
+            editorWindow.MarkAsChanged();
+            editorWindow.NotifyVariablesChanged(); // 通知变量改变
+            RefreshDisplay();
+        });
+        deleteButton.text = "×";
+        deleteButton.style.width = 20;
+        deleteButton.style.height = 20;
+        deleteButton.style.marginLeft = 5;
+        deleteButton.style.fontSize = 14;
+
+        varRow.Add(typeLabel);
+        varRow.Add(nameField);
+        if (valueField != null)
+            varRow.Add(valueField);
+        varRow.Add(deleteButton);
+
+        listContainer.Add(varRow);
+    }
+
+    private string GetTypeIcon(VariableType type)
+    {
+        switch (type)
+        {
+            case VariableType.Bool: return "B";
+            case VariableType.Int: return "I";
+            case VariableType.Float: return "F";
+            case VariableType.String: return "S";
+            default: return "?";
+        }
+    }
+
+    private Color GetTypeColor(VariableType type)
+    {
+        switch (type)
+        {
+            case VariableType.Bool: return new Color(0.8f, 0.4f, 0.4f); // 红色
+            case VariableType.Int: return new Color(0.4f, 0.7f, 1f);   // 蓝色
+            case VariableType.Float: return new Color(0.5f, 1f, 0.5f); // 绿色
+            case VariableType.String: return new Color(1f, 0.8f, 0.4f); // 橙色
+            default: return Color.white;
+        }
+    }
+}
+
+// ==================== GraphView 主视图类 ====================
 public class DialogueGraphView : GraphView
 {
     private DialogueTreeEditor editorWindow;
@@ -666,6 +983,15 @@ public class DialogueGraphView : GraphView
     {
         DeleteElements(graphElements.ToList());
         nextNodeIndex = 0;
+    }
+
+    public void RefreshAllNodesConditions()
+    {
+        var allNodes = nodes.Cast<DialogueNode>().ToList();
+        foreach (var node in allNodes)
+        {
+            node.RefreshConditionsUI();
+        }
     }
 
     public void CenterOnNode0()
@@ -865,7 +1191,7 @@ public class DialogueGraphView : GraphView
 
     public DialogueNode CreateDialogueNode(string characterName, Sprite avatarSprite, string content, Vector2 position = default)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, nextNodeIndex++);
+        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, nextNodeIndex++, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => {
             if (editorWindow != null)
@@ -919,7 +1245,6 @@ public class DialogueGraphView : GraphView
 
         foreach (var node in nodes)
         {
-            // 将Sprite转换为Runtime路径
             string runtimeAvatarPath = ConvertSpriteToRuntimePath(node.AvatarSprite);
 
             var exportData = new RuntimeDialogueData
@@ -951,45 +1276,44 @@ public class DialogueGraphView : GraphView
                 {
                     exportData.nextNodeId = targetNode.GetId();
                 }
-                else if (choiceIndex >= 0 && choiceIndex < node.Choices.Count)
+                else if (choiceIndex >= 0 && choiceIndex < node.ChoicesData.Count)
                 {
+                    var choiceData = node.ChoicesData[choiceIndex];
                     var choice = new RuntimeChoice
                     {
-                        text = node.Choices[choiceIndex],
-                        nextNodeId = targetNode.GetId()
+                        text = choiceData.text,
+                        nextNodeId = targetNode.GetId(),
+                        conditions = new List<ChoiceCondition>(choiceData.conditions),
+                        conditionLogic = choiceData.conditionLogic
                     };
                     exportData.choices.Add(choice);
                 }
             }
 
-            exportData.choices = exportData.choices.OrderBy(c => node.Choices.IndexOf(c.text)).ToList();
+            exportData.choices = exportData.choices.OrderBy(c => node.ChoicesData.FindIndex(cd => cd.text == c.text)).ToList();
         }
 
         return exportDict.Values.OrderBy(d => d.index).ToList();
     }
 
-    // 将Sprite转换为运行时路径
     private string ConvertSpriteToRuntimePath(Sprite sprite)
     {
         if (sprite == null) return "";
 
         string assetPath = AssetDatabase.GetAssetPath(sprite);
 
-        // 检查是否在Resources文件夹内
         int resourcesIndex = assetPath.IndexOf("Resources/");
         if (resourcesIndex >= 0)
         {
-            // 提取Resources/之后的路径并移除扩展名
             string resourcePath = assetPath.Substring(resourcesIndex + 10);
             resourcePath = Path.ChangeExtension(resourcePath, null);
             return resourcePath;
         }
         else
         {
-            // 如果不在Resources文件夹，警告用户
             Debug.LogWarning($"Avatar sprite '{sprite.name}' at path '{assetPath}' is not in a Resources folder. " +
                            $"It won't be loadable at runtime! Please move it to a Resources folder.");
-            return sprite.name; // 返回sprite名称作为fallback
+            return sprite.name;
         }
     }
 
@@ -1013,7 +1337,7 @@ public class DialogueGraphView : GraphView
                     content = node.DialogueText ?? "",
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
-                    choices = new List<string>(node.Choices ?? new List<string>()),
+                    choices = new List<ChoiceData>(node.ChoicesData ?? new List<ChoiceData>()),
                     eventCalls = new List<DialogueEventCall>(node.EventCalls ?? new List<DialogueEventCall>())
                 };
                 treeData.nodes.Add(nodeData);
@@ -1032,9 +1356,9 @@ public class DialogueGraphView : GraphView
                     int choiceIndex = outputNode.GetChoiceIndexForPort(edge.output);
                     string choiceText = "";
 
-                    if (choiceIndex >= 0 && choiceIndex < outputNode.Choices.Count)
+                    if (choiceIndex >= 0 && choiceIndex < outputNode.ChoicesData.Count)
                     {
-                        choiceText = outputNode.Choices[choiceIndex];
+                        choiceText = outputNode.ChoicesData[choiceIndex].text;
                     }
 
                     var connectionData = new DialogueConnectionData
@@ -1066,7 +1390,6 @@ public class DialogueGraphView : GraphView
 
         foreach (var nodeData in sortedNodes)
         {
-            // 从Asset路径加载Sprite
             Sprite avatarSprite = null;
             if (!string.IsNullOrEmpty(nodeData.avatarAssetPath))
             {
@@ -1080,7 +1403,7 @@ public class DialogueGraphView : GraphView
             var node = CreateDialogueNodeWithIndex(nodeData.name, avatarSprite, nodeData.content,
                 new Vector2(nodeData.positionX, nodeData.positionY), nodeData.index);
             node.SetId(nodeData.id);
-            node.SetChoices(nodeData.choices);
+            node.SetChoicesData(nodeData.choices);
             node.SetEventCalls(nodeData.eventCalls);
             nodeDict[nodeData.id] = node;
         }
@@ -1123,7 +1446,7 @@ public class DialogueGraphView : GraphView
 
     private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite, string content, Vector2 position, int index)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, index);
+        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, index, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => {
             if (editorWindow != null)
@@ -1144,10 +1467,11 @@ public class DialogueGraphView : GraphView
         foreach (var node in selectedNodes)
         {
             var position = node.GetPosition();
-            var choicesStr = string.Join("~", node.Choices);
+            var choicesStr = string.Join("~", node.ChoicesData.Select(c => c.text));
+            var choicesDataStr = JsonUtility.ToJson(new SerializableChoiceDataList { choicesData = node.ChoicesData });
             var eventCallsStr = JsonUtility.ToJson(new SerializableEventCallList { eventCalls = node.EventCalls });
             var avatarPath = node.AvatarSprite != null ? AssetDatabase.GetAssetPath(node.AvatarSprite) : "";
-            nodeData.Add($"{node.CharacterName}|{avatarPath}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}|{eventCallsStr}");
+            nodeData.Add($"{node.CharacterName}|{avatarPath}|{node.DialogueText}|{position.x}|{position.y}|{choicesStr}|{choicesDataStr}|{eventCallsStr}");
         }
 
         return string.Join(";", nodeData);
@@ -1175,35 +1499,41 @@ public class DialogueGraphView : GraphView
                 var dialogueText = nodeData[2];
                 var x = float.Parse(nodeData[3]) + offset.x;
                 var y = float.Parse(nodeData[4]) + offset.y;
-                var choicesStr = nodeData[5];
 
-                // 加载Sprite
                 Sprite avatarSprite = null;
                 if (!string.IsNullOrEmpty(avatarPath))
                 {
                     avatarSprite = AssetDatabase.LoadAssetAtPath<Sprite>(avatarPath);
                 }
 
-                List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+                List<ChoiceData> choicesData = new List<ChoiceData>();
                 if (nodeData.Length > 6)
                 {
                     try
                     {
-                        var eventCallList = JsonUtility.FromJson<SerializableEventCallList>(nodeData[6]);
+                        var choiceDataList = JsonUtility.FromJson<SerializableChoiceDataList>(nodeData[6]);
+                        choicesData = choiceDataList.choicesData;
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+                if (nodeData.Length > 7)
+                {
+                    try
+                    {
+                        var eventCallList = JsonUtility.FromJson<SerializableEventCallList>(nodeData[7]);
                         eventCalls = eventCallList.eventCalls;
                     }
                     catch
                     {
-                        // 如果解析失败，使用空列表
                     }
                 }
 
                 var node = CreateDialogueNode(characterName, avatarSprite, dialogueText, new Vector2(x, y));
-                if (!string.IsNullOrEmpty(choicesStr))
-                {
-                    var choices = choicesStr.Split('~').ToList();
-                    node.SetChoices(choices);
-                }
+                node.SetChoicesData(choicesData);
                 node.SetEventCalls(eventCalls);
             }
         }
@@ -1233,11 +1563,18 @@ public class SerializableEventCallList
     public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
 }
 
-// 对话节点类
+[System.Serializable]
+public class SerializableChoiceDataList
+{
+    public List<ChoiceData> choicesData = new List<ChoiceData>();
+}
+
+// ==================== 对话节点类 ====================
 public class DialogueNode : Node
 {
+    private DialogueTreeEditor editorWindow;
     private TextField characterNameField;
-    private ObjectField avatarField; // 改用ObjectField
+    private ObjectField avatarField;
     private TextField dialogueTextField;
     private VisualElement eventsContainer;
     private Button addEventButton;
@@ -1250,28 +1587,29 @@ public class DialogueNode : Node
     private int nodeIndex;
 
     public string CharacterName { get; private set; }
-    public Sprite AvatarSprite { get; private set; } // 改用Sprite
+    public Sprite AvatarSprite { get; private set; }
     public string DialogueText { get; private set; }
-    public List<string> Choices { get; private set; } = new List<string>();
+    public List<ChoiceData> ChoicesData { get; private set; } = new List<ChoiceData>();
     public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>();
     public int NodeIndex => nodeIndex;
 
     public event System.Action OnNodeChanged;
 
-    public DialogueNode(string characterName = "Character", Sprite avatarSprite = null, string dialogueText = "New Dialogue", int index = 0)
+    public DialogueNode(string characterName = "Character", Sprite avatarSprite = null, string dialogueText = "New Dialogue", int index = 0, DialogueTreeEditor editor = null)
     {
         this.CharacterName = characterName;
         this.AvatarSprite = avatarSprite;
         this.DialogueText = dialogueText;
         this.nodeIndex = index;
         this.nodeId = System.Guid.NewGuid().ToString();
+        this.editorWindow = editor;
 
         UpdateTitle();
 
         CreateInputPort();
         CreateDefaultOutputPort();
         CreateCharacterNameField();
-        CreateAvatarField(); // 改用新方法
+        CreateAvatarField();
         CreateDialogueTextField();
         CreateEventsSection();
         CreateChoicesSection();
@@ -1328,7 +1666,6 @@ public class DialogueNode : Node
         mainContainer.Add(characterNameField);
     }
 
-    // 新的Avatar字段 - 使用ObjectField
     private void CreateAvatarField()
     {
         var avatarContainer = new VisualElement();
@@ -1337,12 +1674,11 @@ public class DialogueNode : Node
         {
             objectType = typeof(Sprite),
             value = AvatarSprite,
-            allowSceneObjects = false // 只允许选择Asset
+            allowSceneObjects = false
         };
 
         avatarField.style.minWidth = 300;
 
-        // 创建警告标签（默认隐藏）
         var warningLabel = new Label();
         warningLabel.style.color = new StyleColor(Color.red);
         warningLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
@@ -1354,7 +1690,6 @@ public class DialogueNode : Node
         {
             AvatarSprite = evt.newValue as Sprite;
 
-            // 实时检查是否在Resources文件夹
             if (AvatarSprite != null)
             {
                 string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
@@ -1381,7 +1716,6 @@ public class DialogueNode : Node
         avatarContainer.Add(warningLabel);
         mainContainer.Add(avatarContainer);
 
-        // 初始检查
         if (AvatarSprite != null)
         {
             string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
@@ -1494,7 +1828,6 @@ public class DialogueNode : Node
             eventContainer.style.paddingLeft = 5;
             eventContainer.style.paddingRight = 5;
 
-            // 标题栏
             var titleRow = new VisualElement();
             titleRow.style.flexDirection = FlexDirection.Row;
             titleRow.style.alignItems = Align.Center;
@@ -1518,7 +1851,6 @@ public class DialogueNode : Node
             titleRow.Add(removeButton);
             eventContainer.Add(titleRow);
 
-            // GameObject选择器
             GameObject currentGameObject = null;
             if (!string.IsNullOrEmpty(eventCall.targetObjectName))
             {
@@ -1538,13 +1870,12 @@ public class DialogueNode : Node
                 {
                     var selectedGO = evt.newValue as GameObject;
                     EventCalls[currentIndex].targetObjectName = selectedGO != null ? selectedGO.name : "";
-                    UpdateEventsDisplay(); // 刷新以更新Component列表
+                    UpdateEventsDisplay();
                     NotifyChange();
                 }
             });
             eventContainer.Add(gameObjectField);
 
-            // Component类型下拉框（如果GameObject已选择）
             if (currentGameObject != null)
             {
                 var components = currentGameObject.GetComponents<Component>();
@@ -1575,13 +1906,12 @@ public class DialogueNode : Node
                     {
                         int index = componentNames.IndexOf(evt.newValue);
                         EventCalls[currentIndex].componentTypeName = evt.newValue != "None" ? evt.newValue : "";
-                        UpdateEventsDisplay(); // 刷新以更新Method列表
+                        UpdateEventsDisplay();
                         NotifyChange();
                     }
                 });
                 eventContainer.Add(componentDropdown);
 
-                // Method下拉框（如果Component已选择）
                 if (selectedComponentIndex > 0 && componentTypes[selectedComponentIndex] != null)
                 {
                     var selectedComponent = currentGameObject.GetComponent(componentTypes[selectedComponentIndex]);
@@ -1618,7 +1948,6 @@ public class DialogueNode : Node
                         int selectedMethodIndex = 0;
                         if (!string.IsNullOrEmpty(eventCall.methodName))
                         {
-                            // 尝试匹配method名称（不包括参数）
                             for (int j = 0; j < methodInfos.Count; j++)
                             {
                                 if (methodInfos[j] != null && methodInfos[j].Name == eventCall.methodName)
@@ -1641,7 +1970,6 @@ public class DialogueNode : Node
                                     var method = methodInfos[index];
                                     EventCalls[currentIndex].methodName = method.Name;
 
-                                    // 自动设置参数类型
                                     var parameters = method.GetParameters();
                                     if (parameters.Length == 0)
                                     {
@@ -1671,7 +1999,6 @@ public class DialogueNode : Node
                         });
                         eventContainer.Add(methodDropdown);
 
-                        // 参数输入框（如果方法需要参数）
                         if (selectedMethodIndex > 0 && methodInfos[selectedMethodIndex] != null)
                         {
                             var parameters = methodInfos[selectedMethodIndex].GetParameters();
@@ -1756,7 +2083,6 @@ public class DialogueNode : Node
             }
             else
             {
-                // 如果没有选择GameObject，显示提示
                 var hintLabel = new Label("Select a GameObject first");
                 hintLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
                 hintLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
@@ -1780,7 +2106,7 @@ public class DialogueNode : Node
         mainContainer.Add(choicesContainer);
 
         addChoiceButton = new Button(() => {
-            AddChoice("New Choice");
+            AddChoice(new ChoiceData { text = "New Choice" });
             NotifyChange();
         })
         {
@@ -1790,54 +2116,20 @@ public class DialogueNode : Node
         mainContainer.Add(addChoiceButton);
     }
 
-    private void AddChoice(string choiceText)
+    private void AddChoice(ChoiceData choiceData)
     {
-        int index = Choices.Count;
-        Choices.Add(choiceText);
+        int index = ChoicesData.Count;
+        ChoicesData.Add(choiceData);
 
-        var choiceContainer = new VisualElement();
-        choiceContainer.style.flexDirection = FlexDirection.Row;
-        choiceContainer.style.marginTop = 2;
-
-        var choiceField = new TextField()
-        {
-            value = choiceText
-        };
-        choiceField.style.flexGrow = 1;
-        choiceField.RegisterValueChangedCallback(evt =>
-        {
-            if (index < Choices.Count)
-            {
-                Choices[index] = evt.newValue;
-                if (index < choiceOutputPorts.Count)
-                {
-                    choiceOutputPorts[index].portName = $"{index + 1}: {evt.newValue}";
-                }
-                NotifyChange();
-            }
-        });
-
-        var removeButton = new Button(() => {
-            RemoveChoice(index);
-            NotifyChange();
-        })
-        {
-            text = "X"
-        };
-        removeButton.style.width = 20;
-
-        choiceContainer.Add(choiceField);
-        choiceContainer.Add(removeButton);
-        choicesContainer.Add(choiceContainer);
-
-        CreateChoiceOutputPort(index, choiceText);
+        RebuildChoiceUI(index);
+        CreateChoiceOutputPort(index, choiceData.text);
         RefreshExpandedState();
         RefreshPorts();
     }
 
     private void RemoveChoice(int index)
     {
-        if (index >= 0 && index < Choices.Count)
+        if (index >= 0 && index < ChoicesData.Count)
         {
             if (index < choiceOutputPorts.Count)
             {
@@ -1846,7 +2138,7 @@ public class DialogueNode : Node
                 choiceOutputPorts.RemoveAt(index);
             }
 
-            Choices.RemoveAt(index);
+            ChoicesData.RemoveAt(index);
             choicesContainer.Clear();
 
             foreach (var port in choiceOutputPorts)
@@ -1855,10 +2147,10 @@ public class DialogueNode : Node
             }
             choiceOutputPorts.Clear();
 
-            for (int i = 0; i < Choices.Count; i++)
+            for (int i = 0; i < ChoicesData.Count; i++)
             {
                 RebuildChoiceUI(i);
-                CreateChoiceOutputPort(i, Choices[i]);
+                CreateChoiceOutputPort(i, ChoicesData[i].text);
             }
 
             RefreshExpandedState();
@@ -1869,21 +2161,27 @@ public class DialogueNode : Node
     private void RebuildChoiceUI(int index)
     {
         var choiceContainer = new VisualElement();
-        choiceContainer.style.flexDirection = FlexDirection.Row;
-        choiceContainer.style.marginTop = 2;
+        choiceContainer.style.marginTop = 5;
+        choiceContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.5f));
+        choiceContainer.style.paddingTop = 5;
+        choiceContainer.style.paddingBottom = 5;
+        choiceContainer.style.paddingLeft = 5;
+        choiceContainer.style.paddingRight = 5;
 
-        var choiceField = new TextField()
-        {
-            value = Choices[index]
-        };
+        var headerRow = new VisualElement();
+        headerRow.style.flexDirection = FlexDirection.Row;
+        headerRow.style.alignItems = Align.Center;
+
+        var choiceField = new TextField();
+        choiceField.value = ChoicesData[index].text;
         choiceField.style.flexGrow = 1;
 
         int currentIndex = index;
         choiceField.RegisterValueChangedCallback(evt =>
         {
-            if (currentIndex < Choices.Count)
+            if (currentIndex < ChoicesData.Count)
             {
-                Choices[currentIndex] = evt.newValue;
+                ChoicesData[currentIndex].text = evt.newValue;
                 if (currentIndex < choiceOutputPorts.Count)
                 {
                     choiceOutputPorts[currentIndex].portName = $"{currentIndex + 1}: {evt.newValue}";
@@ -1897,13 +2195,413 @@ public class DialogueNode : Node
             NotifyChange();
         })
         {
-            text = "X"
+            text = "×"
         };
         removeButton.style.width = 20;
+        removeButton.style.height = 18;
 
-        choiceContainer.Add(choiceField);
-        choiceContainer.Add(removeButton);
+        headerRow.Add(choiceField);
+        headerRow.Add(removeButton);
+        choiceContainer.Add(headerRow);
+
+        // 条件部分 - 使用Label代替Foldout避免显示方框
+        var conditionsHeader = new VisualElement();
+        conditionsHeader.style.flexDirection = FlexDirection.Row;
+        conditionsHeader.style.marginTop = 8;
+        conditionsHeader.style.marginBottom = 3;
+        conditionsHeader.style.paddingBottom = 3;
+        conditionsHeader.style.borderBottomWidth = 1;
+        conditionsHeader.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+
+        var conditionsLabel = new Label("Conditions");
+        conditionsLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        conditionsLabel.style.fontSize = 10;
+        conditionsLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
+
+        conditionsHeader.Add(conditionsLabel);
+        choiceContainer.Add(conditionsHeader);
+
+        var conditionsContent = new VisualElement();
+        conditionsContent.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        conditionsContent.style.paddingTop = 8;
+        conditionsContent.style.paddingBottom = 8;
+        conditionsContent.style.paddingLeft = 8;
+        conditionsContent.style.paddingRight = 8;
+        conditionsContent.style.marginTop = 0;
+
+        UpdateConditionsDisplay(conditionsContent, currentIndex);
+
+        choiceContainer.Add(conditionsContent);
         choicesContainer.Add(choiceContainer);
+    }
+
+    public void RefreshConditionsUI()
+    {
+        // 重新构建所有choice的UI以刷新变量列表
+        choicesContainer.Clear();
+
+        foreach (var port in choiceOutputPorts)
+        {
+            outputContainer.Remove(port);
+        }
+        choiceOutputPorts.Clear();
+
+        for (int i = 0; i < ChoicesData.Count; i++)
+        {
+            RebuildChoiceUI(i);
+            CreateChoiceOutputPort(i, ChoicesData[i].text);
+        }
+
+        RefreshExpandedState();
+        RefreshPorts();
+    }
+
+    private void UpdateConditionsDisplay(VisualElement container, int choiceIndex)
+    {
+        container.Clear();
+
+        if (choiceIndex >= ChoicesData.Count) return;
+
+        var choiceData = ChoicesData[choiceIndex];
+
+        if (choiceData.conditions.Count == 0)
+        {
+            var emptyLabel = new Label("No conditions");
+            emptyLabel.style.color = new StyleColor(new Color(0.6f, 0.6f, 0.6f));
+            emptyLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+            emptyLabel.style.fontSize = 10;
+            emptyLabel.style.paddingTop = 5;
+            emptyLabel.style.paddingBottom = 5;
+            emptyLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+            container.Add(emptyLabel);
+        }
+        else
+        {
+            for (int i = 0; i < choiceData.conditions.Count; i++)
+            {
+                int condIndex = i;
+                var condition = choiceData.conditions[i];
+
+                var condContainer = new VisualElement();
+                condContainer.style.marginTop = 5;
+                condContainer.style.paddingTop = 8;
+                condContainer.style.paddingBottom = 8;
+                condContainer.style.paddingLeft = 8;
+                condContainer.style.paddingRight = 8;
+                condContainer.style.backgroundColor = new StyleColor(new Color(0.12f, 0.12f, 0.12f));
+                condContainer.style.borderTopLeftRadius = 3;
+                condContainer.style.borderTopRightRadius = 3;
+                condContainer.style.borderBottomLeftRadius = 3;
+                condContainer.style.borderBottomRightRadius = 3;
+
+                // 标题行
+                var condHeader = new VisualElement();
+                condHeader.style.flexDirection = FlexDirection.Row;
+                condHeader.style.alignItems = Align.Center;
+                condHeader.style.marginBottom = 8;
+
+                var condLabel = new Label($"Condition {i + 1}");
+                condLabel.style.flexGrow = 1;
+                condLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+                condLabel.style.fontSize = 10;
+                condLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
+
+                var removeCondButton = new Button(() =>
+                {
+                    if (choiceIndex < ChoicesData.Count)
+                    {
+                        ChoicesData[choiceIndex].conditions.RemoveAt(condIndex);
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                })
+                {
+                    text = "×"
+                };
+                removeCondButton.style.width = 18;
+                removeCondButton.style.height = 18;
+                removeCondButton.style.fontSize = 12;
+
+                condHeader.Add(condLabel);
+                condHeader.Add(removeCondButton);
+                condContainer.Add(condHeader);
+
+                // 变量选择
+                var variables = editorWindow?.GetVariables() ?? new List<DialogueVariable>();
+                var variableNames = new List<string> { "None" };
+                variableNames.AddRange(variables.Select(v => v.name));
+
+                int selectedVarIndex = string.IsNullOrEmpty(condition.variableName) ? 0 : variableNames.IndexOf(condition.variableName);
+                if (selectedVarIndex < 0) selectedVarIndex = 0;
+
+                // Variable 行
+                var varRow = new VisualElement();
+                varRow.style.flexDirection = FlexDirection.Row;
+                varRow.style.alignItems = Align.Center;
+                varRow.style.marginBottom = 5;
+
+                var varLabel = new Label("Var:");
+                varLabel.style.width = 35;
+                varLabel.style.fontSize = 10;
+                varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+
+                var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
+                varDropdown.style.flexGrow = 1;
+                varDropdown.RegisterValueChangedCallback(evt =>
+                {
+                    if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                    {
+                        ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                });
+
+                varRow.Add(varLabel);
+                varRow.Add(varDropdown);
+                condContainer.Add(varRow);
+
+                if (selectedVarIndex > 0)
+                {
+                    var selectedVariable = variables[selectedVarIndex - 1];
+
+                    // 运算符和值在同一行
+                    var opValueRow = new VisualElement();
+                    opValueRow.style.flexDirection = FlexDirection.Row;
+                    opValueRow.style.alignItems = Align.Center;
+
+                    // 运算符
+                    var comparisonTypes = GetComparisonTypesForVariable(selectedVariable.type);
+                    var comparisonNames = comparisonTypes.Select(c => GetComparisonDisplayName(c)).ToList();
+
+                    int selectedCompIndex = comparisonTypes.IndexOf(condition.comparison);
+                    if (selectedCompIndex < 0) selectedCompIndex = 0;
+
+                    var compDropdown = new PopupField<string>(comparisonNames, selectedCompIndex);
+                    compDropdown.style.width = 70;
+                    compDropdown.style.marginRight = 5;
+                    compDropdown.style.fontSize = 10;
+                    compDropdown.RegisterValueChangedCallback(evt =>
+                    {
+                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                        {
+                            int index = comparisonNames.IndexOf(evt.newValue);
+                            ChoicesData[choiceIndex].conditions[condIndex].comparison = comparisonTypes[index];
+                            NotifyChange();
+                        }
+                    });
+
+                    opValueRow.Add(compDropdown);
+
+                    // 值输入
+                    VisualElement valueField = null;
+                    switch (selectedVariable.type)
+                    {
+                        case VariableType.Bool:
+                            bool boolValue = condition.compareValue == "true";
+                            var boolToggle = new Toggle();
+                            boolToggle.value = boolValue;
+                            boolToggle.style.flexGrow = 1;
+                            boolToggle.RegisterValueChangedCallback(evt =>
+                            {
+                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                                {
+                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString().ToLower();
+                                    NotifyChange();
+                                }
+                            });
+                            valueField = boolToggle;
+                            break;
+
+                        case VariableType.Int:
+                            int.TryParse(condition.compareValue, out int intValue);
+                            var intField = new IntegerField();
+                            intField.value = intValue;
+                            intField.style.flexGrow = 1;
+                            intField.style.fontSize = 10;
+                            intField.RegisterValueChangedCallback(evt =>
+                            {
+                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                                {
+                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
+                                    NotifyChange();
+                                }
+                            });
+                            valueField = intField;
+                            break;
+
+                        case VariableType.Float:
+                            float.TryParse(condition.compareValue, out float floatValue);
+                            var floatField = new FloatField();
+                            floatField.value = floatValue;
+                            floatField.style.flexGrow = 1;
+                            floatField.style.fontSize = 10;
+                            floatField.RegisterValueChangedCallback(evt =>
+                            {
+                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                                {
+                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
+                                    NotifyChange();
+                                }
+                            });
+                            valueField = floatField;
+                            break;
+
+                        case VariableType.String:
+                            var stringField = new TextField();
+                            stringField.value = condition.compareValue;
+                            stringField.style.flexGrow = 1;
+                            stringField.style.fontSize = 10;
+                            stringField.RegisterValueChangedCallback(evt =>
+                            {
+                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                                {
+                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue;
+                                    NotifyChange();
+                                }
+                            });
+                            valueField = stringField;
+                            break;
+                    }
+
+                    if (valueField != null)
+                    {
+                        opValueRow.Add(valueField);
+                    }
+
+                    condContainer.Add(opValueRow);
+                }
+
+                container.Add(condContainer);
+            }
+
+            // Logic选择 - 更紧凑的样式
+            if (choiceData.conditions.Count > 1)
+            {
+                var logicRow = new VisualElement();
+                logicRow.style.flexDirection = FlexDirection.Row;
+                logicRow.style.marginTop = 8;
+                logicRow.style.marginBottom = 3;
+                logicRow.style.alignItems = Align.Center;
+                logicRow.style.justifyContent = Justify.Center;
+
+                var andToggle = new Button(() =>
+                {
+                    if (choiceIndex < ChoicesData.Count)
+                    {
+                        ChoicesData[choiceIndex].conditionLogic = ConditionLogic.AND;
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                })
+                {
+                    text = "AND"
+                };
+                andToggle.style.width = 60;
+                andToggle.style.height = 22;
+                andToggle.style.fontSize = 10;
+                andToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.AND ?
+                    FontStyle.Bold : FontStyle.Normal;
+                andToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.AND ?
+                    new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
+                    new StyleColor(new Color(0.25f, 0.25f, 0.25f));
+
+                var orToggle = new Button(() =>
+                {
+                    if (choiceIndex < ChoicesData.Count)
+                    {
+                        ChoicesData[choiceIndex].conditionLogic = ConditionLogic.OR;
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                })
+                {
+                    text = "OR"
+                };
+                orToggle.style.width = 60;
+                orToggle.style.height = 22;
+                orToggle.style.fontSize = 10;
+                orToggle.style.marginLeft = 5;
+                orToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.OR ?
+                    FontStyle.Bold : FontStyle.Normal;
+                orToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.OR ?
+                    new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
+                    new StyleColor(new Color(0.25f, 0.25f, 0.25f));
+
+                logicRow.Add(andToggle);
+                logicRow.Add(orToggle);
+                container.Add(logicRow);
+            }
+        }
+
+        // Add Condition按钮 - 更明显的样式
+        var addCondButton = new Button(() =>
+        {
+            if (choiceIndex < ChoicesData.Count)
+            {
+                ChoicesData[choiceIndex].conditions.Add(new ChoiceCondition());
+                UpdateConditionsDisplay(container, choiceIndex);
+                NotifyChange();
+            }
+        })
+        {
+            text = "+ Add Condition"
+        };
+        addCondButton.style.marginTop = 5;
+        addCondButton.style.height = 20;
+        addCondButton.style.fontSize = 10;
+        container.Add(addCondButton);
+    }
+
+    private List<ComparisonType> GetComparisonTypesForVariable(VariableType varType)
+    {
+        switch (varType)
+        {
+            case VariableType.Bool:
+                return new List<ComparisonType> { ComparisonType.Equal, ComparisonType.NotEqual };
+
+            case VariableType.Int:
+            case VariableType.Float:
+                return new List<ComparisonType>
+                {
+                    ComparisonType.Equal,
+                    ComparisonType.NotEqual,
+                    ComparisonType.Greater,
+                    ComparisonType.Less,
+                    ComparisonType.GreaterOrEqual,
+                    ComparisonType.LessOrEqual
+                };
+
+            case VariableType.String:
+                return new List<ComparisonType>
+                {
+                    ComparisonType.Equal,
+                    ComparisonType.NotEqual,
+                    ComparisonType.Contains,
+                    ComparisonType.StartsWith,
+                    ComparisonType.EndsWith
+                };
+
+            default:
+                return new List<ComparisonType> { ComparisonType.Equal };
+        }
+    }
+
+    private string GetComparisonDisplayName(ComparisonType comparison)
+    {
+        switch (comparison)
+        {
+            case ComparisonType.Equal: return "==";
+            case ComparisonType.NotEqual: return "!=";
+            case ComparisonType.Greater: return ">";
+            case ComparisonType.Less: return "<";
+            case ComparisonType.GreaterOrEqual: return ">=";
+            case ComparisonType.LessOrEqual: return "<=";
+            case ComparisonType.Contains: return "Contains";
+            case ComparisonType.StartsWith: return "Starts With";
+            case ComparisonType.EndsWith: return "Ends With";
+            default: return "==";
+        }
     }
 
     private void CreateChoiceOutputPort(int index, string choiceText)
@@ -1914,9 +2612,9 @@ public class DialogueNode : Node
         outputContainer.Add(outputPort);
     }
 
-    public void SetChoices(List<string> choices)
+    public void SetChoicesData(List<ChoiceData> choicesData)
     {
-        Choices.Clear();
+        ChoicesData.Clear();
         choicesContainer.Clear();
 
         foreach (var port in choiceOutputPorts)
@@ -1925,11 +2623,11 @@ public class DialogueNode : Node
         }
         choiceOutputPorts.Clear();
 
-        for (int i = 0; i < choices.Count; i++)
+        for (int i = 0; i < choicesData.Count; i++)
         {
-            Choices.Add(choices[i]);
+            ChoicesData.Add(choicesData[i]);
             RebuildChoiceUI(i);
-            CreateChoiceOutputPort(i, choices[i]);
+            CreateChoiceOutputPort(i, choicesData[i].text);
         }
 
         RefreshExpandedState();

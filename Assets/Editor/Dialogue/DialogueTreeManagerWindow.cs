@@ -838,6 +838,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void WriteCSVData(StreamWriter writer, DialogueTreeData treeData, int indentLevel)
     {
+        // 修改：使用 ChoiceData 的 text 属性
         int maxChoices = treeData.nodes.Max(n => n.choices != null ? n.choices.Count : 0);
 
         var connectionMap = new Dictionary<string, int>();
@@ -871,7 +872,8 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 if (node.choices != null && i < node.choices.Count)
                 {
-                    writer.Write($",\"{EscapeCSV(node.choices[i])}\"");
+                    // 修改：从 ChoiceData 获取 text
+                    writer.Write($",\"{EscapeCSV(node.choices[i].text)}\"");
 
                     string key = $"{node.id}_{i}";
                     if (connectionMap.ContainsKey(key))
@@ -1043,13 +1045,20 @@ public class DialogueTreeManagerWindow : EditorWindow
                 node.name = fields[1];
                 node.content = fields[2];
 
-                // 更新选项
+                // 修改：更新选项时创建 ChoiceData 对象
                 node.choices.Clear();
                 for (int j = 3; j < fields.Count; j += 2)
                 {
                     if (!string.IsNullOrWhiteSpace(fields[j]))
                     {
-                        node.choices.Add(fields[j]);
+                        // 创建新的 ChoiceData，保留原有条件（如果存在）
+                        var choiceData = new ChoiceData
+                        {
+                            text = fields[j],
+                            conditions = new List<ChoiceCondition>(), // 导入时清空条件
+                            conditionLogic = ConditionLogic.AND
+                        };
+                        node.choices.Add(choiceData);
                     }
                 }
 
