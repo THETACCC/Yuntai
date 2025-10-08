@@ -1,35 +1,63 @@
 {
   "variables": [
-    {"name":"intVar","type":"Int","defaultValue":"0"}
+    {
+      "name": "intVar",
+      "type": "Int",
+      "defaultValue": "0"
+    }
   ],
   "conversations": [
     {
-      "index":0,
-      "name":"Character",
-      "avatarAddr":"",
-      "content":"New Dialogue",
-      "nextIndex":-1,
-      "choices":[{"text":"hello","targetIndex":1,"conditions":[{"variableName":"intVar","comparison":"Equal","compareValue":"1"}],"conditionLogic":"AND"},{"text":"2222","targetIndex":2}],
-      "eventCalls":[{"targetObjectName":"NPC1","componentTypeName":"DialogueTrigger","methodName":"Test","parameterType":"None","stringParameter":"","intParameter":0,"floatParameter":0,"boolParameter":false}]
+      "index": 0,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 2,
+      "choices": [
+        {
+          "text": "hello",
+          "targetIndex": 1,
+          "conditions": [
+            {
+              "variableName": "intVar",
+              "comparison": "Equal",
+              "compareValue": "1"
+            }
+          ],
+          "conditionLogic": "AND"
+        }
+      ],
+      "eventCalls": [
+        {
+          "targetObjectName": "NPC1",
+          "componentTypeName": "DialogueTrigger",
+          "methodName": "Test",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
     },
     {
-      "index":1,
-      "name":"Character",
-      "avatarAddr":"",
-      "content":"hello",
-      "nextIndex":-1,
-      "choices":[],
-      "eventCalls":[]
+      "index": 1,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "hello",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     },
     {
-      "index":2,
-      "name":"Character",
-      "avatarAddr":"",
-      "content":"2222",
-      "nextIndex":-1,
-      "choices":[],
-      "eventCalls":[]
+      "index": 2,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
-  "currentIndex":0
+  "currentIndex": 0
 }

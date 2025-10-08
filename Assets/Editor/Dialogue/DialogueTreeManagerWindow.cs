@@ -3,7 +3,6 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DialogueSystem.Editor; // 新增：引用重构后的命名空间
 
 // 简单的输入对话框辅助类
 public class EditorInputDialog : EditorWindow
@@ -21,7 +20,9 @@ public class EditorInputDialog : EditorWindow
         window.inputText = defaultValue;
         window.minSize = new Vector2(300, 100);
         window.maxSize = new Vector2(300, 100);
+
         window.ShowModal();
+
         return window.inputText;
     }
 
@@ -40,7 +41,9 @@ public class EditorInputDialog : EditorWindow
         GUILayout.FlexibleSpace();
 
         if (GUILayout.Button("OK", GUILayout.Width(80)))
+        {
             Close();
+        }
 
         if (GUILayout.Button("Cancel", GUILayout.Width(80)))
         {
@@ -51,10 +54,14 @@ public class EditorInputDialog : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         if (Event.current.type == EventType.Layout)
+        {
             EditorGUI.FocusTextInControl("InputField");
+        }
 
         if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+        {
             Close();
+        }
     }
 }
 
@@ -65,7 +72,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         public string name;
         public string id;
-        public string description = "";
+        public string description = ""; // 文件夹描述
         public bool isExpanded = true;
         public List<string> fileGuids = new List<string>();
         public List<VirtualFolder> subfolders = new List<VirtualFolder>();
@@ -86,13 +93,20 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private string GetFolderStructurePath()
     {
+        // 找到当前脚本文件的路径
         var script = MonoScript.FromScriptableObject(this);
         string scriptPath = AssetDatabase.GetAssetPath(script);
 
         if (string.IsNullOrEmpty(scriptPath))
+        {
+            // 如果找不到，使用默认路径
             return "Assets/Editor/Dialogue/DialogueTreeFolderStructure.json";
+        }
 
+        // 获取脚本所在的文件夹
         string scriptFolder = Path.GetDirectoryName(scriptPath);
+
+        // 在同一文件夹下保存
         return Path.Combine(scriptFolder, "DialogueTreeFolderStructure.json");
     }
 
@@ -123,12 +137,16 @@ public class DialogueTreeManagerWindow : EditorWindow
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
         foreach (var folder in folderData.rootFolders)
+        {
             DrawVirtualFolder(folder, 0, null);
+        }
 
         foreach (var guid in folderData.rootFileGuids.ToList())
         {
             if (guidToPath.ContainsKey(guid))
+            {
                 DrawFile(guid, 0, null);
+            }
         }
 
         EditorGUILayout.EndScrollView();
@@ -139,17 +157,34 @@ public class DialogueTreeManagerWindow : EditorWindow
         EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
 
         if (GUILayout.Button("Refresh", EditorStyles.toolbarButton, GUILayout.Width(60)))
+        {
             ScanAllDialogueTrees();
+        }
 
         if (GUILayout.Button("New Folder", EditorStyles.toolbarButton, GUILayout.Width(80)))
+        {
             CreateVirtualFolder(null);
+        }
 
         if (GUILayout.Button("Export", EditorStyles.toolbarButton, GUILayout.Width(60)))
+        {
             ExportAllToCSV();
+        }
+
+        // DISABLED: Import feature temporarily disabled due to data loss risk
+        /*
+        GUI.backgroundColor = new Color(0.7f, 1f, 0.7f);
+        if (GUILayout.Button("Import", EditorStyles.toolbarButton, GUILayout.Width(60)))
+        {
+            ImportAllFromCSV();
+        }
+        GUI.backgroundColor = Color.white;
+        */
 
         GUILayout.FlexibleSpace();
 
-        EditorGUILayout.LabelField($"Files: {guidToPath.Count}", EditorStyles.miniLabel);
+        int fileCount = guidToPath.Count;
+        EditorGUILayout.LabelField($"Files: {fileCount}", EditorStyles.miniLabel);
 
         EditorGUILayout.EndHorizontal();
     }
@@ -158,18 +193,22 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         EditorGUILayout.BeginVertical();
 
-        // 文件夹名称和按钮
+        // 第一行：文件夹名称和按钮
         EditorGUILayout.BeginHorizontal();
         GUILayout.Space(indentLevel * 20);
 
         Rect rect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(22));
 
         if (Event.current.type == EventType.Repaint)
+        {
             GUI.Box(rect, "", "box");
+        }
 
         Rect arrowRect = new Rect(rect.x + 5, rect.y + 3, 15, rect.height);
         if (GUI.Button(arrowRect, folder.isExpanded ? "▼" : "▶", EditorStyles.label))
+        {
             folder.isExpanded = !folder.isExpanded;
+        }
 
         Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 200, rect.height);
         GUI.Label(labelRect, $"📁 {folder.name}", EditorStyles.boldLabel);
@@ -178,11 +217,15 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             Rect renameRect = new Rect(rect.xMax - 195, rect.y + 2, 60, 18);
             if (GUI.Button(renameRect, "Rename", EditorStyles.miniButton))
+            {
                 RenameFolder(folder);
+            }
 
             Rect newFolderRect = new Rect(rect.xMax - 130, rect.y + 2, 60, 18);
             if (GUI.Button(newFolderRect, "New", EditorStyles.miniButton))
+            {
                 CreateVirtualFolder(folder);
+            }
 
             Rect deleteRect = new Rect(rect.xMax - 65, rect.y + 2, 60, 18);
             GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
@@ -201,27 +244,32 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             Rect newFolderRect = new Rect(rect.xMax - 65, rect.y + 2, 60, 18);
             if (GUI.Button(newFolderRect, "New", EditorStyles.miniButton))
+            {
                 CreateVirtualFolder(folder);
+            }
         }
 
         EditorGUILayout.EndHorizontal();
 
-        // Description显示
+        // 第二行：Description（如果有）
         if (!string.IsNullOrEmpty(folder.description))
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(indentLevel * 20 + 25);
+            GUILayout.Space(indentLevel * 20 + 25); // 与文件夹名对齐
 
-            var descStyle = new GUIStyle(EditorStyles.miniLabel)
-            {
-                fontSize = 10,
-                fontStyle = FontStyle.Italic,
-                wordWrap = true
-            };
+            var descStyle = new GUIStyle(EditorStyles.miniLabel);
+            descStyle.fontSize = 10;
             descStyle.normal.textColor = new Color(0.6f, 0.6f, 0.6f);
+            descStyle.fontStyle = FontStyle.Italic;
+            descStyle.wordWrap = true;
 
-            Rect descRect = GUILayoutUtility.GetRect(new GUIContent(folder.description), descStyle, GUILayout.ExpandWidth(true));
+            Rect descRect = GUILayoutUtility.GetRect(
+                new GUIContent(folder.description),
+                descStyle,
+                GUILayout.ExpandWidth(true)
+            );
 
+            // 检测双击编辑描述
             if (Event.current.type == EventType.MouseDown && descRect.Contains(Event.current.mousePosition))
             {
                 if (Event.current.clickCount == 2)
@@ -232,24 +280,30 @@ public class DialogueTreeManagerWindow : EditorWindow
             }
 
             GUI.Label(descRect, folder.description, descStyle);
+
             EditorGUILayout.EndHorizontal();
         }
         else if (folder.id != "default_folder")
         {
+            // 没有描述时，显示"Add description..."提示
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(indentLevel * 20 + 25);
 
-            var hintStyle = new GUIStyle(EditorStyles.miniLabel)
-            {
-                fontSize = 9,
-                fontStyle = FontStyle.Italic
-            };
+            var hintStyle = new GUIStyle(EditorStyles.miniLabel);
+            hintStyle.fontSize = 9;
             hintStyle.normal.textColor = new Color(0.5f, 0.5f, 0.5f);
+            hintStyle.fontStyle = FontStyle.Italic;
 
-            Rect hintRect = GUILayoutUtility.GetRect(new GUIContent("Add description..."), hintStyle, GUILayout.Width(150));
+            Rect hintRect = GUILayoutUtility.GetRect(
+                new GUIContent("Add description..."),
+                hintStyle,
+                GUILayout.Width(150)
+            );
 
             if (GUI.Button(hintRect, "Add description...", hintStyle))
+            {
                 EditDescription(folder);
+            }
 
             EditorGUILayout.EndHorizontal();
         }
@@ -261,12 +315,16 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (folder.isExpanded)
         {
             foreach (var subfolder in folder.subfolders.ToList())
+            {
                 DrawVirtualFolder(subfolder, indentLevel + 1, folder);
+            }
 
             foreach (var guid in folder.fileGuids.ToList())
             {
                 if (guidToPath.ContainsKey(guid))
+                {
                     DrawFile(guid, indentLevel + 1, folder);
+                }
             }
         }
     }
@@ -274,7 +332,8 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void EditDescription(VirtualFolder folder)
     {
         string newDesc = EditorInputDialog.Show("Edit Description", "Enter folder description:", folder.description);
-        if (newDesc != null)
+
+        if (newDesc != null) // null 表示取消，空字符串表示清空
         {
             folder.description = newDesc.Trim();
             SaveVirtualFolderStructure();
@@ -294,7 +353,9 @@ public class DialogueTreeManagerWindow : EditorWindow
         Rect rect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(20));
 
         if (Event.current.type == EventType.Repaint)
+        {
             GUI.Box(rect, "", "box");
+        }
 
         Rect labelRect = new Rect(rect.x + 5, rect.y + 2, rect.width - 10, rect.height);
         GUI.Label(labelRect, $"📄 {fileName}");
@@ -316,6 +377,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void RenameFolder(VirtualFolder folder)
     {
         string newName = EditorInputDialog.Show("Rename Folder", "Enter new folder name:", folder.name);
+
         if (!string.IsNullOrWhiteSpace(newName))
         {
             folder.name = newName.Trim();
@@ -369,18 +431,26 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
 
         if (e.type == EventType.DragExited)
+        {
             draggedFileGuid = null;
+        }
     }
 
     private void MoveFileToFolder(string fileGuid, VirtualFolder fromFolder, VirtualFolder toFolder)
     {
         if (fromFolder == null)
+        {
             folderData.rootFileGuids.Remove(fileGuid);
+        }
         else
+        {
             fromFolder.fileGuids.Remove(fileGuid);
+        }
 
         if (!toFolder.fileGuids.Contains(fileGuid))
+        {
             toFolder.fileGuids.Add(fileGuid);
+        }
 
         SaveVirtualFolderStructure();
     }
@@ -408,9 +478,13 @@ public class DialogueTreeManagerWindow : EditorWindow
         };
 
         if (parent == null)
+        {
             folderData.rootFolders.Add(newFolder);
+        }
         else
+        {
             parent.subfolders.Add(newFolder);
+        }
 
         SaveVirtualFolderStructure();
     }
@@ -426,14 +500,20 @@ public class DialogueTreeManagerWindow : EditorWindow
             foreach (var fileGuid in allFiles)
             {
                 if (!defaultFolder.fileGuids.Contains(fileGuid))
+                {
                     defaultFolder.fileGuids.Add(fileGuid);
+                }
             }
         }
 
         if (parent == null)
+        {
             folderData.rootFolders.Remove(folder);
+        }
         else
+        {
             parent.subfolders.Remove(folder);
+        }
 
         SaveVirtualFolderStructure();
     }
@@ -441,8 +521,11 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void CollectAllFilesRecursive(VirtualFolder folder, List<string> fileList)
     {
         fileList.AddRange(folder.fileGuids);
+
         foreach (var subfolder in folder.subfolders)
+        {
             CollectAllFilesRecursive(subfolder, fileList);
+        }
     }
 
     private void ScanAllDialogueTrees()
@@ -455,7 +538,9 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             string guid = AssetDatabase.AssetPathToGUID("Assets" + file.Substring(Application.dataPath.Length));
             if (string.IsNullOrEmpty(guid))
+            {
                 guid = file.GetHashCode().ToString();
+            }
             guidToPath[guid] = file;
         }
 
@@ -466,7 +551,9 @@ public class DialogueTreeManagerWindow : EditorWindow
         foreach (var guid in guidToPath.Keys)
         {
             if (!IsFileInAnyFolder(guid))
+            {
                 defaultFolder.fileGuids.Add(guid);
+            }
         }
 
         SaveVirtualFolderStructure();
@@ -475,7 +562,8 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void EnsureDefaultFolder()
     {
-        if (folderData.rootFolders.Count == 0 || !folderData.rootFolders.Any(f => f.id == "default_folder"))
+        if (folderData.rootFolders.Count == 0 ||
+            !folderData.rootFolders.Any(f => f.id == "default_folder"))
         {
             var defaultFolder = new VirtualFolder
             {
@@ -486,6 +574,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             defaultFolder.fileGuids.AddRange(folderData.rootFileGuids);
             folderData.rootFileGuids.Clear();
+
             folderData.rootFolders.Insert(0, defaultFolder);
         }
     }
@@ -514,6 +603,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void CleanupDeletedFiles()
     {
         var validGuids = new HashSet<string>(guidToPath.Keys);
+
         folderData.rootFileGuids.RemoveAll(g => !validGuids.Contains(g));
         CleanupFoldersRecursive(folderData.rootFolders, validGuids);
     }
@@ -534,12 +624,16 @@ public class DialogueTreeManagerWindow : EditorWindow
             string savePath = GetFolderStructurePath();
             string json = JsonUtility.ToJson(folderData, true);
 
+            // 确保文件夹存在
             string folder = Path.GetDirectoryName(savePath);
             if (!Directory.Exists(folder))
+            {
                 Directory.CreateDirectory(folder);
+            }
 
             File.WriteAllText(savePath, json);
             AssetDatabase.Refresh();
+
             Debug.Log($"Saved folder structure to: {savePath}");
         }
         catch (System.Exception e)
@@ -586,7 +680,6 @@ public class DialogueTreeManagerWindow : EditorWindow
 
                 EditorApplication.delayCall += () =>
                 {
-                    // 修改：使用新命名空间的类型
                     var method = typeof(DialogueTreeEditor).GetMethod("LoadFromFile",
                         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
@@ -631,6 +724,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                                 writer.WriteLine("");
                             }
                             isFirst = false;
+
                             ExportFolderRecursive(writer, subfolder, "", 0);
                         }
 
@@ -638,7 +732,10 @@ public class DialogueTreeManagerWindow : EditorWindow
                         {
                             if (guidToPath.ContainsKey(guid))
                             {
-                                if (!isFirst) writer.WriteLine("");
+                                if (!isFirst)
+                                {
+                                    writer.WriteLine("");
+                                }
                                 ExportSingleFileToWriter(writer, guidToPath[guid], 0);
                                 isFirst = false;
                             }
@@ -653,6 +750,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                             writer.WriteLine("");
                         }
                         isFirst = false;
+
                         ExportFolderRecursive(writer, folder, "", 0);
                     }
                 }
@@ -670,12 +768,15 @@ public class DialogueTreeManagerWindow : EditorWindow
                     foreach (var guid in folderData.rootFileGuids)
                     {
                         if (guidToPath.ContainsKey(guid))
+                        {
                             ExportSingleFileToWriter(writer, guidToPath[guid], 1);
+                        }
                     }
                 }
             }
 
-            EditorUtility.DisplayDialog("Export Successful", $"Exported all dialogues to:\n{savePath}", "OK");
+            EditorUtility.DisplayDialog("Export Successful",
+                $"Exported all dialogues to:\n{savePath}", "OK");
             Debug.Log($"Exported all to: {savePath}");
         }
         catch (System.Exception e)
@@ -688,21 +789,31 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void ExportFolderRecursive(StreamWriter writer, VirtualFolder folder, string parentPath, int indentLevel)
     {
         string folderPath = string.IsNullOrEmpty(parentPath) ? folder.name : $"{parentPath}/{folder.name}";
+
         string indent = new string(',', indentLevel);
 
+        // 写入文件夹名
         writer.WriteLine($"{indent}FOLDER: {folderPath}");
 
+        // 如果有描述，写入描述（下一行）
         if (!string.IsNullOrEmpty(folder.description))
+        {
             writer.WriteLine($"{indent}Description: {EscapeCSV(folder.description)}");
+        }
 
+        // 空一行
         writer.WriteLine();
 
+        // 写入文件
         foreach (var guid in folder.fileGuids)
         {
             if (guidToPath.ContainsKey(guid))
+            {
                 ExportSingleFileToWriter(writer, guidToPath[guid], indentLevel + 1);
+            }
         }
 
+        // 递归导出子文件夹
         foreach (var subfolder in folder.subfolders)
         {
             writer.WriteLine();
@@ -718,14 +829,17 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (treeData == null) return;
 
         string indent = new string(',', indentLevel);
+
         writer.WriteLine($"{indent}FILE: {Path.GetFileNameWithoutExtension(filePath)}");
+
         WriteCSVData(writer, treeData, indentLevel);
         writer.WriteLine();
     }
 
     private void WriteCSVData(StreamWriter writer, DialogueTreeData treeData, int indentLevel)
     {
-        int maxChoices = treeData.nodes.Max(n => n.choices?.Count ?? 0);
+        // 修改：使用 ChoiceData 的 text 属性
+        int maxChoices = treeData.nodes.Max(n => n.choices != null ? n.choices.Count : 0);
 
         var connectionMap = new Dictionary<string, int>();
         foreach (var conn in treeData.connections)
@@ -733,14 +847,18 @@ public class DialogueTreeManagerWindow : EditorWindow
             string key = $"{conn.outputNodeId}_{conn.choiceIndex}";
             var targetNode = treeData.nodes.FirstOrDefault(n => n.id == conn.inputNodeId);
             if (targetNode != null)
+            {
                 connectionMap[key] = targetNode.index;
+            }
         }
 
         string indent = new string(',', indentLevel);
 
         writer.Write($"{indent}NodeIndex,CharacterName,DialogueContent");
         for (int i = 0; i < maxChoices; i++)
+        {
             writer.Write($",Choice{i + 1},GoToNode{i + 1}");
+        }
         writer.WriteLine();
 
         foreach (var node in treeData.nodes.OrderBy(n => n.index))
@@ -754,13 +872,18 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 if (node.choices != null && i < node.choices.Count)
                 {
+                    // 修改：从 ChoiceData 获取 text
                     writer.Write($",\"{EscapeCSV(node.choices[i].text)}\"");
 
                     string key = $"{node.id}_{i}";
                     if (connectionMap.ContainsKey(key))
+                    {
                         writer.Write($",{connectionMap[key]}");
+                    }
                     else
+                    {
                         writer.Write(",");
+                    }
                 }
                 else
                 {
@@ -770,6 +893,237 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             writer.WriteLine();
         }
+    }
+
+    private void ImportAllFromCSV()
+    {
+        string csvPath = EditorUtility.OpenFilePanel("Import All Dialogues from CSV",
+            Application.dataPath, "csv");
+
+        if (string.IsNullOrEmpty(csvPath)) return;
+
+        if (!EditorUtility.DisplayDialog("Import CSV",
+            "This will update dialogue content from CSV for ALL files.\nNode positions and connections will be preserved.\nContinue?",
+            "Import", "Cancel"))
+        {
+            return;
+        }
+
+        try
+        {
+            var lines = File.ReadAllLines(csvPath, System.Text.Encoding.UTF8);
+
+            int updatedCount = 0;
+            string currentFileName = "";
+            var currentFileData = new List<string>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+
+                if (string.IsNullOrEmpty(line) || line.StartsWith("===") || line.StartsWith("---"))
+                    continue;
+
+                if (line.Contains("FOLDER:"))
+                    continue;
+
+                if (line.Contains("FILE:"))
+                {
+                    if (!string.IsNullOrEmpty(currentFileName) && currentFileData.Count > 0)
+                    {
+                        if (ImportFileData(currentFileName, currentFileData))
+                        {
+                            updatedCount++;
+                        }
+                    }
+
+                    currentFileName = ExtractFileName(line);
+                    currentFileData.Clear();
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(currentFileName))
+                {
+                    currentFileData.Add(line);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(currentFileName) && currentFileData.Count > 0)
+            {
+                if (ImportFileData(currentFileName, currentFileData))
+                {
+                    updatedCount++;
+                }
+            }
+
+            AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("Import Successful",
+                $"Updated {updatedCount} dialogue files from CSV.", "OK");
+            Debug.Log($"Import completed: {updatedCount} files updated");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Import Failed", $"Error: {e.Message}", "OK");
+            Debug.LogError($"Import all failed: {e.Message}");
+        }
+    }
+
+    private string ExtractFileName(string line)
+    {
+        string cleaned = line.Replace(",", "").Replace("FILE:", "").Trim();
+        return cleaned;
+    }
+
+    private bool ImportFileData(string fileName, List<string> dataLines)
+    {
+        string targetFilePath = null;
+        foreach (var kvp in guidToPath)
+        {
+            string name = Path.GetFileNameWithoutExtension(kvp.Value);
+            if (name == fileName)
+            {
+                targetFilePath = kvp.Value;
+                break;
+            }
+        }
+
+        if (string.IsNullOrEmpty(targetFilePath))
+        {
+            Debug.LogWarning($"File not found: {fileName}");
+            return false;
+        }
+
+        // 保存原始JSON以备份
+        string originalJson = File.ReadAllText(targetFilePath);
+
+        var treeData = LoadDialogueTreeData(targetFilePath);
+        if (treeData == null)
+        {
+            Debug.LogWarning($"Failed to load tree data: {fileName}");
+            return false;
+        }
+
+        // 创建节点索引映射
+        var nodeMap = new Dictionary<int, DialogueNodeData>();
+        foreach (var node in treeData.nodes)
+        {
+            nodeMap[node.index] = node;
+        }
+
+        bool isHeader = true;
+        bool hasChanges = false;
+
+        foreach (var line in dataLines)
+        {
+            if (isHeader && line.Contains("NodeIndex"))
+            {
+                isHeader = false;
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            var fields = ParseCSVLine(line);
+            if (fields.Count < 3) continue;
+
+            while (fields.Count > 0 && string.IsNullOrWhiteSpace(fields[0]))
+            {
+                fields.RemoveAt(0);
+            }
+
+            if (fields.Count < 3) continue;
+
+            int nodeIndex;
+            if (!int.TryParse(fields[0], out nodeIndex)) continue;
+
+            if (nodeMap.ContainsKey(nodeIndex))
+            {
+                var node = nodeMap[nodeIndex];
+
+                // 只更新这三个字段，其他字段（如avatarAssetPath）保持不变
+                node.name = fields[1];
+                node.content = fields[2];
+
+                // 修改：更新选项时创建 ChoiceData 对象
+                node.choices.Clear();
+                for (int j = 3; j < fields.Count; j += 2)
+                {
+                    if (!string.IsNullOrWhiteSpace(fields[j]))
+                    {
+                        // 创建新的 ChoiceData，保留原有条件（如果存在）
+                        var choiceData = new ChoiceData
+                        {
+                            text = fields[j],
+                            conditions = new List<ChoiceCondition>(), // 导入时清空条件
+                            conditionLogic = ConditionLogic.AND
+                        };
+                        node.choices.Add(choiceData);
+                    }
+                }
+
+                hasChanges = true;
+            }
+        }
+
+        if (!hasChanges)
+        {
+            Debug.LogWarning($"No changes detected for: {fileName}");
+            return false;
+        }
+
+        // 保存更新后的数据
+        try
+        {
+            string json = JsonUtility.ToJson(treeData, true);
+            File.WriteAllText(targetFilePath, json);
+            Debug.Log($"Updated: {fileName}");
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            // 如果保存失败，恢复原始文件
+            Debug.LogError($"Failed to save {fileName}: {e.Message}");
+            File.WriteAllText(targetFilePath, originalJson);
+            return false;
+        }
+    }
+
+    private List<string> ParseCSVLine(string line)
+    {
+        var fields = new List<string>();
+        bool inQuotes = false;
+        string currentField = "";
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char c = line[i];
+
+            if (c == '"')
+            {
+                if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                {
+                    currentField += '"';
+                    i++;
+                }
+                else
+                {
+                    inQuotes = !inQuotes;
+                }
+            }
+            else if (c == ',' && !inQuotes)
+            {
+                fields.Add(currentField);
+                currentField = "";
+            }
+            else
+            {
+                currentField += c;
+            }
+        }
+
+        fields.Add(currentField);
+        return fields;
     }
 
     private string EscapeCSV(string text)
