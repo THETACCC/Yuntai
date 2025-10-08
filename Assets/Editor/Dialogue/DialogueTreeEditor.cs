@@ -203,6 +203,10 @@ public class DialogueTreeEditor : EditorWindow
 
     private void DelayedInitialize()
     {
+
+        if (rootVisualElement.childCount > 0)
+            return; // 防止重复构建 UI
+
         CreateToolbar();
         CreateMainLayout();
 
