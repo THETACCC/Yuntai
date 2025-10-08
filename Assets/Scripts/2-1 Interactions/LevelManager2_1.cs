@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +22,11 @@ public class LevelManager2_1 : MonoBehaviour
 
     public ScenePortal BathroomPortal;
 
+    // Diaogue Boolean
+    [HideInInspector] public bool infoOne = false; //PassA 芸台即将封城，而且此班飞机是最后一班的消息
+    [HideInInspector] public bool infoTwo = false; //上班族 芸台近日不是很太平，有很多人目击到了奇怪的外地团体在城中活动
+    [HideInInspector] public bool infoThree = false; //ZhouShu 负责发飞机餐的乘务员不知为什么一直不过来。
+
     public void SpeakZhoushu()
     {
         isZhouShu = true;
@@ -41,4 +46,7 @@ public class LevelManager2_1 : MonoBehaviour
 
     }
 
+    public void SetInfoOneTrue() { infoOne = true; }
+    public void SetInfoTwoTrue() { infoTwo = true; }
+    public void SetInfoThreeTrue() { infoThree = true; }
 }
