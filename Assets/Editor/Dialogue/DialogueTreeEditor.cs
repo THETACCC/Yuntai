@@ -38,7 +38,7 @@ public class DialogueVariable
 {
     public string name;
     public VariableType type;
-    public string defaultValue; // 统一用string存储，使用时转换
+    public string defaultValue;
 }
 
 [System.Serializable]
@@ -56,11 +56,10 @@ public enum ConditionLogic
     OR
 }
 
-// ==================== 修改后的数据结构 ====================
 [System.Serializable]
 public class DialogueTreeData
 {
-    public List<DialogueVariable> variables = new List<DialogueVariable>(); // 新增
+    public List<DialogueVariable> variables = new List<DialogueVariable>();
     public List<DialogueNodeData> nodes = new List<DialogueNodeData>();
     public List<DialogueConnectionData> connections = new List<DialogueConnectionData>();
 }
@@ -75,7 +74,7 @@ public class DialogueNodeData
     public string content;
     public float positionX;
     public float positionY;
-    public List<ChoiceData> choices = new List<ChoiceData>(); // 修改为ChoiceData
+    public List<ChoiceData> choices = new List<ChoiceData>();
     public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
 }
 
@@ -83,8 +82,8 @@ public class DialogueNodeData
 public class ChoiceData
 {
     public string text;
-    public List<ChoiceCondition> conditions = new List<ChoiceCondition>(); // 新增
-    public ConditionLogic conditionLogic = ConditionLogic.AND; // 新增
+    public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+    public ConditionLogic conditionLogic = ConditionLogic.AND;
 }
 
 [System.Serializable]
@@ -113,11 +112,10 @@ public class RuntimeChoice
 {
     public string text;
     public string nextNodeId;
-    public List<ChoiceCondition> conditions = new List<ChoiceCondition>(); // 新增
-    public ConditionLogic conditionLogic = ConditionLogic.AND; // 新增
+    public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+    public ConditionLogic conditionLogic = ConditionLogic.AND;
 }
 
-// ==================== 修改后的编辑器窗口类 ====================
 public class DialogueTreeEditor : EditorWindow
 {
     private DialogueGraphView graphView;
@@ -300,7 +298,6 @@ public class DialogueTreeEditor : EditorWindow
 
     private void CreateToolbar()
     {
-        // 工具栏已移除，所有功能通过右键菜单访问
     }
 
     private void CreateMainLayout()
@@ -309,14 +306,12 @@ public class DialogueTreeEditor : EditorWindow
         mainContainer.style.flexDirection = FlexDirection.Row;
         mainContainer.style.flexGrow = 1;
 
-        // 创建变量面板
         variablesPanel = new VariablesPanel(this);
         variablesPanel.style.width = 250;
         variablesPanel.style.borderRightWidth = 2;
         variablesPanel.style.borderRightColor = new StyleColor(new Color(0.1f, 0.1f, 0.1f));
         variablesPanel.SetVariables(variables);
 
-        // 创建GraphView
         graphView = new DialogueGraphView();
         graphView.SetEditorWindow(this);
         graphView.style.flexGrow = 1;
@@ -469,7 +464,6 @@ public class DialogueTreeEditor : EditorWindow
 
         string formattedJson = "{\n  \"variables\": [\n";
 
-        // 导出变量定义
         for (int i = 0; i < variables.Count; i++)
         {
             var variable = variables[i];
@@ -517,7 +511,6 @@ public class DialogueTreeEditor : EditorWindow
                     formattedJson += $"          \"text\": \"{EscapeJsonString(choice.text)}\",\n";
                     formattedJson += $"          \"targetIndex\": {targetIndex}";
 
-                    // 导出条件
                     if (choice.conditions.Count > 0)
                     {
                         formattedJson += ",\n          \"conditions\": [\n";
@@ -684,7 +677,6 @@ public class DialogueTreeEditor : EditorWindow
     }
 }
 
-// ==================== 新增：变量面板类 ====================
 public class VariablesPanel : VisualElement
 {
     private DialogueTreeEditor editorWindow;
@@ -752,7 +744,7 @@ public class VariablesPanel : VisualElement
 
         variables.Add(variable);
         editorWindow.MarkAsChanged();
-        editorWindow.NotifyVariablesChanged(); // 通知变量改变
+        editorWindow.NotifyVariablesChanged();
         RefreshDisplay();
     }
 
@@ -806,18 +798,14 @@ public class VariablesPanel : VisualElement
         varRow.style.paddingRight = 3;
         varRow.style.backgroundColor = new StyleColor(new Color(0.18f, 0.18f, 0.18f));
 
-        // 类型图标
         var typeLabel = new Label(GetTypeIcon(variable.type));
         typeLabel.style.width = 20;
         typeLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
         typeLabel.style.fontSize = 12;
         typeLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         typeLabel.style.marginRight = 5;
-
-        // 根据类型设置颜色
         typeLabel.style.color = GetTypeColor(variable.type);
 
-        // 变量名
         var nameField = new TextField();
         nameField.value = variable.name;
         nameField.style.flexGrow = 1;
@@ -829,7 +817,7 @@ public class VariablesPanel : VisualElement
             {
                 variable.name = evt.newValue;
                 editorWindow.MarkAsChanged();
-                editorWindow.NotifyVariablesChanged(); // 通知变量名称改变
+                editorWindow.NotifyVariablesChanged();
             }
             else
             {
@@ -837,7 +825,6 @@ public class VariablesPanel : VisualElement
             }
         });
 
-        // 默认值输入
         VisualElement valueField = null;
         switch (variable.type)
         {
@@ -892,12 +879,11 @@ public class VariablesPanel : VisualElement
                 break;
         }
 
-        // 删除按钮
         var deleteButton = new Button(() =>
         {
             variables.Remove(variable);
             editorWindow.MarkAsChanged();
-            editorWindow.NotifyVariablesChanged(); // 通知变量改变
+            editorWindow.NotifyVariablesChanged();
             RefreshDisplay();
         });
         deleteButton.text = "×";
@@ -931,16 +917,15 @@ public class VariablesPanel : VisualElement
     {
         switch (type)
         {
-            case VariableType.Bool: return new Color(0.8f, 0.4f, 0.4f); // 红色
-            case VariableType.Int: return new Color(0.4f, 0.7f, 1f);   // 蓝色
-            case VariableType.Float: return new Color(0.5f, 1f, 0.5f); // 绿色
-            case VariableType.String: return new Color(1f, 0.8f, 0.4f); // 橙色
+            case VariableType.Bool: return new Color(0.8f, 0.4f, 0.4f);
+            case VariableType.Int: return new Color(0.4f, 0.7f, 1f);
+            case VariableType.Float: return new Color(0.5f, 1f, 0.5f);
+            case VariableType.String: return new Color(1f, 0.8f, 0.4f);
             default: return Color.white;
         }
     }
 }
 
-// ==================== GraphView 主视图类 ====================
 public class DialogueGraphView : GraphView
 {
     private DialogueTreeEditor editorWindow;
@@ -1569,8 +1554,7 @@ public class SerializableChoiceDataList
     public List<ChoiceData> choicesData = new List<ChoiceData>();
 }
 
-// ==================== 对话节点类 ====================
-public class DialogueNode : Node
+public partial class DialogueNode : Node
 {
     private DialogueTreeEditor editorWindow;
     private TextField characterNameField;
@@ -2204,7 +2188,6 @@ public class DialogueNode : Node
         headerRow.Add(removeButton);
         choiceContainer.Add(headerRow);
 
-        // 条件部分 - 使用Label代替Foldout避免显示方框
         var conditionsHeader = new VisualElement();
         conditionsHeader.style.flexDirection = FlexDirection.Row;
         conditionsHeader.style.marginTop = 8;
@@ -2237,7 +2220,6 @@ public class DialogueNode : Node
 
     public void RefreshConditionsUI()
     {
-        // 重新构建所有choice的UI以刷新变量列表
         choicesContainer.Clear();
 
         foreach (var port in choiceOutputPorts)
@@ -2266,7 +2248,7 @@ public class DialogueNode : Node
 
         if (choiceData.conditions.Count == 0)
         {
-            var emptyLabel = new Label("No conditions");
+            var emptyLabel = new Label("No conditions (always available)");
             emptyLabel.style.color = new StyleColor(new Color(0.6f, 0.6f, 0.6f));
             emptyLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
             emptyLabel.style.fontSize = 10;
@@ -2294,7 +2276,6 @@ public class DialogueNode : Node
                 condContainer.style.borderBottomLeftRadius = 3;
                 condContainer.style.borderBottomRightRadius = 3;
 
-                // 标题行
                 var condHeader = new VisualElement();
                 condHeader.style.flexDirection = FlexDirection.Row;
                 condHeader.style.alignItems = Align.Center;
@@ -2326,7 +2307,6 @@ public class DialogueNode : Node
                 condHeader.Add(removeCondButton);
                 condContainer.Add(condHeader);
 
-                // 变量选择
                 var variables = editorWindow?.GetVariables() ?? new List<DialogueVariable>();
                 var variableNames = new List<string> { "None" };
                 variableNames.AddRange(variables.Select(v => v.name));
@@ -2334,43 +2314,33 @@ public class DialogueNode : Node
                 int selectedVarIndex = string.IsNullOrEmpty(condition.variableName) ? 0 : variableNames.IndexOf(condition.variableName);
                 if (selectedVarIndex < 0) selectedVarIndex = 0;
 
-                // Variable 行
-                var varRow = new VisualElement();
-                varRow.style.flexDirection = FlexDirection.Row;
-                varRow.style.alignItems = Align.Center;
-                varRow.style.marginBottom = 5;
-
-                var varLabel = new Label("Var:");
-                varLabel.style.width = 35;
-                varLabel.style.fontSize = 10;
-                varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
-
-                var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
-                varDropdown.style.flexGrow = 1;
-                varDropdown.RegisterValueChangedCallback(evt =>
-                {
-                    if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                    {
-                        ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
-                        UpdateConditionsDisplay(container, choiceIndex);
-                        NotifyChange();
-                    }
-                });
-
-                varRow.Add(varLabel);
-                varRow.Add(varDropdown);
-                condContainer.Add(varRow);
-
                 if (selectedVarIndex > 0)
                 {
                     var selectedVariable = variables[selectedVarIndex - 1];
 
-                    // 运算符和值在同一行
-                    var opValueRow = new VisualElement();
-                    opValueRow.style.flexDirection = FlexDirection.Row;
-                    opValueRow.style.alignItems = Align.Center;
+                    var fullRow = new VisualElement();
+                    fullRow.style.flexDirection = FlexDirection.Row;
+                    fullRow.style.alignItems = Align.Center;
 
-                    // 运算符
+                    var varLabel = new Label("Var:");
+                    varLabel.style.width = 35;
+                    varLabel.style.fontSize = 10;
+                    varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                    varLabel.style.marginRight = 3;
+
+                    var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
+                    varDropdown.style.width = 90;
+                    varDropdown.style.marginRight = 5;
+                    varDropdown.RegisterValueChangedCallback(evt =>
+                    {
+                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                        {
+                            ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
+                            UpdateConditionsDisplay(container, choiceIndex);
+                            NotifyChange();
+                        }
+                    });
+
                     var comparisonTypes = GetComparisonTypesForVariable(selectedVariable.type);
                     var comparisonNames = comparisonTypes.Select(c => GetComparisonDisplayName(c)).ToList();
 
@@ -2378,7 +2348,7 @@ public class DialogueNode : Node
                     if (selectedCompIndex < 0) selectedCompIndex = 0;
 
                     var compDropdown = new PopupField<string>(comparisonNames, selectedCompIndex);
-                    compDropdown.style.width = 70;
+                    compDropdown.style.width = 80;
                     compDropdown.style.marginRight = 5;
                     compDropdown.style.fontSize = 10;
                     compDropdown.RegisterValueChangedCallback(evt =>
@@ -2391,9 +2361,6 @@ public class DialogueNode : Node
                         }
                     });
 
-                    opValueRow.Add(compDropdown);
-
-                    // 值输入
                     VisualElement valueField = null;
                     switch (selectedVariable.type)
                     {
@@ -2401,7 +2368,7 @@ public class DialogueNode : Node
                             bool boolValue = condition.compareValue == "true";
                             var boolToggle = new Toggle();
                             boolToggle.value = boolValue;
-                            boolToggle.style.flexGrow = 1;
+                            boolToggle.style.width = 40;
                             boolToggle.RegisterValueChangedCallback(evt =>
                             {
                                 if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
@@ -2464,18 +2431,48 @@ public class DialogueNode : Node
                             break;
                     }
 
+                    fullRow.Add(varLabel);
+                    fullRow.Add(varDropdown);
+                    fullRow.Add(compDropdown);
                     if (valueField != null)
                     {
-                        opValueRow.Add(valueField);
+                        fullRow.Add(valueField);
                     }
 
-                    condContainer.Add(opValueRow);
+                    condContainer.Add(fullRow);
+                }
+                else
+                {
+                    var varRow = new VisualElement();
+                    varRow.style.flexDirection = FlexDirection.Row;
+                    varRow.style.alignItems = Align.Center;
+
+                    var varLabel = new Label("Var:");
+                    varLabel.style.width = 35;
+                    varLabel.style.fontSize = 10;
+                    varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                    varLabel.style.marginRight = 3;
+
+                    var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
+                    varDropdown.style.flexGrow = 1;
+                    varDropdown.RegisterValueChangedCallback(evt =>
+                    {
+                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                        {
+                            ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
+                            UpdateConditionsDisplay(container, choiceIndex);
+                            NotifyChange();
+                        }
+                    });
+
+                    varRow.Add(varLabel);
+                    varRow.Add(varDropdown);
+                    condContainer.Add(varRow);
                 }
 
                 container.Add(condContainer);
             }
 
-            // Logic选择 - 更紧凑的样式
             if (choiceData.conditions.Count > 1)
             {
                 var logicRow = new VisualElement();
@@ -2534,7 +2531,6 @@ public class DialogueNode : Node
             }
         }
 
-        // Add Condition按钮 - 更明显的样式
         var addCondButton = new Button(() =>
         {
             if (choiceIndex < ChoicesData.Count)

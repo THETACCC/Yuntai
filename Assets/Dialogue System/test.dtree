@@ -1,4 +1,11 @@
 {
+    "variables": [
+        {
+            "name": "intVar",
+            "type": 1,
+            "defaultValue": "0"
+        }
+    ],
     "nodes": [
         {
             "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
@@ -8,7 +15,29 @@
             "content": "New Dialogue",
             "positionX": 232.6666717529297,
             "positionY": -42.0,
-            "choices": [],
+            "choices": [
+                {
+                    "text": "hello",
+                    "conditions": [
+                        {
+                            "variableName": "intVar",
+                            "comparison": 0,
+                            "compareValue": "1"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "New Choice",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "New Choice",
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": [
                 {
                     "targetObjectName": "NPC1",
@@ -21,7 +50,42 @@
                     "parameterType": 0
                 }
             ]
+        },
+        {
+            "id": "67a2c648-113e-455c-b439-47dcce679a14",
+            "index": 1,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "hello",
+            "positionX": 715.3333740234375,
+            "positionY": 311.33331298828127,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "9523d4a8-2cd8-4d0c-b078-25140411873f",
+            "index": 2,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "New Dialogue",
+            "positionX": 734.6666870117188,
+            "positionY": -157.3333282470703,
+            "choices": [],
+            "eventCalls": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
+            "inputNodeId": "67a2c648-113e-455c-b439-47dcce679a14",
+            "choiceIndex": 0,
+            "choiceText": "hello"
+        },
+        {
+            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
+            "inputNodeId": "9523d4a8-2cd8-4d0c-b078-25140411873f",
+            "choiceIndex": -1,
+            "choiceText": ""
+        }
+    ]
 }
