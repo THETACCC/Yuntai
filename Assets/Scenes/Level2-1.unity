@@ -701,13 +701,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 297127188}
   m_SourcePrefab: {fileID: 100100000, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
 --- !u!4 &297127186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 297127185}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &297127187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+  m_PrefabInstance: {fileID: 297127185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &297127188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297127187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacfffd332bf7db45aa595cc57580d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  designatedLocation: {fileID: 1078806428}
+  moveSpeed: 3
+  keepCurrentY: 0
+  spriteAfterMove: {fileID: 0}
+  targetRenderer: {fileID: 0}
 --- !u!1 &346456659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2391,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1078806427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1078806428}
+  m_Layer: 0
+  m_Name: ZhouShuDestination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1078806428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078806427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.6, y: 0.4570278, z: 1.4925356}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1112912133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2617,6 +2673,7 @@ MonoBehaviour:
   infoOne: 0
   infoTwo: 0
   infoThree: 0
+  getFood: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4415,3 +4472,4 @@ SceneRoots:
   - {fileID: 1803819324}
   - {fileID: 1511649204}
   - {fileID: 1279740581}
+  - {fileID: 1078806428}

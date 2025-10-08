@@ -27,6 +27,8 @@ public class LevelManager2_1 : MonoBehaviour
     [HideInInspector] public bool infoTwo = false; //上班族 芸台近日不是很太平，有很多人目击到了奇怪的外地团体在城中活动
     [HideInInspector] public bool infoThree = false; //ZhouShu 负责发飞机餐的乘务员不知为什么一直不过来。
 
+    [HideInInspector] public bool getFood = false; //找乘务员
+
     public void SpeakZhoushu()
     {
         isZhouShu = true;
@@ -49,4 +51,5 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetInfoOneTrue() { infoOne = true; }
     public void SetInfoTwoTrue() { infoTwo = true; }
     public void SetInfoThreeTrue() { infoThree = true; }
+    public void SetgetFoodTrue() { getFood = true; }
 }
