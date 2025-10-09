@@ -1763,7 +1763,8 @@ public partial class DialogueNode : Node
         eventsContainer.style.marginTop = 2;
         mainContainer.Add(eventsContainer);
 
-        addEventButton = new Button(() => {
+        addEventButton = new Button(() =>
+        {
             AddEventCall();
             NotifyChange();
         })
@@ -1828,7 +1829,8 @@ public partial class DialogueNode : Node
             titleLabel.style.flexGrow = 1;
             titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
 
-            var removeButton = new Button(() => {
+            var removeButton = new Button(() =>
+            {
                 RemoveEventCall(currentIndex);
                 NotifyChange();
             })
@@ -2097,7 +2099,8 @@ public partial class DialogueNode : Node
         choicesContainer = new VisualElement();
         mainContainer.Add(choicesContainer);
 
-        addChoiceButton = new Button(() => {
+        addChoiceButton = new Button(() =>
+        {
             AddChoice(new ChoiceData { text = "New Choice" });
             NotifyChange();
         })
@@ -2123,26 +2126,80 @@ public partial class DialogueNode : Node
     {
         if (index >= 0 && index < ChoicesData.Count)
         {
+            // 1. 先保存所有 choice 的连接（除了要删除的）
+            var connectionsToRestore = new List<(int choiceIndex, Port inputPort)>();
+            var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+
+            if (graphView != null)
+            {
+                for (int i = 0; i < choiceOutputPorts.Count; i++)
+                {
+                    if (i == index) continue; // 跳过要删除的 choice
+
+                    var port = choiceOutputPorts[i];
+                    foreach (var edge in port.connections.ToList())
+                    {
+                        if (edge.input != null)
+                        {
+                            // 保存连接的目标节点
+                            connectionsToRestore.Add((i, edge.input));
+                            // 先断开连接
+                            graphView.RemoveElement(edge);
+                        }
+                    }
+                }
+            }
+
+            // 2. 删除指定 choice 的 port
             if (index < choiceOutputPorts.Count)
             {
                 var port = choiceOutputPorts[index];
+                // 删除这个 port 的所有连接
+                if (graphView != null)
+                {
+                    var edges = port.connections.ToList();
+                    foreach (var edge in edges)
+                    {
+                        graphView.RemoveElement(edge);
+                    }
+                }
                 outputContainer.Remove(port);
                 choiceOutputPorts.RemoveAt(index);
             }
 
+            // 3. 删除数据
             ChoicesData.RemoveAt(index);
             choicesContainer.Clear();
 
+            // 4. 删除剩余的 ports
             foreach (var port in choiceOutputPorts)
             {
                 outputContainer.Remove(port);
             }
             choiceOutputPorts.Clear();
 
+            // 5. 重建 UI 和 ports
             for (int i = 0; i < ChoicesData.Count; i++)
             {
                 RebuildChoiceUI(i);
                 CreateChoiceOutputPort(i, ChoicesData[i].text);
+            }
+
+            // 6. 恢复连接（注意索引调整）
+            if (graphView != null)
+            {
+                foreach (var (oldIndex, inputPort) in connectionsToRestore)
+                {
+                    // 如果原来的索引大于删除的索引，需要减1
+                    int newIndex = oldIndex > index ? oldIndex - 1 : oldIndex;
+
+                    if (newIndex >= 0 && newIndex < choiceOutputPorts.Count)
+                    {
+                        var newPort = choiceOutputPorts[newIndex];
+                        var newEdge = newPort.ConnectTo(inputPort);
+                        graphView.AddElement(newEdge);
+                    }
+                }
             }
 
             RefreshExpandedState();
@@ -2153,20 +2210,57 @@ public partial class DialogueNode : Node
     private void RebuildChoiceUI(int index)
     {
         var choiceContainer = new VisualElement();
-        choiceContainer.style.marginTop = 5;
+        choiceContainer.style.marginTop = 10;
+        choiceContainer.style.marginBottom = 5;
+        choiceContainer.style.borderLeftWidth = 3;
+        choiceContainer.style.borderLeftColor = GetChoiceColor(index);
         choiceContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.5f));
-        choiceContainer.style.paddingTop = 5;
-        choiceContainer.style.paddingBottom = 5;
-        choiceContainer.style.paddingLeft = 5;
-        choiceContainer.style.paddingRight = 5;
+        choiceContainer.style.paddingTop = 8;
+        choiceContainer.style.paddingBottom = 8;
+        choiceContainer.style.paddingLeft = 8;
+        choiceContainer.style.paddingRight = 8;
+        choiceContainer.style.borderTopLeftRadius = 4;
+        choiceContainer.style.borderTopRightRadius = 4;
+        choiceContainer.style.borderBottomLeftRadius = 4;
+        choiceContainer.style.borderBottomRightRadius = 4;
 
-        var headerRow = new VisualElement();
-        headerRow.style.flexDirection = FlexDirection.Row;
-        headerRow.style.alignItems = Align.Center;
+        // Choice 标题行
+        var titleRow = new VisualElement();
+        titleRow.style.flexDirection = FlexDirection.Row;
+        titleRow.style.alignItems = Align.Center;
+        titleRow.style.marginBottom = 5;
+        titleRow.style.paddingBottom = 5;
+        titleRow.style.borderBottomWidth = 1;
+        titleRow.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+
+        var choiceLabel = new Label($"Choice {index + 1}");
+        choiceLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        choiceLabel.style.fontSize = 11;
+        choiceLabel.style.color = GetChoiceColor(index);
+        choiceLabel.style.flexGrow = 1;
+
+        titleRow.Add(choiceLabel);
+        choiceContainer.Add(titleRow);
+
+        // 文本输入行
+        var inputRow = new VisualElement();
+        inputRow.style.flexDirection = FlexDirection.Row;
+        inputRow.style.alignItems = Align.Center;
+        inputRow.style.flexWrap = Wrap.NoWrap;
+        inputRow.style.marginBottom = 5;
+
+        var textLabel = new Label("Text:");
+        textLabel.style.width = 40;
+        textLabel.style.fontSize = 10;
+        textLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+        textLabel.style.marginRight = 5;
+        textLabel.style.flexShrink = 0;
 
         var choiceField = new TextField();
         choiceField.value = ChoicesData[index].text;
         choiceField.style.flexGrow = 1;
+        choiceField.style.flexShrink = 1;
+        choiceField.style.minWidth = 100;
 
         int currentIndex = index;
         choiceField.RegisterValueChangedCallback(evt =>
@@ -2182,68 +2276,68 @@ public partial class DialogueNode : Node
             }
         });
 
-        var removeButton = new Button(() => {
+        var removeButton = new Button(() =>
+        {
             RemoveChoice(currentIndex);
             NotifyChange();
         })
         {
             text = "×"
         };
-        removeButton.style.width = 20;
-        removeButton.style.height = 18;
+        removeButton.style.width = 22;
+        removeButton.style.height = 22;
+        removeButton.style.flexShrink = 0;
+        removeButton.style.marginLeft = 5;
+        removeButton.style.fontSize = 14;
+        removeButton.style.backgroundColor = new StyleColor(new Color(0.6f, 0.2f, 0.2f));
 
-        headerRow.Add(choiceField);
-        headerRow.Add(removeButton);
-        choiceContainer.Add(headerRow);
+        inputRow.Add(textLabel);
+        inputRow.Add(choiceField);
+        inputRow.Add(removeButton);
+        choiceContainer.Add(inputRow);
 
+        // ✅ 先声明 conditionsContent，在按钮之前
+        var conditionsContent = new VisualElement();
+
+        // Conditions 标题和添加按钮在同一行
         var conditionsHeader = new VisualElement();
         conditionsHeader.style.flexDirection = FlexDirection.Row;
+        conditionsHeader.style.alignItems = Align.Center;
         conditionsHeader.style.marginTop = 8;
-        conditionsHeader.style.marginBottom = 3;
-        conditionsHeader.style.paddingBottom = 3;
-        conditionsHeader.style.borderBottomWidth = 1;
-        conditionsHeader.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        conditionsHeader.style.marginBottom = 5;
 
         var conditionsLabel = new Label("Conditions");
         conditionsLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         conditionsLabel.style.fontSize = 10;
         conditionsLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
+        conditionsLabel.style.flexGrow = 1;
+
+        // 添加按钮直接在标题旁边
+        var addCondButton = new Button(() =>
+        {
+            if (currentIndex < ChoicesData.Count)
+            {
+                ChoicesData[currentIndex].conditions.Add(new ChoiceCondition());
+                UpdateConditionsDisplay(conditionsContent, currentIndex);
+                NotifyChange();
+            }
+        })
+        {
+            text = "+"
+        };
+        addCondButton.style.width = 20;
+        addCondButton.style.height = 18;
+        addCondButton.style.fontSize = 12;
 
         conditionsHeader.Add(conditionsLabel);
+        conditionsHeader.Add(addCondButton);
         choiceContainer.Add(conditionsHeader);
 
-        var conditionsContent = new VisualElement();
-        conditionsContent.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
-        conditionsContent.style.paddingTop = 8;
-        conditionsContent.style.paddingBottom = 8;
-        conditionsContent.style.paddingLeft = 8;
-        conditionsContent.style.paddingRight = 8;
-        conditionsContent.style.marginTop = 0;
-
+        // Conditions 内容容器（已经声明）
         UpdateConditionsDisplay(conditionsContent, currentIndex);
 
         choiceContainer.Add(conditionsContent);
         choicesContainer.Add(choiceContainer);
-    }
-
-    public void RefreshConditionsUI()
-    {
-        choicesContainer.Clear();
-
-        foreach (var port in choiceOutputPorts)
-        {
-            outputContainer.Remove(port);
-        }
-        choiceOutputPorts.Clear();
-
-        for (int i = 0; i < ChoicesData.Count; i++)
-        {
-            RebuildChoiceUI(i);
-            CreateChoiceOutputPort(i, ChoicesData[i].text);
-        }
-
-        RefreshExpandedState();
-        RefreshPorts();
     }
 
     private void UpdateConditionsDisplay(VisualElement container, int choiceIndex)
@@ -2254,307 +2348,318 @@ public partial class DialogueNode : Node
 
         var choiceData = ChoicesData[choiceIndex];
 
+        // ✅ 没有条件时，不显示任何内容，container 完全为空
         if (choiceData.conditions.Count == 0)
         {
-            var emptyLabel = new Label("No conditions (always available)");
-            emptyLabel.style.color = new StyleColor(new Color(0.6f, 0.6f, 0.6f));
-            emptyLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
-            emptyLabel.style.fontSize = 10;
-            emptyLabel.style.paddingTop = 5;
-            emptyLabel.style.paddingBottom = 5;
-            emptyLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
-            container.Add(emptyLabel);
-        }
-        else
-        {
-            for (int i = 0; i < choiceData.conditions.Count; i++)
-            {
-                int condIndex = i;
-                var condition = choiceData.conditions[i];
-
-                var condContainer = new VisualElement();
-                condContainer.style.marginTop = 5;
-                condContainer.style.paddingTop = 8;
-                condContainer.style.paddingBottom = 8;
-                condContainer.style.paddingLeft = 8;
-                condContainer.style.paddingRight = 8;
-                condContainer.style.backgroundColor = new StyleColor(new Color(0.12f, 0.12f, 0.12f));
-                condContainer.style.borderTopLeftRadius = 3;
-                condContainer.style.borderTopRightRadius = 3;
-                condContainer.style.borderBottomLeftRadius = 3;
-                condContainer.style.borderBottomRightRadius = 3;
-
-                var condHeader = new VisualElement();
-                condHeader.style.flexDirection = FlexDirection.Row;
-                condHeader.style.alignItems = Align.Center;
-                condHeader.style.marginBottom = 8;
-
-                var condLabel = new Label($"Condition {i + 1}");
-                condLabel.style.flexGrow = 1;
-                condLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
-                condLabel.style.fontSize = 10;
-                condLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
-
-                var removeCondButton = new Button(() =>
-                {
-                    if (choiceIndex < ChoicesData.Count)
-                    {
-                        ChoicesData[choiceIndex].conditions.RemoveAt(condIndex);
-                        UpdateConditionsDisplay(container, choiceIndex);
-                        NotifyChange();
-                    }
-                })
-                {
-                    text = "×"
-                };
-                removeCondButton.style.width = 18;
-                removeCondButton.style.height = 18;
-                removeCondButton.style.fontSize = 12;
-
-                condHeader.Add(condLabel);
-                condHeader.Add(removeCondButton);
-                condContainer.Add(condHeader);
-
-                var variables = editorWindow?.GetVariables() ?? new List<DialogueVariable>();
-                var variableNames = new List<string> { "None" };
-                variableNames.AddRange(variables.Select(v => v.name));
-
-                int selectedVarIndex = string.IsNullOrEmpty(condition.variableName) ? 0 : variableNames.IndexOf(condition.variableName);
-                if (selectedVarIndex < 0) selectedVarIndex = 0;
-
-                if (selectedVarIndex > 0)
-                {
-                    var selectedVariable = variables[selectedVarIndex - 1];
-
-                    var fullRow = new VisualElement();
-                    fullRow.style.flexDirection = FlexDirection.Row;
-                    fullRow.style.alignItems = Align.Center;
-
-                    var varLabel = new Label("Var:");
-                    varLabel.style.width = 35;
-                    varLabel.style.fontSize = 10;
-                    varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
-                    varLabel.style.marginRight = 3;
-
-                    var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
-                    varDropdown.style.width = 90;
-                    varDropdown.style.marginRight = 5;
-                    varDropdown.RegisterValueChangedCallback(evt =>
-                    {
-                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                        {
-                            ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
-                            UpdateConditionsDisplay(container, choiceIndex);
-                            NotifyChange();
-                        }
-                    });
-
-                    var comparisonTypes = GetComparisonTypesForVariable(selectedVariable.type);
-                    var comparisonNames = comparisonTypes.Select(c => GetComparisonDisplayName(c)).ToList();
-
-                    int selectedCompIndex = comparisonTypes.IndexOf(condition.comparison);
-                    if (selectedCompIndex < 0) selectedCompIndex = 0;
-
-                    var compDropdown = new PopupField<string>(comparisonNames, selectedCompIndex);
-                    compDropdown.style.width = 80;
-                    compDropdown.style.marginRight = 5;
-                    compDropdown.style.fontSize = 10;
-                    compDropdown.RegisterValueChangedCallback(evt =>
-                    {
-                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                        {
-                            int index = comparisonNames.IndexOf(evt.newValue);
-                            ChoicesData[choiceIndex].conditions[condIndex].comparison = comparisonTypes[index];
-                            NotifyChange();
-                        }
-                    });
-
-                    VisualElement valueField = null;
-                    switch (selectedVariable.type)
-                    {
-                        case VariableType.Bool:
-                            bool boolValue = condition.compareValue == "true";
-                            var boolToggle = new Toggle();
-                            boolToggle.value = boolValue;
-                            boolToggle.style.width = 40;
-                            boolToggle.RegisterValueChangedCallback(evt =>
-                            {
-                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                                {
-                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString().ToLower();
-                                    NotifyChange();
-                                }
-                            });
-                            valueField = boolToggle;
-                            break;
-
-                        case VariableType.Int:
-                            int.TryParse(condition.compareValue, out int intValue);
-                            var intField = new IntegerField();
-                            intField.value = intValue;
-                            intField.style.flexGrow = 1;
-                            intField.style.fontSize = 10;
-                            intField.RegisterValueChangedCallback(evt =>
-                            {
-                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                                {
-                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
-                                    NotifyChange();
-                                }
-                            });
-                            valueField = intField;
-                            break;
-
-                        case VariableType.Float:
-                            float.TryParse(condition.compareValue, out float floatValue);
-                            var floatField = new FloatField();
-                            floatField.value = floatValue;
-                            floatField.style.flexGrow = 1;
-                            floatField.style.fontSize = 10;
-                            floatField.RegisterValueChangedCallback(evt =>
-                            {
-                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                                {
-                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
-                                    NotifyChange();
-                                }
-                            });
-                            valueField = floatField;
-                            break;
-
-                        case VariableType.String:
-                            var stringField = new TextField();
-                            stringField.value = condition.compareValue;
-                            stringField.style.flexGrow = 1;
-                            stringField.style.fontSize = 10;
-                            stringField.RegisterValueChangedCallback(evt =>
-                            {
-                                if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                                {
-                                    ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue;
-                                    NotifyChange();
-                                }
-                            });
-                            valueField = stringField;
-                            break;
-                    }
-
-                    fullRow.Add(varLabel);
-                    fullRow.Add(varDropdown);
-                    fullRow.Add(compDropdown);
-                    if (valueField != null)
-                    {
-                        fullRow.Add(valueField);
-                    }
-
-                    condContainer.Add(fullRow);
-                }
-                else
-                {
-                    var varRow = new VisualElement();
-                    varRow.style.flexDirection = FlexDirection.Row;
-                    varRow.style.alignItems = Align.Center;
-
-                    var varLabel = new Label("Var:");
-                    varLabel.style.width = 35;
-                    varLabel.style.fontSize = 10;
-                    varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
-                    varLabel.style.marginRight = 3;
-
-                    var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
-                    varDropdown.style.flexGrow = 1;
-                    varDropdown.RegisterValueChangedCallback(evt =>
-                    {
-                        if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
-                        {
-                            ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
-                            UpdateConditionsDisplay(container, choiceIndex);
-                            NotifyChange();
-                        }
-                    });
-
-                    varRow.Add(varLabel);
-                    varRow.Add(varDropdown);
-                    condContainer.Add(varRow);
-                }
-
-                container.Add(condContainer);
-            }
-
-            if (choiceData.conditions.Count > 1)
-            {
-                var logicRow = new VisualElement();
-                logicRow.style.flexDirection = FlexDirection.Row;
-                logicRow.style.marginTop = 8;
-                logicRow.style.marginBottom = 3;
-                logicRow.style.alignItems = Align.Center;
-                logicRow.style.justifyContent = Justify.Center;
-
-                var andToggle = new Button(() =>
-                {
-                    if (choiceIndex < ChoicesData.Count)
-                    {
-                        ChoicesData[choiceIndex].conditionLogic = ConditionLogic.AND;
-                        UpdateConditionsDisplay(container, choiceIndex);
-                        NotifyChange();
-                    }
-                })
-                {
-                    text = "AND"
-                };
-                andToggle.style.width = 60;
-                andToggle.style.height = 22;
-                andToggle.style.fontSize = 10;
-                andToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.AND ?
-                    FontStyle.Bold : FontStyle.Normal;
-                andToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.AND ?
-                    new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
-                    new StyleColor(new Color(0.25f, 0.25f, 0.25f));
-
-                var orToggle = new Button(() =>
-                {
-                    if (choiceIndex < ChoicesData.Count)
-                    {
-                        ChoicesData[choiceIndex].conditionLogic = ConditionLogic.OR;
-                        UpdateConditionsDisplay(container, choiceIndex);
-                        NotifyChange();
-                    }
-                })
-                {
-                    text = "OR"
-                };
-                orToggle.style.width = 60;
-                orToggle.style.height = 22;
-                orToggle.style.fontSize = 10;
-                orToggle.style.marginLeft = 5;
-                orToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.OR ?
-                    FontStyle.Bold : FontStyle.Normal;
-                orToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.OR ?
-                    new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
-                    new StyleColor(new Color(0.25f, 0.25f, 0.25f));
-
-                logicRow.Add(andToggle);
-                logicRow.Add(orToggle);
-                container.Add(logicRow);
-            }
+            container.style.backgroundColor = StyleKeyword.Null;
+            container.style.paddingTop = 0;
+            container.style.paddingBottom = 0;
+            container.style.paddingLeft = 0;
+            container.style.paddingRight = 0;
+            container.style.marginTop = 0;
+            return; // ✅ 直接返回，不添加任何内容
         }
 
-        var addCondButton = new Button(() =>
+        // ✅ 有条件时，显示完整的条件列表
+        container.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        container.style.paddingTop = 8;
+        container.style.paddingBottom = 8;
+        container.style.paddingLeft = 8;
+        container.style.paddingRight = 8;
+        container.style.marginTop = 3;
+        container.style.borderTopLeftRadius = 3;
+        container.style.borderTopRightRadius = 3;
+        container.style.borderBottomLeftRadius = 3;
+        container.style.borderBottomRightRadius = 3;
+
+        // 显示所有 conditions
+        for (int i = 0; i < choiceData.conditions.Count; i++)
         {
-            if (choiceIndex < ChoicesData.Count)
+            int condIndex = i;
+            var condition = choiceData.conditions[i];
+
+            var condContainer = new VisualElement();
+            condContainer.style.marginTop = i > 0 ? 5 : 0; // 第一个不需要上边距
+            condContainer.style.paddingTop = 8;
+            condContainer.style.paddingBottom = 8;
+            condContainer.style.paddingLeft = 8;
+            condContainer.style.paddingRight = 8;
+            condContainer.style.backgroundColor = new StyleColor(new Color(0.12f, 0.12f, 0.12f));
+            condContainer.style.borderTopLeftRadius = 3;
+            condContainer.style.borderTopRightRadius = 3;
+            condContainer.style.borderBottomLeftRadius = 3;
+            condContainer.style.borderBottomRightRadius = 3;
+
+            var condHeader = new VisualElement();
+            condHeader.style.flexDirection = FlexDirection.Row;
+            condHeader.style.alignItems = Align.Center;
+            condHeader.style.marginBottom = 8;
+
+            var condLabel = new Label($"Condition {i + 1}");
+            condLabel.style.flexGrow = 1;
+            condLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+            condLabel.style.fontSize = 10;
+            condLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
+
+            var removeCondButton = new Button(() =>
             {
-                ChoicesData[choiceIndex].conditions.Add(new ChoiceCondition());
-                UpdateConditionsDisplay(container, choiceIndex);
-                NotifyChange();
+                if (choiceIndex < ChoicesData.Count)
+                {
+                    ChoicesData[choiceIndex].conditions.RemoveAt(condIndex);
+                    UpdateConditionsDisplay(container, choiceIndex);
+                    NotifyChange();
+                }
+            })
+            {
+                text = "×"
+            };
+            removeCondButton.style.width = 18;
+            removeCondButton.style.height = 18;
+            removeCondButton.style.fontSize = 12;
+
+            condHeader.Add(condLabel);
+            condHeader.Add(removeCondButton);
+            condContainer.Add(condHeader);
+
+            var variables = editorWindow?.GetVariables() ?? new List<DialogueVariable>();
+            var variableNames = new List<string> { "None" };
+            variableNames.AddRange(variables.Select(v => v.name));
+
+            int selectedVarIndex = string.IsNullOrEmpty(condition.variableName) ? 0 : variableNames.IndexOf(condition.variableName);
+            if (selectedVarIndex < 0) selectedVarIndex = 0;
+
+            if (selectedVarIndex > 0)
+            {
+                var selectedVariable = variables[selectedVarIndex - 1];
+
+                var fullRow = new VisualElement();
+                fullRow.style.flexDirection = FlexDirection.Row;
+                fullRow.style.alignItems = Align.Center;
+                fullRow.style.flexWrap = Wrap.NoWrap;
+
+                var varLabel = new Label("Var:");
+                varLabel.style.width = 35;
+                varLabel.style.fontSize = 10;
+                varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                varLabel.style.marginRight = 3;
+                varLabel.style.flexShrink = 0;
+
+                var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
+                varDropdown.style.width = 90;
+                varDropdown.style.marginRight = 5;
+                varDropdown.style.flexShrink = 0;
+                varDropdown.style.flexGrow = 0;
+                varDropdown.RegisterValueChangedCallback(evt =>
+                {
+                    if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                    {
+                        ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                });
+
+                var comparisonTypes = GetComparisonTypesForVariable(selectedVariable.type);
+                var comparisonNames = comparisonTypes.Select(c => GetComparisonDisplayName(c)).ToList();
+
+                int selectedCompIndex = comparisonTypes.IndexOf(condition.comparison);
+                if (selectedCompIndex < 0) selectedCompIndex = 0;
+
+                var compDropdown = new PopupField<string>(comparisonNames, selectedCompIndex);
+                compDropdown.style.width = 80;
+                compDropdown.style.marginRight = 5;
+                compDropdown.style.fontSize = 10;
+                compDropdown.style.flexShrink = 0;
+                compDropdown.style.flexGrow = 0;
+                compDropdown.RegisterValueChangedCallback(evt =>
+                {
+                    if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                    {
+                        int index = comparisonNames.IndexOf(evt.newValue);
+                        ChoicesData[choiceIndex].conditions[condIndex].comparison = comparisonTypes[index];
+                        NotifyChange();
+                    }
+                });
+
+                VisualElement valueField = null;
+                switch (selectedVariable.type)
+                {
+                    case VariableType.Bool:
+                        bool boolValue = condition.compareValue == "true";
+                        var boolToggle = new Toggle();
+                        boolToggle.value = boolValue;
+                        boolToggle.style.width = 40;
+                        boolToggle.style.flexShrink = 0;
+                        boolToggle.style.flexGrow = 0;
+                        boolToggle.RegisterValueChangedCallback(evt =>
+                        {
+                            if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                            {
+                                ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString().ToLower();
+                                NotifyChange();
+                            }
+                        });
+                        valueField = boolToggle;
+                        break;
+
+                    case VariableType.Int:
+                        int.TryParse(condition.compareValue, out int intValue);
+                        var intField = new IntegerField();
+                        intField.value = intValue;
+                        intField.style.width = 80;
+                        intField.style.flexShrink = 0;
+                        intField.style.flexGrow = 0;
+                        intField.style.fontSize = 10;
+                        intField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                            {
+                                ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
+                                NotifyChange();
+                            }
+                        });
+                        valueField = intField;
+                        break;
+
+                    case VariableType.Float:
+                        float.TryParse(condition.compareValue, out float floatValue);
+                        var floatField = new FloatField();
+                        floatField.value = floatValue;
+                        floatField.style.width = 80;
+                        floatField.style.flexShrink = 0;
+                        floatField.style.flexGrow = 0;
+                        floatField.style.fontSize = 10;
+                        floatField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                            {
+                                ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue.ToString();
+                                NotifyChange();
+                            }
+                        });
+                        valueField = floatField;
+                        break;
+
+                    case VariableType.String:
+                        var stringField = new TextField();
+                        stringField.value = condition.compareValue;
+                        stringField.style.width = 100;
+                        stringField.style.flexShrink = 0;
+                        stringField.style.flexGrow = 0;
+                        stringField.style.fontSize = 10;
+                        stringField.RegisterValueChangedCallback(evt =>
+                        {
+                            if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                            {
+                                ChoicesData[choiceIndex].conditions[condIndex].compareValue = evt.newValue;
+                                NotifyChange();
+                            }
+                        });
+                        valueField = stringField;
+                        break;
+                }
+
+                fullRow.Add(varLabel);
+                fullRow.Add(varDropdown);
+                fullRow.Add(compDropdown);
+                if (valueField != null)
+                {
+                    fullRow.Add(valueField);
+                }
+
+                condContainer.Add(fullRow);
             }
-        })
+            else
+            {
+                var varRow = new VisualElement();
+                varRow.style.flexDirection = FlexDirection.Row;
+                varRow.style.alignItems = Align.Center;
+
+                var varLabel = new Label("Var:");
+                varLabel.style.width = 35;
+                varLabel.style.fontSize = 10;
+                varLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                varLabel.style.marginRight = 3;
+                varLabel.style.flexShrink = 0;
+
+                var varDropdown = new PopupField<string>(variableNames, selectedVarIndex);
+                varDropdown.style.width = 200;
+                varDropdown.style.flexShrink = 0;
+                varDropdown.style.flexGrow = 0;
+                varDropdown.RegisterValueChangedCallback(evt =>
+                {
+                    if (choiceIndex < ChoicesData.Count && condIndex < ChoicesData[choiceIndex].conditions.Count)
+                    {
+                        ChoicesData[choiceIndex].conditions[condIndex].variableName = evt.newValue == "None" ? "" : evt.newValue;
+                        UpdateConditionsDisplay(container, choiceIndex);
+                        NotifyChange();
+                    }
+                });
+
+                varRow.Add(varLabel);
+                varRow.Add(varDropdown);
+                condContainer.Add(varRow);
+            }
+
+            container.Add(condContainer);
+        }
+
+        // AND/OR 逻辑按钮
+        if (choiceData.conditions.Count > 1)
         {
-            text = "+ Add Condition"
-        };
-        addCondButton.style.marginTop = 5;
-        addCondButton.style.height = 20;
-        addCondButton.style.fontSize = 10;
-        container.Add(addCondButton);
+            var logicRow = new VisualElement();
+            logicRow.style.flexDirection = FlexDirection.Row;
+            logicRow.style.marginTop = 8;
+            logicRow.style.alignItems = Align.Center;
+            logicRow.style.justifyContent = Justify.Center;
+
+            var andToggle = new Button(() =>
+            {
+                if (choiceIndex < ChoicesData.Count)
+                {
+                    ChoicesData[choiceIndex].conditionLogic = ConditionLogic.AND;
+                    UpdateConditionsDisplay(container, choiceIndex);
+                    NotifyChange();
+                }
+            })
+            {
+                text = "AND"
+            };
+            andToggle.style.width = 60;
+            andToggle.style.height = 22;
+            andToggle.style.fontSize = 10;
+            andToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.AND ?
+                FontStyle.Bold : FontStyle.Normal;
+            andToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.AND ?
+                new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
+                new StyleColor(new Color(0.25f, 0.25f, 0.25f));
+
+            var orToggle = new Button(() =>
+            {
+                if (choiceIndex < ChoicesData.Count)
+                {
+                    ChoicesData[choiceIndex].conditionLogic = ConditionLogic.OR;
+                    UpdateConditionsDisplay(container, choiceIndex);
+                    NotifyChange();
+                }
+            })
+            {
+                text = "OR"
+            };
+            orToggle.style.width = 60;
+            orToggle.style.height = 22;
+            orToggle.style.fontSize = 10;
+            orToggle.style.marginLeft = 5;
+            orToggle.style.unityFontStyleAndWeight = choiceData.conditionLogic == ConditionLogic.OR ?
+                FontStyle.Bold : FontStyle.Normal;
+            orToggle.style.backgroundColor = choiceData.conditionLogic == ConditionLogic.OR ?
+                new StyleColor(new Color(0.3f, 0.5f, 0.3f)) :
+                new StyleColor(new Color(0.25f, 0.25f, 0.25f));
+
+            logicRow.Add(andToggle);
+            logicRow.Add(orToggle);
+            container.Add(logicRow);
+        }
     }
 
     private List<ComparisonType> GetComparisonTypesForVariable(VariableType varType)
@@ -2661,4 +2766,75 @@ public partial class DialogueNode : Node
     public Port GetInputPort() => inputPort;
     public string GetId() => nodeId;
     public void SetId(string id) => nodeId = id;
+
+    private StyleColor GetChoiceColor(int index)
+    {
+        // 为每个 choice 分配不同的颜色
+        var colors = new Color[]
+        {
+        new Color(0.4f, 0.7f, 1f),    // 蓝色
+        new Color(0.5f, 1f, 0.5f),    // 绿色
+        new Color(1f, 0.8f, 0.4f),    // 橙色
+        new Color(1f, 0.5f, 0.8f),    // 粉色
+        new Color(0.8f, 0.5f, 1f),    // 紫色
+        new Color(0.5f, 1f, 1f),      // 青色
+        };
+
+        return new StyleColor(colors[index % colors.Length]);
+    }
+
+    public void RefreshConditionsUI()
+    {
+        // 保存所有连接
+        var connectionsToRestore = new List<(int portIndex, Port inputPort)>();
+        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+
+        if (graphView != null)
+        {
+            for (int i = 0; i < choiceOutputPorts.Count; i++)
+            {
+                var port = choiceOutputPorts[i];
+                foreach (var edge in port.connections.ToList())
+                {
+                    if (edge.input != null)
+                    {
+                        connectionsToRestore.Add((i, edge.input));
+                        graphView.RemoveElement(edge);
+                    }
+                }
+            }
+        }
+
+        // 清空并重建
+        choicesContainer.Clear();
+
+        foreach (var port in choiceOutputPorts)
+        {
+            outputContainer.Remove(port);
+        }
+        choiceOutputPorts.Clear();
+
+        for (int i = 0; i < ChoicesData.Count; i++)
+        {
+            RebuildChoiceUI(i);
+            CreateChoiceOutputPort(i, ChoicesData[i].text);
+        }
+
+        // 恢复连接
+        if (graphView != null)
+        {
+            foreach (var (portIndex, inputPort) in connectionsToRestore)
+            {
+                if (portIndex < choiceOutputPorts.Count)
+                {
+                    var newPort = choiceOutputPorts[portIndex];
+                    var newEdge = newPort.ConnectTo(inputPort);
+                    graphView.AddElement(newEdge);
+                }
+            }
+        }
+
+        RefreshExpandedState();
+        RefreshPorts();
+    }
 }
