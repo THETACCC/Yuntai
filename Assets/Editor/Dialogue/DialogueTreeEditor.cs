@@ -627,7 +627,7 @@ public class DialogueTreeEditor : EditorWindow
         }
     }
 
-    private void LoadFromFile(string path)
+    public void LoadFromFile(string path)
     {
         if (graphView == null) return;
 
@@ -646,6 +646,10 @@ public class DialogueTreeEditor : EditorWindow
 
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
+
+                string jsonPath = Path.ChangeExtension(path, ".json");
+                currentFilePath = File.Exists(jsonPath) ? jsonPath : path;
+                EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
 
                 EditorApplication.delayCall += () => {
                     if (graphView != null)

@@ -705,14 +705,9 @@ public class DialogueTreeManagerWindow : EditorWindow
 
                 EditorApplication.delayCall += () =>
                 {
-                    var method = typeof(DialogueTreeEditor).GetMethod("LoadFromFile",
-                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-                    if (method != null)
-                    {
-                        method.Invoke(window, new object[] { dtreePath });
-                        Debug.Log($"Opened dialogue tree: {Path.GetFileName(dtreePath)}");
-                    }
+                    
+                    window.LoadFromFile(dtreePath);
+                    Debug.Log($"Opened dialogue tree: {Path.GetFileName(dtreePath)}");
                 };
             }
         };
