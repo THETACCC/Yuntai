@@ -8,7 +8,7 @@ public class DialogueDefaultSequence : MonoBehaviour
 
     Button button;
 
-    public bool isButtonActice = false;
+    public bool isActice = false;
 
     public void Awake()
     {
@@ -23,10 +23,10 @@ public class DialogueDefaultSequence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        button.enabled = isButtonActice;
-        if (isButtonActice)
+        button.enabled = isActice;
+        if (isActice)
         {
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 GoToNextDialogue();
             }

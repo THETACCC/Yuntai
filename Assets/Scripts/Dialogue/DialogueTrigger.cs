@@ -68,9 +68,4 @@ public class DialogueTrigger : MonoBehaviour
             isReadyToTrigger = false;
         }
     }
-
-    public void Test()
-    {
-        Debug.Log("222222222222222222");
-    }
 }

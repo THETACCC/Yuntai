@@ -1,56 +1,5 @@
 {
-    "variables": [
-        {
-            "name": "intVar",
-            "type": 1,
-            "defaultValue": "0"
-        }
-    ],
     "nodes": [
-        {
-            "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "index": 0,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "New Dialogue",
-            "positionX": 232.6666717529297,
-            "positionY": -42.0,
-            "choices": [
-                {
-                    "text": "hello",
-                    "conditions": [
-                        {
-                            "variableName": "intVar",
-                            "comparison": 0,
-                            "compareValue": "1"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "New Choice",
-                    "conditions": [],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "New Choice",
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [
-                {
-                    "targetObjectName": "NPC1",
-                    "componentTypeName": "DialogueTrigger",
-                    "methodName": "Test",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0
-                }
-            ]
-        },
         {
             "id": "67a2c648-113e-455c-b439-47dcce679a14",
             "index": 1,
@@ -67,25 +16,57 @@
             "index": 2,
             "name": "Character",
             "avatarAssetPath": "",
-            "content": "New Dialogue",
+            "content": "yeah",
             "positionX": 734.6666870117188,
             "positionY": -157.3333282470703,
             "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
+            "index": 0,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "New Dialogue",
+            "positionX": 232.6666717529297,
+            "positionY": -42.0,
+            "choices": [
+                {
+                    "text": "New Choice",
+                    "conditions": [
+                        {
+                            "targetObjectName": "NPC1",
+                            "componentTypeName": "Test",
+                            "variableName": "isTrue",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "NPC1",
+                            "componentTypeName": "Test",
+                            "variableName": "number",
+                            "comparison": 0,
+                            "compareValue": "1"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": []
         }
     ],
     "connections": [
         {
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "67a2c648-113e-455c-b439-47dcce679a14",
-            "choiceIndex": 0,
-            "choiceText": "hello"
-        },
-        {
-            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "inputNodeId": "9523d4a8-2cd8-4d0c-b078-25140411873f",
             "choiceIndex": -1,
             "choiceText": ""
+        },
+        {
+            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
+            "inputNodeId": "67a2c648-113e-455c-b439-47dcce679a14",
+            "choiceIndex": 0,
+            "choiceText": "New Choice"
         }
     ]
 }

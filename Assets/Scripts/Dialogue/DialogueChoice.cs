@@ -3,7 +3,7 @@ using UnityEngine;
 public class DialogueChoice : MonoBehaviour
 {
     public int index;
-    public bool visible;
+    public bool visible = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

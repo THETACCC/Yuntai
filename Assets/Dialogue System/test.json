@@ -1,11 +1,4 @@
 {
-  "variables": [
-    {
-      "name": "intVar",
-      "type": "Int",
-      "defaultValue": "0"
-    }
-  ],
   "conversations": [
     {
       "index": 0,
@@ -15,11 +8,20 @@
       "nextIndex": 2,
       "choices": [
         {
-          "text": "hello",
+          "text": "New Choice",
           "targetIndex": 1,
           "conditions": [
             {
-              "variableName": "intVar",
+              "targetObjectName": "NPC1",
+              "componentTypeName": "Test",
+              "variableName": "isTrue",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "NPC1",
+              "componentTypeName": "Test",
+              "variableName": "number",
               "comparison": "Equal",
               "compareValue": "1"
             }
@@ -27,18 +29,7 @@
           "conditionLogic": "AND"
         }
       ],
-      "eventCalls": [
-        {
-          "targetObjectName": "NPC1",
-          "componentTypeName": "DialogueTrigger",
-          "methodName": "Test",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false
-        }
-      ]
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -53,7 +44,7 @@
       "index": 2,
       "name": "Character",
       "avatarAddr": "",
-      "content": "New Dialogue",
+      "content": "yeah",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": []
