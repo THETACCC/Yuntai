@@ -8,11 +8,16 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager instance;
     private string savePath;
+
+    public bool hasGameSave = false;
+    public bool[] saveList;
 
     public void Awake()
     {
-        savePath = Path.Combine(Application.persistentDataPath, "GameSave.json");
+        instance = this;
+        saveList = new bool[3];
     }
 
     public void SaveGame()
@@ -45,6 +50,18 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(savePath);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
         return data;
+    }
+
+    public void SlotButtonHit(int slotNum)
+    {
+        Debug.Log(saveList.Length);
+        saveList[slotNum - 1] = true;
+        if (!hasGameSave)
+        {
+            hasGameSave = true;
+        }
+
+        savePath = Path.Combine(Application.persistentDataPath, $"GameSave{slotNum}.json");
     }
 }
 
