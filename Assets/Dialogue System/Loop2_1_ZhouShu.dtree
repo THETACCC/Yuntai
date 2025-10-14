@@ -10,8 +10,16 @@
             "positionY": 196.0,
             "choices": [
                 {
-                    "text": "",
-                    "conditions": [],
+                    "text": "Here's your food.",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "getFood",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
                     "conditionLogic": 0
                 }
             ],
@@ -19,7 +27,17 @@
                 {
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetgetFoodTrue",
+                    "methodName": "SetInfoThreeTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToForFood",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -27,7 +45,255 @@
                     "parameterType": 0
                 }
             ]
+        },
+        {
+            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "index": 1,
+            "name": "Page",
+            "avatarAssetPath": "",
+            "content": "Thank you so much!! Yum Yum.",
+            "positionX": 595.2000122070313,
+            "positionY": 221.60000610351563,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetGotFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        },
+        {
+            "id": "006ce4c9-3551-4154-983c-9313469e4485",
+            "index": 2,
+            "name": "Page",
+            "avatarAssetPath": "",
+            "content": "What do you wanna know?",
+            "positionX": 985.6000366210938,
+            "positionY": 258.3999938964844,
+            "choices": [
+                {
+                    "text": "5",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv5",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "6",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv6",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "7",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv7",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "You know, I saw...",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": []
+        },
+        {
+            "id": "9aff6605-0fe7-407d-b06e-787b82e17687",
+            "index": 3,
+            "name": "Page",
+            "avatarAssetPath": "",
+            "content": "Info 5",
+            "positionX": 1468.0,
+            "positionY": 228.8000030517578,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoFiveTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv5",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        },
+        {
+            "id": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
+            "index": 4,
+            "name": "Page",
+            "avatarAssetPath": "",
+            "content": "Info 6",
+            "positionX": 1468.0,
+            "positionY": 660.7999877929688,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoSixTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv6",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        },
+        {
+            "id": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
+            "index": 5,
+            "name": "Page",
+            "avatarAssetPath": "",
+            "content": "Info 7",
+            "positionX": 1468.0,
+            "positionY": 1213.60009765625,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoSevenTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv7",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        },
+        {
+            "id": "651409d7-6eab-462b-bf5c-5e95516aea71",
+            "index": 6,
+            "name": "ZhouShu",
+            "avatarAssetPath": "",
+            "content": "What!!?",
+            "positionX": 1468.0,
+            "positionY": 1745.60009765625,
+            "choices": [],
+            "eventCalls": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
+            "inputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "choiceIndex": 0,
+            "choiceText": "Here's your food."
+        },
+        {
+            "outputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
+            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "inputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
+            "choiceIndex": 0,
+            "choiceText": "5"
+        },
+        {
+            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "inputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
+            "choiceIndex": 1,
+            "choiceText": "6"
+        },
+        {
+            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "inputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
+            "choiceIndex": 2,
+            "choiceText": "7"
+        },
+        {
+            "outputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
+            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
+            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
+            "inputNodeId": "651409d7-6eab-462b-bf5c-5e95516aea71",
+            "choiceIndex": 3,
+            "choiceText": "You know, I saw..."
+        }
+    ]
 }

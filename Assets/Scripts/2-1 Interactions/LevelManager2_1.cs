@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,17 +27,23 @@ public class LevelManager2_1 : MonoBehaviour
     [HideInInspector] public bool infoOne = false; //PassA 芸台即将封城，而且此班飞机是最后一班的消息
     [HideInInspector] public bool infoTwo = false; //上班族 芸台近日不是很太平，有很多人目击到了奇怪的外地团体在城中活动
     [HideInInspector] public bool infoThree = false; //ZhouShu 负责发飞机餐的乘务员不知为什么一直不过来。
+    [HideInInspector] public bool infoFour = false; //乘务员为什么站在我座椅边上。
 
-    [HideInInspector] public bool getFood = false; //找乘务员
-    [HideInInspector] public bool gotFood = false; //找乘务员
+    [HideInInspector] public bool infoFive = false; 
+    [HideInInspector] public bool infoSix = false; 
+    [HideInInspector] public bool infoSeven = false; 
+
+    [HideInInspector] public bool getFood = false; //找乘务员拿到food
+    [HideInInspector] public bool gotFood = false; //zhoushu拿到food
 
     //Playthrough Related
     [Header("Playthrough Related")]
     public GameObject Stewardess;
     public GameObject Stewardess_Food;
+    public GameObject Stewardess_AlreadyGotFood;
 
     public GameObject ZhouShu;
-    public GameObject ZhouShu_GotFood;
+    //public GameObject ZhouShu_GotFood;
 
     //Conversation Related
     public bool isStewardess_Conv1 = false;
@@ -45,6 +52,11 @@ public class LevelManager2_1 : MonoBehaviour
     public bool isStewardess_Conv4 = false;
     public bool isStewardess_AllConv = false;
     public bool isStewardessSet = false;
+
+    public bool isZhouShu_Conv5 = false;
+    public bool isZhouShu_Conv6 = false;
+    public bool isZhouShu_Conv7 = false;
+    public bool isZhouShu_AllConv = false;
     public void SpeakZhoushu()
     {
         isZhouShu = true;
@@ -59,18 +71,84 @@ public class LevelManager2_1 : MonoBehaviour
         BathroomPortal.SpawnPointLocation = SpawnPointLocation_NotEscaped;
     }
 
-    public void Update()
+    // 全部 info 是否已收集
+    private bool HaveAllInfo() => infoOne && infoTwo && infoThree && infoFour;
+
+    // 当前是否还有“可对话但未完成”的项
+    private bool AnyPendingConversation() =>
+        (infoOne && !isStewardess_Conv1) ||
+        (infoTwo && !isStewardess_Conv2) ||
+        (infoThree && !isStewardess_Conv3) ||
+        (infoFour && !isStewardess_Conv4);
+
+
+    public void AllStewardessConversationCheck()
     {
-        if(isStewardess_Conv1 && isStewardess_Conv2 && isStewardess_Conv3 && isStewardess_Conv4 && !isStewardessSet)
-        {
-            isStewardess_AllConv = true;
-            isStewardessSet = true;
-        }
+        bool nonePending = !AnyPendingConversation();
+        isStewardess_AllConv = nonePending;
+        isStewardessSet = nonePending && HaveAllInfo();
     }
 
-    public void SetInfoOneTrue() { infoOne = true; }
-    public void SetInfoTwoTrue() { infoTwo = true; }
-    public void SetInfoThreeTrue() { infoThree = true; }
+
+    public void SetInfoOneTrue()
+    {
+        if (!infoOne)
+        {
+            infoOne = true;
+            isStewardess_AllConv = false;  
+            isStewardessSet = false;       
+        }
+        AllStewardessConversationCheck();  
+    }
+
+    public void SetInfoTwoTrue()
+    {
+        if (!infoTwo)
+        {
+            infoTwo = true;
+            isStewardess_AllConv = false;
+            isStewardessSet = false;
+        }
+        AllStewardessConversationCheck();
+    }
+
+    public void SetInfoThreeTrue()
+    {
+        if (!infoThree)
+        {
+            infoThree = true;
+            isStewardess_AllConv = false;
+            isStewardessSet = false;
+        }
+        AllStewardessConversationCheck();
+    }
+
+    public void SetInfoFourTrue()
+    {
+        if (!infoFour)
+        {
+            infoFour = true;
+            isStewardess_AllConv = false;
+            isStewardessSet = false;
+        }
+        AllStewardessConversationCheck();
+    }
+
+    public void SetInfoFiveTrue()
+    {
+        infoFive = true;
+    }
+
+    public void SetInfoSixTrue()
+    {
+        infoSix = true;
+    }
+
+    public void SetInfoSevenTrue()
+    {
+        infoSeven = true;
+    }
+
     public void SetgetFoodTrue() 
     { 
         getFood = true;
@@ -82,13 +160,57 @@ public class LevelManager2_1 : MonoBehaviour
     { 
         
         gotFood = true;
-        ZhouShu.SetActive(false);
-        ZhouShu_GotFood.SetActive(true);
+        //ZhouShu.SetActive(false);
+        //ZhouShu_GotFood.SetActive(true);
 
     }
 
-    public void SetStewardessConv1() { isStewardess_Conv1 = true; }
-    public void SetStewardessConv2() { isStewardess_Conv2 = true; }
-    public void SetStewardessConv3() { isStewardess_Conv3 = true; }
-    public void SetStewardessConv4() { isStewardess_Conv4 = true; }
+    public void SetStewardessConv1() { 
+        isStewardess_Conv1 = true;
+        AllStewardessConversationCheck();
+    }
+    public void SetStewardessConv2() { 
+        isStewardess_Conv2 = true;
+        AllStewardessConversationCheck();
+    }
+    public void SetStewardessConv3() { 
+        isStewardess_Conv3 = true;
+        AllStewardessConversationCheck();
+    }
+    public void SetStewardessConv4() { 
+        isStewardess_Conv4 = true;
+        AllStewardessConversationCheck();
+    }
+
+    public void SetZhouShuConv5()
+    {
+        isZhouShu_Conv5 = true;
+    }
+    public void SetZhouShuConv6()
+    {
+        isZhouShu_Conv6 = true;
+    }
+    public void SetZhouShuConv7()
+    {
+        isZhouShu_Conv7 = true;
+    }
+
+    public void IsAllZhouShuConv()
+    {
+        if (isZhouShu_Conv5 && isZhouShu_Conv6 && isZhouShu_Conv7)
+        {
+            isZhouShu_AllConv = true;
+        }
+    }
+
+    public void ChangeStewardessToForFood()
+    {
+        Stewardess.gameObject.SetActive(false);
+        Stewardess_Food.gameObject.SetActive(true);
+    }
+    public void ChangeStewardessToGotFood()
+    {
+        Stewardess_Food.gameObject.SetActive(false);
+        Stewardess_AlreadyGotFood.gameObject.SetActive(true);
+    }
 }

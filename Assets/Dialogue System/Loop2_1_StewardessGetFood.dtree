@@ -6,9 +6,152 @@
             "name": "Character",
             "avatarAssetPath": "",
             "content": "Ni Hao",
-            "positionX": -793.5999755859375,
-            "positionY": 782.3999633789063,
-            "choices": [],
+            "positionX": -1664.800048828125,
+            "positionY": 796.0,
+            "choices": [
+                {
+                    "text": "Why were you standing in front of my seat?",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Can I get food",
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": []
+        },
+        {
+            "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "index": 1,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "New Dialogue",
+            "positionX": -350.3999938964844,
+            "positionY": 787.2000122070313,
+            "choices": [
+                {
+                    "text": "Conv1",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoOne",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv1",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv2",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoTwo",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv2",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv3",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoThree",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv3",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv4",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoFour",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv4",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "So CAN I GET MY FOOD?",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "I don't have enough topics.",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": []
         },
         {
@@ -16,9 +159,9 @@
             "index": 2,
             "name": "Stewardess",
             "avatarAssetPath": "",
-            "content": "wadwad",
-            "positionX": 200.8000030517578,
-            "positionY": 711.2000122070313,
+            "content": "Conv1",
+            "positionX": 237.59999084472657,
+            "positionY": 300.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -39,8 +182,8 @@
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "Conv2",
-            "positionX": 200.8000030517578,
-            "positionY": 1125.60009765625,
+            "positionX": 237.59999084472657,
+            "positionY": 760.7999877929688,
             "choices": [],
             "eventCalls": [
                 {
@@ -61,8 +204,8 @@
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "Conv3",
-            "positionX": 200.8000030517578,
-            "positionY": 1537.60009765625,
+            "positionX": 237.59999084472657,
+            "positionY": 1192.800048828125,
             "choices": [],
             "eventCalls": [
                 {
@@ -78,90 +221,13 @@
             ]
         },
         {
-            "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "index": 1,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "New Dialogue",
-            "positionX": -325.5999755859375,
-            "positionY": 797.5999755859375,
-            "choices": [
-                {
-                    "text": "Conv1",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv1",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "Conv2",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv2",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "Conv3",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv3",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "Conv4",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv4",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "Conv5",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_AllConv",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": []
-        },
-        {
             "id": "e18efd34-19d2-4e36-9603-e828474fe9e6",
             "index": 5,
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "Conv4",
-            "positionX": 200.8000030517578,
-            "positionY": 1956.0,
+            "positionX": 237.59999084472657,
+            "positionY": 1628.800048828125,
             "choices": [],
             "eventCalls": [
                 {
@@ -182,14 +248,24 @@
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "Give You Give You",
-            "positionX": 200.8000030517578,
-            "positionY": 2365.60009765625,
+            "positionX": 237.59999084472657,
+            "positionY": 2059.199951171875,
             "choices": [],
             "eventCalls": [
                 {
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetGotFoodTrue",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToGotFood",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -197,44 +273,80 @@
                     "parameterType": 0
                 }
             ]
+        },
+        {
+            "id": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
+            "index": 7,
+            "name": "Stewardess",
+            "avatarAssetPath": "",
+            "content": "No.",
+            "positionX": -1241.60009765625,
+            "positionY": 1004.0,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "65a9af76-61d9-467f-8653-2839cecf70fd",
+            "index": 8,
+            "name": "Me",
+            "avatarAssetPath": "",
+            "content": "Maybe I can ask her a bunch of questions to make her annoyed.",
+            "positionX": -868.0,
+            "positionY": 1004.0,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
+            "index": 9,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "Event: Info 4 gathered.",
+            "positionX": -1212.800048828125,
+            "positionY": 575.2000122070313,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoFourTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        },
+        {
+            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
+            "index": 11,
+            "name": "Me",
+            "avatarAssetPath": "",
+            "content": "I should give it to Page.",
+            "positionX": 631.2000122070313,
+            "positionY": 2059.199951171875,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
+            "index": 10,
+            "name": "Me",
+            "avatarAssetPath": "",
+            "content": "I will need to collect more info.",
+            "positionX": 237.59999084472657,
+            "positionY": 2600.800048828125,
+            "choices": [],
+            "eventCalls": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
-            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "choiceIndex": -1,
-            "choiceText": ""
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
-            "choiceIndex": 0,
-            "choiceText": "Conv1"
-        },
         {
             "outputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
             "choiceText": ""
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
-            "choiceIndex": 1,
-            "choiceText": "Conv2"
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
-            "choiceIndex": 2,
-            "choiceText": "Conv3"
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
-            "choiceIndex": 3,
-            "choiceText": "Conv4"
         },
         {
             "outputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
@@ -255,10 +367,70 @@
             "choiceText": ""
         },
         {
+            "outputNodeId": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
+            "inputNodeId": "65a9af76-61d9-467f-8653-2839cecf70fd",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "65a9af76-61d9-467f-8653-2839cecf70fd",
+            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
+            "choiceIndex": 1,
+            "choiceText": "Can I get food"
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
+            "choiceIndex": 0,
+            "choiceText": "Why were you standing in front of my seat?"
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
+            "choiceIndex": 0,
+            "choiceText": "Conv1"
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
+            "choiceIndex": 1,
+            "choiceText": "Conv2"
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
+            "choiceIndex": 2,
+            "choiceText": "Conv3"
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
+            "choiceIndex": 3,
+            "choiceText": "Conv4"
+        },
+        {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
             "choiceIndex": 4,
-            "choiceText": "Conv5"
+            "choiceText": "So CAN I GET MY FOOD?"
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
+            "choiceIndex": 5,
+            "choiceText": "I don't have enough topics."
+        },
+        {
+            "outputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
+            "inputNodeId": "5002a662-5d74-4e71-81cf-a0edd322c588",
+            "choiceIndex": -1,
+            "choiceText": ""
         }
     ]
 }
