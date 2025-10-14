@@ -55,13 +55,22 @@ public class SaveManager : MonoBehaviour
     public void SlotButtonHit(int slotNum)
     {
         Debug.Log(saveList.Length);
-        saveList[slotNum - 1] = true;
+        
         if (!hasGameSave)
         {
             hasGameSave = true;
         }
 
         savePath = Path.Combine(Application.persistentDataPath, $"GameSave{slotNum}.json");
+
+        if (saveList[slotNum - 1])
+        {
+            LoadGame();
+        } else
+        {
+            SceneController.instance.LoadSceneAndTeleport("Level1-1", 0);
+            saveList[slotNum - 1] = true;
+        }
     }
 }
 
