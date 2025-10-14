@@ -18,16 +18,162 @@
       "choices": [
         {
           "text": "Conv1",
-          "targetIndex": 2
+          "targetIndex": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv1",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "Conv2",
+          "targetIndex": 3,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv2",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "Conv3",
+          "targetIndex": 4,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv3",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "Conv4",
+          "targetIndex": 5,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv4",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "Conv5",
+          "targetIndex": 6,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
         }
       ],
       "eventCalls": []
     },
     {
       "index": 2,
-      "name": "Character",
+      "name": "Stewardess",
       "avatarAddr": "",
       "content": "wadwad",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv1",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "Stewardess",
+      "avatarAddr": "",
+      "content": "Conv2",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv2",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "Stewardess",
+      "avatarAddr": "",
+      "content": "Conv3",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "Stewardess",
+      "avatarAddr": "",
+      "content": "Conv4",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv4",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "Stewardess",
+      "avatarAddr": "",
+      "content": "Give You Give You",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": [

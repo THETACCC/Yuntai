@@ -38,7 +38,13 @@ public class LevelManager2_1 : MonoBehaviour
     public GameObject ZhouShu;
     public GameObject ZhouShu_GotFood;
 
-
+    //Conversation Related
+    public bool isStewardess_Conv1 = false;
+    public bool isStewardess_Conv2 = false;
+    public bool isStewardess_Conv3 = false;
+    public bool isStewardess_Conv4 = false;
+    public bool isStewardess_AllConv = false;
+    public bool isStewardessSet = false;
     public void SpeakZhoushu()
     {
         isZhouShu = true;
@@ -55,7 +61,11 @@ public class LevelManager2_1 : MonoBehaviour
 
     public void Update()
     {
-
+        if(isStewardess_Conv1 && isStewardess_Conv2 && isStewardess_Conv3 && isStewardess_Conv4 && !isStewardessSet)
+        {
+            isStewardess_AllConv = true;
+            isStewardessSet = true;
+        }
     }
 
     public void SetInfoOneTrue() { infoOne = true; }
@@ -76,4 +86,9 @@ public class LevelManager2_1 : MonoBehaviour
         ZhouShu_GotFood.SetActive(true);
 
     }
+
+    public void SetStewardessConv1() { isStewardess_Conv1 = true; }
+    public void SetStewardessConv2() { isStewardess_Conv2 = true; }
+    public void SetStewardessConv3() { isStewardess_Conv3 = true; }
+    public void SetStewardessConv4() { isStewardess_Conv4 = true; }
 }
