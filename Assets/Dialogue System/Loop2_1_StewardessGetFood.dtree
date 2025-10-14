@@ -1,0 +1,83 @@
+{
+    "nodes": [
+        {
+            "id": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "index": 0,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "Ni Hao",
+            "positionX": -793.5999755859375,
+            "positionY": 782.3999633789063,
+            "choices": [],
+            "eventCalls": []
+        },
+        {
+            "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "index": 1,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "New Dialogue",
+            "positionX": -328.0,
+            "positionY": 800.0,
+            "choices": [
+                {
+                    "text": "Conv1",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv2",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv3",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Conv4",
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": []
+        },
+        {
+            "id": "06aa94a4-e2d4-4a16-9b50-6347875007df",
+            "index": 2,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "wadwad",
+            "positionX": 100.79999542236328,
+            "positionY": 800.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetGotFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
+                }
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "choiceIndex": -1,
+            "choiceText": ""
+        },
+        {
+            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
+            "inputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
+            "choiceIndex": 0,
+            "choiceText": "Conv1"
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "Ni Hao",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": "Conv1",
+          "targetIndex": 2
+        }
+      ],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "wadwad",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetGotFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

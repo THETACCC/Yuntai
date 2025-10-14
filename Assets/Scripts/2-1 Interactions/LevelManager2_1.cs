@@ -28,6 +28,16 @@ public class LevelManager2_1 : MonoBehaviour
     [HideInInspector] public bool infoThree = false; //ZhouShu 负责发飞机餐的乘务员不知为什么一直不过来。
 
     [HideInInspector] public bool getFood = false; //找乘务员
+    [HideInInspector] public bool gotFood = false; //找乘务员
+
+    //Playthrough Related
+    [Header("Playthrough Related")]
+    public GameObject Stewardess;
+    public GameObject Stewardess_Food;
+
+    public GameObject ZhouShu;
+    public GameObject ZhouShu_GotFood;
+
 
     public void SpeakZhoushu()
     {
@@ -51,5 +61,19 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetInfoOneTrue() { infoOne = true; }
     public void SetInfoTwoTrue() { infoTwo = true; }
     public void SetInfoThreeTrue() { infoThree = true; }
-    public void SetgetFoodTrue() { getFood = true; }
+    public void SetgetFoodTrue() 
+    { 
+        getFood = true;
+        Stewardess.SetActive(false);
+        Stewardess_Food.SetActive(true);
+    }
+
+    public void SetGotFoodTrue() 
+    { 
+        
+        gotFood = true;
+        ZhouShu.SetActive(false);
+        ZhouShu_GotFood.SetActive(true);
+
+    }
 }
