@@ -8,7 +8,6 @@ public class Title_Scene : MonoBehaviour
     public GameObject savesSlots;
     public GameObject defaultOptions;
     public Button loadGameBt;
-    public GameObject Settings;
 
     private void Start()
     {
@@ -32,7 +31,7 @@ public class Title_Scene : MonoBehaviour
     public void OpenSettings()
     {
         defaultOptions.SetActive(false);
-        Settings.SetActive(true);
+        Settings.instance.canvasGroup.alpha = 1;
     }
 
     public void NewGame()
@@ -48,7 +47,7 @@ public class Title_Scene : MonoBehaviour
     {
         defaultOptions.SetActive(true);
         savesSlots.SetActive(false);
-        Settings.SetActive(false);
+        Settings.instance.canvasGroup.alpha = 0;
     }
 
     public void ExitGame()

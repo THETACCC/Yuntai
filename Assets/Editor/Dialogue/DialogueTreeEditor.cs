@@ -74,6 +74,12 @@ public class DialogueTreeEditor : EditorWindow
     private string currentFilePath = "";
     private new bool hasUnsavedChanges = false;
 
+    // ===== 域重载保护：使用 JSON 字符串保存 =====
+    [SerializeField] private string serializedGraphJson = "";
+    [SerializeField] private bool hasSerializedData = false;
+    [SerializeField] private bool wasUnsaved = false;
+    // ==========================================
+
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
     [MenuItem("Tools/Dialogue Tree Editor/Open Editor")]
@@ -148,8 +154,42 @@ public class DialogueTreeEditor : EditorWindow
     {
         currentFilePath = EditorPrefs.GetString(CURRENT_FILE_KEY, "");
         rootVisualElement.Clear();
+
+        // 监听域重载事件
+        AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+
         EditorApplication.delayCall += DelayedInitialize;
     }
+
+    // ===== 域重载前：保存数据到 JSON 字符串 =====
+    private void OnBeforeAssemblyReload()
+    {
+        if (graphView != null && graphView.GetNodeCount() > 0)
+        {
+            try
+            {
+                DialogueTreeData treeData = graphView.SerializeDialogueTree();
+                serializedGraphJson = JsonUtility.ToJson(treeData, false);
+                hasSerializedData = true;
+                wasUnsaved = hasUnsavedChanges;
+
+                Debug.Log($"[Dialogue Editor] Serialized {treeData.nodes.Count} nodes before compilation");
+
+                // 调试：打印第一个节点的位置
+                if (treeData.nodes.Count > 0)
+                {
+                    var firstNode = treeData.nodes[0];
+                    Debug.Log($"[Dialogue Editor] Saved Node 0 at position: ({firstNode.positionX}, {firstNode.positionY})");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[Dialogue Editor] Failed to serialize graph data: {e.Message}");
+                hasSerializedData = false;
+            }
+        }
+    }
+    // ===========================================
 
     private void DelayedInitialize()
     {
@@ -157,6 +197,59 @@ public class DialogueTreeEditor : EditorWindow
             return;
 
         CreateMainLayout();
+
+        // ===== 域重载后：从 JSON 字符串恢复数据 =====
+        if (hasSerializedData && !string.IsNullOrEmpty(serializedGraphJson))
+        {
+            try
+            {
+                DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(serializedGraphJson);
+
+                if (treeData != null && treeData.nodes != null && treeData.nodes.Count > 0)
+                {
+                    // 调试：打印恢复的节点位置
+                    var firstNode = treeData.nodes[0];
+                    Debug.Log($"[Dialogue Editor] Restoring Node 0 at position: ({firstNode.positionX}, {firstNode.positionY})");
+
+                    graphView.LoadDialogueTree(treeData);
+                    hasUnsavedChanges = wasUnsaved;
+
+                    Debug.Log($"[Dialogue Editor] Restored {treeData.nodes.Count} nodes after compilation");
+
+                    // 清理序列化数据
+                    hasSerializedData = false;
+                    serializedGraphJson = "";
+                    wasUnsaved = false;
+
+                    // 延迟居中到节点0
+                    EditorApplication.delayCall += () => {
+                        if (graphView != null)
+                        {
+                            graphView.CenterOnNode0();
+                        }
+                    };
+
+                    return;
+                }
+                else
+                {
+                    Debug.LogError("[Dialogue Editor] Deserialized data is null or empty");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[Dialogue Editor] Failed to restore graph data: {e.Message}\n{e.StackTrace}");
+            }
+            finally
+            {
+                hasSerializedData = false;
+                serializedGraphJson = "";
+                wasUnsaved = false;
+            }
+        }
+        // ===========================================
+
+        // 如果没有序列化数据，按原来的方式加载
         hasUnsavedChanges = false;
 
         if (!string.IsNullOrEmpty(currentFilePath) && File.Exists(currentFilePath))
@@ -189,6 +282,9 @@ public class DialogueTreeEditor : EditorWindow
 
     private void OnDisable()
     {
+        // 取消监听域重载事件
+        AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
+
         if (graphView != null)
         {
             graphView = null;
@@ -238,7 +334,12 @@ public class DialogueTreeEditor : EditorWindow
         {
             string status = hasUnsavedChanges ? " *" : "";
             string fileName = Path.GetFileName(currentFilePath);
-            GUI.Label(new Rect(10, 5, 500, 20), $"Current File: {fileName}{status}");
+            string protectionStatus = hasSerializedData ? " [Protected]" : "";
+            GUI.Label(new Rect(10, 5, 600, 20), $"Current File: {fileName}{status}{protectionStatus}");
+        }
+        else if (hasUnsavedChanges)
+        {
+            GUI.Label(new Rect(10, 5, 600, 20), "Unsaved Changes * (Press Ctrl+S to save)");
         }
     }
 
@@ -1013,6 +1114,8 @@ public class DialogueGraphView : GraphView
         var nodeDict = new Dictionary<string, DialogueNode>();
         var sortedNodes = treeData.nodes.OrderBy(n => n.index).ToList();
 
+        Debug.Log($"[LoadDialogueTree] Loading {sortedNodes.Count} nodes");
+
         foreach (var nodeData in sortedNodes)
         {
             Sprite avatarSprite = null;
@@ -1025,12 +1128,18 @@ public class DialogueGraphView : GraphView
                 }
             }
 
-            var node = CreateDialogueNodeWithIndex(nodeData.name, avatarSprite, nodeData.content,
-                new Vector2(nodeData.positionX, nodeData.positionY), nodeData.index);
+            Vector2 position = new Vector2(nodeData.positionX, nodeData.positionY);
+            Debug.Log($"[LoadDialogueTree] Node {nodeData.index} at position: ({position.x}, {position.y})");
+
+            var node = CreateDialogueNodeWithIndex(nodeData.name, avatarSprite, nodeData.content, position, nodeData.index);
             node.SetId(nodeData.id);
             node.SetChoicesData(nodeData.choices);
             node.SetEventCalls(nodeData.eventCalls);
             nodeDict[nodeData.id] = node;
+
+            // 验证节点位置是否正确设置
+            var verifyPos = node.GetPosition();
+            Debug.Log($"[LoadDialogueTree] Node {nodeData.index} verified position: ({verifyPos.x}, {verifyPos.y})");
         }
 
         if (sortedNodes.Count > 0)
@@ -1067,6 +1176,8 @@ public class DialogueGraphView : GraphView
                 }
             }
         }
+
+        Debug.Log($"[LoadDialogueTree] Loaded {nodeDict.Count} nodes and {treeData.connections.Count} connections");
     }
 
     private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite, string content, Vector2 position, int index)
@@ -2003,7 +2114,6 @@ public partial class DialogueNode : Node
             condContainer.style.borderBottomLeftRadius = 3;
             condContainer.style.borderBottomRightRadius = 3;
 
-            // 条件标题行（带删除按钮）
             var condHeader = new VisualElement();
             condHeader.style.flexDirection = FlexDirection.Row;
             condHeader.style.alignItems = Align.Center;
@@ -2035,7 +2145,6 @@ public partial class DialogueNode : Node
             condHeader.Add(removeCondButton);
             condContainer.Add(condHeader);
 
-            // GameObject 选择
             GameObject currentGameObject = null;
             if (!string.IsNullOrEmpty(condition.targetObjectName))
             {
@@ -2065,7 +2174,6 @@ public partial class DialogueNode : Node
 
             if (currentGameObject != null)
             {
-                // Component 选择
                 var components = currentGameObject.GetComponents<Component>();
                 var componentNames = new List<string> { "None" };
                 var componentTypes = new List<System.Type> { null };
@@ -2104,7 +2212,6 @@ public partial class DialogueNode : Node
                 {
                     var componentType = componentTypes[selectedComponentIndex];
 
-                    // 获取所有 public int/float/bool 字段和属性
                     var fields = componentType.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                         .Where(f => f.FieldType == typeof(int) || f.FieldType == typeof(float) || f.FieldType == typeof(bool))
                         .ToList();
@@ -2154,7 +2261,6 @@ public partial class DialogueNode : Node
 
                         if (selectedVarIndex > 0)
                         {
-                            // 获取选中变量的类型
                             System.Type selectedVarType = null;
                             string selectedVarName = variableNames[selectedVarIndex];
 
@@ -2172,11 +2278,9 @@ public partial class DialogueNode : Node
                                 }
                             }
 
-                            // 根据变量类型决定可用的比较操作符
                             List<ComparisonType> comparisonTypes;
                             if (selectedVarType == typeof(bool))
                             {
-                                // bool 类型只支持 == 和 !=
                                 comparisonTypes = new List<ComparisonType>
                             {
                                 ComparisonType.Equal,
@@ -2185,7 +2289,6 @@ public partial class DialogueNode : Node
                             }
                             else
                             {
-                                // int 和 float 支持所有比较操作符
                                 comparisonTypes = new List<ComparisonType>
                             {
                                 ComparisonType.Equal,
@@ -2219,14 +2322,11 @@ public partial class DialogueNode : Node
 
                             varRow.Add(compDropdown);
 
-                            // 根据变量类型创建不同的值输入控件
                             if (selectedVarType == typeof(bool))
                             {
-                                // bool 类型使用下拉菜单
                                 var boolValues = new List<string> { "True", "False" };
                                 int selectedBoolIndex = 0;
 
-                                // 尝试解析当前值
                                 if (!string.IsNullOrEmpty(condition.compareValue))
                                 {
                                     if (condition.compareValue.Equals("False", System.StringComparison.OrdinalIgnoreCase))
@@ -2236,7 +2336,6 @@ public partial class DialogueNode : Node
                                 }
                                 else
                                 {
-                                    // 如果 compareValue 为空，立即设置默认值
                                     ChoicesData[choiceIndex].conditions[condIndex].compareValue = "True";
                                 }
 
@@ -2257,7 +2356,6 @@ public partial class DialogueNode : Node
                             }
                             else
                             {
-                                // int 和 float 类型使用文本输入框
                                 var valueField = new TextField();
                                 valueField.value = condition.compareValue;
                                 valueField.style.width = 80;
@@ -2302,7 +2400,6 @@ public partial class DialogueNode : Node
             container.Add(condContainer);
         }
 
-        // 如果有多个条件，显示 AND/OR 逻辑选择
         if (choiceData.conditions.Count > 1)
         {
             var logicRow = new VisualElement();
@@ -2432,12 +2529,12 @@ public partial class DialogueNode : Node
     {
         var colors = new Color[]
         {
-        new Color(0.4f, 0.7f, 1f),
-        new Color(0.5f, 1f, 0.5f),
-        new Color(1f, 0.8f, 0.4f),
-        new Color(1f, 0.5f, 0.8f),
-        new Color(0.8f, 0.5f, 1f),
-        new Color(0.5f, 1f, 1f),
+            new Color(0.4f, 0.7f, 1f),
+            new Color(0.5f, 1f, 0.5f),
+            new Color(1f, 0.8f, 0.4f),
+            new Color(1f, 0.5f, 0.8f),
+            new Color(0.8f, 0.5f, 1f),
+            new Color(0.5f, 1f, 1f),
         };
 
         return new StyleColor(colors[index % colors.Length]);
