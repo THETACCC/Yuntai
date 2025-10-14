@@ -239,13 +239,23 @@
       "name": "Stewardess",
       "avatarAddr": "",
       "content": "Give You Give You",
-      "nextIndex": -1,
+      "nextIndex": 11,
       "choices": [],
       "eventCalls": [
         {
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetgetFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToGotFood",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -297,6 +307,15 @@
       "name": "Me",
       "avatarAddr": "",
       "content": "I will need to collect more info.",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 11,
+      "name": "Me",
+      "avatarAddr": "",
+      "content": "I should give it to Page.",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": []

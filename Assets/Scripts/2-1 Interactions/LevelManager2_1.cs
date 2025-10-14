@@ -29,6 +29,10 @@ public class LevelManager2_1 : MonoBehaviour
     [HideInInspector] public bool infoThree = false; //ZhouShu 负责发飞机餐的乘务员不知为什么一直不过来。
     [HideInInspector] public bool infoFour = false; //乘务员为什么站在我座椅边上。
 
+    [HideInInspector] public bool infoFive = false; 
+    [HideInInspector] public bool infoSix = false; 
+    [HideInInspector] public bool infoSeven = false; 
+
     [HideInInspector] public bool getFood = false; //找乘务员拿到food
     [HideInInspector] public bool gotFood = false; //zhoushu拿到food
 
@@ -36,9 +40,10 @@ public class LevelManager2_1 : MonoBehaviour
     [Header("Playthrough Related")]
     public GameObject Stewardess;
     public GameObject Stewardess_Food;
+    public GameObject Stewardess_AlreadyGotFood;
 
     public GameObject ZhouShu;
-    public GameObject ZhouShu_GotFood;
+    //public GameObject ZhouShu_GotFood;
 
     //Conversation Related
     public bool isStewardess_Conv1 = false;
@@ -47,6 +52,11 @@ public class LevelManager2_1 : MonoBehaviour
     public bool isStewardess_Conv4 = false;
     public bool isStewardess_AllConv = false;
     public bool isStewardessSet = false;
+
+    public bool isZhouShu_Conv5 = false;
+    public bool isZhouShu_Conv6 = false;
+    public bool isZhouShu_Conv7 = false;
+    public bool isZhouShu_AllConv = false;
     public void SpeakZhoushu()
     {
         isZhouShu = true;
@@ -124,6 +134,20 @@ public class LevelManager2_1 : MonoBehaviour
         AllStewardessConversationCheck();
     }
 
+    public void SetInfoFiveTrue()
+    {
+        infoFive = true;
+    }
+
+    public void SetInfoSixTrue()
+    {
+        infoSix = true;
+    }
+
+    public void SetInfoSevenTrue()
+    {
+        infoSeven = true;
+    }
 
     public void SetgetFoodTrue() 
     { 
@@ -136,8 +160,8 @@ public class LevelManager2_1 : MonoBehaviour
     { 
         
         gotFood = true;
-        ZhouShu.SetActive(false);
-        ZhouShu_GotFood.SetActive(true);
+        //ZhouShu.SetActive(false);
+        //ZhouShu_GotFood.SetActive(true);
 
     }
 
@@ -158,9 +182,35 @@ public class LevelManager2_1 : MonoBehaviour
         AllStewardessConversationCheck();
     }
 
+    public void SetZhouShuConv5()
+    {
+        isZhouShu_Conv5 = true;
+    }
+    public void SetZhouShuConv6()
+    {
+        isZhouShu_Conv6 = true;
+    }
+    public void SetZhouShuConv7()
+    {
+        isZhouShu_Conv7 = true;
+    }
+
+    public void IsAllZhouShuConv()
+    {
+        if (isZhouShu_Conv5 && isZhouShu_Conv6 && isZhouShu_Conv7)
+        {
+            isZhouShu_AllConv = true;
+        }
+    }
+
     public void ChangeStewardessToForFood()
     {
         Stewardess.gameObject.SetActive(false);
         Stewardess_Food.gameObject.SetActive(true);
-}
+    }
+    public void ChangeStewardessToGotFood()
+    {
+        Stewardess_Food.gameObject.SetActive(false);
+        Stewardess_AlreadyGotFood.gameObject.SetActive(true);
+    }
 }

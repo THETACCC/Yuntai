@@ -2841,10 +2841,14 @@ MonoBehaviour:
   infoTwo: 0
   infoThree: 0
   infoFour: 0
+  infoFive: 0
+  infoSix: 0
+  infoSeven: 0
   getFood: 0
   gotFood: 0
   Stewardess: {fileID: 1479491824}
   Stewardess_Food: {fileID: 1783921669}
+  Stewardess_AlreadyGotFood: {fileID: 1928786511}
   ZhouShu: {fileID: 297127187}
   ZhouShu_GotFood: {fileID: 422720447}
   isStewardess_Conv1: 0
@@ -2853,6 +2857,10 @@ MonoBehaviour:
   isStewardess_Conv4: 0
   isStewardess_AllConv: 0
   isStewardessSet: 0
+  isZhouShu_Conv5: 0
+  isZhouShu_Conv6: 0
+  isZhouShu_Conv7: 0
+  isZhouShu_AllConv: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4781,11 +4789,11 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 12459e89e344442449ce528361a3f182, type: 3}
+      objectReference: {fileID: 4900000, guid: f6f5469e4b0e59249b3f81961a87f7c7, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 12459e89e344442449ce528361a3f182, type: 3}
+      objectReference: {fileID: 4900000, guid: f6f5469e4b0e59249b3f81961a87f7c7, type: 3}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalScale.x
       value: -0.25
@@ -4804,7 +4812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Name
-      value: StewardessGiveFood
+      value: StewardessAlreadyGotFood
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
