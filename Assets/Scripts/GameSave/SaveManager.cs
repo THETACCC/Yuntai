@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
+
     private string savePath;
 
     public bool hasGameSave = false;
@@ -71,6 +72,21 @@ public class SaveManager : MonoBehaviour
             SceneController.instance.LoadSceneAndTeleport("Level1-1", 0);
             saveList[slotNum - 1] = true;
         }
+
+        Settings.instance.isInGame = true;
+    }
+
+    public int FindEmptySlot()
+    {
+        for (int i = 0; i < saveList.Length; i++)
+        {
+            if (!saveList[i])
+            {
+                return i+1;
+            }
+        }
+
+        return 0;
     }
 }
 

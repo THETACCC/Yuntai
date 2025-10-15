@@ -30,14 +30,26 @@ public class Title_Scene : MonoBehaviour
 
     public void OpenSettings()
     {
-        defaultOptions.SetActive(false);
-        Settings.instance.canvasGroup.alpha = 1;
+        //defaultOptions.SetActive(false);
+        Settings.instance.OpenSettings();
     }
 
     public void NewGame()
     {
         //call start function -- TODO
+        int slotNum = SaveManager.instance.FindEmptySlot();
+        if (slotNum != 0)
+        {
+            SaveManager.instance.SlotButtonHit(slotNum);
+        } else
+        {
 
+        }
+        
+    }
+
+    public void LoadGame()
+    {
         //open save slots UI
         defaultOptions.SetActive(false);
         savesSlots.SetActive(true);
@@ -47,7 +59,7 @@ public class Title_Scene : MonoBehaviour
     {
         defaultOptions.SetActive(true);
         savesSlots.SetActive(false);
-        Settings.instance.canvasGroup.alpha = 0;
+        Settings.instance.CloseSettings();
     }
 
     public void ExitGame()
