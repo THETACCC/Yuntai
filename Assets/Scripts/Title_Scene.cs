@@ -65,7 +65,7 @@ public class Title_Scene : MonoBehaviour
         {
             if (SaveManager.instance.saveList[i])
             {
-                slotsNames[i].text = $"Save {i}";
+                slotsNames[i].text = $"1. Save #{i+1}";
             }
         }
     }

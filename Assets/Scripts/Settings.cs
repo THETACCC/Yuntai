@@ -17,6 +17,7 @@ public class Settings : MonoBehaviour
     private void Awake()
     {
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
         if (instance == null)
         {
             instance = this;
