@@ -1,5 +1,8 @@
+using Fungus;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +11,7 @@ public class Title_Scene : MonoBehaviour
 {
     public GameObject savesSlots;
     public List<TextMeshProUGUI> slotsNames;
+    public List<TextMeshProUGUI> slotsTimes;
     public GameObject defaultOptions;
     public Button loadGameBt;
 
@@ -65,7 +69,13 @@ public class Title_Scene : MonoBehaviour
         {
             if (SaveManager.instance.saveList[i])
             {
-                slotsNames[i].text = $"1. Save #{i+1}";
+                slotsNames[i].text = $"{i+1}. Save #{i+1}";
+                DateTime lastModified = File.GetLastWriteTime(Path.Combine(Application.persistentDataPath, $"GameSave{i + 1}.json"));
+                slotsTimes[i].text = "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss");
+            } else
+            {
+                slotsNames[i].text = $"{i + 1}. Empty";
+                slotsTimes[i].text = "";
             }
         }
     }
@@ -80,5 +90,10 @@ public class Title_Scene : MonoBehaviour
     public void ExitGame()
     {
         
+    }
+
+    public void SlotButtonHit(int slotNum)
+    {
+        SaveManager.instance.SlotButtonHit(slotNum);
     }
 }

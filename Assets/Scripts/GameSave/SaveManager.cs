@@ -1,5 +1,4 @@
-﻿using Fungus;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +10,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
 
     private int saveSlot;
-    private string savePath;
+    public string savePath;
 
     public bool hasGameSave = false;
     public bool[] saveList;
