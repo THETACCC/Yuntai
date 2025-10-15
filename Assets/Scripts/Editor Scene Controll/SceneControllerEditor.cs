@@ -155,6 +155,7 @@ public enum SceneTitle
     Level1_1 = 03,
     Level1_2 = 04,
     Level2_1 = 05,
+    Level2_2 = 06,
 }
 
 public enum SceneCategory
