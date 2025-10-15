@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Title_Scene : MonoBehaviour
 {
     public GameObject savesSlots;
+    public List<TextMeshProUGUI> slotsNames;
     public GameObject defaultOptions;
     public Button loadGameBt;
 
@@ -43,7 +45,7 @@ public class Title_Scene : MonoBehaviour
             SaveManager.instance.SlotButtonHit(slotNum);
         } else
         {
-
+            LoadGame();
         }
         
     }
@@ -53,6 +55,19 @@ public class Title_Scene : MonoBehaviour
         //open save slots UI
         defaultOptions.SetActive(false);
         savesSlots.SetActive(true);
+
+        UpdateSlotName();
+    }
+
+    public void UpdateSlotName()
+    {
+        for (int i = 0; i < SaveManager.instance.saveList.Length; i++)
+        {
+            if (SaveManager.instance.saveList[i])
+            {
+                slotsNames[i].text = $"Save {i}";
+            }
+        }
     }
 
     public void Return()

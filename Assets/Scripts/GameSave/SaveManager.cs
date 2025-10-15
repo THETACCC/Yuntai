@@ -17,7 +17,16 @@ public class SaveManager : MonoBehaviour
 
     public void Awake()
     {
-        instance = this;
+        
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         saveList = new bool[3];
     }
 
@@ -55,13 +64,12 @@ public class SaveManager : MonoBehaviour
 
     public void SlotButtonHit(int slotNum)
     {
-        Debug.Log(saveList.Length);
-        
+        /*
         if (!hasGameSave)
         {
             hasGameSave = true;
         }
-
+        */
         savePath = Path.Combine(Application.persistentDataPath, $"GameSave{slotNum}.json");
 
         if (saveList[slotNum - 1])
