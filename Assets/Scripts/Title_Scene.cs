@@ -60,10 +60,10 @@ public class Title_Scene : MonoBehaviour
         defaultOptions.SetActive(false);
         savesSlots.SetActive(true);
 
-        UpdateSlotName();
+        UpdateSlotInfo();
     }
 
-    public void UpdateSlotName()
+    public void UpdateSlotInfo()
     {
         for (int i = 0; i < SaveManager.instance.saveList.Length; i++)
         {
@@ -95,5 +95,11 @@ public class Title_Scene : MonoBehaviour
     public void SlotButtonHit(int slotNum)
     {
         SaveManager.instance.SlotButtonHit(slotNum);
+    }
+
+    public void DeleteFileSave(int slotNum)
+    {
+        SaveManager.instance.DeleteFileSave(slotNum);
+        UpdateSlotInfo();
     }
 }

@@ -122,6 +122,29 @@ public class SaveManager : MonoBehaviour
 
         return 0;
     }
+
+    public void DeleteFileSave(int slotNum)
+    {
+        string path = Path.Combine(Application.persistentDataPath, $"GameSave{slotNum}.json");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            saveList[slotNum - 1] = false;
+
+            // 检查是否还有其他存档
+            hasGameSave = false;
+            foreach (bool slot in saveList)
+            {
+                if (slot)
+                {
+                    hasGameSave = true;
+                    break;
+                }
+            }
+
+        }
+    }
 }
 
 [Serializable]
