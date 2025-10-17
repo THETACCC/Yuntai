@@ -1,28 +1,6 @@
 {
     "nodes": [
         {
-            "id": "67a2c648-113e-455c-b439-47dcce679a14",
-            "index": 1,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "hello",
-            "positionX": 715.3333740234375,
-            "positionY": 311.33331298828127,
-            "choices": [],
-            "eventCalls": []
-        },
-        {
-            "id": "9523d4a8-2cd8-4d0c-b078-25140411873f",
-            "index": 2,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "yeah",
-            "positionX": 734.6666870117188,
-            "positionY": -157.3333282470703,
-            "choices": [],
-            "eventCalls": []
-        },
-        {
             "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "index": 0,
             "name": "Character",
@@ -30,29 +8,76 @@
             "content": "New Dialogue",
             "positionX": 232.6666717529297,
             "positionY": -42.0,
-            "choices": [
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
                 {
-                    "text": "New Choice",
+                    "priority": 1,
                     "conditions": [
                         {
-                            "targetObjectName": "NPC1",
+                            "targetObjectName": "Test",
                             "componentTypeName": "Test",
                             "variableName": "isTrue",
                             "comparison": 0,
                             "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "NPC1",
-                            "componentTypeName": "Test",
-                            "variableName": "number",
-                            "comparison": 0,
-                            "compareValue": "1"
                         }
                     ],
                     "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
                 }
-            ],
-            "eventCalls": []
+            ]
+        },
+        {
+            "id": "67a2c648-113e-455c-b439-47dcce679a14",
+            "index": 1,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "hello",
+            "positionX": 781.3333740234375,
+            "positionY": 381.33331298828127,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9523d4a8-2cd8-4d0c-b078-25140411873f",
+            "index": 2,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "yeah",
+            "positionX": 781.3333740234375,
+            "positionY": 28.66666603088379,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
+            "index": 3,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "top",
+            "positionX": 781.3333740234375,
+            "positionY": -374.66668701171877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c6d9591f-9dc1-4d56-a482-30ad1a2a7cfe",
+            "index": 4,
+            "name": "Character",
+            "avatarAssetPath": "",
+            "content": "New Dialogue",
+            "positionX": 1248.0,
+            "positionY": -457.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -60,13 +85,22 @@
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "inputNodeId": "9523d4a8-2cd8-4d0c-b078-25140411873f",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": 0
         },
         {
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "67a2c648-113e-455c-b439-47dcce679a14",
-            "choiceIndex": 0,
-            "choiceText": "New Choice"
+            "inputNodeId": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
+            "inputNodeId": "c6d9591f-9dc1-4d56-a482-30ad1a2a7cfe",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }

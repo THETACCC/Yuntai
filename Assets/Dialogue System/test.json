@@ -5,30 +5,27 @@
       "name": "Character",
       "avatarAddr": "",
       "content": "New Dialogue",
-      "nextIndex": 2,
-      "choices": [
+      "conditionalBranches": [
         {
-          "text": "New Choice",
-          "targetIndex": 1,
+          "targetIndex": 3,
+          "priority": 1,
           "conditions": [
             {
-              "targetObjectName": "NPC1",
+              "targetObjectName": "Test",
               "componentTypeName": "Test",
               "variableName": "isTrue",
               "comparison": "Equal",
               "compareValue": "True"
-            },
-            {
-              "targetObjectName": "NPC1",
-              "componentTypeName": "Test",
-              "variableName": "number",
-              "comparison": "Equal",
-              "compareValue": "1"
             }
           ],
           "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 2,
+          "priority": 0
         }
       ],
+      "choices": [],
       "eventCalls": []
     },
     {
@@ -45,6 +42,24 @@
       "name": "Character",
       "avatarAddr": "",
       "content": "yeah",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 3,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "top",
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 4,
+      "name": "Character",
+      "avatarAddr": "",
+      "content": "New Dialogue",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": []

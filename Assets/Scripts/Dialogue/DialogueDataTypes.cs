@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace DialogueSystem
 {
-    // ==================== 比较类型 ====================
+    // ==================== 比较和逻辑类型 ====================
+
     /// <summary>
     /// Comparison operators for conditions
     /// </summary>
@@ -13,7 +14,7 @@ namespace DialogueSystem
         Equal,              // ==
         NotEqual,           // !=
         Greater,            // >
-        Less,               // 
+        Less,               // <
         GreaterOrEqual,     // >=
         LessOrEqual         // <=
     }
@@ -42,6 +43,7 @@ namespace DialogueSystem
     }
 
     // ==================== 事件系统 ====================
+
     /// <summary>
     /// Parameter types supported by dialogue events
     /// </summary>
@@ -81,6 +83,18 @@ namespace DialogueSystem
     }
 
     // ==================== 选项数据 ====================
+
+    /// <summary>
+    /// Choice data for dialogue branches
+    /// </summary>
+    [Serializable]
+    public class ChoiceData
+    {
+        public string text;
+        public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+        public ConditionLogic conditionLogic = ConditionLogic.AND;
+    }
+
     /// <summary>
     /// Helper class for serializing choice data lists
     /// </summary>
@@ -90,13 +104,100 @@ namespace DialogueSystem
         public List<ChoiceData> choicesData = new List<ChoiceData>();
     }
 
+    // ==================== 条件分支数据 ====================
+
     /// <summary>
-    /// Choice data for dialogue branches
+    /// 条件分支数据
     /// </summary>
     [Serializable]
-    public class ChoiceData
+    public class ConditionalBranchData
+    {
+        public int priority;
+        public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+        public ConditionLogic conditionLogic = ConditionLogic.AND;
+    }
+
+    // ==================== 编辑器数据结构 ====================
+
+    /// <summary>
+    /// 对话树数据结构 - 用于序列化整个对话树（编辑器格式）
+    /// </summary>
+    [Serializable]
+    public class DialogueTreeData
+    {
+        public List<DialogueNodeData> nodes = new List<DialogueNodeData>();
+        public List<DialogueConnectionData> connections = new List<DialogueConnectionData>();
+    }
+
+    /// <summary>
+    /// 对话节点数据 - 编辑器格式
+    /// </summary>
+    [Serializable]
+    public class DialogueNodeData
+    {
+        public string id;
+        public int index;
+        public string name;
+        public string avatarAssetPath;
+        public string content;
+        public float positionX;
+        public float positionY;
+        public List<ChoiceData> choices = new List<ChoiceData>();
+        public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+        public List<ConditionalBranchData> conditionalBranches = new List<ConditionalBranchData>();
+    }
+
+    /// <summary>
+    /// 节点连接数据
+    /// </summary>
+    [Serializable]
+    public class DialogueConnectionData
+    {
+        public string outputNodeId;
+        public string inputNodeId;
+        public int choiceIndex;
+        public string choiceText;
+        public int branchPriority;
+    }
+
+    // ==================== 运行时数据结构 ====================
+
+    /// <summary>
+    /// 运行时对话数据 - 用于游戏运行时
+    /// </summary>
+    [Serializable]
+    public class RuntimeDialogueData
+    {
+        public int index;
+        public string name;
+        public string avatarAddr;
+        public string content;
+        public List<RuntimeChoice> choices = new List<RuntimeChoice>();
+        public string nextNodeId;
+        public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
+        public List<RuntimeConditionalBranch> conditionalBranches = new List<RuntimeConditionalBranch>();
+    }
+
+    /// <summary>
+    /// 运行时选项数据
+    /// </summary>
+    [Serializable]
+    public class RuntimeChoice
     {
         public string text;
+        public string nextNodeId;
+        public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+        public ConditionLogic conditionLogic = ConditionLogic.AND;
+    }
+
+    /// <summary>
+    /// 运行时条件分支数据
+    /// </summary>
+    [Serializable]
+    public class RuntimeConditionalBranch
+    {
+        public int targetIndex;
+        public int priority;
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;
     }

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using DialogueSystem;
+using Fungus;
+using static DialogueManager;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -73,19 +75,37 @@ public class DialogueManager : MonoBehaviour
         contentText.text = currentConversation.content;
         speaker.text = currentConversation.name;
 
-        if (dialogueData.conversations[dialogueData.currentIndex].avatarAddr != null)
+        if (currentConversation.avatarAddr != null)
         {
-            Sprite s = Resources.Load<Sprite>(dialogueData.conversations[dialogueData.currentIndex].avatarAddr);
+            Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
             if (s != null)
             {
                 avatar.sprite = s;
             }
             else
             {
-                Debug.LogError("Failed to load image from address: Resources/" + dialogueData.conversations[dialogueData.currentIndex].avatarAddr);
+                Debug.LogError("Failed to load image from address: Resources/" + currentConversation.avatarAddr);
             }
         }
 
+        // Handle Conditional Branches
+        if (currentConversation.conditionalBranches.Length > 0)
+        {
+            for (int i = 0; i < currentConversation.conditionalBranches.Length; i++)
+            {
+                ConditionalBranch branch = currentConversation.conditionalBranches[i];
+
+                //check condition
+                bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
+
+                Debug.Log("index" + i + "is" + conditionResult);
+                if (conditionResult)
+                {
+                    currentConversation.nextIndex = branch.targetIndex;
+                    break;
+                }
+            }
+        }
         
 
         // Handle choices
@@ -97,57 +117,10 @@ public class DialogueManager : MonoBehaviour
                 Choice choice = currentConversation.choices[i];
 
                 //check condition
-                bool isConditionMet = false;
-
-                if (choice.conditions.Count == 0)
-                {
-                    isConditionMet = true;
-                } else if (choice.conditions.Count == 1)
-                {
-                    ChoiceCondition condition = choice.conditions[0];
-
-                    isConditionMet = SingleConditionResult(condition);
-                    
-                } else
-                {
-                    //And Logic
-                    if (choice.conditionLogic == ConditionLogic.AND)
-                    {
-                        bool result = true;
-                        for (int j = 0; j < choice.conditions.Count; j++)
-                        {
-                            ChoiceCondition condition = choice.conditions[j];
-
-                            bool singleResult = SingleConditionResult(condition);
-                            if (!singleResult)
-                            {
-                                result = false;
-                                break;
-                            }
-                        }
-                        isConditionMet = result;
-                    } 
-                    //Or Logic
-                    else if (choice.conditionLogic == ConditionLogic.OR)
-                    {
-                        bool result = false;
-                        for (int j = 0; j < choice.conditions.Count; j++)
-                        {
-                            ChoiceCondition condition = choice.conditions[j];
-
-                            bool singleResult = SingleConditionResult(condition);
-                            if (singleResult)
-                            {
-                                result = true;
-                                break;
-                            }
-                        }
-                        isConditionMet = result;
-                    }
-                }
+                bool conditionResult = ConditionResult(choice.conditions, choice.conditionLogic);
 
                 ///如果condition正确则生成选项
-                if (isConditionMet)
+                if (conditionResult)
                 {
                     GameObject newChoice = Instantiate(choicePrefab, choiceParent.transform);
                     newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
@@ -166,6 +139,62 @@ public class DialogueManager : MonoBehaviour
 
         // 使用新的事件执行器 - 只需要一行代码！
         DialogueEventExecutor.Execute(currentConversation.eventCalls);
+    }
+
+    bool ConditionResult(List<ChoiceCondition> conditions, ConditionLogic conditionLogic)
+    {
+        bool isConditionMet = false;
+
+        if (conditions.Count == 0)
+        {
+            isConditionMet = true;
+        }
+        else if (conditions.Count == 1)
+        {
+            ChoiceCondition condition = conditions[0];
+
+            isConditionMet = SingleConditionResult(condition);
+
+        }
+        else
+        {
+            //And Logic
+            if (conditionLogic == ConditionLogic.AND)
+            {
+                bool result = true;
+                for (int j = 0; j < conditions.Count; j++)
+                {
+                    ChoiceCondition condition = conditions[j];
+
+                    bool singleResult = SingleConditionResult(condition);
+                    if (!singleResult)
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+                isConditionMet = result;
+            }
+            //Or Logic
+            else if (conditionLogic == ConditionLogic.OR)
+            {
+                bool result = false;
+                for (int j = 0; j < conditions.Count; j++)
+                {
+                    ChoiceCondition condition = conditions[j];
+
+                    bool singleResult = SingleConditionResult(condition);
+                    if (singleResult)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+                isConditionMet = result;
+            }
+        }
+
+        return isConditionMet;
     }
 
     bool SingleConditionResult(ChoiceCondition condition)
@@ -209,6 +238,8 @@ public class DialogueManager : MonoBehaviour
                 return false;
             }
         }
+
+        Debug.Log(currentValue);
 
         //compare
         return CompareValues(currentValue, condition.compareValue, condition.comparison);
@@ -280,13 +311,17 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
+            // 处理 bool 类型
             else if (currentValue is bool boolCurrent)
             {
+                
                 if (!bool.TryParse(compareValueStr, out bool boolCompare))
                 {
                     Debug.LogWarning($"[Condition Check] Cannot parse '{compareValueStr}' as bool.");
                     return false;
                 }
+
+                Debug.Log(boolCurrent + "compare" + boolCompare);
 
                 switch (comparisonType)
                 {
@@ -298,6 +333,8 @@ public class DialogueManager : MonoBehaviour
                         Debug.LogWarning($"[Condition Check] Bool only supports == and !=.");
                         return false;
                 }
+
+                
             }
 
             /*
@@ -381,6 +418,7 @@ public class DialogueManager : MonoBehaviour
 
     public void NextDialogueIndex()
     {
+        Debug.Log(dialogueData.conversations[dialogueData.currentIndex].nextIndex);
         dialogueData.currentIndex = dialogueData.conversations[dialogueData.currentIndex].nextIndex;
     }
 
@@ -427,12 +465,13 @@ public class DialogueData
 }
 
 [Serializable]
-public struct Conversation
+public class Conversation
 {
     public int index;
     public string name;
     public string avatarAddr; //avatar Address
     public string content;
+    public ConditionalBranch[] conditionalBranches;
     public Choice[] choices;
     public int nextIndex; //default next index if no choice, -1 if there is no next conversation
     public List<DialogueEventCall> eventCalls; 
@@ -444,6 +483,15 @@ public struct Choice
     public string text;
     public int targetIndex;
     public List<ChoiceCondition> conditions;  
-    public ConditionLogic conditionLogic;  
+    public ConditionLogic conditionLogic;
 }
+
+[Serializable]
+public struct ConditionalBranch {
+    public int targetIndex;
+    public int priority;
+    public List<ChoiceCondition> conditions;
+    public ConditionLogic conditionLogic;
+}
+
 
