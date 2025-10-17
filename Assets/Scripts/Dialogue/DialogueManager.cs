@@ -89,23 +89,27 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Handle Conditional Branches
-        if (currentConversation.conditionalBranches.Length > 0)
+        if (currentConversation.conditionalBranches != null)
         {
-            for (int i = 0; i < currentConversation.conditionalBranches.Length; i++)
+            if (currentConversation.conditionalBranches.Length > 0)
             {
-                ConditionalBranch branch = currentConversation.conditionalBranches[i];
-
-                //check condition
-                bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
-
-                Debug.Log("index" + i + "is" + conditionResult);
-                if (conditionResult)
+                for (int i = 0; i < currentConversation.conditionalBranches.Length; i++)
                 {
-                    currentConversation.nextIndex = branch.targetIndex;
-                    break;
+                    ConditionalBranch branch = currentConversation.conditionalBranches[i];
+
+                    //check condition
+                    bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
+
+                    Debug.Log("index" + i + "is" + conditionResult);
+                    if (conditionResult)
+                    {
+                        currentConversation.nextIndex = branch.targetIndex;
+                        break;
+                    }
                 }
             }
         }
+        
         
 
         // Handle choices
