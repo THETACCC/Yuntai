@@ -232,5 +232,6 @@ public class LevelManager2_1 : MonoBehaviour
         worker1.SetActive(false);
         worker2.SetActive(true);
         Trigger10.SetActive(true);
+        BathroomPortal.scenename = "Level2-2";
     }
 }
