@@ -20,6 +20,10 @@ public class LevelManager2_1 : MonoBehaviour
 
     public ScenePortal BathroomPortal;
 
+    [SerializeField] private GameObject worker1;
+    [SerializeField] private GameObject worker2;
+    [SerializeField] private GameObject Trigger10;
+
     // Dialogue Boolean
     [HideInInspector] public bool infoOne = false; // PassA
     [HideInInspector] public bool infoTwo = false; // 上班族
@@ -221,5 +225,13 @@ public class LevelManager2_1 : MonoBehaviour
 
             _blinkRoutine = null;
         }
+    }
+
+    public void WorkerChangeAndOpenTrigger()
+    {
+        worker1.SetActive(false);
+        worker2.SetActive(true);
+        Trigger10.SetActive(true);
+        BathroomPortal.scenename = "Level2-2";
     }
 }

@@ -44,7 +44,8 @@
                     "boolParameter": false,
                     "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
@@ -66,7 +67,8 @@
                     "boolParameter": false,
                     "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "006ce4c9-3551-4154-983c-9313469e4485",
@@ -130,7 +132,8 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "9aff6605-0fe7-407d-b06e-787b82e17687",
@@ -162,7 +165,8 @@
                     "boolParameter": false,
                     "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
@@ -194,7 +198,8 @@
                     "boolParameter": false,
                     "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
@@ -226,7 +231,8 @@
                     "boolParameter": false,
                     "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "651409d7-6eab-462b-bf5c-5e95516aea71",
@@ -247,8 +253,19 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "WorkerChangeAndOpenTrigger",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0
                 }
-            ]
+            ],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -256,55 +273,64 @@
             "outputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
             "inputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
             "choiceIndex": 0,
-            "choiceText": "Here's your food."
+            "choiceText": "Here's your food.",
+            "branchPriority": -2
         },
         {
             "outputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
             "choiceIndex": 0,
-            "choiceText": "5"
+            "choiceText": "5",
+            "branchPriority": -2
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
             "choiceIndex": 1,
-            "choiceText": "6"
+            "choiceText": "6",
+            "branchPriority": -3
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
             "choiceIndex": 2,
-            "choiceText": "7"
+            "choiceText": "7",
+            "branchPriority": -4
         },
         {
             "outputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "651409d7-6eab-462b-bf5c-5e95516aea71",
             "choiceIndex": 3,
-            "choiceText": "You know, I saw..."
+            "choiceText": "You know, I saw...",
+            "branchPriority": -5
         }
     ]
 }
