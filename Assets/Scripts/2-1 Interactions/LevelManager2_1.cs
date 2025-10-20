@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
+[RequireComponent(typeof(ToNextLoop))]   // 确保同物体上有 ToNextLoop
 public class LevelManager2_1 : MonoBehaviour
 {
     [SerializeField] private URPLight2D mainLight;
@@ -24,11 +25,17 @@ public class LevelManager2_1 : MonoBehaviour
     [SerializeField] private GameObject worker2;
     [SerializeField] private GameObject Trigger10;
 
+    // —— ToNextLoop 对接 —— 
+    [Header("NextLoop (放在同一物体上)")]
+    [SerializeField] private ToNextLoop nextLoop;   // 可空，Start 里自动 GetComponent
+    [Tooltip("2-1结束时是否播放过场（由 ToNextLoop 播放）再跳转")]
+    public bool useDeathCutForExit = true;
+
     // Dialogue Boolean
-    [HideInInspector] public bool infoOne = false; // PassA
-    [HideInInspector] public bool infoTwo = false; // 上班族
+    [HideInInspector] public bool infoOne = false;   // PassA
+    [HideInInspector] public bool infoTwo = false;   // 上班族
     [HideInInspector] public bool infoThree = false; // ZhouShu
-    [HideInInspector] public bool infoFour = false; // 乘务员为什么站在我座椅边上。
+    [HideInInspector] public bool infoFour = false;  // 乘务员为什么站在我座椅边上。
     [HideInInspector] public bool infoFive = false;
     [HideInInspector] public bool infoSix = false;
     [HideInInspector] public bool infoSeven = false;
@@ -85,6 +92,9 @@ public class LevelManager2_1 : MonoBehaviour
 
     public void Start()
     {
+        // 绑定 NextLoop
+        if (!nextLoop) nextLoop = GetComponent<ToNextLoop>();
+
         LoopTracker.I?.SetLoop(myLoop);
         if (BathroomPortal)
         {
@@ -157,8 +167,8 @@ public class LevelManager2_1 : MonoBehaviour
     }
     public void ChangeStewardessToGotFood()
     {
-        if (Stewardess_Food) Stewardess_Food.gameObject.SetActive(false);
-        if (Stewardess_AlreadyGotFood) Stewardess_AlreadyGotFood.gameObject.SetActive(true);
+        if (Stewardess_Food) Stewardess_Food.SetActive(false);
+        if (Stewardess_AlreadyGotFood) Stewardess_AlreadyGotFood.SetActive(true);
     }
 
     // ===== 灯光流程：闪几次 → 变暗（非黑） → 切周叔站立 → 关闭UI → 恢复控制 → 触发对话 =====
@@ -232,6 +242,70 @@ public class LevelManager2_1 : MonoBehaviour
         worker1.SetActive(false);
         worker2.SetActive(true);
         Trigger10.SetActive(true);
+
+        // 这里仍然只是设置传送门的目标；真正切场景请用 ToNextLoop
         BathroomPortal.scenename = "Level2-2";
+    }
+
+    // ========= 统一：通过 ToNextLoop 切场景 =========
+
+    /// <summary>
+    /// 跳转到“未逃脱”版本（例如回到 2-1 后续/或去别的关卡）
+    /// </summary>
+    public void Goto_NotEscaped_ViaNextLoop()
+    {
+        if (!nextLoop) return;
+        nextLoop.scenename = SceneName_NotEscaped;
+        nextLoop.SpawnPointLocation = SpawnPointLocation_NotEscaped;
+        nextLoop.toNextLoop();
+    }
+
+    /// <summary>
+    /// 跳转到“已逃脱/去 2-2”等（按你项目设定）
+    /// </summary>
+    public void Goto_Escaped_ViaNextLoop()
+    {
+        if (!nextLoop) return;
+        nextLoop.scenename = SceneName_Escaped;
+        nextLoop.SpawnPointLocation = SpawnPointLocation_Escaped;
+        nextLoop.toNextLoop();
+    }
+
+    /// <summary>
+    /// 自定义指定场景/出生点，通过 ToNextLoop 进行（用于 Timeline / 对话回调）
+    /// </summary>
+    public void Goto_Custom_ViaNextLoop(string scene, int spawn)
+    {
+        if (!nextLoop) return;
+        nextLoop.scenename = scene;
+        nextLoop.SpawnPointLocation = spawn;
+        nextLoop.toNextLoop();
+    }
+
+    /// <summary>
+    /// 典型收尾：例如所有对话结束后，播过场再去 2-2（或 Escaped）
+    /// 把这个函数从你的 Dialogue 事件里直接调用即可。
+    /// </summary>
+    public void End2_1_And_GotoNext()
+    {
+        if (!nextLoop) return;
+
+        // 这里按你的条件决定去哪个目标（示例：收齐信息 & 全对话完成 → Escaped）
+        bool canExitToNext = isStewardess_AllConv && HaveAllInfo();
+        string targetScene = canExitToNext ? SceneName_Escaped : SceneName_NotEscaped;
+        int targetSpawn = canExitToNext ? SpawnPointLocation_Escaped : SpawnPointLocation_NotEscaped;
+
+        nextLoop.scenename = targetScene;
+        nextLoop.SpawnPointLocation = targetSpawn;
+
+        // 是否播过场
+        if (useDeathCutForExit)
+            nextLoop.toNextLoop();
+        else
+        {
+            // 如果你想不走 VideoPlayer，直接跳（保留统一入口也行）
+            LoopTracker.I?.IncrementLoop();
+            SceneController.instance.LoadSceneAndTeleport(targetScene, targetSpawn);
+        }
     }
 }

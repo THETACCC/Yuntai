@@ -7,7 +7,7 @@
             "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_日常.png",
             "content": "Miss?",
             "positionX": 796.0,
-            "positionY": 614.5,
+            "positionY": 614.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -18,8 +18,8 @@
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "......",
-            "positionX": 1181.0,
-            "positionY": 614.5,
+            "positionX": 1181.5999755859375,
+            "positionY": 614.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -29,9 +29,9 @@
             "index": 2,
             "name": "Me",
             "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊醒.png",
-            "content": "Why are you standing next to my seat? Did something happen?",
-            "positionX": 1533.5,
-            "positionY": 614.5,
+            "content": "Umm... why are you standing by my seat? Is something wrong?",
+            "positionX": 1533.5999755859375,
+            "positionY": 614.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -42,8 +42,8 @@
             "name": "Stewardess",
             "avatarAssetPath": "",
             "content": "......",
-            "positionX": 2134.5,
-            "positionY": 614.5,
+            "positionX": 2134.39990234375,
+            "positionY": 614.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -53,11 +53,23 @@
             "index": 4,
             "name": "Me",
             "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_日常.png",
-            "content": "Ma’am?",
-            "positionX": 2553.0,
-            "positionY": 614.5,
+            "content": "Miss?",
+            "positionX": 2553.599853515625,
+            "positionY": 614.4000244140625,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager1_2",
+                    "componentTypeName": "LevelManager1_2",
+                    "methodName": "DoSequence5B",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
             "conditionalBranches": []
         }
     ],

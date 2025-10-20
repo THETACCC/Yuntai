@@ -64,7 +64,7 @@ public class LevelManager1_2 : MonoBehaviour
     [Header("【演绎】闪灯")]
     [SerializeField, Min(1)] private int flickerCount = 3;            // 闪烁次数（最后一次点亮后转头）
     [SerializeField, Min(0f)] private float flickerOffTime = 0.12f;   // 熄灭时长
-    [SerializeField, Min(0f)] private float flickerOnTime = 0.18f;   // 点亮时长
+    [SerializeField, Min(0f)] private float flickerOnTime = 0.18f;    // 点亮时长
     [SerializeField] private List<URPLight2D> sceneLights = new();     // 需要一起闪烁的灯（可为空则用 lightToBlinkAndDim）
 
     [Header("【演绎】换脸后触发对话5-a")]
@@ -87,11 +87,11 @@ public class LevelManager1_2 : MonoBehaviour
 
     // —— 5B 开始前女主预站位（只改 X）——
     [Header("【演绎5B】女主预站位")]
-    [SerializeField] private Transform heroineStandLeftX;     // 在场景里放一个空物体当“站位点”，只用它的 X
+    [SerializeField] private Transform heroineStandLeftX;     // 放一个空物体当“站位点”，只用它的 X
     [SerializeField, Min(0.1f)] private float heroineMoveSpeed5B = 50f; // 5B 的移动速度
 
     [Header("【演绎5B】收尾")]
-    [SerializeField] private ToNextLoop nextLoop;          // 拖 eathtrigger 上的 ToNextLoop
+    [SerializeField] private ToNextLoop nextLoop;          // 拖 death trigger 上的 ToNextLoop
     [SerializeField, Min(0f)] private float finalBlackExtraHold = 0f; // 额外黑屏时长（可为 0）
 
     [System.Serializable]
@@ -106,18 +106,19 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Min(0f)] private float faceDelayAfterLastOn = 0f; // 最后一次点亮到换脸的延迟
 
     [Header("厕所关闭互动")]
-    // 流程结束后再显示的物体
     [SerializeField] private GameObject objectToReveal;
     [SerializeField] private bool autoDeactivateOnStart = true;
 
+    // ★★★★★ 5B 可见度控制（新增） ★★★★★
+    [Header("【演绎5B】可见度与停留（新增）")]
+    [SerializeField, Range(0f, 1f)] private float minVisibleIntensity5B = 0.75f; // 换脸时至少这么亮
+    [SerializeField, Min(0f)] private float faceHoldLitSeconds5B = 0.35f;        // 换脸后保持点亮的时间
 
     // —— runtime 缓存 ——
     private Rigidbody2D _playerRb;
     private PlayerController _playerCtrl;
     private GameObject playerObject;
     private readonly List<SpriteRenderer> _playerSprites = new();
-
-
 
     private void Awake()
     {
@@ -155,7 +156,6 @@ public class LevelManager1_2 : MonoBehaviour
 
         if (autoDeactivateOnStart && objectToReveal && objectToReveal.activeSelf)
             objectToReveal.SetActive(false);
-
 
         StartCoroutine(RunLightsThenRevealPlayer());
     }
@@ -228,28 +228,24 @@ public class LevelManager1_2 : MonoBehaviour
     }
 
     // 5A演绎
-    // ========= 对外接口：从 changebound 的事件里调用 =========
     public void DoSpecialThingWhenInBound1()
     {
-        // 防重入：如果正在进行演绎，就不要重复开始
-        if (_eventRoutine != null) return;
+        if (_eventRoutine != null) return;   // 防重入
         _eventRoutine = StartCoroutine(EventSequence_BoyBlocksAndSmile());
     }
 
-    // 5B入口：外部事件调用它
+    // 5B入口
     public void DoSequence5B()
     {
-        if (_eventRoutine != null) return;                // 防重入
+        if (_eventRoutine != null) return;   // 防重入
         _eventRoutine = StartCoroutine(EventSequence_5B());
     }
-
 
     private Coroutine _eventRoutine;
 
     // ========= 5A演绎主流程 =========
     private IEnumerator EventSequence_BoyBlocksAndSmile()
     {
-        // 1) 关玩家输入 + 禁用 PlayerController（避免它的 Confine/速度写入跟你打架）
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Eventing;
 
         bool hadController = false;
@@ -259,7 +255,6 @@ public class LevelManager1_2 : MonoBehaviour
             _playerCtrl.enabled = false;
         }
 
-        // 临时钳制刚体，避免外力干扰
         bool hadKinematic = false;
         if (_playerRb)
         {
@@ -268,83 +263,66 @@ public class LevelManager1_2 : MonoBehaviour
             _playerRb.isKinematic = true;
         }
 
-        // 2) 自动向右移动到目标
+        // 自动向右移动到目标
         if (playerObject && playerAutoTarget)
             yield return MovePlayerXOverSeconds(playerAutoTarget.position.x, 0.5f);
 
-
-        // 3) 小男孩跳下（抛物线）
+        // 小男孩跳下
         if (boy && boyJumpTarget)
             yield return JumpObjectTo(boy, boyJumpTarget.position, boyJumpDuration, boyJumpHeight, boyJumpArc);
 
-        // 4) 闪灯 + 换脸
+        // 闪灯 + 换脸
         yield return FlickerLightsThenFace();
 
         if (dialogueAfterFacesDelay > 0f)
             yield return new WaitForSeconds(dialogueAfterFacesDelay);
 
-        // 恢复玩家可动 + 切到 Talking 再开始对话2
+        // 恢复玩家可动 + 对话
         RestorePlayerControl();
-
-
-        //if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Talking;
-
         dialogueTrigger2?.TriggerDialogue();
 
         _eventRoutine = null;
     }
 
-    //5B演绎流程
+    // ========= 5B演绎主流程（修正版） =========
     private IEnumerator EventSequence_5B()
     {
-        // 进入事件态
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Eventing;
 
-        // —— 先禁用控制 / 钳制刚体 —— 
-        bool hadController = false;
-        if (_playerCtrl)
-        {
-            hadController = _playerCtrl.enabled;
-            _playerCtrl.enabled = false;
-        }
+        // 禁用控制 / 清速度
+        if (_playerCtrl) _playerCtrl.enabled = false;
+        if (_playerRb) _playerRb.velocity = Vector2.zero;
 
-        bool hadKinematic = false;
-        if (_playerRb)
-        {
-            //hadKinematic = _playerRb.isKinematic;
-            _playerRb.velocity = Vector2.zero;
-            //_playerRb.isKinematic = true;
-        }
-
-        // —— 直接瞬移：把女主放到左侧“站位点”的 X（Y/Z 不变）——
+        // 瞬移：女主放到左侧站位点的 X
         if (playerObject && heroineStandLeftX)
         {
             var p = playerObject.transform.position;
             var snap = new Vector3(heroineStandLeftX.position.x, p.y, p.z);
-
-            playerObject.transform.position = snap;  // 同步Transform
+            playerObject.transform.position = snap;
             if (_playerRb)
             {
-                _playerRb.position = snap;          // 同步Rigidbody2D
+                _playerRb.position = snap;
                 _playerRb.velocity = Vector2.zero;
             }
         }
         Debug.Log("[5B] heroine snapped, go lights...");
 
-        // —— 选灯（如果没填 sceneLights 就用主 lightToBlinkAndDim）——
+        // 选灯
         var lights = new List<URPLight2D>();
         if (sceneLights != null && sceneLights.Count > 0) lights.AddRange(sceneLights);
         else if (lightToBlinkAndDim) lights.Add(lightToBlinkAndDim);
 
         if (lights.Count == 0)
-            Debug.LogWarning("[LevelManager1_2][5B] 没有可操作的灯光，流程照常执行但不会闪黑。");
+            Debug.LogWarning("[LevelManager1_2][5B] 没有可操作的灯光，流程继续但不会闪光。");
 
-        // 记录原强度（原始为空则回落到1）
+        // 记录原强度
         var original = new float[lights.Count];
         for (int i = 0; i < lights.Count; i++) original[i] = lights[i] ? lights[i].intensity : 1f;
 
-        // ========== Step 1 ==========
-        // break bones → 黑一下再亮，黑时换乘务员扭头1
+        // ★ 让 5B 的“亮回去”至少有可见强度
+        s_MinOnIntensityOverride = minVisibleIntensity5B;
+
+        // Step 1
         if (snd_breakBones) snd_breakBones.Play();
         yield return PulseOnce(
             lights, original,
@@ -356,11 +334,9 @@ public class LevelManager1_2 : MonoBehaviour
                     stewardessRenderer.sprite = stewardessHeadTurn1;
             }
         );
-
         yield return new WaitForSeconds(0.05f);
 
-        // ========== Step 2 ==========
-        // break bones2 → 黑一下再亮，黑时换乘务员扭头2
+        // Step 2
         if (snd_breakBones2) snd_breakBones2.Play();
         yield return PulseOnce(
             lights, original,
@@ -372,23 +348,18 @@ public class LevelManager1_2 : MonoBehaviour
                     stewardessRenderer.sprite = stewardessHeadTurn2;
             }
         );
-
         yield return new WaitForSeconds(0.05f);
 
-        // ========== Step 3 ==========
-        // boy jump → 黑一下再亮；黑的瞬间让小男孩跳下，同时播放音效（5B可用单独落点）
+        // Step 3（跳跃）
         Coroutine jumpC = null;
         if (snd_boyJump) snd_boyJump.Play();
-
         yield return PulseOnce(
             lights, original,
             offTime: flickerOffTime,
             onTime: flickerOnTime,
             onWhileDark: () =>
             {
-                // 5B 优先用 boyJumpTarget5B；否则回退到 5A 的 boyJumpTarget
                 var targetTf = boyJumpTarget5B ? boyJumpTarget5B : boyJumpTarget;
-
                 if (boy && targetTf)
                 {
                     jumpC = StartCoroutine(JumpObjectTo(
@@ -405,13 +376,13 @@ public class LevelManager1_2 : MonoBehaviour
                 }
             }
         );
-
-        // 等跳跃协程结束（若确实启动了）
         if (jumpC != null) yield return jumpC;
 
-
-        // ========== 统一转头微笑（与5A一致） ==========
+        // 统一转头微笑：先确保现在是亮的且“够亮”
         if (faceDelayAfterLastOn > 0f) yield return new WaitForSeconds(faceDelayAfterLastOn);
+        for (int i = 0; i < lights.Count; i++)
+            if (lights[i]) lights[i].intensity = Mathf.Max(original[i], minVisibleIntensity5B);
+
         for (int i = 0; i < faceTargets.Count; i++)
         {
             var ft = faceTargets[i];
@@ -419,12 +390,15 @@ public class LevelManager1_2 : MonoBehaviour
                 ft.renderer.sprite = ft.faceFrontSmile;
         }
 
-        // ========== 收尾：全黑 + 播放 breakBones3 + 跳下一轮 ==========
+        // ★ 换完脸后，保持点亮一小段时间给玩家看清楚
+        if (faceHoldLitSeconds5B > 0f)
+            yield return new WaitForSeconds(faceHoldLitSeconds5B);
+
+        // 收尾：全黑 + breakBones3 + 跳下一轮
         var lights2 = new List<URPLight2D>();
         if (sceneLights != null && sceneLights.Count > 0) lights2.AddRange(sceneLights);
         else if (lightToBlinkAndDim) lights2.Add(lightToBlinkAndDim);
 
-        // 全黑（保持黑，不再亮回）
         if (lights2.Count > 0)
         {
             for (int i = 0; i < lights2.Count; i++)
@@ -440,47 +414,16 @@ public class LevelManager1_2 : MonoBehaviour
 
         if (finalBlackExtraHold > 0f) yield return new WaitForSeconds(finalBlackExtraHold);
 
-        RestorePlayerControl();   // 先恢复玩家正常移动
+        RestorePlayerControl();
         _eventRoutine = null;
+
+        // ★ 还原覆盖，避免影响其它流程
+        s_MinOnIntensityOverride = 0f;
 
         nextLoop?.toNextLoop();
         yield break;
     }
 
-    // ========= 工具：移动到目标点 =========
-    private IEnumerator MoveObjectTo(Transform t, Vector3 targetPos, float speed, bool lockY)
-    {
-        if (!t) yield break;
-
-        // 保持 Y 不变（可选）
-        if (lockY) targetPos.y = t.position.y;
-
-        // 如果有 confiner 且是 PolygonCollider2D，先把目标点夹进边界
-        PolygonCollider2D poly = null;
-        var conf = FindObjectOfType<Cinemachine.CinemachineConfiner2D>();
-        if (conf) poly = conf.m_BoundingShape2D as PolygonCollider2D;
-        if (poly) targetPos = poly.ClosestPoint(targetPos);
-
-        // 循环推进
-        while ((t.position - targetPos).sqrMagnitude > 0.0004f)
-        {
-            // 计算下一步位置
-            Vector3 next = Vector3.MoveTowards(t.position, targetPos, speed * Time.deltaTime);
-
-            // 每一步也 clamp 一下，防止穿出边界被别的脚本拉回
-            if (poly) next = (Vector3)poly.ClosestPoint(next);
-
-            if (_playerRb) _playerRb.MovePosition(next);   // ★ 推荐：刚体移动
-            else t.position = next;                        // 兜底：直接改 transform
-
-            yield return null;
-        }
-
-        if (_playerRb) _playerRb.MovePosition(targetPos);
-        else t.position = targetPos;
-    }
-
-    // ========= 工具：抛物线跳跃 =========
     // ========= 工具：抛物线跳跃 =========
     private IEnumerator JumpObjectTo(Transform t, Vector3 targetPos, float duration, float height, AnimationCurve arc)
     {
@@ -488,7 +431,7 @@ public class LevelManager1_2 : MonoBehaviour
 
         Vector3 start = t.position;
         float fixedZ = start.z;                           // 记录起始 Z
-        Vector3 targetNoZ = new Vector3(targetPos.x, targetPos.y, fixedZ);  
+        Vector3 targetNoZ = new Vector3(targetPos.x, targetPos.y, fixedZ);
         float timer = 0f;
         if (arc == null || arc.length == 0) arc = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
@@ -497,10 +440,10 @@ public class LevelManager1_2 : MonoBehaviour
             timer += Time.deltaTime;
             float u = Mathf.Clamp01(timer / duration);
 
-            Vector3 pos = Vector3.Lerp(start, targetNoZ, u);      
+            Vector3 pos = Vector3.Lerp(start, targetNoZ, u);
             float yOffset = arc.Evaluate(u) * height;
-            pos.y = Mathf.Lerp(start.y, targetNoZ.y, u) + yOffset; 
-            pos.z = fixedZ;                                        
+            pos.y = Mathf.Lerp(start.y, targetNoZ.y, u) + yOffset;
+            pos.z = fixedZ;
 
             t.position = pos;
             yield return null;
@@ -509,20 +452,23 @@ public class LevelManager1_2 : MonoBehaviour
         t.position = new Vector3(targetNoZ.x, targetNoZ.y, fixedZ);
     }
 
+    // ★★★★★ 最小亮度覆盖（新增支持） ★★★★★
+    private static float s_MinOnIntensityOverride = 0f;
 
-    // ========= 工具：闪灯 + 统一换脸 =========
+    // ========= 工具：闪灯 + 统一换脸（5A 用） =========
     private IEnumerator FlickerLightsThenFace()
     {
-        // 用 sceneLights；如果没填，就用主 lightToBlinkAndDim
         var lights = new List<URPLight2D>();
         if (sceneLights != null && sceneLights.Count > 0) lights.AddRange(sceneLights);
         else if (lightToBlinkAndDim) lights.Add(lightToBlinkAndDim);
-
         if (lights.Count == 0) yield break;
 
-        // 记录原强度
         var original = new float[lights.Count];
         for (int i = 0; i < lights.Count; i++) original[i] = lights[i] ? lights[i].intensity : 1f;
+
+        // 这里不强制最小亮度，保持 5A 原节奏
+        float prevOverride = s_MinOnIntensityOverride;
+        s_MinOnIntensityOverride = 0f;
 
         for (int k = 0; k < flickerCount; k++)
         {
@@ -530,28 +476,28 @@ public class LevelManager1_2 : MonoBehaviour
             for (int i = 0; i < lights.Count; i++) if (lights[i]) lights[i].intensity = 0f;
             yield return new WaitForSeconds(flickerOffTime);
 
-            // on
+            // on（5A 不覆盖）
             for (int i = 0; i < lights.Count; i++) if (lights[i]) lights[i].intensity = original[i];
             yield return new WaitForSeconds(flickerOnTime);
         }
 
-        // 最后一次亮起后延迟 → 换脸
         if (faceDelayAfterLastOn > 0f) yield return new WaitForSeconds(faceDelayAfterLastOn);
 
         for (int i = 0; i < faceTargets.Count; i++)
         {
             var ft = faceTargets[i];
             if (ft.renderer && ft.faceFrontSmile)
-            {
                 ft.renderer.sprite = ft.faceFrontSmile;
-            }
         }
+
+        s_MinOnIntensityOverride = prevOverride;
     }
 
+    // ========= 工具：一次黑→亮的脉冲（支持最小亮度覆盖，5B 会用） =========
     private IEnumerator PulseOnce(
-    List<URPLight2D> lights, float[] original,
-    float offTime, float onTime,
-    System.Action onWhileDark)
+        List<URPLight2D> lights, float[] original,
+        float offTime, float onTime,
+        System.Action onWhileDark)
     {
         if (lights != null && lights.Count > 0)
         {
@@ -559,46 +505,42 @@ public class LevelManager1_2 : MonoBehaviour
             for (int i = 0; i < lights.Count; i++)
                 if (lights[i]) lights[i].intensity = 0f;
 
-            // 黑下去的瞬间做替换/事件
+            // 黑的瞬间执行回调（换脸/跳跃等）
             onWhileDark?.Invoke();
 
             // 保持黑
             if (offTime > 0f) yield return new WaitForSeconds(offTime);
 
-            // 亮
+            // 亮（保证一个最小可见强度）
             for (int i = 0; i < lights.Count; i++)
-                if (lights[i]) lights[i].intensity = original[i];
+                if (lights[i]) lights[i].intensity = Mathf.Max(original[i], s_MinOnIntensityOverride);
 
-            // 保持亮片刻（形成“一次”的节奏）
+            // 保持亮片刻
             if (onTime > 0f) yield return new WaitForSeconds(onTime);
         }
         else
         {
-            // 没灯可控：只做 onWhileDark 回调与节拍等待，保证流程不断
+            // 没灯可控：只做回调与等待，保证流程不断
             onWhileDark?.Invoke();
             if (offTime > 0f) yield return new WaitForSeconds(offTime);
             if (onTime > 0f) yield return new WaitForSeconds(onTime);
         }
     }
 
-    // 只沿 X 轴在固定时长内移动到 targetX（Y/Z 不变），时长单位：秒
+    // 只沿 X 轴在固定时长内移动到 targetX（Y/Z 不变）
     private IEnumerator MovePlayerXOverSeconds(float targetX, float duration)
     {
         if (!playerObject) yield break;
 
         var t = playerObject.transform;
-
-        // 目标点（只改X）
         Vector3 start = t.position;
         Vector3 target = new Vector3(targetX, start.y, start.z);
 
-        // 若有 CinemachineConfiner2D，先把目标夹进边界
         var conf = FindObjectOfType<Cinemachine.CinemachineConfiner2D>();
         var poly = conf ? conf.m_BoundingShape2D as PolygonCollider2D : null;
         if (poly) target = poly.ClosestPoint(target);
 
         float timer = 0f;
-        // 防止 duration=0 的除零
         duration = Mathf.Max(0.0001f, duration);
 
         while (timer < duration)
@@ -607,20 +549,17 @@ public class LevelManager1_2 : MonoBehaviour
             float u = Mathf.Clamp01(timer / duration);
 
             Vector3 next = Vector3.Lerp(start, target, u);
-            if (_playerRb)
-                _playerRb.MovePosition(next);   // ★ 刚体安全移动
-            else
-                t.position = next;
+            if (_playerRb) _playerRb.MovePosition(next);
+            else t.position = next;
 
             yield return null;
         }
 
-        // 终点兜底一次
         if (_playerRb) _playerRb.MovePosition(target);
         else t.position = target;
     }
 
-    // 统一恢复玩家移动 + 物理 + 阶段
+    // 恢复玩家
     private void RestorePlayerControl()
     {
         if (_playerCtrl) _playerCtrl.enabled = true;
@@ -631,6 +570,4 @@ public class LevelManager1_2 : MonoBehaviour
             _playerRb.velocity = Vector2.zero;
         }
     }
-
-
 }
