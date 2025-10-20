@@ -19,6 +19,8 @@ public class DialogueTreeEditor : EditorWindow
     [SerializeField] private bool hasSerializedData = false;
     [SerializeField] private bool wasUnsaved = false;
 
+    private Label fileNameLabel;
+
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
     #region Menu Items
@@ -121,22 +123,41 @@ public class DialogueTreeEditor : EditorWindow
                 {
                     SaveDialogueTree();
                     Event.current.Use();
-                    Repaint();
                 }
             }
         }
+    }
 
-        // 显示状态栏
+    // 更新文件名显示
+    private void UpdateStatusBar()
+    {
+        if (fileNameLabel == null) return;
+
         if (!string.IsNullOrEmpty(currentFilePath))
         {
-            string status = hasUnsavedChanges ? " *" : "";
             string fileName = Path.GetFileName(currentFilePath);
-            string protectionStatus = hasSerializedData ? " [Protected]" : "";
-            GUI.Label(new Rect(10, 5, 600, 20), $"Current File: {fileName}{status}{protectionStatus}");
+
+            if (hasUnsavedChanges)
+            {
+                fileNameLabel.text = "* " + fileName + " (unsaved)";
+                fileNameLabel.style.color = new StyleColor(new Color(1f, 0.8f, 0.4f));  // 橙色
+            }
+            else
+            {
+                fileNameLabel.text = fileName;
+                fileNameLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));  // 灰白色
+            }
+
+            // Tooltip 显示完整路径
+            fileNameLabel.tooltip = currentFilePath;
         }
-        else if (hasUnsavedChanges)
+        else
         {
-            GUI.Label(new Rect(10, 5, 600, 20), "Unsaved Changes * (Press Ctrl+S to save)");
+            fileNameLabel.text = hasUnsavedChanges ? "* Untitled (unsaved)" : "No File";
+            fileNameLabel.style.color = hasUnsavedChanges ?
+                new StyleColor(new Color(1f, 0.8f, 0.4f)) :
+                new StyleColor(new Color(0.6f, 0.6f, 0.6f));
+            fileNameLabel.tooltip = "";
         }
     }
     #endregion
@@ -182,6 +203,7 @@ public class DialogueTreeEditor : EditorWindow
                     serializedGraphJson = "";
                     wasUnsaved = false;
                     EditorApplication.delayCall += () => { if (graphView != null) graphView.CenterOnNode0(); };
+                    UpdateStatusBar();  // 更新状态栏显示
                     return;
                 }
             }
@@ -212,6 +234,7 @@ public class DialogueTreeEditor : EditorWindow
                 EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
             }
         }
+        UpdateStatusBar();  // 确保状态栏正确显示
     }
 
     public void ForceInitialize()
@@ -226,6 +249,28 @@ public class DialogueTreeEditor : EditorWindow
 
     private void CreateMainLayout()
     {
+        // 创建顶部文件名显示栏
+        var toolbar = new VisualElement();
+        toolbar.style.flexDirection = FlexDirection.Row;
+        toolbar.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 1f));
+        toolbar.style.paddingTop = 5;
+        toolbar.style.paddingBottom = 5;
+        toolbar.style.paddingLeft = 10;
+        toolbar.style.paddingRight = 10;
+        toolbar.style.borderBottomWidth = 1;
+        toolbar.style.borderBottomColor = new StyleColor(new Color(0.1f, 0.1f, 0.1f, 1f));
+        toolbar.style.minHeight = 25;
+        toolbar.style.alignItems = Align.Center;
+
+        // 文件名标签
+        fileNameLabel = new Label("No File");
+        fileNameLabel.style.fontSize = 12;
+        fileNameLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
+
+        toolbar.Add(fileNameLabel);
+        rootVisualElement.Add(toolbar);
+
+        // 创建图形视图
         graphView = new DialogueGraphView();
         graphView.SetEditorWindow(this);
         graphView.style.flexGrow = 1;
@@ -235,6 +280,9 @@ public class DialogueTreeEditor : EditorWindow
         rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
 
         rootVisualElement.Add(graphView);
+
+        // 初始化状态显示
+        UpdateStatusBar();
     }
 
     // 新增：处理键盘事件
@@ -263,7 +311,7 @@ public class DialogueTreeEditor : EditorWindow
     public void MarkAsChanged()
     {
         hasUnsavedChanges = true;
-        Repaint();  // 强制重绘以更新状态栏
+        UpdateStatusBar();
     }
 
     public bool HasUnsavedChanges => hasUnsavedChanges;
@@ -278,7 +326,7 @@ public class DialogueTreeEditor : EditorWindow
         {
             graphView.ClearGraph();
         }
-        Repaint();
+        UpdateStatusBar();
     }
     #endregion
 
@@ -346,7 +394,7 @@ public class DialogueTreeEditor : EditorWindow
             };
 
             hasUnsavedChanges = false;
-            Repaint();  // 更新状态栏
+            UpdateStatusBar();  // 更新状态栏
 
             if (!isAutoSave)
             {
@@ -588,7 +636,7 @@ public class DialogueTreeEditor : EditorWindow
                 };
 
                 Debug.Log($"Dialogue tree loaded from: {path}");
-                Repaint();
+                UpdateStatusBar();  // 更新状态栏
             }
             else
             {
