@@ -22,7 +22,7 @@
       "index": 2,
       "name": "Me",
       "avatarAddr": "DialogueImages/何以真_惊醒",
-      "content": "Why are you standing next to my seat? Did something happen?",
+      "content": "Umm... why are you standing by my seat? Is something wrong?",
       "nextIndex": 3,
       "choices": [],
       "eventCalls": []
@@ -40,10 +40,22 @@
       "index": 4,
       "name": "Me",
       "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "Ma’am?",
+      "content": "Miss?",
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager1_2",
+          "componentTypeName": "LevelManager1_2",
+          "methodName": "DoSequence5B",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
+        }
+      ]
     }
   ],
   "currentIndex": 0
