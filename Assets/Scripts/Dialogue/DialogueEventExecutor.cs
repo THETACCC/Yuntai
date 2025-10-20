@@ -44,7 +44,7 @@ public static class DialogueEventExecutor
     /// Execute a single event call
     /// </summary>
     /// <param name="eventCall">Event call data</param>
-    private static void ExecuteSingleEvent(DialogueEventCall eventCall)
+    public static void ExecuteSingleEvent(DialogueEventCall eventCall)
     {
         try
         {
@@ -68,7 +68,7 @@ public static class DialogueEventExecutor
     /// <summary>
     /// Validate if event call data is valid
     /// </summary>
-    private static bool IsValidEventCall(DialogueEventCall eventCall)
+    public static bool IsValidEventCall(DialogueEventCall eventCall)
     {
         return !string.IsNullOrEmpty(eventCall.targetObjectName) &&
                !string.IsNullOrEmpty(eventCall.componentTypeName) &&
@@ -207,7 +207,7 @@ public static class DialogueEventExecutor
         Debug.Log($"[DialogueEvent] {message}");
     }
 
-    private static void LogWarning(string message)
+    public static void LogWarning(string message)
     {
         Debug.LogWarning($"[DialogueEvent] {message}");
     }

@@ -100,7 +100,6 @@ public class DialogueManager : MonoBehaviour
                     //check condition
                     bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
 
-                    Debug.Log("index" + i + "is" + conditionResult);
                     if (conditionResult)
                     {
                         currentConversation.nextIndex = branch.targetIndex;
@@ -141,8 +140,24 @@ public class DialogueManager : MonoBehaviour
             DialogueDefaultSequence.instance.isActice = true; // turn on default
         }
 
-        // 使用新的事件执行器 - 只需要一行代码！
-        DialogueEventExecutor.Execute(currentConversation.eventCalls);
+
+        if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
+        {
+            foreach (var eventCall in currentConversation.eventCalls)
+            {
+                if (!DialogueEventExecutor.IsValidEventCall(eventCall))
+                {
+                    DialogueEventExecutor.LogWarning($"Invalid event call: missing required fields");
+                    continue;
+                }
+
+                if (!eventCall.triggerOnEnd)
+                {
+                    DialogueEventExecutor.ExecuteSingleEvent(eventCall);
+                }
+
+            }
+        }
     }
 
     bool ConditionResult(List<ChoiceCondition> conditions, ConditionLogic conditionLogic)
@@ -243,8 +258,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        Debug.Log(currentValue);
-
         //compare
         return CompareValues(currentValue, condition.compareValue, condition.comparison);
     }
@@ -324,8 +337,6 @@ public class DialogueManager : MonoBehaviour
                     Debug.LogWarning($"[Condition Check] Cannot parse '{compareValueStr}' as bool.");
                     return false;
                 }
-
-                Debug.Log(boolCurrent + "compare" + boolCompare);
 
                 switch (comparisonType)
                 {
@@ -423,7 +434,28 @@ public class DialogueManager : MonoBehaviour
     public void NextDialogueIndex()
     {
         Debug.Log(dialogueData.conversations[dialogueData.currentIndex].nextIndex);
+        var currentConversation = dialogueData.conversations[dialogueData.currentIndex];
+
+        if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
+        {
+            foreach (var eventCall in currentConversation.eventCalls)
+            {
+                if (!DialogueEventExecutor.IsValidEventCall(eventCall))
+                {
+                    DialogueEventExecutor.LogWarning($"Invalid event call: missing required fields");
+                    continue;
+                }
+
+                if (eventCall.triggerOnEnd)
+                {
+                    DialogueEventExecutor.ExecuteSingleEvent(eventCall);
+                }
+
+            }
+        }
+
         dialogueData.currentIndex = dialogueData.conversations[dialogueData.currentIndex].nextIndex;
+
     }
 
     // 从某个 index 开始（不换 JSON）

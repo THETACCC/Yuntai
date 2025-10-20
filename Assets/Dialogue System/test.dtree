@@ -9,7 +9,30 @@
             "positionX": 232.6666717529297,
             "positionY": -42.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallAfterNode",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                },
+                {
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallDuringNode",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
             "conditionalBranches": [
                 {
                     "priority": 1,

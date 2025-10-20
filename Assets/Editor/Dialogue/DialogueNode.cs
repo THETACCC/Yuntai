@@ -331,6 +331,63 @@ public partial class DialogueNode : Node
             titleRow.Add(removeButton);
             eventContainer.Add(titleRow);
 
+            // 新增：触发时机选择
+            var triggerTimingRow = new VisualElement();
+            triggerTimingRow.style.flexDirection = FlexDirection.Row;
+            triggerTimingRow.style.alignItems = Align.Center;
+            triggerTimingRow.style.marginTop = 5;
+            triggerTimingRow.style.backgroundColor = new StyleColor(new Color(0.25f, 0.25f, 0.35f, 0.3f));
+            triggerTimingRow.style.paddingTop = 3;
+            triggerTimingRow.style.paddingBottom = 3;
+            triggerTimingRow.style.paddingLeft = 5;
+            triggerTimingRow.style.paddingRight = 5;
+            triggerTimingRow.style.borderTopLeftRadius = 3;
+            triggerTimingRow.style.borderTopRightRadius = 3;
+            triggerTimingRow.style.borderBottomLeftRadius = 3;
+            triggerTimingRow.style.borderBottomRightRadius = 3;
+
+            var triggerLabel = new Label("Call After Node:");
+            triggerLabel.style.minWidth = 60;
+            triggerLabel.style.fontSize = 10;
+            triggerLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
+
+            var triggerToggle = new Toggle()
+            {
+                value = eventCall.triggerOnEnd
+            };
+            triggerToggle.style.flexGrow = 1;
+
+            var toggleLabel = triggerToggle.Q<Label>();
+            if (toggleLabel != null)
+            {
+                toggleLabel.text = eventCall.triggerOnEnd ? "On Dialogue End" : "On Dialogue Start";
+                toggleLabel.style.fontSize = 10;
+                toggleLabel.style.color = eventCall.triggerOnEnd ?
+                    new StyleColor(new Color(1f, 0.7f, 0.3f)) :
+                    new StyleColor(new Color(0.3f, 0.8f, 1f));
+            }
+
+            triggerToggle.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < EventCalls.Count)
+                {
+                    EventCalls[currentIndex].triggerOnEnd = evt.newValue;
+                    var label = triggerToggle.Q<Label>();
+                    if (label != null)
+                    {
+                        label.text = evt.newValue ? "On Dialogue End" : "On Dialogue Start";
+                        label.style.color = evt.newValue ?
+                            new StyleColor(new Color(1f, 0.7f, 0.3f)) :
+                            new StyleColor(new Color(0.3f, 0.8f, 1f));
+                    }
+                    NotifyChange();
+                }
+            });
+
+            triggerTimingRow.Add(triggerLabel);
+            triggerTimingRow.Add(triggerToggle);
+            eventContainer.Add(triggerTimingRow);
+
             GameObject currentGameObject = null;
             if (!string.IsNullOrEmpty(eventCall.targetObjectName))
             {

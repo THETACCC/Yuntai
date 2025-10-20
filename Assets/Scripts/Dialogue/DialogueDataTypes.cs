@@ -71,6 +71,7 @@ namespace DialogueSystem
         public float floatParameter = 0f;     // Float parameter
         public bool boolParameter = false;    // Boolean parameter
         public ParameterType parameterType = ParameterType.None; // Parameter type
+        public bool triggerOnEnd = false;
     }
 
     /// <summary>

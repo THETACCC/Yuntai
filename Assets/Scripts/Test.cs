@@ -17,4 +17,14 @@ public class Test : MonoBehaviour
     {
         
     }
+
+    public void CallAfterNode()
+    {
+        //Debug.Log("CallAfterNode");
+    }
+
+    public void CallDuringNode()
+    {
+        //Debug.Log("CallDuringNode");
+    }
 }

@@ -478,7 +478,8 @@ public class DialogueTreeEditor : EditorWindow
                     formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(evt.stringParameter)}\",\n";
                     formattedJson += $"          \"intParameter\": {evt.intParameter},\n";
                     formattedJson += $"          \"floatParameter\": {evt.floatParameter},\n";
-                    formattedJson += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()}\n";
+                    formattedJson += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()},\n";
+                    formattedJson += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";  // 新增行
                     formattedJson += "        }";
                     if (j < item.eventCalls.Count - 1) formattedJson += ",";
                     formattedJson += "\n";
