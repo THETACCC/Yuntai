@@ -2970,6 +2970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
+  - component: {fileID: 1279740583}
   m_Layer: 0
   m_Name: LevelManager2_1
   m_TagString: Untagged
@@ -3015,6 +3016,8 @@ MonoBehaviour:
   worker1: {fileID: 1112912135}
   worker2: {fileID: 1476521118}
   Trigger10: {fileID: 1677128404}
+  nextLoop: {fileID: 1279740583}
+  useDeathCutForExit: 1
   infoOne: 0
   infoTwo: 0
   infoThree: 0
@@ -3043,6 +3046,28 @@ MonoBehaviour:
   ZhoushuSitting: {fileID: 2052892912}
   zhoushuDialogue_Post: {fileID: 422720449}
   zhoushuUIE: {fileID: 297127189}
+--- !u!114 &1279740583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c58604cd8c1f64baa02fd2a32b1605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenename: Level2-2
+  SpawnPointLocation: 0
+  DeathAnimationPlayer: {fileID: 0}
+  myVideoPlayer: {fileID: 0}
+  proceedIfNoClip: 1
+  hardTimeoutSeconds: 12
+  forceFromZero: 1
+  audioOnlyAllowed: 1
+  allowSkipWithAnyKey: 0
+  verboseLog: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
