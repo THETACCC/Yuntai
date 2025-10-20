@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEngine.UIElements;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,11 +64,10 @@ public class DialogueTreeEditor : EditorWindow
         window.LoadDialogueTree();
     }
 
-    [MenuItem("Tools/Dialogue Tree Editor/Save Current")]
+    [MenuItem("Tools/Dialogue Tree Editor/Save Current #s")]  // 添加快捷键提示
     public static void SaveCurrentFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
-        window.titleContent = new GUIContent("Dialogue Tree Editor");
         if (window != null && window.graphView != null)
         {
             window.SaveDialogueTree();
@@ -78,7 +78,6 @@ public class DialogueTreeEditor : EditorWindow
     public static void SaveAsFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
-        window.titleContent = new GUIContent("Dialogue Tree Editor");
         if (window != null && window.graphView != null)
         {
             window.SaveAsDialogueTree();
@@ -112,16 +111,22 @@ public class DialogueTreeEditor : EditorWindow
 
     private void OnGUI()
     {
-        if (focusedWindow == this)
+        // 处理快捷键 - 修复版本
+        if (Event.current != null)
         {
-            Event e = Event.current;
-            if (e.type == EventType.KeyDown && e.control && e.keyCode == KeyCode.S)
+            // Ctrl+S 或 Cmd+S (Mac)
+            if (Event.current.type == EventType.KeyDown)
             {
-                SaveDialogueTree();
-                e.Use();
+                if ((Event.current.control || Event.current.command) && Event.current.keyCode == KeyCode.S)
+                {
+                    SaveDialogueTree();
+                    Event.current.Use();
+                    Repaint();
+                }
             }
         }
 
+        // 显示状态栏
         if (!string.IsNullOrEmpty(currentFilePath))
         {
             string status = hasUnsavedChanges ? " *" : "";
@@ -225,7 +230,23 @@ public class DialogueTreeEditor : EditorWindow
         graphView.SetEditorWindow(this);
         graphView.style.flexGrow = 1;
         graphView.graphViewChanged += OnGraphViewChanged;
+
+        // 添加键盘事件监听
+        rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
+
         rootVisualElement.Add(graphView);
+    }
+
+    // 新增：处理键盘事件
+    private void OnKeyDown(KeyDownEvent evt)
+    {
+        // Ctrl+S 或 Cmd+S
+        if ((evt.ctrlKey || evt.commandKey) && evt.keyCode == KeyCode.S)
+        {
+            SaveDialogueTree();
+            evt.StopPropagation();
+            Debug.Log("Ctrl+S detected - Saving...");
+        }
     }
 
     private UnityEditor.Experimental.GraphView.GraphViewChange OnGraphViewChanged(UnityEditor.Experimental.GraphView.GraphViewChange graphViewChange)
@@ -242,6 +263,7 @@ public class DialogueTreeEditor : EditorWindow
     public void MarkAsChanged()
     {
         hasUnsavedChanges = true;
+        Repaint();  // 强制重绘以更新状态栏
     }
 
     public bool HasUnsavedChanges => hasUnsavedChanges;
@@ -256,6 +278,7 @@ public class DialogueTreeEditor : EditorWindow
         {
             graphView.ClearGraph();
         }
+        Repaint();
     }
     #endregion
 
@@ -323,6 +346,7 @@ public class DialogueTreeEditor : EditorWindow
             };
 
             hasUnsavedChanges = false;
+            Repaint();  // 更新状态栏
 
             if (!isAutoSave)
             {
@@ -463,7 +487,7 @@ public class DialogueTreeEditor : EditorWindow
                 formattedJson += ",\n      \"choices\": []";
             }
 
-            // Events
+            // Events (包含 triggerOnEnd 字段)
             if (item.eventCalls.Count > 0)
             {
                 formattedJson += ",\n      \"eventCalls\": [\n";
@@ -479,7 +503,7 @@ public class DialogueTreeEditor : EditorWindow
                     formattedJson += $"          \"intParameter\": {evt.intParameter},\n";
                     formattedJson += $"          \"floatParameter\": {evt.floatParameter},\n";
                     formattedJson += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()},\n";
-                    formattedJson += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";  // 新增行
+                    formattedJson += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";
                     formattedJson += "        }";
                     if (j < item.eventCalls.Count - 1) formattedJson += ",";
                     formattedJson += "\n";
@@ -564,6 +588,7 @@ public class DialogueTreeEditor : EditorWindow
                 };
 
                 Debug.Log($"Dialogue tree loaded from: {path}");
+                Repaint();
             }
             else
             {
