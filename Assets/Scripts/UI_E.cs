@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UI_E : MonoBehaviour
 {
@@ -20,6 +21,18 @@ public class UI_E : MonoBehaviour
             isPlayerInTrigger = true;
             InteractIndicator.SetActive(true);
 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //This disables the E when player presses
+        if (collision.CompareTag("Player"))
+        {
+            if(Input.GetKey(KeyCode.E))
+            {
+                InteractIndicator.SetActive(false);
+            }
         }
     }
 
