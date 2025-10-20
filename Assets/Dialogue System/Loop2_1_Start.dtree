@@ -4,34 +4,37 @@
             "id": "116dec64-a924-4160-8508-7b214d1f8254",
             "index": 0,
             "name": "Me",
-            "avatarAssetPath": "",
+            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊恐.png",
             "content": "PLEASE DON'T!! PLEASE!!!",
-            "positionX": 294.4000244140625,
-            "positionY": 289.5999755859375,
+            "positionX": 294.5,
+            "positionY": 289.5,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "c9aea572-bf54-4639-a938-8f51644e2179",
             "index": 1,
             "name": "Me",
-            "avatarAssetPath": "",
+            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊醒.png",
             "content": "Wait... I'm still alive?",
-            "positionX": 648.7999877929688,
-            "positionY": 289.5999755859375,
+            "positionX": 649.0,
+            "positionY": 289.5,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "e551df73-976c-4d31-969c-8ebc1dc72ada",
             "index": 2,
             "name": "Me",
-            "avatarAssetPath": "",
+            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊恐.png",
             "content": "What just happened...!?",
-            "positionX": 1015.2000122070313,
-            "positionY": 289.5999755859375,
+            "positionX": 1015.0,
+            "positionY": 289.5,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -39,13 +42,15 @@
             "outputNodeId": "116dec64-a924-4160-8508-7b214d1f8254",
             "inputNodeId": "c9aea572-bf54-4639-a938-8f51644e2179",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "c9aea572-bf54-4639-a938-8f51644e2179",
             "inputNodeId": "e551df73-976c-4d31-969c-8ebc1dc72ada",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }
