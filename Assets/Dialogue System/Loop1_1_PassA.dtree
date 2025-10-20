@@ -1,37 +1,40 @@
 {
     "nodes": [
         {
-            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
-            "index": 0,
-            "name": "Me",
-            "avatarAddr": "avatars/IMG_5310_0",
-            "content": "(Seems like a family of three. The little boy in the middle is playing with a puppet.)",
-            "positionX": 569.6000366210938,
-            "positionY": 611.2000122070313,
-            "choices": [],
-            "eventCalls": []
-        },
-        {
             "id": "4f690308-519e-423f-94ba-20c34964b485",
             "index": 1,
             "name": "Little Boy",
-            "avatarAddr": "avatars/IMG_1749_1",
+            "avatarAssetPath": "Assets/Resources/avatars/IMG_1749_1.png",
             "content": "Dad! Look, this one can bend around from the back, so cool!",
             "positionX": 1175.199951171875,
             "positionY": 611.2000122070313,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "index": 0,
+            "name": "Me",
+            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_日常.png",
+            "content": "(Seems like a family of three. The little boy in the middle is playing with a puppet.)",
+            "positionX": 569.6000366210938,
+            "positionY": 611.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
             "index": 2,
             "name": "Me",
-            "avatarAddr": "avatars/IMG_5310_0",
+            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_日常.png",
             "content": "There’s no need to talk now, just head to the restroom.",
             "positionX": 1680.7999267578125,
             "positionY": 612.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -39,13 +42,15 @@
             "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "inputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
             "inputNodeId": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }
