@@ -6,16 +6,18 @@ using UnityEditor.UIElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using DialogueSystem;
 
 /// <summary>
-/// 对话节点 - 优化布局版
+/// 对话节点 - 角色系统版本
 /// </summary>
 public partial class DialogueNode : Node
 {
     private DialogueTreeEditor editorWindow;
-    private TextField characterNameField;
-    private ObjectField avatarField;
+    private VisualElement characterContainer;
+    private VisualElement avatarPreview;
+    private Label characterLabel;
     private TextField dialogueTextField;
     private VisualElement eventsContainer;
     private Button addEventButton;
@@ -33,8 +35,9 @@ public partial class DialogueNode : Node
     private bool isConditionalMode = false;
     private int nextBranchPriority = 1;
 
-    public string CharacterName { get; private set; }
-    public Sprite AvatarSprite { get; private set; }
+    public string CharacterId { get; private set; }  // 角色ID引用
+    public string CharacterName => GetCharacterName();
+    public Sprite AvatarSprite => GetCharacterAvatar();
     public string DialogueText { get; private set; }
     public List<ChoiceData> ChoicesData { get; private set; } = new List<ChoiceData>();
     public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>();
@@ -46,8 +49,7 @@ public partial class DialogueNode : Node
                        string dialogueText = "New Dialogue", int index = 0,
                        DialogueTreeEditor editor = null)
     {
-        this.CharacterName = characterName;
-        this.AvatarSprite = avatarSprite;
+        this.CharacterId = "";  // 初始为空
         this.DialogueText = dialogueText;
         this.nodeIndex = index;
         this.nodeId = System.Guid.NewGuid().ToString();
@@ -56,8 +58,7 @@ public partial class DialogueNode : Node
         UpdateTitle();
         CreateInputPort();
         CreateOutputPortWithAddButton();
-        CreateCharacterNameField();
-        CreateAvatarField();
+        CreateCharacterSection();
         CreateDialogueTextField();
         CreateEventsSection();
         CreateConditionalBranchesSection();
@@ -120,91 +121,180 @@ public partial class DialogueNode : Node
     }
     #endregion
 
-    #region Character and Dialogue Fields
-    private void CreateCharacterNameField()
+    #region Character Section
+    private void CreateCharacterSection()
     {
-        characterNameField = new TextField("Character Name:")
+        characterContainer = new VisualElement();
+        characterContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.25f, 0.5f));
+        characterContainer.style.marginTop = 5;
+        characterContainer.style.marginBottom = 5;
+        characterContainer.style.paddingTop = 5;
+        characterContainer.style.paddingBottom = 5;
+        characterContainer.style.paddingLeft = 8;
+        characterContainer.style.paddingRight = 8;
+        characterContainer.style.borderTopLeftRadius = 4;
+        characterContainer.style.borderTopRightRadius = 4;
+        characterContainer.style.borderBottomLeftRadius = 4;
+        characterContainer.style.borderBottomRightRadius = 4;
+        characterContainer.style.minWidth = 300;
+        characterContainer.style.maxWidth = 300;
+
+        // 简化为单行显示
+        var contentRow = new VisualElement();
+        contentRow.style.flexDirection = FlexDirection.Row;
+        contentRow.style.alignItems = Align.Center;
+        contentRow.style.justifyContent = Justify.SpaceBetween;
+
+        // 角色标签
+        characterLabel = new Label();
+        characterLabel.style.fontSize = 11;
+        characterLabel.style.flexGrow = 1;
+
+        // Clear按钮
+        var clearButton = new Button(() =>
         {
-            value = CharacterName
-        };
-        characterNameField.style.minWidth = 300;
-        characterNameField.style.maxWidth = 300;
-        characterNameField.RegisterValueChangedCallback(evt =>
-        {
-            CharacterName = evt.newValue;
+            CharacterId = "";
+            UpdateCharacterDisplay();
             NotifyChange();
-        });
-        mainContainer.Add(characterNameField);
+        })
+        {
+            text = "Clear"
+        };
+        clearButton.style.width = 50;
+        clearButton.style.height = 18;
+        clearButton.style.fontSize = 10;
+
+        contentRow.Add(characterLabel);
+        contentRow.Add(clearButton);
+
+        characterContainer.Add(contentRow);
+
+        // 注册拖放事件
+        characterContainer.RegisterCallback<DragUpdatedEvent>(OnCharacterDragUpdate);
+        characterContainer.RegisterCallback<DragPerformEvent>(OnCharacterDragPerform);
+        characterContainer.RegisterCallback<DragExitedEvent>(OnCharacterDragExit);
+
+        mainContainer.Add(characterContainer);
+
+        UpdateCharacterDisplay();
     }
 
-    private void CreateAvatarField()
+    public void RefreshCharacterDisplay()
     {
-        var avatarContainer = new VisualElement();
-        avatarField = new ObjectField("Avatar Sprite:")
+        UpdateCharacterDisplay();
+    }
+
+    private void OnCharacterDragUpdate(DragUpdatedEvent evt)
+    {
+        var characterData = DragAndDrop.GetGenericData("CharacterData") as CharacterData;
+        if (characterData != null)
         {
-            objectType = typeof(Sprite),
-            value = AvatarSprite,
-            allowSceneObjects = false
-        };
-        avatarField.style.minWidth = 300;
-        avatarField.style.maxWidth = 300;
-        avatarField.style.overflow = Overflow.Hidden;
-
-        avatarField.RegisterCallback<GeometryChangedEvent>(evt =>
-        {
-            var label = avatarField.Q<Label>();
-            if (label != null)
-            {
-                label.style.overflow = Overflow.Hidden;
-                label.style.textOverflow = TextOverflow.Ellipsis;
-            }
-        });
-
-        var warningLabel = new Label();
-        warningLabel.style.color = new StyleColor(Color.red);
-        warningLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
-        warningLabel.style.paddingLeft = 5;
-        warningLabel.style.paddingTop = 2;
-        warningLabel.style.display = DisplayStyle.None;
-
-        avatarField.RegisterValueChangedCallback(evt =>
-        {
-            AvatarSprite = evt.newValue as Sprite;
-            if (AvatarSprite != null)
-            {
-                string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
-                if (!assetPath.Contains("/Resources/"))
-                {
-                    warningLabel.text = $"⚠ WARNING: '{AvatarSprite.name}' is NOT in a Resources folder!";
-                    warningLabel.style.display = DisplayStyle.Flex;
-                }
-                else
-                {
-                    warningLabel.style.display = DisplayStyle.None;
-                }
-            }
-            else
-            {
-                warningLabel.style.display = DisplayStyle.None;
-            }
-            NotifyChange();
-        });
-
-        avatarContainer.Add(avatarField);
-        avatarContainer.Add(warningLabel);
-        mainContainer.Add(avatarContainer);
-
-        if (AvatarSprite != null)
-        {
-            string assetPath = AssetDatabase.GetAssetPath(AvatarSprite);
-            if (!assetPath.Contains("/Resources/"))
-            {
-                warningLabel.text = $"⚠ WARNING: '{AvatarSprite.name}' is NOT in a Resources folder!";
-                warningLabel.style.display = DisplayStyle.Flex;
-            }
+            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+            evt.StopPropagation();
         }
     }
 
+    private void OnCharacterDragPerform(DragPerformEvent evt)
+    {
+        var characterData = DragAndDrop.GetGenericData("CharacterData") as CharacterData;
+        if (characterData != null)
+        {
+            CharacterId = characterData.id;
+            UpdateCharacterDisplay();
+            NotifyChange();
+            DragAndDrop.AcceptDrag();
+            evt.StopPropagation();
+        }
+    }
+
+    private void OnCharacterDragExit(DragExitedEvent evt)
+    {
+        // 可以在这里添加视觉反馈的清理
+    }
+
+    private void UpdateCharacterDisplay()
+    {
+        if (string.IsNullOrEmpty(CharacterId))
+        {
+            characterLabel.text = "Character: Drag from Manager";
+            characterLabel.style.color = new StyleColor(new Color(0.6f, 0.6f, 0.6f));
+            characterLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+        }
+        else
+        {
+            string charName = GetCharacterName();
+            characterLabel.text = $"Character: {charName}";
+            characterLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
+            characterLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        }
+    }
+
+    private string GetCharacterName()
+    {
+        if (string.IsNullOrEmpty(CharacterId))
+            return "No Character";
+
+        var character = GetCharacterById(CharacterId);
+        return character != null ? character.characterName : "Unknown Character";
+    }
+
+    private Sprite GetCharacterAvatar()
+    {
+        if (string.IsNullOrEmpty(CharacterId))
+            return null;
+
+        var character = GetCharacterById(CharacterId);
+        if (character != null && !string.IsNullOrEmpty(character.avatarAssetPath))
+        {
+            return AssetDatabase.LoadAssetAtPath<Sprite>(character.avatarAssetPath);
+        }
+        return null;
+    }
+
+    private CharacterData GetCharacterById(string id)
+    {
+        // 从角色库加载
+        string libraryPath = GetCharacterLibraryPath();
+        if (File.Exists(libraryPath))
+        {
+            try
+            {
+                string json = File.ReadAllText(libraryPath);
+                var library = JsonUtility.FromJson<CharacterLibraryData>(json);
+                if (library?.characters != null)
+                {
+                    return System.Array.Find(library.characters, c => c.id == id);
+                }
+            }
+            catch
+            {
+                // 加载失败，返回 null
+            }
+        }
+        return null;
+    }
+
+    private string GetCharacterLibraryPath()
+    {
+        // 获取 DialogueTreeManagerWindow 脚本路径
+        var managerScript = AssetDatabase.FindAssets("t:Script DialogueTreeManagerWindow");
+        if (managerScript.Length > 0)
+        {
+            string scriptPath = AssetDatabase.GUIDToAssetPath(managerScript[0]);
+            string scriptFolder = Path.GetDirectoryName(scriptPath);
+            return Path.Combine(scriptFolder, "CharacterLibrary.json");
+        }
+        return "Assets/Editor/Dialogue/CharacterLibrary.json";
+    }
+
+    public void SetCharacterId(string characterId)
+    {
+        CharacterId = characterId;
+        UpdateCharacterDisplay();
+    }
+    #endregion
+
+    #region Dialogue TextField
     private void CreateDialogueTextField()
     {
         dialogueTextField = new TextField("Dialogue:")
@@ -331,7 +421,7 @@ public partial class DialogueNode : Node
             titleRow.Add(removeButton);
             eventContainer.Add(titleRow);
 
-            // 新增：触发时机选择
+            // 触发时机选择
             var triggerTimingRow = new VisualElement();
             triggerTimingRow.style.flexDirection = FlexDirection.Row;
             triggerTimingRow.style.alignItems = Align.Center;
@@ -346,7 +436,7 @@ public partial class DialogueNode : Node
             triggerTimingRow.style.borderBottomLeftRadius = 3;
             triggerTimingRow.style.borderBottomRightRadius = 3;
 
-            var triggerLabel = new Label("Call After Node:");
+            var triggerLabel = new Label("Trigger:");
             triggerLabel.style.minWidth = 60;
             triggerLabel.style.fontSize = 10;
             triggerLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
@@ -851,7 +941,6 @@ public partial class DialogueNode : Node
             condition.componentTypeName = "";
             condition.variableName = "";
             onUpdate(condition);
-            // 重新显示这个 condition 的内容
             var parent = condContainer.parent;
             if (parent != null)
             {
@@ -1134,11 +1223,10 @@ public partial class DialogueNode : Node
         {
             var graphView = GetFirstAncestorOfType<DialogueGraphView>();
 
-            // 保存所有 choice 的连接信息（除了要删除的）
             var connectionData = new Dictionary<int, Port>();
             for (int i = 0; i < choiceOutputPorts.Count; i++)
             {
-                if (i == index) continue; // 跳过要删除的
+                if (i == index) continue;
 
                 var port = choiceOutputPorts[i];
                 if (port != null && port.connected)
@@ -1146,13 +1234,11 @@ public partial class DialogueNode : Node
                     var edge = port.connections.FirstOrDefault();
                     if (edge != null && edge.input != null)
                     {
-                        // 保存连接的目标端口
                         connectionData[i] = edge.input;
                     }
                 }
             }
 
-            // 删除要移除的 choice 的连线
             if (index < choiceOutputPorts.Count)
             {
                 var port = choiceOutputPorts[index];
@@ -1166,10 +1252,8 @@ public partial class DialogueNode : Node
                 }
             }
 
-            // 删除数据
             ChoicesData.RemoveAt(index);
 
-            // 清空并重建 UI
             choicesContainer.Clear();
             choiceOutputPorts.Clear();
 
@@ -1178,13 +1262,11 @@ public partial class DialogueNode : Node
                 RebuildChoiceUI(i);
             }
 
-            // 恢复其他 choice 的连接
             foreach (var kvp in connectionData)
             {
                 int oldIndex = kvp.Key;
                 Port targetPort = kvp.Value;
 
-                // 计算新的索引（如果在删除位置之后，索引需要减1）
                 int newIndex = oldIndex > index ? oldIndex - 1 : oldIndex;
 
                 if (newIndex >= 0 && newIndex < choiceOutputPorts.Count && graphView != null)
@@ -1229,7 +1311,7 @@ public partial class DialogueNode : Node
         var portRow = new VisualElement();
         portRow.style.flexDirection = FlexDirection.Row;
         portRow.style.alignItems = Align.Center;
-        portRow.style.justifyContent = Justify.SpaceBetween; // 标签在左，端口在右
+        portRow.style.justifyContent = Justify.SpaceBetween;
         portRow.style.marginBottom = 8;
 
         var portLabel = new Label($"Choice {index + 1}:");
@@ -1435,7 +1517,6 @@ public partial class DialogueNode : Node
             gameObjectField.style.maxWidth = 240;
             gameObjectField.style.overflow = Overflow.Hidden;
 
-            // 找到内部的 Label 并设置文本省略
             gameObjectField.RegisterCallback<GeometryChangedEvent>(evt =>
             {
                 var label = gameObjectField.Q<Label>();
@@ -1519,7 +1600,6 @@ public partial class DialogueNode : Node
                         if (selectedChoiceVarIndex < 0) selectedChoiceVarIndex = 0;
                         string defaultVarValue = variableNames[selectedChoiceVarIndex];
 
-                        // Variable row - 带标签的紧凑布局
                         var varRow = new VisualElement();
                         varRow.style.flexDirection = FlexDirection.Row;
                         varRow.style.alignItems = Align.Center;
@@ -1791,7 +1871,6 @@ public partial class DialogueNode : Node
     {
         isConditionalMode = true;
 
-        // 保存原有的连接
         var graphView = GetFirstAncestorOfType<DialogueGraphView>();
         Edge existingEdge = null;
         Port existingTargetPort = null;
@@ -1802,7 +1881,6 @@ public partial class DialogueNode : Node
             if (existingEdge != null)
             {
                 existingTargetPort = existingEdge.input;
-                // 先删除旧的连接
                 if (graphView != null)
                 {
                     graphView.RemoveElement(existingEdge);
@@ -1810,27 +1888,23 @@ public partial class DialogueNode : Node
             }
         }
 
-        // 移除旧的默认端口
         var oldPortParent = defaultOutputPort.parent;
         if (oldPortParent != null)
         {
             outputContainer.Remove(oldPortParent);
         }
 
-        // 创建新的输出行，带有正确的布局
         var outputRow = new VisualElement();
         outputRow.style.flexDirection = FlexDirection.Row;
         outputRow.style.alignItems = Align.Center;
         outputRow.style.justifyContent = Justify.SpaceBetween;
         outputRow.style.width = Length.Percent(100);
 
-        // 创建新的默认端口
         defaultOutputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
         defaultOutputPort.portName = "Default";
         defaultOutputPort.userData = 0;
         defaultOutputPort.style.flexGrow = 1;
 
-        // 创建加号按钮，并让它靠右
         var addBranchButton = new Button(OnAddBranch)
         {
             text = "+"
@@ -1852,7 +1926,6 @@ public partial class DialogueNode : Node
             conditionLogic = ConditionLogic.AND
         };
 
-        // 恢复原有连接到新的default端口
         if (existingTargetPort != null && graphView != null)
         {
             var newEdge = defaultOutputPort.ConnectTo(existingTargetPort);
@@ -1866,7 +1939,6 @@ public partial class DialogueNode : Node
 
     private void AddConditionalBranch(int priority)
     {
-        // 创建带有正确布局的容器
         var container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
         container.style.alignItems = Align.Center;
@@ -1878,10 +1950,8 @@ public partial class DialogueNode : Node
         port.userData = priority;
         port.style.flexGrow = 1;
 
-        // 修复：删除按钮动态读取端口的当前 priority，而不是使用闭包捕获的值
         var removeBtn = new Button(() =>
         {
-            // 从端口的 userData 读取当前的 priority
             if (port != null && port.userData is int currentPriority)
             {
                 RemoveBranch(currentPriority);
@@ -1921,17 +1991,14 @@ public partial class DialogueNode : Node
 
         if (portToRemove != null)
         {
-            // 第一步：彻底清除所有连接
             if (portToRemove.connected)
             {
-                // 复制连接列表，避免在迭代时修改
                 var edges = portToRemove.connections.ToList();
 
                 foreach (var edge in edges)
                 {
                     if (edge == null) continue;
 
-                    // 从两端断开连接
                     if (edge.output != null && edge.output.connected)
                     {
                         edge.output.Disconnect(edge);
@@ -1941,52 +2008,42 @@ public partial class DialogueNode : Node
                         edge.input.Disconnect(edge);
                     }
 
-                    // 从图中移除edge
                     if (graphView != null)
                     {
                         graphView.RemoveElement(edge);
                     }
                 }
 
-                // 再次确保端口断开所有连接
                 portToRemove.DisconnectAll();
             }
 
-            // 第二步：从UI中移除端口容器
             var container = portToRemove.parent;
             if (container != null && container.parent != null)
             {
                 container.parent.Remove(container);
             }
 
-            // 第三步：从列表中移除端口引用
             conditionalPorts.Remove(portToRemove);
 
-            // 清空端口引用
             portToRemove = null;
         }
 
-        // 第四步：从数据字典中移除
         if (conditionalBranchesData.ContainsKey(priorityToRemove))
         {
             conditionalBranchesData.Remove(priorityToRemove);
         }
 
-        // 第五步：重新整理剩余的分支
         if (conditionalPorts.Count == 0)
         {
-            // 如果没有条件分支了，转回默认模式
             ConvertToDefaultMode();
             return;
         }
 
-        // 重新排列剩余的优先级
         var remainingPorts = conditionalPorts.Where(p => p != null).OrderByDescending(p => (int)p.userData).ToList();
         conditionalPorts.Clear();
 
         var newBranchesData = new Dictionary<int, ConditionalBranchData>();
 
-        // 保留 default 分支
         if (conditionalBranchesData.ContainsKey(0))
         {
             newBranchesData[0] = conditionalBranchesData[0];
@@ -1999,7 +2056,6 @@ public partial class DialogueNode : Node
 
             if (oldPriority > priorityToRemove)
             {
-                // 需要降低优先级
                 int adjustedPriority = oldPriority - 1;
                 port.userData = adjustedPriority;
                 port.portName = $"Priority {adjustedPriority}";
@@ -2012,7 +2068,6 @@ public partial class DialogueNode : Node
             }
             else
             {
-                // 不需要调整
                 if (conditionalBranchesData.ContainsKey(oldPriority))
                 {
                     newBranchesData[oldPriority] = conditionalBranchesData[oldPriority];
@@ -2026,7 +2081,6 @@ public partial class DialogueNode : Node
         conditionalBranchesData = newBranchesData;
         nextBranchPriority = newPriority;
 
-        // 第六步：刷新UI
         UpdateConditionalBranchesDisplay();
         RefreshExpandedState();
         RefreshPorts();
@@ -2037,7 +2091,6 @@ public partial class DialogueNode : Node
     {
         isConditionalMode = false;
 
-        // 保存default端口的连接
         var graphView = GetFirstAncestorOfType<DialogueGraphView>();
         Edge existingEdge = null;
         Port existingTargetPort = null;
@@ -2048,7 +2101,6 @@ public partial class DialogueNode : Node
             if (existingEdge != null)
             {
                 existingTargetPort = existingEdge.input;
-                // 先删除旧的连接
                 if (graphView != null)
                 {
                     graphView.RemoveElement(existingEdge);
@@ -2067,7 +2119,6 @@ public partial class DialogueNode : Node
 
         CreateOutputPortWithAddButton();
 
-        // 恢复连接
         if (existingTargetPort != null && graphView != null)
         {
             var newEdge = defaultOutputPort.ConnectTo(existingTargetPort);

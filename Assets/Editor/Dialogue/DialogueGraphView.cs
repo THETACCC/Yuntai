@@ -34,7 +34,6 @@ public class DialogueGraphView : GraphView
 
     private GraphViewChange OnGraphViewChangedInternal(GraphViewChange change)
     {
-        // 处理节点删除 - 同时删除相关的连线
         if (change.elementsToRemove != null)
         {
             var edgesToRemove = new List<Edge>();
@@ -43,7 +42,6 @@ public class DialogueGraphView : GraphView
             {
                 if (element is DialogueNode node)
                 {
-                    // 找到所有连接到此节点的边
                     var connectedEdges = edges.ToList().Where(edge =>
                         edge.input?.node == node || edge.output?.node == node).ToList();
 
@@ -51,7 +49,6 @@ public class DialogueGraphView : GraphView
                 }
             }
 
-            // 删除所有相关的边
             foreach (var edge in edgesToRemove)
             {
                 if (edge != null && !change.elementsToRemove.Contains(edge))
@@ -61,7 +58,6 @@ public class DialogueGraphView : GraphView
             }
         }
 
-        // 处理创建连线
         if (change.edgesToCreate != null)
         {
             var edgesToReplace = new List<Edge>(change.edgesToCreate);
@@ -92,7 +88,6 @@ public class DialogueGraphView : GraphView
                         conditionalEdge.conditionLogic = branchData.conditionLogic;
                     }
 
-                    // 手动连接端口以更新视觉状态
                     edge.input?.Connect(conditionalEdge);
                     edge.output?.Connect(conditionalEdge);
 
@@ -233,10 +228,8 @@ public class DialogueGraphView : GraphView
 
     public override EventPropagation DeleteSelection()
     {
-        // 获取要删除的节点
         var nodesToDelete = selection.OfType<DialogueNode>().ToList();
 
-        // 先删除所有相关的连线
         foreach (var node in nodesToDelete)
         {
             var connectedEdges = edges.ToList().Where(edge =>
@@ -248,7 +241,6 @@ public class DialogueGraphView : GraphView
             }
         }
 
-        // 然后删除节点
         return base.DeleteSelection();
     }
 
@@ -256,10 +248,8 @@ public class DialogueGraphView : GraphView
     {
         var elementsList = elements.ToList();
 
-        // 找出所有要删除的节点
         var nodesToDelete = elementsList.OfType<DialogueNode>().ToList();
 
-        // 先删除所有相关的连线
         var edgesToDelete = new List<Edge>();
         foreach (var node in nodesToDelete)
         {
@@ -269,10 +259,8 @@ public class DialogueGraphView : GraphView
             edgesToDelete.AddRange(connectedEdges);
         }
 
-        // 移除重复的边
         edgesToDelete = edgesToDelete.Distinct().ToList();
 
-        // 删除边
         foreach (var edge in edgesToDelete)
         {
             if (edge != null)
@@ -281,14 +269,13 @@ public class DialogueGraphView : GraphView
             }
         }
 
-        // 调用基类方法删除其他元素
         base.DeleteElements(elementsList);
     }
 
     public DialogueNode CreateDialogueNode(string characterName, Sprite avatarSprite,
                                           string content, Vector2 position = default)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarSprite, content,
+        var dialogueNode = new DialogueNode("", null, content,
                                            nextNodeIndex++, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
@@ -307,14 +294,29 @@ public class DialogueGraphView : GraphView
         var nodes = this.nodes.Cast<DialogueNode>().ToList();
         var edges = this.edges.ToList();
 
+        // 加载角色库
+        var characterLibrary = LoadCharacterLibrary();
+
         foreach (var node in nodes)
         {
-            string runtimeAvatarPath = ConvertSpriteToRuntimePath(node.AvatarSprite);
+            // 根据 characterId 获取角色信息
+            string characterName = "";
+            string runtimeAvatarPath = "";
+
+            if (!string.IsNullOrEmpty(node.CharacterId) && characterLibrary != null)
+            {
+                var character = System.Array.Find(characterLibrary.characters, c => c.id == node.CharacterId);
+                if (character != null)
+                {
+                    characterName = character.characterName;
+                    runtimeAvatarPath = ConvertSpritePathToRuntimePath(character.avatarAssetPath);
+                }
+            }
 
             var exportData = new RuntimeDialogueData
             {
                 index = node.NodeIndex,
-                name = node.CharacterName,
+                name = characterName,
                 avatarAddr = runtimeAvatarPath,
                 content = node.DialogueText,
                 choices = new List<RuntimeChoice>(),
@@ -444,11 +446,35 @@ public class DialogueGraphView : GraphView
         return exportDict.Values.OrderBy(d => d.index).ToList();
     }
 
-    private string ConvertSpriteToRuntimePath(Sprite sprite)
+    private CharacterLibraryData LoadCharacterLibrary()
     {
-        if (sprite == null) return "";
+        try
+        {
+            var managerScript = AssetDatabase.FindAssets("t:Script DialogueTreeManagerWindow");
+            if (managerScript.Length > 0)
+            {
+                string scriptPath = AssetDatabase.GUIDToAssetPath(managerScript[0]);
+                string scriptFolder = Path.GetDirectoryName(scriptPath);
+                string libraryPath = Path.Combine(scriptFolder, "CharacterLibrary.json");
 
-        string assetPath = AssetDatabase.GetAssetPath(sprite);
+                if (File.Exists(libraryPath))
+                {
+                    string json = File.ReadAllText(libraryPath);
+                    return JsonUtility.FromJson<CharacterLibraryData>(json);
+                }
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"Failed to load character library: {e.Message}");
+        }
+        return new CharacterLibraryData();
+    }
+
+    private string ConvertSpritePathToRuntimePath(string assetPath)
+    {
+        if (string.IsNullOrEmpty(assetPath)) return "";
+
         int resourcesIndex = assetPath.IndexOf("Resources/");
 
         if (resourcesIndex >= 0)
@@ -459,8 +485,8 @@ public class DialogueGraphView : GraphView
         }
         else
         {
-            Debug.LogWarning($"Avatar sprite '{sprite.name}' is not in a Resources folder!");
-            return sprite.name;
+            Debug.LogWarning($"Avatar path '{assetPath}' is not in a Resources folder!");
+            return Path.GetFileNameWithoutExtension(assetPath);
         }
     }
 
@@ -479,8 +505,7 @@ public class DialogueGraphView : GraphView
                 {
                     id = node.GetId(),
                     index = node.NodeIndex,
-                    name = node.CharacterName ?? "",
-                    avatarAssetPath = node.AvatarSprite != null ? AssetDatabase.GetAssetPath(node.AvatarSprite) : "",
+                    characterId = node.CharacterId ?? "",
                     content = node.DialogueText ?? "",
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
@@ -542,20 +567,11 @@ public class DialogueGraphView : GraphView
 
         foreach (var nodeData in sortedNodes)
         {
-            Sprite avatarSprite = null;
-            if (!string.IsNullOrEmpty(nodeData.avatarAssetPath))
-            {
-                avatarSprite = AssetDatabase.LoadAssetAtPath<Sprite>(nodeData.avatarAssetPath);
-                if (avatarSprite == null)
-                {
-                    Debug.LogWarning($"Failed to load sprite at path: {nodeData.avatarAssetPath}");
-                }
-            }
-
             Vector2 position = new Vector2(nodeData.positionX, nodeData.positionY);
-            var node = CreateDialogueNodeWithIndex(nodeData.name, avatarSprite,
+            var node = CreateDialogueNodeWithIndex("", null,
                                                   nodeData.content, position, nodeData.index);
             node.SetId(nodeData.id);
+            node.SetCharacterId(nodeData.characterId);
             node.SetChoicesData(nodeData.choices);
             node.SetEventCalls(nodeData.eventCalls);
 
@@ -616,7 +632,6 @@ public class DialogueGraphView : GraphView
                         conditionalEdge.conditionLogic = branchData.conditionLogic;
                     }
 
-                    // 手动连接端口以更新视觉状态
                     edge.input?.Connect(conditionalEdge);
                     edge.output?.Connect(conditionalEdge);
 
@@ -635,7 +650,7 @@ public class DialogueGraphView : GraphView
     private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite,
                                                      string content, Vector2 position, int index)
     {
-        var dialogueNode = new DialogueNode(characterName, avatarSprite, content, index, editorWindow);
+        var dialogueNode = new DialogueNode("", null, content, index, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
         AddElement(dialogueNode);

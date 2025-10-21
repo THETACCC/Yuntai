@@ -682,4 +682,31 @@ public class DialogueTreeEditor : EditorWindow
                   .Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
     }
     #endregion
+
+    #region Character Update
+    // 刷新所有节点的角色显示
+    public void RefreshAllCharacterDisplays()
+    {
+        if (graphView == null) return;
+
+        var nodes = graphView.nodes.Cast<DialogueNode>().ToList();
+        foreach (var node in nodes)
+        {
+            node.RefreshCharacterDisplay();
+        }
+
+        Debug.Log($"[Dialogue Editor] Refreshed character displays for {nodes.Count} nodes");
+    }
+
+    // 静态方法：刷新所有打开的对话编辑器
+    public static void RefreshAllOpenEditors()
+    {
+        var windows = Resources.FindObjectsOfTypeAll<DialogueTreeEditor>();
+        foreach (var window in windows)
+        {
+            window.RefreshAllCharacterDisplays();
+        }
+        Debug.Log($"[Dialogue Editor] Refreshed {windows.Length} open editor window(s)");
+    }
+    #endregion
 }

@@ -71,7 +71,7 @@ namespace DialogueSystem
         public float floatParameter = 0f;     // Float parameter
         public bool boolParameter = false;    // Boolean parameter
         public ParameterType parameterType = ParameterType.None; // Parameter type
-        public bool triggerOnEnd = false;
+        public bool triggerOnEnd = false;     // 是否在对话结束时触发
     }
 
     /// <summary>
@@ -118,6 +118,42 @@ namespace DialogueSystem
         public ConditionLogic conditionLogic = ConditionLogic.AND;
     }
 
+    // ==================== 角色数据结构 ====================
+
+    /// <summary>
+    /// 角色数据 - 用于在编辑器中管理角色信息
+    /// </summary>
+    [Serializable]
+    public class CharacterData
+    {
+        public string id;                    // 唯一ID
+        public string characterName;         // 角色名称
+        public string avatarAssetPath;       // Avatar 资源路径
+
+        public CharacterData()
+        {
+            id = Guid.NewGuid().ToString();
+            characterName = "New Character";
+            avatarAssetPath = "";
+        }
+
+        public CharacterData(string name, string avatarPath)
+        {
+            id = Guid.NewGuid().ToString();
+            characterName = name;
+            avatarAssetPath = avatarPath;
+        }
+    }
+
+    /// <summary>
+    /// 角色库数据 - 存储所有角色
+    /// </summary>
+    [Serializable]
+    public class CharacterLibraryData
+    {
+        public CharacterData[] characters = new CharacterData[0];
+    }
+
     // ==================== 编辑器数据结构 ====================
 
     /// <summary>
@@ -132,14 +168,16 @@ namespace DialogueSystem
 
     /// <summary>
     /// 对话节点数据 - 编辑器格式
+    /// 使用 characterId 引用角色，而不是直接存储 name 和 avatarAssetPath
     /// </summary>
     [Serializable]
     public class DialogueNodeData
     {
         public string id;
         public int index;
-        public string name;
-        public string avatarAssetPath;
+        public string characterId = "";      // 角色ID引用（新）
+        // 移除: public string name;
+        // 移除: public string avatarAssetPath;
         public string content;
         public float positionX;
         public float positionY;
@@ -165,13 +203,14 @@ namespace DialogueSystem
 
     /// <summary>
     /// 运行时对话数据 - 用于游戏运行时
+    /// 导出时从 characterId 解析出 name 和 avatarAddr
     /// </summary>
     [Serializable]
     public class RuntimeDialogueData
     {
         public int index;
-        public string name;
-        public string avatarAddr;
+        public string name;              // 运行时解析的角色名称
+        public string avatarAddr;        // 运行时解析的 avatar 路径
         public string content;
         public List<RuntimeChoice> choices = new List<RuntimeChoice>();
         public string nextNodeId;
