@@ -316,13 +316,11 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 为Character字段创建独立的样式和texture（避免与Name字段共享）
             var characterFieldStyle = new GUIStyle(EditorStyles.textField);
-            characterFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
-            characterFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            characterFieldStyle.normal.background = cachedNormalBg;
+            characterFieldStyle.focused.background = cachedFocusedBg;
             characterFieldStyle.normal.textColor = Color.white;
             characterFieldStyle.focused.textColor = Color.white;
 
-            // 设置唯一的control name避免GUI混乱
-            GUI.SetNextControlName($"CharacterField_{character.id}");
             string newCharacter = EditorGUILayout.TextField(character.character, characterFieldStyle);
 
             if (newCharacter != character.character)
@@ -396,13 +394,11 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 为Name字段创建独立的样式和texture（避免与Character字段共享）
             var nameFieldStyle = new GUIStyle(EditorStyles.textField);
-            nameFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
-            nameFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            nameFieldStyle.normal.background = cachedNormalBg;
+            nameFieldStyle.focused.background = cachedFocusedBg;
             nameFieldStyle.normal.textColor = Color.white;
             nameFieldStyle.focused.textColor = Color.white;
 
-            // 设置唯一的control name避免GUI混乱
-            GUI.SetNextControlName($"NameField_{character.id}");
             string newName = EditorGUILayout.TextField(character.characterName, nameFieldStyle);
 
             if (newName != character.characterName)
