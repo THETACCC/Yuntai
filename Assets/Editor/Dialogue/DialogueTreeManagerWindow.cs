@@ -104,6 +104,10 @@ public class DialogueTreeManagerWindow : EditorWindow
     private string editingCharacterId = "";  // 正在编辑的角色ID
     private Dictionary<string, Sprite> tempSelectedSprites = new Dictionary<string, Sprite>();  // 临时选择的sprite
 
+    // 缓存的背景texture，避免每帧创建导致GUI混乱
+    private Texture2D cachedNormalBg;
+    private Texture2D cachedFocusedBg;
+
     // 拖拽排序相关
     private VirtualFolder draggedFolder;
     private VirtualFolder draggedFolderParent;
@@ -129,6 +133,12 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
         ScanAllDialogueTrees();
+
+        // 初始化缓存的背景texture
+        if (cachedNormalBg == null)
+            cachedNormalBg = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
+        if (cachedFocusedBg == null)
+            cachedFocusedBg = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
     }
 
     private void OnDisable()
@@ -269,14 +279,16 @@ public class DialogueTreeManagerWindow : EditorWindow
             // 编辑模式：显示 character 字段
             EditorGUILayout.LabelField("Character:", GUILayout.Width(70));
 
-            // 创建有明显边框的输入框样式，但保持原有文字颜色
-            var textFieldStyle = new GUIStyle(EditorStyles.textField);
-            // 添加一个稍深的背景，让输入框更明显
-            textFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
-            textFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
-            // 不改变文字颜色，使用默认
+            // 为Character字段创建独立的样式和texture（避免与Name字段共享）
+            var characterFieldStyle = new GUIStyle(EditorStyles.textField);
+            characterFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
+            characterFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            characterFieldStyle.normal.textColor = Color.white;
+            characterFieldStyle.focused.textColor = Color.white;
 
-            string newCharacter = EditorGUILayout.TextField(character.character, textFieldStyle);
+            // 设置唯一的control name避免GUI混乱
+            GUI.SetNextControlName($"CharacterField_{character.id}");
+            string newCharacter = EditorGUILayout.TextField(character.character, characterFieldStyle);
 
             if (newCharacter != character.character)
             {
@@ -345,12 +357,16 @@ public class DialogueTreeManagerWindow : EditorWindow
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Name:", GUILayout.Width(70));
 
-            // 创建有明显边框的输入框样式，但保持原有文字颜色
-            var textFieldStyle = new GUIStyle(EditorStyles.textField);
-            textFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
-            textFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            // 为Name字段创建独立的样式和texture（避免与Character字段共享）
+            var nameFieldStyle = new GUIStyle(EditorStyles.textField);
+            nameFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
+            nameFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            nameFieldStyle.normal.textColor = Color.white;
+            nameFieldStyle.focused.textColor = Color.white;
 
-            string newName = EditorGUILayout.TextField(character.characterName, textFieldStyle);
+            // 设置唯一的control name避免GUI混乱
+            GUI.SetNextControlName($"NameField_{character.id}");
+            string newName = EditorGUILayout.TextField(character.characterName, nameFieldStyle);
 
             if (newName != character.characterName)
             {
