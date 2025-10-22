@@ -3,11 +3,10 @@
         {
             "id": "116dec64-a924-4160-8508-7b214d1f8254",
             "index": 0,
-            "name": "Me",
-            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊恐.png",
-            "content": "PLEASE DON'T!! PLEASE!!!",
-            "positionX": 294.5,
-            "positionY": 289.5,
+            "characterId": "",
+            "content": "!!!",
+            "positionX": 294.4000244140625,
+            "positionY": 289.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -15,11 +14,10 @@
         {
             "id": "c9aea572-bf54-4639-a938-8f51644e2179",
             "index": 1,
-            "name": "Me",
-            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊醒.png",
-            "content": "Wait... I'm still alive?",
-            "positionX": 649.0,
-            "positionY": 289.5,
+            "characterId": "",
+            "content": "What happened?",
+            "positionX": 649.6000366210938,
+            "positionY": 289.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -27,11 +25,54 @@
         {
             "id": "e551df73-976c-4d31-969c-8ebc1dc72ada",
             "index": 2,
-            "name": "Me",
-            "avatarAssetPath": "Assets/Resources/DialogueImages/何以真_惊恐.png",
-            "content": "What just happened...!?",
-            "positionX": 1015.0,
-            "positionY": 289.5,
+            "characterId": "",
+            "content": "()",
+            "positionX": 1015.2000122070313,
+            "positionY": 289.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "12c191a5-1eda-4925-9dd7-5b3fed318129",
+            "index": 3,
+            "characterId": "",
+            "content": "Nightmare?",
+            "positionX": 1385.5999755859375,
+            "positionY": 289.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c21573c7-16fe-4fa7-b10f-d1d3a998b828",
+            "index": 4,
+            "characterId": "",
+            "content": "()",
+            "positionX": 1748.0,
+            "positionY": 289.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "index": 5,
+            "characterId": "",
+            "content": ".",
+            "positionX": 2135.199951171875,
+            "positionY": 289.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
+            "index": 6,
+            "characterId": "",
+            "content": "Talk to people first.",
+            "positionX": 2524.0,
+            "positionY": 289.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -48,6 +89,34 @@
         {
             "outputNodeId": "c9aea572-bf54-4639-a938-8f51644e2179",
             "inputNodeId": "e551df73-976c-4d31-969c-8ebc1dc72ada",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e551df73-976c-4d31-969c-8ebc1dc72ada",
+            "inputNodeId": "12c191a5-1eda-4925-9dd7-5b3fed318129",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "12c191a5-1eda-4925-9dd7-5b3fed318129",
+            "inputNodeId": "c21573c7-16fe-4fa7-b10f-d1d3a998b828",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c21573c7-16fe-4fa7-b10f-d1d3a998b828",
+            "inputNodeId": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "inputNodeId": "fb6fe35f-8618-4bdb-b358-189b153ef039",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
