@@ -104,10 +104,6 @@ public class DialogueTreeManagerWindow : EditorWindow
     private string editingCharacterId = "";  // 正在编辑的角色ID
     private Dictionary<string, Sprite> tempSelectedSprites = new Dictionary<string, Sprite>();  // 临时选择的sprite
 
-    // 文件时间戳跟踪
-    private System.DateTime lastLibraryLoadTime;
-    private System.DateTime lastFolderStructureLoadTime;
-
     // 缓存的背景texture，避免每帧创建导致GUI混乱
     private Texture2D cachedNormalBg;
     private Texture2D cachedFocusedBg;
@@ -139,47 +135,14 @@ public class DialogueTreeManagerWindow : EditorWindow
         ScanAllDialogueTrees();
 
         // 记录文件加载时间
-        RecordFileLoadTimes();
-
-        // 初始化缓存的背景texture
-        if (cachedNormalBg == null)
-            cachedNormalBg = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
         if (cachedFocusedBg == null)
             cachedFocusedBg = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
     }
 
     private void OnDisable()
     {
-        // 检查文件是否被外部修改
-        if (HasFileBeenModifiedExternally())
-        {
-            bool shouldOverwrite = EditorUtility.DisplayDialog(
-                "外部文件已修改",
-                "CharacterLibrary.json 或 FolderStructure.json 在外部被修改过（可能是 Git Pull）。\n\n" +
-                "是否要用当前编辑器中的数据覆盖这些文件？\n\n" +
-                "• 选择 '是' - 保存当前编辑器数据（覆盖外部修改）\n" +
-                "• 选择 '否' - 放弃保存（保留外部修改）",
-                "是，覆盖文件",
-                "否，不保存"
-            );
-
-            if (shouldOverwrite)
-            {
-                SaveVirtualFolderStructure();
-                SaveCharacterLibraryInternal();
-                Debug.LogWarning("已覆盖外部修改的文件");
-            }
-            else
-            {
-                Debug.Log("已放弃保存，保留外部修改的文件");
-            }
-        }
-        else
-        {
-            // 文件没有被外部修改，正常保存
-            SaveVirtualFolderStructure();
-            SaveCharacterLibraryInternal();
-        }
+        SaveVirtualFolderStructure();
+        SaveCharacterLibraryInternal();
     }
 
     private void OnGUI()
@@ -2073,63 +2036,6 @@ public class DialogueTreeManagerWindow : EditorWindow
     }
 
 
-    private void RecordFileLoadTimes()
-    {
-        try
-        {
-            string libraryPath = GetCharacterLibraryPath();
-            if (File.Exists(libraryPath))
-            {
-                lastLibraryLoadTime = File.GetLastWriteTime(libraryPath);
-            }
-
-            string folderPath = GetFolderStructurePath();
-            if (File.Exists(folderPath))
-            {
-                lastFolderStructureLoadTime = File.GetLastWriteTime(folderPath);
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to record file load times: {e.Message}");
-        }
-    }
-
-    private bool HasFileBeenModifiedExternally()
-    {
-        try
-        {
-            string libraryPath = GetCharacterLibraryPath();
-            if (File.Exists(libraryPath))
-            {
-                var currentLibraryTime = File.GetLastWriteTime(libraryPath);
-                if (currentLibraryTime > lastLibraryLoadTime)
-                {
-                    Debug.Log($"CharacterLibrary.json 被外部修改: {lastLibraryLoadTime} -> {currentLibraryTime}");
-                    return true;
-                }
-            }
-
-            string folderPath = GetFolderStructurePath();
-            if (File.Exists(folderPath))
-            {
-                var currentFolderTime = File.GetLastWriteTime(folderPath);
-                if (currentFolderTime > lastFolderStructureLoadTime)
-                {
-                    Debug.Log($"FolderStructure.json 被外部修改: {lastFolderStructureLoadTime} -> {currentFolderTime}");
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to check file modification: {e.Message}");
-            return false;
-        }
-    }
-
     private void RefreshAll()
     {
         Debug.Log("========== Refreshing All Data ==========");
@@ -2138,9 +2044,6 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
         ScanAllDialogueTrees();
-
-        // 更新时间戳
-        RecordFileLoadTimes();
 
         Debug.Log($"✓ Loaded {guidToPath.Count} dialogue files");
         Debug.Log($"✓ Loaded {characterLibrary?.characters?.Length ?? 0} characters");
