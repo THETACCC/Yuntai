@@ -259,24 +259,35 @@ public class DialogueTreeManagerWindow : EditorWindow
         var boxStyle = new GUIStyle(GUI.skin.box);
         boxStyle.padding = new RectOffset(8, 8, 8, 8);
 
-        EditorGUILayout.BeginVertical(boxStyle, GUILayout.MinHeight(isEditing ? 120 : 70));
+        EditorGUILayout.BeginVertical(boxStyle, GUILayout.MinHeight(isEditing ? 150 : 70));
 
-        // 第一行：名字和按钮
+        // 第一行：显示名称和按钮
         EditorGUILayout.BeginHorizontal();
 
         if (isEditing)
         {
-            EditorGUILayout.LabelField("Name:", GUILayout.Width(45));
-            string newName = EditorGUILayout.TextField(character.characterName);
-            if (newName != character.characterName)
+            // 编辑模式：显示 character 字段
+            EditorGUILayout.LabelField("Character:", GUILayout.Width(70));
+
+            // 创建有明显边框的输入框样式，但保持原有文字颜色
+            var textFieldStyle = new GUIStyle(EditorStyles.textField);
+            // 添加一个稍深的背景，让输入框更明显
+            textFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
+            textFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+            // 不改变文字颜色，使用默认
+
+            string newCharacter = EditorGUILayout.TextField(character.character, textFieldStyle);
+
+            if (newCharacter != character.character)
             {
-                character.characterName = newName;
+                character.character = newCharacter;
                 SaveCharacterLibrary(character.id);
             }
         }
         else
         {
-            EditorGUILayout.LabelField(character.characterName, EditorStyles.boldLabel);
+            // 非编辑模式：显示 character 作为主标题
+            EditorGUILayout.LabelField(character.character, EditorStyles.boldLabel);
         }
 
         GUILayout.FlexibleSpace();
@@ -327,13 +338,35 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         EditorGUILayout.EndHorizontal();
 
+        // 编辑模式下显示 Name 字段
+        if (isEditing)
+        {
+            EditorGUILayout.Space(3);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Name:", GUILayout.Width(70));
+
+            // 创建有明显边框的输入框样式，但保持原有文字颜色
+            var textFieldStyle = new GUIStyle(EditorStyles.textField);
+            textFieldStyle.normal.background = MakeTex(2, 2, new Color(0.25f, 0.25f, 0.25f, 1f));
+            textFieldStyle.focused.background = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+
+            string newName = EditorGUILayout.TextField(character.characterName, textFieldStyle);
+
+            if (newName != character.characterName)
+            {
+                character.characterName = newName;
+                SaveCharacterLibrary(character.id);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
         // 编辑模式下显示avatar选择
         if (isEditing)
         {
             EditorGUILayout.Space(5);
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Avatar:", GUILayout.Width(45));
+            EditorGUILayout.LabelField("Avatar:", GUILayout.Width(70));
 
             // 获取当前显示的sprite（优先使用临时选择，否则从保存的路径加载）
             Sprite displaySprite = null;
@@ -380,7 +413,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 显示状态提示
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(45);
+            GUILayout.Space(70);
 
             // 判断当前显示的sprite的状态
             string currentPath = "";
@@ -446,6 +479,11 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             EditorGUILayout.BeginVertical();
             GUILayout.FlexibleSpace();
+
+            // 显示 Name 字段
+            var nameStyle = new GUIStyle(EditorStyles.miniLabel);
+            nameStyle.normal.textColor = new Color(0.8f, 0.8f, 0.8f);
+            EditorGUILayout.LabelField($"Name: {character.characterName}", nameStyle);
 
             var pathStyle = new GUIStyle(EditorStyles.miniLabel);
             pathStyle.normal.textColor = new Color(0.6f, 0.6f, 0.6f);
@@ -591,6 +629,28 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 string json = File.ReadAllText(loadPath);
                 characterLibrary = JsonUtility.FromJson<CharacterLibraryData>(json);
+
+                // 兼容性检查：确保所有角色都有character字段
+                bool needsSave = false;
+                if (characterLibrary?.characters != null)
+                {
+                    foreach (var character in characterLibrary.characters)
+                    {
+                        if (string.IsNullOrEmpty(character.character))
+                        {
+                            // 如果没有character字段，使用characterName填充
+                            character.character = character.characterName;
+                            needsSave = true;
+                        }
+                    }
+                }
+
+                if (needsSave)
+                {
+                    SaveCharacterLibraryInternal();
+                    Debug.Log("Updated character library with new 'character' field for compatibility");
+                }
+
                 Debug.Log($"Loaded character library from: {loadPath}");
             }
             else
@@ -1953,6 +2013,19 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
 
         return "Unknown Character";
+    }
+
+    private Texture2D MakeTex(int width, int height, Color col)
+    {
+        Color[] pix = new Color[width * height];
+        for (int i = 0; i < pix.Length; i++)
+            pix[i] = col;
+
+        Texture2D result = new Texture2D(width, height);
+        result.SetPixels(pix);
+        result.Apply();
+
+        return result;
     }
 
     #endregion

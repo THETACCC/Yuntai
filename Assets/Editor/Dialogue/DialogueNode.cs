@@ -235,7 +235,12 @@ public partial class DialogueNode : Node
             return "No Character";
 
         var character = GetCharacterById(CharacterId);
-        return character != null ? character.characterName : "Unknown Character";
+        if (character != null)
+        {
+            // 优先使用 character 字段，如果为空则回退到 characterName（兼容旧数据）
+            return !string.IsNullOrEmpty(character.character) ? character.character : character.characterName;
+        }
+        return "Unknown Character";
     }
 
     private Sprite GetCharacterAvatar()

@@ -127,12 +127,14 @@ namespace DialogueSystem
     public class CharacterData
     {
         public string id;                    // 唯一ID
-        public string characterName;         // 角色名称
+        public string character;             // Manager中显示的分类名称
+        public string characterName;         // 角色名称（用于运行时）
         public string avatarAssetPath;       // Avatar 资源路径
 
         public CharacterData()
         {
             id = Guid.NewGuid().ToString();
+            character = "New Character";
             characterName = "New Character";
             avatarAssetPath = "";
         }
@@ -140,6 +142,7 @@ namespace DialogueSystem
         public CharacterData(string name, string avatarPath)
         {
             id = Guid.NewGuid().ToString();
+            character = name;
             characterName = name;
             avatarAssetPath = avatarPath;
         }
