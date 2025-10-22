@@ -1,0 +1,94 @@
+{
+    "nodes": [
+        {
+            "id": "bf1385fb-ceb7-4518-9aee-2666f794268a",
+            "index": 0,
+            "characterId": "",
+            "content": "...",
+            "positionX": 0.0,
+            "positionY": 0.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5c433517-db8a-4143-95c6-78512ad5e8e0",
+            "index": 1,
+            "characterId": "",
+            "content": "Should I act as if nothing happened?",
+            "positionX": 0.0,
+            "positionY": 0.0,
+            "choices": [
+                {
+                    "text": "Go into the bathroom",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "Nvm",
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "27622f30-3575-42f6-a3ea-50e34e3cb092",
+            "index": 2,
+            "characterId": "",
+            "content": "",
+            "positionX": 534.4000244140625,
+            "positionY": -109.60000610351563,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "Goto_NotEscaped_ViaNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
+            "index": 3,
+            "characterId": "",
+            "content": "",
+            "positionX": 534.4000244140625,
+            "positionY": 457.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "bf1385fb-ceb7-4518-9aee-2666f794268a",
+            "inputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
+            "inputNodeId": "27622f30-3575-42f6-a3ea-50e34e3cb092",
+            "choiceIndex": 0,
+            "choiceText": "Go into the bathroom",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
+            "inputNodeId": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
+            "choiceIndex": 1,
+            "choiceText": "Nvm",
+            "branchPriority": -3
+        }
+    ]
+}
