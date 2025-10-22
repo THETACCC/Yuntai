@@ -104,6 +104,10 @@ public class DialogueTreeManagerWindow : EditorWindow
     private string editingCharacterId = "";  // 正在编辑的角色ID
     private Dictionary<string, Sprite> tempSelectedSprites = new Dictionary<string, Sprite>();  // 临时选择的sprite
 
+    // 文件时间戳跟踪
+    private System.DateTime lastLibraryLoadTime;
+    private System.DateTime lastFolderStructureLoadTime;
+
     // 缓存的背景texture，避免每帧创建导致GUI混乱
     private Texture2D cachedNormalBg;
     private Texture2D cachedFocusedBg;
@@ -118,9 +122,6 @@ public class DialogueTreeManagerWindow : EditorWindow
     private string insertBeforeFileGuid = null;       // 在哪个文件之前/后插入
     private VirtualFolder insertParentFolder = null;  // 插入的父文件夹
     private bool insertAfter = false;                 // true=插入到目标后面, false=插入到目标前面
-
-    private System.DateTime lastLibraryLoadTime;
-    private System.DateTime lastFolderStructureLoadTime;
 
     [MenuItem("Tools/Dialogue Tree Manager")]
     public static void ShowWindow()
@@ -149,7 +150,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void OnDisable()
     {
-        // 新增：保存前检查文件是否被外部修改
+        // 检查文件是否被外部修改
         if (HasFileBeenModifiedExternally())
         {
             bool shouldOverwrite = EditorUtility.DisplayDialog(
@@ -327,7 +328,6 @@ public class DialogueTreeManagerWindow : EditorWindow
             if (newCharacter != character.character)
             {
                 character.character = newCharacter;
-                SaveCharacterLibrary(character.id);
             }
         }
         else
@@ -369,6 +369,9 @@ public class DialogueTreeManagerWindow : EditorWindow
                 }
                 else
                 {
+                    // 统一保存角色数据
+                    SaveCharacterLibrary(character.id);
+                    Debug.Log($"✓ Saved character: {character.character}");
                     editingCharacterId = "";
                     tempSelectedSprites.Remove(character.id);
                 }
@@ -405,7 +408,6 @@ public class DialogueTreeManagerWindow : EditorWindow
             if (newName != character.characterName)
             {
                 character.characterName = newName;
-                SaveCharacterLibrary(character.id);
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -445,9 +447,6 @@ public class DialogueTreeManagerWindow : EditorWindow
                     if (assetPath.Contains("/Resources/"))
                     {
                         character.avatarAssetPath = assetPath;
-                        SaveCharacterLibrary(character.id);
-                        // 保存成功后清除临时选择
-                        tempSelectedSprites.Remove(character.id);
                     }
                 }
                 else
@@ -455,7 +454,6 @@ public class DialogueTreeManagerWindow : EditorWindow
                     // 清空选择
                     tempSelectedSprites.Remove(character.id);
                     character.avatarAssetPath = "";
-                    SaveCharacterLibrary(character.id);
                 }
             }
 
@@ -2078,6 +2076,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         return result;
     }
 
+
     private void RecordFileLoadTimes()
     {
         try
@@ -2153,6 +2152,5 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         Repaint();
     }
-
     #endregion
 }
