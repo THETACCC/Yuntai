@@ -597,15 +597,8 @@ public class DialogueTreeEditor : EditorWindow
         if (!string.IsNullOrEmpty(path))
         {
             LoadFromFile(path);
-            string jsonPath = Path.ChangeExtension(path, ".json");
-            if (File.Exists(jsonPath))
-            {
-                currentFilePath = jsonPath;
-            }
-            else
-            {
-                currentFilePath = path;
-            }
+            // 始终使用.dtree文件路径
+            currentFilePath = path;
             EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
         }
     }
@@ -624,8 +617,8 @@ public class DialogueTreeEditor : EditorWindow
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
 
-                string jsonPath = Path.ChangeExtension(path, ".json");
-                currentFilePath = File.Exists(jsonPath) ? jsonPath : path;
+                // 始终使用.dtree文件路径
+                currentFilePath = path;
                 EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
 
                 EditorApplication.delayCall += () => {
