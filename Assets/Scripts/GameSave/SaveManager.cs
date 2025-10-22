@@ -103,7 +103,7 @@ public class SaveManager : MonoBehaviour
             LoadGame();
         } else
         {
-            SceneController.instance.LoadSceneAndTeleport("Level1-1", 0);
+            SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
             saveList[saveSlot - 1] = true;
         }
 

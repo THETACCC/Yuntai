@@ -22,7 +22,7 @@ public static class GlobalLibrary
 
 
         }},
-        {SceneTitle.IniticalCG, new SceneSpecifics()
+        {SceneTitle.InitialCG, new SceneSpecifics()
         {
 
 
@@ -56,7 +56,7 @@ public static class GlobalLibrary
 
     public static readonly Dictionary<SceneCategory, SceneTitle[]> G_SCENE_CATEGORY_DICT = new Dictionary<SceneCategory, SceneTitle[]>
     {
-        {SceneCategory.Common, new SceneTitle[]{ SceneTitle.TitleScene, SceneTitle.GYM_Level, SceneTitle.IniticalCG, SceneTitle.Level1_1, SceneTitle.Level1_2 , SceneTitle.Level2_1 , SceneTitle.Level2_2 } },
+        {SceneCategory.Common, new SceneTitle[]{ SceneTitle.TitleScene, SceneTitle.GYM_Level, SceneTitle.InitialCG, SceneTitle.Level1_1, SceneTitle.Level1_2 , SceneTitle.Level2_1 , SceneTitle.Level2_2 } },
 
     };
 
@@ -65,7 +65,7 @@ public static class GlobalLibrary
         //Common    
         {SceneTitle.TitleScene, "TitleScene" },
         {SceneTitle.GYM_Level, "GYM_Level" },
-        {SceneTitle.IniticalCG, "IniticalCGScene" },
+        {SceneTitle.InitialCG, "InitialCGScene" },
         {SceneTitle.Level1_1, "Level1-1" },
         {SceneTitle.Level1_2, "Level1-2" },
         {SceneTitle.Level2_1, "Level2-1" },

@@ -152,7 +152,7 @@ public enum SceneTitle
 {
     TitleScene = 01,
     GYM_Level = 02,
-    IniticalCG = 03,
+    InitialCG = 03,
     Level1_1 = 04,
     Level1_2 = 05,
     Level2_1 = 06,
