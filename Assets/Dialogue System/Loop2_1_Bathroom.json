@@ -1,0 +1,62 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": "",
+      "avatarAddr": "",
+      "content": "...",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Should I act as if nothing happened?",
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": "Go into the bathroom",
+          "targetIndex": 2
+        },
+        {
+          "text": "Nvm",
+          "targetIndex": 3
+        }
+      ],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": "",
+      "avatarAddr": "",
+      "content": "",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "Goto_NotEscaped_ViaNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "",
+      "avatarAddr": "",
+      "content": "",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    }
+  ],
+  "currentIndex": 0
+}
