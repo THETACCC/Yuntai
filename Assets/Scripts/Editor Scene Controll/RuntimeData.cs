@@ -10,4 +10,12 @@ public class RuntimeData : SKMonoSingleton<RuntimeData>
     public static SceneTitle activeSceneTitle;
 
     #endregion
+
+    #region Camera
+    public static Transform camera_Transform;
+    public static Vector3 camera_PositionDelta;
+    private static Vector3 camera_LastPos;
+    #endregion
+
+
 }
