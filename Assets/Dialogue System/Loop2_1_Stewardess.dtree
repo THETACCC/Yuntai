@@ -3,24 +3,24 @@
         {
             "id": "684ffcb0-903c-4f3b-8b24-29c48616a361",
             "index": 0,
-            "name": "Stewardess",
-            "avatarAssetPath": "Assets/Resources/avatars/IMG_1747_0.png",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "You need anything?",
-            "positionX": 119.19999694824219,
+            "positionX": 118.66666412353516,
             "positionY": 196.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "12ad5e88-c868-4a02-9da4-473a1ca990c4",
             "index": 1,
-            "name": "Me",
-            "avatarAssetPath": "Assets/Resources/avatars/IMG_5310_0.PNG",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Hello",
             "positionX": -256.0,
             "positionY": 196.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -28,7 +28,8 @@
             "outputNodeId": "12ad5e88-c868-4a02-9da4-473a1ca990c4",
             "inputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }

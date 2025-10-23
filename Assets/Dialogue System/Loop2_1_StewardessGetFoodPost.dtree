@@ -3,24 +3,24 @@
         {
             "id": "ee1fe83b-3832-4f65-a964-ddaee6fa7300",
             "index": 0,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
             "content": "WHAT ELSE DO YOU WANT?",
-            "positionX": 339.20001220703127,
-            "positionY": 368.79998779296877,
+            "positionX": 338.6666564941406,
+            "positionY": 368.6666564941406,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "345f1128-1ee6-4651-9026-ab5409d1fc4c",
             "index": 1,
-            "name": "Me",
-            "avatarAssetPath": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "I need to give my food to Page.",
-            "positionX": 707.2000122070313,
-            "positionY": 368.79998779296877,
+            "positionX": 706.6666870117188,
+            "positionY": 368.6666564941406,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -28,7 +28,8 @@
             "outputNodeId": "ee1fe83b-3832-4f65-a964-ddaee6fa7300",
             "inputNodeId": "345f1128-1ee6-4651-9026-ab5409d1fc4c",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }

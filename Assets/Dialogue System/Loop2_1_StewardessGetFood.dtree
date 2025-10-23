@@ -3,10 +3,9 @@
         {
             "id": "39a1a2ec-7535-4267-81a3-8988693e3af2",
             "index": 0,
-            "name": "Character",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Ni Hao",
-            "positionX": -1664.800048828125,
+            "positionX": -1665.3333740234375,
             "positionY": 796.0,
             "choices": [
                 {
@@ -20,16 +19,16 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "index": 1,
-            "name": "Character",
-            "avatarAssetPath": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "New Dialogue",
-            "positionX": -350.3999938964844,
-            "positionY": 787.2000122070313,
+            "positionX": -350.66668701171877,
+            "positionY": 786.6666870117188,
             "choices": [
                 {
                     "text": "Conv1",
@@ -152,15 +151,15 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "06aa94a4-e2d4-4a16-9b50-6347875007df",
             "index": 2,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv1",
-            "positionX": 237.59999084472657,
+            "positionX": 237.33334350585938,
             "positionY": 300.0,
             "choices": [],
             "eventCalls": [
@@ -172,18 +171,19 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
             "index": 3,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv2",
-            "positionX": 237.59999084472657,
-            "positionY": 760.7999877929688,
+            "positionX": 237.33334350585938,
+            "positionY": 760.6666870117188,
             "choices": [],
             "eventCalls": [
                 {
@@ -194,18 +194,19 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "8b79b345-3d08-4324-8a26-ec9b3b398989",
             "index": 4,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv3",
-            "positionX": 237.59999084472657,
-            "positionY": 1192.800048828125,
+            "positionX": 237.33334350585938,
+            "positionY": 1192.6666259765625,
             "choices": [],
             "eventCalls": [
                 {
@@ -216,18 +217,19 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "e18efd34-19d2-4e36-9603-e828474fe9e6",
             "index": 5,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv4",
-            "positionX": 237.59999084472657,
-            "positionY": 1628.800048828125,
+            "positionX": 237.33334350585938,
+            "positionY": 1628.6666259765625,
             "choices": [],
             "eventCalls": [
                 {
@@ -238,18 +240,19 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "ae489795-6e09-448b-a84b-c30206416011",
             "index": 6,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
             "content": "Give You Give You",
-            "positionX": 237.59999084472657,
-            "positionY": 2059.199951171875,
+            "positionX": 237.33334350585938,
+            "positionY": 2058.666748046875,
             "choices": [],
             "eventCalls": [
                 {
@@ -260,7 +263,8 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 },
                 {
                     "targetObjectName": "LevelManager2_1",
@@ -270,40 +274,41 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
             "index": 7,
-            "name": "Stewardess",
-            "avatarAssetPath": "",
+            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
             "content": "No.",
-            "positionX": -1241.60009765625,
+            "positionX": -1242.0,
             "positionY": 1004.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "65a9af76-61d9-467f-8653-2839cecf70fd",
             "index": 8,
-            "name": "Me",
-            "avatarAssetPath": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "Maybe I can ask her a bunch of questions to make her annoyed.",
             "positionX": -868.0,
             "positionY": 1004.0,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
             "index": 9,
-            "name": "Character",
-            "avatarAssetPath": "",
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Event: Info 4 gathered.",
-            "positionX": -1212.800048828125,
-            "positionY": 575.2000122070313,
+            "positionX": -1213.3333740234375,
+            "positionY": 574.6666870117188,
             "choices": [],
             "eventCalls": [
                 {
@@ -314,31 +319,33 @@
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
-            ]
-        },
-        {
-            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
-            "index": 11,
-            "name": "Me",
-            "avatarAssetPath": "",
-            "content": "I should give it to Page.",
-            "positionX": 631.2000122070313,
-            "positionY": 2059.199951171875,
-            "choices": [],
-            "eventCalls": []
+            ],
+            "conditionalBranches": []
         },
         {
             "id": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
             "index": 10,
-            "name": "Me",
-            "avatarAssetPath": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "I will need to collect more info.",
-            "positionX": 237.59999084472657,
-            "positionY": 2600.800048828125,
+            "positionX": 237.33334350585938,
+            "positionY": 2600.666748046875,
             "choices": [],
-            "eventCalls": []
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
+            "index": 11,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "I should give it to Page.",
+            "positionX": 630.6666870117188,
+            "positionY": 2058.666748046875,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -346,91 +353,106 @@
             "outputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
             "inputNodeId": "65a9af76-61d9-467f-8653-2839cecf70fd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "65a9af76-61d9-467f-8653-2839cecf70fd",
             "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         },
         {
             "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
             "inputNodeId": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
             "choiceIndex": 1,
-            "choiceText": "Can I get food"
+            "choiceText": "Can I get food",
+            "branchPriority": -3
         },
         {
             "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
             "inputNodeId": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
             "choiceIndex": 0,
-            "choiceText": "Why were you standing in front of my seat?"
+            "choiceText": "Why were you standing in front of my seat?",
+            "branchPriority": -2
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
             "choiceIndex": 0,
-            "choiceText": "Conv1"
+            "choiceText": "Conv1",
+            "branchPriority": -2
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
             "choiceIndex": 1,
-            "choiceText": "Conv2"
+            "choiceText": "Conv2",
+            "branchPriority": -3
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
             "choiceIndex": 2,
-            "choiceText": "Conv3"
+            "choiceText": "Conv3",
+            "branchPriority": -4
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
             "choiceIndex": 3,
-            "choiceText": "Conv4"
+            "choiceText": "Conv4",
+            "branchPriority": -5
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
             "choiceIndex": 4,
-            "choiceText": "So CAN I GET MY FOOD?"
+            "choiceText": "So CAN I GET MY FOOD?",
+            "branchPriority": -6
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "inputNodeId": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
             "choiceIndex": 5,
-            "choiceText": "I don't have enough topics."
+            "choiceText": "I don't have enough topics.",
+            "branchPriority": -7
         },
         {
             "outputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
             "inputNodeId": "5002a662-5d74-4e71-81cf-a0edd322c588",
             "choiceIndex": -1,
-            "choiceText": ""
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }
