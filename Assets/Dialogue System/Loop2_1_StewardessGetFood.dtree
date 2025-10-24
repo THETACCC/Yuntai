@@ -485,11 +485,6 @@
                     "text": "Sorry to bother you. I’ll be going now.",
                     "conditions": [],
                     "conditionLogic": 0
-                },
-                {
-                    "text": "New Choice",
-                    "conditions": [],
-                    "conditionLogic": 0
                 }
             ],
             "eventCalls": [],
@@ -567,56 +562,10 @@
             "index": 24,
             "characterId": "",
             "content": "(Better drop the subject.)",
-            "positionX": 1060.0,
+            "positionX": 1048.7999267578125,
             "positionY": 451.20001220703127,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "30701851-5e95-4c92-8001-564c7badc365",
-            "index": 32,
-            "characterId": "",
-            "content": "I heard there’ve been strange groups active in Yuntai recently.",
-            "positionX": -682.3999633789063,
-            "positionY": 1656.7999267578125,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv1",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "1e772e23-9319-4ffa-8038-f78854b50d7b",
-            "index": 33,
-            "characterId": "",
-            "content": "I heard Yuntai holds a festival every two years—the Qiqiao Festival. Have you heard of it?",
-            "positionX": -682.3999633789063,
-            "positionY": 2151.199951171875,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv2",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
             "conditionalBranches": []
         },
         {
@@ -676,12 +625,103 @@
             "conditionalBranches": []
         },
         {
-            "id": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
-            "index": 29,
+            "id": "30701851-5e95-4c92-8001-564c7badc365",
+            "index": 32,
             "characterId": "",
-            "content": "(Yeah… this conversation’s going nowhere.)",
-            "positionX": 692.7999877929688,
-            "positionY": 1038.39990234375,
+            "content": "I heard there’ve been strange groups active in Yuntai recently.",
+            "positionX": -682.3999633789063,
+            "positionY": 1656.7999267578125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv1",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1e772e23-9319-4ffa-8038-f78854b50d7b",
+            "index": 33,
+            "characterId": "",
+            "content": "I heard Yuntai holds a festival every two years—the Qiqiao Festival. Have you heard of it?",
+            "positionX": -682.3999633789063,
+            "positionY": 2151.199951171875,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv2",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
+            "index": 34,
+            "characterId": "",
+            "content": "Isn’t Yuntai going into lockdown soon? Does that mean you’ll be stuck here until it ends?",
+            "positionX": -682.3999633789063,
+            "positionY": 2648.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "64d61528-01cb-450a-8b3b-64861c066aae",
+            "index": 35,
+            "characterId": "",
+            "content": "Miss, I’m not from Yuntai. I don’t really know anything about that. I just work on the plane.",
+            "positionX": -352.79998779296877,
+            "positionY": 1656.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "215f9d44-9703-43c9-834a-0a79f96750ae",
+            "index": 36,
+            "characterId": "",
+            "content": "Have you seen anyone suspicious onboard lately?",
+            "positionX": -16.799999237060548,
+            "positionY": 1656.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e779a903-abf5-4623-907a-962c97ea6f06",
+            "index": 37,
+            "characterId": "",
+            "content": "Of course. That weird girl in the back wearing a Taoist robe looks pretty suspicious, doesn’t she?",
+            "positionX": 326.4000244140625,
+            "positionY": 1656.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -703,50 +743,6 @@
             "characterId": "",
             "content": "But as long as they don’t cause trouble, it’s not our place to intervene. We’re service crew, not judges.",
             "positionX": 1048.7999267578125,
-            "positionY": 1656.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "870607a5-5bd4-4c18-8cba-d96511c2431a",
-            "index": 40,
-            "characterId": "",
-            "content": "(So she’s actually quite professional…)",
-            "positionX": 1404.7999267578125,
-            "positionY": 1656.7999267578125,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "215f9d44-9703-43c9-834a-0a79f96750ae",
-            "index": 36,
-            "characterId": "",
-            "content": "Have you seen anyone suspicious onboard lately?",
-            "positionX": -16.799999237060548,
-            "positionY": 1656.7999267578125,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "64d61528-01cb-450a-8b3b-64861c066aae",
-            "index": 35,
-            "characterId": "",
-            "content": "Miss, I’m not from Yuntai. I don’t really know anything about that. I just work on the plane.",
-            "positionX": -352.79998779296877,
-            "positionY": 1656.7999267578125,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e779a903-abf5-4623-907a-962c97ea6f06",
-            "index": 37,
-            "characterId": "",
-            "content": "Of course. That weird girl in the back wearing a Taoist robe looks pretty suspicious, doesn’t she?",
-            "positionX": 326.4000244140625,
             "positionY": 1656.0,
             "choices": [],
             "eventCalls": [],
@@ -786,40 +782,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "7da62a19-9955-4d8b-92fd-72db1941755f",
-            "index": 44,
-            "characterId": "",
-            "content": "(I think she just insulted me.)",
-            "positionX": 734.4000244140625,
-            "positionY": 2150.39990234375,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
-            "index": 34,
-            "characterId": "",
-            "content": "Isn’t Yuntai going into lockdown soon? Does that mean you’ll be stuck here until it ends?",
-            "positionX": -682.3999633789063,
-            "positionY": 2648.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv3",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "2cf4be47-c2b7-4589-a76b-a4b88b096c51",
             "index": 45,
             "characterId": "",
@@ -837,6 +799,367 @@
             "content": "(She says that, but her smile looks more genuine than ever. She must be happy to get some time off.)",
             "positionX": 12.0,
             "positionY": 2648.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "index": 48,
+            "characterId": "",
+            "content": "(I’m out of things to talk about...)",
+            "positionX": 2016.0,
+            "positionY": 1840.7999267578125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToGotFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "078a1373-4042-4603-ac64-b545cc28c383",
+            "index": 49,
+            "characterId": "",
+            "content": "Alright, miss. I know what you're after. You’ve been standing here chatting with me all this time just to get an in-flight meal, right?",
+            "positionX": 2404.0,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "index": 50,
+            "characterId": "",
+            "content": "(Oh no, she saw right through me.)",
+            "positionX": 2756.0,
+            "positionY": 1840.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "index": 51,
+            "characterId": "",
+            "content": "Here. Take this and go. Don’t let the other passengers know, alright? If everyone rushes over, it’ll be a huge hassle.",
+            "positionX": 3104.800048828125,
+            "positionY": 1840.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "index": 52,
+            "characterId": "",
+            "content": "Got it! Thank you so much!",
+            "positionX": 3476.800048828125,
+            "positionY": 1840.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "index": 53,
+            "characterId": "",
+            "content": "Yeah, yeah, just go already...",
+            "positionX": 3845.599853515625,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3afc1297-8c86-455e-b11d-c70d7b2aaf12",
+            "index": 54,
+            "characterId": "",
+            "content": "(Even though she saw through me, I guess the strategy still worked.)",
+            "positionX": 4236.0,
+            "positionY": 1840.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "index": 44,
+            "characterId": "",
+            "content": "(I think she just insulted me.)",
+            "positionX": 734.4000244140625,
+            "positionY": 2150.39990234375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "index": 40,
+            "characterId": "",
+            "content": "(So she’s actually quite professional…)",
+            "positionX": 1404.7999267578125,
+            "positionY": 1656.7999267578125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "index": 29,
+            "characterId": "",
+            "content": "(Yeah… this conversation’s going nowhere.)",
+            "positionX": 692.7999877929688,
+            "positionY": 777.6000366210938,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "index": 47,
+            "characterId": "",
+            "content": "Sorry to bother you. I’ll be on my way.",
+            "positionX": -682.3999633789063,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "index": 58,
+            "characterId": "",
+            "content": "......",
+            "positionX": -302.3999938964844,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "14c26af8-98d5-4738-a835-13facfc57a31",
+            "index": 59,
+            "characterId": "",
+            "content": "(Let's go, let's just go.)",
+            "positionX": 72.0,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "index": 60,
+            "characterId": "",
+            "content": "I have no more topics to talk to her.",
+            "positionX": 2016.0,
+            "positionY": 1147.199951171875,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -1005,13 +1328,6 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "36b07a7d-c524-4877-8796-484297ef0a93",
-            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
             "outputNodeId": "484e884c-c707-4e36-bc53-db16868f157b",
             "inputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
             "choiceIndex": -1,
@@ -1040,48 +1356,6 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "inputNodeId": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
-            "choiceIndex": 0,
-            "choiceText": "Why standing here this whole time?",
-            "branchPriority": -2
-        },
-        {
-            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "inputNodeId": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
-            "choiceIndex": 1,
-            "choiceText": "You mentioned your supervisor earlier...",
-            "branchPriority": -3
-        },
-        {
-            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "inputNodeId": "30701851-5e95-4c92-8001-564c7badc365",
-            "choiceIndex": 2,
-            "choiceText": "The strange groups in the city...",
-            "branchPriority": -4
-        },
-        {
-            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "inputNodeId": "1e772e23-9319-4ffa-8038-f78854b50d7b",
-            "choiceIndex": 3,
-            "choiceText": "The Qiqiao Festival is starting soon...",
-            "branchPriority": -5
-        },
-        {
-            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "inputNodeId": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
-            "choiceIndex": 4,
-            "choiceText": "About Yuntai going into lockdown...",
-            "branchPriority": -6
-        },
-        {
-            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
-            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
             "outputNodeId": "30701851-5e95-4c92-8001-564c7badc365",
             "inputNodeId": "64d61528-01cb-450a-8b3b-64861c066aae",
             "choiceIndex": -1,
@@ -1091,13 +1365,6 @@
         {
             "outputNodeId": "d088ebd4-f369-4e71-8a9e-51d3001aaa44",
             "inputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
-            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
@@ -1171,6 +1438,195 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
+            "choiceIndex": 0,
+            "choiceText": "Why standing here this whole time?",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
+            "choiceIndex": 1,
+            "choiceText": "You mentioned your supervisor earlier...",
+            "branchPriority": -3
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "30701851-5e95-4c92-8001-564c7badc365",
+            "choiceIndex": 2,
+            "choiceText": "The strange groups in the city...",
+            "branchPriority": -4
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "1e772e23-9319-4ffa-8038-f78854b50d7b",
+            "choiceIndex": 3,
+            "choiceText": "The Qiqiao Festival is starting soon...",
+            "branchPriority": -5
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
+            "choiceIndex": 4,
+            "choiceText": "About Yuntai going into lockdown...",
+            "branchPriority": -6
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "choiceIndex": 5,
+            "choiceText": "Sorry to bother you. I’ll be going now.",
+            "branchPriority": -7
+        },
+        {
+            "outputNodeId": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "inputNodeId": "3afc1297-8c86-455e-b11d-c70d7b2aaf12",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "inputNodeId": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "inputNodeId": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "inputNodeId": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "inputNodeId": "078a1373-4042-4603-ac64-b545cc28c383",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "078a1373-4042-4603-ac64-b545cc28c383",
+            "inputNodeId": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "36b07a7d-c524-4877-8796-484297ef0a93",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "inputNodeId": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "inputNodeId": "14c26af8-98d5-4738-a835-13facfc57a31",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
         }
     ]
 }

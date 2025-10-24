@@ -320,4 +320,5 @@ public class LevelManager2_1 : MonoBehaviour
             SceneController.instance.LoadSceneAndTeleport(targetScene, targetSpawn);
         }
     }
+
 }
