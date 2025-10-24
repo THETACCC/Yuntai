@@ -4,29 +4,66 @@
       "index": 0,
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "()",
+      "content": "(It’s that family of three I saw earlier...)",
       "nextIndex": 2,
       "choices": [],
       "eventCalls": []
     },
     {
       "index": 1,
-      "name": "Mom",
-      "avatarAddr": "DialogueImages/未命名作品",
-      "content": ".",
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "content": "(They seem to be locals returning from a trip. They probably know a bit about what’s going on in Yuntai. I could use this chance to ask about the city.)",
       "nextIndex": -1,
       "choices": [
         {
-          "text": "About this \"\"",
-          "targetIndex": 12
+          "text": "About this \"Troupe Elysium\"...",
+          "targetIndex": 12,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_1",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
         },
         {
-          "text": "New ?",
-          "targetIndex": 13
+          "text": "What is the festival?",
+          "targetIndex": 13,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_2",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
         },
         {
-          "text": "Thank you so much for telling me these.",
-          "targetIndex": 14
+          "text": "Thank you for telling me all this.",
+          "targetIndex": 14,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_1",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_2",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
         }
       ],
       "eventCalls": [
@@ -56,7 +93,7 @@
       "index": 3,
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_惊醒",
-      "content": "()",
+      "content": "(That’s exactly what he said in the dream… and that puppet in his hand—it reminds me of what he turned into.)",
       "nextIndex": 4,
       "choices": [],
       "eventCalls": []
@@ -65,7 +102,7 @@
       "index": 4,
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_闭眼",
-      "content": "()",
+      "content": "(No point overthinking it. Let’s try talking to them.)",
       "nextIndex": 5,
       "choices": [],
       "eventCalls": []
@@ -74,7 +111,7 @@
       "index": 5,
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "I've never seen ?",
+      "content": "I’ve never seen a puppet like that before. May I ask where you got it?",
       "nextIndex": 6,
       "choices": [],
       "eventCalls": []
@@ -83,7 +120,7 @@
       "index": 6,
       "name": "The boy",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": "!",
+      "content": "Someone gave it to me! I took it with me before we left for the trip!",
       "nextIndex": 7,
       "choices": [],
       "eventCalls": []
@@ -92,7 +129,7 @@
       "index": 7,
       "name": "Dad",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": ".",
+      "content": "Make sure you keep it safe this time. Don’t forget it at the hotel again.",
       "nextIndex": 8,
       "choices": [],
       "eventCalls": []
@@ -101,7 +138,7 @@
       "index": 8,
       "name": "Mom",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": ".",
+      "content": "Sigh… I really didn’t want him to take that puppet. Those people in cloaks were just too weird.",
       "nextIndex": 9,
       "choices": [],
       "eventCalls": []
@@ -110,8 +147,8 @@
       "index": 9,
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "?",
-      "nextIndex": 10,
+      "content": "People in cloaks?",
+      "nextIndex": 40,
       "choices": [],
       "eventCalls": []
     },
@@ -119,7 +156,7 @@
       "index": 10,
       "name": "Mom",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": ".",
+      "content": "One day after school, we ran into them handing out free merch on the street. He really liked one of the puppets. I didn’t want to take it, but he kept begging, and now he won’t go anywhere without it.",
       "nextIndex": 1,
       "choices": [],
       "eventCalls": []
@@ -128,52 +165,70 @@
       "index": 12,
       "name": "",
       "avatarAddr": "",
-      "content": "A",
+      "content": "About this \"Troupe Elysium\"—would you mind sharing what you know about them?",
       "nextIndex": 17,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoOneTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
     },
     {
       "index": 13,
       "name": "",
       "avatarAddr": "",
-      "content": "不好意思，请问您之前提到的大会是指什么呢？",
+      "content": "Sorry to bother you, but may I ask what festival you were talking about earlier?",
       "nextIndex": 24,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoTwoTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
     },
     {
       "index": 14,
       "name": "",
       "avatarAddr": "",
-      "content": "别客气，小姑娘你不是芸台本地人吧？\r\n",
+      "content": "Don’t worry about it, sweetie—you’re not from Yuntai, are you?",
       "nextIndex": 34,
       "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 15,
-      "name": "",
-      "avatarAddr": "",
-      "content": "（获得事件条目：芸台市内的可疑团体）",
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 16,
-      "name": "",
-      "avatarAddr": "",
-      "content": "（获得事件条目：乞巧大会）",
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoTwoTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
     },
     {
       "index": 17,
       "name": "",
       "avatarAddr": "",
-      "content": "哎呀，你们这个年纪的孩子果然会对这种神秘的团体感兴趣呢~\r\n",
+      "content": "Oh dear, kids your age really do love mysterious groups like that, huh~",
       "nextIndex": 18,
       "choices": [],
       "eventCalls": []
@@ -182,7 +237,7 @@
       "index": 18,
       "name": "",
       "avatarAddr": "",
-      "content": "呵呵呵~阿姨我大学的时候也很喜欢研究这种事，还加入了研究本地民俗的社团，拜此所赐遇见了这孩子的父亲，很青春吧？",
+      "content": "Hehe~ I used to be into that kind of thing back in college too. I even joined a local folklore club—ended up meeting this boy’s father thanks to that. Kinda romantic, right?",
       "nextIndex": 19,
       "choices": [],
       "eventCalls": []
@@ -191,7 +246,7 @@
       "index": 19,
       "name": "",
       "avatarAddr": "",
-      "content": "......（脸红）。",
+      "content": "...... (blushing)",
       "nextIndex": 20,
       "choices": [],
       "eventCalls": []
@@ -200,7 +255,7 @@
       "index": 20,
       "name": "",
       "avatarAddr": "",
-      "content": "哈哈哈哈妈妈又把爸爸说脸红了！\r\n",
+      "content": "Hahaha! Dad's embarrassed again!",
       "nextIndex": 21,
       "choices": [],
       "eventCalls": []
@@ -209,7 +264,7 @@
       "index": 21,
       "name": "",
       "avatarAddr": "",
-      "content": "（真是个有活力的家庭啊。）\r\n",
+      "content": "(What a lively family.)",
       "nextIndex": 22,
       "choices": [],
       "eventCalls": []
@@ -218,7 +273,7 @@
       "index": 22,
       "name": "",
       "avatarAddr": "",
-      "content": "不过我确实不是很了解这个戏团的事。虽然经常能见到他们的成员在路边发放周边和进行宣讲活动，但是我见过的所有成员都带着面具，穿着带有兜帽的长袍。\r\n",
+      "content": "But honestly, I don’t know that much about the troupe itself. I’ve seen them around, handing out merch and giving talks on the street, but all the members I’ve come across were wearing masks and those long robes with hoods.。虽然经常能见到他们的成员在路边发放周边和进行宣讲活动，但是我见过的所有成员都带着面具，穿着带有兜帽的长袍。\r\n",
       "nextIndex": 23,
       "choices": [],
       "eventCalls": []
@@ -227,7 +282,7 @@
       "index": 23,
       "name": "",
       "avatarAddr": "",
-      "content": "那些人看起来实在太可疑了，要不是他们的宣传单写着要在今年乞巧大会上表演，我都担心是有什么奇怪的异教团体混进了芸台。\r\n",
+      "content": "They looked super suspicious. If their flyers hadn’t said they were performing at this year’s Qiqiao Festival, I’d honestly have thought they were some weird cult sneaking into the city.",
       "nextIndex": 33,
       "choices": [],
       "eventCalls": []
@@ -236,7 +291,7 @@
       "index": 24,
       "name": "",
       "avatarAddr": "",
-      "content": "你不知道吗？芸台每两年一届的乞巧大会啊！那可是芸台特有的，城市级别的盛会。大会上有各种各样有趣的活动，还会有很多本地特色的表演节目哦！\r",
+      "content": "You don’t know? It’s the Qiqiao Festival—held in Yuntai every two years! It’s one of our city’s biggest celebrations. There are all sorts of fun events and tons of traditional performances.\r",
       "nextIndex": 25,
       "choices": [],
       "eventCalls": []
@@ -245,7 +300,7 @@
       "index": 25,
       "name": "",
       "avatarAddr": "",
-      "content": "真的特别好玩！我们今天回去，正好能赶上明天大会正式开幕呢！",
+      "content": "It’s super fun! We’re getting back just in time—the opening ceremony is tomorrow!",
       "nextIndex": 26,
       "choices": [],
       "eventCalls": []
@@ -254,7 +309,7 @@
       "index": 26,
       "name": "",
       "avatarAddr": "",
-      "content": "嗯，我们这班飞机好像预计是晚上八点落地吧，还有一个多小时。",
+      "content": "Right, I think this flight’s supposed to land around 8 p.m. Still about an hour to go.",
       "nextIndex": 27,
       "choices": [],
       "eventCalls": []
@@ -263,7 +318,7 @@
       "index": 27,
       "name": "",
       "avatarAddr": "",
-      "content": "（乞巧？我记得好像是和星象相关的节日？我们那里没有过这个节的习惯。）\r\n",
+      "content": "(Qiqiao… I think I’ve heard of it. Isn’t it an astrology-related festival? We don’t celebrate it where I’m from.)",
       "nextIndex": 28,
       "choices": [],
       "eventCalls": []
@@ -272,7 +327,7 @@
       "index": 28,
       "name": "",
       "avatarAddr": "",
-      "content": "乞巧节我似乎有印象，芸台是有拜双星的传统吗？",
+      "content": "I think I’ve heard of Qiqiao before. Is there a tradition of star worship here in Yuntai?",
       "nextIndex": 29,
       "choices": [],
       "eventCalls": []
@@ -281,7 +336,7 @@
       "index": 29,
       "name": "",
       "avatarAddr": "",
-      "content": "?",
+      "content": "Star worship?",
       "nextIndex": 30,
       "choices": [],
       "eventCalls": []
@@ -290,7 +345,7 @@
       "index": 30,
       "name": "",
       "avatarAddr": "",
-      "content": "啊，芸台现在的乞巧大会已经没有拜星环节啦~不过拜喜母的人似乎还是有很多的。大会也保留着斗巧的传统，这也是为什么像极乐戏团这种不知来路的奇怪团体也能参与大会进行表演。\r\n",
+      "content": "Oh, that part’s not really practiced anymore~ But there are still a lot of people who worship Xi Mu. The festival still keeps the old “craft competitions,” which is probably how strange groups like Troupe Elysium get a chance to perform.",
       "nextIndex": 31,
       "choices": [],
       "eventCalls": []
@@ -299,7 +354,7 @@
       "index": 31,
       "name": "",
       "avatarAddr": "",
-      "content": "不过历年来参与斗巧的外地团体其实很少，一般不会起什么事端。",
+      "content": "Most of the outside groups that compete in the festival don’t cause any trouble, historically speaking.",
       "nextIndex": 32,
       "choices": [],
       "eventCalls": []
@@ -308,8 +363,8 @@
       "index": 32,
       "name": "",
       "avatarAddr": "",
-      "content": "喜母？斗巧？虽然很想再了解一些内容，但已经打扰他们太久了，就先到这里吧。）\r\n\r",
-      "nextIndex": 16,
+      "content": "(Xi Mu? Craft duels? I want to ask more, but I’ve already kept them long enough. Better leave it here for now.)",
+      "nextIndex": 12,
       "choices": [],
       "eventCalls": []
     },
@@ -317,8 +372,8 @@
       "index": 33,
       "name": "",
       "avatarAddr": "",
-      "content": "不过要真是这样，本地的官方机关肯定会介入的。",
-      "nextIndex": 15,
+      "content": "If that were the case, I’m sure the authorities would’ve stepped in by now.",
+      "nextIndex": 1,
       "choices": [],
       "eventCalls": []
     },
@@ -326,7 +381,7 @@
       "index": 34,
       "name": "",
       "avatarAddr": "",
-      "content": "是的阿姨，我是受朋友邀请而来的，事先都不知道有乞巧大会的事。\r\n",
+      "content": "No, ma’am. I’m here on a friend’s invitation. I didn’t even know the festival was happening.",
       "nextIndex": 35,
       "choices": [],
       "eventCalls": []
@@ -335,7 +390,7 @@
       "index": 35,
       "name": "",
       "avatarAddr": "",
-      "content": "哎呀，这样正好赶上才叫幸运呢！在芸台玩的开心哦！不过每次大会即将召开之际，芸台都会暂时封城直到三日后大会结束，这点你的朋友有告诉过你吗？\r\n",
+      "content": "Oh, then you’re in luck! It’s the perfect time to visit. Hope you have a great time here! Just so you know—Yuntai always goes into lockdown for the three days of the festival. Did your friend mention that to you?",
       "nextIndex": 36,
       "choices": [],
       "eventCalls": []
@@ -344,7 +399,7 @@
       "index": 36,
       "name": "",
       "avatarAddr": "",
-      "content": "?",
+      "content": "What?",
       "nextIndex": 37,
       "choices": [],
       "eventCalls": []
@@ -353,7 +408,7 @@
       "index": 37,
       "name": "",
       "avatarAddr": "",
-      "content": "没有吗，那记得平常都跟朋友呆在一起。往届乞巧大会期间，市内偶尔会爆发骚乱，感觉局势近几年有些紧张，一定要注意安全哦。\r\n",
+      "content": "They didn’t? Then make sure you stay close to your friend, okay? There’s been some unrest during past festivals, and things have felt especially tense these past few years. Please be careful.",
       "nextIndex": 38,
       "choices": [],
       "eventCalls": []
@@ -362,17 +417,26 @@
       "index": 38,
       "name": "",
       "avatarAddr": "",
-      "content": "Ty",
-      "nextIndex": 39,
+      "content": "Thank you—I will.",
+      "nextIndex": -1,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 39,
+      "index": 40,
+      "name": "Mom",
+      "avatarAddr": "DialogueImages/未命名作品",
+      "content": "Yeah, maybe starting about half a month ago, there were folks showing up in Yuntai calling themselves the “Troupe Elysium.”",
+      "nextIndex": 41,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 41,
       "name": "",
       "avatarAddr": "",
-      "content": "（获得事件条目：封城）",
-      "nextIndex": -1,
+      "content": "They said they were performing at this year’s festival, and started promoting themselves all over the city.",
+      "nextIndex": 10,
       "choices": [],
       "eventCalls": []
     }
