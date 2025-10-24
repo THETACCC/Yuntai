@@ -32,10 +32,12 @@ public class LevelManager2_1 : MonoBehaviour
     public bool useDeathCutForExit = true;
 
     // Dialogue Boolean
-    [HideInInspector] public bool infoOne = false;   // PassA
-    [HideInInspector] public bool infoTwo = false;   // 上班族
-    [HideInInspector] public bool infoThree = false; // ZhouShu
+    [HideInInspector] public bool infoPassA_1 = false;   // PassA 团
+    [HideInInspector] public bool infoPassA_2 = false;  //乞巧
+    [HideInInspector] public bool infoPassA_3 = false; //封城
+    [HideInInspector] public bool infoThree = false; // ZhouShu服务员不过来
     [HideInInspector] public bool infoFour = false;  // 乘务员为什么站在我座椅边上。
+
     [HideInInspector] public bool infoFive = false;
     [HideInInspector] public bool infoSix = false;
     [HideInInspector] public bool infoSeven = false;
@@ -69,6 +71,10 @@ public class LevelManager2_1 : MonoBehaviour
     [SerializeField] private GameObject ZhoushuSitting;
     [SerializeField] private DialogueTrigger zhoushuDialogue_Post;
     [SerializeField] private UI_E zhoushuUIE;
+
+    [HideInInspector] public bool isPassA_Conv1 = false;
+    [HideInInspector] public bool isPassA_Conv2 = false;
+    [HideInInspector] public bool isPassA_Conv3 = false;
 
     // —— 控制器快照，用于“禁-恢复” —— 
     private struct CtrlSnap
@@ -108,13 +114,13 @@ public class LevelManager2_1 : MonoBehaviour
     }
 
     // 全部 info 是否已收集
-    private bool HaveAllInfo() => infoOne && infoTwo && infoThree && infoFour;
+    private bool HaveAllInfo() => infoPassA_1 && infoPassA_2 && infoPassA_3 && infoFour;
 
     // 当前是否还有“可对话但未完成”的项
     private bool AnyPendingConversation() =>
-        (infoOne && !isStewardess_Conv1) ||
-        (infoTwo && !isStewardess_Conv2) ||
-        (infoThree && !isStewardess_Conv3) ||
+        (infoPassA_1 && !isStewardess_Conv1) ||
+        (infoPassA_2 && !isStewardess_Conv2) ||
+        (infoPassA_3 && !isStewardess_Conv3) ||
         (infoFour && !isStewardess_Conv4);
 
     public void AllStewardessConversationCheck()
@@ -122,11 +128,12 @@ public class LevelManager2_1 : MonoBehaviour
         bool nonePending = !AnyPendingConversation();
         isStewardess_AllConv = nonePending;
         isStewardessSet = nonePending && HaveAllInfo();
+
     }
 
-    public void SetInfoOneTrue() { if (!infoOne) { infoOne = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
-    public void SetInfoTwoTrue() { if (!infoTwo) { infoTwo = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
-    public void SetInfoThreeTrue() { if (!infoThree) { infoThree = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
+    public void SetInfoOneTrue() { if (!infoPassA_1) { infoPassA_1 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
+    public void SetInfoTwoTrue() { if (!infoPassA_2) { infoPassA_2 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
+    public void SetInfoThreeTrue() { if (!infoPassA_3) { infoPassA_3 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoFourTrue() { if (!infoFour) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoFiveTrue() { infoFive = true; }
     public void SetInfoSixTrue() { infoSix = true; }
@@ -153,6 +160,10 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetZhouShuConv5() { isZhouShu_Conv5 = true; IsAllZhouShuConv(); }
     public void SetZhouShuConv6() { isZhouShu_Conv6 = true; IsAllZhouShuConv(); }
     public void SetZhouShuConv7() { isZhouShu_Conv7 = true; IsAllZhouShuConv(); }
+
+    public void SetPassAConv1() { isPassA_Conv1 = true; }
+    public void SetPassAConv2() { isPassA_Conv2 = true; }
+    public void SetPassAConv3() { isPassA_Conv3 = true; }
 
     public void IsAllZhouShuConv()
     {

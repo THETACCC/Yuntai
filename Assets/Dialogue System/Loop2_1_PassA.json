@@ -18,15 +18,52 @@
       "choices": [
         {
           "text": "About this \"\"",
-          "targetIndex": 12
+          "targetIndex": 12,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isPassA_Conv1",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
         },
         {
           "text": "New ?",
-          "targetIndex": 13
+          "targetIndex": 13,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv2",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
         },
         {
           "text": "Thank you so much for telling me these.",
-          "targetIndex": 14
+          "targetIndex": 14,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isPassA_Conv1",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isPassA_Conv2",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
         }
       ],
       "eventCalls": [

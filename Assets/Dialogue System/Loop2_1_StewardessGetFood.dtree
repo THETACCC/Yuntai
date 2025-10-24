@@ -3,19 +3,129 @@
         {
             "id": "39a1a2ec-7535-4267-81a3-8988693e3af2",
             "index": 0,
+<<<<<<< Updated upstream
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Ni Hao",
             "positionX": -1665.3333740234375,
             "positionY": 796.0,
+=======
+            "characterId": "",
+            "content": "keep talking",
+            "positionX": -4065.60009765625,
+            "positionY": 364.0,
+>>>>>>> Stashed changes
             "choices": [
                 {
                     "text": "Why were you standing in front of my seat?",
-                    "conditions": [],
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoFour",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
                     "conditionLogic": 0
                 },
                 {
-                    "text": "Can I get food",
-                    "conditions": [],
+                    "text": "之前提到的乘务长... ",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoFour",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv1",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "城里奇怪的团体...",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv2",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "乞巧大会就要开始了... ",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv3",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "关于芸台封城的事...",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_3",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv4",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "I don' have enough topics",
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
                     "conditionLogic": 0
                 }
             ],
@@ -25,10 +135,17 @@
         {
             "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
             "index": 1,
+<<<<<<< Updated upstream
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "New Dialogue",
             "positionX": -350.66668701171877,
             "positionY": 786.6666870117188,
+=======
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -4114.39990234375,
+            "positionY": 3149.599853515625,
+>>>>>>> Stashed changes
             "choices": [
                 {
                     "text": "Conv1",
@@ -157,10 +274,17 @@
         {
             "id": "06aa94a4-e2d4-4a16-9b50-6347875007df",
             "index": 2,
+<<<<<<< Updated upstream
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv1",
             "positionX": 237.33334350585938,
             "positionY": 300.0,
+=======
+            "characterId": "",
+            "content": "Conv1",
+            "positionX": -3468.0,
+            "positionY": 2995.199951171875,
+>>>>>>> Stashed changes
             "choices": [],
             "eventCalls": [
                 {
@@ -180,10 +304,17 @@
         {
             "id": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
             "index": 3,
+<<<<<<< Updated upstream
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv2",
             "positionX": 237.33334350585938,
             "positionY": 760.6666870117188,
+=======
+            "characterId": "",
+            "content": "Conv2",
+            "positionX": -3468.0,
+            "positionY": 3461.599853515625,
+>>>>>>> Stashed changes
             "choices": [],
             "eventCalls": [
                 {
@@ -203,10 +334,17 @@
         {
             "id": "8b79b345-3d08-4324-8a26-ec9b3b398989",
             "index": 4,
+<<<<<<< Updated upstream
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv3",
             "positionX": 237.33334350585938,
             "positionY": 1192.6666259765625,
+=======
+            "characterId": "",
+            "content": "Conv3",
+            "positionX": -3468.0,
+            "positionY": 3893.599853515625,
+>>>>>>> Stashed changes
             "choices": [],
             "eventCalls": [
                 {
@@ -226,10 +364,17 @@
         {
             "id": "e18efd34-19d2-4e36-9603-e828474fe9e6",
             "index": 5,
+<<<<<<< Updated upstream
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": "Conv4",
             "positionX": 237.33334350585938,
             "positionY": 1628.6666259765625,
+=======
+            "characterId": "",
+            "content": "Conv4",
+            "positionX": -3468.0,
+            "positionY": 4329.60009765625,
+>>>>>>> Stashed changes
             "choices": [],
             "eventCalls": [
                 {
@@ -249,10 +394,656 @@
         {
             "id": "ae489795-6e09-448b-a84b-c30206416011",
             "index": 6,
+<<<<<<< Updated upstream
             "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
             "content": "Give You Give You",
             "positionX": 237.33334350585938,
             "positionY": 2058.666748046875,
+=======
+            "characterId": "",
+            "content": "Give You Give You",
+            "positionX": -3468.0,
+            "positionY": 4760.0,
+>>>>>>> Stashed changes
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToGotFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+<<<<<<< Updated upstream
+        },
+        {
+            "id": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
+            "index": 7,
+            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
+            "content": "No.",
+            "positionX": -1242.0,
+            "positionY": 1004.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "65a9af76-61d9-467f-8653-2839cecf70fd",
+            "index": 8,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "Maybe I can ask her a bunch of questions to make her annoyed.",
+            "positionX": -868.0,
+            "positionY": 1004.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+=======
+>>>>>>> Stashed changes
+        },
+        {
+            "id": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
+            "index": 9,
+<<<<<<< Updated upstream
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "content": "Event: Info 4 gathered.",
+            "positionX": -1213.3333740234375,
+            "positionY": 574.6666870117188,
+=======
+            "characterId": "",
+            "content": "您似乎已经在这里站了好一阵了，请问——\r\n",
+            "positionX": -3528.0,
+            "positionY": -305.5999755859375,
+>>>>>>> Stashed changes
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoFourTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
+            "index": 10,
+<<<<<<< Updated upstream
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "I will need to collect more info.",
+            "positionX": 237.33334350585938,
+            "positionY": 2600.666748046875,
+=======
+            "characterId": "",
+            "content": "I will need to collect more info.",
+            "positionX": -3468.0,
+            "positionY": 5445.60009765625,
+>>>>>>> Stashed changes
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
+            "index": 11,
+<<<<<<< Updated upstream
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "I should give it to Page.",
+            "positionX": 630.6666870117188,
+            "positionY": 2058.666748046875,
+=======
+            "characterId": "",
+            "content": "I should give it to Page.",
+            "positionX": -3074.400146484375,
+            "positionY": 4760.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d6c944c7-8892-4261-850f-22d7ea6ec205",
+            "index": 12,
+            "characterId": "",
+            "content": "那个，乘务员小姐？\r\n",
+            "positionX": -6524.0,
+            "positionY": 520.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "84ff1fe3-45cc-4503-a672-82076f75e70d",
+            "index": 13,
+            "characterId": "",
+            "content": "what",
+            "positionX": -6151.19970703125,
+            "positionY": 520.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "510af51c-5ef7-4da6-8c72-b31f39e995be",
+            "index": 14,
+            "characterId": "",
+            "content": "..",
+            "positionX": -5778.39990234375,
+            "positionY": 520.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1eefee50-35b4-42df-9648-dc77ebb08e8b",
+            "index": 15,
+            "characterId": "",
+            "content": "ya",
+            "positionX": -5464.0,
+            "positionY": 520.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "339bed6d-9e47-4334-8478-56891db48292",
+            "index": 16,
+            "characterId": "",
+            "content": "but",
+            "positionX": -5131.19970703125,
+            "positionY": 520.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c464e666-9b56-4500-8149-52f5b6012f10",
+            "index": 17,
+            "characterId": "",
+            "content": "rule",
+            "positionX": -4799.19970703125,
+            "positionY": 520.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fdbdbcd0-7864-442a-a45e-46ad68d265fb",
+            "index": 18,
+            "characterId": "",
+            "content": "..",
+            "positionX": -4456.7998046875,
+            "positionY": 520.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "767913cc-cf6a-4b16-b303-289301c6727f",
+            "index": 19,
+            "characterId": "",
+            "content": "......（微笑，但是青筋暴起的立绘）\r\n",
+            "positionX": -3155.199951171875,
+            "positionY": -305.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b31e095f-ddb3-45f9-9cf5-d36827268fd1",
+            "index": 20,
+            "characterId": "",
+            "content": "（好可怕！）\r\n",
+            "positionX": -2818.400146484375,
+            "positionY": -305.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "879b55d9-527a-4217-b6f7-94ca2da3d750",
+            "index": 21,
+            "characterId": "",
+            "content": "我也不知道呢这位女士。只是我们尊敬的乘务长大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。\r\n",
+            "positionX": -2477.60009765625,
+            "positionY": -305.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "29ed79c3-8661-4bf4-9b54-dec80e093491",
+            "index": 22,
+            "characterId": "",
+            "content": "（她在咬着牙说话......）\r\n",
+            "positionX": -2153.60009765625,
+            "positionY": -306.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "aa2599ee-eb9e-4813-a80b-5b3c9871ab54",
+            "index": 23,
+            "characterId": "",
+            "content": "（还是结束这个话题吧。）\r\n",
+            "positionX": -1820.800048828125,
+            "positionY": -297.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fc316b5f-324b-4d94-8bbe-17147f9425bf",
+            "index": 24,
+            "characterId": "",
+            "content": "（获得事件条目：乘务长的奇怪指令）",
+            "positionX": -1472.800048828125,
+            "positionY": -297.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2ef58a46-07c0-4765-add6-a89436206ea5",
+            "index": 25,
+            "characterId": "",
+            "content": "您之前提到过的那位乘务长，她现在在哪里呢？\r\n",
+            "positionX": -3531.199951171875,
+            "positionY": 192.8000030517578,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv1",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "65a61f92-2107-43b6-a4b2-df2e540a2bb1",
+            "index": 26,
+            "characterId": "",
+            "content": "大概就在前面的机舱里吧，具体我也不清楚呢。",
+            "positionX": -3158.400146484375,
+            "positionY": 192.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "57edd821-ea94-49b8-af83-f804d7de82ec",
+            "index": 27,
+            "characterId": "",
+            "content": "您和她很熟吗？\r\n",
+            "positionX": -2821.60009765625,
+            "positionY": 192.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b49a13e8-19ec-44f2-979c-bc9b60bd8472",
+            "index": 28,
+            "characterId": "",
+            "content": "我看着像和她很熟的样子吗？（微笑，青筋暴起立绘）\r\n",
+            "positionX": -2471.199951171875,
+            "positionY": 192.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f39420bc-6c12-4022-b509-e0658c7ff2b6",
+            "index": 29,
+            "characterId": "",
+            "content": ".",
+            "positionX": -2138.400146484375,
+            "positionY": 192.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "ddfd01a5-3e43-493a-94d3-201c44530316",
+            "index": 31,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3528.0,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv2",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5aa363b3-01bf-4092-818e-a22f18f1634a",
+            "index": 32,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3158.400146484375,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b2bd5f01-582d-4ac9-8a64-d79a6f07735d",
+            "index": 33,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2821.60009765625,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7551c964-71b9-496e-8244-3a05b30a4eab",
+            "index": 34,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2477.60009765625,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bd08ca8e-cd5e-4250-b644-80a82f2c1727",
+            "index": 35,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2135.199951171875,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "72599ba1-06ea-4304-89ed-341659a39f95",
+            "index": 36,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -1787.2000732421875,
+            "positionY": 847.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9663d765-630b-40b9-8293-f41037d81ac6",
+            "index": 37,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -1433.60009765625,
+            "positionY": 846.4000244140625,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "45a99783-890f-46d7-8396-4f522be36972",
+            "index": 38,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3528.0,
+            "positionY": 1467.199951171875,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "777eb244-a294-4582-ba56-4de274550cd5",
+            "index": 39,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3158.400146484375,
+            "positionY": 1467.199951171875,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fea771b0-0dfd-4138-a479-01faedf65404",
+            "index": 40,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2821.60009765625,
+            "positionY": 1467.199951171875,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "41cf55e8-a72b-4b5c-857b-99856e36f035",
+            "index": 41,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2477.60009765625,
+            "positionY": 1467.199951171875,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "89bb2809-ed33-465e-917e-673369429536",
+            "index": 42,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2123.199951171875,
+            "positionY": 1466.39990234375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "1e76ec48-c8cc-437d-992f-f5439f9380a4",
+            "index": 43,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3531.199951171875,
+            "positionY": 1985.5999755859375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv4",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7f77212a-7670-4cb3-9e16-18dc6e629218",
+            "index": 44,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -3161.60009765625,
+            "positionY": 1985.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e8b15a02-c0d3-400e-9e66-f32b4f47785d",
+            "index": 45,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": -2824.800048828125,
+            "positionY": 1985.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "index": 46,
+            "characterId": "",
+            "content": "糟了，已经想不出其他的话题了...）\r\n",
+            "positionX": -676.7999877929688,
+            "positionY": 820.7999877929688,
             "choices": [],
             "eventCalls": [
                 {
@@ -281,68 +1072,90 @@
             "conditionalBranches": []
         },
         {
-            "id": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
-            "index": 7,
-            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
-            "content": "No.",
-            "positionX": -1242.0,
-            "positionY": 1004.0,
+            "id": "a7207cee-f510-459e-94e6-47acbcf54842",
+            "index": 47,
+            "characterId": "",
+            "content": "女士，我也不是有意为难你，你站在这里跟我说了这么久，就是为了拿一份飞机餐吧。\r\n",
+            "positionX": -272.79998779296877,
+            "positionY": 820.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "65a9af76-61d9-467f-8653-2839cecf70fd",
-            "index": 8,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "Maybe I can ask her a bunch of questions to make her annoyed.",
-            "positionX": -868.0,
-            "positionY": 1004.0,
+            "id": "fe019a78-1533-408a-ad6a-67620f093383",
+            "index": 48,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": 147.1999969482422,
+            "positionY": 820.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
-            "index": 9,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": "Event: Info 4 gathered.",
-            "positionX": -1213.3333740234375,
-            "positionY": 574.6666870117188,
+            "id": "657bb8db-f59b-4381-ab7f-b67b8de9be93",
+            "index": 49,
+            "characterId": "",
+            "content": "给，拿了这个赶快走吧。不要告诉别的乘客哦，如果所有人都一窝蜂过来的话我会很困扰的。\r\n",
+            "positionX": 547.2000122070313,
+            "positionY": 820.7999877929688,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoFourTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
-            "index": 10,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "id": "29f496c0-9570-4e1f-91f3-b703838e56d4",
+            "index": 50,
+            "characterId": "",
+            "content": "的！非常感谢您！",
+            "positionX": 972.0,
+            "positionY": 819.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d01bb6c5-1335-4256-bb69-0450311958e5",
+            "index": 51,
+            "characterId": "",
+            "content": "行了行了快走吧......\r\n",
+            "positionX": 1354.39990234375,
+            "positionY": 820.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7dd4ea12-6ce8-496c-bbea-e97962341411",
+            "index": 52,
+            "characterId": "",
+            "content": "（虽然被识破，但策略本身好像还是奏效了。）\r\n",
+            "positionX": 1774.39990234375,
+            "positionY": 820.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0f344103-b5ec-498f-8030-0775e845cbe0",
+            "index": 53,
+            "characterId": "",
+            "content": "Get Food\n",
+            "positionX": 2183.199951171875,
+            "positionY": 820.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "04c79425-bd32-4fb8-a2ff-241e4baf3021",
+            "index": 54,
+            "characterId": "",
             "content": "I will need to collect more info.",
-            "positionX": 237.33334350585938,
-            "positionY": 2600.666748046875,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
-            "index": 11,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "I should give it to Page.",
-            "positionX": 630.6666870117188,
-            "positionY": 2058.666748046875,
+            "positionX": -3531.199951171875,
+            "positionY": 2554.39990234375,
+>>>>>>> Stashed changes
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -376,6 +1189,7 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+<<<<<<< Updated upstream
         },
         {
             "outputNodeId": "e6f36f17-3fbd-4151-b184-c4bdd35c38c8",
@@ -404,6 +1218,8 @@
             "choiceIndex": 0,
             "choiceText": "Why were you standing in front of my seat?",
             "branchPriority": -2
+=======
+>>>>>>> Stashed changes
         },
         {
             "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
@@ -453,6 +1269,366 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+<<<<<<< Updated upstream
+=======
+        },
+        {
+            "outputNodeId": "d6c944c7-8892-4261-850f-22d7ea6ec205",
+            "inputNodeId": "84ff1fe3-45cc-4503-a672-82076f75e70d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "84ff1fe3-45cc-4503-a672-82076f75e70d",
+            "inputNodeId": "510af51c-5ef7-4da6-8c72-b31f39e995be",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "510af51c-5ef7-4da6-8c72-b31f39e995be",
+            "inputNodeId": "1eefee50-35b4-42df-9648-dc77ebb08e8b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1eefee50-35b4-42df-9648-dc77ebb08e8b",
+            "inputNodeId": "339bed6d-9e47-4334-8478-56891db48292",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "339bed6d-9e47-4334-8478-56891db48292",
+            "inputNodeId": "c464e666-9b56-4500-8149-52f5b6012f10",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c464e666-9b56-4500-8149-52f5b6012f10",
+            "inputNodeId": "fdbdbcd0-7864-442a-a45e-46ad68d265fb",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
+            "inputNodeId": "767913cc-cf6a-4b16-b303-289301c6727f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fdbdbcd0-7864-442a-a45e-46ad68d265fb",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "767913cc-cf6a-4b16-b303-289301c6727f",
+            "inputNodeId": "b31e095f-ddb3-45f9-9cf5-d36827268fd1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b31e095f-ddb3-45f9-9cf5-d36827268fd1",
+            "inputNodeId": "879b55d9-527a-4217-b6f7-94ca2da3d750",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "879b55d9-527a-4217-b6f7-94ca2da3d750",
+            "inputNodeId": "29ed79c3-8661-4bf4-9b54-dec80e093491",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "29ed79c3-8661-4bf4-9b54-dec80e093491",
+            "inputNodeId": "aa2599ee-eb9e-4813-a80b-5b3c9871ab54",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "aa2599ee-eb9e-4813-a80b-5b3c9871ab54",
+            "inputNodeId": "fc316b5f-324b-4d94-8bbe-17147f9425bf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fc316b5f-324b-4d94-8bbe-17147f9425bf",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2ef58a46-07c0-4765-add6-a89436206ea5",
+            "inputNodeId": "65a61f92-2107-43b6-a4b2-df2e540a2bb1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "65a61f92-2107-43b6-a4b2-df2e540a2bb1",
+            "inputNodeId": "57edd821-ea94-49b8-af83-f804d7de82ec",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "57edd821-ea94-49b8-af83-f804d7de82ec",
+            "inputNodeId": "b49a13e8-19ec-44f2-979c-bc9b60bd8472",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b49a13e8-19ec-44f2-979c-bc9b60bd8472",
+            "inputNodeId": "f39420bc-6c12-4022-b509-e0658c7ff2b6",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ddfd01a5-3e43-493a-94d3-201c44530316",
+            "inputNodeId": "5aa363b3-01bf-4092-818e-a22f18f1634a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5aa363b3-01bf-4092-818e-a22f18f1634a",
+            "inputNodeId": "b2bd5f01-582d-4ac9-8a64-d79a6f07735d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b2bd5f01-582d-4ac9-8a64-d79a6f07735d",
+            "inputNodeId": "7551c964-71b9-496e-8244-3a05b30a4eab",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7551c964-71b9-496e-8244-3a05b30a4eab",
+            "inputNodeId": "bd08ca8e-cd5e-4250-b644-80a82f2c1727",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bd08ca8e-cd5e-4250-b644-80a82f2c1727",
+            "inputNodeId": "72599ba1-06ea-4304-89ed-341659a39f95",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "72599ba1-06ea-4304-89ed-341659a39f95",
+            "inputNodeId": "9663d765-630b-40b9-8293-f41037d81ac6",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "45a99783-890f-46d7-8396-4f522be36972",
+            "inputNodeId": "777eb244-a294-4582-ba56-4de274550cd5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "777eb244-a294-4582-ba56-4de274550cd5",
+            "inputNodeId": "fea771b0-0dfd-4138-a479-01faedf65404",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fea771b0-0dfd-4138-a479-01faedf65404",
+            "inputNodeId": "41cf55e8-a72b-4b5c-857b-99856e36f035",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "41cf55e8-a72b-4b5c-857b-99856e36f035",
+            "inputNodeId": "89bb2809-ed33-465e-917e-673369429536",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1e76ec48-c8cc-437d-992f-f5439f9380a4",
+            "inputNodeId": "7f77212a-7670-4cb3-9e16-18dc6e629218",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7f77212a-7670-4cb3-9e16-18dc6e629218",
+            "inputNodeId": "e8b15a02-c0d3-400e-9e66-f32b4f47785d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
+            "choiceIndex": 0,
+            "choiceText": "Why were you standing in front of my seat?",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "2ef58a46-07c0-4765-add6-a89436206ea5",
+            "choiceIndex": 1,
+            "choiceText": "之前提到的乘务长... ",
+            "branchPriority": -3
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "ddfd01a5-3e43-493a-94d3-201c44530316",
+            "choiceIndex": 2,
+            "choiceText": "城里奇怪的团体...",
+            "branchPriority": -4
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "45a99783-890f-46d7-8396-4f522be36972",
+            "choiceIndex": 3,
+            "choiceText": "乞巧大会就要开始了... ",
+            "branchPriority": -5
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "1e76ec48-c8cc-437d-992f-f5439f9380a4",
+            "choiceIndex": 4,
+            "choiceText": "关于芸台封城的事...",
+            "branchPriority": -6
+        },
+        {
+            "outputNodeId": "f39420bc-6c12-4022-b509-e0658c7ff2b6",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "9663d765-630b-40b9-8293-f41037d81ac6",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "89bb2809-ed33-465e-917e-673369429536",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "e8b15a02-c0d3-400e-9e66-f32b4f47785d",
+            "inputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "f39420bc-6c12-4022-b509-e0658c7ff2b6",
+            "inputNodeId": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "9663d765-630b-40b9-8293-f41037d81ac6",
+            "inputNodeId": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "89bb2809-ed33-465e-917e-673369429536",
+            "inputNodeId": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "e8b15a02-c0d3-400e-9e66-f32b4f47785d",
+            "inputNodeId": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "a162b641-7dec-4372-8d8b-d6c368be8e62",
+            "inputNodeId": "a7207cee-f510-459e-94e6-47acbcf54842",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a7207cee-f510-459e-94e6-47acbcf54842",
+            "inputNodeId": "fe019a78-1533-408a-ad6a-67620f093383",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fe019a78-1533-408a-ad6a-67620f093383",
+            "inputNodeId": "657bb8db-f59b-4381-ab7f-b67b8de9be93",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "657bb8db-f59b-4381-ab7f-b67b8de9be93",
+            "inputNodeId": "29f496c0-9570-4e1f-91f3-b703838e56d4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "29f496c0-9570-4e1f-91f3-b703838e56d4",
+            "inputNodeId": "d01bb6c5-1335-4256-bb69-0450311958e5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d01bb6c5-1335-4256-bb69-0450311958e5",
+            "inputNodeId": "7dd4ea12-6ce8-496c-bbea-e97962341411",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7dd4ea12-6ce8-496c-bbea-e97962341411",
+            "inputNodeId": "0f344103-b5ec-498f-8030-0775e845cbe0",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "04c79425-bd32-4fb8-a2ff-241e4baf3021",
+            "choiceIndex": 5,
+            "choiceText": "I don' have enough topics",
+            "branchPriority": -7
+>>>>>>> Stashed changes
         }
     ]
 }

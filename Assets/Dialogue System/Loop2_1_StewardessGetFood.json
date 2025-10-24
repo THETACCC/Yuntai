@@ -2,26 +2,148 @@
   "conversations": [
     {
       "index": 0,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
       "content": "Ni Hao",
+=======
+      "name": "",
+      "avatarAddr": "",
+      "content": "keep talking",
+>>>>>>> Stashed changes
       "nextIndex": -1,
       "choices": [
         {
           "text": "Why were you standing in front of my seat?",
-          "targetIndex": 9
+          "targetIndex": 9,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoFour",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
         },
         {
-          "text": "Can I get food",
-          "targetIndex": 7
+          "text": "之前提到的乘务长... ",
+          "targetIndex": 25,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoFour",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv1",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "城里奇怪的团体...",
+          "targetIndex": 31,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_1",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv2",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "乞巧大会就要开始了... ",
+          "targetIndex": 38,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_2",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv3",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "关于芸台封城的事...",
+          "targetIndex": 43,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_3",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv4",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "I don' have enough topics",
+          "targetIndex": 54,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "False"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
         }
       ],
       "eventCalls": []
     },
     {
       "index": 1,
+<<<<<<< Updated upstream
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "New Dialogue",
       "nextIndex": -1,
       "choices": [
@@ -156,8 +278,13 @@
     },
     {
       "index": 2,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Conv1",
       "nextIndex": 1,
       "choices": [],
@@ -177,8 +304,13 @@
     },
     {
       "index": 3,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Conv2",
       "nextIndex": 1,
       "choices": [],
@@ -198,8 +330,13 @@
     },
     {
       "index": 4,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Conv3",
       "nextIndex": 1,
       "choices": [],
@@ -219,8 +356,13 @@
     },
     {
       "index": 5,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Conv4",
       "nextIndex": 1,
       "choices": [],
@@ -240,8 +382,13 @@
     },
     {
       "index": 6,
+<<<<<<< Updated upstream
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Give You Give You",
       "nextIndex": 11,
       "choices": [],
@@ -271,6 +418,7 @@
       ]
     },
     {
+<<<<<<< Updated upstream
       "index": 7,
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
@@ -294,6 +442,13 @@
       "avatarAddr": "DialogueImages/未命名作品",
       "content": "Event: Info 4 gathered.",
       "nextIndex": -1,
+=======
+      "index": 9,
+      "name": "",
+      "avatarAddr": "",
+      "content": "您似乎已经在这里站了好一阵了，请问——\r\n",
+      "nextIndex": 19,
+>>>>>>> Stashed changes
       "choices": [],
       "eventCalls": [
         {
@@ -311,8 +466,13 @@
     },
     {
       "index": 10,
+<<<<<<< Updated upstream
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "I will need to collect more info.",
       "nextIndex": -1,
       "choices": [],
@@ -320,9 +480,567 @@
     },
     {
       "index": 11,
+<<<<<<< Updated upstream
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "I should give it to Page.",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 12,
+      "name": "",
+      "avatarAddr": "",
+      "content": "那个，乘务员小姐？\r\n",
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 13,
+      "name": "",
+      "avatarAddr": "",
+      "content": "what",
+      "nextIndex": 14,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 14,
+      "name": "",
+      "avatarAddr": "",
+      "content": "..",
+      "nextIndex": 15,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 15,
+      "name": "",
+      "avatarAddr": "",
+      "content": "ya",
+      "nextIndex": 16,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 16,
+      "name": "",
+      "avatarAddr": "",
+      "content": "but",
+      "nextIndex": 17,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 17,
+      "name": "",
+      "avatarAddr": "",
+      "content": "rule",
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 18,
+      "name": "",
+      "avatarAddr": "",
+      "content": "..",
+      "nextIndex": 0,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 19,
+      "name": "",
+      "avatarAddr": "",
+      "content": "......（微笑，但是青筋暴起的立绘）\r\n",
+      "nextIndex": 20,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 20,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（好可怕！）\r\n",
+      "nextIndex": 21,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 21,
+      "name": "",
+      "avatarAddr": "",
+      "content": "我也不知道呢这位女士。只是我们尊敬的乘务长大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。\r\n",
+      "nextIndex": 22,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 22,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（她在咬着牙说话......）\r\n",
+      "nextIndex": 23,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 23,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（还是结束这个话题吧。）\r\n",
+      "nextIndex": 24,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 24,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（获得事件条目：乘务长的奇怪指令）",
+      "nextIndex": 0,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 25,
+      "name": "",
+      "avatarAddr": "",
+      "content": "您之前提到过的那位乘务长，她现在在哪里呢？\r\n",
+      "nextIndex": 26,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv1",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "name": "",
+      "avatarAddr": "",
+      "content": "大概就在前面的机舱里吧，具体我也不清楚呢。",
+      "nextIndex": 27,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 27,
+      "name": "",
+      "avatarAddr": "",
+      "content": "您和她很熟吗？\r\n",
+      "nextIndex": 28,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 28,
+      "name": "",
+      "avatarAddr": "",
+      "content": "我看着像和她很熟的样子吗？（微笑，青筋暴起立绘）\r\n",
+      "nextIndex": 29,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 29,
+      "name": "",
+      "avatarAddr": "",
+      "content": ".",
+      "conditionalBranches": [
+        {
+          "targetIndex": 46,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 0,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 31,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 32,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv2",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 33,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 33,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 34,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 34,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 35,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 35,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 36,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 36,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 37,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 37,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "conditionalBranches": [
+        {
+          "targetIndex": 46,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 0,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 38,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 39,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 40,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 40,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 41,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 41,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 42,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 42,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "conditionalBranches": [
+        {
+          "targetIndex": 46,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 0,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 43,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 44,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv4",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 45,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 45,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "conditionalBranches": [
+        {
+          "targetIndex": 46,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 0,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 46,
+      "name": "",
+      "avatarAddr": "",
+      "content": "糟了，已经想不出其他的话题了...）\r\n",
+      "nextIndex": 47,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetgetFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToGotFood",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "name": "",
+      "avatarAddr": "",
+      "content": "女士，我也不是有意为难你，你站在这里跟我说了这么久，就是为了拿一份飞机餐吧。\r\n",
+      "nextIndex": 48,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 48,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": 49,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 49,
+      "name": "",
+      "avatarAddr": "",
+      "content": "给，拿了这个赶快走吧。不要告诉别的乘客哦，如果所有人都一窝蜂过来的话我会很困扰的。\r\n",
+      "nextIndex": 50,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 50,
+      "name": "",
+      "avatarAddr": "",
+      "content": "的！非常感谢您！",
+      "nextIndex": 51,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 51,
+      "name": "",
+      "avatarAddr": "",
+      "content": "行了行了快走吧......\r\n",
+      "nextIndex": 52,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 52,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（虽然被识破，但策略本身好像还是奏效了。）\r\n",
+      "nextIndex": 53,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 53,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Get Food\n",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 54,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I will need to collect more info.",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": []

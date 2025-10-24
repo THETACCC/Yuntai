@@ -2,10 +2,17 @@
   "conversations": [
     {
       "index": 0,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
       "content": "I'm hungry. Why is the stewardess never coming?",
       "nextIndex": -1,
+=======
+      "name": "",
+      "avatarAddr": "",
+      "content": "（之前没能和这个人对话，而灯暗下来后她就消失了。）\r\n",
+      "nextIndex": 7,
+>>>>>>> Stashed changes
       "choices": [
         {
           "text": "Here's your food.",
@@ -22,6 +29,7 @@
           "conditionLogic": "AND"
         }
       ],
+<<<<<<< Updated upstream
       "eventCalls": [
         {
           "targetObjectName": "LevelManager2_1",
@@ -51,6 +59,14 @@
       "index": 1,
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Thank you so much!! Yum Yum.",
       "nextIndex": 2,
       "choices": [],
@@ -70,8 +86,13 @@
     },
     {
       "index": 2,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "What do you wanna know?",
       "nextIndex": -1,
       "choices": [
@@ -136,8 +157,13 @@
     },
     {
       "index": 3,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Info 5",
       "nextIndex": 2,
       "choices": [],
@@ -168,8 +194,13 @@
     },
     {
       "index": 4,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Info 6",
       "nextIndex": 2,
       "choices": [],
@@ -200,8 +231,13 @@
     },
     {
       "index": 5,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "Info 7",
       "nextIndex": 2,
       "choices": [],
@@ -232,8 +268,13 @@
     },
     {
       "index": 6,
+<<<<<<< Updated upstream
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
+=======
+      "name": "",
+      "avatarAddr": "",
+>>>>>>> Stashed changes
       "content": "What!!?",
       "nextIndex": -1,
       "choices": [],
@@ -261,6 +302,92 @@
           "triggerOnEnd": false
         }
       ]
+    },
+    {
+      "index": 7,
+      "name": "",
+      "avatarAddr": "",
+      "content": "唔~~（烦恼立绘）\r\n",
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoThreeTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToForFood",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "name": "",
+      "avatarAddr": "",
+      "content": "您好，请问——\r\n",
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 9,
+      "name": "",
+      "avatarAddr": "",
+      "content": "e",
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 10,
+      "name": "",
+      "avatarAddr": "",
+      "content": "什么？我没有听清？\r\n",
+      "nextIndex": 11,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 11,
+      "name": "",
+      "avatarAddr": "",
+      "content": "饿...我好饿...饿..",
+      "nextIndex": 12,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 12,
+      "name": "",
+      "avatarAddr": "",
+      "content": "发饭的乘务员小姐...一直没有来...我真的...好饿......\r\n",
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 13,
+      "name": "",
+      "avatarAddr": "",
+      "content": "（感觉没法和这种状态下的她交流啊，去问问看乘务员小姐能不能给我一盒飞机餐吧。）\r\n",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
