@@ -4,18 +4,9 @@
       "index": 0,
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": "Ni Hao",
-      "nextIndex": -1,
-      "choices": [
-        {
-          "text": "Why were you standing in front of my seat?",
-          "targetIndex": 9
-        },
-        {
-          "text": "Can I get food",
-          "targetIndex": 7
-        }
-      ],
+      "content": "Um, excuse me?",
+      "nextIndex": 12,
+      "choices": [],
       "eventCalls": []
     },
     {
@@ -271,24 +262,6 @@
       ]
     },
     {
-      "index": 7,
-      "name": "Stewardess",
-      "avatarAddr": "DialogueImages/未命名作品",
-      "content": "No.",
-      "nextIndex": 8,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 8,
-      "name": "Veris",
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "Maybe I can ask her a bunch of questions to make her annoyed.",
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
       "index": 9,
       "name": "Stewardess",
       "avatarAddr": "DialogueImages/未命名作品",
@@ -324,6 +297,408 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "content": "I should give it to Page.",
       "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 12,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Hm? What is it now, miss? ",
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 13,
+      "name": "",
+      "avatarAddr": "",
+      "content": "There’s a girl back there who looks really hungry. Would it be possible for me to take a meal to her?",
+      "nextIndex": 14,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 14,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Oh my, I’m afraid not~ All in-flight meals are distributed according to schedule. I kindly ask you to be pa~tient~",
+      "nextIndex": 15,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 15,
+      "name": "",
+      "avatarAddr": "",
+      "content": "But—",
+      "nextIndex": 16,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 16,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Rules are rules, you know~",
+      "nextIndex": 17,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 17,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(She really doesn’t want to talk to me.)",
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 18,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Maybe if I just keep bothering her, she’ll lose patience and hand one over.)",
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": "Why standing here this whole time?",
+          "targetIndex": 19,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoFour",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "You mentioned your supervisor earlier...",
+          "targetIndex": 25,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoFour",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv4",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "The strange groups in the city...",
+          "targetIndex": 32,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_1",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv1",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "The Qiqiao Festival is starting soon...",
+          "targetIndex": 33,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_2",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv2",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "About Yuntai going into lockdown...",
+          "targetIndex": 34,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "infoPassA_3",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_Conv3",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        }
+      ],
+      "eventCalls": []
+    },
+    {
+      "index": 19,
+      "name": "",
+      "avatarAddr": "",
+      "content": "You’ve been standing here for quite a while... may I ask—",
+      "nextIndex": 20,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoFourTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "name": "",
+      "avatarAddr": "",
+      "content": "......",
+      "nextIndex": 21,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 21,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(That’s terrifying!)",
+      "nextIndex": 22,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 22,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Oh, I wouldn’t know, miss. Our highly esteemed chief attendant suddenly ordered me to stand here on standby. Until she responds, I absolutely cannot leave my post.",
+      "nextIndex": 23,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 23,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(She’s speaking through clenched teeth...)",
+      "nextIndex": 24,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 24,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Better drop the subject.)",
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 25,
+      "name": "",
+      "avatarAddr": "",
+      "content": "The chief attendant you mentioned earlier—do you know where she is now?",
+      "nextIndex": 26,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv4",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Probably up in the front cabin somewhere. I don’t know the details.",
+      "nextIndex": 27,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 27,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Are you two close?",
+      "nextIndex": 28,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 28,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Do I look like someone who’s close with her?",
+      "nextIndex": 29,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 29,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Yeah… this conversation’s going nowhere.)",
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 32,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I heard there’ve been strange groups active in Yuntai recently.",
+      "nextIndex": 35,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv1",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv2",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "name": "",
+      "avatarAddr": "",
+      "content": "New Dialogue",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetStewardessConv3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Miss, I’m not from Yuntai. I don’t really know anything about that. I just work on the plane.",
+      "nextIndex": 36,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 36,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Have you seen anyone suspicious onboard lately?",
+      "nextIndex": 37,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 37,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Of course. That weird girl in the back wearing a Taoist robe looks pretty suspicious, doesn’t she?",
+      "nextIndex": 38,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 38,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(She does look kind of suspicious...)",
+      "nextIndex": 39,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 39,
+      "name": "",
+      "avatarAddr": "",
+      "content": "But as long as they don’t cause trouble, it’s not our place to intervene. We’re service crew, not judges.",
+      "nextIndex": 40,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 40,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(So she’s actually quite professional…)",
+      "nextIndex": 18,
       "choices": [],
       "eventCalls": []
     }

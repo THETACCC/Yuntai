@@ -378,7 +378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &130409872
 Transform:
   m_ObjectHideFlags: 0
@@ -2918,6 +2918,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Worker
       objectReference: {fileID: 0}
+    - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3057,8 +3061,9 @@ MonoBehaviour:
   Trigger10: {fileID: 1677128404}
   nextLoop: {fileID: 1279740583}
   useDeathCutForExit: 1
-  infoOne: 0
-  infoTwo: 0
+  infoPassA_1: 0
+  infoPassA_2: 0
+  infoPassA_3: 0
   infoThree: 0
   infoFour: 0
   infoFive: 0
