@@ -458,6 +458,10 @@
             }
           ],
           "conditionLogic": "AND"
+        },
+        {
+          "text": "Sorry to bother you. I’ll be going now.",
+          "targetIndex": 47
         }
       ],
       "eventCalls": []
@@ -581,7 +585,54 @@
       "name": "",
       "avatarAddr": "",
       "content": "(Yeah… this conversation’s going nowhere.)",
-      "nextIndex": 18,
+      "conditionalBranches": [
+        {
+          "targetIndex": 60,
+          "priority": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "False"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 48,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 18,
+          "priority": 0
+        }
+      ],
       "choices": [],
       "eventCalls": []
     },
@@ -698,7 +749,54 @@
       "name": "",
       "avatarAddr": "",
       "content": "(So she’s actually quite professional…)",
-      "nextIndex": 18,
+      "conditionalBranches": [
+        {
+          "targetIndex": 60,
+          "priority": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 48,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 18,
+          "priority": 0
+        }
+      ],
       "choices": [],
       "eventCalls": []
     },
@@ -734,7 +832,54 @@
       "name": "",
       "avatarAddr": "",
       "content": "(I think she just insulted me.)",
-      "nextIndex": -1,
+      "conditionalBranches": [
+        {
+          "targetIndex": 60,
+          "priority": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 48,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 18,
+          "priority": 0
+        }
+      ],
       "choices": [],
       "eventCalls": []
     },
@@ -752,6 +897,175 @@
       "name": "",
       "avatarAddr": "",
       "content": "(She says that, but her smile looks more genuine than ever. She must be happy to get some time off.)",
+      "conditionalBranches": [
+        {
+          "targetIndex": 60,
+          "priority": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 48,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardess_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            },
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isStewardessSet",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 18,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 47,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Sorry to bother you. I’ll be on my way.",
+      "nextIndex": 58,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 48,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(I’m out of things to talk about...)",
+      "nextIndex": 49,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetgetFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToGotFood",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 49,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Alright, miss. I know what you're after. You’ve been standing here chatting with me all this time just to get an in-flight meal, right?",
+      "nextIndex": 50,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 50,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Oh no, she saw right through me.)",
+      "nextIndex": 51,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 51,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Here. Take this and go. Don’t let the other passengers know, alright? If everyone rushes over, it’ll be a huge hassle.",
+      "nextIndex": 52,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 52,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Got it! Thank you so much!",
+      "nextIndex": 53,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 53,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Yeah, yeah, just go already...",
+      "nextIndex": 54,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 54,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Even though she saw through me, I guess the strategy still worked.)",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 58,
+      "name": "",
+      "avatarAddr": "",
+      "content": "......",
+      "nextIndex": 59,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 59,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Let's go, let's just go.)",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 60,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I have no more topics to talk to her.",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": []
