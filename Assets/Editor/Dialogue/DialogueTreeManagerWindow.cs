@@ -81,7 +81,6 @@ public class DialogueTreeManagerWindow : EditorWindow
         public string name;
         public string id;
         public string description = "";
-        public bool isExpanded = true;
         public List<string> fileGuids = new List<string>();
         public List<VirtualFolder> subfolders = new List<VirtualFolder>();
     }
@@ -96,6 +95,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     private VirtualFolderData folderData;
     private CharacterLibraryData characterLibrary;
     private Dictionary<string, string> guidToPath = new Dictionary<string, string>();
+    private Dictionary<string, bool> folderExpandedState = new Dictionary<string, bool>(); // 临时存储展开状态，不保存到文件
     private Vector2 scrollPos;
     private VirtualFolder draggedFromFolder;
     private string draggedFileGuid;
@@ -139,6 +139,10 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
         ScanAllDialogueTrees();
+
+        // 确保default_folder默认展开
+        if (!folderExpandedState.ContainsKey("default_folder"))
+            folderExpandedState["default_folder"] = true;
 
         // 记录文件修改时间
         UpdateFileModificationTimes();
@@ -597,15 +601,30 @@ public class DialogueTreeManagerWindow : EditorWindow
         try
         {
             string savePath = GetCharacterLibraryPath();
-            string json = JsonUtility.ToJson(characterLibrary, true);
+            string newJson = JsonUtility.ToJson(characterLibrary, true);
 
-            string folder = Path.GetDirectoryName(savePath);
-            if (!Directory.Exists(folder))
+            // 只有在内容真正改变时才写入文件
+            bool needsSave = true;
+            if (File.Exists(savePath))
             {
-                Directory.CreateDirectory(folder);
+                string existingJson = File.ReadAllText(savePath);
+                if (existingJson == newJson)
+                {
+                    needsSave = false;
+                }
             }
 
-            File.WriteAllText(savePath, json);
+            if (needsSave)
+            {
+                string folder = Path.GetDirectoryName(savePath);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                File.WriteAllText(savePath, newJson);
+                Debug.Log("[Manager] Character library saved (content changed)");
+            }
         }
         catch (System.Exception e)
         {
@@ -618,21 +637,36 @@ public class DialogueTreeManagerWindow : EditorWindow
         try
         {
             string savePath = GetCharacterLibraryPath();
-            string json = JsonUtility.ToJson(characterLibrary, true);
+            string newJson = JsonUtility.ToJson(characterLibrary, true);
 
-            string folder = Path.GetDirectoryName(savePath);
-            if (!Directory.Exists(folder))
+            // 只有在内容真正改变时才写入文件
+            bool needsSave = true;
+            if (File.Exists(savePath))
             {
-                Directory.CreateDirectory(folder);
+                string existingJson = File.ReadAllText(savePath);
+                if (existingJson == newJson)
+                {
+                    needsSave = false;
+                }
             }
 
-            File.WriteAllText(savePath, json);
-
-            EditorApplication.delayCall += () =>
+            if (needsSave)
             {
-                DialogueTreeEditor.RefreshAllOpenEditors();
-                RegenerateAffectedRuntimeJSON(modifiedCharacterId);
-            };
+                string folder = Path.GetDirectoryName(savePath);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                File.WriteAllText(savePath, newJson);
+                Debug.Log("[Manager] Character library saved (content changed)");
+
+                EditorApplication.delayCall += () =>
+                {
+                    DialogueTreeEditor.RefreshAllOpenEditors();
+                    RegenerateAffectedRuntimeJSON(modifiedCharacterId);
+                };
+            }
         }
         catch (System.Exception e)
         {
@@ -922,9 +956,10 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
 
         Rect arrowRect = new Rect(rect.x + 5, rect.y + 3, 15, rect.height);
-        if (GUI.Button(arrowRect, folder.isExpanded ? "▼" : "▶", EditorStyles.label))
+        bool isExpanded = folderExpandedState.ContainsKey(folder.id) && folderExpandedState[folder.id];
+        if (GUI.Button(arrowRect, isExpanded ? "▼" : "▶", EditorStyles.label))
         {
-            folder.isExpanded = !folder.isExpanded;
+            folderExpandedState[folder.id] = !isExpanded;
         }
 
         Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 200, rect.height);
@@ -1025,7 +1060,8 @@ public class DialogueTreeManagerWindow : EditorWindow
         HandleFolderDragForReorder(rect, folder, parentFolder);
         HandleFolderContextMenu(rect, folder);
 
-        if (folder.isExpanded)
+        bool isExpandedForChildren = folderExpandedState.ContainsKey(folder.id) && folderExpandedState[folder.id];
+        if (isExpandedForChildren)
         {
             foreach (var subfolder in folder.subfolders.ToList())
             {
@@ -1187,7 +1223,9 @@ public class DialogueTreeManagerWindow : EditorWindow
             // 只有在同一个父级下才能排序
             if (draggedFolderParent == parentFolder)
             {
-                if (e.type == EventType.DragUpdated && rect.Contains(e.mousePosition))
+                // 扩大检测范围，包括文件夹上下各10像素的间隙
+                Rect expandedRect = new Rect(rect.x, rect.y - 10, rect.width, rect.height + 20);
+                if (e.type == EventType.DragUpdated && expandedRect.Contains(e.mousePosition))
                 {
                     DragAndDrop.visualMode = DragAndDropVisualMode.Move;
 
@@ -1205,7 +1243,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
                     e.Use();
                 }
-                else if (e.type == EventType.DragPerform && rect.Contains(e.mousePosition))
+                else if (e.type == EventType.DragPerform && expandedRect.Contains(e.mousePosition))
                 {
                     // 根据鼠标位置判断插入到前面还是后面
                     float mouseY = e.mousePosition.y;
@@ -1300,7 +1338,9 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         Event e = Event.current;
 
-        if (rect.Contains(e.mousePosition))
+        // 扩大检测范围，包括文件上下各10像素的间隙
+        Rect expandedRect = new Rect(rect.x, rect.y - 10, rect.width, rect.height + 20);
+        if (expandedRect.Contains(e.mousePosition))
         {
             if (e.type == EventType.DragUpdated)
             {
@@ -1614,7 +1654,6 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 name = "All Dialogues",
                 id = "default_folder",
-                isExpanded = true
             };
 
             defaultFolder.fileGuids.AddRange(folderData.rootFileGuids);
@@ -1667,15 +1706,31 @@ public class DialogueTreeManagerWindow : EditorWindow
         try
         {
             string savePath = GetFolderStructurePath();
-            string json = JsonUtility.ToJson(folderData, true);
 
-            string folder = Path.GetDirectoryName(savePath);
-            if (!Directory.Exists(folder))
+            string newJson = JsonUtility.ToJson(folderData, true);
+
+            // 只有在内容真正改变时才写入文件
+            bool needsSave = true;
+            if (File.Exists(savePath))
             {
-                Directory.CreateDirectory(folder);
+                string existingJson = File.ReadAllText(savePath);
+                if (existingJson == newJson)
+                {
+                    needsSave = false;
+                }
             }
 
-            File.WriteAllText(savePath, json);
+            if (needsSave)
+            {
+                string folder = Path.GetDirectoryName(savePath);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                File.WriteAllText(savePath, newJson);
+                Debug.Log("[Manager] Folder structure saved (content changed)");
+            }
         }
         catch (System.Exception e)
         {
@@ -1693,6 +1748,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 string json = File.ReadAllText(loadPath);
                 folderData = JsonUtility.FromJson<VirtualFolderData>(json);
+
             }
             else
             {
