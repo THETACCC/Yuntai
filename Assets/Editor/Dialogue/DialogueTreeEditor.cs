@@ -135,21 +135,23 @@ public class DialogueTreeEditor : EditorWindow
 
         if (!string.IsNullOrEmpty(currentFilePath))
         {
-            string fileName = Path.GetFileName(currentFilePath);
+            // 显示 .dtree 文件名（虽然内部使用 .json 路径）
+            string dtreeFileName = Path.ChangeExtension(Path.GetFileName(currentFilePath), ".dtree");
 
             if (hasUnsavedChanges)
             {
-                fileNameLabel.text = "* " + fileName + " (unsaved)";
+                fileNameLabel.text = "* " + dtreeFileName + " (unsaved)";
                 fileNameLabel.style.color = new StyleColor(new Color(1f, 0.8f, 0.4f));  // 橙色
             }
             else
             {
-                fileNameLabel.text = fileName;
+                fileNameLabel.text = dtreeFileName;
                 fileNameLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));  // 灰白色
             }
 
-            // Tooltip 显示完整路径
-            fileNameLabel.tooltip = currentFilePath;
+            // Tooltip 显示完整的 .dtree 路径
+            string dtreePath = Path.ChangeExtension(currentFilePath, ".dtree");
+            fileNameLabel.tooltip = dtreePath;
         }
         else
         {
