@@ -4,48 +4,10 @@
       "index": 0,
       "name": "Page",
       "avatarAddr": "DialogueImages/未命名作品",
-      "content": "I'm hungry. Why is the stewardess never coming?",
-      "nextIndex": -1,
-      "choices": [
-        {
-          "text": "Here's your food.",
-          "targetIndex": 1,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "getFood",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        }
-      ],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoThreeTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        },
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "ChangeStewardessToForFood",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
+      "content": "(I didn’t manage to talk to her before. After the lights went out, she just disappeared.)",
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -261,6 +223,111 @@
           "triggerOnEnd": false
         }
       ]
+    },
+    {
+      "index": 8,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Hungry... I’m so hungry...",
+      "nextIndex": 15,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 9,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Mmm~~",
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 10,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Excuse me, may I—",
+      "nextIndex": 11,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 11,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Eh…",
+      "nextIndex": 12,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 12,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I’m sorry, what did you say?",
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 13,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoThreeTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToForFood",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": "",
+      "avatarAddr": "",
+      "content": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
+      "conditionalBranches": [
+        {
+          "targetIndex": 1,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "getFood",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 13,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
