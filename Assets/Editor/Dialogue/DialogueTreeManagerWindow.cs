@@ -104,6 +104,12 @@ public class DialogueTreeManagerWindow : EditorWindow
     private string editingCharacterId = "";  // 正在编辑的角色ID
     private Dictionary<string, Sprite> tempSelectedSprites = new Dictionary<string, Sprite>();  // 临时选择的sprite
 
+    // 文件监听相关
+    private System.DateTime lastCharacterLibraryTime;
+    private System.DateTime lastFolderStructureTime;
+    private double nextCheckTime = 0;
+    private const double CHECK_INTERVAL = 2.0;  // 每2秒检查一次
+
     // 缓存的背景texture，避免每帧创建导致GUI混乱
     private Texture2D cachedNormalBg;
     private Texture2D cachedFocusedBg;
@@ -134,13 +140,21 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadCharacterLibrary();
         ScanAllDialogueTrees();
 
-        // 记录文件加载时间
+        // 记录文件修改时间
+        UpdateFileModificationTimes();
+
+        // 注册定期检查回调
+        EditorApplication.update += CheckFileChanges;
+
         if (cachedFocusedBg == null)
             cachedFocusedBg = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
     }
 
     private void OnDisable()
     {
+        // 取消注册定期检查回调
+        EditorApplication.update -= CheckFileChanges;
+
         SaveVirtualFolderStructure();
         SaveCharacterLibraryInternal();
     }
@@ -2045,11 +2059,81 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadCharacterLibrary();
         ScanAllDialogueTrees();
 
+        // 更新文件修改时间
+        UpdateFileModificationTimes();
+
         Debug.Log($"✓ Loaded {guidToPath.Count} dialogue files");
         Debug.Log($"✓ Loaded {characterLibrary?.characters?.Length ?? 0} characters");
         Debug.Log("Refresh complete!");
 
         Repaint();
+    }
+
+    private void OnFocus()
+    {
+        // 窗口获得焦点时检查文件是否被修改
+        CheckFileChangesNow();
+    }
+
+    private void CheckFileChanges()
+    {
+        // 定期检查（每2秒）
+        if (EditorApplication.timeSinceStartup > nextCheckTime)
+        {
+            nextCheckTime = EditorApplication.timeSinceStartup + CHECK_INTERVAL;
+            CheckFileChangesNow();
+        }
+    }
+
+    private void CheckFileChangesNow()
+    {
+        bool needReload = false;
+
+        string charLibPath = GetCharacterLibraryPath();
+        if (File.Exists(charLibPath))
+        {
+            var currentTime = File.GetLastWriteTime(charLibPath);
+            if (currentTime != lastCharacterLibraryTime)
+            {
+                Debug.Log($"[Manager] Detected CharacterLibrary.json change, auto-reloading...");
+                needReload = true;
+            }
+        }
+
+        string folderStructPath = GetFolderStructurePath();
+        if (File.Exists(folderStructPath))
+        {
+            var currentTime = File.GetLastWriteTime(folderStructPath);
+            if (currentTime != lastFolderStructureTime)
+            {
+                Debug.Log($"[Manager] Detected FolderStructure.json change, auto-reloading...");
+                needReload = true;
+            }
+        }
+
+        if (needReload)
+        {
+            LoadVirtualFolderStructure();
+            LoadCharacterLibrary();
+            ScanAllDialogueTrees();
+            UpdateFileModificationTimes();
+            Repaint();
+        }
+    }
+
+    private void UpdateFileModificationTimes()
+    {
+        string charLibPath = GetCharacterLibraryPath();
+        if (File.Exists(charLibPath))
+        {
+            lastCharacterLibraryTime = File.GetLastWriteTime(charLibPath);
+        }
+
+        string folderStructPath = GetFolderStructurePath();
+        if (File.Exists(folderStructPath))
+        {
+            lastFolderStructureTime = File.GetLastWriteTime(folderStructPath);
+        }
     }
     #endregion
 }
