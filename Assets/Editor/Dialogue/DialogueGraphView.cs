@@ -181,7 +181,7 @@ public class DialogueGraphView : GraphView
         }
 
         UpdateViewTransform(targetPosition, new Vector3(currentZoom, currentZoom, 1f));
-        Debug.Log($"Successfully centered on Node 0");
+        //Debug.Log($"Successfully centered on Node 0");
     }
 
     public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
@@ -644,7 +644,7 @@ public class DialogueGraphView : GraphView
             }
         }
 
-        Debug.Log($"[LoadDialogueTree] Loaded {nodeDict.Count} nodes and {treeData.connections.Count} connections");
+        //Debug.Log($"[LoadDialogueTree] Loaded {nodeDict.Count} nodes and {treeData.connections.Count} connections");
     }
 
     private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite,

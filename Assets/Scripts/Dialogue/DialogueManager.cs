@@ -27,6 +27,9 @@ public class DialogueManager : MonoBehaviour
     public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
 
+    // Conversation 快速查找字典（index -> Conversation）
+    private Dictionary<int, Conversation> conversationDict = new Dictionary<int, Conversation>();
+
     public bool isDialogueFinished = false;
 
     private void Awake()
@@ -69,7 +72,14 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        var currentConversation = dialogueData.conversations[dialogueData.currentIndex];
+        // 通过 index 字段查找 conversation
+        var currentConversation = GetConversationByIndex(dialogueData.currentIndex);
+        if (currentConversation == null)
+        {
+            Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
+            EndDialogue();
+            return;
+        }
 
         //update information
         contentText.text = currentConversation.content;
@@ -108,8 +118,8 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-        
-        
+
+
 
         // Handle choices
         if (currentConversation.choices.Length > 0)
@@ -331,7 +341,7 @@ public class DialogueManager : MonoBehaviour
             // 处理 bool 类型
             else if (currentValue is bool boolCurrent)
             {
-                
+
                 if (!bool.TryParse(compareValueStr, out bool boolCompare))
                 {
                     Debug.LogWarning($"[Condition Check] Cannot parse '{compareValueStr}' as bool.");
@@ -349,7 +359,7 @@ public class DialogueManager : MonoBehaviour
                         return false;
                 }
 
-                
+
             }
 
             /*
@@ -405,6 +415,17 @@ public class DialogueManager : MonoBehaviour
             string jsonContent = dialogueJsonFile.text;
             dialogueData = JsonUtility.FromJson<DialogueData>(jsonContent);
 
+            // 构建 index -> Conversation 字典
+            conversationDict.Clear();
+            if (dialogueData?.conversations != null)
+            {
+                foreach (var conversation in dialogueData.conversations)
+                {
+                    conversationDict[conversation.index] = conversation;
+                }
+                //Debug.Log($"[DialogueManager] Loaded {conversationDict.Count} conversations");
+            }
+
             /*
             // 测试输出
             foreach (var conversation in dialogueData.conversations)
@@ -422,7 +443,17 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue()
     {
         isDialogueActive = true;
-        StartDialogueAtIndex(0);
+        //StartDialogueAtIndex(0);
+        if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
+        {
+            Debug.LogError("[DialogueManager] dialogueData is null or empty. Load a JSON first.");
+            return;
+        }
+
+        dialogueData.currentIndex = dialogueData.conversations[0].index;
+        // show UI
+        StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
+        UpdateDialogue();
     }
 
 
@@ -433,8 +464,16 @@ public class DialogueManager : MonoBehaviour
 
     public void NextDialogueIndex()
     {
-        Debug.Log(dialogueData.conversations[dialogueData.currentIndex].nextIndex);
-        var currentConversation = dialogueData.conversations[dialogueData.currentIndex];
+        // 通过 index 字段查找 conversation
+        var currentConversation = GetConversationByIndex(dialogueData.currentIndex);
+        if (currentConversation == null)
+        {
+            Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
+            dialogueData.currentIndex = -1;
+            return;
+        }
+
+        //Debug.Log(currentConversation.nextIndex);
 
         if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
         {
@@ -454,10 +493,11 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        dialogueData.currentIndex = dialogueData.conversations[dialogueData.currentIndex].nextIndex;
+        dialogueData.currentIndex = currentConversation.nextIndex;
 
     }
 
+    /*
     // 从某个 index 开始（不换 JSON）
     public void StartDialogueAtIndex(int startIndex)
     {
@@ -490,6 +530,19 @@ public class DialogueManager : MonoBehaviour
     {
         return dialogueData.currentIndex;
     }
+    */
+
+    // 通过 index 字段查找 conversation
+    private Conversation GetConversationByIndex(int index)
+    {
+        if (conversationDict.TryGetValue(index, out Conversation conversation))
+        {
+            return conversation;
+        }
+
+        Debug.LogError($"[DialogueManager] Conversation with index {index} not found");
+        return null;
+    }
 }
 
 
@@ -510,7 +563,7 @@ public class Conversation
     public ConditionalBranch[] conditionalBranches;
     public Choice[] choices;
     public int nextIndex; //default next index if no choice, -1 if there is no next conversation
-    public List<DialogueEventCall> eventCalls; 
+    public List<DialogueEventCall> eventCalls;
 }
 
 [Serializable]
@@ -518,16 +571,15 @@ public struct Choice
 {
     public string text;
     public int targetIndex;
-    public List<ChoiceCondition> conditions;  
+    public List<ChoiceCondition> conditions;
     public ConditionLogic conditionLogic;
 }
 
 [Serializable]
-public struct ConditionalBranch {
+public struct ConditionalBranch
+{
     public int targetIndex;
     public int priority;
     public List<ChoiceCondition> conditions;
     public ConditionLogic conditionLogic;
 }
-
-
