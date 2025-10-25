@@ -7,17 +7,39 @@
             "content": "New Dialogue",
             "positionX": 232.6666717529297,
             "positionY": -42.0,
+            "choices": [
+                {
+                    "text": "New Choice",
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": "New Choice",
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3bdce9bf-76a2-4102-927f-ba9d2208de0c",
+            "index": 1,
+            "characterId": "",
+            "content": "New Dialogue",
+            "positionX": 792.6666870117188,
+            "positionY": -110.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "ca317c76-63b2-498e-9924-8ea4b4bfb597",
-            "index": 1,
+            "id": "985834c3-c32b-439d-9624-f2fd8c90a7bb",
+            "index": 2,
             "characterId": "",
             "content": "New Dialogue",
-            "positionX": 690.6666870117188,
-            "positionY": -65.33333587646485,
+            "positionX": 752.6666870117188,
+            "positionY": 310.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -26,10 +48,17 @@
     "connections": [
         {
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "ca317c76-63b2-498e-9924-8ea4b4bfb597",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
+            "inputNodeId": "3bdce9bf-76a2-4102-927f-ba9d2208de0c",
+            "choiceIndex": 0,
+            "choiceText": "New Choice",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
+            "inputNodeId": "985834c3-c32b-439d-9624-f2fd8c90a7bb",
+            "choiceIndex": 1,
+            "choiceText": "New Choice",
+            "branchPriority": -3
         }
     ]
 }

@@ -125,6 +125,11 @@ public class DialogueTreeManagerWindow : EditorWindow
     private VirtualFolder insertParentFolder = null;  // 插入的父文件夹
     private bool insertAfter = false;                 // true=插入到目标后面, false=插入到目标前面
 
+    // 角色拖拽排序相关
+    private CharacterData draggedCharacterForReorder = null;
+    private bool isDraggingCharacterForReorder = false;
+    private string insertBeforeCharacterId = null;  // 在哪个角色之前/后插入
+
     [MenuItem("Tools/Dialogue Tree Manager")]
     public static void ShowWindow()
     {
@@ -188,6 +193,11 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (Event.current.type == EventType.DragExited)
         {
             draggedCharacter = null;
+
+            // 清除角色拖拽排序状态
+            draggedCharacterForReorder = null;
+            isDraggingCharacterForReorder = false;
+            insertBeforeCharacterId = null;
 
             // 清除所有插入位置提示
             insertBeforeFolder = null;
@@ -274,6 +284,16 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void DrawCharacter(CharacterData character, int index)
     {
         bool isEditing = editingCharacterId == character.id;
+
+        // 绘制插入线提示（在角色之前）
+        if (insertBeforeCharacterId == character.id && !insertAfter)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(25);
+            Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+            EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
+            EditorGUILayout.EndHorizontal();
+        }
 
         EditorGUILayout.BeginVertical();
         GUILayout.Space(2);
@@ -532,6 +552,17 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             Rect lastRect = GUILayoutUtility.GetLastRect();
             HandleCharacterDrag(lastRect, character);
+            HandleCharacterDropForReorder(lastRect, character);
+        }
+
+        // 绘制插入线提示（在角色之后）
+        if (insertBeforeCharacterId == character.id && insertAfter)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(25);
+            Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+            EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
+            EditorGUILayout.EndHorizontal();
         }
     }
 
@@ -539,21 +570,116 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         Event e = Event.current;
 
-        if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
+        // 开始拖拽
+        if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition) && e.button == 0)
         {
-            draggedCharacter = character;
+            // 检查是否点击在按钮区域
+            float buttonAreaWidth = 130;
+            Rect buttonArea = new Rect(rect.xMax - buttonAreaWidth, rect.y, buttonAreaWidth, rect.height);
+            if (!buttonArea.Contains(e.mousePosition))
+            {
+                draggedCharacterForReorder = character;
+                isDraggingCharacterForReorder = false;
+            }
         }
 
-        if (e.type == EventType.MouseDrag && draggedCharacter == character)
+        // 拖拽中
+        if (e.type == EventType.MouseDrag && draggedCharacterForReorder == character && !isDraggingCharacterForReorder)
         {
             DragAndDrop.PrepareStartDrag();
-            DragAndDrop.SetGenericData("CharacterData", character);
-            DragAndDrop.objectReferences = new UnityEngine.Object[0];
-            DragAndDrop.StartDrag($"Character: {character.characterName}");
+            DragAndDrop.SetGenericData("ReorderCharacter", character);
+            DragAndDrop.StartDrag("Reordering Character");
+            isDraggingCharacterForReorder = true;
             e.Use();
+        }
+
+        // 拖拽结束
+        if (e.type == EventType.DragExited || e.type == EventType.MouseUp)
+        {
+            if (draggedCharacterForReorder != null)
+            {
+                draggedCharacterForReorder = null;
+                isDraggingCharacterForReorder = false;
+                insertBeforeCharacterId = null;
+                insertAfter = false;
+                Repaint();
+            }
         }
     }
 
+    private void HandleCharacterDropForReorder(Rect rect, CharacterData character)
+    {
+        if (draggedCharacterForReorder == null || draggedCharacterForReorder == character) return;
+
+        Event e = Event.current;
+
+        // 扩大检测范围，包括角色上下各10像素的间隙
+        Rect expandedRect = new Rect(rect.x, rect.y - 10, rect.width, rect.height + 20);
+
+        if (expandedRect.Contains(e.mousePosition))
+        {
+            if (e.type == EventType.DragUpdated)
+            {
+                DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+
+                // 根据鼠标位置判断插入到前面还是后面
+                float mouseY = e.mousePosition.y;
+                float rectMiddle = rect.y + rect.height / 2;
+                bool shouldInsertAfter = mouseY > rectMiddle;
+
+                // 更新插入位置提示
+                insertBeforeCharacterId = character.id;
+                insertAfter = shouldInsertAfter;
+                Repaint();
+
+                e.Use();
+            }
+            else if (e.type == EventType.DragPerform)
+            {
+                // 根据鼠标位置判断插入到前面还是后面
+                float mouseY = e.mousePosition.y;
+                float rectMiddle = rect.y + rect.height / 2;
+                bool shouldInsertAfter = mouseY > rectMiddle;
+
+                ReorderCharacter(draggedCharacterForReorder, character, shouldInsertAfter);
+                DragAndDrop.AcceptDrag();
+                draggedCharacterForReorder = null;
+                isDraggingCharacterForReorder = false;
+
+                // 清除插入位置提示
+                insertBeforeCharacterId = null;
+                insertAfter = false;
+
+                e.Use();
+            }
+        }
+    }
+
+    private void ReorderCharacter(CharacterData sourceCharacter, CharacterData targetCharacter, bool insertAfter)
+    {
+        var list = new List<CharacterData>(characterLibrary.characters);
+
+        int sourceIndex = list.FindIndex(c => c.id == sourceCharacter.id);
+        int targetIndex = list.FindIndex(c => c.id == targetCharacter.id);
+
+        if (sourceIndex != -1 && targetIndex != -1 && sourceIndex != targetIndex)
+        {
+            list.RemoveAt(sourceIndex);
+
+            // 重新获取目标索引（因为移除可能改变了索引）
+            targetIndex = list.FindIndex(c => c.id == targetCharacter.id);
+
+            // 如果要插入到后面，索引+1
+            if (insertAfter)
+            {
+                targetIndex++;
+            }
+
+            list.Insert(targetIndex, sourceCharacter);
+            characterLibrary.characters = list.ToArray();
+            SaveCharacterLibraryInternal();
+        }
+    }
     private void CreateNewCharacter()
     {
         var newChar = new CharacterData("New Character", "");
