@@ -30,6 +30,11 @@ public class DialogueGraphView : GraphView
         this.AddManipulator(new ContextualMenuManipulator(BuildContextualMenu));
 
         graphViewChanged += OnGraphViewChangedInternal;
+
+        // 支持复制粘贴
+        serializeGraphElements = OnSerializeGraphElements;
+        unserializeAndPaste = OnUnserializeAndPaste;
+        canPasteSerializedData = OnCanPasteSerializedData;
     }
 
     private GraphViewChange OnGraphViewChangedInternal(GraphViewChange change)
@@ -702,7 +707,7 @@ public class DialogueGraphView : GraphView
         // 更新 nextNodeIndex
         nextNodeIndex = allNodes.Count;
 
-        Debug.Log($"[DialogueGraphView] Reordered node indices: {allNodes.Count} nodes, nextIndex = {nextNodeIndex}");
+        //Debug.Log($"[DialogueGraphView] Reordered node indices: {allNodes.Count} nodes, nextIndex = {nextNodeIndex}");
 
         // 标记为已修改
         if (editorWindow != null)
@@ -710,4 +715,148 @@ public class DialogueGraphView : GraphView
             editorWindow.MarkAsChanged();
         }
     }
+
+    #region Copy/Paste Support
+
+    /// <summary>
+    /// 序列化选中的节点用于复制（不包含连线）
+    /// </summary>
+    private string OnSerializeGraphElements(IEnumerable<GraphElement> elements)
+    {
+        var nodesToCopy = elements.OfType<DialogueNode>().ToList();
+
+        if (nodesToCopy.Count == 0)
+            return string.Empty;
+
+        var copyData = new CopyPasteData
+        {
+            nodes = new List<NodeCopyData>()
+        };
+
+        foreach (var node in nodesToCopy)
+        {
+            var nodeData = new NodeCopyData
+            {
+                characterId = node.CharacterId,
+                dialogueText = node.DialogueText,
+                positionX = node.GetPosition().x,
+                positionY = node.GetPosition().y,
+                choices = new List<ChoiceData>(node.ChoicesData),
+                eventCalls = new List<DialogueEventCall>(node.EventCalls),
+                conditionalBranches = node.GetAllConditionalBranches()
+            };
+
+            copyData.nodes.Add(nodeData);
+        }
+
+        string json = JsonUtility.ToJson(copyData, true);
+        //Debug.Log($"[Copy] Copied {nodesToCopy.Count} nodes");
+        return json;
+    }
+
+    /// <summary>
+    /// 反序列化并粘贴节点
+    /// </summary>
+    private void OnUnserializeAndPaste(string operationName, string data)
+    {
+        try
+        {
+            var copyData = JsonUtility.FromJson<CopyPasteData>(data);
+
+            if (copyData == null || copyData.nodes == null || copyData.nodes.Count == 0)
+            {
+                Debug.LogWarning("[Paste] No valid node data to paste");
+                return;
+            }
+
+            ClearSelection();
+
+            // 计算粘贴偏移（避免覆盖原节点）
+            Vector2 offset = new Vector2(50, 50);
+
+            foreach (var nodeData in copyData.nodes)
+            {
+                // 创建新节点（不带连线）
+                Vector2 newPos = new Vector2(nodeData.positionX, nodeData.positionY) + offset;
+                var newNode = CreateDialogueNode("", null, nodeData.dialogueText, newPos);
+
+                // 设置角色ID
+                newNode.SetCharacterId(nodeData.characterId);
+
+                // 设置选项数据
+                if (nodeData.choices != null && nodeData.choices.Count > 0)
+                {
+                    newNode.SetChoicesData(nodeData.choices);
+                }
+
+                // 设置事件调用
+                if (nodeData.eventCalls != null && nodeData.eventCalls.Count > 0)
+                {
+                    newNode.SetEventCalls(nodeData.eventCalls);
+                }
+
+                // 设置条件分支
+                if (nodeData.conditionalBranches != null && nodeData.conditionalBranches.Count > 0)
+                {
+                    newNode.LoadConditionalBranches(nodeData.conditionalBranches);
+                }
+
+                // 添加到选择集合
+                AddToSelection(newNode);
+            }
+
+            //Debug.Log($"[Paste] Pasted {copyData.nodes.Count} nodes");
+
+            if (editorWindow != null)
+            {
+                editorWindow.MarkAsChanged();
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[Paste] Failed to paste: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// 检查是否可以粘贴数据
+    /// </summary>
+    private bool OnCanPasteSerializedData(string data)
+    {
+        try
+        {
+            var copyData = JsonUtility.FromJson<CopyPasteData>(data);
+            return copyData != null && copyData.nodes != null && copyData.nodes.Count > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 复制粘贴数据结构
+    /// </summary>
+    [Serializable]
+    private class CopyPasteData
+    {
+        public List<NodeCopyData> nodes;
+    }
+
+    /// <summary>
+    /// 节点复制数据（不包含 index 和连接）
+    /// </summary>
+    [Serializable]
+    private class NodeCopyData
+    {
+        public string characterId;
+        public string dialogueText;
+        public float positionX;
+        public float positionY;
+        public List<ChoiceData> choices;
+        public List<DialogueEventCall> eventCalls;
+        public List<ConditionalBranchData> conditionalBranches;
+    }
+
+    #endregion
 }
