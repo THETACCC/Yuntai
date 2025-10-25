@@ -3,113 +3,21 @@
         {
             "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "index": 0,
-            "name": "Character",
-            "avatarAssetPath": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": "New Dialogue",
             "positionX": 232.6666717529297,
             "positionY": -42.0,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "Test",
-                    "componentTypeName": "Test",
-                    "methodName": "CallAfterNode",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": true
-                },
-                {
-                    "targetObjectName": "Test",
-                    "componentTypeName": "Test",
-                    "methodName": "CallDuringNode",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": [
-                {
-                    "priority": 1,
-                    "conditions": [
-                        {
-                            "targetObjectName": "Test",
-                            "componentTypeName": "Test",
-                            "variableName": "isTrue",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "priority": 0,
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ]
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
-            "id": "67a2c648-113e-455c-b439-47dcce679a14",
+            "id": "ca317c76-63b2-498e-9924-8ea4b4bfb597",
             "index": 1,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "hello",
-            "positionX": 781.3333740234375,
-            "positionY": 381.3333435058594,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9523d4a8-2cd8-4d0c-b078-25140411873f",
-            "index": 2,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "yeah",
-            "positionX": 781.3333740234375,
-            "positionY": 28.666664123535158,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
-            "index": 3,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "top",
-            "positionX": 781.3333740234375,
-            "positionY": -374.6666564941406,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "c6d9591f-9dc1-4d56-a482-30ad1a2a7cfe",
-            "index": 4,
-            "name": "Character",
-            "avatarAssetPath": "",
+            "characterId": "",
             "content": "New Dialogue",
-            "positionX": 1248.0,
-            "positionY": -457.3333435058594,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "80932ab4-5afa-433a-9b4b-f03e906593b4",
-            "index": 5,
-            "name": "Character",
-            "avatarAssetPath": "",
-            "content": "New Dialogue",
-            "positionX": 1150.6666259765625,
-            "positionY": 64.0,
+            "positionX": 690.6666870117188,
+            "positionY": -65.33333587646485,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -118,21 +26,7 @@
     "connections": [
         {
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "9523d4a8-2cd8-4d0c-b078-25140411873f",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": 0
-        },
-        {
-            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": 1
-        },
-        {
-            "outputNodeId": "10c84fb2-6087-4490-9865-6d4cea7c80c5",
-            "inputNodeId": "c6d9591f-9dc1-4d56-a482-30ad1a2a7cfe",
+            "inputNodeId": "ca317c76-63b2-498e-9924-8ea4b4bfb597",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

@@ -2,94 +2,16 @@
   "conversations": [
     {
       "index": 0,
-      "name": "Character",
-      "avatarAddr": "",
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
       "content": "New Dialogue",
-      "conditionalBranches": [
-        {
-          "targetIndex": 3,
-          "priority": 1,
-          "conditions": [
-            {
-              "targetObjectName": "Test",
-              "componentTypeName": "Test",
-              "variableName": "isTrue",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 2,
-          "priority": 0
-        }
-      ],
+      "nextIndex": 1,
       "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "Test",
-          "componentTypeName": "Test",
-          "methodName": "CallAfterNode",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": true
-        },
-        {
-          "targetObjectName": "Test",
-          "componentTypeName": "Test",
-          "methodName": "CallDuringNode",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
+      "eventCalls": []
     },
     {
       "index": 1,
-      "name": "Character",
-      "avatarAddr": "",
-      "content": "hello",
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 2,
-      "name": "Character",
-      "avatarAddr": "",
-      "content": "yeah",
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 3,
-      "name": "Character",
-      "avatarAddr": "",
-      "content": "top",
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 4,
-      "name": "Character",
-      "avatarAddr": "",
-      "content": "New Dialogue",
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 5,
-      "name": "Character",
+      "name": "",
       "avatarAddr": "",
       "content": "New Dialogue",
       "nextIndex": -1,

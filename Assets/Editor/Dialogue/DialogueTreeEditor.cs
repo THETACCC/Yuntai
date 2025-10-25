@@ -220,16 +220,31 @@ public class DialogueTreeEditor : EditorWindow
         }
 
         hasUnsavedChanges = false;
-        if (!string.IsNullOrEmpty(currentFilePath) && File.Exists(currentFilePath))
+        if (!string.IsNullOrEmpty(currentFilePath))
         {
-            string projectPath = Application.dataPath;
-            string projectDirectory = Directory.GetParent(projectPath).FullName;
-            if (currentFilePath.StartsWith(projectDirectory) || Path.IsPathRooted(currentFilePath))
+            // 确保使用 .dtree 文件加载（包含完整的编辑器信息）
+            string dtreePath = Path.ChangeExtension(currentFilePath, ".dtree");
+            string pathToLoad = File.Exists(dtreePath) ? dtreePath : currentFilePath;
+
+            Debug.Log($"[DialogueTreeEditor] Attempting to restore file: {pathToLoad}");
+
+            if (File.Exists(pathToLoad))
             {
-                LoadFromFile(currentFilePath);
+                string projectPath = Application.dataPath;
+                string projectDirectory = Directory.GetParent(projectPath).FullName;
+                if (pathToLoad.StartsWith(projectDirectory) || Path.IsPathRooted(pathToLoad))
+                {
+                    LoadFromFile(pathToLoad);
+                }
+                else
+                {
+                    currentFilePath = "";
+                    EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
+                }
             }
             else
             {
+                Debug.LogWarning($"[DialogueTreeEditor] File not found: {pathToLoad}");
                 currentFilePath = "";
                 EditorPrefs.DeleteKey(CURRENT_FILE_KEY);
             }
@@ -333,46 +348,117 @@ public class DialogueTreeEditor : EditorWindow
     #region Save/Load
     public void SaveDialogueTree()
     {
+        Debug.Log("[DialogueTreeEditor] SaveDialogueTree called");
+
+        if (graphView == null)
+        {
+            Debug.LogError("[DialogueTreeEditor] GraphView is null, cannot save");
+            EditorUtility.DisplayDialog("Save Failed", "Editor is not properly initialized.", "OK");
+            return;
+        }
+
         if (string.IsNullOrEmpty(currentFilePath))
         {
+            Debug.Log("[DialogueTreeEditor] No current file path, opening Save As dialog");
             SaveAsDialogueTree();
         }
         else
         {
+            Debug.Log($"[DialogueTreeEditor] Saving to current file: {currentFilePath}");
             SaveToFile(currentFilePath, false);
         }
     }
 
     public void SaveAsDialogueTree()
     {
+        Debug.Log("[DialogueTreeEditor] SaveAsDialogueTree called");
+
+        if (graphView == null)
+        {
+            Debug.LogError("[DialogueTreeEditor] GraphView is null, cannot save");
+            EditorUtility.DisplayDialog("Save Failed", "Editor is not properly initialized.", "OK");
+            return;
+        }
+
+        string defaultPath = Path.Combine(Application.dataPath, "StreamingAssets");
+        Debug.Log($"[DialogueTreeEditor] Default save path: {defaultPath}");
+
         string path = EditorUtility.SaveFilePanel("Save Dialogue Tree",
-            Path.Combine(Application.dataPath, "StreamingAssets"),
+            defaultPath,
             string.IsNullOrEmpty(currentFilePath) ? "DialogueSequence" : Path.GetFileNameWithoutExtension(currentFilePath),
             "json");
 
         if (!string.IsNullOrEmpty(path))
         {
+            Debug.Log($"[DialogueTreeEditor] User selected path: {path}");
             SaveToFile(path, false);
             currentFilePath = path;
             EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
+            Debug.Log($"[DialogueTreeEditor] Current file path updated to: {currentFilePath}");
+        }
+        else
+        {
+            Debug.Log("[DialogueTreeEditor] User cancelled save dialog");
         }
     }
 
     private void SaveToFile(string path, bool isAutoSave)
     {
-        if (graphView == null) return;
+        if (graphView == null)
+        {
+            Debug.LogError("[DialogueTreeEditor] GraphView is null in SaveToFile");
+            return;
+        }
+
+        // 确保 path 是 .json 扩展名
+        if (!path.EndsWith(".json"))
+        {
+            Debug.LogWarning($"[DialogueTreeEditor] Path doesn't end with .json: {path}. Converting...");
+            path = Path.ChangeExtension(path, ".json");
+        }
 
         string directory = Path.GetDirectoryName(path);
+        Debug.Log($"[DialogueTreeEditor] Saving to directory: {directory}");
+
         if (!Directory.Exists(directory))
         {
+            Debug.Log($"[DialogueTreeEditor] Directory doesn't exist, creating: {directory}");
             Directory.CreateDirectory(directory);
         }
 
         try
         {
+            Debug.Log($"[DialogueTreeEditor] Starting save process...");
+            Debug.Log($"[DialogueTreeEditor] JSON path: {path}");
+
+            // 保存运行时 JSON 文件
             SaveRuntimeJsonFile(path);
+            Debug.Log($"[DialogueTreeEditor] Runtime JSON file saved successfully");
+
+            // 保存编辑器格式文件
             string dtreePath = Path.ChangeExtension(path, ".dtree");
+            Debug.Log($"[DialogueTreeEditor] DTREE path: {dtreePath}");
             SaveEditorFormatFile(dtreePath);
+            Debug.Log($"[DialogueTreeEditor] Editor DTREE file saved successfully");
+
+            // 验证文件是否存在
+            if (File.Exists(path))
+            {
+                Debug.Log($"[DialogueTreeEditor] Verified: JSON file exists at {path}");
+            }
+            else
+            {
+                Debug.LogError($"[DialogueTreeEditor] ERROR: JSON file not found at {path}");
+            }
+
+            if (File.Exists(dtreePath))
+            {
+                Debug.Log($"[DialogueTreeEditor] Verified: DTREE file exists at {dtreePath}");
+            }
+            else
+            {
+                Debug.LogError($"[DialogueTreeEditor] ERROR: DTREE file not found at {dtreePath}");
+            }
 
             System.IO.File.SetLastWriteTime(path, System.DateTime.Now);
             System.IO.File.SetLastWriteTime(dtreePath, System.DateTime.Now);
@@ -385,11 +471,13 @@ public class DialogueTreeEditor : EditorWindow
                 {
                     string relativePath = "Assets" + path.Substring(Application.dataPath.Length);
                     AssetDatabase.ImportAsset(relativePath);
+                    Debug.Log($"[DialogueTreeEditor] Imported asset: {relativePath}");
                 }
                 if (dtreePath.StartsWith(Application.dataPath))
                 {
                     string relativeTreePath = "Assets" + dtreePath.Substring(Application.dataPath.Length);
                     AssetDatabase.ImportAsset(relativeTreePath);
+                    Debug.Log($"[DialogueTreeEditor] Imported asset: {relativeTreePath}");
                 }
             };
 
@@ -398,15 +486,15 @@ public class DialogueTreeEditor : EditorWindow
 
             if (!isAutoSave)
             {
-                Debug.Log($"Dialogue tree saved to: {path}");
-                Debug.Log($"Editor file saved to: {dtreePath}");
+                Debug.Log($"[DialogueTreeEditor] Save completed successfully!");
                 EditorUtility.DisplayDialog("Save Successful",
-                    $"Runtime file saved to:\n{path}\n\nEditor file saved to:\n{dtreePath}", "OK");
+                    $"Runtime JSON file saved to:\n{path}\n\nEditor DTREE file saved to:\n{dtreePath}", "OK");
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Failed to save dialogue tree: {e.Message}");
+            Debug.LogError($"[DialogueTreeEditor] Failed to save dialogue tree: {e.Message}");
+            Debug.LogError($"[DialogueTreeEditor] Stack trace: {e.StackTrace}");
             if (!isAutoSave)
             {
                 EditorUtility.DisplayDialog("Save Failed", $"Failed to save dialogue tree:\n{e.Message}", "OK");
@@ -569,14 +657,22 @@ public class DialogueTreeEditor : EditorWindow
         }
         formattedJson += "  ],\n  \"currentIndex\": 0\n}";
 
+        Debug.Log($"[DialogueTreeEditor] Writing Runtime JSON to: {path}");
+        Debug.Log($"[DialogueTreeEditor] JSON length: {formattedJson.Length} characters");
         File.WriteAllText(path, formattedJson);
+        Debug.Log($"[DialogueTreeEditor] Runtime JSON write completed");
     }
 
     private void SaveEditorFormatFile(string path)
     {
+        Debug.Log($"[DialogueTreeEditor] Serializing dialogue tree for editor format");
         DialogueTreeData treeData = graphView.SerializeDialogueTree();
+        Debug.Log($"[DialogueTreeEditor] Serialized {treeData.nodes.Count} nodes, {treeData.connections.Count} connections");
         string json = JsonUtility.ToJson(treeData, true);
+        Debug.Log($"[DialogueTreeEditor] Writing Editor DTREE to: {path}");
+        Debug.Log($"[DialogueTreeEditor] DTREE JSON length: {json.Length} characters");
         File.WriteAllText(path, json);
+        Debug.Log($"[DialogueTreeEditor] Editor DTREE write completed");
     }
 
     public void LoadDialogueTree()
@@ -597,9 +693,10 @@ public class DialogueTreeEditor : EditorWindow
         if (!string.IsNullOrEmpty(path))
         {
             LoadFromFile(path);
-            // 始终使用.dtree文件路径
-            currentFilePath = path;
+            // 关键修复：将 .dtree 路径转换为 .json 路径存储
+            currentFilePath = Path.ChangeExtension(path, ".json");
             EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
+            Debug.Log($"[DialogueTreeEditor] Loaded from {path}, currentFilePath set to {currentFilePath}");
         }
     }
 
@@ -617,8 +714,8 @@ public class DialogueTreeEditor : EditorWindow
                 graphView.LoadDialogueTree(treeData);
                 hasUnsavedChanges = false;
 
-                // 始终使用.dtree文件路径
-                currentFilePath = path;
+                // 关键修复：确保 currentFilePath 是 .json 路径
+                currentFilePath = Path.ChangeExtension(path, ".json");
                 EditorPrefs.SetString(CURRENT_FILE_KEY, currentFilePath);
 
                 EditorApplication.delayCall += () => {
@@ -629,6 +726,7 @@ public class DialogueTreeEditor : EditorWindow
                 };
 
                 Debug.Log($"Dialogue tree loaded from: {path}");
+                Debug.Log($"currentFilePath set to: {currentFilePath}");
                 UpdateStatusBar();  // 更新状态栏
             }
             else
