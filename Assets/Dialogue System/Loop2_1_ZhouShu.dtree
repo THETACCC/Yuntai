@@ -4,48 +4,11 @@
             "id": "684ffcb0-903c-4f3b-8b24-29c48616a361",
             "index": 0,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "I'm hungry. Why is the stewardess never coming?",
-            "positionX": 118.66666412353516,
-            "positionY": 196.0,
-            "choices": [
-                {
-                    "text": "Here's your food.",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "getFood",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoThreeTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "ChangeStewardessToForFood",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
+            "content": "(I didn’t manage to talk to her before. After the lights went out, she just disappeared.)",
+            "positionX": -1934.666748046875,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -53,8 +16,8 @@
             "index": 1,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Thank you so much!! Yum Yum.",
-            "positionX": 594.6666870117188,
-            "positionY": 221.33334350585938,
+            "positionX": 517.3333740234375,
+            "positionY": 882.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -77,7 +40,7 @@
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": "What do you wanna know?",
             "positionX": 985.3333740234375,
-            "positionY": 258.0,
+            "positionY": 257.3333435058594,
             "choices": [
                 {
                     "text": "5",
@@ -209,7 +172,7 @@
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Info 7",
             "positionX": 1468.0,
-            "positionY": 1213.3333740234375,
+            "positionY": 1212.6666259765625,
             "choices": [],
             "eventCalls": [
                 {
@@ -243,7 +206,7 @@
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": "What!!?",
             "positionX": 1468.0,
-            "positionY": 1745.3333740234375,
+            "positionY": 1744.6666259765625,
             "choices": [],
             "eventCalls": [
                 {
@@ -270,16 +233,128 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "index": 8,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": "Hungry... I’m so hungry...",
+            "positionX": -212.0,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "index": 9,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": "Mmm~~",
+            "positionX": -1551.3333740234375,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "index": 10,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "Excuse me, may I—",
+            "positionX": -1195.3333740234375,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "index": 11,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "content": "Eh…",
+            "positionX": -841.3333129882813,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "index": 12,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "content": "I’m sorry, what did you say?",
+            "positionX": -515.3333129882813,
+            "positionY": 262.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
+            "index": 13,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "content": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
+            "positionX": 484.0,
+            "positionY": 257.3333435058594,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoThreeTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToForFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "index": 15,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
+            "positionX": 122.0,
+            "positionY": 262.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "getFood",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
-            "inputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
-            "choiceIndex": 0,
-            "choiceText": "Here's your food.",
-            "branchPriority": -2
-        },
         {
             "outputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
@@ -335,6 +410,62 @@
             "choiceIndex": 3,
             "choiceText": "You know, I saw...",
             "branchPriority": -5
+        },
+        {
+            "outputNodeId": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "inputNodeId": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "inputNodeId": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "inputNodeId": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "inputNodeId": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "inputNodeId": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
+            "inputNodeId": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "inputNodeId": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "inputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
         }
     ]
 }
