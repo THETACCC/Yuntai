@@ -41,6 +41,10 @@ public class ToNextLoop : MonoBehaviour
 
     private IEnumerator PlayDeathVideoThenLoad()
     {
+        //Debug
+        Debug.Log("Play Video In");
+
+
         // 1) 让呈现容器可见
         if (DeathAnimationPlayer) DeathAnimationPlayer.SetActive(true);
 
