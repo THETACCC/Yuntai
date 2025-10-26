@@ -92,8 +92,27 @@ public class DialogueTreeManagerWindow : EditorWindow
         public List<string> rootFileGuids = new List<string>();
     }
 
+    [System.Serializable]
+    private class CharacterFolder
+    {
+        public string name;
+        public string id;
+        public string description = "";
+        public List<string> characterIds = new List<string>();
+        public List<CharacterFolder> subfolders = new List<CharacterFolder>();
+    }
+
+    [System.Serializable]
+    private class CharacterFolderData
+    {
+        public List<CharacterFolder> rootFolders = new List<CharacterFolder>();
+        public List<string> rootCharacterIds = new List<string>();
+    }
+
     private VirtualFolderData folderData;
     private CharacterLibraryData characterLibrary;
+    private CharacterFolderData characterFolderData;
+    private Dictionary<string, bool> characterFolderExpandedState = new Dictionary<string, bool>(); // 临时存储角色文件夹展开状态
     private Dictionary<string, string> guidToPath = new Dictionary<string, string>();
     private Dictionary<string, bool> folderExpandedState = new Dictionary<string, bool>(); // 临时存储展开状态，不保存到文件
     private Vector2 scrollPos;
@@ -127,9 +146,12 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     // 角色拖拽排序相关
     private CharacterData draggedCharacterForReorder = null;
+    private CharacterFolder draggedCharacterFromFolder = null;
     private bool isDraggingCharacterForReorder = false;
     private string insertBeforeCharacterId = null;  // 在哪个角色之前/后插入
 
+    private CharacterFolder insertBeforeCharacterFolder = null;  // 在哪个角色文件夹之前/后插入
+    private CharacterFolder insertCharacterParentFolder = null;  // 角色插入的父文件夹
     [MenuItem("Tools/Dialogue Tree Manager")]
     public static void ShowWindow()
     {
@@ -143,11 +165,16 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
+        LoadCharacterFolderStructure();
         ScanAllDialogueTrees();
 
         // 确保default_folder默认展开
         if (!folderExpandedState.ContainsKey("default_folder"))
             folderExpandedState["default_folder"] = true;
+
+        // 确保角色默认文件夹展开
+        if (!characterFolderExpandedState.ContainsKey("default_character_folder"))
+            characterFolderExpandedState["default_character_folder"] = true;
 
         // 记录文件修改时间
         UpdateFileModificationTimes();
@@ -166,6 +193,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         SaveVirtualFolderStructure();
         SaveCharacterLibraryInternal();
+        SaveCharacterFolderStructure();
     }
 
     private void OnGUI()
@@ -198,6 +226,9 @@ public class DialogueTreeManagerWindow : EditorWindow
             draggedCharacterForReorder = null;
             isDraggingCharacterForReorder = false;
             insertBeforeCharacterId = null;
+            draggedCharacterFromFolder = null;
+            insertBeforeCharacterFolder = null;
+            insertCharacterParentFolder = null;
 
             // 清除所有插入位置提示
             insertBeforeFolder = null;
@@ -262,34 +293,247 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         EditorGUILayout.EndVertical();
 
+        // 添加右键菜单支持
+        HandleCharacterSectionContextMenu(rect);
+
         if (charactersExpanded)
         {
-            if (characterLibrary?.characters != null && characterLibrary.characters.Length > 0)
+            // 获取default_character_folder并直接展开其内容
+            var defaultFolder = characterFolderData.rootFolders.FirstOrDefault(f => f.id == "default_character_folder");
+            if (defaultFolder != null)
             {
-                for (int i = 0; i < characterLibrary.characters.Length; i++)
+                // 绘制其他自定义文件夹
+                foreach (var folder in characterFolderData.rootFolders)
                 {
-                    DrawCharacter(characterLibrary.characters[i], i);
+                    if (folder.id != "default_character_folder")
+                    {
+                        DrawCharacterFolder(folder, 0, null);
+                    }
+                }
+
+                // 绘制default_character_folder中的子文件夹
+                foreach (var subfolder in defaultFolder.subfolders.ToList())
+                {
+                    DrawCharacterFolder(subfolder, 0, defaultFolder);
+                }
+
+                // 绘制default_character_folder中的角色
+                foreach (var characterId in defaultFolder.characterIds.ToList())
+                {
+                    var character = System.Array.Find(characterLibrary.characters, c => c.id == characterId);
+                    if (character != null)
+                    {
+                        int index = System.Array.IndexOf(characterLibrary.characters, character);
+                        DrawCharacter(character, index, defaultFolder);
+                    }
                 }
             }
-            else
+
+            // 绘制根级别的角色（如果有的话）
+            foreach (var characterId in characterFolderData.rootCharacterIds.ToList())
             {
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Space(25);
-                EditorGUILayout.LabelField("No characters. Click '+ New Character' to create one.", EditorStyles.miniLabel);
-                EditorGUILayout.EndHorizontal();
+                var character = System.Array.Find(characterLibrary.characters, c => c.id == characterId);
+                if (character != null)
+                {
+                    int index = System.Array.IndexOf(characterLibrary.characters, character);
+                    DrawCharacter(character, index, null);
+                }
             }
         }
     }
 
-    private void DrawCharacter(CharacterData character, int index)
+    private void HandleCharacterSectionContextMenu(Rect rect)
+    {
+        Event e = Event.current;
+
+        if (e.type == EventType.ContextClick && rect.Contains(e.mousePosition))
+        {
+            var defaultFolder = characterFolderData.rootFolders.FirstOrDefault(f => f.id == "default_character_folder");
+            if (defaultFolder != null)
+            {
+                GenericMenu menu = new GenericMenu();
+                menu.AddItem(new GUIContent("New Folder"), false, () =>
+                {
+                    CreateCharacterFolder(defaultFolder);
+                });
+                menu.ShowAsContext();
+                e.Use();
+            }
+        }
+    }
+    private void DrawCharacterFolder(CharacterFolder folder, int indentLevel, CharacterFolder parentFolder)
+    {
+        // 绘制插入线提示（在文件夹之前）
+        if (insertBeforeCharacterFolder == folder && insertCharacterParentFolder == parentFolder && !insertAfter)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(indentLevel * 20 + 25);
+            Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+            EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
+            EditorGUILayout.EndHorizontal();
+        }
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Space(indentLevel * 20 + 25);
+
+        Rect rect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(22));
+
+        if (Event.current.type == EventType.Repaint)
+        {
+            GUI.Box(rect, "", "box");
+        }
+
+        Rect arrowRect = new Rect(rect.x + 5, rect.y + 3, 15, rect.height);
+        bool isExpanded = characterFolderExpandedState.ContainsKey(folder.id) && characterFolderExpandedState[folder.id];
+        if (GUI.Button(arrowRect, isExpanded ? "▼" : "▶", EditorStyles.label))
+        {
+            characterFolderExpandedState[folder.id] = !isExpanded;
+        }
+
+        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 200, rect.height);
+        GUI.Label(labelRect, folder.name, EditorStyles.boldLabel);
+
+        if (folder.id != "default_character_folder")
+        {
+            Rect renameRect = new Rect(rect.xMax - 130, rect.y + 2, 60, 18);
+            if (GUI.Button(renameRect, "Rename", EditorStyles.miniButton))
+            {
+                RenameCharacterFolder(folder);
+            }
+
+            Rect deleteRect = new Rect(rect.xMax - 65, rect.y + 2, 60, 18);
+            GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
+            if (GUI.Button(deleteRect, "Del", EditorStyles.miniButton))
+            {
+                string folderName = folder.name;
+                EditorApplication.delayCall += () =>
+                {
+                    if (EditorUtility.DisplayDialog("Delete Folder",
+                        $"Delete folder '{folderName}'? All characters will move to 'All Characters' folder.",
+                        "Delete", "Cancel"))
+                    {
+                        DeleteCharacterFolder(folder, parentFolder);
+                    }
+                };
+            }
+            GUI.backgroundColor = Color.white;
+        }
+        else
+        {
+            // All Characters 文件夹的 New 按钮
+            Rect newCharRect = new Rect(rect.xMax - 135, rect.y + 2, 130, 18);
+            if (GUI.Button(newCharRect, "+ New Character", EditorStyles.miniButton))
+            {
+                CreateNewCharacter();
+            }
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        // 显示description
+        if (!string.IsNullOrEmpty(folder.description))
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(indentLevel * 20 + 50);
+
+            var descStyle = new GUIStyle(EditorStyles.miniLabel);
+            descStyle.fontSize = 10;
+            descStyle.normal.textColor = new Color(0.6f, 0.6f, 0.6f);
+            descStyle.fontStyle = FontStyle.Italic;
+            descStyle.wordWrap = true;
+
+            Rect descRect = GUILayoutUtility.GetRect(
+                new GUIContent(folder.description),
+                descStyle,
+                GUILayout.ExpandWidth(true)
+            );
+
+            if (Event.current.type == EventType.MouseDown && descRect.Contains(Event.current.mousePosition))
+            {
+                if (Event.current.clickCount == 2)
+                {
+                    EditCharacterDescription(folder);
+                    Event.current.Use();
+                }
+            }
+
+            GUI.Label(descRect, folder.description, descStyle);
+            EditorGUILayout.EndHorizontal();
+        }
+        else if (folder.id != "default_character_folder")
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(indentLevel * 20 + 50);
+
+            var hintStyle = new GUIStyle(EditorStyles.miniLabel);
+            hintStyle.fontSize = 9;
+            hintStyle.normal.textColor = new Color(0.5f, 0.5f, 0.5f);
+            hintStyle.fontStyle = FontStyle.Italic;
+
+            Rect hintRect = GUILayoutUtility.GetRect(
+                new GUIContent("Add description..."),
+                hintStyle,
+                GUILayout.Width(150)
+            );
+
+            if (GUI.Button(hintRect, "Add description...", hintStyle))
+            {
+                EditCharacterDescription(folder);
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+        HandleCharacterFolderDragAndDrop(rect, folder);
+        HandleCharacterFolderContextMenu(rect, folder);
+
+        bool isExpandedForChildren = characterFolderExpandedState.ContainsKey(folder.id) && characterFolderExpandedState[folder.id];
+        if (isExpandedForChildren)
+        {
+            foreach (var subfolder in folder.subfolders.ToList())
+            {
+                DrawCharacterFolder(subfolder, indentLevel + 1, folder);
+            }
+
+            foreach (var characterId in folder.characterIds.ToList())
+            {
+                var character = System.Array.Find(characterLibrary.characters, c => c.id == characterId);
+                if (character != null)
+                {
+                    int index = System.Array.IndexOf(characterLibrary.characters, character);
+                    DrawCharacter(character, index, folder);
+                }
+            }
+        }
+
+        // 绘制插入线提示（在文件夹之后）
+        if (insertBeforeCharacterFolder == folder && insertCharacterParentFolder == parentFolder && insertAfter)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(indentLevel * 20 + 25);
+            Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+            EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
+    private void DrawCharacter(CharacterData character, int index, CharacterFolder parentFolder)
     {
         bool isEditing = editingCharacterId == character.id;
+
+        // 计算缩进级别
+        int indentLevel = 0;
+        if (parentFolder != null && parentFolder.id != "default_character_folder")
+        {
+            indentLevel = CalculateCharacterFolderIndent(parentFolder);
+        }
 
         // 绘制插入线提示（在角色之前）
         if (insertBeforeCharacterId == character.id && !insertAfter)
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(25);
+            GUILayout.Space(indentLevel * 20 + 25);
             Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
             EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
             EditorGUILayout.EndHorizontal();
@@ -299,8 +543,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         GUILayout.Space(2);
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Space(25);
-
+        GUILayout.Space(indentLevel * 20 + 25);
         // 使用box样式作为背景
         var boxStyle = new GUIStyle(GUI.skin.box);
         boxStyle.padding = new RectOffset(8, 8, 8, 8);
@@ -551,7 +794,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (!isEditing)
         {
             Rect lastRect = GUILayoutUtility.GetLastRect();
-            HandleCharacterDrag(lastRect, character);
+            HandleCharacterDrag(lastRect, character, parentFolder);
             HandleCharacterDropForReorder(lastRect, character);
         }
 
@@ -559,14 +802,14 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (insertBeforeCharacterId == character.id && insertAfter)
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(25);
+            GUILayout.Space(indentLevel * 20 + 25);
             Rect insertLineRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.Height(3));
             EditorGUI.DrawRect(insertLineRect, new Color(0.3f, 0.6f, 1f, 0.8f)); // 蓝色插入线
             EditorGUILayout.EndHorizontal();
         }
     }
 
-    private void HandleCharacterDrag(Rect rect, CharacterData character)
+    private void HandleCharacterDrag(Rect rect, CharacterData character, CharacterFolder parentFolder)
     {
         Event e = Event.current;
 
@@ -579,6 +822,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             if (!buttonArea.Contains(e.mousePosition))
             {
                 draggedCharacterForReorder = character;
+                draggedCharacterFromFolder = parentFolder;
                 isDraggingCharacterForReorder = false;
             }
         }
@@ -599,6 +843,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             if (draggedCharacterForReorder != null)
             {
                 draggedCharacterForReorder = null;
+                draggedCharacterFromFolder = null;
                 isDraggingCharacterForReorder = false;
                 insertBeforeCharacterId = null;
                 insertAfter = false;
@@ -657,17 +902,25 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void ReorderCharacter(CharacterData sourceCharacter, CharacterData targetCharacter, bool insertAfter)
     {
-        var list = new List<CharacterData>(characterLibrary.characters);
+        // 找到两个角色所在的文件夹
+        var sourceFolder = FindCharacterParentFolder(sourceCharacter.id);
+        var targetFolder = FindCharacterParentFolder(targetCharacter.id);
 
-        int sourceIndex = list.FindIndex(c => c.id == sourceCharacter.id);
-        int targetIndex = list.FindIndex(c => c.id == targetCharacter.id);
+        // 只有在同一个文件夹内才能排序
+        if (sourceFolder != targetFolder)
+            return;
+
+        List<string> list = sourceFolder == null ? characterFolderData.rootCharacterIds : sourceFolder.characterIds;
+
+        int sourceIndex = list.IndexOf(sourceCharacter.id);
+        int targetIndex = list.IndexOf(targetCharacter.id);
 
         if (sourceIndex != -1 && targetIndex != -1 && sourceIndex != targetIndex)
         {
             list.RemoveAt(sourceIndex);
 
             // 重新获取目标索引（因为移除可能改变了索引）
-            targetIndex = list.FindIndex(c => c.id == targetCharacter.id);
+            targetIndex = list.IndexOf(targetCharacter.id);
 
             // 如果要插入到后面，索引+1
             if (insertAfter)
@@ -675,9 +928,8 @@ public class DialogueTreeManagerWindow : EditorWindow
                 targetIndex++;
             }
 
-            list.Insert(targetIndex, sourceCharacter);
-            characterLibrary.characters = list.ToArray();
-            SaveCharacterLibraryInternal();
+            list.Insert(targetIndex, sourceCharacter.id);
+            SaveCharacterFolderStructure();
         }
     }
     private void CreateNewCharacter()
@@ -693,6 +945,14 @@ public class DialogueTreeManagerWindow : EditorWindow
         characterLibrary.characters = list.ToArray();
 
         SaveCharacterLibraryInternal();
+
+        // 添加到默认文件夹
+        var defaultFolder = characterFolderData.rootFolders.FirstOrDefault(f => f.id == "default_character_folder");
+        if (defaultFolder != null && !defaultFolder.characterIds.Contains(newChar.id))
+        {
+            defaultFolder.characterIds.Add(newChar.id);
+            SaveCharacterFolderStructure();
+        }
 
         // 自动进入编辑模式
         editingCharacterId = newChar.id;
@@ -714,6 +974,9 @@ public class DialogueTreeManagerWindow : EditorWindow
             tempSelectedSprites.Remove(deletedCharacterId);
 
             SaveCharacterLibraryInternal();
+
+            // 从文件夹中删除
+            CleanupCharacterFromFolders(deletedCharacterId);
 
             EditorApplication.delayCall += () =>
             {
@@ -845,6 +1108,125 @@ public class DialogueTreeManagerWindow : EditorWindow
             Debug.LogError($"Failed to load character library: {e.Message}");
             characterLibrary = new CharacterLibraryData();
         }
+    }
+
+    private void LoadCharacterFolderStructure()
+    {
+        try
+        {
+            string loadPath = GetCharacterFolderStructurePath();
+
+            if (File.Exists(loadPath))
+            {
+                string json = File.ReadAllText(loadPath);
+                characterFolderData = JsonUtility.FromJson<CharacterFolderData>(json);
+            }
+            else
+            {
+                characterFolderData = new CharacterFolderData();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to load character folder structure: {e.Message}");
+            characterFolderData = new CharacterFolderData();
+        }
+
+        EnsureDefaultCharacterFolder();
+    }
+
+    private void SaveCharacterFolderStructure()
+    {
+        try
+        {
+            string savePath = GetCharacterFolderStructurePath();
+            string newJson = JsonUtility.ToJson(characterFolderData, true);
+
+            // 只有在内容真正改变时才写入文件
+            bool needsSave = true;
+            if (File.Exists(savePath))
+            {
+                string existingJson = File.ReadAllText(savePath);
+                if (existingJson == newJson)
+                {
+                    needsSave = false;
+                }
+            }
+
+            if (needsSave)
+            {
+                string folder = Path.GetDirectoryName(savePath);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                File.WriteAllText(savePath, newJson);
+                Debug.Log("[Manager] Character folder structure saved (content changed)");
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to save character folder structure: {e.Message}");
+        }
+    }
+
+    private void EnsureDefaultCharacterFolder()
+    {
+        if (characterFolderData.rootFolders.Count == 0 ||
+            !characterFolderData.rootFolders.Any(f => f.id == "default_character_folder"))
+        {
+            var defaultFolder = new CharacterFolder
+            {
+                name = "All Characters",
+                id = "default_character_folder"
+            };
+
+            // 将所有现有角色添加到默认文件夹
+            if (characterLibrary?.characters != null)
+            {
+                foreach (var character in characterLibrary.characters)
+                {
+                    if (!IsCharacterInAnyFolder(character.id))
+                    {
+                        defaultFolder.characterIds.Add(character.id);
+                    }
+                }
+            }
+
+            characterFolderData.rootFolders.Insert(0, defaultFolder);
+        }
+        else
+        {
+            // 确保所有角色都在某个文件夹中
+            var defaultFolder = characterFolderData.rootFolders.FirstOrDefault(f => f.id == "default_character_folder");
+            if (defaultFolder != null && characterLibrary?.characters != null)
+            {
+                foreach (var character in characterLibrary.characters)
+                {
+                    if (!IsCharacterInAnyFolder(character.id))
+                    {
+                        defaultFolder.characterIds.Add(character.id);
+                    }
+                }
+            }
+        }
+    }
+
+    private bool IsCharacterInAnyFolder(string characterId)
+    {
+        if (characterFolderData.rootCharacterIds.Contains(characterId)) return true;
+        return CheckCharacterFolderRecursive(characterFolderData.rootFolders, characterId);
+    }
+
+    private bool CheckCharacterFolderRecursive(List<CharacterFolder> folders, string characterId)
+    {
+        foreach (var folder in folders)
+        {
+            if (folder.characterIds.Contains(characterId)) return true;
+            if (CheckCharacterFolderRecursive(folder.subfolders, characterId)) return true;
+        }
+        return false;
     }
 
     private void RegenerateAffectedRuntimeJSON(string modifiedCharacterId)
@@ -2173,6 +2555,20 @@ public class DialogueTreeManagerWindow : EditorWindow
         return Path.Combine(scriptFolder, "CharacterLibrary.json");
     }
 
+    private string GetCharacterFolderStructurePath()
+    {
+        var script = MonoScript.FromScriptableObject(this);
+        string scriptPath = AssetDatabase.GetAssetPath(script);
+
+        if (string.IsNullOrEmpty(scriptPath))
+        {
+            return "Assets/Editor/Dialogue/CharacterFolderStructure.json";
+        }
+
+        string scriptFolder = Path.GetDirectoryName(scriptPath);
+        return Path.Combine(scriptFolder, "CharacterFolderStructure.json");
+    }
+
     private string GetComparisonSymbol(ComparisonType comparison)
     {
         switch (comparison)
@@ -2239,6 +2635,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         // 重新加载所有数据
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
+        LoadCharacterFolderStructure();
         ScanAllDialogueTrees();
 
         // 更新文件修改时间
@@ -2316,6 +2713,242 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             lastFolderStructureTime = File.GetLastWriteTime(folderStructPath);
         }
+    }
+
+    private void CleanupCharacterFromFolders(string characterId)
+    {
+        characterFolderData.rootCharacterIds.Remove(characterId);
+        CleanupCharacterFromFoldersRecursive(characterFolderData.rootFolders, characterId);
+        SaveCharacterFolderStructure();
+    }
+
+    private void CleanupCharacterFromFoldersRecursive(List<CharacterFolder> folders, string characterId)
+    {
+        foreach (var folder in folders)
+        {
+            folder.characterIds.Remove(characterId);
+            CleanupCharacterFromFoldersRecursive(folder.subfolders, characterId);
+        }
+    }
+    private void HandleCharacterFolderDragAndDrop(Rect rect, CharacterFolder folder)
+    {
+        Event e = Event.current;
+
+        if (rect.Contains(e.mousePosition))
+        {
+            if (e.type == EventType.DragUpdated)
+            {
+                // 只处理角色拖拽到文件夹
+                if (draggedCharacterForReorder != null)
+                {
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                    e.Use();
+                }
+            }
+            else if (e.type == EventType.DragPerform)
+            {
+                if (draggedCharacterForReorder != null)
+                {
+                    MoveCharacterToFolder(draggedCharacterForReorder.id, draggedCharacterFromFolder, folder);
+                    DragAndDrop.AcceptDrag();
+                    draggedCharacterForReorder = null;
+                    isDraggingCharacterForReorder = false;
+                    insertBeforeCharacterId = null;
+                    insertAfter = false;
+                    e.Use();
+                }
+            }
+        }
+    }
+
+    private void HandleCharacterFolderContextMenu(Rect rect, CharacterFolder folder)
+    {
+        Event e = Event.current;
+
+        if (e.type == EventType.ContextClick && rect.Contains(e.mousePosition))
+        {
+            GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("New Folder"), false, () => CreateCharacterFolder(folder));
+            menu.ShowAsContext();
+            e.Use();
+        }
+    }
+
+    private void RenameCharacterFolder(CharacterFolder folder)
+    {
+        EditorApplication.delayCall += () =>
+        {
+            EditorInputDialog.ShowAsync("Rename Folder", "Enter new folder name:", folder.name, (newName) =>
+            {
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    folder.name = newName.Trim();
+                    SaveCharacterFolderStructure();
+                }
+            });
+        };
+    }
+
+    private void CreateCharacterFolder(CharacterFolder parent)
+    {
+        string folderName = "New Folder";
+        int counter = 1;
+
+        var existingNames = parent == null
+            ? characterFolderData.rootFolders.Select(f => f.name).ToList()
+            : parent.subfolders.Select(f => f.name).ToList();
+
+        string finalName = folderName;
+        while (existingNames.Contains(finalName))
+        {
+            finalName = $"{folderName} {counter}";
+            counter++;
+        }
+
+        var newFolder = new CharacterFolder
+        {
+            name = finalName,
+            id = System.Guid.NewGuid().ToString()
+        };
+
+        if (parent == null)
+        {
+            characterFolderData.rootFolders.Add(newFolder);
+        }
+        else
+        {
+            parent.subfolders.Add(newFolder);
+        }
+
+        SaveCharacterFolderStructure();
+    }
+
+    private void DeleteCharacterFolder(CharacterFolder folder, CharacterFolder parent)
+    {
+        List<string> allCharacterIds = new List<string>();
+        CollectAllCharactersRecursive(folder, allCharacterIds);
+
+        if (parent == null)
+        {
+            characterFolderData.rootFolders.Remove(folder);
+        }
+        else
+        {
+            parent.subfolders.Remove(folder);
+        }
+
+        var defaultFolder = characterFolderData.rootFolders.FirstOrDefault(f => f.id == "default_character_folder");
+        if (defaultFolder != null)
+        {
+            foreach (var characterId in allCharacterIds)
+            {
+                if (!defaultFolder.characterIds.Contains(characterId))
+                {
+                    defaultFolder.characterIds.Add(characterId);
+                }
+            }
+        }
+
+        SaveCharacterFolderStructure();
+    }
+
+    private void CollectAllCharactersRecursive(CharacterFolder folder, List<string> characterList)
+    {
+        characterList.AddRange(folder.characterIds);
+
+        foreach (var subfolder in folder.subfolders)
+        {
+            CollectAllCharactersRecursive(subfolder, characterList);
+        }
+    }
+
+    private CharacterFolder FindCharacterParentFolder(string characterId)
+    {
+        if (characterFolderData.rootCharacterIds.Contains(characterId))
+            return null;
+
+        return FindCharacterParentFolderRecursive(characterFolderData.rootFolders, characterId);
+    }
+
+    private CharacterFolder FindCharacterParentFolderRecursive(List<CharacterFolder> folders, string characterId)
+    {
+        foreach (var folder in folders)
+        {
+            if (folder.characterIds.Contains(characterId))
+                return folder;
+
+            var result = FindCharacterParentFolderRecursive(folder.subfolders, characterId);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    private void MoveCharacterToFolder(string characterId, CharacterFolder fromFolder, CharacterFolder toFolder)
+    {
+        if (fromFolder == null)
+        {
+            characterFolderData.rootCharacterIds.Remove(characterId);
+        }
+        else
+        {
+            fromFolder.characterIds.Remove(characterId);
+        }
+
+        if (!toFolder.characterIds.Contains(characterId))
+        {
+            toFolder.characterIds.Add(characterId);
+        }
+
+        SaveCharacterFolderStructure();
+    }
+
+    private int CalculateCharacterFolderIndent(CharacterFolder folder)
+    {
+        int level = 0;
+        CharacterFolder current = folder;
+
+        while (current != null && current.id != "default_character_folder")
+        {
+            level++;
+            current = FindCharacterFolderParent(current);
+        }
+
+        return level;
+    }
+
+    private CharacterFolder FindCharacterFolderParent(CharacterFolder targetFolder)
+    {
+        return FindCharacterFolderParentRecursive(characterFolderData.rootFolders, targetFolder);
+    }
+
+    private CharacterFolder FindCharacterFolderParentRecursive(List<CharacterFolder> folders, CharacterFolder targetFolder)
+    {
+        foreach (var folder in folders)
+        {
+            if (folder.subfolders.Contains(targetFolder))
+                return folder;
+
+            var result = FindCharacterFolderParentRecursive(folder.subfolders, targetFolder);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    private void EditCharacterDescription(CharacterFolder folder)
+    {
+        EditorApplication.delayCall += () =>
+        {
+            EditorInputDialog.ShowAsync("Edit Description", "Enter folder description:", folder.description, (newDesc) =>
+            {
+                if (newDesc != null)
+                {
+                    folder.description = newDesc.Trim();
+                    SaveCharacterFolderStructure();
+                }
+            });
+        };
     }
     #endregion
 }
