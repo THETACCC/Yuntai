@@ -394,6 +394,24 @@ public partial class DialogueNode : Node
             int currentIndex = i;
             var eventCall = EventCalls[i];
 
+            // 从方法签名同步 parameterType
+            if (!string.IsNullOrEmpty(eventCall.methodName) && eventCall.methodName.Contains("|"))
+            {
+                var parts = eventCall.methodName.Split('|');
+                if (parts.Length == 2)
+                {
+                    string paramTypeName = parts[1];
+                    if (paramTypeName == "Int32" && eventCall.parameterType != ParameterType.Int)
+                        eventCall.parameterType = ParameterType.Int;
+                    else if (paramTypeName == "Single" && eventCall.parameterType != ParameterType.Float)
+                        eventCall.parameterType = ParameterType.Float;
+                    else if (paramTypeName == "String" && eventCall.parameterType != ParameterType.String)
+                        eventCall.parameterType = ParameterType.String;
+                    else if (paramTypeName == "Boolean" && eventCall.parameterType != ParameterType.Bool)
+                        eventCall.parameterType = ParameterType.Bool;
+                }
+            }
+
             var eventContainer = new VisualElement();
             eventContainer.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.5f));
             eventContainer.style.marginTop = 3;
@@ -441,8 +459,8 @@ public partial class DialogueNode : Node
             triggerTimingRow.style.borderBottomLeftRadius = 3;
             triggerTimingRow.style.borderBottomRightRadius = 3;
 
-            var triggerLabel = new Label("Trigger:");
-            triggerLabel.style.minWidth = 60;
+            var triggerLabel = new Label("Call After Node:");
+            triggerLabel.style.minWidth = 100;
             triggerLabel.style.fontSize = 10;
             triggerLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
 
@@ -592,12 +610,42 @@ public partial class DialogueNode : Node
                         int selectedMethodIndex = 0;
                         if (!string.IsNullOrEmpty(eventCall.methodName))
                         {
+                            // 解析方法签名
+                            string baseName = eventCall.methodName;
+                            if (eventCall.methodName.Contains("|"))
+                            {
+                                baseName = eventCall.methodName.Split('|')[0];
+                            }
+
                             for (int j = 0; j < methodInfos.Count; j++)
                             {
-                                if (methodInfos[j] != null && methodInfos[j].Name == eventCall.methodName)
+                                if (methodInfos[j] != null && methodInfos[j].Name == baseName)
                                 {
-                                    selectedMethodIndex = j;
-                                    break;
+                                    // 检查参数类型是否匹配
+                                    var methodParams = methodInfos[j].GetParameters();
+                                    bool paramMatch = false;
+
+                                    if (methodParams.Length == 0 && eventCall.parameterType == ParameterType.None)
+                                    {
+                                        paramMatch = true;
+                                    }
+                                    else if (methodParams.Length == 1)
+                                    {
+                                        var paramType = methodParams[0].ParameterType;
+                                        if ((paramType == typeof(int) && eventCall.parameterType == ParameterType.Int) ||
+                                            (paramType == typeof(float) && eventCall.parameterType == ParameterType.Float) ||
+                                            (paramType == typeof(string) && eventCall.parameterType == ParameterType.String) ||
+                                            (paramType == typeof(bool) && eventCall.parameterType == ParameterType.Bool))
+                                        {
+                                            paramMatch = true;
+                                        }
+                                    }
+
+                                    if (paramMatch)
+                                    {
+                                        selectedMethodIndex = j;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -612,9 +660,15 @@ public partial class DialogueNode : Node
                                 if (index > 0 && methodInfos[index] != null)
                                 {
                                     var method = methodInfos[index];
-                                    EventCalls[currentIndex].methodName = method.Name;
 
                                     var parameters = method.GetParameters();
+                                    string signature = method.Name;
+                                    if (parameters.Length == 1)
+                                    {
+                                        signature += $"|{parameters[0].ParameterType.Name}";
+                                    }
+                                    EventCalls[currentIndex].methodName = signature;
+
                                     if (parameters.Length == 0)
                                     {
                                         EventCalls[currentIndex].parameterType = ParameterType.None;

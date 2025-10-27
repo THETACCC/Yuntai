@@ -5,30 +5,46 @@
       "name": "Veris",
       "avatarAddr": "DialogueImages/何以真_日常",
       "content": "New Dialogue",
-      "nextIndex": -1,
-      "choices": [
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
         {
-          "text": "New Choice",
-          "targetIndex": 1
+          "targetObjectName": "Test",
+          "componentTypeName": "Test",
+          "methodName": "CallAfterNode",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
         },
         {
-          "text": "New Choice",
-          "targetIndex": 2
+          "targetObjectName": "Test",
+          "componentTypeName": "Test",
+          "methodName": "CallDuringNode|Int32",
+          "parameterType": "Int",
+          "stringParameter": "",
+          "intParameter": 16,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "Test",
+          "componentTypeName": "Test",
+          "methodName": "CallDuringNode",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
         }
-      ],
-      "eventCalls": []
+      ]
     },
     {
       "index": 1,
-      "name": "",
-      "avatarAddr": "",
-      "content": "New Dialogue",
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 2,
       "name": "",
       "avatarAddr": "",
       "content": "New Dialogue",

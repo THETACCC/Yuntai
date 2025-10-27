@@ -20,11 +20,16 @@ public class Test : MonoBehaviour
 
     public void CallAfterNode()
     {
-        //Debug.Log("CallAfterNode");
+        Debug.Log("CallAfterNode");
     }
 
     public void CallDuringNode()
     {
-        //Debug.Log("CallDuringNode");
+        Debug.Log("CallDuringNode");
+    }
+
+    public void CallDuringNode(int i)
+    {
+        Debug.Log("CallDuringNode " + i);
     }
 }
