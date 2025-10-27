@@ -112,7 +112,7 @@ public class LevelManager1_2 : MonoBehaviour
     // ★★★★★ 5B 可见度控制（新增） ★★★★★
     [Header("【演绎5B】可见度与停留（新增）")]
     [SerializeField, Range(0f, 1f)] private float minVisibleIntensity5B = 0.75f; // 换脸时至少这么亮
-    [SerializeField, Min(0f)] private float faceHoldLitSeconds5B = 0.35f;        // 换脸后保持点亮的时间
+    [SerializeField, Min(0f)] private float faceHoldLitSeconds5B = 0.75f;        // 换脸后保持点亮的时间
 
     // —— runtime 缓存 ——
     private Rigidbody2D _playerRb;
