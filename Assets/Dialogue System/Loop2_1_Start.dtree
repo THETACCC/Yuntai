@@ -63,17 +63,6 @@
             "positionX": 2135.0,
             "positionY": 289.0,
             "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
-            "index": 6,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "I should talk to the people around me. Right—and jot down what I remember in my notebook first.",
-            "positionX": 2524.0,
-            "positionY": 289.0,
-            "choices": [],
             "eventCalls": [
                 {
                     "targetObjectName": "NoteBook",
@@ -87,6 +76,39 @@
                     "triggerOnEnd": false
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
+            "index": 6,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "Why does this thing feel so hot?",
+            "positionX": 2943.0,
+            "positionY": 289.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0b4ffde2-9a20-421b-8544-af81761162d2",
+            "index": 7,
+            "characterId": "",
+            "content": "Suddenly Hervis felt a current of warmth in her hand. something is wrong about her notebook.",
+            "positionX": 2508.0,
+            "positionY": 289.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f551a1a9-a4a0-4769-9565-41ba071e4ad5",
+            "index": 8,
+            "characterId": "",
+            "content": "GUIDE: Press TAB to open the notebook when not in conversation",
+            "positionX": 3326.0,
+            "positionY": 289.0,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
@@ -128,7 +150,21 @@
         },
         {
             "outputNodeId": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "inputNodeId": "0b4ffde2-9a20-421b-8544-af81761162d2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0b4ffde2-9a20-421b-8544-af81761162d2",
             "inputNodeId": "fb6fe35f-8618-4bdb-b358-189b153ef039",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fb6fe35f-8618-4bdb-b358-189b153ef039",
+            "inputNodeId": "f551a1a9-a4a0-4769-9565-41ba071e4ad5",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
