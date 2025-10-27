@@ -150,13 +150,13 @@ public enum SceneTeleportType
 
 public enum SceneTitle
 {
-    TitleScene = 01,
-    GYM_Level = 02,
-    InitialCG = 03,
-    Level1_1 = 04,
-    Level1_2 = 05,
-    Level2_1 = 06,
-    Level2_2 = 07,
+    TitleScene = 0,
+    GYM_Level = 1,
+    InitialCG = 2,
+    Level1_1 = 3,
+    Level1_2 = 4,
+    Level2_1 = 5,
+    Level2_2 = 6,
 }
 
 public enum SceneCategory
