@@ -3715,12 +3715,12 @@ MonoBehaviour:
   - renderer: {fileID: 780555531}
     faceFrontSmile: {fileID: 32990143, guid: 71252b602fc594cefa701c4006cfcfc5, type: 3}
   - renderer: {fileID: 1209192874}
-    faceFrontSmile: {fileID: -583011692, guid: 0c7ab0ede56de4693a1ae50571c90f60, type: 3}
+    faceFrontSmile: {fileID: 21300000, guid: ed0f64ec9ecd8be4ca8344870debf60f, type: 3}
   faceDelayAfterLastOn: 1
   objectToReveal: {fileID: 2115542606}
   autoDeactivateOnStart: 1
   minVisibleIntensity5B: 0.75
-  faceHoldLitSeconds5B: 0.35
+  faceHoldLitSeconds5B: 2.35
 --- !u!4 &725164011
 Transform:
   m_ObjectHideFlags: 0
@@ -6183,6 +6183,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.23970962
       objectReference: {fileID: 0}
+    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2082233491, guid: 0c7ab0ede56de4693a1ae50571c90f60, type: 3}
     - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.2475
@@ -8460,7 +8464,7 @@ Transform:
   m_GameObject: {fileID: 1894086364}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
-  m_LocalPosition: {x: 3.57, y: -4.26, z: 1}
+  m_LocalPosition: {x: 2.46, y: -4.26, z: 1}
   m_LocalScale: {x: 99.97154, y: 7.1829, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
