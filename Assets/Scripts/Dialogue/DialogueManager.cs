@@ -9,7 +9,6 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using DialogueSystem;
 using Fungus;
-using static DialogueManager;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -20,6 +19,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] Image avatar;
     [SerializeField] TextMeshProUGUI speaker;
     [SerializeField] TextMeshProUGUI contentText;
+
+    public float textSpeed = 0.03f;      // 每个字出现的速度
+    public float punctuationPause = 0.3f; // 标点停顿时间
+    private Coroutine textAnimationCoroutine;   // 当前的文字动画协程
 
     [SerializeField] GameObject choiceParent;
     [SerializeField] GameObject choicePrefab;
@@ -82,7 +85,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         //update information
-        contentText.text = currentConversation.content;
+        // stop previous typing if still running
+        if (textAnimationCoroutine != null)
+            StopCoroutine(textAnimationCoroutine);
+
+        // start new typing animation
+        textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content));
         speaker.text = currentConversation.name;
 
         if (currentConversation.avatarAddr != null)
@@ -167,6 +175,21 @@ public class DialogueManager : MonoBehaviour
                 }
 
             }
+        }
+    }
+
+    private IEnumerator TextAnimation(string text)
+    {
+        contentText.text = "";
+        foreach (char c in text)
+        {
+            contentText.text += c;
+
+            // 如果是标点符号，增加额外停顿
+            if ("，,。.！？!?…".Contains(c.ToString()))
+                yield return new WaitForSeconds(punctuationPause);
+            else
+                yield return new WaitForSeconds(textSpeed);
         }
     }
 
