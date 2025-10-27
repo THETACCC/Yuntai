@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,11 @@ public class NoteBookManager : MonoBehaviour
 
     [Header("Event1 INFO Tab")]
     public GameObject Event1_INFO1;
+
+
+    //Visual Feedbacks
+    [Header("Feedback Reference")]
+    public MMFeedbacks NoteBookUpdate;
 
     private void Awake()
     {
@@ -71,6 +77,7 @@ public class NoteBookManager : MonoBehaviour
     public void UnlockEvent(int eventNumber)
     {
         Debug.Log("Logging events");
+        NoteBookUpdate?.PlayFeedbacks();
         if (EventBlocks == null || eventNumber < 0 || eventNumber >= EventBlocks.Length)
         {
             Debug.LogError($"UnlockEvent: index {eventNumber} is out of range.");
