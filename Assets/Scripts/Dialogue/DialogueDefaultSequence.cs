@@ -24,13 +24,6 @@ public class DialogueDefaultSequence : MonoBehaviour
     void Update()
     {
         button.enabled = isActice;
-        if (isActice)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-            {
-                GoToNextDialogue();
-            }
-        }
     }
 
     public void GoToNextDialogue()

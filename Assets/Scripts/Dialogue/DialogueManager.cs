@@ -9,7 +9,6 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using DialogueSystem;
 using Fungus;
-using static DialogueManager;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -21,6 +20,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI speaker;
     [SerializeField] TextMeshProUGUI contentText;
 
+    public float textSpeed = 0.03f;      // 每个字出现的速度
+    public float punctuationPause = 0.3f; // 标点停顿时间
+    private Coroutine textAnimationCoroutine;   // 当前的文字动画协程
+
     [SerializeField] GameObject choiceParent;
     [SerializeField] GameObject choicePrefab;
 
@@ -31,6 +34,8 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<int, Conversation> conversationDict = new Dictionary<int, Conversation>();
 
     public bool isDialogueFinished = false;
+
+    private Conversation currentConversation;
 
     private void Awake()
     {
@@ -53,7 +58,22 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        //进入下一行的代码在DialogueDefaultSequence里
+        
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            if (textAnimationCoroutine != null)
+            {
+                StopCoroutine(textAnimationCoroutine);
+                textAnimationCoroutine = null;
+                contentText.text = currentConversation.content; // 直接显示完整文本
+            } else
+            {
+                if (DialogueDefaultSequence.instance.isActice)
+                {
+                    DialogueDefaultSequence.instance.GoToNextDialogue();
+                }
+            }
+        }
 
     }
 
@@ -73,7 +93,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 通过 index 字段查找 conversation
-        var currentConversation = GetConversationByIndex(dialogueData.currentIndex);
+        currentConversation = GetConversationByIndex(dialogueData.currentIndex);
         if (currentConversation == null)
         {
             Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
@@ -82,7 +102,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         //update information
-        contentText.text = currentConversation.content;
+        // stop previous typing if still running
+        if (textAnimationCoroutine != null)
+            StopCoroutine(textAnimationCoroutine);
+
+        // start new typing animation
+        textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content));
         speaker.text = currentConversation.name;
 
         if (currentConversation.avatarAddr != null)
@@ -168,6 +193,23 @@ public class DialogueManager : MonoBehaviour
 
             }
         }
+    }
+
+    private IEnumerator TextAnimation(string text)
+    {
+        contentText.text = "";
+        foreach (char c in text)
+        {
+            contentText.text += c;
+
+            // 如果是标点符号，增加额外停顿
+            if ("，,。.！？!?…".Contains(c.ToString()))
+                yield return new WaitForSeconds(punctuationPause);
+            else
+                yield return new WaitForSeconds(textSpeed);
+        }
+
+        textAnimationCoroutine = null;
     }
 
     bool ConditionResult(List<ChoiceCondition> conditions, ConditionLogic conditionLogic)

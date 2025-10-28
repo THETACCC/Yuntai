@@ -3,43 +3,55 @@
         {
             "id": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "New Dialogue",
-            "positionX": 232.6666717529297,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": "hhhhhhhh, hhhhhh",
+            "positionX": 231.33334350585938,
             "positionY": -42.0,
-            "choices": [
+            "choices": [],
+            "eventCalls": [
                 {
-                    "text": "New Choice",
-                    "conditions": [],
-                    "conditionLogic": 0
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallAfterNode",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
                 },
                 {
-                    "text": "New Choice",
-                    "conditions": [],
-                    "conditionLogic": 0
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallDuringNode|Int32",
+                    "stringParameter": "",
+                    "intParameter": 16,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 2,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallDuringNode",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
                 }
             ],
-            "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "3bdce9bf-76a2-4102-927f-ba9d2208de0c",
+            "id": "832a0ae4-b104-40bc-b43b-3ea59d954db7",
             "index": 1,
             "characterId": "",
-            "content": "New Dialogue",
-            "positionX": 792.6666870117188,
-            "positionY": -110.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "985834c3-c32b-439d-9624-f2fd8c90a7bb",
-            "index": 2,
-            "characterId": "",
-            "content": "New Dialogue",
-            "positionX": 752.6666870117188,
-            "positionY": 310.0,
+            "content": "aaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaa.asddddddddddddddddddddd",
+            "positionX": 778.6666870117188,
+            "positionY": -267.33331298828127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -48,17 +60,10 @@
     "connections": [
         {
             "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "3bdce9bf-76a2-4102-927f-ba9d2208de0c",
-            "choiceIndex": 0,
-            "choiceText": "New Choice",
-            "branchPriority": -2
-        },
-        {
-            "outputNodeId": "cbc2e6c5-f95c-49e1-8cea-78bbce074f64",
-            "inputNodeId": "985834c3-c32b-439d-9624-f2fd8c90a7bb",
-            "choiceIndex": 1,
-            "choiceText": "New Choice",
-            "branchPriority": -3
+            "inputNodeId": "832a0ae4-b104-40bc-b43b-3ea59d954db7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }

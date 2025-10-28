@@ -1,29 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using UnityEngine;
 using DialogueSystem;
 
-/// <summary>
-/// Specialized class for executing dialogue event calls, separated from DialogueManager
-/// </summary>
 public static class DialogueEventExecutor
 {
-    // Cache for looked-up component types to avoid repeated reflection
     private static readonly Dictionary<string, Type> typeCache = new Dictionary<string, Type>();
 
-    // Predefined common namespaces, sorted by priority
     private static readonly string[] commonNamespaces = {
-        "", // No namespace (types in current assembly)
+        "",
         "UnityEngine.",
         "UnityEngine.UI.",
         "TMPro."
     };
 
-    /// <summary>
-    /// Execute a list of dialogue event calls
-    /// </summary>
-    /// <param name="eventCalls">List of event calls</param>
     public static void Execute(List<DialogueEventCall> eventCalls)
     {
         if (eventCalls == null || eventCalls.Count == 0) return;
@@ -40,23 +32,16 @@ public static class DialogueEventExecutor
         }
     }
 
-    /// <summary>
-    /// Execute a single event call
-    /// </summary>
-    /// <param name="eventCall">Event call data</param>
     public static void ExecuteSingleEvent(DialogueEventCall eventCall)
     {
         try
         {
-            // 1. Find target GameObject
             var targetObject = FindTargetObject(eventCall.targetObjectName);
             if (targetObject == null) return;
 
-            // 2. Get target component
             var component = GetTargetComponent(targetObject, eventCall.componentTypeName);
             if (component == null) return;
 
-            // 3. Invoke method
             InvokeMethod(component, eventCall);
         }
         catch (Exception e)
@@ -65,9 +50,6 @@ public static class DialogueEventExecutor
         }
     }
 
-    /// <summary>
-    /// Validate if event call data is valid
-    /// </summary>
     public static bool IsValidEventCall(DialogueEventCall eventCall)
     {
         return !string.IsNullOrEmpty(eventCall.targetObjectName) &&
@@ -75,9 +57,6 @@ public static class DialogueEventExecutor
                !string.IsNullOrEmpty(eventCall.methodName);
     }
 
-    /// <summary>
-    /// Find target GameObject
-    /// </summary>
     private static GameObject FindTargetObject(string objectName)
     {
         var targetObject = GameObject.Find(objectName);
@@ -88,9 +67,6 @@ public static class DialogueEventExecutor
         return targetObject;
     }
 
-    /// <summary>
-    /// Get target component
-    /// </summary>
     private static Component GetTargetComponent(GameObject targetObject, string componentTypeName)
     {
         var componentType = GetComponentType(componentTypeName);
@@ -108,100 +84,143 @@ public static class DialogueEventExecutor
         return component;
     }
 
-    /// <summary>
-    /// Get component type with caching for performance optimization
-    /// </summary>
     private static Type GetComponentType(string typeName)
     {
-        // Check cache first
         if (typeCache.TryGetValue(typeName, out Type cachedType))
         {
             return cachedType;
         }
 
-        // Try to find type from different namespaces
         Type foundType = null;
-        foreach (var nameSpace in commonNamespaces)
-        {
-            var fullTypeName = nameSpace + typeName;
-            foundType = Type.GetType(fullTypeName) ??
-                       Assembly.GetExecutingAssembly().GetType(fullTypeName);
 
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var assembly in assemblies)
+        {
+            foreach (var nameSpace in commonNamespaces)
+            {
+                var fullTypeName = nameSpace + typeName;
+                foundType = assembly.GetType(fullTypeName);
+                if (foundType != null) break;
+            }
             if (foundType != null) break;
         }
 
-        // Cache result (even if null, to avoid repeated lookups)
         typeCache[typeName] = foundType;
         return foundType;
     }
 
-    /// <summary>
-    /// Invoke method via reflection
-    /// </summary>
     private static void InvokeMethod(Component component, DialogueEventCall eventCall)
     {
-        var (parameters, parameterTypes) = PrepareMethodParameters(eventCall);
-        var method = FindMethod(component.GetType(), eventCall.methodName, parameterTypes);
+        if (eventCall.methodName.Contains("|"))
+        {
+            var parts = eventCall.methodName.Split('|');
+            string paramTypeName = parts.Length > 1 ? parts[1] : "";
+            if (paramTypeName == "Int32") eventCall.parameterType = ParameterType.Int;
+            else if (paramTypeName == "Single") eventCall.parameterType = ParameterType.Float;
+            else if (paramTypeName == "String") eventCall.parameterType = ParameterType.String;
+            else if (paramTypeName == "Boolean") eventCall.parameterType = ParameterType.Bool;
+            else eventCall.parameterType = ParameterType.None;
+        }
+
+        // 从方法名解析基础名称
+        string baseName = eventCall.methodName;
+        if (eventCall.methodName.Contains("|"))
+        {
+            baseName = eventCall.methodName.Split('|')[0];
+        }
+
+        // 根据参数类型构建 Type[] 和参数值
+        Type[] paramTypes;
+        object parameter = null;
+
+        switch (eventCall.parameterType)
+        {
+            case ParameterType.Int:
+                paramTypes = new Type[] { typeof(int) };
+                parameter = eventCall.intParameter;
+                break;
+            case ParameterType.Float:
+                paramTypes = new Type[] { typeof(float) };
+                parameter = eventCall.floatParameter;
+                break;
+            case ParameterType.String:
+                paramTypes = new Type[] { typeof(string) };
+                parameter = eventCall.stringParameter;
+                break;
+            case ParameterType.Bool:
+                paramTypes = new Type[] { typeof(bool) };
+                parameter = eventCall.boolParameter;
+                break;
+            case ParameterType.None:
+            default:
+                paramTypes = Type.EmptyTypes;
+                break;
+        }
+
+        string paramInfo = paramTypes.Length == 0
+            ? "no parameters"
+            : $"parameter: {paramTypes[0].Name} = {parameter}";
+
+        Debug.Log($"[DialogueEvent] Attempting to call '{baseName}' with {paramInfo}");
+
+        // 查找方法
+        var method = component.GetType().GetMethod(
+            baseName,
+            BindingFlags.Public | BindingFlags.Instance,
+            null,
+            paramTypes,
+            null);
 
         if (method == null)
         {
-            LogWarning($"Method '{eventCall.methodName}' not found on component '{component.GetType().Name}'");
+            var allMethods = component.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .Where(m => m.Name == baseName)
+                .ToList();
+
+            if (allMethods.Count > 0)
+            {
+                LogWarning($"Method '{baseName}' with signature ({string.Join(", ", paramTypes.Select(t => t.Name))}) not found");
+                Debug.Log($"[DialogueEvent] Available overloads for '{baseName}':");
+                foreach (var m in allMethods)
+                {
+                    var methodParams = m.GetParameters();
+                    string methodSig = methodParams.Length == 0
+                        ? "()"
+                        : $"({string.Join(", ", methodParams.Select(p => p.ParameterType.Name))})";
+                    Debug.Log($"[DialogueEvent]   - {m.Name}{methodSig}");
+                }
+            }
+            else
+            {
+                LogWarning($"Method '{baseName}' not found on component '{component.GetType().Name}'");
+            }
             return;
         }
 
+        // 调用方法
         try
         {
-            method.Invoke(component, parameters);
-            LogSuccess($"Successfully called {component.GetType().Name}.{eventCall.methodName}() on {component.gameObject.name}");
+            if (paramTypes.Length == 0)
+                method.Invoke(component, null);
+            else
+                method.Invoke(component, new object[] { parameter });
+
+            string callInfo = paramTypes.Length == 0
+                ? "()"
+                : $"({parameter})";
+            LogSuccess($"Successfully called {component.GetType().Name}.{baseName}{callInfo} on {component.gameObject.name}");
         }
         catch (Exception e)
         {
-            LogError($"Error invoking method {eventCall.methodName}: {e.Message}");
+            LogError($"Error invoking method {baseName}: {e.InnerException?.Message ?? e.Message}");
         }
     }
 
-    /// <summary>
-    /// Prepare method parameters
-    /// </summary>
-    private static (object[] parameters, Type[] parameterTypes) PrepareMethodParameters(DialogueEventCall eventCall)
-    {
-        return eventCall.parameterType switch
-        {
-            ParameterType.None => (new object[0], new Type[0]),
-            ParameterType.String => (new object[] { eventCall.stringParameter }, new Type[] { typeof(string) }),
-            ParameterType.Int => (new object[] { eventCall.intParameter }, new Type[] { typeof(int) }),
-            ParameterType.Float => (new object[] { eventCall.floatParameter }, new Type[] { typeof(float) }),
-            ParameterType.Bool => (new object[] { eventCall.boolParameter }, new Type[] { typeof(bool) }),
-            _ => (new object[0], new Type[0])
-        };
-    }
-
-    /// <summary>
-    /// Find method with support for exact matching and name matching
-    /// </summary>
-    private static MethodInfo FindMethod(Type componentType, string methodName, Type[] parameterTypes)
-    {
-        // Try exact parameter type matching first
-        var method = componentType.GetMethod(methodName, parameterTypes);
-
-        // If exact matching fails, try name matching (for overloaded methods or parameterless methods)
-        if (method == null)
-        {
-            method = componentType.GetMethod(methodName);
-        }
-
-        return method;
-    }
-
-    /// <summary>
-    /// Clear type cache (optional, for memory management)
-    /// </summary>
     public static void ClearTypeCache()
     {
         typeCache.Clear();
     }
 
-    // Logging methods - can be customized based on project needs
     private static void LogSuccess(string message)
     {
         Debug.Log($"[DialogueEvent] {message}");

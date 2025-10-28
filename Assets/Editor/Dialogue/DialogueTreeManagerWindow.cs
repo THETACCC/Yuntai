@@ -831,8 +831,9 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (e.type == EventType.MouseDrag && draggedCharacterForReorder == character && !isDraggingCharacterForReorder)
         {
             DragAndDrop.PrepareStartDrag();
-            DragAndDrop.SetGenericData("ReorderCharacter", character);
-            DragAndDrop.StartDrag("Reordering Character");
+            DragAndDrop.SetGenericData("ReorderCharacter", character);  // 用于manager内部排序
+            DragAndDrop.SetGenericData("CharacterData", character);     // 用于拖拽到node编辑器
+            DragAndDrop.StartDrag("Dragging Character");
             isDraggingCharacterForReorder = true;
             e.Use();
         }
