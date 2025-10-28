@@ -35,6 +35,8 @@ public class DialogueManager : MonoBehaviour
 
     public bool isDialogueFinished = false;
 
+    private Conversation currentConversation;
+
     private void Awake()
     {
         if (instance == null)
@@ -56,7 +58,22 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        //进入下一行的代码在DialogueDefaultSequence里
+        
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            if (textAnimationCoroutine != null)
+            {
+                StopCoroutine(textAnimationCoroutine);
+                textAnimationCoroutine = null;
+                contentText.text = currentConversation.content; // 直接显示完整文本
+            } else
+            {
+                if (DialogueDefaultSequence.instance.isActice)
+                {
+                    DialogueDefaultSequence.instance.GoToNextDialogue();
+                }
+            }
+        }
 
     }
 
@@ -76,7 +93,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 通过 index 字段查找 conversation
-        var currentConversation = GetConversationByIndex(dialogueData.currentIndex);
+        currentConversation = GetConversationByIndex(dialogueData.currentIndex);
         if (currentConversation == null)
         {
             Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
@@ -191,6 +208,8 @@ public class DialogueManager : MonoBehaviour
             else
                 yield return new WaitForSeconds(textSpeed);
         }
+
+        textAnimationCoroutine = null;
     }
 
     bool ConditionResult(List<ChoiceCondition> conditions, ConditionLogic conditionLogic)
