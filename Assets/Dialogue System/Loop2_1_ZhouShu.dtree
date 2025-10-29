@@ -5,8 +5,8 @@
             "index": 0,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": "(I didn’t manage to talk to her before. After the lights went out, she just disappeared.)",
-            "positionX": -1934.666748046875,
-            "positionY": 262.0,
+            "positionX": -1934.4000244140625,
+            "positionY": 261.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -16,8 +16,8 @@
             "index": 1,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Thank you so much!! Yum Yum.",
-            "positionX": 517.3333740234375,
-            "positionY": 881.3333129882813,
+            "positionX": 517.6000366210938,
+            "positionY": 880.7999877929688,
             "choices": [],
             "eventCalls": [
                 {
@@ -35,12 +35,131 @@
             "conditionalBranches": []
         },
         {
+            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "index": 8,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": "Hungry... I’m so hungry...",
+            "positionX": -212.0,
+            "positionY": 261.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "index": 9,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": "Mmm~~",
+            "positionX": -1551.2000732421875,
+            "positionY": 261.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "index": 10,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": "Excuse me, may I—",
+            "positionX": -1195.2000732421875,
+            "positionY": 261.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "index": 11,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": "Eh…",
+            "positionX": -840.7999877929688,
+            "positionY": 261.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "index": 12,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "content": "I’m sorry, what did you say?",
+            "positionX": -515.2000122070313,
+            "positionY": 261.6000061035156,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
+            "index": 13,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "content": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
+            "positionX": 484.0,
+            "positionY": 256.8000183105469,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoThreeTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessToForFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "index": 15,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
+            "positionX": 122.39999389648438,
+            "positionY": 260.8000183105469,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "getFood",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
             "id": "006ce4c9-3551-4154-983c-9313469e4485",
             "index": 2,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": "What do you wanna know?",
-            "positionX": 985.3333740234375,
-            "positionY": 256.6666564941406,
+            "positionX": 1397.5999755859375,
+            "positionY": 260.8000183105469,
             "choices": [
                 {
                     "text": "5",
@@ -103,8 +222,8 @@
             "index": 3,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Info 5",
-            "positionX": 1468.0,
-            "positionY": 228.66665649414063,
+            "positionX": 1880.0,
+            "positionY": 232.8000030517578,
             "choices": [],
             "eventCalls": [
                 {
@@ -137,8 +256,8 @@
             "index": 4,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Info 6",
-            "positionX": 1468.0,
-            "positionY": 660.6666870117188,
+            "positionX": 1880.0,
+            "positionY": 664.7999877929688,
             "choices": [],
             "eventCalls": [
                 {
@@ -171,8 +290,8 @@
             "index": 5,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": "Info 7",
-            "positionX": 1468.0,
-            "positionY": 1212.6666259765625,
+            "positionX": 1880.0,
+            "positionY": 1216.7999267578125,
             "choices": [],
             "eventCalls": [
                 {
@@ -205,8 +324,8 @@
             "index": 6,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": "What!!?",
-            "positionX": 1468.0,
-            "positionY": 1744.6666259765625,
+            "positionX": 1880.0,
+            "positionY": 1748.7999267578125,
             "choices": [],
             "eventCalls": [
                 {
@@ -235,133 +354,18 @@
             "conditionalBranches": []
         },
         {
-            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
-            "index": 8,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "Hungry... I’m so hungry...",
-            "positionX": -212.0,
-            "positionY": 262.0,
+            "id": "eda64b0f-fbc4-4f18-96da-4043f3cc0241",
+            "index": 16,
+            "characterId": "",
+            "content": "[MileStone 1: Demo finish. Now the player is \"closer\" to escaping from the current death loop. (can work with Page now)]",
+            "positionX": 943.2000122070313,
+            "positionY": 892.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
-        },
-        {
-            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
-            "index": 9,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Mmm~~",
-            "positionX": -1551.3333740234375,
-            "positionY": 262.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
-            "index": 10,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "Excuse me, may I—",
-            "positionX": -1195.3333740234375,
-            "positionY": 262.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
-            "index": 11,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Eh…",
-            "positionX": -841.3333129882813,
-            "positionY": 262.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
-            "index": 12,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
-            "content": "I’m sorry, what did you say?",
-            "positionX": -515.3333129882813,
-            "positionY": 262.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
-            "index": 13,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "content": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
-            "positionX": 484.0,
-            "positionY": 256.6666564941406,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoThreeTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "ChangeStewardessToForFood",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
-            "index": 15,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
-            "positionX": 122.0,
-            "positionY": 261.3333435058594,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": [
-                {
-                    "priority": 1,
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "getFood",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "priority": 0,
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ]
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
-            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
             "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
@@ -466,6 +470,13 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": 1
+        },
+        {
+            "outputNodeId": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "inputNodeId": "eda64b0f-fbc4-4f18-96da-4043f3cc0241",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }
