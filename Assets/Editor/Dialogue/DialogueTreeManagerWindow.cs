@@ -254,6 +254,21 @@ public class DialogueTreeManagerWindow : EditorWindow
             ExportAllToCSV();
         }
 
+        // === 本地化导出按钮 ===
+        var locExportContent = new GUIContent("Loc Export", "Export localization texts to CSV");
+        if (GUILayout.Button(locExportContent, EditorStyles.toolbarButton, GUILayout.Width(80)))
+        {
+            ExportLocalizationToCSV();
+        }
+
+        // === 本地化导入按钮 ===
+        var locImportContent = new GUIContent("Loc Import", "Import localization texts from CSV");
+        if (GUILayout.Button(locImportContent, EditorStyles.toolbarButton, GUILayout.Width(80)))
+        {
+            ImportLocalizationFromCSV();
+        }
+        // === 本地化按钮结束 ===
+
         GUILayout.FlexibleSpace();
 
         int fileCount = guidToPath.Count;
@@ -643,11 +658,11 @@ public class DialogueTreeManagerWindow : EditorWindow
             nameFieldStyle.normal.textColor = Color.white;
             nameFieldStyle.focused.textColor = Color.white;
 
-            string newName = EditorGUILayout.TextField(character.characterName, nameFieldStyle);
+            string newName = EditorGUILayout.TextField(character.characterName?.en ?? "", nameFieldStyle);
 
-            if (newName != character.characterName)
+            if (newName != (character.characterName?.en ?? ""))
             {
-                character.characterName = newName;
+                character.characterName.en = newName;
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -771,7 +786,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             // 显示 Name 字段
             var nameStyle = new GUIStyle(EditorStyles.miniLabel);
             nameStyle.normal.textColor = new Color(0.8f, 0.8f, 0.8f);
-            EditorGUILayout.LabelField($"Name: {character.characterName}", nameStyle);
+            EditorGUILayout.LabelField($"Name: {character.characterName?.en ?? ""}", nameStyle);
 
             var pathStyle = new GUIStyle(EditorStyles.miniLabel);
             pathStyle.normal.textColor = new Color(0.6f, 0.6f, 0.6f);
@@ -962,7 +977,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void DeleteCharacter(int index)
     {
         if (EditorUtility.DisplayDialog("Delete Character",
-            $"Delete character '{characterLibrary.characters[index].characterName}'?\n\nNote: Dialogue nodes using this character will show 'Unknown Character'.",
+            $"Delete character '{characterLibrary.characters[index].characterName?.en ?? "Unknown"}'?\n\nNote: Dialogue nodes using this character will show 'Unknown Character'.",
             "Delete", "Cancel"))
         {
             string deletedCharacterId = characterLibrary.characters[index].id;
@@ -1084,7 +1099,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                         if (string.IsNullOrEmpty(character.character))
                         {
                             // 如果没有character字段，使用characterName填充
-                            character.character = character.characterName;
+                            character.character = character.characterName?.en ?? "New Character";
                             needsSave = true;
                         }
                     }
@@ -2441,13 +2456,13 @@ public class DialogueTreeManagerWindow : EditorWindow
             string characterName = GetCharacterNameById(node.characterId);
             writer.Write($"\"{EscapeCSV(characterName)}\",");
 
-            writer.Write($"\"{EscapeCSV(node.content)}\"");
+            writer.Write($"\"{EscapeCSV(node.content?.en ?? "")}\"");
 
             for (int i = 0; i < maxChoices; i++)
             {
                 if (node.choices != null && i < node.choices.Count)
                 {
-                    writer.Write($",\"{EscapeCSV(node.choices[i].text)}\"");
+                    writer.Write($",\"{EscapeCSV(node.choices[i].text?.en ?? "")}\"");
 
                     string key = $"{node.id}_{i}";
                     if (connectionMap.ContainsKey(key))
@@ -2487,7 +2502,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                         if (choice.conditions != null && choice.conditions.Count > 0)
                         {
                             writer.Write($"{indent}{node.index},");
-                            writer.Write($"\"{EscapeCSV(choice.text)}\",");
+                            writer.Write($"\"{EscapeCSV(choice.text?.en ?? "")}\",");
                             writer.Write($"{choice.conditionLogic},");
                             writer.Write("\"");
 
@@ -2524,6 +2539,570 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
     }
 
+
+
+    #region Localization Export/Import
+
+    /// <summary>
+    /// 导出本地化文本到CSV
+    /// </summary>
+    private void ExportLocalizationToCSV()
+    {
+        string savePath = EditorUtility.SaveFilePanel("Export Localization to CSV",
+            Application.dataPath, "Localization_Export.csv", "csv");
+
+        if (string.IsNullOrEmpty(savePath)) return;
+
+        try
+        {
+            using (StreamWriter writer = new StreamWriter(savePath, false, System.Text.Encoding.UTF8))
+            {
+                // 写入表头
+                writer.WriteLine("ID,中文,English,日本語");
+
+                // 1. 导出所有角色名
+                ExportCharacterNames(writer);
+
+                // 2. 按Manager中的顺序导出所有dtree文件的文本
+                ExportDialogueTexts(writer);
+            }
+
+            EditorUtility.DisplayDialog("Export Complete",
+                $"Localization texts exported to:\n{savePath}", "OK");
+
+            Debug.Log($"[Localization Export] Successfully exported to: {savePath}");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Export Failed",
+                $"Failed to export localization:\n{e.Message}", "OK");
+            Debug.LogError($"[Localization Export] Error: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// 导出角色名
+    /// </summary>
+    private void ExportCharacterNames(StreamWriter writer)
+    {
+        if (characterLibrary == null || characterLibrary.characters == null)
+            return;
+
+        // 按照Manager中显示的顺序导出角色
+        List<CharacterData> orderedCharacters = GetOrderedCharacters();
+
+        foreach (var character in orderedCharacters)
+        {
+            if (character == null || string.IsNullOrEmpty(character.id))
+                continue;
+
+            string id = $"character_{character.id}";
+            string zh = EscapeCSV(character.characterName?.zh ?? "");
+            string en = EscapeCSV(character.characterName?.en ?? "");
+            string ja = EscapeCSV(character.characterName?.ja ?? "");
+
+            writer.WriteLine($"{id},{zh},{en},{ja}");
+        }
+    }
+
+    /// <summary>
+    /// 获取按Manager显示顺序排列的角色列表
+    /// </summary>
+    private List<CharacterData> GetOrderedCharacters()
+    {
+        List<CharacterData> orderedList = new List<CharacterData>();
+
+        if (characterLibrary == null || characterLibrary.characters == null)
+            return orderedList;
+
+        // 如果有角色文件夹结构
+        if (characterFolderData != null)
+        {
+            // 先添加根级别的角色
+            foreach (var charId in characterFolderData.rootCharacterIds)
+            {
+                var character = System.Array.Find(characterLibrary.characters, c => c.id == charId);
+                if (character != null)
+                    orderedList.Add(character);
+            }
+
+            // 再递归添加文件夹中的角色
+            foreach (var folder in characterFolderData.rootFolders)
+            {
+                AddCharactersFromFolder(folder, orderedList);
+            }
+        }
+        else
+        {
+            // 如果没有文件夹结构，直接按数组顺序
+            orderedList.AddRange(characterLibrary.characters);
+        }
+
+        return orderedList;
+    }
+
+    /// <summary>
+    /// 从角色文件夹递归添加角色
+    /// </summary>
+    private void AddCharactersFromFolder(CharacterFolder folder, List<CharacterData> list)
+    {
+        if (folder == null) return;
+
+        // 添加当前文件夹的角色
+        foreach (var charId in folder.characterIds)
+        {
+            var character = System.Array.Find(characterLibrary.characters, c => c.id == charId);
+            if (character != null)
+                list.Add(character);
+        }
+
+        // 递归添加子文件夹的角色
+        foreach (var subfolder in folder.subfolders)
+        {
+            AddCharactersFromFolder(subfolder, list);
+        }
+    }
+
+    /// <summary>
+    /// 导出对话文本
+    /// </summary>
+    private void ExportDialogueTexts(StreamWriter writer)
+    {
+        // 获取按Manager显示顺序排列的所有dtree文件
+        List<string> orderedFiles = GetOrderedDialogueFiles();
+
+        foreach (var dtreePath in orderedFiles)
+        {
+            ExportSingleDialogueFile(writer, dtreePath);
+        }
+    }
+
+    /// <summary>
+    /// 获取按Manager显示顺序排列的dtree文件列表
+    /// </summary>
+    private List<string> GetOrderedDialogueFiles()
+    {
+        List<string> orderedFiles = new List<string>();
+
+        if (folderData == null) return orderedFiles;
+
+        // 递归获取所有文件
+        foreach (var folder in folderData.rootFolders)
+        {
+            AddFilesFromFolder(folder, orderedFiles);
+        }
+
+        // 添加根级别的文件
+        foreach (var guid in folderData.rootFileGuids)
+        {
+            if (guidToPath.ContainsKey(guid))
+            {
+                string dtreePath = guidToPath[guid];
+                if (File.Exists(dtreePath))
+                {
+                    orderedFiles.Add(dtreePath);
+                }
+            }
+        }
+
+        return orderedFiles;
+    }
+
+    /// <summary>
+    /// 从文件夹递归添加文件
+    /// </summary>
+    private void AddFilesFromFolder(VirtualFolder folder, List<string> fileList)
+    {
+        if (folder == null) return;
+
+        // 先添加子文件夹的文件
+        foreach (var subfolder in folder.subfolders)
+        {
+            AddFilesFromFolder(subfolder, fileList);
+        }
+
+        // 再添加当前文件夹的文件
+        foreach (var guid in folder.fileGuids)
+        {
+            if (guidToPath.ContainsKey(guid))
+            {
+                string dtreePath = guidToPath[guid];
+                if (File.Exists(dtreePath))
+                {
+                    fileList.Add(dtreePath);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 导出单个对话文件的所有文本
+    /// </summary>
+    private void ExportSingleDialogueFile(StreamWriter writer, string dtreePath)
+    {
+        try
+        {
+            string json = File.ReadAllText(dtreePath);
+            DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(json);
+
+            if (treeData == null || treeData.nodes == null)
+                return;
+
+            string fileName = Path.GetFileNameWithoutExtension(dtreePath);
+
+            // 按节点索引排序
+            var sortedNodes = treeData.nodes.OrderBy(n => n.index).ToList();
+
+            foreach (var node in sortedNodes)
+            {
+                // 导出对话文本
+                if (node.content != null && node.content.HasAnyText())
+                {
+                    string id = $"{fileName}_node_{node.index}_dialogue";
+                    string zh = EscapeCSV(node.content.zh ?? "");
+                    string en = EscapeCSV(node.content.en ?? "");
+                    string ja = EscapeCSV(node.content.ja ?? "");
+
+                    writer.WriteLine($"{id},{zh},{en},{ja}");
+                }
+
+                // 导出所有选项文本
+                if (node.choices != null)
+                {
+                    for (int i = 0; i < node.choices.Count; i++)
+                    {
+                        var choice = node.choices[i];
+                        if (choice.text != null && choice.text.HasAnyText())
+                        {
+                            string id = $"{fileName}_node_{node.index}_choice_{i}";
+                            string zh = EscapeCSV(choice.text.zh ?? "");
+                            string en = EscapeCSV(choice.text.en ?? "");
+                            string ja = EscapeCSV(choice.text.ja ?? "");
+
+                            writer.WriteLine($"{id},{zh},{en},{ja}");
+                        }
+                    }
+                }
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[Localization Export] Failed to export file {dtreePath}: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// CSV转义处理
+    /// </summary>
+    private string EscapeCSV(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return "";
+
+        // 如果包含逗号、引号或换行符，需要用引号包围并转义内部引号
+        if (text.Contains(",") || text.Contains("\"") || text.Contains("\n") || text.Contains("\r"))
+        {
+            text = text.Replace("\"", "\"\"");
+            return $"\"{text}\"";
+        }
+
+        return text;
+    }
+
+    /// <summary>
+    /// 从CSV导入本地化文本
+    /// </summary>
+    private void ImportLocalizationFromCSV()
+    {
+        string loadPath = EditorUtility.OpenFilePanel("Import Localization from CSV",
+            Application.dataPath, "csv");
+
+        if (string.IsNullOrEmpty(loadPath)) return;
+
+        try
+        {
+            List<string> unmatchedIds = new List<string>();
+            int successCount = 0;
+
+            using (StreamReader reader = new StreamReader(loadPath, System.Text.Encoding.UTF8))
+            {
+                // 跳过表头
+                string header = reader.ReadLine();
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    var parts = ParseCSVLine(line);
+                    if (parts.Length < 4)
+                        continue;
+
+                    string id = parts[0];
+                    string zh = parts[1];
+                    string en = parts[2];
+                    string ja = parts[3];
+
+                    bool matched = ImportSingleText(id, zh, en, ja);
+                    if (matched)
+                    {
+                        successCount++;
+                    }
+                    else
+                    {
+                        unmatchedIds.Add(id);
+                    }
+                }
+            }
+
+            // 保存修改
+            SaveAllModifications();
+
+            // 显示结果
+            if (unmatchedIds.Count > 0)
+            {
+                string unmatchedList = string.Join("\n", unmatchedIds.Take(10));
+                if (unmatchedIds.Count > 10)
+                {
+                    unmatchedList += $"\n... and {unmatchedIds.Count - 10} more";
+                }
+
+                EditorUtility.DisplayDialog("Import Complete with Warnings",
+                    $"Imported: {successCount} texts\n" +
+                    $"Unmatched IDs: {unmatchedIds.Count}\n\n" +
+                    $"Unmatched IDs:\n{unmatchedList}",
+                    "OK");
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Import Complete",
+                    $"Successfully imported {successCount} localization texts!",
+                    "OK");
+            }
+
+            // 刷新显示
+            RefreshAll();
+
+            Debug.Log($"[Localization Import] Imported {successCount} texts, {unmatchedIds.Count} unmatched");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Import Failed",
+                $"Failed to import localization:\n{e.Message}",
+                "OK");
+            Debug.LogError($"[Localization Import] Error: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// 解析CSV行（处理引号和逗号）
+    /// </summary>
+    private string[] ParseCSVLine(string line)
+    {
+        List<string> fields = new List<string>();
+        bool inQuotes = false;
+        string currentField = "";
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char c = line[i];
+
+            if (c == '"')
+            {
+                if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                {
+                    // 双引号转义
+                    currentField += '"';
+                    i++;
+                }
+                else
+                {
+                    inQuotes = !inQuotes;
+                }
+            }
+            else if (c == ',' && !inQuotes)
+            {
+                fields.Add(currentField);
+                currentField = "";
+            }
+            else
+            {
+                currentField += c;
+            }
+        }
+
+        fields.Add(currentField);
+        return fields.ToArray();
+    }
+
+    /// <summary>
+    /// 导入单条文本
+    /// </summary>
+    private bool ImportSingleText(string id, string zh, string en, string ja)
+    {
+        // 角色名
+        if (id.StartsWith("character_"))
+        {
+            string characterId = id.Substring("character_".Length);
+            return ImportCharacterName(characterId, zh, en, ja);
+        }
+        // 对话文本和选项
+        else
+        {
+            return ImportDialogueText(id, zh, en, ja);
+        }
+    }
+
+    /// <summary>
+    /// 导入角色名
+    /// </summary>
+    private bool ImportCharacterName(string characterId, string zh, string en, string ja)
+    {
+        if (characterLibrary == null || characterLibrary.characters == null)
+            return false;
+
+        var character = System.Array.Find(characterLibrary.characters, c => c.id == characterId);
+        if (character == null)
+            return false;
+
+        if (character.characterName == null)
+        {
+            character.characterName = new LocalizedText();
+        }
+
+        character.characterName.zh = zh;
+        character.characterName.en = en;
+        character.characterName.ja = ja;
+
+        return true;
+    }
+
+    /// <summary>
+    /// 导入对话文本
+    /// </summary>
+    private bool ImportDialogueText(string id, string zh, string en, string ja)
+    {
+        // 解析ID: {fileName}_node_{nodeIndex}_dialogue 或 {fileName}_node_{nodeIndex}_choice_{choiceIndex}
+        var parts = id.Split(new[] { "_node_" }, System.StringSplitOptions.None);
+        if (parts.Length != 2)
+            return false;
+
+        string fileName = parts[0];
+        string remaining = parts[1];
+
+        // 找到对应的dtree文件
+        string dtreePath = FindDialogueFile(fileName);
+        if (string.IsNullOrEmpty(dtreePath) || !File.Exists(dtreePath))
+            return false;
+
+        try
+        {
+            // 加载文件
+            string json = File.ReadAllText(dtreePath);
+            DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(json);
+
+            if (treeData == null || treeData.nodes == null)
+                return false;
+
+            // 解析节点索引
+            int nodeIndex;
+            bool isChoice = remaining.Contains("_choice_");
+
+            if (isChoice)
+            {
+                var choiceParts = remaining.Split(new[] { "_choice_" }, System.StringSplitOptions.None);
+                if (!int.TryParse(choiceParts[0], out nodeIndex))
+                    return false;
+
+                int choiceIndex;
+                if (!int.TryParse(choiceParts[1], out choiceIndex))
+                    return false;
+
+                // 更新选项文本
+                var node = treeData.nodes.Find(n => n.index == nodeIndex);
+                if (node == null || node.choices == null || choiceIndex >= node.choices.Count)
+                    return false;
+
+                if (node.choices[choiceIndex].text == null)
+                {
+                    node.choices[choiceIndex].text = new LocalizedText();
+                }
+
+                node.choices[choiceIndex].text.zh = zh;
+                node.choices[choiceIndex].text.en = en;
+                node.choices[choiceIndex].text.ja = ja;
+            }
+            else
+            {
+                if (!remaining.EndsWith("_dialogue"))
+                    return false;
+
+                string nodeIndexStr = remaining.Substring(0, remaining.Length - "_dialogue".Length);
+                if (!int.TryParse(nodeIndexStr, out nodeIndex))
+                    return false;
+
+                // 更新对话文本
+                var node = treeData.nodes.Find(n => n.index == nodeIndex);
+                if (node == null)
+                    return false;
+
+                if (node.content == null)
+                {
+                    node.content = new LocalizedText();
+                }
+
+                node.content.zh = zh;
+                node.content.en = en;
+                node.content.ja = ja;
+            }
+
+            // 保存文件
+            string updatedJson = JsonUtility.ToJson(treeData, true);
+            File.WriteAllText(dtreePath, updatedJson);
+
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[Localization Import] Failed to import to file {dtreePath}: {e.Message}");
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 根据文件名查找dtree文件路径
+    /// </summary>
+    private string FindDialogueFile(string fileName)
+    {
+        foreach (var kvp in guidToPath)
+        {
+            string path = kvp.Value;
+            string currentFileName = Path.GetFileNameWithoutExtension(path);
+            if (currentFileName == fileName)
+            {
+                return path;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 保存所有修改
+    /// </summary>
+    private void SaveAllModifications()
+    {
+        // 保存角色库
+        if (characterLibrary != null)
+        {
+            SaveCharacterLibrary("");
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    #endregion
     #endregion
 
     #region Helper Methods
@@ -2584,11 +3163,6 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
     }
 
-    private string EscapeCSV(string text)
-    {
-        if (string.IsNullOrEmpty(text)) return "";
-        return text.Replace("\"", "\"\"");
-    }
 
     private string EscapeJsonString(string str)
     {
@@ -2609,7 +3183,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         {
             var character = System.Array.Find(characterLibrary.characters, c => c.id == characterId);
             if (character != null)
-                return character.characterName;
+                return character.characterName?.en ?? "";
         }
 
         return "Unknown Character";

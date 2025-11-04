@@ -1,8 +1,186 @@
 ﻿using System;
+using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace DialogueSystem
 {
+    // ==================== 本地化系统 ====================
+
+    /// <summary>
+    /// 支持的语言
+    /// </summary>
+    [Serializable]
+    public enum Language
+    {
+        English,
+        ChineseSimplified,
+        Japanese
+    }
+
+    /// <summary>
+    /// 本地化文本 - 存储一个文本的多语言版本
+    /// </summary>
+    [Serializable]
+    public class LocalizedText
+    {
+        [SerializeField] public string en = "";  // English
+        [SerializeField] public string zh = "";  // 中文
+        [SerializeField] public string ja = "";  // 日本語
+
+        public LocalizedText()
+        {
+        }
+
+        public LocalizedText(string text)
+        {
+            // 默认设置为英语
+            en = text;
+        }
+
+        /// <summary>
+        /// 获取指定语言的文本（带Fallback）
+        /// </summary>
+        public string GetText(Language language)
+        {
+            string text = GetTextDirect(language);
+            if (!string.IsNullOrEmpty(text))
+                return text;
+
+            // Fallback: 当前语言 → English → 中文 → 日本語
+            if (language != Language.English)
+            {
+                text = en;
+                if (!string.IsNullOrEmpty(text)) return text;
+            }
+
+            if (language != Language.ChineseSimplified)
+            {
+                text = zh;
+                if (!string.IsNullOrEmpty(text)) return text;
+            }
+
+            if (language != Language.Japanese)
+            {
+                text = ja;
+                if (!string.IsNullOrEmpty(text)) return text;
+            }
+
+            return "";
+        }
+
+        /// <summary>
+        /// 直接获取指定语言的文本（不做Fallback）
+        /// </summary>
+        public string GetTextDirect(Language language)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    return en;
+                case Language.ChineseSimplified:
+                    return zh;
+                case Language.Japanese:
+                    return ja;
+                default:
+                    return en;
+            }
+        }
+
+        /// <summary>
+        /// 设置指定语言的文本
+        /// </summary>
+        public void SetText(Language language, string text)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    en = text;
+                    break;
+                case Language.ChineseSimplified:
+                    zh = text;
+                    break;
+                case Language.Japanese:
+                    ja = text;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 检查是否有任何语言的文本
+        /// </summary>
+        public bool HasAnyText()
+        {
+            return !string.IsNullOrEmpty(en) || !string.IsNullOrEmpty(zh) || !string.IsNullOrEmpty(ja);
+        }
+
+        /// <summary>
+        /// 从旧的单一字符串创建LocalizedText（兼容性）
+        /// </summary>
+        public static LocalizedText FromString(string text)
+        {
+            return new LocalizedText { en = text };
+        }
+
+        /// <summary>
+        /// 隐式转换：字符串 → LocalizedText
+        /// </summary>
+        public static implicit operator LocalizedText(string text)
+        {
+            return FromString(text);
+        }
+    }
+
+    /// <summary>
+    /// 本地化工具类
+    /// </summary>
+    public static class LocalizationHelper
+    {
+        /// <summary>
+        /// 获取语言显示名称
+        /// </summary>
+        public static string GetLanguageDisplayName(Language language)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    return "English";
+                case Language.ChineseSimplified:
+                    return "中文";
+                case Language.Japanese:
+                    return "日本語";
+                default:
+                    return language.ToString();
+            }
+        }
+
+        /// <summary>
+        /// 获取语言简称（用于CSV表头）
+        /// </summary>
+        public static string GetLanguageCode(Language language)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    return "English";
+                case Language.ChineseSimplified:
+                    return "中文";
+                case Language.Japanese:
+                    return "日本語";
+                default:
+                    return language.ToString();
+            }
+        }
+
+        /// <summary>
+        /// 获取所有语言
+        /// </summary>
+        public static Language[] GetAllLanguages()
+        {
+            return new[] { Language.English, Language.ChineseSimplified, Language.Japanese };
+        }
+    }
+
     // ==================== 比较和逻辑类型 ====================
 
     /// <summary>
@@ -91,7 +269,7 @@ namespace DialogueSystem
     [Serializable]
     public class ChoiceData
     {
-        public string text;
+        public LocalizedText text = new LocalizedText();  // 改为本地化文本
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;
     }
@@ -126,16 +304,16 @@ namespace DialogueSystem
     [Serializable]
     public class CharacterData
     {
-        public string id;                    // 唯一ID
-        public string character;             // Manager中显示的分类名称
-        public string characterName;         // 角色名称（用于运行时）
-        public string avatarAssetPath;       // Avatar 资源路径
+        public string id;                           // 唯一ID
+        public string character;                    // Manager中显示的分类名称
+        public LocalizedText characterName = new LocalizedText();  // 角色名称（改为本地化）
+        public string avatarAssetPath;              // Avatar 资源路径
 
         public CharacterData()
         {
             id = Guid.NewGuid().ToString();
             character = "New Character";
-            characterName = "New Character";
+            characterName = new LocalizedText("New Character");
             avatarAssetPath = "";
         }
 
@@ -143,7 +321,7 @@ namespace DialogueSystem
         {
             id = Guid.NewGuid().ToString();
             character = name;
-            characterName = name;
+            characterName = new LocalizedText(name);
             avatarAssetPath = avatarPath;
         }
     }
@@ -178,10 +356,8 @@ namespace DialogueSystem
     {
         public string id;
         public int index;
-        public string characterId = "";      // 角色ID引用（新）
-        // 移除: public string name;
-        // 移除: public string avatarAssetPath;
-        public string content;
+        public string characterId = "";      // 角色ID引用
+        public LocalizedText content = new LocalizedText();  // 改为本地化文本
         public float positionX;
         public float positionY;
         public List<ChoiceData> choices = new List<ChoiceData>();
@@ -198,7 +374,7 @@ namespace DialogueSystem
         public string outputNodeId;
         public string inputNodeId;
         public int choiceIndex;
-        public string choiceText;
+        public string choiceText;  // 保持字符串（仅用于编辑器显示参考）
         public int branchPriority;
     }
 
@@ -212,9 +388,9 @@ namespace DialogueSystem
     public class RuntimeDialogueData
     {
         public int index;
-        public string name;              // 运行时解析的角色名称
+        public string name;              // 运行时解析的角色名称（保持字符串）
         public string avatarAddr;        // 运行时解析的 avatar 路径
-        public string content;
+        public string content;           // 运行时解析的对话内容（保持字符串）
         public List<RuntimeChoice> choices = new List<RuntimeChoice>();
         public string nextNodeId;
         public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
@@ -227,7 +403,7 @@ namespace DialogueSystem
     [Serializable]
     public class RuntimeChoice
     {
-        public string text;
+        public string text;              // 运行时解析的选项文本（保持字符串）
         public string nextNodeId;
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;

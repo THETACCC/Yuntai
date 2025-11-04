@@ -38,7 +38,7 @@ public partial class DialogueNode : Node
     public string CharacterId { get; private set; }  // 角色ID引用
     public string CharacterName => GetCharacterName();
     public Sprite AvatarSprite => GetCharacterAvatar();
-    public string DialogueText { get; private set; }
+    public LocalizedText DialogueText { get; private set; } = new LocalizedText();
     public List<ChoiceData> ChoicesData { get; private set; } = new List<ChoiceData>();
     public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>();
     public int NodeIndex => nodeIndex;
@@ -50,7 +50,7 @@ public partial class DialogueNode : Node
                        DialogueTreeEditor editor = null)
     {
         this.CharacterId = "";  // 初始为空
-        this.DialogueText = dialogueText;
+        this.DialogueText = new LocalizedText(dialogueText);
         this.nodeIndex = index;
         this.nodeId = System.Guid.NewGuid().ToString();
         this.editorWindow = editor;
@@ -238,7 +238,7 @@ public partial class DialogueNode : Node
         if (character != null)
         {
             // 优先使用 character 字段，如果为空则回退到 characterName（兼容旧数据）
-            return !string.IsNullOrEmpty(character.character) ? character.character : character.characterName;
+            return !string.IsNullOrEmpty(character.character) ? character.character : character.characterName?.en ?? "";
         }
         return "Unknown Character";
     }
@@ -304,15 +304,35 @@ public partial class DialogueNode : Node
     {
         dialogueTextField = new TextField("Dialogue:")
         {
-            value = DialogueText,
             multiline = true
         };
+
+        // 使用当前语言的文本
+        if (editorWindow != null && DialogueText != null)
+        {
+            dialogueTextField.value = DialogueText.GetText(editorWindow.GetCurrentLanguage());
+        }
+        else
+        {
+            dialogueTextField.value = "";
+        }
+
         dialogueTextField.style.minWidth = 300;
         dialogueTextField.style.maxWidth = 300;
         dialogueTextField.style.minHeight = 60;
         dialogueTextField.RegisterValueChangedCallback(evt =>
         {
-            DialogueText = evt.newValue;
+            if (DialogueText == null)
+            {
+                DialogueText = new LocalizedText();
+            }
+
+            // 更新当前语言的文本
+            if (editorWindow != null)
+            {
+                DialogueText.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
+            }
+
             NotifyChange();
         });
         mainContainer.Add(dialogueTextField);
@@ -1257,7 +1277,7 @@ public partial class DialogueNode : Node
 
         addChoiceButton = new Button(() =>
         {
-            AddChoice(new ChoiceData { text = "New Choice" });
+            AddChoice(new ChoiceData { text = new LocalizedText("New Choice") });
             NotifyChange();
         })
         {
@@ -1362,7 +1382,7 @@ public partial class DialogueNode : Node
         choiceContainer.style.borderBottomRightRadius = 4;
 
         var outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-        outputPort.portName = ChoicesData[index].text;
+        outputPort.portName = ChoicesData[index].text != null ? ChoicesData[index].text.GetText(editorWindow?.GetCurrentLanguage() ?? Language.English) : "";
         outputPort.userData = -2 - index;
         outputPort.portColor = GetChoiceColorRaw(index);
         choiceOutputPorts.Add(outputPort);
@@ -1395,7 +1415,7 @@ public partial class DialogueNode : Node
         textLabel.style.marginRight = 5;
 
         var choiceField = new TextField();
-        choiceField.value = ChoicesData[index].text;
+        choiceField.value = ChoicesData[index].text != null && editorWindow != null ? ChoicesData[index].text.GetText(editorWindow.GetCurrentLanguage()) : "";
         choiceField.style.flexGrow = 1;
         choiceField.style.flexShrink = 1;
         choiceField.style.minWidth = 80;
@@ -1405,7 +1425,16 @@ public partial class DialogueNode : Node
         {
             if (currentIndex < ChoicesData.Count)
             {
-                ChoicesData[currentIndex].text = evt.newValue;
+                if (ChoicesData[currentIndex].text == null)
+                {
+                    ChoicesData[currentIndex].text = new LocalizedText();
+                }
+
+                if (editorWindow != null)
+                {
+                    ChoicesData[currentIndex].text.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
+                }
+
                 if (currentIndex < choiceOutputPorts.Count)
                 {
                     choiceOutputPorts[currentIndex].portName = evt.newValue;
@@ -1413,7 +1442,6 @@ public partial class DialogueNode : Node
                 NotifyChange();
             }
         });
-
         var removeButton = new Button(() =>
         {
             RemoveChoice(currentIndex);
@@ -2329,5 +2357,68 @@ public partial class DialogueNode : Node
                 return "==";
         }
     }
+
+    #region Language Support
+    /// <summary>
+    /// 刷新语言显示
+    /// </summary>
+    public void RefreshLanguageDisplay()
+    {
+        if (editorWindow == null || DialogueText == null) return;
+
+        // 刷新对话文本
+        if (dialogueTextField != null)
+        {
+            Language currentLang = editorWindow.GetCurrentLanguage();
+            string currentText = dialogueTextField.value;
+            string newText = DialogueText.GetText(currentLang);
+
+            // 只在文本不同时才更新，避免触发回调
+            if (currentText != newText)
+            {
+                dialogueTextField.SetValueWithoutNotify(newText);
+            }
+        }
+
+        // 刷新所有选项的文本
+        RefreshChoicesLanguage();
+    }
+
+    /// <summary>
+    /// 刷新所有选项的语言显示
+    /// </summary>
+    private void RefreshChoicesLanguage()
+    {
+        if (editorWindow == null) return;
+
+        Language currentLang = editorWindow.GetCurrentLanguage();
+
+        // 更新所有现有选项的显示
+        for (int i = 0; i < ChoicesData.Count; i++)
+        {
+            // 找到对应的TextField并更新
+            if (i < choicesContainer.childCount)
+            {
+                var container = choicesContainer[i] as VisualElement;
+                if (container != null)
+                {
+                    var textField = container.Q<TextField>();
+                    if (textField != null && ChoicesData[i].text != null)
+                    {
+                        string newText = ChoicesData[i].text.GetText(currentLang);
+                        textField.SetValueWithoutNotify(newText);
+
+                        // 同时更新port名称
+                        if (i < choiceOutputPorts.Count && choiceOutputPorts[i] != null)
+                        {
+                            choiceOutputPorts[i].portName = newText;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #endregion
+
     #endregion
 }

@@ -3,35 +3,66 @@
         {
             "id": "da303932-0fba-49d0-913e-388783462a90",
             "index": 0,
-            "name": "Character",
-            "avatarAddr": "avatars/default.png",
-            "content": "Just normal me",
+            "characterId": "",
+            "content": {
+                "en": "Just normal me",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": 486.4000244140625,
             "positionY": 264.79998779296877,
             "choices": [
-                "Check Hand",
-                "Check Eyes"
-            ]
+                {
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "ce1ed56d-52c3-4a76-b4cc-b9a611433f6e",
             "index": 1,
-            "name": "Character",
-            "avatarAddr": "avatars/default.png",
-            "content": "my hand",
+            "characterId": "",
+            "content": {
+                "en": "my hand",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": 843.2000122070313,
             "positionY": 152.0,
-            "choices": []
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         },
         {
             "id": "cd3d5354-9560-4555-a2f2-c765abd55488",
             "index": 2,
-            "name": "Character",
-            "avatarAddr": "avatars/default.png",
-            "content": "my eyes",
+            "characterId": "",
+            "content": {
+                "en": "my eyes",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": 843.2000122070313,
             "positionY": 428.79998779296877,
-            "choices": []
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -39,13 +70,15 @@
             "outputNodeId": "da303932-0fba-49d0-913e-388783462a90",
             "inputNodeId": "ce1ed56d-52c3-4a76-b4cc-b9a611433f6e",
             "choiceIndex": 0,
-            "choiceText": "Check Hand"
+            "choiceText": "Check Hand",
+            "branchPriority": 0
         },
         {
             "outputNodeId": "da303932-0fba-49d0-913e-388783462a90",
             "inputNodeId": "cd3d5354-9560-4555-a2f2-c765abd55488",
             "choiceIndex": 1,
-            "choiceText": "Check Eyes"
+            "choiceText": "Check Eyes",
+            "branchPriority": 0
         }
     ]
 }

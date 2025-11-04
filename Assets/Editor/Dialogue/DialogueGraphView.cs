@@ -324,7 +324,7 @@ public class DialogueGraphView : GraphView
                 var character = System.Array.Find(characterLibrary.characters, c => c.id == node.CharacterId);
                 if (character != null)
                 {
-                    characterName = character.characterName;
+                    characterName = character.characterName?.en ?? "";
                     runtimeAvatarPath = ConvertSpritePathToRuntimePath(character.avatarAssetPath);
                 }
             }
@@ -334,7 +334,7 @@ public class DialogueGraphView : GraphView
                 index = node.NodeIndex,
                 name = characterName,
                 avatarAddr = runtimeAvatarPath,
-                content = node.DialogueText,
+                content = node.DialogueText?.en ?? "",
                 choices = new List<RuntimeChoice>(),
                 nextNodeId = null,
                 eventCalls = new List<DialogueEventCall>(node.EventCalls),
@@ -403,7 +403,7 @@ public class DialogueGraphView : GraphView
                     var choiceData = node.ChoicesData[choiceIndex];
                     var choice = new RuntimeChoice
                     {
-                        text = choiceData.text,
+                        text = choiceData.text?.en ?? "",
                         nextNodeId = targetNode.GetId(),
                         conditions = new List<ChoiceCondition>(choiceData.conditions),
                         conditionLogic = choiceData.conditionLogic
@@ -417,7 +417,7 @@ public class DialogueGraphView : GraphView
             }
 
             exportData.choices = exportData.choices.OrderBy(c =>
-                node.ChoicesData.FindIndex(cd => cd.text == c.text)).ToList();
+                node.ChoicesData.FindIndex(cd => (cd.text?.en ?? "") == c.text)).ToList();
         }
 
         var nodeIdToIndex = new Dictionary<string, int>();
@@ -522,7 +522,7 @@ public class DialogueGraphView : GraphView
                     id = node.GetId(),
                     index = node.NodeIndex,
                     characterId = node.CharacterId ?? "",
-                    content = node.DialogueText ?? "",
+                    content = node.DialogueText ?? new LocalizedText(),
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
                     choices = new List<ChoiceData>(node.ChoicesData ?? new List<ChoiceData>()),
@@ -548,7 +548,7 @@ public class DialogueGraphView : GraphView
                     string choiceText = "";
                     if (choiceIndex >= 0 && choiceIndex < outputNode.ChoicesData.Count)
                     {
-                        choiceText = outputNode.ChoicesData[choiceIndex].text;
+                        choiceText = outputNode.ChoicesData[choiceIndex].text?.en ?? "";
                     }
 
                     var connectionData = new DialogueConnectionData
@@ -585,7 +585,7 @@ public class DialogueGraphView : GraphView
         {
             Vector2 position = new Vector2(nodeData.positionX, nodeData.positionY);
             var node = CreateDialogueNodeWithIndex("", null,
-                                                  nodeData.content, position, nodeData.index);
+                                                  nodeData.content?.en ?? "", position, nodeData.index);
             node.SetId(nodeData.id);
             node.SetCharacterId(nodeData.characterId);
             node.SetChoicesData(nodeData.choices);
@@ -738,7 +738,7 @@ public class DialogueGraphView : GraphView
             var nodeData = new NodeCopyData
             {
                 characterId = node.CharacterId,
-                dialogueText = node.DialogueText,
+                dialogueText = node.DialogueText?.en ?? "",
                 positionX = node.GetPosition().x,
                 positionY = node.GetPosition().y,
                 choices = new List<ChoiceData>(node.ChoicesData),
@@ -859,4 +859,17 @@ public class DialogueGraphView : GraphView
     }
 
     #endregion
+
+    /// <summary>
+    /// 刷新所有节点的语言显示
+    /// </summary>
+    public void RefreshAllNodesLanguage()
+    {
+        var dialogueNodes = nodes.ToList().OfType<DialogueNode>();
+        foreach (var node in dialogueNodes)
+        {
+            node.RefreshLanguageDisplay();
+        }
+    }
+
 }

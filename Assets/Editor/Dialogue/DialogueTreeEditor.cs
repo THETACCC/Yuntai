@@ -20,6 +20,10 @@ public class DialogueTreeEditor : EditorWindow
     [SerializeField] private bool wasUnsaved = false;
 
     private Label fileNameLabel;
+    private Language currentLanguage = Language.English;
+    private Button englishButton;
+    private Button chineseButton;
+    private Button japaneseButton;
 
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
@@ -285,6 +289,22 @@ public class DialogueTreeEditor : EditorWindow
         fileNameLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
 
         toolbar.Add(fileNameLabel);
+
+        // 语言切换按钮
+        var spacer = new VisualElement();
+        spacer.style.width = 20;
+        toolbar.Add(spacer);
+
+        chineseButton = CreateLanguageButton("中文", Language.ChineseSimplified);
+        toolbar.Add(chineseButton);
+
+        englishButton = CreateLanguageButton("English", Language.English);
+        toolbar.Add(englishButton);
+
+        japaneseButton = CreateLanguageButton("日本語", Language.Japanese);
+        toolbar.Add(japaneseButton);
+
+        UpdateLanguageButtonStyles();
         rootVisualElement.Add(toolbar);
 
         // 创建图形视图
@@ -801,5 +821,59 @@ public class DialogueTreeEditor : EditorWindow
         }
         Debug.Log($"[Dialogue Editor] Refreshed {windows.Length} open editor window(s)");
     }
+
+    #region Language Management
+    private Button CreateLanguageButton(string text, Language language)
+    {
+        var button = new Button(() => SwitchLanguage(language)) { text = text };
+        button.style.height = 20;
+        button.style.minWidth = 60;
+        button.style.fontSize = 11;
+        button.style.marginLeft = 3;
+        button.style.marginRight = 3;
+        return button;
+    }
+
+    private void SwitchLanguage(Language language)
+    {
+        if (currentLanguage == language) return;
+        currentLanguage = language;
+        UpdateLanguageButtonStyles();
+        if (graphView != null)
+        {
+            graphView.RefreshAllNodesLanguage();
+        }
+    }
+
+    private void UpdateLanguageButtonStyles()
+    {
+        UpdateButtonStyle(englishButton, currentLanguage == Language.English);
+        UpdateButtonStyle(chineseButton, currentLanguage == Language.ChineseSimplified);
+        UpdateButtonStyle(japaneseButton, currentLanguage == Language.Japanese);
+    }
+
+    private void UpdateButtonStyle(Button button, bool isActive)
+    {
+        if (button == null) return;
+        if (isActive)
+        {
+            button.style.backgroundColor = new StyleColor(new Color(0.3f, 0.5f, 0.8f));
+            button.style.color = new StyleColor(Color.white);
+            button.style.unityFontStyleAndWeight = FontStyle.Bold;
+        }
+        else
+        {
+            button.style.backgroundColor = new StyleColor(new Color(0.25f, 0.25f, 0.25f));
+            button.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+            button.style.unityFontStyleAndWeight = FontStyle.Normal;
+        }
+    }
+
+    public Language GetCurrentLanguage()
+    {
+        return currentLanguage;
+    }
+    #endregion
+
     #endregion
 }
