@@ -297,6 +297,24 @@ public partial class DialogueNode : Node
         CharacterId = characterId;
         UpdateCharacterDisplay();
     }
+
+    public void SetEditorWindow(DialogueTreeEditor editor)
+    {
+        this.editorWindow = editor;
+    }
+
+    public void SetDialogueText(LocalizedText localizedText)
+    {
+        if (localizedText != null)
+        {
+            this.DialogueText = localizedText;
+            // 更新显示
+            if (dialogueTextField != null && editorWindow != null)
+            {
+                dialogueTextField.SetValueWithoutNotify(localizedText.GetText(editorWindow.GetCurrentLanguage()));
+            }
+        }
+    }
     #endregion
 
     #region Dialogue TextField
@@ -2364,7 +2382,17 @@ public partial class DialogueNode : Node
     /// </summary>
     public void RefreshLanguageDisplay()
     {
-        if (editorWindow == null || DialogueText == null) return;
+        if (editorWindow == null)
+        {
+            Debug.LogWarning($"[DialogueNode {nodeIndex}] editorWindow is null, cannot refresh language");
+            return;
+        }
+
+        if (DialogueText == null)
+        {
+            Debug.LogWarning($"[DialogueNode {nodeIndex}] DialogueText is null, cannot refresh language");
+            return;
+        }
 
         // 刷新对话文本
         if (dialogueTextField != null)

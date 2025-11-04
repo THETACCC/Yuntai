@@ -208,7 +208,13 @@ public class DialogueTreeEditor : EditorWindow
                     hasSerializedData = false;
                     serializedGraphJson = "";
                     wasUnsaved = false;
-                    EditorApplication.delayCall += () => { if (graphView != null) graphView.CenterOnNode0(); };
+                    EditorApplication.delayCall += () => {
+                        if (graphView != null)
+                        {
+                            graphView.CenterOnNode0();
+                            graphView.RefreshAllNodesLanguage();
+                        }
+                    };
                     UpdateStatusBar();  // 更新状态栏显示
                     return;
                 }
@@ -744,6 +750,8 @@ public class DialogueTreeEditor : EditorWindow
                     if (graphView != null)
                     {
                         graphView.CenterOnNode0();
+                        // 加载后刷新语言显示
+                        graphView.RefreshAllNodesLanguage();
                     }
                 };
 

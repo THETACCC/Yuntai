@@ -588,6 +588,13 @@ public class DialogueGraphView : GraphView
                                                   nodeData.content?.en ?? "", position, nodeData.index);
             node.SetId(nodeData.id);
             node.SetCharacterId(nodeData.characterId);
+
+            // 设置完整的多语言文本
+            if (nodeData.content != null)
+            {
+                node.SetDialogueText(nodeData.content);
+            }
+
             node.SetChoicesData(nodeData.choices);
             node.SetEventCalls(nodeData.eventCalls);
 
@@ -669,6 +676,13 @@ public class DialogueGraphView : GraphView
         var dialogueNode = new DialogueNode("", null, content, index, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
+
+        // 确保 editorWindow 引用正确设置
+        if (editorWindow != null)
+        {
+            dialogueNode.SetEditorWindow(editorWindow);
+        }
+
         AddElement(dialogueNode);
         return dialogueNode;
     }
