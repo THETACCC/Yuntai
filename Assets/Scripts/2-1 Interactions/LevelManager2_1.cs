@@ -68,10 +68,12 @@ public class LevelManager2_1 : MonoBehaviour
     [SerializeField] private GameObject ZhoushuHungry;
     [SerializeField] private GameObject ZhoushuStanding;
     [SerializeField] private GameObject ZhoushuSitting;
-    [SerializeField] private DialogueTrigger zhoushuDialogue_Post;
     [SerializeField] private UI_E zhoushuUIE;
+    [SerializeField] private GameObject RightBlock;
+    [SerializeField] private GameObject Bathroom_Old;
+    [SerializeField] private GameObject Bathroom_Escaped;
 
-    // —— 周叔站起后触发的对话（优先）——
+    // —— 周Shu站起后触发的对话（优先）——
     [Header("Dialogue After Stand")]
     [SerializeField] private DialogueTrigger Dialogue8_1;
 
@@ -220,7 +222,6 @@ public class LevelManager2_1 : MonoBehaviour
 
             // 6) 触发对话（优先 Dialogue8_1，其次回退 zhoushuDialogue_Post）
             if (Dialogue8_1) Dialogue8_1.TriggerDialogue();
-            else if (zhoushuDialogue_Post) zhoushuDialogue_Post.TriggerDialogue();
 
             _blinkRoutine = null;
         }
@@ -367,5 +368,12 @@ public class LevelManager2_1 : MonoBehaviour
             LoopTracker.I?.IncrementLoop();
             SceneController.instance.LoadSceneAndTeleport(targetScene, targetSpawn);
         }
+    }
+
+    public void ZhouShuReadyToFight()
+    {
+        RightBlock.SetActive(true);
+        Bathroom_Old.SetActive(false);
+        Bathroom_Escaped.SetActive(true);
     }
 }
