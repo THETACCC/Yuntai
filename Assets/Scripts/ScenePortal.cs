@@ -11,6 +11,11 @@ public class ScenePortal : MonoBehaviour
     public GameObject InteractIndicator;
     protected bool isPlayerInTrigger = false;
 
+    //
+    public bool isInstant = false;
+
+
+
     private void Start()
     {
         InteractIndicator.SetActive(false);
@@ -20,8 +25,17 @@ public class ScenePortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInTrigger = true;
-            InteractIndicator.SetActive(true);
+            if(!isInstant)
+            {
+                isPlayerInTrigger = true;
+                InteractIndicator.SetActive(true);
+            }
+            else
+            {
+                SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
+            }
+
+
 
         }
     }
@@ -40,7 +54,7 @@ public class ScenePortal : MonoBehaviour
     {
         if(isPlayerInTrigger)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
