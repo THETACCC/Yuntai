@@ -137,7 +137,7 @@ public class DialogueGraphView : GraphView
         if (float.IsNaN(nodePosition.x) || float.IsNaN(nodePosition.y) ||
             float.IsNaN(nodePosition.width) || float.IsNaN(nodePosition.height))
         {
-            Debug.Log("Node 0 position contains NaN values, retrying...");
+            //Debug.Log("Node 0 position contains NaN values, retrying...");
             EditorApplication.delayCall += () => CenterOnNode0();
             return;
         }

@@ -1,0 +1,99 @@
+{
+    "nodes": [
+        {
+            "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "index": 0,
+            "characterId": "",
+            "content": {
+                "en": "A fleeting illusion upon that mirror… I see.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1423.199951171875,
+            "positionY": 775.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "index": 1,
+            "characterId": "",
+            "content": {
+                "en": "Still, it’s pointless.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1786.39990234375,
+            "positionY": 774.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "440cc413-4085-4218-b097-ed4352bb7292",
+            "index": 2,
+            "characterId": "",
+            "content": {
+                "en": "(This person—did they do something to Page—?)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2133.599853515625,
+            "positionY": 773.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
+            "index": 3,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "content": {
+                "en": "Die.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2480.800048828125,
+            "positionY": 773.5999755859375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_2",
+                    "componentTypeName": "LevelManager2_2",
+                    "methodName": "ToLoop3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "440cc413-4085-4218-b097-ed4352bb7292",
+            "inputNodeId": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "inputNodeId": "440cc413-4085-4218-b097-ed4352bb7292",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "inputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
