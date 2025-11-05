@@ -39,28 +39,28 @@ namespace DialogueSystem
         }
 
         /// <summary>
-        /// 获取指定语言的文本（带Fallback）
+        /// 获取指定语言的文本（带Fallback）- 使用string参数
         /// </summary>
-        public string GetText(Language language)
+        public string GetText(string languageCode)
         {
-            string text = GetTextDirect(language);
+            string text = GetTextDirect(languageCode);
             if (!string.IsNullOrEmpty(text))
                 return text;
 
-            // Fallback: 当前语言 → English → 中文 → 日本語
-            if (language != Language.English)
+            // Fallback: 当前语言 → en → zh → ja
+            if (languageCode != "en")
             {
                 text = en;
                 if (!string.IsNullOrEmpty(text)) return text;
             }
 
-            if (language != Language.ChineseSimplified)
+            if (languageCode != "zh")
             {
                 text = zh;
                 if (!string.IsNullOrEmpty(text)) return text;
             }
 
-            if (language != Language.Japanese)
+            if (languageCode != "ja")
             {
                 text = ja;
                 if (!string.IsNullOrEmpty(text)) return text;
@@ -70,40 +70,72 @@ namespace DialogueSystem
         }
 
         /// <summary>
-        /// 直接获取指定语言的文本（不做Fallback）
+        /// 获取指定语言的文本（带Fallback）- 使用Language enum参数（向后兼容）
         /// </summary>
-        public string GetTextDirect(Language language)
+        public string GetText(Language language)
         {
-            switch (language)
+            return GetText(LanguageToCode(language));
+        }
+
+        /// <summary>
+        /// 直接获取指定语言的文本（不做Fallback）- 使用string参数
+        /// </summary>
+        public string GetTextDirect(string languageCode)
+        {
+            switch (languageCode.ToLower())
             {
-                case Language.English:
+                case "en":
+                case "english":
                     return en;
-                case Language.ChineseSimplified:
+                case "zh":
+                case "chinese":
+                case "chinesesimplified":
                     return zh;
-                case Language.Japanese:
+                case "ja":
+                case "japanese":
                     return ja;
                 default:
-                    return en;
+                    return "";
             }
         }
 
         /// <summary>
-        /// 设置指定语言的文本
+        /// 直接获取指定语言的文本（不做Fallback）- 使用Language enum参数（向后兼容）
         /// </summary>
-        public void SetText(Language language, string text)
+        public string GetTextDirect(Language language)
         {
-            switch (language)
+            return GetTextDirect(LanguageToCode(language));
+        }
+
+        /// <summary>
+        /// 设置指定语言的文本 - 使用string参数
+        /// </summary>
+        public void SetText(string languageCode, string text)
+        {
+            switch (languageCode.ToLower())
             {
-                case Language.English:
+                case "en":
+                case "english":
                     en = text;
                     break;
-                case Language.ChineseSimplified:
+                case "zh":
+                case "chinese":
+                case "chinesesimplified":
                     zh = text;
                     break;
-                case Language.Japanese:
+                case "ja":
+                case "japanese":
                     ja = text;
                     break;
             }
+        }
+
+        /// <summary>
+        /// 设置指定语言的文本 - 使用Language enum参数（向后兼容）
+        /// </summary>
+        public void SetText(Language language, string text)
+        {
+            SetText(LanguageToCode(language), text);
         }
 
         /// <summary>
@@ -128,6 +160,24 @@ namespace DialogueSystem
         public static implicit operator LocalizedText(string text)
         {
             return FromString(text);
+        }
+
+        /// <summary>
+        /// Language enum转换为语言代码
+        /// </summary>
+        private static string LanguageToCode(Language language)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    return "en";
+                case Language.ChineseSimplified:
+                    return "zh";
+                case Language.Japanese:
+                    return "ja";
+                default:
+                    return "en";
+            }
         }
     }
 
@@ -382,15 +432,15 @@ namespace DialogueSystem
 
     /// <summary>
     /// 运行时对话数据 - 用于游戏运行时
-    /// 导出时从 characterId 解析出 name 和 avatarAddr
+    /// 导出时从 characterId 解析出 name 和 avatarAddr，并保存所有语言的文本
     /// </summary>
     [Serializable]
     public class RuntimeDialogueData
     {
         public int index;
-        public string name;              // 运行时解析的角色名称（保持字符串）
-        public string avatarAddr;        // 运行时解析的 avatar 路径
-        public string content;           // 运行时解析的对话内容（保持字符串）
+        public LocalizedText name = new LocalizedText();        // 角色名称（多语言）
+        public string avatarAddr;                                // avatar 路径
+        public LocalizedText content = new LocalizedText();     // 对话内容（多语言）
         public List<RuntimeChoice> choices = new List<RuntimeChoice>();
         public string nextNodeId;
         public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
@@ -403,7 +453,7 @@ namespace DialogueSystem
     [Serializable]
     public class RuntimeChoice
     {
-        public string text;              // 运行时解析的选项文本（保持字符串）
+        public LocalizedText text = new LocalizedText();        // 选项文本（多语言）
         public string nextNodeId;
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;

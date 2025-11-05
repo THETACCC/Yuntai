@@ -17,8 +17,8 @@ public class DialogueManager : MonoBehaviour
     public bool isDialogueActive = false;
     [SerializeField] CanvasGroup UIGroup;
     [SerializeField] Image avatar;
-    [SerializeField] TextMeshProUGUI speaker;
-    [SerializeField] TextMeshProUGUI contentText;
+    public TextMeshProUGUI speaker;
+    public TextMeshProUGUI contentText;
 
     public float textSpeed = 0.03f;      // 每个字出现的速度
     public float punctuationPause = 0.3f; // 标点停顿时间
@@ -58,15 +58,22 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+        MoveToNextInputCheck();
         
+
+    }
+
+    void MoveToNextInputCheck()
+    {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             if (textAnimationCoroutine != null)
             {
                 StopCoroutine(textAnimationCoroutine);
                 textAnimationCoroutine = null;
-                contentText.text = currentConversation.content; // 直接显示完整文本
-            } else
+                contentText.text = currentConversation.content.GetText(Settings.instance.currentLanguage); // 直接显示完整文本
+            }
+            else
             {
                 if (DialogueDefaultSequence.instance.isActice)
                 {
@@ -74,7 +81,6 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void UpdateDialogue()
@@ -102,13 +108,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         //update information
+
         // stop previous typing if still running
         if (textAnimationCoroutine != null)
             StopCoroutine(textAnimationCoroutine);
 
         // start new typing animation
-        textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content));
-        speaker.text = currentConversation.name;
+        textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(Settings.instance.currentLanguage)));
+        speaker.text = currentConversation.name.GetText(Settings.instance.currentLanguage);
 
         if (currentConversation.avatarAddr != null)
         {
@@ -161,7 +168,7 @@ public class DialogueManager : MonoBehaviour
                 if (conditionResult)
                 {
                     GameObject newChoice = Instantiate(choicePrefab, choiceParent.transform);
-                    newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
+                    newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text.GetText(Settings.instance.currentLanguage);
                     newChoice.GetComponent<DialogueChoice>().index = choice.targetIndex;
                 }
             }
@@ -599,9 +606,9 @@ public class DialogueData
 public class Conversation
 {
     public int index;
-    public string name;
+    public LocalizedText name;
     public string avatarAddr; //avatar Address
-    public string content;
+    public LocalizedText content;
     public ConditionalBranch[] conditionalBranches;
     public Choice[] choices;
     public int nextIndex; //default next index if no choice, -1 if there is no next conversation
@@ -611,7 +618,7 @@ public class Conversation
 [Serializable]
 public struct Choice
 {
-    public string text;
+    public LocalizedText text;
     public int targetIndex;
     public List<ChoiceCondition> conditions;
     public ConditionLogic conditionLogic;

@@ -137,7 +137,7 @@ public class DialogueGraphView : GraphView
         if (float.IsNaN(nodePosition.x) || float.IsNaN(nodePosition.y) ||
             float.IsNaN(nodePosition.width) || float.IsNaN(nodePosition.height))
         {
-            //Debug.Log("Node 0 position contains NaN values, retrying...");
+            Debug.Log("Node 0 position contains NaN values, retrying...");
             EditorApplication.delayCall += () => CenterOnNode0();
             return;
         }
@@ -318,6 +318,7 @@ public class DialogueGraphView : GraphView
             // 根据 characterId 获取角色信息
             string characterName = "";
             string runtimeAvatarPath = "";
+            LocalizedText characterNameLocalized = null;
 
             if (!string.IsNullOrEmpty(node.CharacterId) && characterLibrary != null)
             {
@@ -325,6 +326,7 @@ public class DialogueGraphView : GraphView
                 if (character != null)
                 {
                     characterName = character.characterName?.en ?? "";
+                    characterNameLocalized = character.characterName;
                     runtimeAvatarPath = ConvertSpritePathToRuntimePath(character.avatarAssetPath);
                 }
             }
@@ -332,9 +334,9 @@ public class DialogueGraphView : GraphView
             var exportData = new RuntimeDialogueData
             {
                 index = node.NodeIndex,
-                name = characterName,
+                name = characterNameLocalized,
                 avatarAddr = runtimeAvatarPath,
-                content = node.DialogueText?.en ?? "",
+                content = node.DialogueText,
                 choices = new List<RuntimeChoice>(),
                 nextNodeId = null,
                 eventCalls = new List<DialogueEventCall>(node.EventCalls),
@@ -403,7 +405,7 @@ public class DialogueGraphView : GraphView
                     var choiceData = node.ChoicesData[choiceIndex];
                     var choice = new RuntimeChoice
                     {
-                        text = choiceData.text?.en ?? "",
+                        text = choiceData.text,
                         nextNodeId = targetNode.GetId(),
                         conditions = new List<ChoiceCondition>(choiceData.conditions),
                         conditionLogic = choiceData.conditionLogic
@@ -417,7 +419,7 @@ public class DialogueGraphView : GraphView
             }
 
             exportData.choices = exportData.choices.OrderBy(c =>
-                node.ChoicesData.FindIndex(cd => (cd.text?.en ?? "") == c.text)).ToList();
+                node.ChoicesData.FindIndex(cd => (cd.text?.en ?? "") == (c.text?.en ?? ""))).ToList();
         }
 
         var nodeIdToIndex = new Dictionary<string, int>();

@@ -1314,9 +1314,9 @@ public class DialogueTreeManagerWindow : EditorWindow
             var item = exportData[i];
             formattedJson += "    {\n";
             formattedJson += $"      \"index\": {item.index},\n";
-            formattedJson += $"      \"name\": \"{EscapeJsonString(item.name)}\",\n";
+            formattedJson += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
             formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
-            formattedJson += $"      \"content\": \"{EscapeJsonString(item.content)}\"";
+            formattedJson += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
 
             if (item.conditionalBranches != null && item.conditionalBranches.Count > 0)
             {
@@ -1378,7 +1378,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                         ? nodeIdToIndex[choice.nextNodeId] : -1;
 
                     formattedJson += "        {\n";
-                    formattedJson += $"          \"text\": \"{EscapeJsonString(choice.text)}\",\n";
+                    formattedJson += $"          \"text\": {SerializeLocalizedText(choice.text, 5)},\n";
                     formattedJson += $"          \"targetIndex\": {targetIndex}";
 
                     if (choice.conditions.Count > 0)
@@ -3163,6 +3163,19 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
     }
 
+
+    private string SerializeLocalizedText(LocalizedText text, int indentLevel = 2)
+    {
+        if (text == null) text = new LocalizedText();
+
+        string indent = new string(' ', indentLevel * 2);
+        string result = "{\n";
+        result += $"{indent}  \"en\": \"{EscapeJsonString(text.en)}\",\n";
+        result += $"{indent}  \"zh\": \"{EscapeJsonString(text.zh)}\",\n";
+        result += $"{indent}  \"ja\": \"{EscapeJsonString(text.ja)}\"\n";
+        result += $"{indent}}}";
+        return result;
+    }
 
     private string EscapeJsonString(string str)
     {

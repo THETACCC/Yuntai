@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+using TMPro;
 using UnityEngine;
 
 public class Settings : MonoBehaviour
@@ -11,6 +9,11 @@ public class Settings : MonoBehaviour
 
     public GameObject inGameSettings;
     public GameObject outGameSettings;
+
+    public string currentLanguage = "en";
+    public TMP_FontAsset ChineseFont;
+    public TMP_FontAsset EnglishFont;
+    public TMP_FontAsset JapaneseFont;
 
     bool isOpen = false;
 
@@ -80,5 +83,27 @@ public class Settings : MonoBehaviour
     public void Save()
     {
         SaveManager.instance.SaveGame();
+    }
+
+    public void SetLanguage(string languageCode)
+    {
+        currentLanguage = languageCode;
+        switch (currentLanguage)
+        {
+            case "zh":
+                DialogueManager.instance.speaker.font = ChineseFont;
+                DialogueManager.instance.contentText.font = ChineseFont;
+                break;
+            case "en":
+                DialogueManager.instance.speaker.font = EnglishFont;
+                DialogueManager.instance.contentText.font = ChineseFont;
+                break;
+            case "ja":
+                DialogueManager.instance.speaker.font = JapaneseFont;
+                DialogueManager.instance.contentText.font = ChineseFont;
+                break;
+        }
+
+        
     }
 }
