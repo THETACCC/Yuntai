@@ -5,16 +5,39 @@
             "index": 0,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
-                "en": "I don't feel great about this, I've got to check on Page.",
+                "en": "I can’t just stay here like this. Besides, I have a really bad feeling.",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 294.5,
-            "positionY": 289.5,
+            "positionX": 294.4000244140625,
+            "positionY": 289.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a065c2b9-dfa7-4cf8-baba-1c3e489ce95d",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "I should go check how Page is doing up front.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 694.4000244140625,
+            "positionY": 289.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "116dec64-a924-4160-8508-7b214d1f8254",
+            "inputNodeId": "a065c2b9-dfa7-4cf8-baba-1c3e489ce95d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
