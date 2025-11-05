@@ -72,9 +72,15 @@ public class LevelManager2_1 : MonoBehaviour
     [SerializeField] private DialogueTrigger zhoushuDialogue_Post;
     [SerializeField] private UI_E zhoushuUIE;
 
-    //[HideInInspector] public bool isPassA_Conv1 = false;
-    //[HideInInspector] public bool isPassA_Conv2 = false;
-    //[HideInInspector] public bool isPassA_Conv3 = false;
+    // —— 站立前三次全黑闪烁（与 1-2 一致）——
+    [Header("Pre-Stand Triple Black Flicker (like 1-2)")]
+    [SerializeField, Min(1)] private int preSwapFlickerCount = 3;
+    [SerializeField, Min(0f)] private float preSwapOffTime = 0.12f;
+    [SerializeField, Min(0f)] private float preSwapOnTime = 0.18f;
+
+    // —— 周叔站起后触发的对话（优先）——
+    [Header("Dialogue After Stand")]
+    [SerializeField] private DialogueTrigger Dialogue8_1;
 
     // —— 控制器快照，用于“禁-恢复” —— 
     private struct CtrlSnap
@@ -134,7 +140,7 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetInfoPass1True() { if (!infoPassA_1) { infoPassA_1 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoPass2True() { if (!infoPassA_2) { infoPassA_2 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoPass3True() { if (!infoPassA_3) { infoPassA_3 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
-    public void SetInfoThreeTrue() { if (!infoThree) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
+    public void SetInfoThreeTrue() { if (!infoThree) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); } // 按你原始脚本保留
     public void SetInfoFourTrue() { if (!infoFour) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoFiveTrue() { infoFive = true; }
     public void SetInfoSixTrue() { infoSix = true; }
@@ -162,10 +168,6 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetZhouShuConv6() { isZhouShu_Conv6 = true; IsAllZhouShuConv(); }
     public void SetZhouShuConv7() { isZhouShu_Conv7 = true; IsAllZhouShuConv(); }
 
-    //public void SetPassAConv1() { isPassA_Conv1 = true; }
-    //public void SetPassAConv2() { isPassA_Conv2 = true; }
-    //public void SetPassAConv3() { isPassA_Conv3 = true; }
-
     public void IsAllZhouShuConv()
     {
         if (isZhouShu_Conv5 && isZhouShu_Conv6 && isZhouShu_Conv7)
@@ -183,7 +185,7 @@ public class LevelManager2_1 : MonoBehaviour
         if (Stewardess_AlreadyGotFood) Stewardess_AlreadyGotFood.SetActive(true);
     }
 
-    // ===== 灯光流程：闪几次 → 变暗（非黑） → 切周叔站立 → 关闭UI → 恢复控制 → 触发对话 =====
+    // ===== 灯光流程：闪几次 → 变暗（非黑） → 三次黑闪 → 切周叔站立 → 关闭UI → 恢复控制 → 触发对话 =====
     public void BlinkThenDim()
     {
         if (_blinkRoutine != null || !mainLight) return;
@@ -227,6 +229,9 @@ public class LevelManager2_1 : MonoBehaviour
                 minFloor: 0.02f
             );
 
+            // ★★★ 插入：与 1-2 一样的“三次全黑闪烁”，在切换周叔站立前 ★★★
+            yield return TripleBlackFlicker(mainLight, preSwapFlickerCount, preSwapOffTime, preSwapOnTime);
+
             // 3) Zhoushu起身
             if (ZhoushuStanding) ZhoushuStanding.SetActive(true);
             if (ZhoushuSitting) ZhoushuSitting.SetActive(false);
@@ -242,10 +247,29 @@ public class LevelManager2_1 : MonoBehaviour
             }
             _ctrlSnaps.Clear();
 
-            // 6) 触发后续对话
-            if (zhoushuDialogue_Post) zhoushuDialogue_Post.TriggerDialogue();
+            // 6) 触发后续对话（优先用 Dialogue8_1，其次回退到 zhoushuDialogue_Post）
+            if (Dialogue8_1) Dialogue8_1.TriggerDialogue();
+            else if (zhoushuDialogue_Post) zhoushuDialogue_Post.TriggerDialogue();
 
             _blinkRoutine = null;
+        }
+    }
+
+    // —— 与 1-2 一致的三次“全黑→亮回当前基准强度” —— 
+    private IEnumerator TripleBlackFlicker(URPLight2D light, int count, float offTime, float onTime)
+    {
+        if (!light || count <= 0) yield break;
+
+        // 记录当前（已变暗后的）强度，闪烁结束后“亮回去”到这个强度
+        float baseIntensity = light.intensity;
+
+        for (int i = 0; i < count; i++)
+        {
+            light.intensity = 0f;                   // 全黑
+            if (offTime > 0f) yield return new WaitForSeconds(offTime);
+
+            light.intensity = baseIntensity;        // 恢复基准强度
+            if (onTime > 0f) yield return new WaitForSeconds(onTime);
         }
     }
 
@@ -320,5 +344,4 @@ public class LevelManager2_1 : MonoBehaviour
             SceneController.instance.LoadSceneAndTeleport(targetScene, targetSpawn);
         }
     }
-
 }

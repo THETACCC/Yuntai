@@ -3,497 +3,14 @@
         {
             "id": "684ffcb0-903c-4f3b-8b24-29c48616a361",
             "index": 0,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "Excuse me. I got this from the flight attendant. If you don't mind, please have it.",
-            "positionX": -1934.4000244140625,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
-            "index": 6,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "No need to thank me. I’m just glad you’re okay. I’m Veris, from Wenqiu City.",
-            "positionX": -212.0,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
-            "index": 7,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Huh? Oh—an in-flight meal! Really? Thank you so much!",
-            "positionX": -1551.2000732421875,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
-            "index": 8,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": "(She eats so fast. In the blink of an eye, the food is already gone.)\r",
-            "positionX": -1195.2000732421875,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
-            "index": 9,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Whew~ I’m alive again! I was in such a rush to catch the flight that I didn’t have time to eat. By the time I realized, I was already too hungry to think straight.",
-            "positionX": -880.7999877929688,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
-            "index": 10,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
-            "content": "Ah! I’m so sorry! I was so focused on eating that I completely ignored you! I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
-            "positionX": -545.5999755859375,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
-            "index": 11,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "(She looks much better now. I should be able to ask her a few questions.)",
-            "positionX": 122.39999389648438,
-            "positionY": 260.8000183105469,
-            "choices": [
-                {
-                    "text": "What is this Jinlan Temple you mentioned?",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv5",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": "That’s a very unique outfit...",
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv6",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetGotFoodTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "a4cfd4b7-26ff-4c46-bec1-09ceb184389f",
-            "index": 22,
-            "characterId": "",
-            "content": "Your outfit is quite distinctive—does it have something to do with your profession?",
-            "positionX": 612.7999877929688,
-            "positionY": 836.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv6",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "798b6887-6819-4ffc-99a0-9b2ec59094be",
-            "index": 23,
-            "characterId": "",
-            "content": "Yep! I’m a Taoist priest! Though honestly, it’s not like we’re required to wear this all the time. I just find the robes really comfortable, so I’ve kept wearing them.",
-            "positionX": 967.2000122070313,
-            "positionY": 835.2000122070313,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "f30afe15-c962-4658-b932-9515e2784a46",
-            "index": 14,
-            "characterId": "",
-            "content": "I see. I’m not very familiar with the local culture in Yuntai. Are there many Taoist temples like that here?",
-            "positionX": 1324.7999267578125,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "6738c6bf-d300-4799-9371-963741c4029c",
-            "index": 15,
-            "characterId": "",
-            "content": "Not really. We’re probably the most prominent sect in the city. Jinlan Temple has apparently been around since Yuntai was first established, so it’s got quite a bit of history.",
-            "positionX": 1696.0,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "1d82ddac-019d-493c-9114-699088c10412",
-            "index": 16,
-            "characterId": "",
-            "content": "That sounds impressive.",
-            "positionX": 2069.599853515625,
-            "positionY": 263.20001220703127,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "03e6fc2d-25bd-4eea-8141-62aa0ff3d1b9",
-            "index": 17,
-            "characterId": "",
-            "content": "Not at all~ Honestly, ever since I can remember, hardly anyone visits the temple.",
-            "positionX": 2424.800048828125,
-            "positionY": 263.20001220703127,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "2e592453-fdf6-4c2d-ac8a-45a0bdc76fff",
-            "index": 18,
-            "characterId": "",
-            "content": "Shifu says it’s because of... cultural shift, or something like that… Anyway, hardly any young people worship the Double Stars nowadays. I guess the temple’s kind of in decline.",
-            "positionX": 2766.39990234375,
-            "positionY": 263.20001220703127,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "cfc37033-a512-4896-aef1-d38baacbcb02",
-            "index": 19,
-            "characterId": "",
-            "content": "I see…",
-            "positionX": 3115.199951171875,
-            "positionY": 263.20001220703127,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "46e8052f-45c2-41e6-bf40-c25bc7366d86",
-            "index": 20,
-            "characterId": "",
-            "content": "Ah! But don’t worry—no matter how run-down it gets, we won’t be shutting down! It’s still a historical site, after all! My Shifu was even considering raising the ticket price. I think bumping it to ten yuan would fix everything!",
-            "positionX": 3469.599853515625,
-            "positionY": 263.20001220703127,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ffe5819e-3d73-47b1-9244-9e3545bcf11e",
-            "index": 21,
-            "characterId": "",
-            "content": "......(Something tells me this sect isn’t all that reliable...)",
-            "positionX": 3822.39990234375,
-            "positionY": 262.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": [
-                {
-                    "priority": 1,
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv6",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "priority": 0,
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ]
-        },
-        {
-            "id": "c1b83d63-53a4-43e9-aa62-da9bd802ab6b",
-            "index": 24,
-            "characterId": "",
-            "content": "There aren’t any Taoist priests in Wenqiu City, so I’m curious—what’s a Taoist’s daily life like?",
-            "positionX": 1324.7999267578125,
-            "positionY": 834.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "43586b78-071f-4ecc-8e97-722baae5c152",
-            "index": 25,
-            "characterId": "",
-            "content": "Nothing too special, really. Our sect focuses more on talismans and spiritual techniques, but I’m terrible at all those complicated rituals and incantations.",
-            "positionX": 1696.0,
-            "positionY": 834.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "dee7077a-549d-42c6-b245-7b7e723aeed3",
-            "index": 26,
-            "characterId": "",
-            "content": "But I’m pretty fit physically, so I mostly just train my body and practice swordplay...",
-            "positionX": 2069.599853515625,
-            "positionY": 836.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "a53e6095-ea68-4658-b7b6-c3508a733e25",
-            "index": 27,
-            "characterId": "",
-            "content": "I’m not sure I follow...",
-            "positionX": 2424.800048828125,
-            "positionY": 836.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "a9513d7c-377e-4c88-9400-2de67acfbd41",
-            "index": 28,
-            "characterId": "",
-            "content": "Ah, sorry! I’ve been rambling about all sorts of stuff! Honestly, most of the time I just handle random chores like ticketing and maintenance!",
-            "positionX": 2766.39990234375,
-            "positionY": 836.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "8d0ea931-019f-417e-9b2b-4f16cbb23c7c",
-            "index": 30,
-            "characterId": "",
-            "content": "(So this is what working at a temple is like...)",
-            "positionX": 3469.599853515625,
-            "positionY": 834.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": [
-                {
-                    "priority": 1,
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv5",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "priority": 0,
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ]
-        },
-        {
-            "id": "5a32824c-0297-4390-ac28-511906155a9e",
-            "index": 29,
-            "characterId": "",
-            "content": "Since I can’t remember much history, I’m no good as a tour guide. Even though I’m technically the senior disciple in the temple, I spend most of my days running errands and hauling things around...",
-            "positionX": 3115.199951171875,
-            "positionY": 836.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "45847536-28d6-464f-b55d-b4f3d24c47f0",
-            "index": 12,
-            "characterId": "",
-            "content": "May I ask, the Jinlan Temple you mentioned earlier—is that where you work?",
-            "positionX": 612.7999877929688,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "",
-                    "componentTypeName": "",
-                    "methodName": "",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv5",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "db6c0c89-f486-4bc2-8308-6104ef05170c",
-            "index": 13,
-            "characterId": "",
-            "content": "Hmm~ Sort of. It's more like my home, actually. I grew up there.",
-            "positionX": 967.2000122070313,
-            "positionY": 261.6000061035156,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b5665cce-ea46-47d4-a0bd-febea48f0f95",
-            "index": 31,
-            "characterId": "",
-            "content": "(Come to think of it, in the dream, I never saw her turn into one of those monsters. Maybe she has the ability to fight them?)",
-            "positionX": 4352.80029296875,
-            "positionY": 828.7999877929688,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv7",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "f7e31969-84a0-41be-973a-d14a6cf94660",
-            "index": 32,
-            "characterId": "",
-            "content": "You mentioned “body training” earlier—do you mean like physical conditioning?",
-            "positionX": 4718.400390625,
-            "positionY": 829.6000366210938,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "af71218f-6877-46d5-9440-16e2bb99955f",
-            "index": 33,
-            "characterId": "",
-            "content": "Pretty much! It also includes things like combat practice.",
-            "positionX": 5090.400390625,
-            "positionY": 829.6000366210938,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ebc7cc20-cbe6-4ca4-8067-f0fc05435dd9",
-            "index": 34,
-            "characterId": "",
-            "content": "(I should probably tell her what I saw in the dream, even if just as a precaution.)",
-            "positionX": 5452.80029296875,
-            "positionY": 829.6000366210938,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "22245ef9-0066-47b8-a78b-8a27ba50fbbd",
-            "index": 35,
-            "characterId": "",
-            "content": "It might sound crazy, but earlier I think I saw some strange... people in the front cabin.",
-            "positionX": 5833.60009765625,
-            "positionY": 829.6000366210938,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "037cb877-e031-49ea-9f14-05b8abd0995d",
-            "index": 36,
-            "characterId": "",
-            "content": "Huh? What kind of people?",
-            "positionX": 6207.2001953125,
-            "positionY": 829.6000366210938,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "d8c8586a-5bd4-4442-afb9-6156208bf8ac",
-            "index": 37,
-            "characterId": "",
-            "content": "They had really stiff joints and moved like puppets, with eerie smiles on their faces.",
-            "positionX": 6577.60009765625,
-            "positionY": 830.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e83c5efb-a8bb-4199-902d-a98aa7193a19",
-            "index": 38,
-            "characterId": "",
-            "content": "!!!",
-            "positionX": 6943.2001953125,
-            "positionY": 828.7999877929688,
+            "content": {
+                "en": "Excuse me. I got this from the flight attendant. If you don't mind, please have it.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -1934.4000244140625,
+            "positionY": 261.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -502,12 +19,20 @@
             "id": "006ce4c9-3551-4154-983c-9313469e4485",
             "index": 1,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "What do you wanna know?",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": -1160.800048828125,
             "positionY": 1136.0,
             "choices": [
                 {
-                    "text": "5",
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
                     "conditions": [
                         {
                             "targetObjectName": "LevelManager2_1",
@@ -520,7 +45,11 @@
                     "conditionLogic": 0
                 },
                 {
-                    "text": "6",
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
                     "conditions": [
                         {
                             "targetObjectName": "LevelManager2_1",
@@ -533,7 +62,11 @@
                     "conditionLogic": 0
                 },
                 {
-                    "text": "7",
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
                     "conditions": [
                         {
                             "targetObjectName": "LevelManager2_1",
@@ -546,7 +79,11 @@
                     "conditionLogic": 0
                 },
                 {
-                    "text": "You know, I saw...",
+                    "text": {
+                        "en": "",
+                        "zh": "",
+                        "ja": ""
+                    },
                     "conditions": [
                         {
                             "targetObjectName": "LevelManager2_1",
@@ -566,7 +103,11 @@
             "id": "9aff6605-0fe7-407d-b06e-787b82e17687",
             "index": 2,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Info 5",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": -678.3999633789063,
             "positionY": 1108.0,
             "choices": [],
@@ -600,7 +141,11 @@
             "id": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
             "index": 3,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Info 6",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": -678.3999633789063,
             "positionY": 1540.0,
             "choices": [],
@@ -634,7 +179,11 @@
             "id": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
             "index": 4,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": "Info 7",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": -678.3999633789063,
             "positionY": 2092.0,
             "choices": [],
@@ -668,7 +217,11 @@
             "id": "651409d7-6eab-462b-bf5c-5e95516aea71",
             "index": 5,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "content": "What!!?",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
             "positionX": -678.3999633789063,
             "positionY": 2624.0,
             "choices": [],
@@ -697,6 +250,645 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "index": 6,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "No need to thank me. I’m just glad you’re okay. I’m Veris, from Wenqiu City.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -212.0,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "index": 7,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "Huh? Oh—an in-flight meal! Really? Thank you so much!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -1551.2000732421875,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "index": 8,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": {
+                "en": "Whew~ I’m alive again! I was in such a rush to catch the flight that I didn’t have time to eat. By the time I realized, I was already too hungry to think straight.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -1214.4000244140625,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "index": 9,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "Ah! I’m so sorry! I was so focused on eating that I completely ignored you! ",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -880.7999877929688,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "index": 10,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -542.3999633789063,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "index": 11,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "(She looks much better now. I should be able to ask her a few questions.)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 122.39999389648438,
+            "positionY": 260.79998779296877,
+            "choices": [
+                {
+                    "text": {
+                        "en": "What is this Jinlan Temple you mentioned?",
+                        "zh": "",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv5",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "text": {
+                        "en": "That’s a very unique outfit...",
+                        "zh": "",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv6",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetGotFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "45847536-28d6-464f-b55d-b4f3d24c47f0",
+            "index": 12,
+            "characterId": "",
+            "content": {
+                "en": "May I ask, the Jinlan Temple you mentioned earlier—is that where you work?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 612.7999877929688,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "",
+                    "componentTypeName": "",
+                    "methodName": "",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv5",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "db6c0c89-f486-4bc2-8308-6104ef05170c",
+            "index": 13,
+            "characterId": "",
+            "content": {
+                "en": "Hmm~ Sort of. It's more like my home, actually. I grew up there.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 967.2000122070313,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f30afe15-c962-4658-b932-9515e2784a46",
+            "index": 14,
+            "characterId": "",
+            "content": {
+                "en": "I see. I’m not very familiar with the local culture in Yuntai. Are there many Taoist temples like that here?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1324.7999267578125,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6738c6bf-d300-4799-9371-963741c4029c",
+            "index": 15,
+            "characterId": "",
+            "content": {
+                "en": "Not really. We’re probably the most prominent sect in the city. Jinlan Temple has apparently been around since Yuntai was first established, so it’s got quite a bit of history.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1696.0,
+            "positionY": 261.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1d82ddac-019d-493c-9114-699088c10412",
+            "index": 16,
+            "characterId": "",
+            "content": {
+                "en": "That sounds impressive.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2069.599853515625,
+            "positionY": 263.1999816894531,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "03e6fc2d-25bd-4eea-8141-62aa0ff3d1b9",
+            "index": 17,
+            "characterId": "",
+            "content": {
+                "en": "Not at all~ Honestly, ever since I can remember, hardly anyone visits the temple.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2424.800048828125,
+            "positionY": 263.1999816894531,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2e592453-fdf6-4c2d-ac8a-45a0bdc76fff",
+            "index": 18,
+            "characterId": "",
+            "content": {
+                "en": "Shifu says it’s because of... cultural shift, or something like that… Anyway, hardly any young people worship the Double Stars nowadays. I guess the temple’s kind of in decline.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2766.39990234375,
+            "positionY": 263.1999816894531,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfc37033-a512-4896-aef1-d38baacbcb02",
+            "index": 19,
+            "characterId": "",
+            "content": {
+                "en": "I see…",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 3115.199951171875,
+            "positionY": 263.1999816894531,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "46e8052f-45c2-41e6-bf40-c25bc7366d86",
+            "index": 20,
+            "characterId": "",
+            "content": {
+                "en": "Ah! But don’t worry—no matter how run-down it gets, we won’t be shutting down! It’s still a historical site, after all! My Shifu was even considering raising the ticket price. I think bumping it to ten yuan would fix everything!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 3469.599853515625,
+            "positionY": 263.1999816894531,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ffe5819e-3d73-47b1-9244-9e3545bcf11e",
+            "index": 21,
+            "characterId": "",
+            "content": {
+                "en": "......(Something tells me this sect isn’t all that reliable...)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 3822.39990234375,
+            "positionY": 262.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv6",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "a4cfd4b7-26ff-4c46-bec1-09ceb184389f",
+            "index": 22,
+            "characterId": "",
+            "content": {
+                "en": "Your outfit is quite distinctive—does it have something to do with your profession?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 612.7999877929688,
+            "positionY": 836.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv6",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "798b6887-6819-4ffc-99a0-9b2ec59094be",
+            "index": 23,
+            "characterId": "",
+            "content": {
+                "en": "Yep! I’m a Taoist priest! Though honestly, it’s not like we’re required to wear this all the time. I just find the robes really comfortable, so I’ve kept wearing them.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 967.2000122070313,
+            "positionY": 835.2000122070313,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c1b83d63-53a4-43e9-aa62-da9bd802ab6b",
+            "index": 24,
+            "characterId": "",
+            "content": {
+                "en": "There aren’t any Taoist priests in Wenqiu City, so I’m curious—what’s a Taoist’s daily life like?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1324.7999267578125,
+            "positionY": 834.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "43586b78-071f-4ecc-8e97-722baae5c152",
+            "index": 25,
+            "characterId": "",
+            "content": {
+                "en": "Nothing too special, really. Our sect focuses more on talismans and spiritual techniques, but I’m terrible at all those complicated rituals and incantations.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1696.0,
+            "positionY": 834.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "dee7077a-549d-42c6-b245-7b7e723aeed3",
+            "index": 26,
+            "characterId": "",
+            "content": {
+                "en": "But I’m pretty fit physically, so I mostly just train my body and practice swordplay...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2069.599853515625,
+            "positionY": 836.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a53e6095-ea68-4658-b7b6-c3508a733e25",
+            "index": 27,
+            "characterId": "",
+            "content": {
+                "en": "I’m not sure I follow...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2424.800048828125,
+            "positionY": 836.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a9513d7c-377e-4c88-9400-2de67acfbd41",
+            "index": 28,
+            "characterId": "",
+            "content": {
+                "en": "Ah, sorry! I’ve been rambling about all sorts of stuff! Honestly, most of the time I just handle random chores like ticketing and maintenance!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2766.39990234375,
+            "positionY": 836.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5a32824c-0297-4390-ac28-511906155a9e",
+            "index": 29,
+            "characterId": "",
+            "content": {
+                "en": "Since I can’t remember much history, I’m no good as a tour guide. Even though I’m technically the senior disciple in the temple, I spend most of my days running errands and hauling things around...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 3115.199951171875,
+            "positionY": 836.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8d0ea931-019f-417e-9b2b-4f16cbb23c7c",
+            "index": 30,
+            "characterId": "",
+            "content": {
+                "en": "(So this is what working at a temple is like...)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 3469.599853515625,
+            "positionY": 834.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isZhouShu_Conv5",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "b5665cce-ea46-47d4-a0bd-febea48f0f95",
+            "index": 31,
+            "characterId": "",
+            "content": {
+                "en": "(Come to think of it, in the dream, I never saw her turn into one of those monsters. Maybe she has the ability to fight them?)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 4352.80029296875,
+            "positionY": 828.7999877929688,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetZhouShuConv7",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f7e31969-84a0-41be-973a-d14a6cf94660",
+            "index": 32,
+            "characterId": "",
+            "content": {
+                "en": "You mentioned “body training” earlier—do you mean like physical conditioning?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 4718.400390625,
+            "positionY": 829.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "af71218f-6877-46d5-9440-16e2bb99955f",
+            "index": 33,
+            "characterId": "",
+            "content": {
+                "en": "Pretty much! It also includes things like combat practice.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 5090.400390625,
+            "positionY": 829.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ebc7cc20-cbe6-4ca4-8067-f0fc05435dd9",
+            "index": 34,
+            "characterId": "",
+            "content": {
+                "en": "(I should probably tell her what I saw in the dream, even if just as a precaution.)",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 5452.80029296875,
+            "positionY": 829.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "22245ef9-0066-47b8-a78b-8a27ba50fbbd",
+            "index": 35,
+            "characterId": "",
+            "content": {
+                "en": "It might sound crazy, but earlier I think I saw some strange... people in the front cabin.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 5833.60009765625,
+            "positionY": 829.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "037cb877-e031-49ea-9f14-05b8abd0995d",
+            "index": 36,
+            "characterId": "",
+            "content": {
+                "en": "Huh? What kind of people?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 6207.2001953125,
+            "positionY": 829.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d8c8586a-5bd4-4442-afb9-6156208bf8ac",
+            "index": 37,
+            "characterId": "",
+            "content": {
+                "en": "They had really stiff joints and moved like puppets, with eerie smiles on their faces.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 6577.60009765625,
+            "positionY": 830.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e83c5efb-a8bb-4199-902d-a98aa7193a19",
+            "index": 38,
+            "characterId": "",
+            "content": {
+                "en": "!!!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 6944.80029296875,
+            "positionY": 830.3999633789063,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "BlinkThenDim",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -711,21 +903,21 @@
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
             "choiceIndex": 0,
-            "choiceText": "5",
+            "choiceText": "",
             "branchPriority": -2
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
             "choiceIndex": 1,
-            "choiceText": "6",
+            "choiceText": "",
             "branchPriority": -3
         },
         {
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
             "choiceIndex": 2,
-            "choiceText": "7",
+            "choiceText": "",
             "branchPriority": -4
         },
         {
@@ -746,7 +938,7 @@
             "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
             "inputNodeId": "651409d7-6eab-462b-bf5c-5e95516aea71",
             "choiceIndex": 3,
-            "choiceText": "You know, I saw...",
+            "choiceText": "",
             "branchPriority": -5
         },
         {

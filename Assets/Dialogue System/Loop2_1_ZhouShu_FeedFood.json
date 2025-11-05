@@ -2,8 +2,8 @@
   "conversations": [
     {
       "index": 0,
-      "name": "Page",
-      "avatarAddr": "DialogueImages/周书_日常",
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
       "content": "Excuse me. I got this from the flight attendant. If you don't mind, please have it.",
       "nextIndex": 7,
       "choices": [],
@@ -13,11 +13,11 @@
       "index": 1,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_日常",
-      "content": "What do you wanna know?",
+      "content": "",
       "nextIndex": -1,
       "choices": [
         {
-          "text": "5",
+          "text": "",
           "targetIndex": 2,
           "conditions": [
             {
@@ -31,7 +31,7 @@
           "conditionLogic": "AND"
         },
         {
-          "text": "6",
+          "text": "",
           "targetIndex": 3,
           "conditions": [
             {
@@ -45,7 +45,7 @@
           "conditionLogic": "AND"
         },
         {
-          "text": "7",
+          "text": "",
           "targetIndex": 4,
           "conditions": [
             {
@@ -59,7 +59,7 @@
           "conditionLogic": "AND"
         },
         {
-          "text": "You know, I saw...",
+          "text": "",
           "targetIndex": 5,
           "conditions": [
             {
@@ -79,7 +79,7 @@
       "index": 2,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_闭眼",
-      "content": "Info 5",
+      "content": "",
       "nextIndex": 1,
       "choices": [],
       "eventCalls": [
@@ -111,7 +111,7 @@
       "index": 3,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_闭眼",
-      "content": "Info 6",
+      "content": "",
       "nextIndex": 1,
       "choices": [],
       "eventCalls": [
@@ -143,7 +143,7 @@
       "index": 4,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_闭眼",
-      "content": "Info 7",
+      "content": "",
       "nextIndex": 1,
       "choices": [],
       "eventCalls": [
@@ -175,7 +175,7 @@
       "index": 5,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_日常",
-      "content": "What!!?",
+      "content": "",
       "nextIndex": -1,
       "choices": [],
       "eventCalls": [
@@ -205,8 +205,8 @@
     },
     {
       "index": 6,
-      "name": "Page",
-      "avatarAddr": "DialogueImages/周书_日常",
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
       "content": "No need to thank me. I’m just glad you’re okay. I’m Veris, from Wenqiu City.",
       "nextIndex": 11,
       "choices": [],
@@ -215,7 +215,7 @@
     {
       "index": 7,
       "name": "Page",
-      "avatarAddr": "DialogueImages/周书_闭眼",
+      "avatarAddr": "DialogueImages/周书_日常",
       "content": "Huh? Oh—an in-flight meal! Really? Thank you so much!",
       "nextIndex": 8,
       "choices": [],
@@ -223,9 +223,9 @@
     },
     {
       "index": 8,
-      "name": "Veris",
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "(She eats so fast. In the blink of an eye, the food is already gone.)\r",
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Whew~ I’m alive again! I was in such a rush to catch the flight that I didn’t have time to eat. By the time I realized, I was already too hungry to think straight.",
       "nextIndex": 9,
       "choices": [],
       "eventCalls": []
@@ -233,25 +233,25 @@
     {
       "index": 9,
       "name": "Page",
-      "avatarAddr": "DialogueImages/周书_闭眼",
-      "content": "Whew~ I’m alive again! I was in such a rush to catch the flight that I didn’t have time to eat. By the time I realized, I was already too hungry to think straight.",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "Ah! I’m so sorry! I was so focused on eating that I completely ignored you! ",
       "nextIndex": 10,
       "choices": [],
       "eventCalls": []
     },
     {
       "index": 10,
-      "name": "Veris",
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": "Ah! I’m so sorry! I was so focused on eating that I completely ignored you! I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
       "nextIndex": 6,
       "choices": [],
       "eventCalls": []
     },
     {
       "index": 11,
-      "name": "Page",
-      "avatarAddr": "DialogueImages/周书_闭眼",
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
       "content": "(She looks much better now. I should be able to ask her a few questions.)",
       "nextIndex": -1,
       "choices": [
@@ -624,7 +624,19 @@
       "content": "!!!",
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "BlinkThenDim",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
+        }
+      ]
     }
   ],
   "currentIndex": 0

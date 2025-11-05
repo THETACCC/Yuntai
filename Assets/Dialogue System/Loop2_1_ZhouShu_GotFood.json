@@ -4,7 +4,7 @@
       "index": 0,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_日常",
-      "content": "You should head to the bathroom on the left.",
+      "content": "What’s going on?",
       "nextIndex": 1,
       "choices": [],
       "eventCalls": []
@@ -13,22 +13,64 @@
       "index": 1,
       "name": "Page",
       "avatarAddr": "DialogueImages/周书_日常",
-      "content": "And I will go check what's going on.",
+      "content": "Your name’s... Veris, right?",
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Yes.",
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 3,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Alright, Veris. Listen to me carefully—go hide in the restroom at the back, now!",
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 4,
+      "name": "",
+      "avatarAddr": "",
+      "content": "What?",
+      "nextIndex": 5,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 5,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I’m going up front to check the situation. If you hear anything strange, be very careful! I think something dangerous might have snuck onto this plane...",
+      "nextIndex": 6,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 6,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Is there anything I can do to help?",
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 7,
+      "name": "",
+      "avatarAddr": "",
+      "content": "No—it’s way too dangerous for a civilian. Just go hide in the restroom, now!",
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "10Trigger",
-          "componentTypeName": "DialogueCollisionTrigger",
-          "methodName": "Activate",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
