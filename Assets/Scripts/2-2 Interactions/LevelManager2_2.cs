@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
 public class LevelManager2_2 : MonoBehaviour
@@ -32,25 +33,50 @@ public class LevelManager2_2 : MonoBehaviour
     [Tooltip("演出期间锁住水平位移，让角色只受重力沿Y轴下落")]
     [SerializeField] private bool freezeXWhileCinematic = true;
 
-    // 放在“主角可见性/移动”后面，或任意序列化字段区
-    [Header("Audio")]
-    [SerializeField] private AudioSource assignedAudioSource;  // 仅用于Inspector指派引用，不在换脸时播放
-    public AudioSource AssignedAudioSource => assignedAudioSource; // 如果别的脚本需要拿到它
+    [Header("演出结束时处理")]
+    [Tooltip("灯灭后是否把玩家Sprite也隐藏（让“主角也消失”）")]
+    [SerializeField] private bool hidePlayerSpritesWhenEnd = true;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource assignedAudioSource;
+    public AudioSource AssignedAudioSource => assignedAudioSource;
 
     // ========= 人物换脸 & 跳场景（无音效） =========
     [System.Serializable]
-    private struct FaceSwap
-    {
-        public SpriteRenderer target;  // 要换的渲染器
-        public Sprite newSprite;       // 换成的Sprite
-    }
+    private struct FaceSwap { public SpriteRenderer target; public Sprite newSprite; }
 
     [Header("2-2 换脸设置（和 1-2 同逻辑）")]
     [SerializeField] private List<FaceSwap> faceSwaps = new();
 
     [Header("下一个 Loop 的场景名")]
     [SerializeField] private string nextSceneName;
+
+    // ====== Death Acting（相机自动寻找版） ======
+    [Header("Death Acting - Camera Move")]
+    [Tooltip("若场景中有多个VCam，可在此手动指定；留空则自动寻找第一个。")]
+    [SerializeField] private CinemachineVirtualCamera vcam;
+    [Tooltip("优先移动 VCam 的 Follow 目标；若为空则移动 VCam 自身 Transform。")]
+    [SerializeField] private bool moveFollowIfAvailable = true;
+    [SerializeField] private float camMoveDeltaX = 6f;             // 往右移动多少（世界单位）
+    [SerializeField, Min(0f)] private float camMoveDuration = 2f;  // 相机到达用时
+    [SerializeField, Min(0f)] private float waitAfterCameraSeconds = 1f; // 相机到位后额外等待
+
+    [Header("Death Acting - Light")]
+    [SerializeField] private URPLight2D deathSpot;       // 2D 点光（Light2D）
+    [SerializeField, Min(0f)] private float spotRiseDuration = 3f;
+    [SerializeField] private float spotTargetIntensity = 1000f;
+    [SerializeField] private float spotTargetOuterRadius = 7.5f;
+    [SerializeField] private float spotTargetInnerRadius = 3f;
+    [SerializeField] private float spotQuickFadeDuration = 0.25f;
+
+    [Header("Death Acting - Actor & Dialogue")]
+    [SerializeField] private GameObject zhoushu;         // 周叔对象（场景实例）
+    [SerializeField] private DialogueTrigger deathTrigger; // “Death” 对话触发器
+
+    [Header("Timing / Debug")]
+    [Tooltip("使用不受 timeScale 影响的时间（建议开，以免暂停卡住）")]
+    [SerializeField] private bool useUnscaledTime = true;
+    [SerializeField] private bool verboseLog = false;
 
     // --- runtime ---
     private GameObject _player;
@@ -63,6 +89,8 @@ public class LevelManager2_2 : MonoBehaviour
     private RigidbodyConstraints2D _origConstraints;
     private float _origGravityScale;
     private bool _hasRb = false;
+
+    private Coroutine _deathRoutine;
 
     private void Awake()
     {
@@ -108,10 +136,8 @@ public class LevelManager2_2 : MonoBehaviour
         }
 
         // 灯控全黑
-        if (!globalLight)
-            Debug.LogError("[LevelManager2_2] 请指定 Global Light 2D。");
-        else
-            globalLight.intensity = 0f;
+        if (!globalLight) Debug.LogError("[LevelManager2_2] 请指定 Global Light 2D。");
+        else globalLight.intensity = 0f;
 
         // 压暗其它灯，并记录原值
         _extraLightsOrig = LightControl.CaptureIntensities(extraLights);
@@ -119,6 +145,18 @@ public class LevelManager2_2 : MonoBehaviour
             if (extraLights[i]) extraLights[i].intensity = 0f;
 
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Loading;
+
+        // 自动寻找 VCam（若未手动指派）
+        if (!vcam)
+        {
+#if UNITY_2023_1_OR_NEWER
+            vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
+#else
+            vcam = FindObjectOfType<CinemachineVirtualCamera>();
+#endif
+            if (!vcam)
+                Debug.LogWarning("[LevelManager2_2] 未找到 CinemachineVirtualCamera，DeathActing 将跳过相机移动步骤。");
+        }
     }
 
     private void Start()
@@ -128,22 +166,19 @@ public class LevelManager2_2 : MonoBehaviour
 
     private IEnumerator Sequence_Intro()
     {
-        if (blackHoldSeconds > 0f) yield return new WaitForSeconds(blackHoldSeconds);
+        if (blackHoldSeconds > 0f) yield return WaitSeconds(blackHoldSeconds);
 
         if (globalLight)
             yield return LightControl.DimIE(globalLight, lightTargetIntensity, fadeDuration, fadeCurve);
 
         if (start1Trigger)
         {
-            if (start1Delay > 0f) yield return new WaitForSeconds(start1Delay);
+            if (start1Delay > 0f) yield return WaitSeconds(start1Delay);
             start1Trigger.TriggerDialogue();
         }
-        // Start1 完成后外部调用 OnStart1FullyClosed()
     }
 
-    /// <summary>
-    /// Start1 完全关闭后：仅显示玩家Sprite，然后触发Start2。
-    /// </summary>
+    /// <summary>Start1 完全关闭后：仅显示玩家Sprite，然后触发Start2。</summary>
     public void OnStart1FullyClosed()
     {
         SetPlayerSpritesVisible(true);
@@ -152,15 +187,12 @@ public class LevelManager2_2 : MonoBehaviour
 
     private IEnumerator CoTriggerStart2()
     {
-        if (start2Delay > 0f) yield return new WaitForSeconds(start2Delay);
+        if (start2Delay > 0f) yield return WaitSeconds(start2Delay);
         if (start2Trigger) start2Trigger.TriggerDialogue();
-        // Start2 完成后外部调用 OnStart2FullyClosed()
         yield break;
     }
 
-    /// <summary>
-    /// Start2 完全关闭后：恢复玩家 & 灯光 → 换脸 → 立即切场景（无音效等待）。
-    /// </summary>
+    /// <summary>Start2 完全关闭后：恢复玩家 & 灯光 → 换脸 → 立即切场景（无音效等待）。</summary>
     public void OnStart2FullyClosed()
     {
         // 恢复刚体原约束与控制
@@ -202,13 +234,165 @@ public class LevelManager2_2 : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[LevelManager2_2] nextSceneName 未设置，无法切场景。可以改为调用 LoopTracker 的接口。");
-            // 例如：
-            // LoopTracker.I?.GotoNextLoop();
+            Debug.LogWarning("[LevelManager2_2] nextSceneName 未设置，无法切场景。");
         }
     }
 
+    // ---------- Death Acting：公共入口 ----------
+    public void DeathActing()
+    {
+        if (_deathRoutine != null) StopCoroutine(_deathRoutine);
+        _deathRoutine = StartCoroutine(CoDeathActing());
+    }
+
+    // ---------- Death Acting：主流程 ----------
+    private IEnumerator CoDeathActing()
+    {
+        if (verboseLog) Debug.Log("[2-2] DeathActing start");
+
+        // 1) 禁用玩家控制（保留物理）
+        if (_playerCtrl) _playerCtrl.enabled = false;
+        if (_hasRb)
+        {
+            _rb2d.isKinematic = false;
+            _rb2d.simulated = true;
+            if (freezeXWhileCinematic)
+                _rb2d.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
+        }
+
+        // 2) 相机先移动到位
+        Transform camMoveTarget = null;
+        if (vcam)
+            camMoveTarget = (moveFollowIfAvailable && vcam.Follow != null) ? vcam.Follow : vcam.transform;
+
+        if (camMoveTarget && camMoveDuration > 0f)
+        {
+            if (verboseLog) Debug.Log("[2-2] Moving camera...");
+            Vector3 camStart = camMoveTarget.position;
+            Vector3 camTarget = camStart + new Vector3(camMoveDeltaX, 0f, 0f);
+
+            float tc = 0f;
+            while (tc < camMoveDuration)
+            {
+                tc += DeltaTime();
+                float s = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(tc / camMoveDuration));
+                camMoveTarget.position = Vector3.LerpUnclamped(camStart, camTarget, s);
+                yield return null;
+            }
+            camMoveTarget.position = camTarget; // 强制对齐终点
+        }
+
+        // 2.5) 到位后等待 1 秒（可配）
+        if (waitAfterCameraSeconds > 0f) yield return WaitSeconds(waitAfterCameraSeconds);
+
+        // 3) 灯光从无到有
+        InitDeathLight();
+        if (deathSpot && spotRiseDuration > 0f)
+        {
+            if (verboseLog) Debug.Log("[2-2] Raising light...");
+            float t = 0f;
+            while (t < spotRiseDuration)
+            {
+                t += DeltaTime();
+                float s = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / spotRiseDuration));
+                deathSpot.intensity = Mathf.Lerp(0f, spotTargetIntensity, s);
+                deathSpot.pointLightOuterRadius = Mathf.Lerp(0f, spotTargetOuterRadius, s);
+                deathSpot.pointLightInnerRadius = Mathf.Lerp(0f, spotTargetInnerRadius, s);
+                yield return null;
+            }
+            // 保底对齐目标值
+            deathSpot.intensity = spotTargetIntensity;
+            deathSpot.pointLightOuterRadius = spotTargetOuterRadius;
+            deathSpot.pointLightInnerRadius = spotTargetInnerRadius;
+        }
+
+        // 4) 直接禁用周叔（你要我来操作，不再等待外部）
+        if (zhoushu && zhoushu.activeSelf)
+        {
+            if (verboseLog) Debug.Log("[2-2] Disabling Zhoushu GameObject.");
+            zhoushu.SetActive(false);
+        }
+
+        // 5) 灯光快速淡出
+        if (verboseLog) Debug.Log("[2-2] Fading light...");
+        yield return FadeOutDeathLight();
+
+        // 5.5) 可选：把玩家Sprite也隐藏
+        if (hidePlayerSpritesWhenEnd) SetPlayerSpritesVisible(false);
+
+        // 6) 触发 “Death” 对话
+        if (deathTrigger)
+        {
+            if (verboseLog) Debug.Log("[2-2] Trigger Death dialogue");
+            deathTrigger.TriggerDialogue();
+        }
+
+        if (verboseLog) Debug.Log("[2-2] DeathActing end");
+        _deathRoutine = null;
+    }
+
     // ---------- 工具 ----------
+    private void InitDeathLight()
+    {
+        if (!deathSpot) return;
+
+        if (!deathSpot.gameObject.activeInHierarchy) deathSpot.gameObject.SetActive(true);
+        if (!deathSpot.enabled) deathSpot.enabled = true;
+
+        // 2D没有Spot类型：使用Point以启用半径属性
+        var lt = UnityEngine.Rendering.Universal.Light2D.LightType.Point;
+        if (deathSpot.lightType != lt) deathSpot.lightType = lt;
+
+        // 从“无”开始
+        deathSpot.intensity = 0f;
+        deathSpot.pointLightOuterRadius = 0f;
+        deathSpot.pointLightInnerRadius = 0f;
+
+        // 保险：内半径不能大于外半径
+        if (spotTargetInnerRadius > spotTargetOuterRadius)
+            spotTargetInnerRadius = Mathf.Max(0f, spotTargetOuterRadius - 0.01f);
+    }
+
+    private IEnumerator FadeOutDeathLight()
+    {
+        if (!deathSpot) yield break;
+
+        // 已经很暗则直接退出
+        if (!deathSpot.enabled || (deathSpot.intensity <= 0.001f && deathSpot.pointLightOuterRadius <= 0.001f))
+            yield break;
+
+        float i0 = deathSpot.intensity;
+        float o0 = deathSpot.pointLightOuterRadius;
+        float in0 = deathSpot.pointLightInnerRadius;
+
+        float tf = 0f;
+        float dur = Mathf.Max(0.01f, spotQuickFadeDuration);
+        while (tf < dur)
+        {
+            tf += DeltaTime();
+            float u = Mathf.Clamp01(tf / dur);
+            float k = 1f - u;
+            deathSpot.intensity = i0 * k;
+            deathSpot.pointLightOuterRadius = o0 * k;
+            deathSpot.pointLightInnerRadius = in0 * k;
+            yield return null;
+        }
+
+        deathSpot.intensity = 0f;
+        deathSpot.pointLightOuterRadius = 0f;
+        deathSpot.pointLightInnerRadius = 0f;
+        deathSpot.enabled = false;
+    }
+
+    private float DeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+    private IEnumerator WaitSeconds(float seconds)
+    {
+        if (useUnscaledTime) yield return new WaitForSecondsRealtime(seconds);
+        else yield return new WaitForSeconds(seconds);
+    }
+
     private void CachePlayerSpritesAndColliders()
     {
         _playerSprites.Clear();
