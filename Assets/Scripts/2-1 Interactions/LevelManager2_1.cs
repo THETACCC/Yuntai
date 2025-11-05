@@ -33,10 +33,10 @@ public class LevelManager2_1 : MonoBehaviour
 
     // Dialogue Boolean
     [HideInInspector] public bool infoPassA_1 = false;   // PassA 团
-    [HideInInspector] public bool infoPassA_2 = false;  //乞巧
-    [HideInInspector] public bool infoPassA_3 = false; //封城
-    [HideInInspector] public bool infoThree = false; // ZhouShu服务员不过来
-    [HideInInspector] public bool infoFour = false;  // 乘务员为什么站在我座椅边上。
+    [HideInInspector] public bool infoPassA_2 = false;   // 乞巧
+    [HideInInspector] public bool infoPassA_3 = false;   // 封城
+    [HideInInspector] public bool infoThree = false;     // ZhouShu服务员不过来
+    [HideInInspector] public bool infoFour = false;      // 乘务员为什么站在我座椅边上。
 
     [HideInInspector] public bool infoFive = false;
     [HideInInspector] public bool infoSix = false;
@@ -50,8 +50,6 @@ public class LevelManager2_1 : MonoBehaviour
     public GameObject Stewardess;
     public GameObject Stewardess_Food;
     public GameObject Stewardess_AlreadyGotFood;
-
-    public GameObject ZhouShu;
 
     // Conversation Related
     [HideInInspector] public bool isStewardess_Conv1 = false;
@@ -67,20 +65,27 @@ public class LevelManager2_1 : MonoBehaviour
     [HideInInspector] public bool isZhouShu_Conv7 = false;
     [HideInInspector] public bool isZhouShu_AllConv = false;
 
+    [SerializeField] private GameObject ZhoushuHungry;
     [SerializeField] private GameObject ZhoushuStanding;
     [SerializeField] private GameObject ZhoushuSitting;
     [SerializeField] private DialogueTrigger zhoushuDialogue_Post;
     [SerializeField] private UI_E zhoushuUIE;
 
-    // —— 站立前三次全黑闪烁（与 1-2 一致）——
-    [Header("Pre-Stand Triple Black Flicker (like 1-2)")]
-    [SerializeField, Min(1)] private int preSwapFlickerCount = 3;
-    [SerializeField, Min(0f)] private float preSwapOffTime = 0.12f;
-    [SerializeField, Min(0f)] private float preSwapOnTime = 0.18f;
-
     // —— 周叔站起后触发的对话（优先）——
     [Header("Dialogue After Stand")]
     [SerializeField] private DialogueTrigger Dialogue8_1;
+
+    // ★ 灯集合策略：控制所有 URP 2D 灯（无需 Tag）或仅 Tag=Light
+    [Header("Light Collection")]
+    [SerializeField] private bool controlAllUrp2DLights = true;
+    private static readonly string LightTag = "Light";
+
+    // ★ 统一三连闪参数（总共 3 下，匀速中等节奏）
+    [Header("Uniform Triple Flicker")]
+    [SerializeField, Min(1)] private int uniformFlickerCount = 3;   // 总次数，给 3
+    [SerializeField, Min(0f)] private float uniformOffTime = 0.56f; // 每次熄灭时长
+    [SerializeField, Min(0f)] private float uniformOnTime = 0.56f; // 每次点亮时长
+    [SerializeField, Range(0f, 1f)] private float offIntensity = 0f; // 熄灭到的强度（0=全黑）
 
     // —— 控制器快照，用于“禁-恢复” —— 
     private struct CtrlSnap
@@ -114,7 +119,7 @@ public class LevelManager2_1 : MonoBehaviour
             BathroomPortal.SpawnPointLocation = SpawnPointLocation_NotEscaped;
         }
 
-        // 可选：初始化周叔为“坐着”
+        // 初始化周叔为“坐着”
         if (ZhoushuStanding) ZhoushuStanding.SetActive(false);
         if (ZhoushuSitting) ZhoushuSitting.SetActive(true);
     }
@@ -134,13 +139,12 @@ public class LevelManager2_1 : MonoBehaviour
         bool nonePending = !AnyPendingConversation();
         isStewardess_AllConv = nonePending;
         isStewardessSet = nonePending && HaveAllInfo();
-
     }
 
     public void SetInfoPass1True() { if (!infoPassA_1) { infoPassA_1 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoPass2True() { if (!infoPassA_2) { infoPassA_2 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoPass3True() { if (!infoPassA_3) { infoPassA_3 = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
-    public void SetInfoThreeTrue() { if (!infoThree) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); } // 按你原始脚本保留
+    public void SetInfoThreeTrue() { if (!infoThree) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); } // 保留原逻辑
     public void SetInfoFourTrue() { if (!infoFour) { infoFour = true; isStewardess_AllConv = false; isStewardessSet = false; } AllStewardessConversationCheck(); }
     public void SetInfoFiveTrue() { infoFive = true; }
     public void SetInfoSixTrue() { infoSix = true; }
@@ -156,7 +160,6 @@ public class LevelManager2_1 : MonoBehaviour
     public void SetGotFoodTrue()
     {
         gotFood = true;
-        // 可按需切换周叔拿到食物的表现
     }
 
     public void SetStewardessConv1() { isStewardess_Conv1 = true; AllStewardessConversationCheck(); }
@@ -179,58 +182,31 @@ public class LevelManager2_1 : MonoBehaviour
         if (Stewardess) Stewardess.gameObject.SetActive(false);
         if (Stewardess_Food) Stewardess_Food.gameObject.SetActive(true);
     }
-    public void ChangeStewardessToGotFood()
+    public void ChangeStewardessAndZhouShuToGotFood()
     {
         if (Stewardess_Food) Stewardess_Food.SetActive(false);
         if (Stewardess_AlreadyGotFood) Stewardess_AlreadyGotFood.SetActive(true);
+
+        if (ZhoushuHungry) ZhoushuHungry.SetActive(false);
+        if (ZhoushuSitting) ZhoushuSitting.SetActive(true);
     }
 
-    // ===== 灯光流程：闪几次 → 变暗（非黑） → 三次黑闪 → 切周叔站立 → 关闭UI → 恢复控制 → 触发对话 =====
-    public void BlinkThenDim()
+    // ===== 只做一次统一三连闪（总共 3 下）→ 周叔站立 → 对话 =====
+    public void BlinkThenDim()   // 名称沿用，但已按需求改成“仅 3 下统一闪烁”
     {
-        if (_blinkRoutine != null || !mainLight) return;
-
-        var steps = new (float cycle, float on, float minI, float maxI)[]
-        {
-            (1.5f, 1.2f, 0.0f, 0.9f),
-            (1.0f, 0.8f, 0.0f, 0.9f),
-            (1.8f, 1.5f, 0.0f, 0.9f),
-        };
-
+        if (_blinkRoutine != null) return;
         _blinkRoutine = StartCoroutine(CoRun());
 
         IEnumerator CoRun()
         {
+            // 收集灯：更保险（可选 Tag 过滤 / 控制全场），并强制包含 mainLight
+            var lights = GetSceneLights(mainLight);
+
             // 1) 禁走
-            _ctrlSnaps.Clear();
-            var controllers = Object.FindObjectsOfType<PlayerController>(true);
-            foreach (var c in controllers)
-            {
-                if (!c) continue;
-                var rb = c.GetComponent<Rigidbody2D>();
-                _ctrlSnaps.Add(new CtrlSnap
-                {
-                    ctrl = c,
-                    rb = rb,
-                    wasEnabled = c.enabled,
-                    wasKinematic = rb ? rb.isKinematic : false
-                });
-                if (rb) { rb.velocity = Vector2.zero; rb.isKinematic = true; }
-                c.enabled = false;
-            }
+            FreezePlayers();
 
-            // 2) 灯光：闪几次 → 变暗（非黑，软边）
-            yield return LightControl.BlinkThenDimIE(
-                mainLight,
-                steps,
-                dimTarget: 0.2f,
-                dimDuration: 1.0f,
-                edge: 0.08f,
-                minFloor: 0.02f
-            );
-
-            // ★★★ 插入：与 1-2 一样的“三次全黑闪烁”，在切换周叔站立前 ★★★
-            yield return TripleBlackFlicker(mainLight, preSwapFlickerCount, preSwapOffTime, preSwapOnTime);
+            // 2) 统一三连闪（总共 3 次，匀速中等节奏），无额外渐暗、无二段闪
+            yield return UniformFlicker_All(lights, uniformFlickerCount, uniformOffTime, uniformOnTime, offIntensity);
 
             // 3) Zhoushu起身
             if (ZhoushuStanding) ZhoushuStanding.SetActive(true);
@@ -240,14 +216,9 @@ public class LevelManager2_1 : MonoBehaviour
             if (zhoushuUIE) zhoushuUIE.enabled = false;
 
             // 5) 恢复原状态
-            foreach (var s in _ctrlSnaps)
-            {
-                if (s.rb) s.rb.isKinematic = s.wasKinematic;
-                if (s.ctrl) s.ctrl.enabled = s.wasEnabled;
-            }
-            _ctrlSnaps.Clear();
+            RestorePlayers();
 
-            // 6) 触发后续对话（优先用 Dialogue8_1，其次回退到 zhoushuDialogue_Post）
+            // 6) 触发对话（优先 Dialogue8_1，其次回退 zhoushuDialogue_Post）
             if (Dialogue8_1) Dialogue8_1.TriggerDialogue();
             else if (zhoushuDialogue_Post) zhoushuDialogue_Post.TriggerDialogue();
 
@@ -255,22 +226,93 @@ public class LevelManager2_1 : MonoBehaviour
         }
     }
 
-    // —— 与 1-2 一致的三次“全黑→亮回当前基准强度” —— 
-    private IEnumerator TripleBlackFlicker(URPLight2D light, int count, float offTime, float onTime)
+    // —— 工具：整组灯的统一三连闪（或 N 连闪），每次灭到 offIntensity、亮回到各自“基准强度” —— 
+    private IEnumerator UniformFlicker_All(List<URPLight2D> lights, int count, float offTime, float onTime, float offI)
     {
-        if (!light || count <= 0) yield break;
+        if (lights == null || lights.Count == 0 || count <= 0) yield break;
 
-        // 记录当前（已变暗后的）强度，闪烁结束后“亮回去”到这个强度
-        float baseIntensity = light.intensity;
+        // 记录开始时各灯的基准强度
+        var baseIntensity = new float[lights.Count];
+        for (int i = 0; i < lights.Count; i++)
+            baseIntensity[i] = lights[i] ? lights[i].intensity : 0f;
 
-        for (int i = 0; i < count; i++)
+        for (int k = 0; k < count; k++)
         {
-            light.intensity = 0f;                   // 全黑
+            // 熄灭到 offIntensity
+            for (int i = 0; i < lights.Count; i++)
+                if (lights[i]) lights[i].intensity = offI;
             if (offTime > 0f) yield return new WaitForSeconds(offTime);
 
-            light.intensity = baseIntensity;        // 恢复基准强度
+            // 亮回“基准强度”
+            for (int i = 0; i < lights.Count; i++)
+                if (lights[i]) lights[i].intensity = baseIntensity[i];
             if (onTime > 0f) yield return new WaitForSeconds(onTime);
         }
+    }
+
+    // —— 玩家冻结/恢复 —— 
+    private void FreezePlayers()
+    {
+        _ctrlSnaps.Clear();
+        var controllers = Object.FindObjectsOfType<PlayerController>(true);
+        foreach (var c in controllers)
+        {
+            if (!c) continue;
+            var rb = c.GetComponent<Rigidbody2D>();
+            _ctrlSnaps.Add(new CtrlSnap
+            {
+                ctrl = c,
+                rb = rb,
+                wasEnabled = c.enabled,
+                wasKinematic = rb ? rb.isKinematic : false
+            });
+            if (rb) { rb.velocity = Vector2.zero; rb.isKinematic = true; }
+            c.enabled = false;
+        }
+    }
+    private void RestorePlayers()
+    {
+        foreach (var s in _ctrlSnaps)
+        {
+            if (s.rb) s.rb.isKinematic = s.wasKinematic;
+            if (s.ctrl) s.ctrl.enabled = s.wasEnabled;
+        }
+        _ctrlSnaps.Clear();
+    }
+
+    // —— 收集 URP 2D 灯（含 inactive）。可选仅 Tag=Light；强制包含 mainLight —— 
+    private List<URPLight2D> GetSceneLights(URPLight2D extraInclude = null)
+    {
+        var set = new HashSet<URPLight2D>();
+
+        var all = Object.FindObjectsOfType<URPLight2D>(includeInactive: true);
+        foreach (var l in all)
+        {
+            if (!l) continue;
+            if (controlAllUrp2DLights)
+            {
+                set.Add(l);  // 控制所有 URP 2D 灯
+            }
+            else
+            {
+                if (l.gameObject.CompareTag(LightTag)) set.Add(l); // 只控制 Tag=Light
+            }
+        }
+        if (extraInclude) set.Add(extraInclude);
+
+#if UNITY_EDITOR
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine($"[LevelManager2_1] Lights to flicker ({set.Count}) (controlAllUrp2DLights={controlAllUrp2DLights}):");
+        foreach (var l in set)
+        {
+            if (!l) continue;
+            var go = l.gameObject;
+            sb.AppendLine($" - {go.name} | tag={go.tag} | activeInHierarchy={go.activeInHierarchy} | intensity={l.intensity}");
+        }
+        Debug.Log(sb.ToString());
+#endif
+
+        return new List<URPLight2D>(set);
     }
 
     public void WorkerChangeAndOpenTrigger()
@@ -278,16 +320,11 @@ public class LevelManager2_1 : MonoBehaviour
         worker1.SetActive(false);
         worker2.SetActive(true);
         Trigger10.SetActive(true);
-
-        // 这里仍然只是设置传送门的目标；真正切场景请用 ToNextLoop
         BathroomPortal.scenename = "Level2-2";
     }
 
     // ========= 统一：通过 ToNextLoop 切场景 =========
 
-    /// <summary>
-    /// 跳转到“未逃脱”版本（例如回到 2-1 后续/或去别的关卡）
-    /// </summary>
     public void Goto_NotEscaped_ViaNextLoop()
     {
         if (!nextLoop) return;
@@ -296,9 +333,6 @@ public class LevelManager2_1 : MonoBehaviour
         nextLoop.toNextLoop();
     }
 
-    /// <summary>
-    /// 跳转到“已逃脱/去 2-2”等（按你项目设定）
-    /// </summary>
     public void Goto_Escaped_ViaNextLoop()
     {
         if (!nextLoop) return;
@@ -307,9 +341,6 @@ public class LevelManager2_1 : MonoBehaviour
         nextLoop.toNextLoop();
     }
 
-    /// <summary>
-    /// 自定义指定场景/出生点，通过 ToNextLoop 进行（用于 Timeline / 对话回调）
-    /// </summary>
     public void Goto_Custom_ViaNextLoop(string scene, int spawn)
     {
         if (!nextLoop) return;
@@ -318,15 +349,10 @@ public class LevelManager2_1 : MonoBehaviour
         nextLoop.toNextLoop();
     }
 
-    /// <summary>
-    /// 典型收尾：例如所有对话结束后，播过场再去 2-2（或 Escaped）
-    /// 把这个函数从你的 Dialogue 事件里直接调用即可。
-    /// </summary>
     public void End2_1_And_GotoNext()
     {
         if (!nextLoop) return;
 
-        // 这里按你的条件决定去哪个目标（示例：收齐信息 & 全对话完成 → Escaped）
         bool canExitToNext = isStewardess_AllConv && HaveAllInfo();
         string targetScene = canExitToNext ? SceneName_Escaped : SceneName_NotEscaped;
         int targetSpawn = canExitToNext ? SpawnPointLocation_Escaped : SpawnPointLocation_NotEscaped;
@@ -334,12 +360,10 @@ public class LevelManager2_1 : MonoBehaviour
         nextLoop.scenename = targetScene;
         nextLoop.SpawnPointLocation = targetSpawn;
 
-        // 是否播过场
         if (useDeathCutForExit)
             nextLoop.toNextLoop();
         else
         {
-            // 如果你想不走 VideoPlayer，直接跳（保留统一入口也行）
             LoopTracker.I?.IncrementLoop();
             SceneController.instance.LoadSceneAndTeleport(targetScene, targetSpawn);
         }
