@@ -16,6 +16,33 @@
             "conditionalBranches": []
         },
         {
+            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "index": 1,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": {
+                "en": "Thank you so much!! Yum Yum.",
+                "zh": "谢谢你！",
+                "ja": ""
+            },
+            "positionX": 996.7999877929688,
+            "positionY": 256.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetGotFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "006ce4c9-3551-4154-983c-9313469e4485",
             "index": 2,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
@@ -377,33 +404,6 @@
             "positionY": 260.79998779296877,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
-            "index": 1,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "content": {
-                "en": "Thank you so much!! Yum Yum.",
-                "zh": "谢谢你！",
-                "ja": ""
-            },
-            "positionX": 996.7999877929688,
-            "positionY": 256.79998779296877,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetGotFoodTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
             "conditionalBranches": []
         }
     ],
