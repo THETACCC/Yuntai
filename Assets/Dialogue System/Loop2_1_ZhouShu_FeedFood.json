@@ -1,0 +1,631 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "Excuse me. I got this from the flight attendant. If you don't mind, please have it.",
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 1,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "What do you wanna know?",
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": "5",
+          "targetIndex": 2,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv5",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "6",
+          "targetIndex": 3,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv6",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "7",
+          "targetIndex": 4,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv7",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "You know, I saw...",
+          "targetIndex": 5,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        }
+      ],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Info 5",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoFiveTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv5",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Info 6",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoSixTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv6",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Info 7",
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoSevenTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv7",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "What!!?",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "BlinkThenDim",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "WorkerChangeAndOpenTrigger",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_日常",
+      "content": "No need to thank me. I’m just glad you’re okay. I’m Veris, from Wenqiu City.",
+      "nextIndex": 11,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 7,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Huh? Oh—an in-flight meal! Really? Thank you so much!",
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 8,
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "content": "(She eats so fast. In the blink of an eye, the food is already gone.)\r",
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 9,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "Whew~ I’m alive again! I was in such a rush to catch the flight that I didn’t have time to eat. By the time I realized, I was already too hungry to think straight.",
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 10,
+      "name": "Veris",
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "content": "Ah! I’m so sorry! I was so focused on eating that I completely ignored you! I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
+      "nextIndex": 6,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 11,
+      "name": "Page",
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "content": "(She looks much better now. I should be able to ask her a few questions.)",
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": "What is this Jinlan Temple you mentioned?",
+          "targetIndex": 12,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv5",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": "That’s a very unique outfit...",
+          "targetIndex": 22,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv6",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        }
+      ],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetGotFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "name": "",
+      "avatarAddr": "",
+      "content": "May I ask, the Jinlan Temple you mentioned earlier—is that where you work?",
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "",
+          "componentTypeName": "",
+          "methodName": "",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv5",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Hmm~ Sort of. It's more like my home, actually. I grew up there.",
+      "nextIndex": 14,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 14,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I see. I’m not very familiar with the local culture in Yuntai. Are there many Taoist temples like that here?",
+      "nextIndex": 15,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 15,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Not really. We’re probably the most prominent sect in the city. Jinlan Temple has apparently been around since Yuntai was first established, so it’s got quite a bit of history.",
+      "nextIndex": 16,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 16,
+      "name": "",
+      "avatarAddr": "",
+      "content": "That sounds impressive.",
+      "nextIndex": 17,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 17,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Not at all~ Honestly, ever since I can remember, hardly anyone visits the temple.",
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 18,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Shifu says it’s because of... cultural shift, or something like that… Anyway, hardly any young people worship the Double Stars nowadays. I guess the temple’s kind of in decline.",
+      "nextIndex": 19,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 19,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I see…",
+      "nextIndex": 20,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 20,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Ah! But don’t worry—no matter how run-down it gets, we won’t be shutting down! It’s still a historical site, after all! My Shifu was even considering raising the ticket price. I think bumping it to ten yuan would fix everything!",
+      "nextIndex": 21,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 21,
+      "name": "",
+      "avatarAddr": "",
+      "content": "......(Something tells me this sect isn’t all that reliable...)",
+      "conditionalBranches": [
+        {
+          "targetIndex": 31,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv6",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 11,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 22,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Your outfit is quite distinctive—does it have something to do with your profession?",
+      "nextIndex": 23,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv6",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Yep! I’m a Taoist priest! Though honestly, it’s not like we’re required to wear this all the time. I just find the robes really comfortable, so I’ve kept wearing them.",
+      "nextIndex": 24,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 24,
+      "name": "",
+      "avatarAddr": "",
+      "content": "There aren’t any Taoist priests in Wenqiu City, so I’m curious—what’s a Taoist’s daily life like?",
+      "nextIndex": 25,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 25,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Nothing too special, really. Our sect focuses more on talismans and spiritual techniques, but I’m terrible at all those complicated rituals and incantations.",
+      "nextIndex": 26,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 26,
+      "name": "",
+      "avatarAddr": "",
+      "content": "But I’m pretty fit physically, so I mostly just train my body and practice swordplay...",
+      "nextIndex": 27,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 27,
+      "name": "",
+      "avatarAddr": "",
+      "content": "I’m not sure I follow...",
+      "nextIndex": 28,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 28,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Ah, sorry! I’ve been rambling about all sorts of stuff! Honestly, most of the time I just handle random chores like ticketing and maintenance!",
+      "nextIndex": 29,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 29,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Since I can’t remember much history, I’m no good as a tour guide. Even though I’m technically the senior disciple in the temple, I spend most of my days running errands and hauling things around...",
+      "nextIndex": 30,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 30,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(So this is what working at a temple is like...)",
+      "conditionalBranches": [
+        {
+          "targetIndex": 31,
+          "priority": 1,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv5",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "targetIndex": 11,
+          "priority": 0
+        }
+      ],
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 31,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(Come to think of it, in the dream, I never saw her turn into one of those monsters. Maybe she has the ability to fight them?)",
+      "nextIndex": 32,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv7",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "",
+      "avatarAddr": "",
+      "content": "You mentioned “body training” earlier—do you mean like physical conditioning?",
+      "nextIndex": 33,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 33,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Pretty much! It also includes things like combat practice.",
+      "nextIndex": 34,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 34,
+      "name": "",
+      "avatarAddr": "",
+      "content": "(I should probably tell her what I saw in the dream, even if just as a precaution.)",
+      "nextIndex": 35,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 35,
+      "name": "",
+      "avatarAddr": "",
+      "content": "It might sound crazy, but earlier I think I saw some strange... people in the front cabin.",
+      "nextIndex": 36,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 36,
+      "name": "",
+      "avatarAddr": "",
+      "content": "Huh? What kind of people?",
+      "nextIndex": 37,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 37,
+      "name": "",
+      "avatarAddr": "",
+      "content": "They had really stiff joints and moved like puppets, with eerie smiles on their faces.",
+      "nextIndex": 38,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 38,
+      "name": "",
+      "avatarAddr": "",
+      "content": "!!!",
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
+    }
+  ],
+  "currentIndex": 0
+}
