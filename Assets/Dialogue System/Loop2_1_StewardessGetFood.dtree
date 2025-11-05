@@ -16,371 +16,8 @@
             "conditionalBranches": []
         },
         {
-            "id": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "index": 1,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": {
-                "en": "New Dialogue",
-                "zh": "新对话",
-                "ja": ""
-            },
-            "positionX": -1674.4000244140625,
-            "positionY": -2152.0,
-            "choices": [
-                {
-                    "text": {
-                        "en": "Conv1",
-                        "zh": "对话1",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoOne",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv1",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": {
-                        "en": "Conv2",
-                        "zh": "对话2",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoTwo",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv2",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": {
-                        "en": "Conv3",
-                        "zh": "对话3",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoThree",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv3",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": {
-                        "en": "Conv4",
-                        "zh": "对话4",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoFour",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_Conv4",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": {
-                        "en": "So CAN I GET MY FOOD?",
-                        "zh": "所以我可以拿走食物吗？",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardessSet",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_AllConv",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "text": {
-                        "en": "I don't have enough topics.",
-                        "zh": "没有其他话题可以聊了",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardessSet",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        },
-                        {
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isStewardess_AllConv",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "06aa94a4-e2d4-4a16-9b50-6347875007df",
-            "index": 2,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": {
-                "en": "Conv1",
-                "zh": "对话1",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -2638.39990234375,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv1",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
-            "index": 3,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": {
-                "en": "Conv2",
-                "zh": "对话2",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -2178.39990234375,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv2",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "8b79b345-3d08-4324-8a26-ec9b3b398989",
-            "index": 4,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": {
-                "en": "Conv3",
-                "zh": "对话3",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -1746.39990234375,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv3",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e18efd34-19d2-4e36-9603-e828474fe9e6",
-            "index": 5,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": {
-                "en": "Conv4",
-                "zh": "对话4",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -1310.39990234375,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv4",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ae489795-6e09-448b-a84b-c30206416011",
-            "index": 6,
-            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
-            "content": {
-                "en": "Give You Give You",
-                "zh": "给你给你",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -880.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetgetFoodTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "ChangeStewardessToGotFood",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "47d7320b-6e00-4282-84e3-c8d3d5ea3636",
-            "index": 9,
-            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
-            "content": {
-                "en": "Event: Info 4 gathered.",
-                "zh": "事件：获取条目4",
-                "ja": ""
-            },
-            "positionX": -1868.800048828125,
-            "positionY": -2768.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoFourTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
-            "index": 10,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": {
-                "en": "I will need to collect more info.",
-                "zh": "我需要拿到更多的信息",
-                "ja": ""
-            },
-            "positionX": -1086.4000244140625,
-            "positionY": -338.4000244140625,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "5002a662-5d74-4e71-81cf-a0edd322c588",
-            "index": 11,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": {
-                "en": "I should give it to Page.",
-                "zh": "我需要拿给周书",
-                "ja": ""
-            },
-            "positionX": -693.5999755859375,
-            "positionY": -880.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "c0b44395-30f3-42e1-9ec9-e5feecf42109",
-            "index": 12,
+            "index": 1,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Hm? What is it now, miss? ",
@@ -395,7 +32,7 @@
         },
         {
             "id": "9ef15120-cecc-4c8c-a65c-19aee6d15b81",
-            "index": 13,
+            "index": 2,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "There’s a girl back there who looks really hungry. Would it be possible for me to take a meal to her?",
@@ -410,7 +47,7 @@
         },
         {
             "id": "3fe03181-a422-4610-bd36-dc1429ee9849",
-            "index": 14,
+            "index": 3,
             "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
             "content": {
                 "en": "Oh my, I’m afraid not~ All in-flight meals are distributed according to schedule. I kindly ask you to be pa~tient~",
@@ -425,7 +62,7 @@
         },
         {
             "id": "98f02357-4b8f-4d1d-bb9f-67c60b469bf4",
-            "index": 15,
+            "index": 4,
             "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
             "content": {
                 "en": "But—",
@@ -440,7 +77,7 @@
         },
         {
             "id": "03defe51-2a0f-4854-8488-c67f54909078",
-            "index": 16,
+            "index": 5,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Rules are rules, you know~",
@@ -455,7 +92,7 @@
         },
         {
             "id": "fae2df1c-9fdb-435f-8241-3a4f4df576b7",
-            "index": 17,
+            "index": 6,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(She really doesn’t want to talk to me.)",
@@ -470,7 +107,7 @@
         },
         {
             "id": "f745db80-440f-483a-ae36-109106a78ea4",
-            "index": 18,
+            "index": 7,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(Maybe if I just keep bothering her, she’ll lose patience and hand one over.)",
@@ -608,7 +245,7 @@
         },
         {
             "id": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
-            "index": 19,
+            "index": 8,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "You’ve been standing here for quite a while... may I ask—",
@@ -635,7 +272,7 @@
         },
         {
             "id": "30546341-f63c-425f-a4c4-585eeb63f542",
-            "index": 20,
+            "index": 9,
             "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
             "content": {
                 "en": "......",
@@ -650,7 +287,7 @@
         },
         {
             "id": "1d5dd79c-602b-43b7-8278-f9b1b2f300ab",
-            "index": 21,
+            "index": 10,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
                 "en": "(That’s terrifying!)",
@@ -665,7 +302,7 @@
         },
         {
             "id": "f938e56a-0167-4491-bf79-416839b3aeb6",
-            "index": 22,
+            "index": 11,
             "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
             "content": {
                 "en": "Oh, I wouldn’t know, miss. Our highly esteemed chief attendant suddenly ordered me to stand here on standby. Until she responds, I absolutely cannot leave my post.",
@@ -680,7 +317,7 @@
         },
         {
             "id": "2b1af18f-376c-4025-ad3e-5840e1e559ef",
-            "index": 23,
+            "index": 12,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
                 "en": "(She’s speaking through clenched teeth...)",
@@ -695,7 +332,7 @@
         },
         {
             "id": "36b07a7d-c524-4877-8796-484297ef0a93",
-            "index": 24,
+            "index": 13,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
                 "en": "(Better drop the subject.)",
@@ -710,7 +347,7 @@
         },
         {
             "id": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
-            "index": 25,
+            "index": 14,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "The chief attendant you mentioned earlier—do you know where she is now?",
@@ -737,7 +374,7 @@
         },
         {
             "id": "fb3c677e-2b4c-4ebc-ab21-4d9e50b54f93",
-            "index": 26,
+            "index": 15,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Probably up in the front cabin somewhere. I don’t know the details.",
@@ -752,7 +389,7 @@
         },
         {
             "id": "d4bc759d-d58c-41e2-9a6f-4d4ebd4eed4b",
-            "index": 27,
+            "index": 16,
             "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
             "content": {
                 "en": "Are you two close?",
@@ -767,7 +404,7 @@
         },
         {
             "id": "484e884c-c707-4e36-bc53-db16868f157b",
-            "index": 28,
+            "index": 17,
             "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
             "content": {
                 "en": "Do I look like someone who’s close with her?",
@@ -782,7 +419,7 @@
         },
         {
             "id": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
-            "index": 29,
+            "index": 18,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
                 "en": "(Yeah… this conversation’s going nowhere.)",
@@ -855,7 +492,7 @@
         },
         {
             "id": "30701851-5e95-4c92-8001-564c7badc365",
-            "index": 32,
+            "index": 19,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "I heard there’ve been strange groups active in Yuntai recently.",
@@ -882,7 +519,7 @@
         },
         {
             "id": "1e772e23-9319-4ffa-8038-f78854b50d7b",
-            "index": 33,
+            "index": 20,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "I heard Yuntai holds a festival every two years—the Qiqiao Festival. Have you heard of it?",
@@ -909,7 +546,7 @@
         },
         {
             "id": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
-            "index": 34,
+            "index": 21,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "Isn’t Yuntai going into lockdown soon? Does that mean you’ll be stuck here until it ends?",
@@ -936,7 +573,7 @@
         },
         {
             "id": "64d61528-01cb-450a-8b3b-64861c066aae",
-            "index": 35,
+            "index": 22,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Miss, I’m not from Yuntai. I don’t really know anything about that. I just work on the plane.",
@@ -951,7 +588,7 @@
         },
         {
             "id": "215f9d44-9703-43c9-834a-0a79f96750ae",
-            "index": 36,
+            "index": 23,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "Have you seen anyone suspicious onboard lately?",
@@ -966,7 +603,7 @@
         },
         {
             "id": "e779a903-abf5-4623-907a-962c97ea6f06",
-            "index": 37,
+            "index": 24,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Of course. That weird girl in the back wearing a Taoist robe looks pretty suspicious, doesn’t she?",
@@ -981,7 +618,7 @@
         },
         {
             "id": "88eba7eb-7208-4753-94a6-17ac2da061a3",
-            "index": 38,
+            "index": 25,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "content": {
                 "en": "(She does look kind of suspicious...)",
@@ -996,7 +633,7 @@
         },
         {
             "id": "d088ebd4-f369-4e71-8a9e-51d3001aaa44",
-            "index": 39,
+            "index": 26,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "But as long as they don’t cause trouble, it’s not our place to intervene. We’re service crew, not judges.",
@@ -1011,7 +648,7 @@
         },
         {
             "id": "870607a5-5bd4-4c18-8cba-d96511c2431a",
-            "index": 40,
+            "index": 27,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(So she’s actually quite professional…)",
@@ -1084,7 +721,7 @@
         },
         {
             "id": "f5c3516d-43af-4f7b-b254-40035d51e641",
-            "index": 41,
+            "index": 28,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Hmm… I think it’s pretty well-known. We usually get passengers coming for it around this time of year.",
@@ -1099,7 +736,7 @@
         },
         {
             "id": "3ebfba84-127f-4b1f-92bc-c80dd614b8c1",
-            "index": 42,
+            "index": 29,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "Are you planning to check it out after landing?",
@@ -1114,7 +751,7 @@
         },
         {
             "id": "0c6fcd1e-0560-4c87-a879-f6717f8b8863",
-            "index": 43,
+            "index": 30,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "That’s a personal matter, miss. But I don’t like crowds—especially the noisy kind, like you.",
@@ -1129,7 +766,7 @@
         },
         {
             "id": "7da62a19-9955-4d8b-92fd-72db1941755f",
-            "index": 44,
+            "index": 31,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(I think she just insulted me.)",
@@ -1190,7 +827,7 @@
         },
         {
             "id": "2cf4be47-c2b7-4589-a76b-a4b88b096c51",
-            "index": 45,
+            "index": 32,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Ugh, same thing every year. Last year, my assigned crew flew out before the lockdown.",
@@ -1205,7 +842,7 @@
         },
         {
             "id": "526a3c5b-170e-4783-982d-c441f0a332fa",
-            "index": 46,
+            "index": 33,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(She says that, but her smile looks more genuine than ever. She must be happy to get some time off.)",
@@ -1266,7 +903,7 @@
         },
         {
             "id": "3c00808d-de0d-4288-b896-2f2d277b87e2",
-            "index": 47,
+            "index": 34,
             "characterId": "",
             "content": {
                 "en": "Sorry to bother you. I’ll be on my way.",
@@ -1281,7 +918,7 @@
         },
         {
             "id": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
-            "index": 48,
+            "index": 35,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(I’m out of things to talk about...)",
@@ -1319,7 +956,7 @@
         },
         {
             "id": "078a1373-4042-4603-ac64-b545cc28c383",
-            "index": 49,
+            "index": 36,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Alright, miss. I know what you're after. You’ve been standing here chatting with me all this time just to get an in-flight meal, right?",
@@ -1334,7 +971,7 @@
         },
         {
             "id": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
-            "index": 50,
+            "index": 37,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "content": {
                 "en": "(Oh no, she saw right through me.)",
@@ -1349,7 +986,7 @@
         },
         {
             "id": "26b8ca05-b47e-4af9-960f-8b39555220ef",
-            "index": 51,
+            "index": 38,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Here. Take this and go. Don’t let the other passengers know, alright? If everyone rushes over, it’ll be a huge hassle.",
@@ -1364,7 +1001,7 @@
         },
         {
             "id": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
-            "index": 52,
+            "index": 39,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "Got it! Thank you so much!",
@@ -1379,7 +1016,7 @@
         },
         {
             "id": "7600bc5e-61d3-4227-8fee-49560b88b527",
-            "index": 53,
+            "index": 40,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "Yeah, yeah, just go already...",
@@ -1394,7 +1031,7 @@
         },
         {
             "id": "3afc1297-8c86-455e-b11d-c70d7b2aaf12",
-            "index": 54,
+            "index": 41,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "(Even though she saw through me, I guess the strategy still worked.)",
@@ -1409,7 +1046,7 @@
         },
         {
             "id": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
-            "index": 58,
+            "index": 42,
             "characterId": "",
             "content": {
                 "en": "......",
@@ -1424,7 +1061,7 @@
         },
         {
             "id": "14c26af8-98d5-4738-a835-13facfc57a31",
-            "index": 59,
+            "index": 43,
             "characterId": "",
             "content": {
                 "en": "(Let's go, let's just go.)",
@@ -1439,7 +1076,7 @@
         },
         {
             "id": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
-            "index": 60,
+            "index": 44,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "content": {
                 "en": "I have no more topics to talk to her.",
@@ -1454,7 +1091,7 @@
         },
         {
             "id": "48237641-47eb-4de6-9e07-6f63ecd0d021",
-            "index": 61,
+            "index": 45,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
             "content": {
                 "en": "This time, I just happened to be on the unlucky shift. Once we land, the whole crew will probably be stuck waiting it out.",
@@ -1469,83 +1106,6 @@
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
-            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
-            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
-            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
-            "inputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "06aa94a4-e2d4-4a16-9b50-6347875007df",
-            "choiceIndex": 0,
-            "choiceText": "Conv1",
-            "branchPriority": -2
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "d7ede133-aede-4fa3-90d3-a89e3016bf7a",
-            "choiceIndex": 1,
-            "choiceText": "Conv2",
-            "branchPriority": -3
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "8b79b345-3d08-4324-8a26-ec9b3b398989",
-            "choiceIndex": 2,
-            "choiceText": "Conv3",
-            "branchPriority": -4
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "e18efd34-19d2-4e36-9603-e828474fe9e6",
-            "choiceIndex": 3,
-            "choiceText": "Conv4",
-            "branchPriority": -5
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
-            "choiceIndex": 4,
-            "choiceText": "So CAN I GET MY FOOD?",
-            "branchPriority": -6
-        },
-        {
-            "outputNodeId": "3c096d61-59e2-4313-8a72-93cc68a1e0dd",
-            "inputNodeId": "fa78fbb9-f74a-4c14-ae4a-f57fe9bccbc7",
-            "choiceIndex": 5,
-            "choiceText": "I don't have enough topics.",
-            "branchPriority": -7
-        },
-        {
-            "outputNodeId": "ae489795-6e09-448b-a84b-c30206416011",
-            "inputNodeId": "5002a662-5d74-4e71-81cf-a0edd322c588",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
             "inputNodeId": "c0b44395-30f3-42e1-9ec9-e5feecf42109",

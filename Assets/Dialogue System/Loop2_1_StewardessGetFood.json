@@ -13,399 +13,12 @@
         "zh": "那个，乘务员小姐？",
         "ja": ""
       },
-      "nextIndex": 12,
+      "nextIndex": 1,
       "choices": [],
       "eventCalls": []
     },
     {
       "index": 1,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": {
-        "en": "New Dialogue",
-        "zh": "新对话",
-        "ja": ""
-      },
-      "nextIndex": -1,
-      "choices": [
-        {
-          "text": {
-            "en": "Conv1",
-            "zh": "对话1",
-            "ja": ""
-          },
-          "targetIndex": 2,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoOne",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_Conv1",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
-            "en": "Conv2",
-            "zh": "对话2",
-            "ja": ""
-          },
-          "targetIndex": 3,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoTwo",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_Conv2",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
-            "en": "Conv3",
-            "zh": "对话3",
-            "ja": ""
-          },
-          "targetIndex": 4,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoThree",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_Conv3",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
-            "en": "Conv4",
-            "zh": "对话4",
-            "ja": ""
-          },
-          "targetIndex": 5,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoFour",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_Conv4",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
-            "en": "So CAN I GET MY FOOD?",
-            "zh": "所以我可以拿走食物吗？",
-            "ja": ""
-          },
-          "targetIndex": 6,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardessSet",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_AllConv",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
-            "en": "I don't have enough topics.",
-            "zh": "没有其他话题可以聊了",
-            "ja": ""
-          },
-          "targetIndex": 10,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardessSet",
-              "comparison": "Equal",
-              "compareValue": "False"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isStewardess_AllConv",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        }
-      ],
-      "eventCalls": []
-    },
-    {
-      "index": 2,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "content": {
-        "en": "Conv1",
-        "zh": "对话1",
-        "ja": ""
-      },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetStewardessConv1",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 3,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "content": {
-        "en": "Conv2",
-        "zh": "对话2",
-        "ja": ""
-      },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetStewardessConv2",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 4,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "content": {
-        "en": "Conv3",
-        "zh": "对话3",
-        "ja": ""
-      },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetStewardessConv3",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 5,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "content": {
-        "en": "Conv4",
-        "zh": "对话4",
-        "ja": ""
-      },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetStewardessConv4",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 6,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_睁眼",
-      "content": {
-        "en": "Give You Give You",
-        "zh": "给你给你",
-        "ja": ""
-      },
-      "nextIndex": 11,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetgetFoodTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        },
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "ChangeStewardessToGotFood",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 9,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "content": {
-        "en": "Event: Info 4 gathered.",
-        "zh": "事件：获取条目4",
-        "ja": ""
-      },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": [
-        {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoFourTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
-      ]
-    },
-    {
-      "index": 10,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": {
-        "en": "I will need to collect more info.",
-        "zh": "我需要拿到更多的信息",
-        "ja": ""
-      },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 11,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "content": {
-        "en": "I should give it to Page.",
-        "zh": "我需要拿给周书",
-        "ja": ""
-      },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 12,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -417,12 +30,12 @@
         "zh": "嗯？又有什么事吗女士？（微笑）",
         "ja": ""
       },
-      "nextIndex": 13,
+      "nextIndex": 2,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 13,
+      "index": 2,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -434,12 +47,12 @@
         "zh": "后面有一个女生似乎饿得很厉害，请问我可以先从这里拿一盒飞机餐给她吗？",
         "ja": ""
       },
-      "nextIndex": 14,
+      "nextIndex": 3,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 14,
+      "index": 3,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -451,12 +64,12 @@
         "zh": "哎呀，那可不成~飞机上的所有餐饮都是统一发放的，还请您耐~心~等待吧。",
         "ja": ""
       },
-      "nextIndex": 15,
+      "nextIndex": 4,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 15,
+      "index": 4,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -468,12 +81,12 @@
         "zh": "可是——",
         "ja": ""
       },
-      "nextIndex": 16,
+      "nextIndex": 5,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 16,
+      "index": 5,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -485,12 +98,12 @@
         "zh": "规矩就是规矩哦~",
         "ja": ""
       },
-      "nextIndex": 17,
+      "nextIndex": 6,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 17,
+      "index": 6,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -502,12 +115,12 @@
         "zh": "（她似乎完全不想跟我说话）",
         "ja": ""
       },
-      "nextIndex": 18,
+      "nextIndex": 7,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 18,
+      "index": 7,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -527,7 +140,7 @@
             "zh": "您为什么一直站在这里呢？",
             "ja": ""
           },
-          "targetIndex": 19,
+          "targetIndex": 8,
           "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
@@ -545,7 +158,7 @@
             "zh": "之前提到的乘务长...",
             "ja": ""
           },
-          "targetIndex": 25,
+          "targetIndex": 14,
           "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
@@ -570,7 +183,7 @@
             "zh": "城里奇怪的团体...",
             "ja": ""
           },
-          "targetIndex": 32,
+          "targetIndex": 19,
           "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
@@ -595,7 +208,7 @@
             "zh": "乞巧大会就要开始了...",
             "ja": ""
           },
-          "targetIndex": 33,
+          "targetIndex": 20,
           "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
@@ -620,7 +233,7 @@
             "zh": "关于芸台封城的事...",
             "ja": ""
           },
-          "targetIndex": 34,
+          "targetIndex": 21,
           "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
@@ -645,13 +258,13 @@
             "zh": "打扰您了，我这就走。（结束对话）",
             "ja": ""
           },
-          "targetIndex": 47
+          "targetIndex": 34
         }
       ],
       "eventCalls": []
     },
     {
-      "index": 19,
+      "index": 8,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -663,7 +276,7 @@
         "zh": "您似乎已经在这里站了好一阵了，请问——",
         "ja": ""
       },
-      "nextIndex": 20,
+      "nextIndex": 9,
       "choices": [],
       "eventCalls": [
         {
@@ -680,7 +293,7 @@
       ]
     },
     {
-      "index": 20,
+      "index": 9,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -692,12 +305,12 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 21,
+      "nextIndex": 10,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 21,
+      "index": 10,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -709,12 +322,12 @@
         "zh": "（好可怕！）",
         "ja": ""
       },
-      "nextIndex": 22,
+      "nextIndex": 11,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 22,
+      "index": 11,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -726,12 +339,12 @@
         "zh": "我也不知道呢这位女士。只是我们尊敬的乘务长大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
         "ja": ""
       },
-      "nextIndex": 23,
+      "nextIndex": 12,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 23,
+      "index": 12,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -743,12 +356,12 @@
         "zh": "（她在咬着牙说话......）",
         "ja": ""
       },
-      "nextIndex": 24,
+      "nextIndex": 13,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 24,
+      "index": 13,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -760,12 +373,12 @@
         "zh": "（还是结束这个话题吧。）",
         "ja": ""
       },
-      "nextIndex": 18,
+      "nextIndex": 7,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 25,
+      "index": 14,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -777,7 +390,7 @@
         "zh": "您之前提到过的那位乘务长，她现在在哪里呢？",
         "ja": ""
       },
-      "nextIndex": 26,
+      "nextIndex": 15,
       "choices": [],
       "eventCalls": [
         {
@@ -794,7 +407,7 @@
       ]
     },
     {
-      "index": 26,
+      "index": 15,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -806,12 +419,12 @@
         "zh": "大概就在前面的机舱里吧，具体我也不清楚呢。",
         "ja": ""
       },
-      "nextIndex": 27,
+      "nextIndex": 16,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 27,
+      "index": 16,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -823,12 +436,12 @@
         "zh": "您和她很熟吗？",
         "ja": ""
       },
-      "nextIndex": 28,
+      "nextIndex": 17,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 28,
+      "index": 17,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -840,12 +453,12 @@
         "zh": "我看着像和她很熟的样子吗？（微笑，青筋暴起立绘）",
         "ja": ""
       },
-      "nextIndex": 29,
+      "nextIndex": 18,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 29,
+      "index": 18,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -859,7 +472,7 @@
       },
       "conditionalBranches": [
         {
-          "targetIndex": 60,
+          "targetIndex": 44,
           "priority": 2,
           "conditions": [
             {
@@ -880,7 +493,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 48,
+          "targetIndex": 35,
           "priority": 1,
           "conditions": [
             {
@@ -901,7 +514,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 18,
+          "targetIndex": 7,
           "priority": 0
         }
       ],
@@ -921,7 +534,7 @@
       ]
     },
     {
-      "index": 32,
+      "index": 19,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -933,7 +546,7 @@
         "zh": "我听说最近有奇怪的团体在芸台市内活动。",
         "ja": ""
       },
-      "nextIndex": 35,
+      "nextIndex": 22,
       "choices": [],
       "eventCalls": [
         {
@@ -950,7 +563,7 @@
       ]
     },
     {
-      "index": 33,
+      "index": 20,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -962,7 +575,7 @@
         "zh": "芸台似乎会每两年举行乞巧大会，您有听说过吗？",
         "ja": ""
       },
-      "nextIndex": 41,
+      "nextIndex": 28,
       "choices": [],
       "eventCalls": [
         {
@@ -979,7 +592,7 @@
       ]
     },
     {
-      "index": 34,
+      "index": 21,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -991,7 +604,7 @@
         "zh": "芸台好像之后就要封城了，您是不是要在这里待到封城结束呢？",
         "ja": ""
       },
-      "nextIndex": 45,
+      "nextIndex": 32,
       "choices": [],
       "eventCalls": [
         {
@@ -1008,7 +621,7 @@
       ]
     },
     {
-      "index": 35,
+      "index": 22,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1020,12 +633,12 @@
         "zh": "女士，我不是芸台人，也并不了解这些事。我只是在飞机上工作而已。",
         "ja": ""
       },
-      "nextIndex": 36,
+      "nextIndex": 23,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 36,
+      "index": 23,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1037,12 +650,12 @@
         "zh": "您近来有在飞机上见过类似的可疑人士吗？",
         "ja": ""
       },
-      "nextIndex": 37,
+      "nextIndex": 24,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 37,
+      "index": 24,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1054,12 +667,12 @@
         "zh": "当然有了，后面机舱那位穿着奇怪道袍的小姐不就很可疑吗？",
         "ja": ""
       },
-      "nextIndex": 38,
+      "nextIndex": 25,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 38,
+      "index": 25,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1071,12 +684,12 @@
         "zh": "（她看起来确实挺可疑的。）",
         "ja": ""
       },
-      "nextIndex": 39,
+      "nextIndex": 26,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 39,
+      "index": 26,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1088,12 +701,12 @@
         "zh": "但只要没有造成危害就没有介入的需要，我们毕竟是服务人员，不能以貌取人。",
         "ja": ""
       },
-      "nextIndex": 40,
+      "nextIndex": 27,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 40,
+      "index": 27,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1107,7 +720,7 @@
       },
       "conditionalBranches": [
         {
-          "targetIndex": 60,
+          "targetIndex": 44,
           "priority": 2,
           "conditions": [
             {
@@ -1128,7 +741,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 48,
+          "targetIndex": 35,
           "priority": 1,
           "conditions": [
             {
@@ -1149,7 +762,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 18,
+          "targetIndex": 7,
           "priority": 0
         }
       ],
@@ -1169,7 +782,7 @@
       ]
     },
     {
-      "index": 41,
+      "index": 28,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1181,12 +794,12 @@
         "zh": "唔，这个大会似乎还挺有名气的，往年也常有乘客在这个时段慕名而来。",
         "ja": ""
       },
-      "nextIndex": 42,
+      "nextIndex": 29,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 42,
+      "index": 29,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1198,12 +811,12 @@
         "zh": "您降落之后会去大会看看吗？",
         "ja": ""
       },
-      "nextIndex": 43,
+      "nextIndex": 30,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 43,
+      "index": 30,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1215,12 +828,12 @@
         "zh": "这就是私人安排了，女士。不过我一向不喜欢人多的地方，尤其是如您这样聒噪的人聚集的地方。",
         "ja": ""
       },
-      "nextIndex": 44,
+      "nextIndex": 31,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 44,
+      "index": 31,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1234,7 +847,7 @@
       },
       "conditionalBranches": [
         {
-          "targetIndex": 60,
+          "targetIndex": 44,
           "priority": 2,
           "conditions": [
             {
@@ -1255,7 +868,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 48,
+          "targetIndex": 35,
           "priority": 1,
           "conditions": [
             {
@@ -1276,7 +889,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 18,
+          "targetIndex": 7,
           "priority": 0
         }
       ],
@@ -1284,7 +897,7 @@
       "eventCalls": []
     },
     {
-      "index": 45,
+      "index": 32,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1296,12 +909,12 @@
         "zh": "唉~每年都会这样，我去年待的机组在封城前返回了。",
         "ja": ""
       },
-      "nextIndex": 61,
+      "nextIndex": 45,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 46,
+      "index": 33,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1315,7 +928,7 @@
       },
       "conditionalBranches": [
         {
-          "targetIndex": 60,
+          "targetIndex": 44,
           "priority": 2,
           "conditions": [
             {
@@ -1336,7 +949,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 48,
+          "targetIndex": 35,
           "priority": 1,
           "conditions": [
             {
@@ -1357,7 +970,7 @@
           "conditionLogic": "AND"
         },
         {
-          "targetIndex": 18,
+          "targetIndex": 7,
           "priority": 0
         }
       ],
@@ -1365,7 +978,7 @@
       "eventCalls": []
     },
     {
-      "index": 47,
+      "index": 34,
       "name": {
         "en": "",
         "zh": "",
@@ -1377,12 +990,12 @@
         "zh": "打扰您了，我这就离开。",
         "ja": ""
       },
-      "nextIndex": 58,
+      "nextIndex": 42,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 48,
+      "index": 35,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1394,7 +1007,7 @@
         "zh": "（糟了，已经想不出其他的话题了...）",
         "ja": ""
       },
-      "nextIndex": 49,
+      "nextIndex": 36,
       "choices": [],
       "eventCalls": [
         {
@@ -1422,7 +1035,7 @@
       ]
     },
     {
-      "index": 49,
+      "index": 36,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1434,12 +1047,12 @@
         "zh": "行了女士，我也不是有意为难你，你站在这里跟我说了这么久，就是为了拿一份飞机餐吧。",
         "ja": ""
       },
-      "nextIndex": 50,
+      "nextIndex": 37,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 50,
+      "index": 37,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1451,12 +1064,12 @@
         "zh": "（糟糕，策略好像被识破了）",
         "ja": ""
       },
-      "nextIndex": 51,
+      "nextIndex": 38,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 51,
+      "index": 38,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1468,12 +1081,12 @@
         "zh": "给，拿了这个赶快走吧。不要告诉别的乘客哦，如果所有人都一窝蜂过来的话我会很困扰的。",
         "ja": ""
       },
-      "nextIndex": 52,
+      "nextIndex": 39,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 52,
+      "index": 39,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1485,12 +1098,12 @@
         "zh": "好的！非常感谢您！",
         "ja": ""
       },
-      "nextIndex": 53,
+      "nextIndex": 40,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 53,
+      "index": 40,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1502,12 +1115,12 @@
         "zh": "行了行了快走吧......",
         "ja": ""
       },
-      "nextIndex": 54,
+      "nextIndex": 41,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 54,
+      "index": 41,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1524,7 +1137,7 @@
       "eventCalls": []
     },
     {
-      "index": 58,
+      "index": 42,
       "name": {
         "en": "",
         "zh": "",
@@ -1536,12 +1149,12 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 59,
+      "nextIndex": 43,
       "choices": [],
       "eventCalls": []
     },
     {
-      "index": 59,
+      "index": 43,
       "name": {
         "en": "",
         "zh": "",
@@ -1558,7 +1171,7 @@
       "eventCalls": []
     },
     {
-      "index": 60,
+      "index": 44,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -1575,7 +1188,7 @@
       "eventCalls": []
     },
     {
-      "index": 61,
+      "index": 45,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -1587,7 +1200,7 @@
         "zh": "而今年排到的这班飞机正好赶在芸台封城的时候，落地后我们整个机组大概只能暂时休整等待了，真是倒霉~",
         "ja": ""
       },
-      "nextIndex": 46,
+      "nextIndex": 33,
       "choices": [],
       "eventCalls": []
     }
