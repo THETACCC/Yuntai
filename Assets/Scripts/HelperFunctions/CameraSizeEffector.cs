@@ -11,11 +11,13 @@ public class CameraSizeEffector : MonoBehaviour
 
     public bool useScreenX;
     [SKConditionalField("useScreenX", true)]
-    public float screenX;
+    [Range(0f, 1f)]
+    public float screenX = 0.5f;
 
     public bool useScreenY;
     [SKConditionalField("useScreenY", true)]
-    public float screenY;
+    [Range(0f, 1f)]
+    public float screenY = 0.5f;
 
     [HideInInspector]
     public CinemachineVirtualCamera cam;
@@ -24,14 +26,12 @@ public class CameraSizeEffector : MonoBehaviour
 
     void Start()
     {
-        // Automatically locate the virtual camera by tag if not assigned
+        // Find the virtual camera automatically by tag
         if (cam == null)
         {
             GameObject myCam = GameObject.FindGameObjectWithTag("VirtualCam");
             if (myCam != null)
-            {
                 cam = myCam.GetComponent<CinemachineVirtualCamera>();
-            }
         }
     }
 
@@ -42,13 +42,18 @@ public class CameraSizeEffector : MonoBehaviour
             if (sizeRoutine != null)
                 StopCoroutine(sizeRoutine);
 
-            sizeRoutine = StartCoroutine(SmoothResize(orthographicSize, transitionTime));
+            sizeRoutine = StartCoroutine(SmoothTransition(orthographicSize, screenX, screenY, transitionTime));
         }
     }
 
-    private System.Collections.IEnumerator SmoothResize(float targetSize, float duration)
+    private System.Collections.IEnumerator SmoothTransition(float targetSize, float targetScreenX, float targetScreenY, float duration)
     {
         float startSize = cam.m_Lens.OrthographicSize;
+        var framing = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+        float startScreenX = framing != null ? framing.m_ScreenX : 0.5f;
+        float startScreenY = framing != null ? framing.m_ScreenY : 0.5f;
+
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -56,16 +61,33 @@ public class CameraSizeEffector : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
 
-            // Apply a quadratic ease-in-out curve
-            // (Accelerates, then decelerates smoothly)
+            // Quadratic ease-in-out
             float smoothT = t < 0.5f
-                ? 2f * t * t                    // ease-in
-                : -1f + (4f - 2f * t) * t;      // ease-out
+                ? 2f * t * t
+                : -1f + (4f - 2f * t) * t;
 
+            // Smoothly interpolate orthographic size
             cam.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, smoothT);
+
+            // Smoothly interpolate framing offsets if applicable
+            if (framing != null)
+            {
+                if (useScreenX)
+                    framing.m_ScreenX = Mathf.Lerp(startScreenX, targetScreenX, smoothT);
+
+                if (useScreenY)
+                    framing.m_ScreenY = Mathf.Lerp(startScreenY, targetScreenY, smoothT);
+            }
+
             yield return null;
         }
 
         cam.m_Lens.OrthographicSize = targetSize;
+
+        if (framing != null)
+        {
+            if (useScreenX) framing.m_ScreenX = targetScreenX;
+            if (useScreenY) framing.m_ScreenY = targetScreenY;
+        }
     }
 }
