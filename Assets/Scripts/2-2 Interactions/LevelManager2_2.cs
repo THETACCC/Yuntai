@@ -413,4 +413,22 @@ public class LevelManager2_2 : MonoBehaviour
     {
         SetPlayerSpritesVisible(true);
     }
+
+    // 直接跳到 Loop3：Level3-1，出生点=1
+    public void ToLoop3()
+    {
+        // 可选：若在演出中，先停掉
+        if (_deathRoutine != null) { StopCoroutine(_deathRoutine); _deathRoutine = null; }
+
+        // 传送
+        if (SceneController.instance != null)
+        {
+            SceneController.instance.LoadSceneAndTeleport("Level3-1", 1);
+        }
+        else
+        {
+            Debug.LogError("[LevelManager2_2] SceneController.instance 为 null，无法传送到 Level3-1(1)。");
+        }
+    }
+
 }
