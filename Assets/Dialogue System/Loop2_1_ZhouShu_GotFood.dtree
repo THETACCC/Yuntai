@@ -5,12 +5,12 @@
             "index": 0,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": {
-                "en": "You should head to the bathroom on the left.",
+                "en": "What’s going on?",
                 "zh": "",
                 "ja": ""
             },
             "positionX": 116.79999542236328,
-            "positionY": 273.6000061035156,
+            "positionY": 273.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -20,26 +20,104 @@
             "index": 1,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
             "content": {
-                "en": "And I will go check what's going on.",
+                "en": "Your name’s... Veris, right?",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 569.6000366210938,
-            "positionY": 273.6000061035156,
+            "positionX": 532.7999877929688,
+            "positionY": 273.5999755859375,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "10Trigger",
-                    "componentTypeName": "DialogueCollisionTrigger",
-                    "methodName": "Activate",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2e60782d-2913-44df-858f-4f0464de0e20",
+            "index": 2,
+            "characterId": "",
+            "content": {
+                "en": "Yes.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 900.0,
+            "positionY": 272.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "71988521-8fe6-4e4f-a2bf-a9bda448a2f4",
+            "index": 3,
+            "characterId": "",
+            "content": {
+                "en": "Alright, Veris. Listen to me carefully—go hide in the restroom at the back, now!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1255.199951171875,
+            "positionY": 273.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "75c5c60d-cd19-4fce-a47a-ff0135c8c1ba",
+            "index": 4,
+            "characterId": "",
+            "content": {
+                "en": "What?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1602.39990234375,
+            "positionY": 273.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a7f28b13-5db5-40ac-ba2c-be9188cebf73",
+            "index": 5,
+            "characterId": "",
+            "content": {
+                "en": "I’m going up front to check the situation. If you hear anything strange, be very careful! I think something dangerous might have snuck onto this plane...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1955.199951171875,
+            "positionY": 273.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e6843818-a104-406c-98da-8d13f52ff5af",
+            "index": 6,
+            "characterId": "",
+            "content": {
+                "en": "Is there anything I can do to help?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2292.800048828125,
+            "positionY": 273.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "11f85d75-f0af-4ce6-a361-61e39ca2e0f8",
+            "index": 7,
+            "characterId": "",
+            "content": {
+                "en": "No—it’s way too dangerous for a civilian. Just go hide in the restroom, now!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2631.199951171875,
+            "positionY": 273.5999755859375,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
@@ -47,6 +125,48 @@
         {
             "outputNodeId": "7001ec56-05f5-4166-adce-6975d883ee33",
             "inputNodeId": "292fd5cc-a547-4792-8477-3c9a441e5c02",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "292fd5cc-a547-4792-8477-3c9a441e5c02",
+            "inputNodeId": "2e60782d-2913-44df-858f-4f0464de0e20",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2e60782d-2913-44df-858f-4f0464de0e20",
+            "inputNodeId": "71988521-8fe6-4e4f-a2bf-a9bda448a2f4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "71988521-8fe6-4e4f-a2bf-a9bda448a2f4",
+            "inputNodeId": "75c5c60d-cd19-4fce-a47a-ff0135c8c1ba",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "75c5c60d-cd19-4fce-a47a-ff0135c8c1ba",
+            "inputNodeId": "a7f28b13-5db5-40ac-ba2c-be9188cebf73",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a7f28b13-5db5-40ac-ba2c-be9188cebf73",
+            "inputNodeId": "e6843818-a104-406c-98da-8d13f52ff5af",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e6843818-a104-406c-98da-8d13f52ff5af",
+            "inputNodeId": "11f85d75-f0af-4ce6-a361-61e39ca2e0f8",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
