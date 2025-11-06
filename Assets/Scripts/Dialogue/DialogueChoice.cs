@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class DialogueChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public int index;
     public bool visible = true;
     Button bt;
+
+    public TextMeshProUGUI content;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

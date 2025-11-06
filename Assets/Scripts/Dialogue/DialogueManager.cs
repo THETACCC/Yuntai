@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine textAnimationCoroutine;   // 当前的文字动画协程
 
     [SerializeField] GameObject choiceParent;
-    [SerializeField] GameObject choicePrefab;
+    public GameObject choicePrefab;
 
     public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
@@ -154,7 +154,7 @@ public class DialogueManager : MonoBehaviour
 
 
         // Handle choices
-        if (currentConversation.choices.Length > 0)
+        if (currentConversation.choices?.Length > 0)
         {
             DialogueDefaultSequence.instance.isActice = false; //make sure default is turned off
             for (int i = 0; i < currentConversation.choices.Length; i++)

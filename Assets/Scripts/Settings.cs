@@ -88,19 +88,25 @@ public class Settings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
+        TextMeshProUGUI speaker = DialogueManager.instance.speaker;
+        TextMeshProUGUI content = DialogueManager.instance.contentText;
+        TextMeshProUGUI choice = DialogueManager.instance.choicePrefab.GetComponent<DialogueChoice>().content;
         switch (currentLanguage)
         {
             case "zh":
-                DialogueManager.instance.speaker.font = ChineseFont;
-                DialogueManager.instance.contentText.font = ChineseFont;
+                speaker.font = ChineseFont;
+                content.font = ChineseFont;
+                choice.font = ChineseFont;
                 break;
             case "en":
-                DialogueManager.instance.speaker.font = EnglishFont;
-                DialogueManager.instance.contentText.font = ChineseFont;
+                speaker.font = EnglishFont;
+                content.font = EnglishFont;
+                choice.font = EnglishFont;
                 break;
             case "ja":
-                DialogueManager.instance.speaker.font = JapaneseFont;
-                DialogueManager.instance.contentText.font = ChineseFont;
+                speaker.font = JapaneseFont;
+                content.font = JapaneseFont;
+                choice.font = JapaneseFont;
                 break;
         }
 
