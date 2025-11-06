@@ -269,6 +269,14 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
         // === 本地化按钮结束 ===
 
+        // === Save All 按钮 ===
+        var saveAllContent = new GUIContent("Save All", "Save all dialogue trees in the manager");
+        if (GUILayout.Button(saveAllContent, EditorStyles.toolbarButton, GUILayout.Width(70)))
+        {
+            SaveAllDialogueTrees();
+        }
+        // === Save All 按钮结束 ===
+
         GUILayout.FlexibleSpace();
 
         int fileCount = guidToPath.Count;
@@ -3538,5 +3546,365 @@ public class DialogueTreeManagerWindow : EditorWindow
             });
         };
     }
+
+    #region Save All Methods
+
+    /// <summary>
+    /// 保存所有对话树
+    /// </summary>
+    private void SaveAllDialogueTrees()
+    {
+        if (guidToPath == null || guidToPath.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Save All", "No dialogue tree files found.", "OK");
+            return;
+        }
+
+        if (!EditorUtility.DisplayDialog("Save All Dialogue Trees",
+            $"Save all {guidToPath.Count} dialogue tree(s)?\n\nThis will overwrite existing .json and .dtree files.",
+            "Yes", "Cancel"))
+        {
+            return;
+        }
+
+        int successCount = 0;
+        int failCount = 0;
+        List<string> failedFiles = new List<string>();
+
+        EditorUtility.DisplayProgressBar("Saving All", "Starting...", 0f);
+
+        try
+        {
+            int index = 0;
+            foreach (var kvp in guidToPath)
+            {
+                string dtreePath = kvp.Value;
+                index++;
+                float progress = (float)index / guidToPath.Count;
+                string fileName = Path.GetFileName(dtreePath);
+                EditorUtility.DisplayProgressBar("Saving All", $"{index}/{guidToPath.Count}: {fileName}", progress);
+
+                try
+                {
+                    if (!File.Exists(dtreePath))
+                    {
+                        failCount++;
+                        failedFiles.Add(fileName + " (not found)");
+                        continue;
+                    }
+
+                    string json = File.ReadAllText(dtreePath);
+                    DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(json);
+
+                    if (treeData == null || treeData.nodes == null)
+                    {
+                        failCount++;
+                        failedFiles.Add(fileName + " (invalid format)");
+                        continue;
+                    }
+
+                    string jsonPath = Path.ChangeExtension(dtreePath, ".json");
+
+                    // 使用和DialogueTreeEditor完全相同的逻辑保存
+                    SaveRuntimeJsonForTree(jsonPath, treeData);
+                    SaveEditorFormatForTree(dtreePath, treeData);
+
+                    File.SetLastWriteTime(jsonPath, System.DateTime.Now);
+                    File.SetLastWriteTime(dtreePath, System.DateTime.Now);
+
+                    successCount++;
+                }
+                catch (System.Exception e)
+                {
+                    failCount++;
+                    failedFiles.Add(fileName + $" ({e.Message})");
+                }
+            }
+        }
+        finally
+        {
+            EditorUtility.ClearProgressBar();
+        }
+
+        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+        string msg = $"Saved {successCount} file(s)";
+        if (failCount > 0)
+        {
+            msg += $"\nFailed: {failCount}\n";
+            foreach (var f in failedFiles) msg += $"• {f}\n";
+        }
+        EditorUtility.DisplayDialog("Save All Complete", msg, "OK");
+    }
+
+    private void SaveRuntimeJsonForTree(string path, DialogueTreeData treeData)
+    {
+        var exportData = ConvertToRuntimeData(treeData);
+        var nodeIdToIndex = new Dictionary<string, int>();
+        foreach (var node in treeData.nodes)
+        {
+            nodeIdToIndex[node.id] = node.index;
+        }
+
+        string json = "{\n  \"conversations\": [\n";
+        for (int i = 0; i < exportData.Count; i++)
+        {
+            var item = exportData[i];
+            json += "    {\n";
+            json += $"      \"index\": {item.index},\n";
+            json += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
+            json += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            json += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
+
+            // Conditional Branches
+            if (item.conditionalBranches != null && item.conditionalBranches.Count > 0)
+            {
+                json += ",\n      \"conditionalBranches\": [\n";
+                for (int j = 0; j < item.conditionalBranches.Count; j++)
+                {
+                    var branch = item.conditionalBranches[j];
+                    json += "        {\n";
+                    json += $"          \"targetIndex\": {branch.targetIndex},\n";
+                    json += $"          \"priority\": {branch.priority}";
+
+                    if (branch.priority > 0 && branch.conditions != null && branch.conditions.Count > 0)
+                    {
+                        json += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < branch.conditions.Count; k++)
+                        {
+                            var cond = branch.conditions[k];
+                            json += "            {\n";
+                            json += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            json += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            json += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            json += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            json += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            json += "            }";
+                            if (k < branch.conditions.Count - 1) json += ",";
+                            json += "\n";
+                        }
+                        json += "          ],\n";
+                        json += $"          \"conditionLogic\": \"{branch.conditionLogic}\"\n";
+                    }
+                    else
+                    {
+                        json += "\n";
+                    }
+
+                    json += "        }";
+                    if (j < item.conditionalBranches.Count - 1) json += ",";
+                    json += "\n";
+                }
+                json += "      ]";
+            }
+            else
+            {
+                int nextIndex = -1;
+                if (!string.IsNullOrEmpty(item.nextNodeId) && nodeIdToIndex.ContainsKey(item.nextNodeId))
+                {
+                    nextIndex = nodeIdToIndex[item.nextNodeId];
+                }
+                json += $",\n      \"nextIndex\": {nextIndex}";
+            }
+
+            // Choices (只在有选项时输出)
+            if (item.choices.Count > 0)
+            {
+                json += ",\n      \"choices\": [\n";
+                for (int j = 0; j < item.choices.Count; j++)
+                {
+                    var choice = item.choices[j];
+                    int targetIndex = !string.IsNullOrEmpty(choice.nextNodeId) && nodeIdToIndex.ContainsKey(choice.nextNodeId)
+                        ? nodeIdToIndex[choice.nextNodeId] : -1;
+
+                    json += "        {\n";
+                    json += $"          \"text\": {SerializeLocalizedText(choice.text, 5)},\n";
+                    json += $"          \"targetIndex\": {targetIndex}";
+
+                    if (choice.conditions.Count > 0)
+                    {
+                        json += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < choice.conditions.Count; k++)
+                        {
+                            var cond = choice.conditions[k];
+                            json += "            {\n";
+                            json += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            json += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            json += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            json += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            json += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            json += "            }";
+                            if (k < choice.conditions.Count - 1) json += ",";
+                            json += "\n";
+                        }
+                        json += "          ],\n";
+                        json += $"          \"conditionLogic\": \"{choice.conditionLogic}\"\n";
+                    }
+                    else
+                    {
+                        json += "\n";
+                    }
+
+                    json += "        }";
+                    if (j < item.choices.Count - 1) json += ",";
+                    json += "\n";
+                }
+                json += "      ]";
+            }
+
+            // Event Calls (只在有事件时输出)
+            if (item.eventCalls.Count > 0)
+            {
+                json += ",\n      \"eventCalls\": [\n";
+                for (int j = 0; j < item.eventCalls.Count; j++)
+                {
+                    var evt = item.eventCalls[j];
+                    json += "        {\n";
+                    json += $"          \"targetObjectName\": \"{EscapeJsonString(evt.targetObjectName)}\",\n";
+                    json += $"          \"componentTypeName\": \"{EscapeJsonString(evt.componentTypeName)}\",\n";
+                    json += $"          \"methodName\": \"{EscapeJsonString(evt.methodName)}\",\n";
+                    json += $"          \"parameterType\": \"{evt.parameterType}\",\n";
+                    json += $"          \"stringParameter\": \"{EscapeJsonString(evt.stringParameter)}\",\n";
+                    json += $"          \"intParameter\": {evt.intParameter},\n";
+                    json += $"          \"floatParameter\": {evt.floatParameter},\n";
+                    json += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()},\n";
+                    json += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";
+                    json += "        }";
+                    if (j < item.eventCalls.Count - 1) json += ",";
+                    json += "\n";
+                }
+                json += "      ]";
+            }
+
+            json += "\n    }";
+            if (i < exportData.Count - 1) json += ",";
+            json += "\n";
+        }
+        json += "  ],\n  \"currentIndex\": 0\n}";
+
+        File.WriteAllText(path, json);
+    }
+
+    private void SaveEditorFormatForTree(string path, DialogueTreeData treeData)
+    {
+        string json = JsonUtility.ToJson(treeData, true);
+        File.WriteAllText(path, json);
+    }
+
+    private List<RuntimeDialogueData> ConvertToRuntimeData(DialogueTreeData treeData)
+    {
+        var runtimeData = new List<RuntimeDialogueData>();
+        var nodeIdToIndex = new Dictionary<string, int>();
+        var sortedNodes = treeData.nodes.OrderBy(n => n.index).ToList();
+
+        foreach (var node in sortedNodes)
+        {
+            nodeIdToIndex[node.id] = node.index;
+        }
+
+        foreach (var node in sortedNodes)
+        {
+            var runtime = new RuntimeDialogueData
+            {
+                index = node.index,
+                content = node.content ?? new LocalizedText(),
+                eventCalls = new List<DialogueEventCall>(node.eventCalls ?? new List<DialogueEventCall>())
+            };
+
+            // 角色信息
+            if (!string.IsNullOrEmpty(node.characterId) && characterLibrary != null && characterLibrary.characters != null)
+            {
+                var character = System.Array.Find(characterLibrary.characters, c => c.id == node.characterId);
+                if (character != null)
+                {
+                    runtime.name = character.characterName ?? new LocalizedText();
+                    runtime.avatarAddr = ConvertToRuntimePath(character.avatarAssetPath ?? "");
+                }
+                else
+                {
+                    runtime.name = new LocalizedText();
+                    runtime.avatarAddr = "";
+                }
+            }
+            else
+            {
+                runtime.name = new LocalizedText();
+                runtime.avatarAddr = "";
+            }
+
+            // 选项
+            runtime.choices = new List<RuntimeChoice>();
+            if (node.choices != null && node.choices.Count > 0)
+            {
+                foreach (var choice in node.choices)
+                {
+                    var connection = treeData.connections.FirstOrDefault(c =>
+                        c.outputNodeId == node.id &&
+                        c.choiceIndex == node.choices.IndexOf(choice));
+
+                    var runtimeChoice = new RuntimeChoice
+                    {
+                        text = choice.text ?? new LocalizedText(),
+                        nextNodeId = connection?.inputNodeId ?? "",
+                        conditions = new List<ChoiceCondition>(choice.conditions ?? new List<ChoiceCondition>()),
+                        conditionLogic = choice.conditionLogic
+                    };
+
+                    runtime.choices.Add(runtimeChoice);
+                }
+            }
+            else
+            {
+                var directConnection = treeData.connections.FirstOrDefault(c =>
+                    c.outputNodeId == node.id && c.choiceIndex == -1);
+                runtime.nextNodeId = directConnection?.inputNodeId ?? "";
+            }
+
+            // 条件分支
+            runtime.conditionalBranches = new List<RuntimeConditionalBranch>();
+            if (node.conditionalBranches != null && node.conditionalBranches.Count > 0)
+            {
+                foreach (var branch in node.conditionalBranches)
+                {
+                    var branchConnection = treeData.connections.FirstOrDefault(c =>
+                        c.outputNodeId == node.id &&
+                        c.branchPriority == branch.priority);
+
+                    if (branchConnection != null && nodeIdToIndex.ContainsKey(branchConnection.inputNodeId))
+                    {
+                        var runtimeBranch = new RuntimeConditionalBranch
+                        {
+                            targetIndex = nodeIdToIndex[branchConnection.inputNodeId],
+                            priority = branch.priority,
+                            conditions = new List<ChoiceCondition>(branch.conditions ?? new List<ChoiceCondition>()),
+                            conditionLogic = branch.conditionLogic
+                        };
+
+                        runtime.conditionalBranches.Add(runtimeBranch);
+                    }
+                }
+            }
+
+            runtimeData.Add(runtime);
+        }
+
+        return runtimeData;
+    }
+
+    private string ConvertToRuntimePath(string assetPath)
+    {
+        if (string.IsNullOrEmpty(assetPath)) return "";
+
+        int resourcesIndex = assetPath.IndexOf("Resources/");
+        if (resourcesIndex >= 0)
+        {
+            string resourcePath = assetPath.Substring(resourcesIndex + 10);
+            resourcePath = System.IO.Path.ChangeExtension(resourcePath, null);
+            return resourcePath;
+        }
+        return System.IO.Path.GetFileNameWithoutExtension(assetPath);
+    }
+
+    #endregion
     #endregion
 }
