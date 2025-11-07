@@ -1,48 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class UI_E : MonoBehaviour
 {
-    //scenes
-    public GameObject InteractIndicator;
-    private bool isPlayerInTrigger = false;
+    [Header("Interaction UI")]
+    [SerializeField] protected GameObject InteractIndicator;
 
-    private void Start()
+    // child classes can read this
+    protected bool isPlayerInTrigger = false;
+
+    protected virtual void Start()
     {
-        InteractIndicator.SetActive(false);
+        if (InteractIndicator) InteractIndicator.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = true;
-            InteractIndicator.SetActive(true);
-
+            SetIndicator(true);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    // <-- CHANGED: now protected virtual (was private), so children can call/override
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        //This disables the E when player presses
+        // This disables the E when player presses
         if (collision.CompareTag("Player"))
         {
-            if(Input.GetKey(KeyCode.E))
-            {
-                InteractIndicator.SetActive(false);
-            }
+            if (Input.GetKey(KeyCode.E))
+                SetIndicator(false);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = false;
-            InteractIndicator.SetActive(false);
+            SetIndicator(false);
+        }
+    }
 
+    protected void SetIndicator(bool on)
+    {
+        if (InteractIndicator) InteractIndicator.SetActive(on);
+    }
+
+    // Quality-of-life: auto-find an indicator if you forgot to assign one
+    private void Reset()
+    {
+        if (InteractIndicator == null)
+        {
+            var t = transform.Find("E") ?? transform.Find("InteractIndicator");
+            if (t) InteractIndicator = t.gameObject;
         }
     }
 }
