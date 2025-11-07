@@ -7,24 +7,37 @@ using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 public class PuzzleLantern : UI_E
 {
     [Header("Lantern (assign an existing child)")]
-    [SerializeField] private GameObject lantern;            // 直接拖入子物体
-    [SerializeField] private bool lanternHanged = false;    // 初始状态
+    [SerializeField] private GameObject lantern;
+    [SerializeField] private bool lanternHanged = false;
 
     [Header("Blackout Options")]
-    [SerializeField] private bool forceBlackOverlay = true; // 黑幕兜底
-    [SerializeField, Min(0f)] private float blackoutHold = 3f;   // 黑场停顿（你要的3秒）
+    [SerializeField] private bool forceBlackOverlay = true;
+    [SerializeField, Min(0f)] private float blackoutHold = 3f;   // 黑场停留时间（秒）
     [SerializeField, Min(0f)] private float overlayFadeIn = 0.15f;
     [SerializeField, Min(0f)] private float overlayFadeOut = 0.2f;
 
+    [Header("Freeze Player During Blackout")]
+    [Tooltip("玩家根节点（不填则用 Tag=Player 自动查找场上第一个）")]
+    [SerializeField] private GameObject playerRoot;
+    [Tooltip("在黑场期间要禁用的组件（将你的移动脚本、PlayerInput等拖进来）")]
+    [SerializeField] private Behaviour[] movementComponents;
+
     private bool isRunning = false;
 
-    // 直接控制光源组件，而不是关整对象
+    public bool IsHanged => lanternHanged;
+
+    // 灯光组件
     private readonly List<Light> stdLights = new();
     private readonly List<URPLight2D> urpLights = new();
 
     // 黑幕
     private const string OverlayName = "__BlackOverlay__";
     private CanvasGroup overlayCG;
+
+    // 冻结用缓存
+    private Rigidbody2D cachedRB2D;
+    private bool rb2dHadSimulated = true;
+    private RigidbodyConstraints2D rb2dOldConstraints;
 
     private void Awake()
     {
@@ -37,13 +50,21 @@ public class PuzzleLantern : UI_E
         base.Start();
         if (!lantern) TryAutoFindLantern();
         if (lantern) lantern.SetActive(lanternHanged);
+
+        // 自动找玩家
+        if (!playerRoot)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player) playerRoot = player;
+        }
+
+        // 缓存刚体2D（可选）
+        if (playerRoot) cachedRB2D = playerRoot.GetComponentInChildren<Rigidbody2D>();
     }
 
-    // ✅ 改为在 Update 里读键，配合 isPlayerInTrigger 更稳定
     private void Update()
     {
-        if (!isPlayerInTrigger) return;   // 这个来自 UI_E（protected）
-        if (isRunning) return;
+        if (!isPlayerInTrigger || isRunning) return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -60,30 +81,38 @@ public class PuzzleLantern : UI_E
     {
         isRunning = true;
 
-        // 1) 先拉黑幕（更快反馈），再关光源（避免Unlit漏光）
+        // —— 冻结玩家 —— //
+        FreezePlayer(true);
+
+        // 1) 黑幕淡入（先遮住，再关灯，避免漏光）
         if (forceBlackOverlay && overlayCG)
             yield return FadeOverlay(1f, overlayFadeIn);
 
+        // 2) 关闭场上所有光源组件
         SetAllLightComponentsEnabled(false);
 
-        // 2) 切换灯笼显隐
+        // 3) 切换灯笼显隐
         lanternHanged = !lanternHanged;
         lantern.SetActive(lanternHanged);
 
-        // 3) 保持黑场（你要的3秒，可在 Inspector 改 blackoutHold）
+        // 4) 黑场停留
         if (blackoutHold > 0f)
             yield return new WaitForSeconds(blackoutHold);
 
-        // 4) 开灯 + 收黑幕
+        // 5) 打开光源组件
         SetAllLightComponentsEnabled(true);
 
+        // 6) 黑幕淡出
         if (forceBlackOverlay && overlayCG)
             yield return FadeOverlay(0f, overlayFadeOut);
+
+        // —— 解除冻结 —— //
+        FreezePlayer(false);
 
         isRunning = false;
     }
 
-    // —— Light 控制 —— //
+    // ===== Light 控制 =====
     private void RefreshAllLightComponents()
     {
         stdLights.Clear();
@@ -107,16 +136,10 @@ public class PuzzleLantern : UI_E
             RefreshAllLightComponents();
 
         for (int i = 0; i < stdLights.Count; i++)
-        {
-            var l = stdLights[i];
-            if (l) l.enabled = enabled;
-        }
+            if (stdLights[i]) stdLights[i].enabled = enabled;
 
         for (int i = 0; i < urpLights.Count; i++)
-        {
-            var l2 = urpLights[i];
-            if (l2) l2.enabled = enabled;
-        }
+            if (urpLights[i]) urpLights[i].enabled = enabled;
     }
 
     private static bool IsSelfOrAncestorOrDescendant(Transform a, Transform self)
@@ -127,7 +150,7 @@ public class PuzzleLantern : UI_E
         return false;
     }
 
-    // —— 黑幕 —— //
+    // ===== 黑幕 =====
     private CanvasGroup GetOrCreateBlackOverlay()
     {
         var exist = GameObject.Find(OverlayName);
@@ -175,7 +198,46 @@ public class PuzzleLantern : UI_E
         overlayCG.alpha = target;
     }
 
-    // —— 其他 —— //
+    // ===== 冻结玩家 =====
+    private void FreezePlayer(bool freeze)
+    {
+        if (!playerRoot) return;
+
+        // 1) 禁用你指定的移动/输入组件
+        if (movementComponents != null)
+        {
+            for (int i = 0; i < movementComponents.Length; i++)
+            {
+                var comp = movementComponents[i];
+                if (!comp) continue;
+                comp.enabled = !freeze;
+            }
+        }
+
+        // 2) 刚体2D：停速度并冻结/恢复
+        if (cachedRB2D)
+        {
+            if (freeze)
+            {
+                rb2dHadSimulated = cachedRB2D.simulated;
+                rb2dOldConstraints = cachedRB2D.constraints;
+
+                cachedRB2D.velocity = Vector2.zero;
+                cachedRB2D.angularVelocity = 0f;
+
+                // 冻结物理：最稳的是直接 simulated=false（不受力/不移动）
+                cachedRB2D.simulated = false;
+            }
+            else
+            {
+                // 恢复原始物理状态
+                cachedRB2D.simulated = rb2dHadSimulated;
+                cachedRB2D.constraints = rb2dOldConstraints;
+            }
+        }
+    }
+
+    // ===== 其他 =====
     private void TryAutoFindLantern()
     {
         var t = transform.Find("Lantern");
