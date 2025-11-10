@@ -1,4 +1,4 @@
-using Cinemachine;
+﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,18 +20,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineConfiner2D confiner; // Reference to the CinemachineConfiner2D component
     private PolygonCollider2D boundingArea; // Reference to the PolygonCollider2D component of the bounding area
 
+    [SerializeField] private Animator anim;   
+    private static readonly int HashIsWalking = Animator.StringToHash("IsWalking");
+
     // Start is called before the first frame update
     void Start()
     {
-
+        if (anim == null) anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         boundingArea = confiner.m_BoundingShape2D as PolygonCollider2D;
 
-
-        if(Gamemanager.instance.phase == GamePhase.Moving)
+        if (Gamemanager.instance.phase == GamePhase.Moving)
         {
             speed = Mathf.Clamp(speed, 0f, max_hspeed);
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -57,11 +59,12 @@ public class PlayerController : MonoBehaviour
             speed = 0f;
         }
 
-
-
+        bool isWalkingNow = (Gamemanager.instance.phase == GamePhase.Moving)
+                            && Mathf.Abs(horizontal) > 0.01f
+                            && speed > 0.01f;
+        if (anim) anim.SetBool(HashIsWalking, isWalkingNow);
 
         //Other Functions
-
         Flip();
         ConfinePlayerToBoundingArea();
         //Physics2D.IgnoreLayerCollision(7, 8);
@@ -88,21 +91,16 @@ public class PlayerController : MonoBehaviour
             // Move the player to the closest point
             transform.position = closestPoint;
         }
-
     }
-
-
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
-
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundcheck.position, 0.3f, groundLayer);
-
     }
 
     private void Flip()
@@ -115,5 +113,4 @@ public class PlayerController : MonoBehaviour
             transform.localScale = localScale;
         }
     }
-
 }
