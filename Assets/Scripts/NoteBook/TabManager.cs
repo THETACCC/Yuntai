@@ -15,6 +15,9 @@ public class TabManager : MonoBehaviour
     private int currentPage = 0;
     private int currentOpenTabIndex = -1; // -1 = no tab open
 
+    // Internal list of tabs that are currently unlocked
+    private List<GameObject> unlockedTabs = new List<GameObject>();
+
     void Start()
     {
         if ((myTabs == null || myTabs.Length == 0) && !string.IsNullOrEmpty(myTab_Tag))
@@ -22,7 +25,33 @@ public class TabManager : MonoBehaviour
             myTabs = GameObject.FindGameObjectsWithTag(myTab_Tag);
         }
 
+        RefreshUnlockedTabs();
         ShowPage(0);
+    }
+
+    /// <summary>
+    /// Refreshes which tabs are considered available based on their "isThisUnlocked" script.
+    /// </summary>
+    public void RefreshUnlockedTabs()
+    {
+        unlockedTabs.Clear();
+        foreach (GameObject tab in myTabs)
+        {
+            if (tab == null) continue;
+
+            // Try to find the unlock script
+            var unlockScript = tab.GetComponent<isThisUnlocked>();
+            if (unlockScript == null || unlockScript.isThisThingUnlocked)
+            {
+                // Either no unlock script or it's unlocked
+                unlockedTabs.Add(tab);
+            }
+            else
+            {
+                // Locked ¡ú hide
+                tab.SetActive(false);
+            }
+        }
     }
 
     public void OpenTab(GameObject tabToOpen)
@@ -33,11 +62,11 @@ public class TabManager : MonoBehaviour
         if (index == -1) return;
 
         int pageStart = (index / PageSize) * PageSize;
-        int pageEnd = Mathf.Min(pageStart + PageSize, myTabs.Length);
+        int pageEnd = Mathf.Min(pageStart + PageSize, unlockedTabs.Count);
 
         for (int i = pageStart; i < pageEnd; i++)
-            if (myTabs[i] != null)
-                myTabs[i].SetActive(false);
+            if (unlockedTabs[i] != null)
+                unlockedTabs[i].SetActive(false);
 
         tabToOpen.SetActive(true);
         currentOpenTabIndex = index;
@@ -60,16 +89,16 @@ public class TabManager : MonoBehaviour
         if (currentOpenTabIndex != -1)
         {
             int nextIndex = currentOpenTabIndex + 1;
-            if (nextIndex < myTabs.Length)
+            if (nextIndex < unlockedTabs.Count)
             {
-                InvokeCloseButton(myTabs[currentOpenTabIndex]);
-                InvokeOpenButton(myTabs[nextIndex]);
+                InvokeCloseButton(unlockedTabs[currentOpenTabIndex]);
+                InvokeOpenButton(unlockedTabs[nextIndex]);
                 currentOpenTabIndex = nextIndex;
             }
             return;
         }
 
-        int maxPage = Mathf.CeilToInt((float)myTabs.Length / PageSize) - 1;
+        int maxPage = Mathf.CeilToInt((float)unlockedTabs.Count / PageSize) - 1;
         if (currentPage < maxPage)
         {
             currentPage++;
@@ -84,8 +113,8 @@ public class TabManager : MonoBehaviour
             int prevIndex = currentOpenTabIndex - 1;
             if (prevIndex >= 0)
             {
-                InvokeCloseButton(myTabs[currentOpenTabIndex]);
-                InvokeOpenButton(myTabs[prevIndex]);
+                InvokeCloseButton(unlockedTabs[currentOpenTabIndex]);
+                InvokeOpenButton(unlockedTabs[prevIndex]);
                 currentOpenTabIndex = prevIndex;
             }
             return;
@@ -98,52 +127,45 @@ public class TabManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Call this when the whole inventory UI is closed.
-    /// It hides every tab, then shows page 0 again.
-    /// </summary>
     public void CloseInventory()
     {
-        // If a tab is currently open, run its CloseCharacter button first
-        if (currentOpenTabIndex != -1 && currentOpenTabIndex < myTabs.Length)
+        if (currentOpenTabIndex != -1 && currentOpenTabIndex < unlockedTabs.Count)
         {
-            InvokeCloseButton(myTabs[currentOpenTabIndex]);
+            InvokeCloseButton(unlockedTabs[currentOpenTabIndex]);
         }
 
-        // Hide all tabs
-        for (int i = 0; i < myTabs.Length; i++)
+        for (int i = 0; i < unlockedTabs.Count; i++)
         {
-            if (myTabs[i] != null)
-                myTabs[i].SetActive(false);
+            if (unlockedTabs[i] != null)
+                unlockedTabs[i].SetActive(false);
         }
 
-        // Show page 0 (tabs 0¨C5)
         ShowPage(0);
-
-        // Reset state
         currentOpenTabIndex = -1;
         currentPage = 0;
     }
 
     private void ShowPage(int pageIndex)
     {
+        RefreshUnlockedTabs(); // always recheck in case unlocks changed
+
         currentPage = pageIndex;
         int start = pageIndex * PageSize;
-        int end = Mathf.Min(start + PageSize, myTabs.Length);
+        int end = Mathf.Min(start + PageSize, unlockedTabs.Count);
 
         // disable all
-        for (int i = 0; i < myTabs.Length; i++)
-            if (myTabs[i] != null) myTabs[i].SetActive(false);
+        for (int i = 0; i < unlockedTabs.Count; i++)
+            if (unlockedTabs[i] != null) unlockedTabs[i].SetActive(false);
 
         // enable this page
         for (int i = start; i < end; i++)
-            if (myTabs[i] != null) myTabs[i].SetActive(true);
+            if (unlockedTabs[i] != null) unlockedTabs[i].SetActive(true);
     }
 
     private int GetTabIndex(GameObject tab)
     {
-        for (int i = 0; i < myTabs.Length; i++)
-            if (myTabs[i] == tab) return i;
+        for (int i = 0; i < unlockedTabs.Count; i++)
+            if (unlockedTabs[i] == tab) return i;
         return -1;
     }
 
