@@ -3,14 +3,14 @@
         {
             "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
             "index": 0,
-            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "characterId": "f9fa942c-c6bc-4ddd-a738-7518a8dbc201",
             "content": {
-                "en": "A fleeting illusion upon that mirror… I see.",
-                "zh": "镜花水月，原来如此。",
+                "en": "Hurry… come with me.",
+                "zh": "快...跟我走",
                 "ja": ""
             },
-            "positionX": 1422.6666259765625,
-            "positionY": 774.6666870117188,
+            "positionX": 1096.6666259765625,
+            "positionY": 774.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -71,6 +71,21 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "index": 4,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "content": {
+                "en": "A fleeting illusion upon that mirror… I see.",
+                "zh": "镜花水月，原来如此。",
+                "ja": ""
+            },
+            "positionX": 1450.6666259765625,
+            "positionY": 772.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -89,8 +104,15 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "outputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
             "inputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "inputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
