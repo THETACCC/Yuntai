@@ -571,7 +571,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         var boxStyle = new GUIStyle(GUI.skin.box);
         boxStyle.padding = new RectOffset(8, 8, 8, 8);
 
-        EditorGUILayout.BeginVertical(boxStyle, GUILayout.MinHeight(isEditing ? 150 : 70));
+        EditorGUILayout.BeginVertical(boxStyle, GUILayout.MinHeight(isEditing ? 230 : 70));
 
         // 第一行：显示名称和按钮
         EditorGUILayout.BeginHorizontal();
@@ -622,12 +622,13 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         EditorGUILayout.EndHorizontal();
 
-        // 编辑模式下显示 Name 字段
+        // 编辑模式下显示 Name 字段（多语言）
         if (isEditing)
         {
             EditorGUILayout.Space(3);
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Name:", GUILayout.Width(70));
+
+            // Name 标题
+            EditorGUILayout.LabelField("Name:", EditorStyles.boldLabel);
 
             // 为Name字段创建独立的样式和texture（避免与Character字段共享）
             var nameFieldStyle = new GUIStyle(EditorStyles.textField);
@@ -636,11 +637,36 @@ public class DialogueTreeManagerWindow : EditorWindow
             nameFieldStyle.normal.textColor = Color.white;
             nameFieldStyle.focused.textColor = Color.white;
 
-            string newName = EditorGUILayout.TextField(character.characterName?.en ?? "", nameFieldStyle);
-
-            if (newName != (character.characterName?.en ?? ""))
+            // English Name
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(15);
+            EditorGUILayout.LabelField("EN:", GUILayout.Width(55));
+            string newNameEn = EditorGUILayout.TextField(character.characterName?.en ?? "", nameFieldStyle);
+            if (newNameEn != (character.characterName?.en ?? ""))
             {
-                character.characterName.en = newName;
+                character.characterName.en = newNameEn;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // Chinese Name
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(15);
+            EditorGUILayout.LabelField("中文:", GUILayout.Width(55));
+            string newNameZh = EditorGUILayout.TextField(character.characterName?.zh ?? "", nameFieldStyle);
+            if (newNameZh != (character.characterName?.zh ?? ""))
+            {
+                character.characterName.zh = newNameZh;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // Japanese Name
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(15);
+            EditorGUILayout.LabelField("日本語:", GUILayout.Width(55));
+            string newNameJa = EditorGUILayout.TextField(character.characterName?.ja ?? "", nameFieldStyle);
+            if (newNameJa != (character.characterName?.ja ?? ""))
+            {
+                character.characterName.ja = newNameJa;
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -822,10 +848,50 @@ public class DialogueTreeManagerWindow : EditorWindow
             EditorGUILayout.BeginVertical();
             GUILayout.FlexibleSpace();
 
-            // 显示 Name 字段
+            // 显示 Name 字段（多语言）
+            var nameTitleStyle = new GUIStyle(EditorStyles.miniLabel);
+            nameTitleStyle.normal.textColor = new Color(0.9f, 0.9f, 0.9f);
+            nameTitleStyle.fontStyle = FontStyle.Bold;
+
             var nameStyle = new GUIStyle(EditorStyles.miniLabel);
             nameStyle.normal.textColor = new Color(0.8f, 0.8f, 0.8f);
-            EditorGUILayout.LabelField($"Name: {character.characterName?.en ?? ""}", nameStyle);
+
+            // 检查是否有任何名称
+            bool hasAnyName = !string.IsNullOrEmpty(character.characterName?.en) ||
+                             !string.IsNullOrEmpty(character.characterName?.zh) ||
+                             !string.IsNullOrEmpty(character.characterName?.ja);
+
+            if (hasAnyName)
+            {
+                EditorGUILayout.LabelField("Name:", nameTitleStyle);
+
+                // 显示英文名称
+                if (!string.IsNullOrEmpty(character.characterName?.en))
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Space(10);
+                    EditorGUILayout.LabelField($"EN: {character.characterName.en}", nameStyle);
+                    EditorGUILayout.EndHorizontal();
+                }
+
+                // 显示中文名称
+                if (!string.IsNullOrEmpty(character.characterName?.zh))
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Space(10);
+                    EditorGUILayout.LabelField($"中文: {character.characterName.zh}", nameStyle);
+                    EditorGUILayout.EndHorizontal();
+                }
+
+                // 显示日文名称
+                if (!string.IsNullOrEmpty(character.characterName?.ja))
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Space(10);
+                    EditorGUILayout.LabelField($"日本語: {character.characterName.ja}", nameStyle);
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
 
             var pathStyle = new GUIStyle(EditorStyles.miniLabel);
             pathStyle.normal.textColor = new Color(0.6f, 0.6f, 0.6f);
