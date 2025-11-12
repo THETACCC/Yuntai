@@ -147,8 +147,9 @@ public class DialogueManager : MonoBehaviour
                 if (DialogueSettings.instance.separatePlayerAndNPC)
                 {
                     Debug.Log(NPCAvatar.sprite != null);
-                    NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
-                    avatar.gameObject.SetActive(currentConversation.isPlayer);
+                    
+                    //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
+                    //avatar.gameObject.SetActive(currentConversation.isPlayer);
                     //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
                     //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
                     if (currentConversation.isPlayer)
@@ -163,7 +164,8 @@ public class DialogueManager : MonoBehaviour
                         NPCAvatar.color = Color.white;
                         NPCAvatar.sprite = s;
                     }
-
+                    NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
+                    avatar.gameObject.SetActive(avatar.sprite != null);
                 }
                 else
                 {
