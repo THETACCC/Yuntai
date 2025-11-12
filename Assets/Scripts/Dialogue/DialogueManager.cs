@@ -63,7 +63,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         MoveToNextInputCheck();
-        
+
 
     }
 
@@ -119,6 +119,7 @@ public class DialogueManager : MonoBehaviour
         // start new typing animation
         textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(Settings.instance.currentLanguage)));
         string speakerName = currentConversation.name.GetText(Settings.instance.currentLanguage);
+
         //check if separate
         if (DialogueSettings.instance.separatePlayerAndNPC)
         {
@@ -162,6 +163,7 @@ public class DialogueManager : MonoBehaviour
                         NPCAvatar.color = Color.white;
                         NPCAvatar.sprite = s;
                     }
+
                 }
                 else
                 {
@@ -243,7 +245,7 @@ public class DialogueManager : MonoBehaviour
 
             }
         }
-        
+
     }
 
     private IEnumerator TextAnimation(string text)
@@ -321,11 +323,32 @@ public class DialogueManager : MonoBehaviour
 
     bool SingleConditionResult(ChoiceCondition condition)
     {
-        //获取object
-        GameObject targetObject = GameObject.Find(condition.targetObjectName);
+        //获取object - 优先使用ID查找
+        GameObject targetObject = null;
+
+        // 优先使用ID查找
+        if (!string.IsNullOrEmpty(condition.targetObjectID))
+        {
+            targetObject = DialogueReference.FindByID(condition.targetObjectID);
+        }
+
+        // 向后兼容：如果没有ID或ID查找失败，使用名字查找
+        if (targetObject == null && !string.IsNullOrEmpty(condition.targetObjectName))
+        {
+            targetObject = GameObject.Find(condition.targetObjectName);
+
+            if (targetObject == null)
+            {
+                // 如果还没找到，使用 FindObjectsOfTypeAll 查找包括 inactive 的对象
+                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                targetObject = System.Array.Find(allObjects, obj => obj.name == condition.targetObjectName && obj.scene.IsValid());
+            }
+        }
+
         if (targetObject == null)
         {
-            Debug.LogError($"[Condition Check] GameObject '{condition.targetObjectName}' not found.");
+            string identifier = !string.IsNullOrEmpty(condition.targetObjectID) ? condition.targetObjectID : condition.targetObjectName;
+            Debug.LogError($"[Condition Check] GameObject '{identifier}' not found (searched by ID and name, including inactive objects).");
             return false;
         }
         //获取component

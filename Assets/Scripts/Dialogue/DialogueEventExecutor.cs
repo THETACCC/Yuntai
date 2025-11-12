@@ -36,7 +36,12 @@ public static class DialogueEventExecutor
     {
         try
         {
-            var targetObject = FindTargetObject(eventCall.targetObjectName);
+            // 优先使用ID，如果为空则使用名字（向后兼容）
+            string identifier = !string.IsNullOrEmpty(eventCall.targetObjectID)
+                ? eventCall.targetObjectID
+                : eventCall.targetObjectName;
+
+            var targetObject = FindTargetObject(identifier);
             if (targetObject == null) return;
 
             var component = GetTargetComponent(targetObject, eventCall.componentTypeName);
@@ -46,7 +51,7 @@ public static class DialogueEventExecutor
         }
         catch (Exception e)
         {
-            LogError($"Failed to execute event call on '{eventCall.targetObjectName}': {e.Message}");
+            LogError($"Failed to execute event call: {e.Message}");
         }
     }
 
@@ -57,13 +62,30 @@ public static class DialogueEventExecutor
                !string.IsNullOrEmpty(eventCall.methodName);
     }
 
-    private static GameObject FindTargetObject(string objectName)
+    private static GameObject FindTargetObject(string objectNameOrID)
     {
-        var targetObject = GameObject.Find(objectName);
+        // 优先尝试作为ID查找
+        var targetObject = DialogueReference.FindByID(objectNameOrID);
+
+        // 如果ID查找失败，尝试作为名字查找（向后兼容）
         if (targetObject == null)
         {
-            LogWarning($"GameObject '{objectName}' not found");
+            // 先尝试使用 GameObject.Find (只查找 active 对象，性能更好)
+            targetObject = GameObject.Find(objectNameOrID);
+
+            // 如果还没找到，使用 FindObjectsOfTypeAll 查找包括 inactive 的对象
+            if (targetObject == null)
+            {
+                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                targetObject = System.Array.Find(allObjects, obj => obj.name == objectNameOrID && obj.scene.IsValid());
+            }
         }
+
+        if (targetObject == null)
+        {
+            LogWarning($"GameObject '{objectNameOrID}' not found (searched by ID and name, including inactive objects)");
+        }
+
         return targetObject;
     }
 

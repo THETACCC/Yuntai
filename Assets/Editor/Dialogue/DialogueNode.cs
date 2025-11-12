@@ -540,9 +540,16 @@ public partial class DialogueNode : Node
             eventContainer.Add(triggerTimingRow);
 
             GameObject currentGameObject = null;
-            if (!string.IsNullOrEmpty(eventCall.targetObjectName))
+            // 优先使用ID查找
+            if (!string.IsNullOrEmpty(eventCall.targetObjectID))
             {
-                currentGameObject = GameObject.Find(eventCall.targetObjectName);
+                currentGameObject = DialogueReference.FindByID(eventCall.targetObjectID);
+            }
+            // 向后兼容：如果没有ID，使用名字查找
+            else if (!string.IsNullOrEmpty(eventCall.targetObjectName))
+            {
+                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                currentGameObject = System.Array.Find(allObjects, obj => obj.name == eventCall.targetObjectName && obj.scene.IsValid());
             }
 
             var gameObjectField = new ObjectField("Target GameObject:")
@@ -570,7 +577,17 @@ public partial class DialogueNode : Node
                 if (currentIndex < EventCalls.Count)
                 {
                     var selectedGO = evt.newValue as GameObject;
-                    EventCalls[currentIndex].targetObjectName = selectedGO != null ? selectedGO.name : "";
+                    if (selectedGO != null)
+                    {
+                        var refComponent = DialogueReference.GetOrCreate(selectedGO);
+                        EventCalls[currentIndex].targetObjectID = refComponent.UniqueID;
+                        EventCalls[currentIndex].targetObjectName = selectedGO.name;
+                    }
+                    else
+                    {
+                        EventCalls[currentIndex].targetObjectID = "";
+                        EventCalls[currentIndex].targetObjectName = "";
+                    }
                     UpdateEventsDisplay();
                     NotifyChange();
                 }
@@ -1006,9 +1023,16 @@ public partial class DialogueNode : Node
         condContainer.Add(headerRow);
 
         GameObject currentGO = null;
-        if (!string.IsNullOrEmpty(condition.targetObjectName))
+        // 优先使用ID查找
+        if (!string.IsNullOrEmpty(condition.targetObjectID))
         {
-            currentGO = GameObject.Find(condition.targetObjectName);
+            currentGO = DialogueReference.FindByID(condition.targetObjectID);
+        }
+        // 向后兼容：如果没有ID，使用名字查找
+        else if (!string.IsNullOrEmpty(condition.targetObjectName))
+        {
+            var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            currentGO = System.Array.Find(allObjects, obj => obj.name == condition.targetObjectName && obj.scene.IsValid());
         }
 
         var goField = new ObjectField("GameObject:")
@@ -1607,9 +1631,16 @@ public partial class DialogueNode : Node
             condContainer.Add(condHeader);
 
             GameObject currentGameObject = null;
-            if (!string.IsNullOrEmpty(condition.targetObjectName))
+            // 优先使用ID查找
+            if (!string.IsNullOrEmpty(condition.targetObjectID))
             {
-                currentGameObject = GameObject.Find(condition.targetObjectName);
+                currentGameObject = DialogueReference.FindByID(condition.targetObjectID);
+            }
+            // 向后兼容：如果没有ID，使用名字查找
+            else if (!string.IsNullOrEmpty(condition.targetObjectName))
+            {
+                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                currentGameObject = System.Array.Find(allObjects, obj => obj.name == condition.targetObjectName && obj.scene.IsValid());
             }
 
             var gameObjectField = new ObjectField("GameObject:")

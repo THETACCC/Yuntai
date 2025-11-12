@@ -549,6 +549,7 @@ public class DialogueTreeEditor : EditorWindow
             formattedJson += $"      \"index\": {item.index},\n";
             formattedJson += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
             formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            formattedJson += $"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n";
             formattedJson += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
 
             // Conditional Branches

@@ -263,7 +263,8 @@ namespace DialogueSystem
     [Serializable]
     public class ChoiceCondition
     {
-        public string targetObjectName;    // GameObject name
+        public string targetObjectID;      // GameObject unique ID (推荐使用)
+        public string targetObjectName;    // GameObject name (向后兼容)
         public string componentTypeName;   // Component type name
         public string variableName;        // Variable name
         public ComparisonType comparison;
@@ -291,7 +292,8 @@ namespace DialogueSystem
     [Serializable]
     public class DialogueEventCall
     {
-        public string targetObjectName = "";  // Target GameObject name
+        public string targetObjectID = "";    // Target GameObject unique ID (推荐使用)
+        public string targetObjectName = "";  // Target GameObject name (向后兼容)
         public string componentTypeName = ""; // Component type name
         public string methodName = "";        // Method name
         public string stringParameter = "";   // String parameter
