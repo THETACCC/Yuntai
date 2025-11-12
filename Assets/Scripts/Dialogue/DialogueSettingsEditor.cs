@@ -20,8 +20,8 @@ public class DialogueSettingsEditor : Editor
 
         // ✅ 智能显示引用字段逻辑
         ShowReferenceIfNull("Dialogue Manager", ref settings.dialogueManager);
-        ShowReferenceIfNull("Avatar Prefab", ref settings.avatarPrefab);
-        ShowReferenceIfNull("Name Prefab", ref settings.namePrefab);
+        //ShowReferenceIfNull("Avatar Prefab", ref settings.avatarPrefab);
+        //ShowReferenceIfNull("Name Prefab", ref settings.namePrefab);
 
         // 保存更改
         if (GUI.changed)

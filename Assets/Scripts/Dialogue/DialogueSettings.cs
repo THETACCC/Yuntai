@@ -11,8 +11,6 @@ public class DialogueSettings : MonoBehaviour
     public static DialogueSettings instance;
 
     public DialogueManager dialogueManager;
-    public GameObject avatarPrefab;
-    public GameObject namePrefab;
 
     public string currentLanguage = "en";
     public TMP_FontAsset ChineseFont;
@@ -45,7 +43,7 @@ public class DialogueSettings : MonoBehaviour
         if (Application.isPlaying) return;
 
         dialogueManager.NPCAvatar.gameObject.SetActive(separatePlayerAndNPC);
-        dialogueManager.NPCName.gameObject.SetActive(separatePlayerAndNPC);
+        dialogueManager.NPCName.transform.parent.gameObject.SetActive(separatePlayerAndNPC);
     }
 
     public void SetLanguage(string languageCode)

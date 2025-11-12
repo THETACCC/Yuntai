@@ -124,7 +124,7 @@ public class DialogueManager : MonoBehaviour
         if (DialogueSettings.instance.separatePlayerAndNPC)
         {
             speaker.gameObject.SetActive(currentConversation.isPlayer);
-            NPCName.gameObject.SetActive(!currentConversation.isPlayer);
+            NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer);
             if (currentConversation.isPlayer)
             {
                 speaker.text = speakerName;
