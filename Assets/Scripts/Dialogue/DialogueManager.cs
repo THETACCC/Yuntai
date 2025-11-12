@@ -147,23 +147,25 @@ public class DialogueManager : MonoBehaviour
                 if (DialogueSettings.instance.separatePlayerAndNPC)
                 {
                     Debug.Log(NPCAvatar.sprite != null);
-                    NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
-                    avatar.gameObject.SetActive(currentConversation.isPlayer);
+                    
+                    //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
+                    //avatar.gameObject.SetActive(currentConversation.isPlayer);
                     //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
                     //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
                     if (currentConversation.isPlayer)
                     {
-                        NPCAvatar.color = Color.gray;
+                        NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
                         avatar.color = Color.white;
                         avatar.sprite = s;
                     }
                     else
                     {
-                        avatar.color = Color.gray;
+                        avatar.color = DialogueSettings.instance.inactiveAvatarColor;
                         NPCAvatar.color = Color.white;
                         NPCAvatar.sprite = s;
                     }
-
+                    NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
+                    avatar.gameObject.SetActive(avatar.sprite != null);
                 }
                 else
                 {

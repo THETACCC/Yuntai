@@ -19,6 +19,7 @@ public class DialogueSettings : MonoBehaviour
 
     [Header("Template Settings")]
     public bool separatePlayerAndNPC;
+    public Color inactiveAvatarColor;
 
     private void Awake()
     {

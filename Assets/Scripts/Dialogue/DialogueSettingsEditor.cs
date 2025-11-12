@@ -17,6 +17,17 @@ public class DialogueSettingsEditor : Editor
         EditorGUILayout.Space(); // 顶部空一行
         EditorGUILayout.LabelField("Template Settings", EditorStyles.boldLabel);
         settings.separatePlayerAndNPC = EditorGUILayout.Toggle("Separate Player and NPC", settings.separatePlayerAndNPC);
+        
+
+        // 如果 separatePlayerAndNPC 勾选了，显示额外字段
+        if (settings.separatePlayerAndNPC)
+        {
+            EditorGUI.indentLevel++;
+            settings.inactiveAvatarColor = EditorGUILayout.ColorField("Inactive Avatar Color", settings.inactiveAvatarColor);
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
 
         // ✅ 智能显示引用字段逻辑
         ShowReferenceIfNull("Dialogue Manager", ref settings.dialogueManager);
