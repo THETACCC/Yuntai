@@ -603,52 +603,22 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         GUILayout.FlexibleSpace();
 
+
+        // 非编辑模式：显示Edit和Delete按钮
         if (!isEditing)
         {
             if (GUILayout.Button("Edit", EditorStyles.miniButton, GUILayout.Width(60)))
             {
                 editingCharacterId = character.id;
             }
-        }
-        else
-        {
-            if (GUILayout.Button("Done", EditorStyles.miniButton, GUILayout.Width(60)))
+
+            GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
+            if (GUILayout.Button("Del", EditorStyles.miniButton, GUILayout.Width(60)))
             {
-                // 检查是否有未保存的错误选择
-                bool hasError = false;
-                if (tempSelectedSprites.ContainsKey(character.id))
-                {
-                    var tempSprite = tempSelectedSprites[character.id];
-                    string tempPath = AssetDatabase.GetAssetPath(tempSprite);
-                    if (!tempPath.Contains("/Resources/"))
-                    {
-                        hasError = true;
-                    }
-                }
-
-                if (hasError)
-                {
-                    EditorUtility.DisplayDialog("Cannot Save",
-                        "The selected avatar is not in a Resources folder!\n\nPlease select a sprite from a Resources folder, or clear the selection to continue.",
-                        "OK");
-                }
-                else
-                {
-                    // 统一保存角色数据
-                    SaveCharacterLibrary(character.id);
-                    Debug.Log($"✓ Saved character: {character.character}");
-                    editingCharacterId = "";
-                    tempSelectedSprites.Remove(character.id);
-                }
+                DeleteCharacter(index);
             }
+            GUI.backgroundColor = Color.white;
         }
-
-        GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
-        if (GUILayout.Button("Del", EditorStyles.miniButton, GUILayout.Width(60)))
-        {
-            DeleteCharacter(index);
-        }
-        GUI.backgroundColor = Color.white;
 
         EditorGUILayout.EndHorizontal();
 
@@ -766,6 +736,54 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 character.isPlayer = newIsPlayer;
             }
+
+            EditorGUILayout.EndHorizontal();
+
+            // Done 和 Cancel 按钮（右下角）
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("Cancel", EditorStyles.miniButton, GUILayout.Width(70)))
+            {
+                // 取消编辑，不保存
+                editingCharacterId = "";
+                tempSelectedSprites.Remove(character.id);
+                // 重新加载角色数据以恢复原始值
+                LoadCharacterLibrary();
+            }
+
+            GUI.backgroundColor = new Color(0.7f, 1f, 0.7f);
+            if (GUILayout.Button("Done", EditorStyles.miniButton, GUILayout.Width(70)))
+            {
+                // 检查是否有未保存的错误选择
+                bool hasError = false;
+                if (tempSelectedSprites.ContainsKey(character.id))
+                {
+                    var tempSprite = tempSelectedSprites[character.id];
+                    string tempPath = AssetDatabase.GetAssetPath(tempSprite);
+                    if (!tempPath.Contains("/Resources/"))
+                    {
+                        hasError = true;
+                    }
+                }
+
+                if (hasError)
+                {
+                    EditorUtility.DisplayDialog("Cannot Save",
+                        "The selected avatar is not in a Resources folder!\n\nPlease select a sprite from a Resources folder, or clear the selection to continue.",
+                        "OK");
+                }
+                else
+                {
+                    // 统一保存角色数据
+                    SaveCharacterLibrary(character.id);
+                    Debug.Log($"✓ Saved character: {character.character}");
+                    editingCharacterId = "";
+                    tempSelectedSprites.Remove(character.id);
+                }
+            }
+            GUI.backgroundColor = Color.white;
 
             EditorGUILayout.EndHorizontal();
         }
