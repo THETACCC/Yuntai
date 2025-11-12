@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacfffd332bf7db45aa595cc57580d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  designatedLocation: {fileID: 1078806428}
+  designatedLocation: {fileID: 0}
   moveSpeed: 3
   keepCurrentY: 0
   spriteAfterMove: {fileID: 0}
@@ -1767,7 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacfffd332bf7db45aa595cc57580d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  designatedLocation: {fileID: 1078806428}
+  designatedLocation: {fileID: 0}
   moveSpeed: 3
   keepCurrentY: 0
   spriteAfterMove: {fileID: 0}
@@ -2331,6 +2331,88 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &727355013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727355014}
+  - component: {fileID: 727355015}
+  m_Layer: 0
+  m_Name: Light 2D ZhouShu Mirror
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &727355014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727355013}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.82, y: 1.3902323, z: 0.020768546}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2044497450}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727355015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727355013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1000
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 000000008131045e53cf9d70
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 3
+  m_PointLightOuterRadius: 7.5
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &750320621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4521,37 +4603,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1078806427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1078806428}
-  m_Layer: 0
-  m_Name: ZhouShuDestination
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1078806428
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078806427}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.6, y: 0.4570278, z: 1.4925356}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1111650717
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,6 +5297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279740581}
+  - component: {fileID: 1279740582}
   m_Layer: 0
   m_Name: LevelManager3_1
   m_TagString: Untagged
@@ -5268,6 +5320,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279740582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c322a66c3d83a8c4b9c7301b5da276cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: Level3-2
+  nextSpawnPointLocation: 0
+  useSceneControllerTeleport: 1
+  deathSpot: {fileID: 727355015}
+  spotRiseDuration: 3
+  spotTargetIntensity: 1000
+  spotTargetOuterRadius: 7.5
+  spotTargetInnerRadius: 3
+  spotQuickFadeDuration: 0.25
+  zhoushuSitting: {fileID: 297127187}
+  zhoushuStanding: {fileID: 422720447}
+  useUnscaledTime: 1
+  verboseLog: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,7 +6981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainDialogueJsonFile: {fileID: 4900000, guid: 73a4c9fbbbccf044f8712149ec5ec44a, type: 3}
+  mainDialogueJsonFile: {fileID: 4900000, guid: 8aa94d340e893214ab180aca6a3b3689, type: 3}
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 1
   isMainDialogueFinished: 0
@@ -8779,6 +8856,7 @@ Transform:
   m_Children:
   - {fileID: 6225432}
   - {fileID: 1499144590}
+  - {fileID: 727355014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052892912
@@ -9205,7 +9283,6 @@ SceneRoots:
   - {fileID: 621417086}
   - {fileID: 1803819324}
   - {fileID: 1511649204}
-  - {fileID: 1078806428}
   - {fileID: 2044497450}
   - {fileID: 1279740581}
   - {fileID: 1677128407}
