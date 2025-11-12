@@ -238,6 +238,17 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &51987190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5490428786729466793, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+  m_PrefabInstance: {fileID: 2002887580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04afa59c2c665d49a3935bba53bfd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &65365268
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +522,10 @@ PrefabInstance:
     - target: {fileID: 8666715169463334479, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
       propertyPath: isInGame
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8666715169463334479, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
+      propertyPath: currentLanguage
+      value: zh
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2482,6 +2497,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1092073403899971172, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3888101460547212704, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
       propertyPath: m_Name
       value: Dialogue System
@@ -2493,6 +2512,34 @@ PrefabInstance:
     - target: {fileID: 6804064686856941109, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.8785
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969277537713515028, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: namePrefab
+      value: 
+      objectReference: {fileID: 7054866460849742019, guid: d8922ff4fa3a1be4a9951554275898b5, type: 3}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: playerName
+      value: "\u4F55\u4EE5\u771F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: avatarPrefab
+      value: 
+      objectReference: {fileID: 289732675251949071, guid: fb143546655687b4681724ae958b681b, type: 3}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: currentLanguage
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: dialogueManager
+      value: 
+      objectReference: {fileID: 51987190}
+    - target: {fileID: 7418793758252235179, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
+      propertyPath: separatePlayerAndNPC
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7728927752113208697, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
       propertyPath: m_Pivot.x

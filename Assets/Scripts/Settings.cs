@@ -11,9 +11,6 @@ public class Settings : MonoBehaviour
     public GameObject outGameSettings;
 
     public string currentLanguage = "en";
-    public TMP_FontAsset ChineseFont;
-    public TMP_FontAsset EnglishFont;
-    public TMP_FontAsset JapaneseFont;
 
     bool isOpen = false;
 
@@ -29,6 +26,14 @@ public class Settings : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (currentLanguage != null)
+        {
+            SetLanguage(currentLanguage);
         }
     }
 
@@ -88,28 +93,6 @@ public class Settings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
-        TextMeshProUGUI speaker = DialogueManager.instance.speaker;
-        TextMeshProUGUI content = DialogueManager.instance.contentText;
-        TextMeshProUGUI choice = DialogueManager.instance.choicePrefab.GetComponent<DialogueChoice>().content;
-        switch (currentLanguage)
-        {
-            case "zh":
-                speaker.font = ChineseFont;
-                content.font = ChineseFont;
-                choice.font = ChineseFont;
-                break;
-            case "en":
-                speaker.font = EnglishFont;
-                content.font = EnglishFont;
-                choice.font = EnglishFont;
-                break;
-            case "ja":
-                speaker.font = JapaneseFont;
-                content.font = JapaneseFont;
-                choice.font = JapaneseFont;
-                break;
-        }
-
-        
+        DialogueSettings.instance.SetLanguage(languageCode);
     }
 }

@@ -137,8 +137,12 @@ public class DialogueGraphView : GraphView
         if (float.IsNaN(nodePosition.x) || float.IsNaN(nodePosition.y) ||
             float.IsNaN(nodePosition.width) || float.IsNaN(nodePosition.height))
         {
-            Debug.Log("Node 0 position contains NaN values, retrying...");
-            EditorApplication.delayCall += () => CenterOnNode0();
+            // 只在窗口可见时才重试
+            if (editorWindow != null && editorWindow.hasFocus)
+            {
+                Debug.Log("Node 0 position contains NaN values, retrying...");
+                EditorApplication.delayCall += () => CenterOnNode0();
+            }
             return;
         }
 
@@ -151,16 +155,24 @@ public class DialogueGraphView : GraphView
         var nodeBounds = new Rect(nodePosition.position, nodePosition.size);
         if (nodeBounds.size == Vector2.zero)
         {
-            Debug.Log("Node 0 not fully initialized, retrying...");
-            EditorApplication.delayCall += () => CenterOnNode0();
+            // 只在窗口可见时才重试
+            if (editorWindow != null && editorWindow.hasFocus)
+            {
+                Debug.Log("Node 0 not fully initialized, retrying...");
+                EditorApplication.delayCall += () => CenterOnNode0();
+            }
             return;
         }
 
         var graphViewBounds = worldBound;
         if (graphViewBounds.width <= 0 || graphViewBounds.height <= 0)
         {
-            Debug.Log("GraphView bounds not ready, retrying...");
-            EditorApplication.delayCall += () => CenterOnNode0();
+            // 只在窗口可见时才重试
+            if (editorWindow != null && editorWindow.hasFocus)
+            {
+                Debug.Log("GraphView bounds not ready, retrying...");
+                EditorApplication.delayCall += () => CenterOnNode0();
+            }
             return;
         }
 

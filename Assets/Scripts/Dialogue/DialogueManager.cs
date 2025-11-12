@@ -15,8 +15,8 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager instance;
 
     public bool isDialogueActive = false;
-    [SerializeField] CanvasGroup UIGroup;
-    [SerializeField] Image avatar;
+    public CanvasGroup UIGroup;
+    public Image avatar;
     public TextMeshProUGUI speaker;
     public TextMeshProUGUI contentText;
 
@@ -36,6 +36,10 @@ public class DialogueManager : MonoBehaviour
     public bool isDialogueFinished = false;
 
     private Conversation currentConversation;
+
+    [Header("Components")]
+    public Image NPCAvatar;
+    public TextMeshProUGUI NPCName;
 
     private void Awake()
     {
@@ -112,17 +116,59 @@ public class DialogueManager : MonoBehaviour
         // stop previous typing if still running
         if (textAnimationCoroutine != null)
             StopCoroutine(textAnimationCoroutine);
-
         // start new typing animation
         textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(Settings.instance.currentLanguage)));
-        speaker.text = currentConversation.name.GetText(Settings.instance.currentLanguage);
+        string speakerName = currentConversation.name.GetText(Settings.instance.currentLanguage);
+
+        //check if separate
+        if (DialogueSettings.instance.separatePlayerAndNPC)
+        {
+            speaker.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+            NPCName.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+            if (speakerName == DialogueSettings.instance.playerName)
+            {
+                speaker.text = speakerName;
+            }
+            else
+            {
+                NPCName.text = speakerName;
+            }
+        }
+        else
+        {
+            speaker.text = speakerName;
+        }
 
         if (currentConversation.avatarAddr != null)
         {
             Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
             if (s != null)
             {
-                avatar.sprite = s;
+                if (DialogueSettings.instance.separatePlayerAndNPC)
+                {
+                    Debug.Log(NPCAvatar.sprite != null);
+                    NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+                    avatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+                    //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+                    //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+                    if (speakerName == DialogueSettings.instance.playerName)
+                    {
+                        NPCAvatar.color = Color.gray;
+                        avatar.color = Color.white;
+                        avatar.sprite = s;
+                    }
+                    else
+                    {
+                        avatar.color = Color.gray;
+                        NPCAvatar.color = Color.white;
+                        NPCAvatar.sprite = s;
+                    }
+                    
+                }
+                else
+                {
+                    avatar.sprite = s;
+                }
             }
             else
             {
@@ -150,7 +196,6 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-
 
 
         // Handle choices
@@ -200,6 +245,7 @@ public class DialogueManager : MonoBehaviour
 
             }
         }
+        
     }
 
     private IEnumerator TextAnimation(string text)
@@ -500,6 +546,21 @@ public class DialogueManager : MonoBehaviour
         }
 
         dialogueData.currentIndex = dialogueData.conversations[0].index;
+
+        //clear avatars
+        if (DialogueSettings.instance.separatePlayerAndNPC)
+        {
+            if (NPCAvatar != null)
+            {
+                NPCAvatar.sprite = null;
+            }
+            if (avatar != null)
+            {
+                avatar.sprite = null;
+            }
+        }
+
+
         // show UI
         StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
         UpdateDialogue();

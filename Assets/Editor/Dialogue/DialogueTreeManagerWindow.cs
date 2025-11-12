@@ -270,7 +270,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         // === 本地化按钮结束 ===
 
         // === Save All 按钮 ===
-        var saveAllContent = new GUIContent("Save All", "Save all dialogue trees in the manager");
+        var saveAllContent = new GUIContent("Save All", "Save all dialogue trees");
         if (GUILayout.Button(saveAllContent, EditorStyles.toolbarButton, GUILayout.Width(70)))
         {
             SaveAllDialogueTrees();
@@ -3547,362 +3547,265 @@ public class DialogueTreeManagerWindow : EditorWindow
         };
     }
 
-    #region Save All Methods
+    #region Save All
 
-    /// <summary>
-    /// 保存所有对话树
-    /// </summary>
     private void SaveAllDialogueTrees()
     {
         if (guidToPath == null || guidToPath.Count == 0)
         {
-            EditorUtility.DisplayDialog("Save All", "No dialogue tree files found.", "OK");
+            EditorUtility.DisplayDialog("Save All", "No files found.", "OK");
             return;
         }
 
-        if (!EditorUtility.DisplayDialog("Save All Dialogue Trees",
-            $"Save all {guidToPath.Count} dialogue tree(s)?\n\nThis will overwrite existing .json and .dtree files.",
-            "Yes", "Cancel"))
-        {
+        if (!EditorUtility.DisplayDialog("Save All",
+            $"Save {guidToPath.Count} file(s)?", "Yes", "Cancel"))
             return;
-        }
 
-        int successCount = 0;
-        int failCount = 0;
-        List<string> failedFiles = new List<string>();
-
-        EditorUtility.DisplayProgressBar("Saving All", "Starting...", 0f);
+        int saved = 0, skipped = 0, failed = 0;
+        List<string> errors = new List<string>();
 
         try
         {
-            int index = 0;
+            int idx = 0;
             foreach (var kvp in guidToPath)
             {
-                string dtreePath = kvp.Value;
-                index++;
-                float progress = (float)index / guidToPath.Count;
-                string fileName = Path.GetFileName(dtreePath);
-                EditorUtility.DisplayProgressBar("Saving All", $"{index}/{guidToPath.Count}: {fileName}", progress);
+                idx++;
+                string file = kvp.Value;
+                string name = Path.GetFileName(file);
+                EditorUtility.DisplayProgressBar("Save All", $"{idx}/{guidToPath.Count}: {name}", (float)idx / guidToPath.Count);
 
                 try
                 {
-                    if (!File.Exists(dtreePath))
-                    {
-                        failCount++;
-                        failedFiles.Add(fileName + " (not found)");
-                        continue;
-                    }
+                    if (!File.Exists(file)) { failed++; errors.Add(name + " (not found)"); continue; }
 
-                    string json = File.ReadAllText(dtreePath);
-                    DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(json);
+                    string json = File.ReadAllText(file);
+                    DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(json);
+                    if (data == null || data.nodes == null) { failed++; errors.Add(name + " (invalid)"); continue; }
 
-                    if (treeData == null || treeData.nodes == null)
-                    {
-                        failCount++;
-                        failedFiles.Add(fileName + " (invalid format)");
-                        continue;
-                    }
+                    // 检查内容是否改变
+                    string newJson = JsonUtility.ToJson(data, true);
+                    string oldNorm = System.Text.RegularExpressions.Regex.Replace(json, @"\s+", "");
+                    string newNorm = System.Text.RegularExpressions.Regex.Replace(newJson, @"\s+", "");
 
-                    string jsonPath = Path.ChangeExtension(dtreePath, ".json");
+                    if (oldNorm == newNorm) { skipped++; continue; }
 
-                    // 使用和DialogueTreeEditor完全相同的逻辑保存
-                    SaveRuntimeJsonForTree(jsonPath, treeData);
-                    SaveEditorFormatForTree(dtreePath, treeData);
-
-                    File.SetLastWriteTime(jsonPath, System.DateTime.Now);
-                    File.SetLastWriteTime(dtreePath, System.DateTime.Now);
-
-                    successCount++;
+                    // 保存
+                    SaveRuntimeJson(Path.ChangeExtension(file, ".json"), data);
+                    SaveEditorFormat(file, data);
+                    saved++;
                 }
-                catch (System.Exception e)
-                {
-                    failCount++;
-                    failedFiles.Add(fileName + $" ({e.Message})");
-                }
+                catch (System.Exception e) { failed++; errors.Add(name + $" ({e.Message})"); }
             }
         }
-        finally
-        {
-            EditorUtility.ClearProgressBar();
-        }
+        finally { EditorUtility.ClearProgressBar(); }
 
-        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-
-        string msg = $"Saved {successCount} file(s)";
-        if (failCount > 0)
-        {
-            msg += $"\nFailed: {failCount}\n";
-            foreach (var f in failedFiles) msg += $"• {f}\n";
-        }
-        EditorUtility.DisplayDialog("Save All Complete", msg, "OK");
+        AssetDatabase.Refresh();
+        string msg = $"Saved: {saved}\nSkipped: {skipped}";
+        if (failed > 0) { msg += $"\nFailed: {failed}\n"; foreach (var e in errors) msg += $"• {e}\n"; }
+        EditorUtility.DisplayDialog("Done", msg, "OK");
     }
 
-    private void SaveRuntimeJsonForTree(string path, DialogueTreeData treeData)
+    private void SaveRuntimeJson(string path, DialogueTreeData data)
     {
-        var exportData = ConvertToRuntimeData(treeData);
-        var nodeIdToIndex = new Dictionary<string, int>();
-        foreach (var node in treeData.nodes)
-        {
-            nodeIdToIndex[node.id] = node.index;
-        }
+        var runtime = ConvertRuntime(data);
+        var idxMap = new Dictionary<string, int>();
+        foreach (var n in data.nodes) idxMap[n.id] = n.index;
 
-        string json = "{\n  \"conversations\": [\n";
-        for (int i = 0; i < exportData.Count; i++)
-        {
-            var item = exportData[i];
-            json += "    {\n";
-            json += $"      \"index\": {item.index},\n";
-            json += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
-            json += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
-            json += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
+        var sb = new System.Text.StringBuilder();
+        sb.Append("{\n  \"conversations\": [\n");
 
-            // Conditional Branches
-            if (item.conditionalBranches != null && item.conditionalBranches.Count > 0)
+        for (int i = 0; i < runtime.Count; i++)
+        {
+            var item = runtime[i];
+            sb.Append("    {\n");
+            sb.Append($"      \"index\": {item.index},\n");
+            sb.Append($"      \"name\": {SerializeLocalizedText(item.name, 3)},\n");
+            sb.Append($"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n");
+            sb.Append($"      \"content\": {SerializeLocalizedText(item.content, 3)}");
+
+            if (item.conditionalBranches?.Count > 0)
             {
-                json += ",\n      \"conditionalBranches\": [\n";
+                sb.Append(",\n      \"conditionalBranches\": [");
                 for (int j = 0; j < item.conditionalBranches.Count; j++)
                 {
-                    var branch = item.conditionalBranches[j];
-                    json += "        {\n";
-                    json += $"          \"targetIndex\": {branch.targetIndex},\n";
-                    json += $"          \"priority\": {branch.priority}";
-
-                    if (branch.priority > 0 && branch.conditions != null && branch.conditions.Count > 0)
+                    var br = item.conditionalBranches[j];
+                    sb.Append($"\n        {{\"targetIndex\": {br.targetIndex}, \"priority\": {br.priority}");
+                    if (br.priority > 0 && br.conditions?.Count > 0)
                     {
-                        json += ",\n          \"conditions\": [\n";
-                        for (int k = 0; k < branch.conditions.Count; k++)
+                        sb.Append(", \"conditions\": [");
+                        for (int k = 0; k < br.conditions.Count; k++)
                         {
-                            var cond = branch.conditions[k];
-                            json += "            {\n";
-                            json += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
-                            json += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
-                            json += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
-                            json += $"              \"comparison\": \"{cond.comparison}\",\n";
-                            json += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
-                            json += "            }";
-                            if (k < branch.conditions.Count - 1) json += ",";
-                            json += "\n";
+                            var c = br.conditions[k];
+                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
+                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
+                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
+                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
+                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}}");
+                            if (k < br.conditions.Count - 1) sb.Append(",");
                         }
-                        json += "          ],\n";
-                        json += $"          \"conditionLogic\": \"{branch.conditionLogic}\"\n";
+                        sb.Append($"], \"conditionLogic\": \"{br.conditionLogic}\"");
                     }
-                    else
-                    {
-                        json += "\n";
-                    }
-
-                    json += "        }";
-                    if (j < item.conditionalBranches.Count - 1) json += ",";
-                    json += "\n";
+                    sb.Append("}");
+                    if (j < item.conditionalBranches.Count - 1) sb.Append(",");
                 }
-                json += "      ]";
+                sb.Append("\n      ]");
             }
             else
             {
-                int nextIndex = -1;
-                if (!string.IsNullOrEmpty(item.nextNodeId) && nodeIdToIndex.ContainsKey(item.nextNodeId))
-                {
-                    nextIndex = nodeIdToIndex[item.nextNodeId];
-                }
-                json += $",\n      \"nextIndex\": {nextIndex}";
+                int next = -1;
+                if (!string.IsNullOrEmpty(item.nextNodeId) && idxMap.ContainsKey(item.nextNodeId))
+                    next = idxMap[item.nextNodeId];
+                sb.Append($",\n      \"nextIndex\": {next}");
             }
 
-            // Choices (只在有选项时输出)
-            if (item.choices.Count > 0)
+            if (item.choices?.Count > 0)
             {
-                json += ",\n      \"choices\": [\n";
+                sb.Append(",\n      \"choices\": [");
                 for (int j = 0; j < item.choices.Count; j++)
                 {
-                    var choice = item.choices[j];
-                    int targetIndex = !string.IsNullOrEmpty(choice.nextNodeId) && nodeIdToIndex.ContainsKey(choice.nextNodeId)
-                        ? nodeIdToIndex[choice.nextNodeId] : -1;
+                    var ch = item.choices[j];
+                    int tgt = -1;
+                    if (!string.IsNullOrEmpty(ch.nextNodeId) && idxMap.ContainsKey(ch.nextNodeId))
+                        tgt = idxMap[ch.nextNodeId];
 
-                    json += "        {\n";
-                    json += $"          \"text\": {SerializeLocalizedText(choice.text, 5)},\n";
-                    json += $"          \"targetIndex\": {targetIndex}";
-
-                    if (choice.conditions.Count > 0)
+                    sb.Append($"\n        {{\"text\": {SerializeLocalizedText(ch.text, 5)}, \"targetIndex\": {tgt}");
+                    if (ch.conditions?.Count > 0)
                     {
-                        json += ",\n          \"conditions\": [\n";
-                        for (int k = 0; k < choice.conditions.Count; k++)
+                        sb.Append(", \"conditions\": [");
+                        for (int k = 0; k < ch.conditions.Count; k++)
                         {
-                            var cond = choice.conditions[k];
-                            json += "            {\n";
-                            json += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
-                            json += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
-                            json += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
-                            json += $"              \"comparison\": \"{cond.comparison}\",\n";
-                            json += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
-                            json += "            }";
-                            if (k < choice.conditions.Count - 1) json += ",";
-                            json += "\n";
+                            var c = ch.conditions[k];
+                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
+                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
+                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
+                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
+                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}}");
+                            if (k < ch.conditions.Count - 1) sb.Append(",");
                         }
-                        json += "          ],\n";
-                        json += $"          \"conditionLogic\": \"{choice.conditionLogic}\"\n";
+                        sb.Append($"], \"conditionLogic\": \"{ch.conditionLogic}\"");
                     }
-                    else
-                    {
-                        json += "\n";
-                    }
-
-                    json += "        }";
-                    if (j < item.choices.Count - 1) json += ",";
-                    json += "\n";
+                    sb.Append("}");
+                    if (j < item.choices.Count - 1) sb.Append(",");
                 }
-                json += "      ]";
+                sb.Append("\n      ]");
             }
 
-            // Event Calls (只在有事件时输出)
-            if (item.eventCalls.Count > 0)
+            if (item.eventCalls?.Count > 0)
             {
-                json += ",\n      \"eventCalls\": [\n";
+                sb.Append(",\n      \"eventCalls\": [");
                 for (int j = 0; j < item.eventCalls.Count; j++)
                 {
-                    var evt = item.eventCalls[j];
-                    json += "        {\n";
-                    json += $"          \"targetObjectName\": \"{EscapeJsonString(evt.targetObjectName)}\",\n";
-                    json += $"          \"componentTypeName\": \"{EscapeJsonString(evt.componentTypeName)}\",\n";
-                    json += $"          \"methodName\": \"{EscapeJsonString(evt.methodName)}\",\n";
-                    json += $"          \"parameterType\": \"{evt.parameterType}\",\n";
-                    json += $"          \"stringParameter\": \"{EscapeJsonString(evt.stringParameter)}\",\n";
-                    json += $"          \"intParameter\": {evt.intParameter},\n";
-                    json += $"          \"floatParameter\": {evt.floatParameter},\n";
-                    json += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()},\n";
-                    json += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";
-                    json += "        }";
-                    if (j < item.eventCalls.Count - 1) json += ",";
-                    json += "\n";
+                    var ev = item.eventCalls[j];
+                    sb.Append($"\n        {{\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
+                    sb.Append($"\"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\", ");
+                    sb.Append($"\"methodName\": \"{EscapeJsonString(ev.methodName)}\", ");
+                    sb.Append($"\"parameterType\": \"{ev.parameterType}\", ");
+                    sb.Append($"\"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\", ");
+                    sb.Append($"\"intParameter\": {ev.intParameter}, ");
+                    sb.Append($"\"floatParameter\": {ev.floatParameter}, ");
+                    sb.Append($"\"boolParameter\": {ev.boolParameter.ToString().ToLower()}, ");
+                    sb.Append($"\"triggerOnEnd\": {ev.triggerOnEnd.ToString().ToLower()}}}");
+                    if (j < item.eventCalls.Count - 1) sb.Append(",");
                 }
-                json += "      ]";
+                sb.Append("\n      ]");
             }
 
-            json += "\n    }";
-            if (i < exportData.Count - 1) json += ",";
-            json += "\n";
+            sb.Append("\n    }");
+            if (i < runtime.Count - 1) sb.Append(",");
+            sb.Append("\n");
         }
-        json += "  ],\n  \"currentIndex\": 0\n}";
-
-        File.WriteAllText(path, json);
+        sb.Append("  ],\n  \"currentIndex\": 0\n}");
+        File.WriteAllText(path, sb.ToString());
     }
 
-    private void SaveEditorFormatForTree(string path, DialogueTreeData treeData)
+    private void SaveEditorFormat(string path, DialogueTreeData data)
     {
-        string json = JsonUtility.ToJson(treeData, true);
-        File.WriteAllText(path, json);
+        File.WriteAllText(path, JsonUtility.ToJson(data, true));
     }
 
-    private List<RuntimeDialogueData> ConvertToRuntimeData(DialogueTreeData treeData)
+    private List<RuntimeDialogueData> ConvertRuntime(DialogueTreeData data)
     {
-        var runtimeData = new List<RuntimeDialogueData>();
-        var nodeIdToIndex = new Dictionary<string, int>();
-        var sortedNodes = treeData.nodes.OrderBy(n => n.index).ToList();
+        var result = new List<RuntimeDialogueData>();
+        var idxMap = new Dictionary<string, int>();
+        var nodes = data.nodes.OrderBy(n => n.index).ToList();
+        foreach (var n in nodes) idxMap[n.id] = n.index;
 
-        foreach (var node in sortedNodes)
+        foreach (var node in nodes)
         {
-            nodeIdToIndex[node.id] = node.index;
-        }
-
-        foreach (var node in sortedNodes)
-        {
-            var runtime = new RuntimeDialogueData
+            var rt = new RuntimeDialogueData
             {
                 index = node.index,
                 content = node.content ?? new LocalizedText(),
                 eventCalls = new List<DialogueEventCall>(node.eventCalls ?? new List<DialogueEventCall>())
             };
 
-            // 角色信息
-            if (!string.IsNullOrEmpty(node.characterId) && characterLibrary != null && characterLibrary.characters != null)
+            if (!string.IsNullOrEmpty(node.characterId) && characterLibrary?.characters != null)
             {
-                var character = System.Array.Find(characterLibrary.characters, c => c.id == node.characterId);
-                if (character != null)
+                var ch = System.Array.Find(characterLibrary.characters, c => c.id == node.characterId);
+                if (ch != null)
                 {
-                    runtime.name = character.characterName ?? new LocalizedText();
-                    runtime.avatarAddr = ConvertToRuntimePath(character.avatarAssetPath ?? "");
+                    rt.name = ch.characterName ?? new LocalizedText();
+                    rt.avatarAddr = ConvertPath(ch.avatarAssetPath ?? "");
                 }
-                else
-                {
-                    runtime.name = new LocalizedText();
-                    runtime.avatarAddr = "";
-                }
+                else { rt.name = new LocalizedText(); rt.avatarAddr = ""; }
             }
-            else
-            {
-                runtime.name = new LocalizedText();
-                runtime.avatarAddr = "";
-            }
+            else { rt.name = new LocalizedText(); rt.avatarAddr = ""; }
 
-            // 选项
-            runtime.choices = new List<RuntimeChoice>();
-            if (node.choices != null && node.choices.Count > 0)
+            rt.choices = new List<RuntimeChoice>();
+            if (node.choices?.Count > 0)
             {
                 foreach (var choice in node.choices)
                 {
-                    var connection = treeData.connections.FirstOrDefault(c =>
-                        c.outputNodeId == node.id &&
-                        c.choiceIndex == node.choices.IndexOf(choice));
-
-                    var runtimeChoice = new RuntimeChoice
+                    var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.choiceIndex == node.choices.IndexOf(choice));
+                    rt.choices.Add(new RuntimeChoice
                     {
                         text = choice.text ?? new LocalizedText(),
-                        nextNodeId = connection?.inputNodeId ?? "",
+                        nextNodeId = conn?.inputNodeId ?? "",
                         conditions = new List<ChoiceCondition>(choice.conditions ?? new List<ChoiceCondition>()),
                         conditionLogic = choice.conditionLogic
-                    };
-
-                    runtime.choices.Add(runtimeChoice);
+                    });
                 }
             }
             else
             {
-                var directConnection = treeData.connections.FirstOrDefault(c =>
-                    c.outputNodeId == node.id && c.choiceIndex == -1);
-                runtime.nextNodeId = directConnection?.inputNodeId ?? "";
+                var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.choiceIndex == -1);
+                rt.nextNodeId = conn?.inputNodeId ?? "";
             }
 
-            // 条件分支
-            runtime.conditionalBranches = new List<RuntimeConditionalBranch>();
-            if (node.conditionalBranches != null && node.conditionalBranches.Count > 0)
+            rt.conditionalBranches = new List<RuntimeConditionalBranch>();
+            if (node.conditionalBranches?.Count > 0)
             {
-                foreach (var branch in node.conditionalBranches)
+                foreach (var br in node.conditionalBranches)
                 {
-                    var branchConnection = treeData.connections.FirstOrDefault(c =>
-                        c.outputNodeId == node.id &&
-                        c.branchPriority == branch.priority);
-
-                    if (branchConnection != null && nodeIdToIndex.ContainsKey(branchConnection.inputNodeId))
+                    var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.branchPriority == br.priority);
+                    if (conn != null && idxMap.ContainsKey(conn.inputNodeId))
                     {
-                        var runtimeBranch = new RuntimeConditionalBranch
+                        rt.conditionalBranches.Add(new RuntimeConditionalBranch
                         {
-                            targetIndex = nodeIdToIndex[branchConnection.inputNodeId],
-                            priority = branch.priority,
-                            conditions = new List<ChoiceCondition>(branch.conditions ?? new List<ChoiceCondition>()),
-                            conditionLogic = branch.conditionLogic
-                        };
-
-                        runtime.conditionalBranches.Add(runtimeBranch);
+                            targetIndex = idxMap[conn.inputNodeId],
+                            priority = br.priority,
+                            conditions = new List<ChoiceCondition>(br.conditions ?? new List<ChoiceCondition>()),
+                            conditionLogic = br.conditionLogic
+                        });
                     }
                 }
             }
 
-            runtimeData.Add(runtime);
+            result.Add(rt);
         }
-
-        return runtimeData;
+        return result;
     }
 
-    private string ConvertToRuntimePath(string assetPath)
+    private string ConvertPath(string path)
     {
-        if (string.IsNullOrEmpty(assetPath)) return "";
-
-        int resourcesIndex = assetPath.IndexOf("Resources/");
-        if (resourcesIndex >= 0)
+        if (string.IsNullOrEmpty(path)) return "";
+        int idx = path.IndexOf("Resources/");
+        if (idx >= 0)
         {
-            string resourcePath = assetPath.Substring(resourcesIndex + 10);
-            resourcePath = System.IO.Path.ChangeExtension(resourcePath, null);
-            return resourcePath;
+            string sub = path.Substring(idx + 10);
+            return System.IO.Path.ChangeExtension(sub, null);
         }
-        return System.IO.Path.GetFileNameWithoutExtension(assetPath);
+        return System.IO.Path.GetFileNameWithoutExtension(path);
     }
 
     #endregion
