@@ -35,6 +35,7 @@
                     },
                     "conditions": [
                         {
+                            "targetObjectID": "",
                             "targetObjectName": "LevelManager2_1",
                             "componentTypeName": "LevelManager2_1",
                             "variableName": "infoPassA_1",
@@ -52,6 +53,7 @@
                     },
                     "conditions": [
                         {
+                            "targetObjectID": "",
                             "targetObjectName": "LevelManager2_1",
                             "componentTypeName": "LevelManager2_1",
                             "variableName": "infoPassA_2",
@@ -69,6 +71,7 @@
                     },
                     "conditions": [
                         {
+                            "targetObjectID": "",
                             "targetObjectName": "LevelManager2_1",
                             "componentTypeName": "LevelManager2_1",
                             "variableName": "infoPassA_1",
@@ -76,6 +79,7 @@
                             "compareValue": "True"
                         },
                         {
+                            "targetObjectID": "",
                             "targetObjectName": "LevelManager2_1",
                             "componentTypeName": "LevelManager2_1",
                             "variableName": "infoPassA_2",
@@ -238,6 +242,7 @@
             "choices": [],
             "eventCalls": [
                 {
+                    "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoPass1True",
@@ -265,6 +270,7 @@
             "choices": [],
             "eventCalls": [
                 {
+                    "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoPass2True",
@@ -292,6 +298,7 @@
             "choices": [],
             "eventCalls": [
                 {
+                    "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoPass3True",
@@ -531,60 +538,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "8c50eeb8-f34e-4405-9fd3-f2707016a461",
-            "index": 32,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
-            "content": {
-                "en": "(Xi Mu? Craft duels? I want to ask more, but I’ve already kept them long enough. Better leave it here for now.)",
-                "zh": "（喜母？斗巧？虽然很想再了解一些内容，但已经打扰他们太久了，就先到这里吧。）",
-                "ja": ""
-            },
-            "positionX": 8527.2001953125,
-            "positionY": 738.3999633789063,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "NoteBook",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEvent2",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "71013a6b-1785-4c5a-ac34-32742c7ec746",
-            "index": 33,
-            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
-            "content": {
-                "en": "If that were the case, I’m sure the authorities would’ve stepped in by now.",
-                "zh": "不过要真是这样，官方机关肯定会介入的。",
-                "ja": ""
-            },
-            "positionX": 7835.2001953125,
-            "positionY": 284.79998779296877,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "NoteBook",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEvent1",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "9897c0a9-3125-4905-a90f-680ae0c03e51",
             "index": 34,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -640,21 +593,6 @@
             },
             "positionX": 6330.400390625,
             "positionY": 1112.800048828125,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fc57413e-7bc8-4007-aa76-5b3ca6ed9740",
-            "index": 38,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "content": {
-                "en": "Thank you—I will.",
-                "zh": "谢谢您，我会小心的。",
-                "ja": ""
-            },
-            "positionX": 7103.2001953125,
-            "positionY": 1120.800048828125,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -777,6 +715,162 @@
             "positionY": 1116.0,
             "choices": [],
             "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "71013a6b-1785-4c5a-ac34-32742c7ec746",
+            "index": 33,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "content": {
+                "en": "If that were the case, I’m sure the authorities would’ve stepped in by now.",
+                "zh": "不过要真是这样，官方机关肯定会介入的。",
+                "ja": ""
+            },
+            "positionX": 7787.2001953125,
+            "positionY": 21.60000228881836,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "EventTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "65db928c-f716-43f1-aee3-b965e5222a69",
+                    "targetObjectName": "Event2_SusGroup",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8c50eeb8-f34e-4405-9fd3-f2707016a461",
+            "index": 32,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "content": {
+                "en": "(Xi Mu? Craft duels? I want to ask more, but I’ve already kept them long enough. Better leave it here for now.)",
+                "zh": "（喜母？斗巧？虽然很想再了解一些内容，但已经打扰他们太久了，就先到这里吧。）",
+                "ja": ""
+            },
+            "positionX": 8527.2001953125,
+            "positionY": 738.3999633789063,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "EventTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "ad670803-66db-4eb1-9401-1ec422e3e992",
+                    "targetObjectName": "Event3_Qiqiao",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fc57413e-7bc8-4007-aa76-5b3ca6ed9740",
+            "index": 38,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "Thank you—I will.",
+                "zh": "谢谢您，我会小心的。",
+                "ja": ""
+            },
+            "positionX": 7103.2001953125,
+            "positionY": 1120.800048828125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "EventTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "c1748a8b-1624-492b-8fe0-557d862455ea",
+                    "targetObjectName": "Event4_CityLock",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
             "conditionalBranches": []
         }
     ],
