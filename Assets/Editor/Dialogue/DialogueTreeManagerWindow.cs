@@ -755,6 +755,19 @@ public class DialogueTreeManagerWindow : EditorWindow
             }
 
             EditorGUILayout.EndHorizontal();
+
+            // isPlayer 复选框
+            EditorGUILayout.Space(5);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Is Player:", GUILayout.Width(70));
+
+            bool newIsPlayer = EditorGUILayout.Toggle(character.isPlayer);
+            if (newIsPlayer != character.isPlayer)
+            {
+                character.isPlayer = newIsPlayer;
+            }
+
+            EditorGUILayout.EndHorizontal();
         }
         else
         {
@@ -1324,6 +1337,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             formattedJson += $"      \"index\": {item.index},\n";
             formattedJson += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
             formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            formattedJson += $"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n";
             formattedJson += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
 
             if (item.conditionalBranches != null && item.conditionalBranches.Count > 0)
@@ -2105,7 +2119,7 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 创建对应的 .json 运行时文件
             string jsonPath = Path.ChangeExtension(savePath, ".json");
-            string runtimeJson = "{\n  \"conversations\": [\n    {\n      \"index\": 0,\n      \"name\": \"\",\n      \"avatarAddr\": \"\",\n      \"content\": \"Start dialogue here...\",\n      \"nextIndex\": -1,\n      \"choices\": [],\n      \"eventCalls\": [],\n      \"conditionalBranches\": []\n    }\n  ],\n  \"currentIndex\": 0\n}";
+            string runtimeJson = "{\n  \"conversations\": [\n    {\n      \"index\": 0,\n      \"name\": \"\",\n      \"avatarAddr\": \"\",\n      \"isPlayer\": false,\n      \"content\": \"Start dialogue here...\",\n      \"nextIndex\": -1,\n      \"choices\": [],\n      \"eventCalls\": [],\n      \"conditionalBranches\": []\n    }\n  ],\n  \"currentIndex\": 0\n}";
             File.WriteAllText(jsonPath, runtimeJson);
 
             // 刷新资源
@@ -3621,6 +3635,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             sb.Append($"      \"index\": {item.index},\n");
             sb.Append($"      \"name\": {SerializeLocalizedText(item.name, 3)},\n");
             sb.Append($"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n");
+            sb.Append($"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n");
             sb.Append($"      \"content\": {SerializeLocalizedText(item.content, 3)}");
 
             if (item.conditionalBranches?.Count > 0)
@@ -3746,10 +3761,11 @@ public class DialogueTreeManagerWindow : EditorWindow
                 {
                     rt.name = ch.characterName ?? new LocalizedText();
                     rt.avatarAddr = ConvertPath(ch.avatarAssetPath ?? "");
+                    rt.isPlayer = ch.isPlayer;
                 }
-                else { rt.name = new LocalizedText(); rt.avatarAddr = ""; }
+                else { rt.name = new LocalizedText(); rt.avatarAddr = ""; rt.isPlayer = false; }
             }
-            else { rt.name = new LocalizedText(); rt.avatarAddr = ""; }
+            else { rt.name = new LocalizedText(); rt.avatarAddr = ""; rt.isPlayer = false; }
 
             rt.choices = new List<RuntimeChoice>();
             if (node.choices?.Count > 0)

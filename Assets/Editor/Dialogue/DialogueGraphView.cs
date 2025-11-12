@@ -330,6 +330,7 @@ public class DialogueGraphView : GraphView
             // 根据 characterId 获取角色信息
             string characterName = "";
             string runtimeAvatarPath = "";
+            bool isPlayerCharacter = false;
             LocalizedText characterNameLocalized = null;
 
             if (!string.IsNullOrEmpty(node.CharacterId) && characterLibrary != null)
@@ -340,6 +341,7 @@ public class DialogueGraphView : GraphView
                     characterName = character.characterName?.en ?? "";
                     characterNameLocalized = character.characterName;
                     runtimeAvatarPath = ConvertSpritePathToRuntimePath(character.avatarAssetPath);
+                    isPlayerCharacter = character.isPlayer;
                 }
             }
 
@@ -348,6 +350,7 @@ public class DialogueGraphView : GraphView
                 index = node.NodeIndex,
                 name = characterNameLocalized,
                 avatarAddr = runtimeAvatarPath,
+                isPlayer = isPlayerCharacter,
                 content = node.DialogueText,
                 choices = new List<RuntimeChoice>(),
                 nextNodeId = null,

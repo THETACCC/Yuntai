@@ -119,13 +119,12 @@ public class DialogueManager : MonoBehaviour
         // start new typing animation
         textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(Settings.instance.currentLanguage)));
         string speakerName = currentConversation.name.GetText(Settings.instance.currentLanguage);
-
         //check if separate
         if (DialogueSettings.instance.separatePlayerAndNPC)
         {
-            speaker.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
-            NPCName.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
-            if (speakerName == DialogueSettings.instance.playerName)
+            speaker.gameObject.SetActive(currentConversation.isPlayer);
+            NPCName.gameObject.SetActive(!currentConversation.isPlayer);
+            if (currentConversation.isPlayer)
             {
                 speaker.text = speakerName;
             }
@@ -147,11 +146,11 @@ public class DialogueManager : MonoBehaviour
                 if (DialogueSettings.instance.separatePlayerAndNPC)
                 {
                     Debug.Log(NPCAvatar.sprite != null);
-                    NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
-                    avatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+                    NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
+                    avatar.gameObject.SetActive(currentConversation.isPlayer);
                     //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
                     //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
-                    if (speakerName == DialogueSettings.instance.playerName)
+                    if (currentConversation.isPlayer)
                     {
                         NPCAvatar.color = Color.gray;
                         avatar.color = Color.white;
@@ -163,7 +162,6 @@ public class DialogueManager : MonoBehaviour
                         NPCAvatar.color = Color.white;
                         NPCAvatar.sprite = s;
                     }
-                    
                 }
                 else
                 {
@@ -669,6 +667,7 @@ public class Conversation
     public int index;
     public LocalizedText name;
     public string avatarAddr; //avatar Address
+    public bool isPlayer;
     public LocalizedText content;
     public ConditionalBranch[] conditionalBranches;
     public Choice[] choices;

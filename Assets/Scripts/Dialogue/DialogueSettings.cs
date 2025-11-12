@@ -21,7 +21,6 @@ public class DialogueSettings : MonoBehaviour
 
     [Header("Template Settings")]
     public bool separatePlayerAndNPC;
-    public string playerName;
 
     private void Awake()
     {

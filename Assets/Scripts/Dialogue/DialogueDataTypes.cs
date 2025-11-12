@@ -358,6 +358,7 @@ namespace DialogueSystem
         public string character;                    // Manager中显示的分类名称
         public LocalizedText characterName = new LocalizedText();  // 角色名称（改为本地化）
         public string avatarAssetPath;              // Avatar 资源路径
+        public bool isPlayer = false;               // 是否为玩家角色（用于 separatePlayerAndNPC）
 
         public CharacterData()
         {
@@ -365,6 +366,7 @@ namespace DialogueSystem
             character = "New Character";
             characterName = new LocalizedText("New Character");
             avatarAssetPath = "";
+            isPlayer = false;
         }
 
         public CharacterData(string name, string avatarPath)
@@ -373,6 +375,7 @@ namespace DialogueSystem
             character = name;
             characterName = new LocalizedText(name);
             avatarAssetPath = avatarPath;
+            isPlayer = false;
         }
     }
 
@@ -440,6 +443,7 @@ namespace DialogueSystem
         public int index;
         public LocalizedText name = new LocalizedText();        // 角色名称（多语言）
         public string avatarAddr;                                // avatar 路径
+        public bool isPlayer = false;                            // 是否为玩家角色
         public LocalizedText content = new LocalizedText();     // 对话内容（多语言）
         public List<RuntimeChoice> choices = new List<RuntimeChoice>();
         public string nextNodeId;
