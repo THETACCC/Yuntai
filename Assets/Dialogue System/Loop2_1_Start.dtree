@@ -76,6 +76,58 @@
             "conditionalBranches": []
         },
         {
+            "id": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "index": 5,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "content": {
+                "en": "Calm down. First thing I need to do is figure out what’s going on.",
+                "zh": "冷静点，必须得先收集关于现状的信息才行。",
+                "ja": ""
+            },
+            "positionX": 2135.199951171875,
+            "positionY": 288.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "",
+                    "targetObjectName": "EventTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Event1_Dream",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                },
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
             "index": 6,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -118,44 +170,6 @@
             "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b0b95a78-492b-422c-ac57-10d5c8b31868",
-            "index": 5,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "content": {
-                "en": "Calm down. First thing I need to do is figure out what’s going on.",
-                "zh": "冷静点，必须得先收集关于现状的信息才行。",
-                "ja": ""
-            },
-            "positionX": 2135.199951171875,
-            "positionY": 288.79998779296877,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectName": "EventTab",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectName": "Event1",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
             "conditionalBranches": []
         }
     ],

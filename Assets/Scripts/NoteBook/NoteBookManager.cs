@@ -76,8 +76,9 @@ public class NoteBookManager : MonoBehaviour
     #region Event Controll
     public void UnlockEvent(int eventNumber)
     {
-        Debug.Log("Logging events");
+  
         NoteBookUpdate?.PlayFeedbacks();
+        /*
         if (EventBlocks == null || eventNumber < 0 || eventNumber >= EventBlocks.Length)
         {
             Debug.LogError($"UnlockEvent: index {eventNumber} is out of range.");
@@ -91,10 +92,17 @@ public class NoteBookManager : MonoBehaviour
         }
 
         EventBlocks[eventNumber].SetActive(false); // or false if ¡°unlock¡± = hide
+        */
     }
 
 
     //Temp solution
+
+    public void UnlockEventFeedBack()
+    {
+        NoteBookUpdate?.PlayFeedbacks();
+    }
+
     public void UnlockEvent0()
     {
         UnlockEvent(0);

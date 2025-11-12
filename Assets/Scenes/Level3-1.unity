@@ -1454,11 +1454,11 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 82f81e05ad4804341a4e7ceb63925d02, type: 3}
+      objectReference: {fileID: 4900000, guid: 4c2ef42eba7f67142a2b27a57cb6cf1e, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 8541880b1bd090d4f8c689e9ac902a0a, type: 3}
+      objectReference: {fileID: 4900000, guid: 4c2ef42eba7f67142a2b27a57cb6cf1e, type: 3}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.49
@@ -1469,7 +1469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Name
-      value: ZhouShu_Hungry
+      value: ZhouShu
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
@@ -1721,7 +1721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Name
-      value: ZhouShuGotFood
+      value: ZhouShuStanding
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
@@ -4751,11 +4751,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 1112912133}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1112912135 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-  m_PrefabInstance: {fileID: 1112912133}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1114176116
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,11 +5246,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279740581}
-  - component: {fileID: 1279740582}
-  - component: {fileID: 1279740583}
-  - component: {fileID: 1279740584}
   m_Layer: 0
-  m_Name: LevelManager2_1
+  m_Name: LevelManager3_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5276,104 +5268,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1279740582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b200464ce5502aa40874df46e98d3680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainLight: {fileID: 6225433}
-  myLoop: 2
-  isPlayerEscaped: 0
-  SceneName_NotEscaped: Level1-2
-  SpawnPointLocation_NotEscaped: 0
-  SceneName_Escaped: Level2-1
-  SpawnPointLocation_Escaped: 1
-  BathroomPortal: {fileID: 0}
-  worker1: {fileID: 1112912135}
-  worker2: {fileID: 1476521118}
-  Trigger10: {fileID: 1677128404}
-  nextLoop: {fileID: 1279740583}
-  useDeathCutForExit: 1
-  infoPassA_1: 0
-  infoPassA_2: 0
-  infoPassA_3: 0
-  infoThree: 0
-  infoFour: 0
-  infoFive: 0
-  infoSix: 0
-  infoSeven: 0
-  getFood: 0
-  gotFood: 0
-  Stewardess: {fileID: 1479491824}
-  Stewardess_Food: {fileID: 1783921669}
-  Stewardess_AlreadyGotFood: {fileID: 1928786511}
-  isStewardess_Conv1: 0
-  isStewardess_Conv2: 0
-  isStewardess_Conv3: 0
-  isStewardess_Conv4: 0
-  isStewardess_AllConv: 0
-  isStewardessSet: 0
-  isZhouShu: 0
-  isZhouShu_Conv5: 0
-  isZhouShu_Conv6: 0
-  isZhouShu_Conv7: 0
-  isZhouShu_AllConv: 0
-  ZhoushuHungry: {fileID: 297127187}
-  ZhoushuStanding: {fileID: 422720447}
-  ZhoushuSitting: {fileID: 1844898297}
-  zhoushuUIE: {fileID: 0}
-  RightBlock: {fileID: 1677128404}
-  Bathroom_Old: {fileID: 226171906}
-  Bathroom_Escaped: {fileID: 1996144625}
-  Dialogue8_1: {fileID: 1279740584}
-  controlAllUrp2DLights: 1
-  uniformFlickerCount: 3
-  uniformOffTime: 0.56
-  uniformOnTime: 0.56
-  offIntensity: 0
---- !u!114 &1279740583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c58604cd8c1f64baa02fd2a32b1605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scenename: Level2-2
-  SpawnPointLocation: 0
-  DeathAnimationPlayer: {fileID: 0}
-  deathAnimator: {fileID: 0}
-  targetStateName: Dead
-  hardTimeoutSeconds: 12
-  allowSkipWithAnyKey: 0
-  verboseLog: 0
---- !u!114 &1279740584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainDialogueJsonFile: {fileID: 4900000, guid: 37bd897d4098ed84b8e1cfa9d937c34d, type: 3}
-  postDialogueJsonFile: {fileID: 4900000, guid: 37bd897d4098ed84b8e1cfa9d937c34d, type: 3}
-  isReadyToTrigger: 0
-  isMainDialogueFinished: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -6572,11 +6466,6 @@ PrefabInstance:
 --- !u!4 &1476521117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-  m_PrefabInstance: {fileID: 1476521116}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1476521118 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 1476521116}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1479491822
@@ -8812,169 +8701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxFactor: -0.02
---- !u!1001 &1844898295
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2052892913}
-    m_Modifications:
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 398603539414528650, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Radius
-      value: 1.0717077
-      objectReference: {fileID: 0}
-    - target: {fileID: 398603539414528650, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.5717077
-      objectReference: {fileID: 0}
-    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 95ce867ff88af490ca0e9160d95ccd6a, type: 3}
-    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 5.155
-      objectReference: {fileID: 0}
-    - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 6.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: jsonFile
-      value: 
-      objectReference: {fileID: 4900000, guid: c61b35c304a25724ca0b3af42559146d, type: 3}
-    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: mainDialogueJsonFile
-      value: 
-      objectReference: {fileID: 4900000, guid: d924f8d3ef4a8a34185f625b1b000fa1, type: 3}
-    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: postDialogueJsonFile
-      value: 
-      objectReference: {fileID: 4900000, guid: d924f8d3ef4a8a34185f625b1b000fa1, type: 3}
-    - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_Name
-      value: ZhouShu_GettingFood
-      objectReference: {fileID: 0}
-    - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1844898298}
-  m_SourcePrefab: {fileID: 100100000, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
---- !u!4 &1844898296 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-  m_PrefabInstance: {fileID: 1844898295}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1844898297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
-  m_PrefabInstance: {fileID: 1844898295}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1844898298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844898297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eacfffd332bf7db45aa595cc57580d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  designatedLocation: {fileID: 1078806428}
-  moveSpeed: 3
-  keepCurrentY: 0
-  spriteAfterMove: {fileID: 0}
-  targetRenderer: {fileID: 0}
 --- !u!1 &1850191029
 GameObject:
   m_ObjectHideFlags: 0
@@ -9508,7 +9234,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 297127186}
-  - {fileID: 1844898296}
   - {fileID: 422720446}
   m_Father: {fileID: 1602692267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
