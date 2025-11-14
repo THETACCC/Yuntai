@@ -28,13 +28,25 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "ZhouShu",
+        "en": "ZhouShu: let's disappear!",
         "zh": "",
         "ja": ""
       },
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager3_1",
+          "componentTypeName": "LevelManager3_1",
+          "methodName": "ZhouShuEscape",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
+        }
+      ]
     }
   ],
   "currentIndex": 0
