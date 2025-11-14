@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 13357029}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3411,6 +3411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 330689883}
   - component: {fileID: 330689885}
+  - component: {fileID: 330689886}
   - component: {fileID: 330689884}
   m_Layer: 0
   m_Name: BackGround
@@ -3437,12 +3438,12 @@ RectTransform:
   - {fileID: 86495147}
   - {fileID: 1762341136}
   - {fileID: 2050456177}
-  - {fileID: 759552408}
-  - {fileID: 1456244365}
-  - {fileID: 711299387}
-  - {fileID: 1445703108}
-  - {fileID: 197916757}
   - {fileID: 1201548119}
+  - {fileID: 197916757}
+  - {fileID: 1445703108}
+  - {fileID: 711299387}
+  - {fileID: 1456244365}
+  - {fileID: 759552408}
   m_Father: {fileID: 198596888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3488,6 +3489,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330689882}
   m_CullTransparentMesh: 1
+--- !u!114 &330689886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330689882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f858b58bac76ab94c94aa3f87dbde04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Excel_Text: {fileID: 4900000, guid: c2e16df7be4bd0d418e0712deece0a4d, type: 3}
+  hasHeaderRow: 1
+  nameTag: Detective_Title
+  descriptionTag: Detective_Detail
+  csvDelimiter: 44
+  csvQuoteChar: 34
 --- !u!1 &334124540
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,7 +3995,7 @@ GameObject:
   - component: {fileID: 358251839}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7801,7 +7820,7 @@ GameObject:
   - component: {fileID: 639253938}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7872,8 +7891,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11122,7 +11141,7 @@ GameObject:
   - component: {fileID: 900652842}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11193,8 +11212,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13794,7 +13813,7 @@ GameObject:
   - component: {fileID: 1054877828}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14003,7 +14022,7 @@ GameObject:
   - component: {fileID: 1069014570}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14074,8 +14093,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -15610,7 +15629,7 @@ GameObject:
   - component: {fileID: 1124834494}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25287,7 +25306,7 @@ GameObject:
   - component: {fileID: 1908509369}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25358,8 +25377,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -26977,7 +26996,7 @@ GameObject:
   - component: {fileID: 2021280282}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27048,8 +27067,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27111,7 +27130,7 @@ GameObject:
   - component: {fileID: 2026797453}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27899,7 +27918,7 @@ GameObject:
   - component: {fileID: 2070982018}
   m_Layer: 0
   m_Name: BodyText
-  m_TagString: Untagged
+  m_TagString: Detective_Detail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28789,7 +28808,7 @@ GameObject:
   - component: {fileID: 2124729323}
   m_Layer: 0
   m_Name: Title
-  m_TagString: Untagged
+  m_TagString: Detective_Title
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28860,8 +28879,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
