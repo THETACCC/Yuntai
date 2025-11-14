@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6080290335691190508
 Transform:
   m_ObjectHideFlags: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 900734632522922850}
   - component: {fileID: 2921966396280651360}
   - component: {fileID: 2906829590570753546}
+  - component: {fileID: 4356524115837630325}
   m_Layer: 0
   m_Name: InteractiveDia
   m_TagString: Untagged
@@ -232,3 +233,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.0049114, y: 5.3380756}
   m_EdgeRadius: 0
+--- !u!114 &4356524115837630325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038144794689732738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractIndicator: {fileID: 3415938358529677299}
