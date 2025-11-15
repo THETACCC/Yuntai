@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
+/// <summary>
+/// 单个灯笼交互：按 E 时黑场 + 灯全灭 + 挂/取灯笼 + 再亮灯。
+/// 继承自你原来的 UI_E（负责 isPlayerInTrigger 等）
+/// </summary>
 public class PuzzleLantern : UI_E
 {
     [Header("Lantern (assign an existing child)")]
@@ -12,7 +16,7 @@ public class PuzzleLantern : UI_E
 
     [Header("Blackout Options")]
     [SerializeField] private bool forceBlackOverlay = true;
-    [SerializeField, Min(0f)] private float blackoutHold = 3f;   // 黑场停留时间（秒）
+    [SerializeField, Min(0f)] private float blackoutHold = 3f;   // 黑场停留时间
     [SerializeField, Min(0f)] private float overlayFadeIn = 0.15f;
     [SerializeField, Min(0f)] private float overlayFadeOut = 0.2f;
 
@@ -22,7 +26,8 @@ public class PuzzleLantern : UI_E
     [Tooltip("在黑场期间要禁用的组件（将你的移动脚本、PlayerInput等拖进来）")]
     [SerializeField] private Behaviour[] movementComponents;
 
-    [SerializeField] LevelManager3_3 levelManager3_3;
+    [Header("Managers")]
+    [SerializeField] private LevelManager3_3 levelManager3_3;
 
     private bool isRunning = false;
 
@@ -44,14 +49,12 @@ public class PuzzleLantern : UI_E
     private void Awake()
     {
         RefreshAllLightComponents();
-        if (forceBlackOverlay) overlayCG = GetOrCreateBlackOverlay();
-    }
+        if (forceBlackOverlay)
+            overlayCG = GetOrCreateBlackOverlay();
 
-    protected override void Start()
-    {
-        base.Start();
-        if (!lantern) TryAutoFindLantern();
-        if (lantern) lantern.SetActive(lanternHanged);
+        // 自动找 LevelManager3_3（如果没在 Inspector 里拖）
+        if (!levelManager3_3)
+            levelManager3_3 = FindObjectOfType<LevelManager3_3>();
 
         // 自动找玩家
         if (!playerRoot)
@@ -60,21 +63,32 @@ public class PuzzleLantern : UI_E
             if (player) playerRoot = player;
         }
 
-        // 缓存刚体2D（可选）
-        if (playerRoot) cachedRB2D = playerRoot.GetComponentInChildren<Rigidbody2D>();
+        // 缓存刚体2D
+        if (playerRoot)
+            cachedRB2D = playerRoot.GetComponentInChildren<Rigidbody2D>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (!lantern) TryAutoFindLantern();
+        if (lantern) lantern.SetActive(lanternHanged);
     }
 
     private void Update()
     {
-        if (!isPlayerInTrigger || isRunning) return;
+        if (!isPlayerInTrigger || isRunning)
+            return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!lantern)
             {
-                Debug.LogWarning("[PuzzleLantern] Lantern not assigned and auto-find failed.");
+                Debug.LogWarning("[PuzzleLantern] Lantern not assigned and auto-find failed.", this);
                 return;
             }
+
             StartCoroutine(ToggleLanternRoutine());
         }
     }
@@ -86,7 +100,7 @@ public class PuzzleLantern : UI_E
         // —— 冻结玩家 —— //
         FreezePlayer(true);
 
-        // 1) 黑幕淡入
+        // 1) 黑幕淡入（先遮住，再关灯，避免漏光）
         if (forceBlackOverlay && overlayCG)
             yield return FadeOverlay(1f, overlayFadeIn);
 
@@ -97,14 +111,14 @@ public class PuzzleLantern : UI_E
         lanternHanged = !lanternHanged;
         lantern.SetActive(lanternHanged);
 
-        // ✅ 每次挂完/取下灯笼，都检查一次是否正确
-        if (levelManager3_3 != null)
+        // 3.5) 每次挂/取灯笼之后，立刻让 LevelManager3_3 重新检查一次
+        if (levelManager3_3)
         {
             levelManager3_3.CheckIfLanternCorrect();
         }
         else
         {
-            Debug.LogWarning("[PuzzleLantern] levelManager3_3 is not assigned or found.");
+            Debug.LogWarning("[PuzzleLantern] levelManager3_3 is null, cannot check puzzle state.", this);
         }
 
         // 4) 黑场停留
@@ -123,7 +137,6 @@ public class PuzzleLantern : UI_E
 
         isRunning = false;
     }
-
 
     // ===== Light 控制 =====
     private void RefreshAllLightComponents()
@@ -238,12 +251,11 @@ public class PuzzleLantern : UI_E
                 cachedRB2D.velocity = Vector2.zero;
                 cachedRB2D.angularVelocity = 0f;
 
-                // 冻结物理：最稳的是直接 simulated=false（不受力/不移动）
+                // 冻结物理：最稳的是直接 simulated=false
                 cachedRB2D.simulated = false;
             }
             else
             {
-                // 恢复原始物理状态
                 cachedRB2D.simulated = rb2dHadSimulated;
                 cachedRB2D.constraints = rb2dOldConstraints;
             }
