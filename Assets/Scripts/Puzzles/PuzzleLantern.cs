@@ -22,6 +22,8 @@ public class PuzzleLantern : UI_E
     [Tooltip("在黑场期间要禁用的组件（将你的移动脚本、PlayerInput等拖进来）")]
     [SerializeField] private Behaviour[] movementComponents;
 
+    [SerializeField] LevelManager3_3 levelManager3_3;
+
     private bool isRunning = false;
 
     public bool IsHanged => lanternHanged;
@@ -84,7 +86,7 @@ public class PuzzleLantern : UI_E
         // —— 冻结玩家 —— //
         FreezePlayer(true);
 
-        // 1) 黑幕淡入（先遮住，再关灯，避免漏光）
+        // 1) 黑幕淡入
         if (forceBlackOverlay && overlayCG)
             yield return FadeOverlay(1f, overlayFadeIn);
 
@@ -94,6 +96,16 @@ public class PuzzleLantern : UI_E
         // 3) 切换灯笼显隐
         lanternHanged = !lanternHanged;
         lantern.SetActive(lanternHanged);
+
+        // ✅ 每次挂完/取下灯笼，都检查一次是否正确
+        if (levelManager3_3 != null)
+        {
+            levelManager3_3.CheckIfLanternCorrect();
+        }
+        else
+        {
+            Debug.LogWarning("[PuzzleLantern] levelManager3_3 is not assigned or found.");
+        }
 
         // 4) 黑场停留
         if (blackoutHold > 0f)
@@ -111,6 +123,7 @@ public class PuzzleLantern : UI_E
 
         isRunning = false;
     }
+
 
     // ===== Light 控制 =====
     private void RefreshAllLightComponents()

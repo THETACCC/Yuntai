@@ -13,18 +13,24 @@ public class LevelManager3_3 : MonoBehaviour
 
     [SerializeField] private GameObject LanternPile;
 
+    [SerializeField] private GameObject Lanterns;
+
     [SerializeField] private PuzzleLanternManager puzzleLanternManager;
+
+    [SerializeField] private Collider2D puzzleLanternCollider;
 
     private void Start()
     {
-
+       
     }
+
 
     public void ChangeLanternToWait()
     {
         LanternStall.SetActive(false);
         LanternStall_wait.SetActive(true);
     }
+
     public void CheckIfLanternCorrect()
     {
         if (puzzleLanternManager.Solved)
@@ -49,5 +55,11 @@ public class LevelManager3_3 : MonoBehaviour
     public void LanternPileDisappear()
     {
         LanternPile.SetActive(false);
+        Lanterns.SetActive(true);
+    }
+
+    public void LanternColliderKill()
+    {
+        puzzleLanternCollider.enabled = false;
     }
 }
