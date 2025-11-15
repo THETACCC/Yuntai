@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class Settings : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Settings : MonoBehaviour
     public string currentLanguage = "en";
 
     bool isOpen = false;
+    int _localeIndex;
 
     private void Awake()
     {
@@ -93,6 +95,8 @@ public class Settings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
-        DialogueSettings.instance.SetLanguage(languageCode);
+        DialogueSettings.instance.SetLanguage(languageCode); //dialogue
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(languageCode); //UI
+        
     }
 }
