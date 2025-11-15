@@ -12,7 +12,7 @@ public class PlayerAnimControllerSelector : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController darkController;
 
     [Header("需要Dark控制器的【精确场景名】")]
-    [SerializeField] private List<string> darkExactNames = new() { "Level3-0" };
+    [SerializeField] private List<string> darkExactNames = new() { "Level3-1" };
 
     [Header("需要Dark控制器的【场景名前缀】")]
     [SerializeField] private List<string> darkPrefixes = new() { "Level1", "Level2" };
