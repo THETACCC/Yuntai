@@ -3,10 +3,10 @@
         {
             "id": "24780d77-067e-4524-ae90-87dde0265d8f",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "content": {
-                "en": "No.",
-                "zh": "已经过去好一阵子了......",
+                "en": "Hiding won't help...",
+                "zh": "躲起来也不会有用的......",
                 "ja": ""
             },
             "positionX": 687.2000122070313,
@@ -14,7 +14,30 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
+        },
+        {
+            "id": "c0d0b131-ca6f-4fd3-9133-9e9553986b13",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "I have to find a way out of here.",
+                "zh": "我得想办法离开这里。",
+                "ja": ""
+            },
+            "positionX": 1020.7999877929688,
+            "positionY": 720.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "c0d0b131-ca6f-4fd3-9133-9e9553986b13",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
