@@ -3,14 +3,14 @@
         {
             "id": "24780d77-067e-4524-ae90-87dde0265d8f",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
             "content": {
-                "en": "Only Me and ZhouShu cannot solve the current problem here...",
-                "zh": "已经过去好一阵子了......",
+                "en": "No!",
+                "zh": "不！",
                 "ja": ""
             },
-            "positionX": 687.2000122070313,
-            "positionY": 720.7999877929688,
+            "positionX": 687.0,
+            "positionY": 721.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -18,14 +18,104 @@
         {
             "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
             "index": 1,
-            "characterId": "",
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
             "content": {
-                "en": "ZhouShu had a mirror, maybe I can adk about it.",
+                "en": "What? I'm... back here again?",
+                "zh": "什么？我又......回到了这里？",
+                "ja": ""
+            },
+            "positionX": 1026.5,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "index": 2,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "content": {
+                "en": "The lights are on, and everyone else seems normal.",
+                "zh": "灯光亮着，其他人看上去也很正常。",
+                "ja": ""
+            },
+            "positionX": 1379.0,
+            "positionY": 724.5,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "index": 3,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "content": {
+                "en": "Just like the last two times. So every time I die... I return to this moment?",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 1026.39990234375,
-            "positionY": 724.0,
+            "positionX": 1739.0,
+            "positionY": 723.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "index": 4,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "content": {
+                "en": "Calm down. There must be a way off this plane.",
+                "zh": "何以真：冷静下来，一定有办法能离开这趟飞机。",
+                "ja": ""
+            },
+            "positionX": 2120.0,
+            "positionY": 728.5,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "442233e8-8bb4-4242-bdd3-3651b0f7b0c8",
+            "index": 6,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "content": {
+                "en": "Maybe at the end of the last loop, she managed to escape.",
+                "zh": "或许上一次循环的最后，她成功逃出去了。",
+                "ja": ""
+            },
+            "positionX": 2865.5,
+            "positionY": 731.5,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "index": 5,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "Before Zhou Shu disappeared, that mirror in her hand gave off a white light.",
+                "zh": "周书消失之前，她手里的那面镜子发出了白光。",
+                "ja": ""
+            },
+            "positionX": 2496.5,
+            "positionY": 727.5,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "05cb228a-5abe-4a40-ad63-fb5eb66709a8",
+            "index": 7,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "Either way, Zhou Shu is my only hope now. I have to hurry!",
+                "zh": "无论如何，现在我只能指望周书了。得抓紧时间！",
+                "ja": ""
+            },
+            "positionX": 3243.5,
+            "positionY": 736.5,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -35,6 +125,48 @@
         {
             "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
             "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "inputNodeId": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "inputNodeId": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "inputNodeId": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "inputNodeId": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "inputNodeId": "442233e8-8bb4-4242-bdd3-3651b0f7b0c8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "442233e8-8bb4-4242-bdd3-3651b0f7b0c8",
+            "inputNodeId": "05cb228a-5abe-4a40-ad63-fb5eb66709a8",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
