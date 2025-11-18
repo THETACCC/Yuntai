@@ -1,0 +1,56 @@
+{
+    "nodes": [
+        {
+            "id": "811867e6-7f26-4a00-8e57-f38a7e372bf9",
+            "index": 0,
+            "characterId": "",
+            "content": {
+                "en": "Speaker speaks\n",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b7ffb52a-5875-4280-a54d-a390d28dcdf1",
+            "index": 1,
+            "characterId": "",
+            "content": {
+                "en": "Open Detective",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 495.0,
+            "positionY": 127.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "de877e29-e1dc-43ae-9e97-49a0d0bd1ca1",
+                    "targetObjectName": "DetectiveSystem",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StartDetectiveGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "811867e6-7f26-4a00-8e57-f38a7e372bf9",
+            "inputNodeId": "b7ffb52a-5875-4280-a54d-a390d28dcdf1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

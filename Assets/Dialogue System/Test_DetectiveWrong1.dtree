@@ -1,0 +1,56 @@
+{
+    "nodes": [
+        {
+            "id": "a3b6bf5d-68b3-4d50-a107-85a752766db2",
+            "index": 0,
+            "characterId": "",
+            "content": {
+                "en": "First time fail,",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "856fd9ba-7e58-486f-8230-bbe8e33d3a81",
+            "index": 1,
+            "characterId": "",
+            "content": {
+                "en": "Two more chances",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 479.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "de877e29-e1dc-43ae-9e97-49a0d0bd1ca1",
+                    "targetObjectName": "DetectiveSystem",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StartDetectiveGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "a3b6bf5d-68b3-4d50-a107-85a752766db2",
+            "inputNodeId": "856fd9ba-7e58-486f-8230-bbe8e33d3a81",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
