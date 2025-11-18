@@ -35,27 +35,33 @@ public class PlayerController : MonoBehaviour
 
         if (Gamemanager.instance.phase == GamePhase.Moving)
         {
-            speed = Mathf.Clamp(speed, 0f, max_hspeed);
-            horizontal = Input.GetAxisRaw("Horizontal");
-            if ((Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D)))
+            // 1) Read input ONLY from A / D
+            horizontal = 0f;
+            bool pressA = Input.GetKey(KeyCode.A);
+            bool pressD = Input.GetKey(KeyCode.D);
+
+            if (pressA && !pressD)
             {
+                horizontal = -1f;
                 speed += velocity * acceleration * Time.deltaTime;
             }
-            else if ((Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.A)))
+            else if (pressD && !pressA)
             {
+                horizontal = 1f;
                 speed += velocity * acceleration * Time.deltaTime;
-            }
-            else if ((Input.GetKey(KeyCode.A)) && (Input.GetKey(KeyCode.D)))
-            {
-                speed -= velocity * acceleration * Time.deltaTime;
             }
             else
             {
+                // no movement keys or both pressed → slow down
                 speed -= velocity * acceleration * Time.deltaTime;
             }
+
+            // 2) Clamp speed so it never goes negative
+            speed = Mathf.Clamp(speed, 0f, max_hspeed);
         }
         else
         {
+            horizontal = 0f;
             speed = 0f;
         }
 
@@ -64,11 +70,10 @@ public class PlayerController : MonoBehaviour
                             && speed > 0.01f;
         if (anim) anim.SetBool(HashIsWalking, isWalkingNow);
 
-        //Other Functions
         Flip();
         ConfinePlayerToBoundingArea();
-        //Physics2D.IgnoreLayerCollision(7, 8);
     }
+
 
     private void ConfinePlayerToBoundingArea()
     {
