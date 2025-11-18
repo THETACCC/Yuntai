@@ -15,7 +15,7 @@ public class DetectiveManager : MonoBehaviour
 
     public GameObject[] myCluesContent;
 
-
+    public DialogueTrigger myAffectedTrigger;
 
     public void Start()
     {
@@ -89,6 +89,9 @@ public class DetectiveManager : MonoBehaviour
             Gamemanager.instance?.StartDialogue();
             DialogueManager.instance.LoadDialogueFromFile(FailDialogueJsonFile);
             DialogueManager.instance.StartDialogue();
+
+            //This disables the conversation, can add other effects such as death
+            myAffectedTrigger.enabled = false;
         }
 
 
