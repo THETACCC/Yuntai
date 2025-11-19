@@ -2,14 +2,69 @@
   "conversations": [
     {
       "index": 0,
-      "name": "",
-      "avatarAddr": "",
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
-      "content": "Start dialogue here...",
+      "content": {
+        "en": "...",
+        "zh": "",
+        "ja": ""
+      },
       "nextIndex": -1,
       "choices": [],
-      "eventCalls": [],
-      "conditionalBranches": []
+      "eventCalls": [
+        {
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "What are you talking about",
+        "zh": "",
+        "ja": ""
+      },
+      "nextIndex": 0,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "...",
+        "zh": "",
+        "ja": ""
+      },
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0

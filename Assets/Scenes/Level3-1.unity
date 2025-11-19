@@ -1454,11 +1454,11 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 4c2ef42eba7f67142a2b27a57cb6cf1e, type: 3}
+      objectReference: {fileID: 4900000, guid: 04b95a94a4e03a3418b94dde35513335, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 4c2ef42eba7f67142a2b27a57cb6cf1e, type: 3}
+      objectReference: {fileID: 4900000, guid: 04b95a94a4e03a3418b94dde35513335, type: 3}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.49
@@ -1490,6 +1490,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 297127185}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &297127188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+  m_PrefabInstance: {fileID: 297127185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297127187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &346456659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2577,6 +2588,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DetectiveSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: myAffectedTrigger
+      value: 
+      objectReference: {fileID: 297127188}
+    - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: FailDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 01f0761dd45b72d45bf381357421036a, type: 3}
+    - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: CorrectDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 2249ff0a33b35e749a3b7b040e462c5a, type: 3}
+    - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: FirstWrongDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 341dcb2c33832614ca5989ebf571d9f7, type: 3}
+    - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: SecondWrongDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: d251df1aa9e278949bf7028fbb146797, type: 3}
     - target: {fileID: 6642248271406664285, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 965.42755

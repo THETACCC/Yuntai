@@ -1,20 +1,65 @@
 {
     "nodes": [
         {
-            "id": "a5d9a372-5e4b-4021-927a-af2156878eb3",
+            "id": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
             "index": 0,
-            "characterId": "",
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": {
-                "en": "Start dialogue here...",
+                "en": "I don't even know you!",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 100.0,
-            "positionY": 100.0,
+            "positionX": 910.4000244140625,
+            "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "index": 1,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "Can you stop bothering me?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 574.4000244140625,
+            "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 179.1999969482422,
+            "positionY": 199.1999969482422,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "inputNodeId": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "inputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }

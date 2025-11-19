@@ -3,14 +3,14 @@
     {
       "index": 0,
       "name": {
-        "en": "Page",
-        "zh": "周书",
+        "en": "Veris",
+        "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/周书_日常",
-      "isPlayer": false,
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
       "content": {
-        "en": "What! That’s the treasure my master specifically sent me to retrieve—there’s no way an outsider would know...",
+        "en": "Page!",
         "zh": "",
         "ja": ""
       },
@@ -28,7 +28,7 @@
       "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "Damn it, my head’s spinning. Fine, I believe you.",
+        "en": "Mm—",
         "zh": "",
         "ja": ""
       },
@@ -46,7 +46,7 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "Relax, give me your hand.",
+        "en": "Wait, do we know each other?",
         "zh": "",
         "ja": ""
       },
@@ -64,7 +64,7 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "That bronze mirror! So you really did leave before.",
+        "en": "No time, listen to me!",
         "zh": "",
         "ja": ""
       },
@@ -82,25 +82,7 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "I have no idea what you're talking about.",
-        "zh": "",
-        "ja": ""
-      },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
-    },
-    {
-      "index": 5,
-      "name": {
-        "en": "Page",
-        "zh": "周书",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/周书_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "Anyway, don’t let go no matter what! We should be within city range now—hopefully this works.",
+        "en": "Huh? What happened?",
         "zh": "",
         "ja": ""
       },
@@ -108,9 +90,9 @@
       "choices": [],
       "eventCalls": [
         {
-          "targetObjectName": "LevelManager3_1",
-          "componentTypeName": "LevelManager3_1",
-          "methodName": "ZhouShuEscape",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
