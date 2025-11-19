@@ -1,16 +1,31 @@
 {
     "nodes": [
         {
-            "id": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
-            "index": 0,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
             "content": {
                 "en": "I don't even know you!",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 910.4000244140625,
+            "positionX": 624.0,
             "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "index": 0,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": {
+                "en": "...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -247.1999969482422,
+            "positionY": 232.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -24,23 +39,8 @@
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 574.4000244140625,
-            "positionY": 199.1999969482422,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
-            "index": 2,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "content": {
-                "en": "...",
-                "zh": "",
-                "ja": ""
-            },
-            "positionX": 179.1999969482422,
-            "positionY": 199.1999969482422,
+            "positionX": 205.59999084472657,
+            "positionY": 245.59999084472657,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -48,15 +48,15 @@
     ],
     "connections": [
         {
-            "outputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
-            "inputNodeId": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "outputNodeId": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "inputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
         },
         {
-            "outputNodeId": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
-            "inputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "outputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "inputNodeId": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

@@ -12,6 +12,36 @@
             "positionX": 860.0,
             "positionY": 149.60000610351563,
             "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
+            "index": 1,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "What are you talking about",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1217.5999755859375,
+            "positionY": 149.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2b54b76a-e014-41fb-88ec-f925206b2e54",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1588.7999267578125,
+            "positionY": 149.60000610351563,
+            "choices": [],
             "eventCalls": [
                 {
                     "targetObjectID": "de877e29-e1dc-43ae-9e97-49a0d0bd1ca1",
@@ -27,49 +57,19 @@
                 }
             ],
             "conditionalBranches": []
-        },
-        {
-            "id": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
-            "index": 1,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "content": {
-                "en": "What are you talking about",
-                "zh": "",
-                "ja": ""
-            },
-            "positionX": 526.4000244140625,
-            "positionY": 149.60000610351563,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "2b54b76a-e014-41fb-88ec-f925206b2e54",
-            "index": 2,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "content": {
-                "en": "...",
-                "zh": "",
-                "ja": ""
-            },
-            "positionX": 128.8000030517578,
-            "positionY": 149.60000610351563,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
         }
     ],
     "connections": [
         {
-            "outputNodeId": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
-            "inputNodeId": "103c3fda-4fa1-4b56-84b1-8e11e02c3c47",
+            "outputNodeId": "103c3fda-4fa1-4b56-84b1-8e11e02c3c47",
+            "inputNodeId": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
         },
         {
-            "outputNodeId": "2b54b76a-e014-41fb-88ec-f925206b2e54",
-            "inputNodeId": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
+            "outputNodeId": "9b64ff9f-fe61-4012-8208-afd3ff9a5d8f",
+            "inputNodeId": "2b54b76a-e014-41fb-88ec-f925206b2e54",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
