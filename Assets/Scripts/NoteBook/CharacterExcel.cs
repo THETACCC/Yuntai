@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,101 +7,109 @@ using UnityEngine;
 
 public class CharacterExcel : MonoBehaviour
 {
-    [Header("CSV Source (expected columns: Name,Info)")]
-    public TextAsset Character_Text;
-
-    [Tooltip("If true, the first CSV row is a header and will be skipped.")]
-    public bool hasHeaderRow = true;
+    [Header("Data Type")]
+    [Tooltip("读取的数据类型：Character 或 Event")]
+    public string dataType = "Character";
 
     [Header("Tags for UI Objects")]
     public string nameTag = "NoteBook_CharacterName";
     public string descriptionTag = "NoteBook_CharacterDescription";
 
     [Header("CSV Settings")]
-    [SerializeField] private char csvDelimiter = ',';   // You said the CSV is separated by commas
+    [SerializeField] private char csvDelimiter = ',';
     [SerializeField] private char csvQuoteChar = '"';
 
-    // Internal row structure
-    private struct CharacterRow
+    private struct DataRow
     {
-        public string Name;
-        public string Info;
-        public CharacterRow(string name, string info) { Name = name; Info = info; }
+        public string NameID;
+        public string InfoID;
     }
 
     private void Start()
     {
-        if (Character_Text == null)
+        if (NoteBookManager.instance == null)
         {
-            Debug.LogWarning("[CharacterExcel] No CSV TextAsset assigned.");
+            Debug.LogError("[CharacterExcel] NoteBookManager not found!");
             return;
         }
 
-        List<CharacterRow> rows;
-        try
+        if (NoteBookLocalization.instance == null)
         {
-            rows = ParseCsv(Character_Text.text, hasHeaderRow, csvDelimiter, csvQuoteChar);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"[CharacterExcel] CSV parse error: {ex.Message}");
+            Debug.LogError("[CharacterExcel] NoteBookLocalization not found!");
             return;
         }
 
-        // Find all tagged objects and get their TextMeshProUGUI components in a deterministic order
+        string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
+        if (string.IsNullOrEmpty(noteBookDataText))
+        {
+            Debug.LogWarning("[CharacterExcel] No NoteBookData loaded.");
+            return;
+        }
+
+        List<DataRow> rows = ParseNoteBookData(noteBookDataText, dataType, csvDelimiter, csvQuoteChar);
+
         var nameTexts = CollectTaggedText(nameTag);
         var descTexts = CollectTaggedText(descriptionTag);
 
         int count = Mathf.Min(rows.Count, Mathf.Min(nameTexts.Count, descTexts.Count));
         for (int i = 0; i < count; i++)
         {
-            nameTexts[i].text = rows[i].Name ?? string.Empty;
-            descTexts[i].text = rows[i].Info ?? string.Empty;
+            nameTexts[i].text = NoteBookLocalization.instance.GetText(rows[i].NameID);
+            descTexts[i].text = NoteBookLocalization.instance.GetText(rows[i].InfoID);
         }
 
-        // Clear any extras if there are more UI objects than CSV entries
         for (int i = count; i < nameTexts.Count; i++) nameTexts[i].text = string.Empty;
         for (int i = count; i < descTexts.Count; i++) descTexts[i].text = string.Empty;
 
-        Debug.Log($"[CharacterExcel] Applied {count} record(s). Name fields={nameTexts.Count}, Description fields={descTexts.Count}, CSV rows={rows.Count}.");
+        Debug.Log($"[CharacterExcel] Applied {count} {dataType} record(s).");
     }
 
-    /// <summary>
-    /// Finds TextMeshProUGUI components whose GameObjects carry the given tag,
-    /// including INACTIVE objects, and returns them in deterministic hierarchy order.
-    /// </summary>
-    private static List<TextMeshProUGUI> CollectTaggedText(string tag)
+    private static List<DataRow> ParseNoteBookData(string csv, string filterType, char delimiter, char quoteChar)
     {
-        // OPTION A (Unity 2020.1+): includeInactive overload
-        // Finds ALL loaded TextMeshProUGUI in the scene (active + inactive)
-        var allTmps = UnityEngine.Object.FindObjectsOfType<TextMeshProUGUI>(true);
+        var rows = new List<DataRow>();
+        if (string.IsNullOrEmpty(csv)) return rows;
 
-        // If you are on an older Unity version, comment the line above and use OPTION B below:
-        // var allTmps = Resources.FindObjectsOfTypeAll<TextMeshProUGUI>();
+        csv = csv.Replace("\r\n", "\n").Replace("\r", "\n");
+        if (csv.Length > 0 && csv[0] == '\uFEFF') csv = csv.Substring(1);
 
-        var list = new List<TextMeshProUGUI>(allTmps.Length);
-        foreach (var tmp in allTmps)
+        using var reader = new StringReader(csv);
+
+        // Skip header
+        reader.ReadLine();
+
+        string line;
+        while ((line = reader.ReadLine()) != null)
         {
-            // Exclude assets/prefabs not instantiated in the scene (important if using Resources.FindObjectsOfTypeAll)
-            if (!tmp.gameObject.scene.IsValid()) continue;
+            if (string.IsNullOrWhiteSpace(line)) continue;
 
-            if (tmp.CompareTag(tag))
-                list.Add(tmp);
+            var fields = SplitCsvLine(line, delimiter, quoteChar);
+            if (fields.Count < 4) continue;
+
+            string type = fields[0];
+            if (!type.Equals(filterType, StringComparison.OrdinalIgnoreCase)) continue;
+
+            string nameID = fields[2];
+            string infoID = fields[3];
+
+            rows.Add(new DataRow { NameID = nameID, InfoID = infoID });
         }
 
-        // Deterministic order by hierarchy path (root->leaf sibling indices)
-        list.Sort((a, b) => string.CompareOrdinal(GetHierarchyIndexPath(a.transform), GetHierarchyIndexPath(b.transform)));
-        return list;
+        return rows;
     }
 
-    /// <summary>
-    /// Stable sort key using sibling indices along the full transform path.
-    /// </summary>
-    private static int CompareByHierarchyPath(GameObject a, GameObject b)
+    private static List<TextMeshProUGUI> CollectTaggedText(string tag)
     {
-        string pa = GetHierarchyIndexPath(a.transform);
-        string pb = GetHierarchyIndexPath(b.transform);
-        return string.CompareOrdinal(pa, pb);
+        var allTmps = UnityEngine.Object.FindObjectsOfType<TextMeshProUGUI>(true);
+        var list = new List<TextMeshProUGUI>();
+
+        foreach (var tmp in allTmps)
+        {
+            if (!tmp.gameObject.scene.IsValid()) continue;
+            if (tmp.CompareTag(tag)) list.Add(tmp);
+        }
+
+        list.Sort((a, b) => string.CompareOrdinal(GetHierarchyIndexPath(a.transform), GetHierarchyIndexPath(b.transform)));
+        return list;
     }
 
     private static string GetHierarchyIndexPath(Transform t)
@@ -125,41 +132,6 @@ public class CharacterExcel : MonoBehaviour
         return sb.ToString();
     }
 
-    /// <summary>
-    /// Parse CSV text into rows (Name, Info), supporting quoted fields and escaped quotes.
-    /// </summary>
-    private static List<CharacterRow> ParseCsv(string csv, bool hasHeader, char delimiter, char quoteChar)
-    {
-        var rows = new List<CharacterRow>();
-        if (string.IsNullOrEmpty(csv)) return rows;
-
-        // Normalize line endings and strip BOM
-        csv = csv.Replace("\r\n", "\n").Replace("\r", "\n");
-        if (csv.Length > 0 && csv[0] == '\uFEFF') csv = csv.Substring(1);
-
-        using var reader = new StringReader(csv);
-        string line;
-        bool headerSkipped = !hasHeader;
-
-        while ((line = reader.ReadLine()) != null)
-        {
-            if (!headerSkipped) { headerSkipped = true; continue; }
-            if (string.IsNullOrWhiteSpace(line)) continue;
-
-            var fields = SplitCsvLine(line, delimiter, quoteChar);
-            // We only care about the first two columns
-            string name = fields.Count >= 1 ? fields[0] : string.Empty;
-            string info = fields.Count >= 2 ? fields[1] : string.Empty;
-
-            rows.Add(new CharacterRow(name, info));
-        }
-
-        return rows;
-    }
-
-    /// <summary>
-    /// Split a single CSV line into fields, honoring quotes and escaped quotes ("").
-    /// </summary>
     private static List<string> SplitCsvLine(string line, char delimiter, char quoteChar)
     {
         var result = new List<string>();
@@ -174,7 +146,6 @@ public class CharacterExcel : MonoBehaviour
             {
                 if (c == quoteChar)
                 {
-                    // Escaped quote?
                     bool escaped = (i + 1 < line.Length && line[i + 1] == quoteChar);
                     if (escaped) { sb.Append(quoteChar); i++; }
                     else { inQuotes = false; }

@@ -5,15 +5,11 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-public class ExcelReaderINFO : MonoBehaviour
+public class NoteBookDetailReader : MonoBehaviour
 {
-    [Header("Data Type")]
-    [Tooltip("读取的数据类型：Character 或 Event")]
-    public string dataType = "Character";
-
-    [Header("Data Index")]
-    [Tooltip("读取第几条数据（0-based，Character有0-4，Event有0-4）")]
-    public int dataIndex = 0;
+    [Header("Data Key")]
+    [Tooltip("要显示的Key")]
+    public string key = "";
 
     [Header("Hierarchy")]
     [Tooltip("Root that contains Info_0 ... Info_N (default: this.transform)")]
@@ -44,32 +40,38 @@ public class ExcelReaderINFO : MonoBehaviour
 
         if (NoteBookManager.instance == null)
         {
-            Debug.LogError("[ExcelReaderINFO] NoteBookManager not found!");
+            Debug.LogError("[NoteBookDetailReader] NoteBookManager not found!");
             return;
         }
 
         if (NoteBookLocalization.instance == null)
         {
-            Debug.LogError("[ExcelReaderINFO] NoteBookLocalization not found!");
+            Debug.LogError("[NoteBookDetailReader] NoteBookLocalization not found!");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(key))
+        {
+            Debug.LogWarning("[NoteBookDetailReader] No key specified!");
             return;
         }
 
         string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
         if (string.IsNullOrEmpty(noteBookDataText))
         {
-            Debug.LogWarning("[ExcelReaderINFO] No NoteBookData loaded.");
+            Debug.LogWarning("[NoteBookDetailReader] No NoteBookData loaded.");
             return;
         }
 
-        List<DetailRow> allRows = ParseDetailData(noteBookDataText, dataType, csvDelimiter, csvQuoteChar);
+        // 解析CSV并查找对应的key
+        Dictionary<string, DetailRow> dataDict = ParseNoteBookData(noteBookDataText, csvDelimiter, csvQuoteChar);
 
-        if (dataIndex < 0 || dataIndex >= allRows.Count)
+        if (!dataDict.TryGetValue(key, out DetailRow detail))
         {
-            Debug.LogWarning($"[ExcelReaderINFO] Data index {dataIndex} out of range (0-{allRows.Count - 1}).");
+            Debug.LogWarning($"[NoteBookDetailReader] Key '{key}' not found in NoteBookData!");
             return;
         }
 
-        DetailRow detail = allRows[dataIndex];
         var panels = CollectInfoPanels(infoRoot, infoPrefix);
 
         // 显示到第一个面板
@@ -84,7 +86,7 @@ public class ExcelReaderINFO : MonoBehaviour
             ApplyDetailToPanel(panels[i], new DetailRow { TitleID = "", Body0ID = "", Body1ID = "" });
         }
 
-        Debug.Log($"[ExcelReaderINFO] Applied {dataType} detail index {dataIndex}.");
+        Debug.Log($"[NoteBookDetailReader] Applied detail for key '{key}'.");
     }
 
     private void ApplyDetailToPanel(Transform panel, DetailRow detail)
@@ -132,10 +134,10 @@ public class ExcelReaderINFO : MonoBehaviour
         return panels;
     }
 
-    private static List<DetailRow> ParseDetailData(string csv, string filterType, char delimiter, char quoteChar)
+    private static Dictionary<string, DetailRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)
     {
-        var rows = new List<DetailRow>();
-        if (string.IsNullOrEmpty(csv)) return rows;
+        var dict = new Dictionary<string, DetailRow>();
+        if (string.IsNullOrEmpty(csv)) return dict;
 
         csv = csv.Replace("\r\n", "\n").Replace("\r", "\n");
         if (csv.Length > 0 && csv[0] == '\uFEFF') csv = csv.Substring(1);
@@ -149,19 +151,17 @@ public class ExcelReaderINFO : MonoBehaviour
             if (string.IsNullOrWhiteSpace(line)) continue;
 
             var fields = SplitCsvLine(line, delimiter, quoteChar);
-            if (fields.Count < 7) continue;
+            if (fields.Count < 6) continue;
 
-            string type = fields[0];
-            if (!type.Equals(filterType, StringComparison.OrdinalIgnoreCase)) continue;
+            string key = fields[0];
+            string titleID = fields[3];
+            string body0ID = fields[4];
+            string body1ID = fields[5];
 
-            string titleID = fields[4];
-            string body0ID = fields[5];
-            string body1ID = fields[6];
-
-            rows.Add(new DetailRow { TitleID = titleID, Body0ID = body0ID, Body1ID = body1ID });
+            dict[key] = new DetailRow { TitleID = titleID, Body0ID = body0ID, Body1ID = body1ID };
         }
 
-        return rows;
+        return dict;
     }
 
     private static List<string> SplitCsvLine(string line, char delimiter, char quoteChar)

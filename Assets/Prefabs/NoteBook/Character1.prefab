@@ -3056,7 +3056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3710350915286142079}
   - component: {fileID: 2604593314766992096}
-  - component: {fileID: 3650441646078154120}
+  - component: {fileID: 3781191389763752530}
   m_Layer: 0
   m_Name: Chracter_InfoGroup
   m_TagString: Untagged
@@ -3115,7 +3115,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3650441646078154120
+--- !u!114 &3781191389763752530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3124,17 +3124,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2961274762174940217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b507139b06c8351448ce9a40800338b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 37203756dac44c64d9694f8ae5ffc249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
-  infoRoot: {fileID: 3710350915286142079}
-  infoPrefix: Info_
+  keys: []
+  nameTag: NoteBook_CharacterName
+  descriptionTag: NoteBook_CharacterDescription
   csvDelimiter: 44
   csvQuoteChar: 34
-  titleColumnIndex: 0
-  rowStartOffset: 1
 --- !u!1 &3146712614819983391
 GameObject:
   m_ObjectHideFlags: 0
@@ -6243,7 +6240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909900261298217723}
-  - component: {fileID: 520616036486768989}
+  - component: {fileID: 6087222502136406261}
   m_Layer: 0
   m_Name: Chracter_Info
   m_TagString: Untagged
@@ -6277,7 +6274,7 @@ RectTransform:
   m_AnchoredPosition: {x: 850, y: -364}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &520616036486768989
+--- !u!114 &6087222502136406261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6286,12 +6283,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6462425376082039703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627f906926d11024da5dad7124a60c1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e2d1d97b54c542469f7f22d52e5033c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
-  infoRoot: {fileID: 1909900261298217723}
+  key: 
+  infoRoot: {fileID: 0}
   infoPrefix: Info_
   csvDelimiter: 44
   csvQuoteChar: 34

@@ -1,4 +1,4 @@
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,22 +11,9 @@ public class NoteBookManager : MonoBehaviour
 
     private bool isOpen = false;
 
-    [Header("Character TAB")]
-    public GameObject Character1;
-
-    [Header("Event Tab")]
-    public GameObject[] EventBlocks;
-
-
-
-
-
-    [Header("Character1 INFO Tab")]
-    public GameObject Character1_INFO1;
-
-    [Header("Event1 INFO Tab")]
-    public GameObject Event1_INFO1;
-
+    [Header("Data Source")]
+    [Tooltip("NoteBook数据表CSV文件")]
+    public TextAsset noteBookData;
 
     //Visual Feedbacks
     [Header("Feedback Reference")]
@@ -56,9 +43,9 @@ public class NoteBookManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
+        if ((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
         {
-            if(!isOpen)
+            if (!isOpen)
             {
                 DisablePlayerMovement();
                 NoteBook_Canvas.SetActive(true);
@@ -73,10 +60,23 @@ public class NoteBookManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 获取NoteBookData的CSV文本
+    /// </summary>
+    public string GetNoteBookDataText()
+    {
+        if (noteBookData == null)
+        {
+            Debug.LogWarning("[NoteBookManager] No noteBookData assigned!");
+            return string.Empty;
+        }
+        return noteBookData.text;
+    }
+
     #region Event Controll
     public void UnlockEvent(int eventNumber)
     {
-  
+
         NoteBookUpdate?.PlayFeedbacks();
         /*
         if (EventBlocks == null || eventNumber < 0 || eventNumber >= EventBlocks.Length)
@@ -91,7 +91,7 @@ public class NoteBookManager : MonoBehaviour
             return;
         }
 
-        EventBlocks[eventNumber].SetActive(false); // or false if ��unlock�� = hide
+        EventBlocks[eventNumber].SetActive(false); // or false if "unlock" = hide
         */
     }
 

@@ -3697,7 +3697,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7036652900980129407}
   - component: {fileID: 3513352068364144227}
-  - component: {fileID: 3310679169991389549}
   m_Layer: 0
   m_Name: Event1_InfoGroup
   m_TagString: Untagged
@@ -3756,26 +3755,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3310679169991389549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3233819699002732853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b507139b06c8351448ce9a40800338b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
-  infoRoot: {fileID: 7036652900980129407}
-  infoPrefix: Info_
-  csvDelimiter: 44
-  csvQuoteChar: 34
-  titleColumnIndex: 0
-  rowStartOffset: 1
 --- !u!1 &3334252977772373765
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,6 +4471,7 @@ GameObject:
   - component: {fileID: 4509462705360266136}
   - component: {fileID: 5629967901574980968}
   - component: {fileID: 6779340806673720562}
+  - component: {fileID: 8868680625332445711}
   m_Layer: 0
   m_Name: Event1
   m_TagString: NoteBook_Event
@@ -4577,6 +4557,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isThisThingUnlocked: 0
+--- !u!114 &8868680625332445711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188989406732508374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2443d4e2cbd5ae341a551ab8f8035e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Dream
+  nameText: {fileID: 1654582981242731478}
+  descriptionText: {fileID: 9068411476823228711}
+  titleText: {fileID: 5284804955184847671}
+  bodyText0: {fileID: 7264781113815338203}
+  bodyText1: {fileID: 3378130229711600435}
+  csvDelimiter: 44
+  csvQuoteChar: 34
 --- !u!1 &4214702459480812218
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,7 +7123,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2312577834143952854}
-  - component: {fileID: 8141291861979788964}
   m_Layer: 0
   m_Name: Event1_Info
   m_TagString: Untagged
@@ -7157,24 +7156,6 @@ RectTransform:
   m_AnchoredPosition: {x: 850, y: -364}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8141291861979788964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7678815925886393670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627f906926d11024da5dad7124a60c1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
-  infoRoot: {fileID: 2312577834143952854}
-  infoPrefix: Info_
-  csvDelimiter: 44
-  csvQuoteChar: 34
 --- !u!1 &7790981097568968416
 GameObject:
   m_ObjectHideFlags: 0

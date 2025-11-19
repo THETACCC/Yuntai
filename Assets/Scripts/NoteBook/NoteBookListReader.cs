@@ -5,11 +5,11 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-public class ExcelReader : MonoBehaviour
+public class NoteBookListReader : MonoBehaviour
 {
-    [Header("Data Type")]
-    [Tooltip("读取的数据类型：Character 或 Event")]
-    public string dataType = "Event";
+    [Header("Data Keys")]
+    [Tooltip("要显示的Keys列表")]
+    public List<string> keys = new List<string>();
 
     [Header("Tags for UI Objects")]
     public string nameTag = "NoteBook_CharacterName";
@@ -29,45 +29,57 @@ public class ExcelReader : MonoBehaviour
     {
         if (NoteBookManager.instance == null)
         {
-            Debug.LogError("[ExcelReader] NoteBookManager not found!");
+            Debug.LogError("[NoteBookListReader] NoteBookManager not found!");
             return;
         }
 
         if (NoteBookLocalization.instance == null)
         {
-            Debug.LogError("[ExcelReader] NoteBookLocalization not found!");
+            Debug.LogError("[NoteBookListReader] NoteBookLocalization not found!");
             return;
         }
 
         string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
         if (string.IsNullOrEmpty(noteBookDataText))
         {
-            Debug.LogWarning("[ExcelReader] No NoteBookData loaded.");
+            Debug.LogWarning("[NoteBookListReader] No NoteBookData loaded.");
             return;
         }
 
-        List<DataRow> rows = ParseNoteBookData(noteBookDataText, dataType, csvDelimiter, csvQuoteChar);
+        // 解析CSV并建立字典
+        Dictionary<string, DataRow> dataDict = ParseNoteBookData(noteBookDataText, csvDelimiter, csvQuoteChar);
 
         var nameTexts = CollectTaggedText(nameTag);
         var descTexts = CollectTaggedText(descriptionTag);
 
-        int count = Mathf.Min(rows.Count, Mathf.Min(nameTexts.Count, descTexts.Count));
+        int count = Mathf.Min(keys.Count, Mathf.Min(nameTexts.Count, descTexts.Count));
         for (int i = 0; i < count; i++)
         {
-            nameTexts[i].text = NoteBookLocalization.instance.GetText(rows[i].NameID);
-            descTexts[i].text = NoteBookLocalization.instance.GetText(rows[i].InfoID);
+            string key = keys[i];
+            if (dataDict.TryGetValue(key, out DataRow row))
+            {
+                nameTexts[i].text = NoteBookLocalization.instance.GetText(row.NameID);
+                descTexts[i].text = NoteBookLocalization.instance.GetText(row.InfoID);
+            }
+            else
+            {
+                Debug.LogWarning($"[NoteBookListReader] Key '{key}' not found in NoteBookData!");
+                nameTexts[i].text = $"[MISSING:{key}]";
+                descTexts[i].text = string.Empty;
+            }
         }
 
+        // Clear extras
         for (int i = count; i < nameTexts.Count; i++) nameTexts[i].text = string.Empty;
         for (int i = count; i < descTexts.Count; i++) descTexts[i].text = string.Empty;
 
-        Debug.Log($"[ExcelReader] Applied {count} {dataType} record(s).");
+        Debug.Log($"[NoteBookListReader] Applied {count} record(s).");
     }
 
-    private static List<DataRow> ParseNoteBookData(string csv, string filterType, char delimiter, char quoteChar)
+    private static Dictionary<string, DataRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)
     {
-        var rows = new List<DataRow>();
-        if (string.IsNullOrEmpty(csv)) return rows;
+        var dict = new Dictionary<string, DataRow>();
+        if (string.IsNullOrEmpty(csv)) return dict;
 
         csv = csv.Replace("\r\n", "\n").Replace("\r", "\n");
         if (csv.Length > 0 && csv[0] == '\uFEFF') csv = csv.Substring(1);
@@ -81,18 +93,16 @@ public class ExcelReader : MonoBehaviour
             if (string.IsNullOrWhiteSpace(line)) continue;
 
             var fields = SplitCsvLine(line, delimiter, quoteChar);
-            if (fields.Count < 4) continue;
+            if (fields.Count < 3) continue;
 
-            string type = fields[0];
-            if (!type.Equals(filterType, StringComparison.OrdinalIgnoreCase)) continue;
+            string key = fields[0];
+            string nameID = fields[1];
+            string infoID = fields[2];
 
-            string nameID = fields[2];
-            string infoID = fields[3];
-
-            rows.Add(new DataRow { NameID = nameID, InfoID = infoID });
+            dict[key] = new DataRow { NameID = nameID, InfoID = infoID };
         }
 
-        return rows;
+        return dict;
     }
 
     private static List<TextMeshProUGUI> CollectTaggedText(string tag)
