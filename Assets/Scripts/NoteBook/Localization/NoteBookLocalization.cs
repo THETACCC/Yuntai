@@ -25,6 +25,9 @@ public class NoteBookLocalization : MonoBehaviour
     // 存储 StringID -> 翻译文本 的字典
     private Dictionary<string, string> localizationDict = new Dictionary<string, string>();
 
+    // 数据是否已加载完成
+    public bool IsDataReady { get; private set; } = false;
+
     private void Awake()
     {
         // 单例模式
@@ -88,6 +91,7 @@ public class NoteBookLocalization : MonoBehaviour
         try
         {
             localizationDict = ParseLocalizationCsv(csvText, currentLanguage, csvDelimiter, csvQuoteChar);
+            IsDataReady = true;  // 数据加载完成
             Debug.Log($"[NoteBookLocalization] Loaded {localizationDict.Count} strings for language '{currentLanguage}'.");
         }
         catch (Exception ex)

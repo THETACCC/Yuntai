@@ -42,29 +42,34 @@ public class NoteBookReader : MonoBehaviour
 
     private void Start()
     {
-        if (NoteBookManager.instance == null)
+        StartCoroutine(WaitAndLoad());
+    }
+
+    private System.Collections.IEnumerator WaitAndLoad()
+    {
+        // 等待NoteBookManager和NoteBookLocalization就绪
+        while (NoteBookManager.instance == null || NoteBookLocalization.instance == null)
         {
-            Debug.LogError("[NoteBookReader] NoteBookManager not found!");
-            return;
+            yield return null;
         }
 
-        if (NoteBookLocalization.instance == null)
+        // 等待数据加载完成
+        while (!NoteBookManager.instance.IsDataReady || !NoteBookLocalization.instance.IsDataReady)
         {
-            Debug.LogError("[NoteBookReader] NoteBookLocalization not found!");
-            return;
+            yield return null;
         }
 
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogWarning("[NoteBookReader] No key specified!");
-            return;
+            yield break;
         }
 
         string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
         if (string.IsNullOrEmpty(noteBookDataText))
         {
             Debug.LogWarning("[NoteBookReader] No NoteBookData loaded.");
-            return;
+            yield break;
         }
 
         // 解析CSV
@@ -73,7 +78,7 @@ public class NoteBookReader : MonoBehaviour
         if (!dataDict.TryGetValue(key, out DataRow data))
         {
             Debug.LogWarning($"[NoteBookReader] Key '{key}' not found in NoteBookData!");
-            return;
+            yield break;
         }
 
         // 填充数据

@@ -20,6 +20,9 @@ public class NoteBookManager : MonoBehaviour
 
     private string noteBookDataText = "";
 
+    // 数据是否已加载完成
+    public bool IsDataReady { get; private set; } = false;
+
     //Visual Feedbacks
     [Header("Feedback Reference")]
     public MMFeedbacks NoteBookUpdate;
@@ -51,6 +54,7 @@ public class NoteBookManager : MonoBehaviour
         else if (noteBookData != null)
         {
             noteBookDataText = noteBookData.text;
+            IsDataReady = true;  // 本地数据立即就绪
         }
     }
 
@@ -69,6 +73,7 @@ public class NoteBookManager : MonoBehaviour
             else
             {
                 noteBookDataText = www.downloadHandler.text;
+                IsDataReady = true;  // URL数据加载完成
                 Debug.Log($"[NoteBookManager] Loaded NoteBookData from URL.");
             }
         }
