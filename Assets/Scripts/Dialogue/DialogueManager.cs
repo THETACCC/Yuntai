@@ -123,8 +123,8 @@ public class DialogueManager : MonoBehaviour
         //check if separate
         if (DialogueSettings.instance.separatePlayerAndNPC)
         {
-            speaker.transform.parent.gameObject.SetActive(currentConversation.isPlayer);
-            NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer);
+            speaker.transform.parent.gameObject.SetActive(currentConversation.isPlayer && speakerName != "");
+            NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer && speakerName != "");
             if (currentConversation.isPlayer)
             {
                 speaker.text = speakerName;
@@ -141,40 +141,47 @@ public class DialogueManager : MonoBehaviour
 
         if (currentConversation.avatarAddr != null)
         {
-            Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
-            if (s != null)
+            if (currentConversation.avatarAddr == "")
             {
-                if (DialogueSettings.instance.separatePlayerAndNPC)
+                NPCAvatar.gameObject.SetActive(false);
+                avatar.gameObject.SetActive(false);
+            } else
+            {
+                Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
+                if (s != null)
                 {
-                    //Debug.Log(NPCAvatar.sprite != null);
-                    
-                    //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
-                    //avatar.gameObject.SetActive(currentConversation.isPlayer);
-                    //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
-                    //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
-                    if (currentConversation.isPlayer)
+                    if (DialogueSettings.instance.separatePlayerAndNPC)
                     {
-                        NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
-                        avatar.color = Color.white;
-                        avatar.sprite = s;
+                        //Debug.Log(NPCAvatar.sprite != null);
+
+                        //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
+                        //avatar.gameObject.SetActive(currentConversation.isPlayer);
+                        //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+                        //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+                        if (currentConversation.isPlayer)
+                        {
+                            NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                            avatar.color = Color.white;
+                            avatar.sprite = s;
+                        }
+                        else
+                        {
+                            avatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                            NPCAvatar.color = Color.white;
+                            NPCAvatar.sprite = s;
+                        }
+                        NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
+                        avatar.gameObject.SetActive(avatar.sprite != null);
                     }
                     else
                     {
-                        avatar.color = DialogueSettings.instance.inactiveAvatarColor;
-                        NPCAvatar.color = Color.white;
-                        NPCAvatar.sprite = s;
+                        avatar.sprite = s;
                     }
-                    NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
-                    avatar.gameObject.SetActive(avatar.sprite != null);
                 }
                 else
                 {
-                    avatar.sprite = s;
+                    Debug.LogError("Failed to load image from address: Resources/" + currentConversation.avatarAddr);
                 }
-            }
-            else
-            {
-                Debug.LogError("Failed to load image from address: Resources/" + currentConversation.avatarAddr);
             }
         }
 
