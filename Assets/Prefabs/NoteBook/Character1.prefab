@@ -1472,6 +1472,7 @@ GameObject:
   - component: {fileID: 1898509883280034782}
   - component: {fileID: 3426336083021397986}
   - component: {fileID: 5293695841650260441}
+  - component: {fileID: 3505780237356728001}
   m_Layer: 0
   m_Name: Character1
   m_TagString: NoteBook_Character
@@ -1557,6 +1558,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isThisThingUnlocked: 0
+--- !u!114 &3505780237356728001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498298261852003551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2443d4e2cbd5ae341a551ab8f8035e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
+  nameText: {fileID: 8047075623264285745}
+  descriptionText: {fileID: 2359698267912572495}
+  titleText: {fileID: 3960276069757114605}
+  bodyText0: {fileID: 9054204774719078897}
+  bodyText1: {fileID: 2034518670261162789}
+  csvDelimiter: 44
+  csvQuoteChar: 34
 --- !u!1 &1772282231055610210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,7 +3077,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3710350915286142079}
   - component: {fileID: 2604593314766992096}
-  - component: {fileID: 3781191389763752530}
   m_Layer: 0
   m_Name: Chracter_InfoGroup
   m_TagString: Untagged
@@ -3115,23 +3135,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3781191389763752530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2961274762174940217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37203756dac44c64d9694f8ae5ffc249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keys: []
-  nameTag: NoteBook_CharacterName
-  descriptionTag: NoteBook_CharacterDescription
-  csvDelimiter: 44
-  csvQuoteChar: 34
 --- !u!1 &3146712614819983391
 GameObject:
   m_ObjectHideFlags: 0
@@ -6240,7 +6243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909900261298217723}
-  - component: {fileID: 6087222502136406261}
   m_Layer: 0
   m_Name: Chracter_Info
   m_TagString: Untagged
@@ -6274,23 +6276,6 @@ RectTransform:
   m_AnchoredPosition: {x: 850, y: -364}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6087222502136406261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6462425376082039703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e2d1d97b54c542469f7f22d52e5033c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 
-  infoRoot: {fileID: 0}
-  infoPrefix: Info_
-  csvDelimiter: 44
-  csvQuoteChar: 34
 --- !u!1 &6856176365462440913
 GameObject:
   m_ObjectHideFlags: 0
