@@ -2403,14 +2403,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b507139b06c8351448ce9a40800338b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 200358346}
   infoPrefix: Info_
+  rowStartOffset: 1
   csvDelimiter: 44
   csvQuoteChar: 34
-  titleColumnIndex: 0
-  rowStartOffset: 1
 --- !u!114 &200358348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3513,8 +3512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f858b58bac76ab94c94aa3f87dbde04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: c2e16df7be4bd0d418e0712deece0a4d, type: 3}
-  hasHeaderRow: 1
+  dataType: Event
   nameTag: Detective_Title
   descriptionTag: Detective_Detail
   csvDelimiter: 44
@@ -7152,8 +7150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f906926d11024da5dad7124a60c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 598411874}
   infoPrefix: Info_
   csvDelimiter: 44
@@ -8623,8 +8621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f906926d11024da5dad7124a60c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 753722346}
   infoPrefix: Info_
   csvDelimiter: 44
@@ -9205,14 +9203,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b507139b06c8351448ce9a40800338b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 772220892}
   infoPrefix: Info_
+  rowStartOffset: 1
   csvDelimiter: 44
   csvQuoteChar: 34
-  titleColumnIndex: 0
-  rowStartOffset: 1
 --- !u!114 &772220894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9822,8 +9819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f906926d11024da5dad7124a60c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 824176279}
   infoPrefix: Info_
   csvDelimiter: 44
@@ -29916,14 +29913,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b507139b06c8351448ce9a40800338b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 1ebc0327ceca65d43a0db5ef6b7419b4, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
+  dataIndex: 0
   infoRoot: {fileID: 5784959908152135151}
   infoPrefix: Info_
+  rowStartOffset: 1
   csvDelimiter: 44
   csvQuoteChar: 34
-  titleColumnIndex: 0
-  rowStartOffset: 1
 --- !u!1 &1439546643266620413
 GameObject:
   m_ObjectHideFlags: 0
@@ -30866,8 +30862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a44a554772a154b8bc9ae14b06f6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character_Text: {fileID: 4900000, guid: d9a04f30b1cd22042a07361d8cd04941, type: 3}
-  hasHeaderRow: 1
+  dataType: Character
   nameTag: NoteBook_CharacterName
   descriptionTag: NoteBook_CharacterDescription
   csvDelimiter: 44
@@ -31258,8 +31253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f858b58bac76ab94c94aa3f87dbde04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Excel_Text: {fileID: 4900000, guid: 110181c0ecbe9164cad32355329c974e, type: 3}
-  hasHeaderRow: 1
+  dataType: Event
   nameTag: NoteBook_EventName
   descriptionTag: NoteBook_EventDescription
   csvDelimiter: 44
@@ -33953,19 +33947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoteBook_Canvas: {fileID: 7991997310599217141}
-  Character1: {fileID: 0}
-  EventBlocks:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Character1_INFO1: {fileID: 0}
-  Event1_INFO1: {fileID: 0}
+  noteBookData: {fileID: 0}
+  googleSheetsURL: 
   NoteBookUpdate: {fileID: 4318922234026067099}
 --- !u!114 &7666835282701847833
 MonoBehaviour:
