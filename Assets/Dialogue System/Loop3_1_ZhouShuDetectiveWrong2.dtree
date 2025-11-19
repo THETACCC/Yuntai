@@ -1,20 +1,78 @@
 {
     "nodes": [
         {
-            "id": "5af22ff8-150d-42e2-b7dd-068f33865734",
+            "id": "4a78a457-cb34-4a67-888a-66f54b104764",
             "index": 0,
-            "characterId": "",
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
             "content": {
-                "en": "Start dialogue here...",
+                "en": "...",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 100.0,
-            "positionY": 100.0,
+            "positionX": 910.4000244140625,
+            "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "de877e29-e1dc-43ae-9e97-49a0d0bd1ca1",
+                    "targetObjectName": "DetectiveSystem",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StartDetectiveGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8e872f18-5d7c-4942-9b5f-7a8812651869",
+            "index": 1,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "Huh?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 576.7999877929688,
+            "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b0f1737c-083f-4d61-bf45-b274ff71bed4",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "content": {
+                "en": "...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 179.1999969482422,
+            "positionY": 199.1999969482422,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "8e872f18-5d7c-4942-9b5f-7a8812651869",
+            "inputNodeId": "4a78a457-cb34-4a67-888a-66f54b104764",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b0f1737c-083f-4d61-bf45-b274ff71bed4",
+            "inputNodeId": "8e872f18-5d7c-4942-9b5f-7a8812651869",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }

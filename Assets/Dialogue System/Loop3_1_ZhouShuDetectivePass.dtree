@@ -1,20 +1,144 @@
 {
     "nodes": [
         {
-            "id": "fc985f71-bc15-4d8c-8f40-fe90ba952118",
+            "id": "660206c9-610a-40fa-8eee-c5b496f57050",
             "index": 0,
-            "characterId": "",
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
             "content": {
-                "en": "Start dialogue here...",
+                "en": "What! That’s the treasure my master specifically sent me to retrieve—there’s no way an outsider would know...",
                 "zh": "",
                 "ja": ""
             },
-            "positionX": 100.0,
+            "positionX": 477.6000061035156,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f0961de4-6cea-480b-8787-cc1fb8657ce1",
+            "index": 2,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "Relax, give me your hand.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1149.5999755859375,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ec5d51bd-cbf2-46e0-a1f6-1bbb2976454f",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "content": {
+                "en": "That bronze mirror! So you really did leave before.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1494.39990234375,
+            "positionY": 99.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5cc2c456-f076-4497-abca-97d3d7ce2a9b",
+            "index": 4,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "I have no idea what you're talking about.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1836.0,
+            "positionY": 96.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6b0a5058-1c9c-4d71-874a-861751577d51",
+            "index": 5,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "content": {
+                "en": "Anyway, don’t let go no matter what! We should be within city range now—hopefully this works.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 2193.599853515625,
+            "positionY": 96.80000305175781,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "adb14c96-12fa-4bad-ac88-e0b5e25c46a9",
+                    "targetObjectName": "LevelManager3_1",
+                    "componentTypeName": "LevelManager3_1",
+                    "methodName": "ZhouShuEscape",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cdd0828a-bcb3-4430-ba09-937d87da22d1",
+            "index": 1,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "content": {
+                "en": "Damn it, my head’s spinning. Fine, I believe you.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 809.6000366210938,
             "positionY": 100.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "660206c9-610a-40fa-8eee-c5b496f57050",
+            "inputNodeId": "cdd0828a-bcb3-4430-ba09-937d87da22d1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cdd0828a-bcb3-4430-ba09-937d87da22d1",
+            "inputNodeId": "f0961de4-6cea-480b-8787-cc1fb8657ce1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f0961de4-6cea-480b-8787-cc1fb8657ce1",
+            "inputNodeId": "ec5d51bd-cbf2-46e0-a1f6-1bbb2976454f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ec5d51bd-cbf2-46e0-a1f6-1bbb2976454f",
+            "inputNodeId": "5cc2c456-f076-4497-abca-97d3d7ce2a9b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5cc2c456-f076-4497-abca-97d3d7ce2a9b",
+            "inputNodeId": "6b0a5058-1c9c-4d71-874a-861751577d51",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
