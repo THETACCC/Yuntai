@@ -12,8 +12,13 @@ public class NoteBookManager : MonoBehaviour
     private bool isOpen = false;
 
     [Header("Data Source")]
-    [Tooltip("NoteBook数据表CSV文件")]
+    [Tooltip("NoteBook数据表CSV文件（如果使用本地文件）")]
     public TextAsset noteBookData;
+
+    [Tooltip("Google Sheets发布的CSV URL（如果使用在线表格）")]
+    public string googleSheetsURL = "";
+
+    private string noteBookDataText = "";
 
     //Visual Feedbacks
     [Header("Feedback Reference")]
@@ -35,9 +40,38 @@ public class NoteBookManager : MonoBehaviour
 
     void Start()
     {
-
         NoteBook_Canvas.SetActive(false);
         isOpen = false;
+
+        // 加载NoteBookData
+        if (!string.IsNullOrEmpty(googleSheetsURL))
+        {
+            StartCoroutine(LoadNoteBookDataFromURL(googleSheetsURL));
+        }
+        else if (noteBookData != null)
+        {
+            noteBookDataText = noteBookData.text;
+        }
+    }
+
+    private System.Collections.IEnumerator LoadNoteBookDataFromURL(string url)
+    {
+        Debug.Log($"[NoteBookManager] Loading from URL: {url}");
+
+        using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"[NoteBookManager] Failed to load from URL: {www.error}");
+            }
+            else
+            {
+                noteBookDataText = www.downloadHandler.text;
+                Debug.Log($"[NoteBookManager] Loaded NoteBookData from URL.");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -65,12 +99,18 @@ public class NoteBookManager : MonoBehaviour
     /// </summary>
     public string GetNoteBookDataText()
     {
-        if (noteBookData == null)
+        if (!string.IsNullOrEmpty(noteBookDataText))
         {
-            Debug.LogWarning("[NoteBookManager] No noteBookData assigned!");
-            return string.Empty;
+            return noteBookDataText;
         }
-        return noteBookData.text;
+
+        if (noteBookData != null)
+        {
+            return noteBookData.text;
+        }
+
+        Debug.LogWarning("[NoteBookManager] No noteBookData available!");
+        return string.Empty;
     }
 
     #region Event Controll

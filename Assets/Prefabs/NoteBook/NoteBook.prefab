@@ -4022,6 +4022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteBook_Canvas: {fileID: 718956716220420433}
   noteBookData: {fileID: 4900000, guid: fb795ad199965bb4d89dc00bc1dd1148, type: 3}
+  googleSheetsURL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR0mmuag8xOIibjuDdcYRaeD2W4pdCKeqT7P13JXjww1oqrBzlMpes1xWqVIkmQ_WVsDu38Jxl_JPx4/pub?gid=480235077&single=true&output=csv
   NoteBookUpdate: {fileID: 4260653015882310698}
 --- !u!114 &8684716198867243560
 MonoBehaviour:
@@ -4036,7 +4037,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationTable: {fileID: 4900000, guid: f5318418141a39c45a3f5a4287b5548b, type: 3}
-  currentLanguage: CN
+  googleSheetsURL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR0mmuag8xOIibjuDdcYRaeD2W4pdCKeqT7P13JXjww1oqrBzlMpes1xWqVIkmQ_WVsDu38Jxl_JPx4/pub?gid=0&single=true&output=csv
+  currentLanguage: zh
   csvDelimiter: 44
   csvQuoteChar: 34
 --- !u!1 &7121726276444960830
@@ -5202,6 +5204,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[9].m_Target
       value: 
       objectReference: {fileID: 8781062080074221913}
+    - target: {fileID: 8868680625332445711, guid: 7250287a3effbd942a0a5bb251ece3ef, type: 3}
+      propertyPath: key
+      value: Suspicious
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8141291861979788964, guid: 7250287a3effbd942a0a5bb251ece3ef, type: 3}
     m_RemovedGameObjects: []
@@ -5783,6 +5789,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[9].m_Target
       value: 
       objectReference: {fileID: 8781062080074221913}
+    - target: {fileID: 8868680625332445711, guid: 7250287a3effbd942a0a5bb251ece3ef, type: 3}
+      propertyPath: key
+      value: Dream
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8141291861979788964, guid: 7250287a3effbd942a0a5bb251ece3ef, type: 3}
     m_RemovedGameObjects: []

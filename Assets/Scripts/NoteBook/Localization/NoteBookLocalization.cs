@@ -9,8 +9,11 @@ public class NoteBookLocalization : MonoBehaviour
     public static NoteBookLocalization instance;
 
     [Header("Localization Settings")]
-    [Tooltip("本地化表CSV文件")]
+    [Tooltip("本地化表CSV文件（如果使用本地文件）")]
     public TextAsset localizationTable;
+
+    [Tooltip("Google Sheets发布的CSV URL（如果使用在线表格）")]
+    public string googleSheetsURL = "";
 
     [Tooltip("当前语言（CN, EN, JP等）")]
     public string currentLanguage = "CN";
@@ -44,15 +47,47 @@ public class NoteBookLocalization : MonoBehaviour
     /// </summary>
     public void LoadLocalizationTable()
     {
-        if (localizationTable == null)
+        // 优先使用Google Sheets URL
+        if (!string.IsNullOrEmpty(googleSheetsURL))
         {
-            Debug.LogError("[NoteBookLocalization] No localization table assigned!");
-            return;
+            StartCoroutine(LoadFromURL(googleSheetsURL));
         }
+        // 否则使用本地文件
+        else if (localizationTable != null)
+        {
+            LoadFromTextAsset(localizationTable.text);
+        }
+        else
+        {
+            Debug.LogError("[NoteBookLocalization] No localization source assigned!");
+        }
+    }
 
+    private System.Collections.IEnumerator LoadFromURL(string url)
+    {
+        Debug.Log($"[NoteBookLocalization] Loading from URL: {url}");
+
+        using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"[NoteBookLocalization] Failed to load from URL: {www.error}");
+            }
+            else
+            {
+                string csvText = www.downloadHandler.text;
+                LoadFromTextAsset(csvText);
+            }
+        }
+    }
+
+    private void LoadFromTextAsset(string csvText)
+    {
         try
         {
-            localizationDict = ParseLocalizationCsv(localizationTable.text, currentLanguage, csvDelimiter, csvQuoteChar);
+            localizationDict = ParseLocalizationCsv(csvText, currentLanguage, csvDelimiter, csvQuoteChar);
             Debug.Log($"[NoteBookLocalization] Loaded {localizationDict.Count} strings for language '{currentLanguage}'.");
         }
         catch (Exception ex)
