@@ -68,8 +68,6 @@ public class NoteBookLocalization : MonoBehaviour
 
     private System.Collections.IEnumerator LoadFromURL(string url)
     {
-        Debug.Log($"[NoteBookLocalization] Loading from URL: {url}");
-
         using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
         {
             yield return www.SendWebRequest();
@@ -91,8 +89,7 @@ public class NoteBookLocalization : MonoBehaviour
         try
         {
             localizationDict = ParseLocalizationCsv(csvText, currentLanguage, csvDelimiter, csvQuoteChar);
-            IsDataReady = true;  // 数据加载完成
-            Debug.Log($"[NoteBookLocalization] Loaded {localizationDict.Count} strings for language '{currentLanguage}'.");
+            IsDataReady = true;
         }
         catch (Exception ex)
         {

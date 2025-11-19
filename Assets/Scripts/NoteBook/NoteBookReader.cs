@@ -61,14 +61,14 @@ public class NoteBookReader : MonoBehaviour
 
         if (string.IsNullOrEmpty(key))
         {
-            Debug.LogWarning("[NoteBookReader] No key specified!");
+            Debug.LogWarning($"[NoteBookReader] No key specified on {gameObject.name}!");
             yield break;
         }
 
         string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
         if (string.IsNullOrEmpty(noteBookDataText))
         {
-            Debug.LogWarning("[NoteBookReader] No NoteBookData loaded.");
+            Debug.LogWarning($"[NoteBookReader] No NoteBookData loaded on {gameObject.name}!");
             yield break;
         }
 
@@ -77,7 +77,7 @@ public class NoteBookReader : MonoBehaviour
 
         if (!dataDict.TryGetValue(key, out DataRow data))
         {
-            Debug.LogWarning($"[NoteBookReader] Key '{key}' not found in NoteBookData!");
+            Debug.LogError($"[NoteBookReader] Key '{key}' not found in NoteBookData! GameObject: {gameObject.name}");
             yield break;
         }
 
@@ -96,8 +96,6 @@ public class NoteBookReader : MonoBehaviour
 
         if (bodyText1 != null)
             bodyText1.text = NoteBookLocalization.instance.GetText(data.Body1ID);
-
-        Debug.Log($"[NoteBookReader] Applied data for key '{key}'.");
     }
 
     private static Dictionary<string, DataRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)

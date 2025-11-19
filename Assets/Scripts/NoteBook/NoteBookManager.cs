@@ -60,8 +60,6 @@ public class NoteBookManager : MonoBehaviour
 
     private System.Collections.IEnumerator LoadNoteBookDataFromURL(string url)
     {
-        Debug.Log($"[NoteBookManager] Loading from URL: {url}");
-
         using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
         {
             yield return www.SendWebRequest();
@@ -73,8 +71,7 @@ public class NoteBookManager : MonoBehaviour
             else
             {
                 noteBookDataText = www.downloadHandler.text;
-                IsDataReady = true;  // URL数据加载完成
-                Debug.Log($"[NoteBookManager] Loaded NoteBookData from URL.");
+                IsDataReady = true;
             }
         }
     }
