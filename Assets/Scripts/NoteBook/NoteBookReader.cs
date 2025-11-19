@@ -31,6 +31,9 @@ public class NoteBookReader : MonoBehaviour
     [SerializeField] private char csvDelimiter = ',';
     [SerializeField] private char csvQuoteChar = '"';
 
+    // 标志位，表示是否已经成功加载
+    private bool hasLoaded = false;
+
     private struct DataRow
     {
         public string NameID;
@@ -40,36 +43,38 @@ public class NoteBookReader : MonoBehaviour
         public string Body1ID;
     }
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(WaitAndLoad());
+        // 如果已经加载过了，就不再尝试
+        if (hasLoaded)
+            return;
+
+        // 检查所有条件是否满足
+        if (NoteBookManager.instance == null || NoteBookLocalization.instance == null)
+            return;
+
+        if (!NoteBookManager.instance.IsDataReady || !NoteBookLocalization.instance.IsDataReady)
+            return;
+
+        // 条件满足，开始加载
+        TryLoadData();
     }
 
-    private System.Collections.IEnumerator WaitAndLoad()
+    private void TryLoadData()
     {
-        // 等待NoteBookManager和NoteBookLocalization就绪
-        while (NoteBookManager.instance == null || NoteBookLocalization.instance == null)
-        {
-            yield return null;
-        }
-
-        // 等待数据加载完成
-        while (!NoteBookManager.instance.IsDataReady || !NoteBookLocalization.instance.IsDataReady)
-        {
-            yield return null;
-        }
-
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogWarning($"[NoteBookReader] No key specified on {gameObject.name}!");
-            yield break;
+            hasLoaded = true; // 标记为已尝试，避免重复警告
+            return;
         }
 
         string noteBookDataText = NoteBookManager.instance.GetNoteBookDataText();
         if (string.IsNullOrEmpty(noteBookDataText))
         {
             Debug.LogWarning($"[NoteBookReader] No NoteBookData loaded on {gameObject.name}!");
-            yield break;
+            hasLoaded = true;
+            return;
         }
 
         // 解析CSV
@@ -78,7 +83,8 @@ public class NoteBookReader : MonoBehaviour
         if (!dataDict.TryGetValue(key, out DataRow data))
         {
             Debug.LogError($"[NoteBookReader] Key '{key}' not found in NoteBookData! GameObject: {gameObject.name}");
-            yield break;
+            hasLoaded = true;
+            return;
         }
 
         // 填充数据
@@ -96,6 +102,11 @@ public class NoteBookReader : MonoBehaviour
 
         if (bodyText1 != null)
             bodyText1.text = NoteBookLocalization.instance.GetText(data.Body1ID);
+
+        // 标记为已成功加载
+        hasLoaded = true;
+
+        Debug.Log($"[NoteBookReader] Successfully loaded data for key '{key}' on {gameObject.name}");
     }
 
     private static Dictionary<string, DataRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)

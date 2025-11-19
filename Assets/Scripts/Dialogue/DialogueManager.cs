@@ -146,7 +146,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (DialogueSettings.instance.separatePlayerAndNPC)
                 {
-                    Debug.Log(NPCAvatar.sprite != null);
+                    //Debug.Log(NPCAvatar.sprite != null);
                     
                     //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
                     //avatar.gameObject.SetActive(currentConversation.isPlayer);
