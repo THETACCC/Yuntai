@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;   
     private static readonly int HashIsWalking = Animator.StringToHash("IsWalking");
 
+    [Header("Footstep Audio")]
+    [SerializeField] private AudioSource footstepSource;   // 挂在 Player 上，Loop = true
+    [SerializeField] private bool onlyPlayOnGround = true; // 只在地面时播放
+    private bool wasWalking = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +75,28 @@ public class PlayerController : MonoBehaviour
                             && Mathf.Abs(horizontal) > 0.01f
                             && speed > 0.01f;
         if (anim) anim.SetBool(HashIsWalking, isWalkingNow);
+
+        bool shouldPlayFootstep = isWalkingNow;
+        if (onlyPlayOnGround)
+            shouldPlayFootstep = shouldPlayFootstep && IsGrounded();
+
+        if (footstepSource != null)
+        {
+            // 刚开始走路
+            if (shouldPlayFootstep && !wasWalking)
+            {
+                if (!footstepSource.isPlaying)
+                    footstepSource.Play();
+            }
+            // 停止走路
+            else if (!shouldPlayFootstep && wasWalking)
+            {
+                if (footstepSource.isPlaying)
+                    footstepSource.Stop();
+            }
+        }
+
+        wasWalking = shouldPlayFootstep;
 
         Flip();
         ConfinePlayerToBoundingArea();
