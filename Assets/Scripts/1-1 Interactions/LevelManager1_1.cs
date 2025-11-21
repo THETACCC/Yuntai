@@ -11,9 +11,4 @@ public class LevelManager1_1 : MonoBehaviour
         LoopTracker.I?.SetLoop(myLoop);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
