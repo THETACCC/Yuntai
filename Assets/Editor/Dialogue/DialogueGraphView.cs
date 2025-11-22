@@ -534,15 +534,76 @@ public class DialogueGraphView : GraphView
             {
                 if (node == null) continue;
 
+                // 获取对话内容：优先从Google Sheets读取，否则使用节点中的文本
+                LocalizedText dialogueContent = node.DialogueText ?? new LocalizedText();
+                string contentId = node.ContentId ?? "";
+
+                if (!string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+                {
+                    var locData = DialogueLocalization.GetAllLanguages(contentId);
+                    if (locData != null)
+                    {
+                        // 从Google Sheets读取所有语言的文本
+                        dialogueContent = new LocalizedText
+                        {
+                            zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                            en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                            ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                        };
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[SerializeDialogueTree] Node {node.NodeIndex}: contentId '{contentId}' not found in Google Sheets");
+                    }
+                }
+
+                // 处理选择文本：同样从Google Sheets读取
+                var choicesData = new List<ChoiceData>();
+                if (node.ChoicesData != null)
+                {
+                    foreach (var choice in node.ChoicesData)
+                    {
+                        var choiceData = new ChoiceData
+                        {
+                            textId = choice.textId ?? "",
+                            text = choice.text ?? new LocalizedText(),
+                            conditions = choice.conditions,
+                            conditionLogic = choice.conditionLogic
+                        };
+
+                        // 如果有textId，从Google Sheets读取
+                        if (!string.IsNullOrEmpty(choiceData.textId) && DialogueLocalization.IsLoaded)
+                        {
+                            var locData = DialogueLocalization.GetAllLanguages(choiceData.textId);
+                            if (locData != null)
+                            {
+                                choiceData.text = new LocalizedText
+                                {
+                                    zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                                    en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                                    ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                                };
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"[SerializeDialogueTree] Node {node.NodeIndex}: choice textId '{choiceData.textId}' not found in Google Sheets");
+                            }
+                        }
+
+                        choicesData.Add(choiceData);
+                    }
+                }
+
                 var nodeData = new DialogueNodeData
                 {
                     id = node.GetId(),
                     index = node.NodeIndex,
                     characterId = node.CharacterId ?? "",
-                    content = node.DialogueText ?? new LocalizedText(),
+                    contentId = contentId,
+                    content = dialogueContent,
                     positionX = node.GetPosition().x,
                     positionY = node.GetPosition().y,
-                    choices = new List<ChoiceData>(node.ChoicesData ?? new List<ChoiceData>()),
+                    choices = choicesData,
                     eventCalls = new List<DialogueEventCall>(node.EventCalls ?? new List<DialogueEventCall>()),
                     conditionalBranches = node.GetAllConditionalBranches()
                 };
@@ -589,6 +650,7 @@ public class DialogueGraphView : GraphView
         return treeData;
     }
 
+
     public void LoadDialogueTree(DialogueTreeData treeData)
     {
         DeleteElements(graphElements.ToList());
@@ -610,6 +672,11 @@ public class DialogueGraphView : GraphView
             if (nodeData.content != null)
             {
                 node.SetDialogueText(nodeData.content);
+            }
+            // 设置对话内容ID
+            if (!string.IsNullOrEmpty(nodeData.contentId))
+            {
+                node.SetContentId(nodeData.contentId);
             }
 
             node.SetChoicesData(nodeData.choices);

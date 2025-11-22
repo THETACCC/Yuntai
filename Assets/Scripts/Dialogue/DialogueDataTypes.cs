@@ -321,6 +321,7 @@ namespace DialogueSystem
     [Serializable]
     public class ChoiceData
     {
+        public string textId = "";  // 选择文本ID（用于从本地化数据读取）
         public LocalizedText text = new LocalizedText();  // 改为本地化文本
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;
@@ -358,6 +359,7 @@ namespace DialogueSystem
     {
         public string id;                           // 唯一ID
         public string character;                    // Manager中显示的分类名称
+        public string characterNameId = "";  // 角色名称ID（用于从本地化数据读取）
         public LocalizedText characterName = new LocalizedText();  // 角色名称（改为本地化）
         public string avatarAssetPath;              // Avatar 资源路径
         public bool isPlayer = false;               // 是否为玩家角色（用于 separatePlayerAndNPC）
@@ -412,6 +414,7 @@ namespace DialogueSystem
         public string id;
         public int index;
         public string characterId = "";      // 角色ID引用
+        public string contentId = "";  // 对话内容ID（用于从本地化数据读取）
         public LocalizedText content = new LocalizedText();  // 改为本地化文本
         public float positionX;
         public float positionY;

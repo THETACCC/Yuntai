@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DialogueSystem;
+using System;
 
 // 简单的输入对话框辅助类
 public class EditorInputDialog : EditorWindow
@@ -152,6 +153,13 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private CharacterFolder insertBeforeCharacterFolder = null;  // 在哪个角色文件夹之前/后插入
     private CharacterFolder insertCharacterParentFolder = null;  // 角色插入的父文件夹
+
+    // 本地化相关
+    private bool localizationSettingsExpanded = false;
+    private string csvUrlInput = "";
+    private Vector2 csvUrlScrollPos;
+    private Dictionary<string, Dictionary<Language, string>> previousLocalizationData =
+        new Dictionary<string, Dictionary<Language, string>>();
     [MenuItem("Tools/Dialogue Tree Manager")]
     public static void ShowWindow()
     {
@@ -184,6 +192,13 @@ public class DialogueTreeManagerWindow : EditorWindow
 
         if (cachedFocusedBg == null)
             cachedFocusedBg = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
+
+        // 初始化本地化
+        csvUrlInput = DialogueLocalization.GetCsvUrl();
+        if (!DialogueLocalization.IsLoaded && !string.IsNullOrEmpty(csvUrlInput))
+        {
+            DialogueLocalization.LoadInEditorSync();
+        }
     }
 
     private void OnDisable()
@@ -199,6 +214,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     private void OnGUI()
     {
         DrawToolbar();
+        DrawLocalizationSettings();
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         DrawCharactersSection();
         EditorGUILayout.Space(5);
@@ -637,38 +653,65 @@ public class DialogueTreeManagerWindow : EditorWindow
             nameFieldStyle.normal.textColor = Color.white;
             nameFieldStyle.focused.textColor = Color.white;
 
-            // English Name
+            // Name ID 输入
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(15);
-            EditorGUILayout.LabelField("EN:", GUILayout.Width(55));
-            string newNameEn = EditorGUILayout.TextField(character.characterName?.en ?? "", nameFieldStyle);
-            if (newNameEn != (character.characterName?.en ?? ""))
+            EditorGUILayout.LabelField("Name ID:", GUILayout.Width(70));
+
+            string currentNameId = character.characterNameId ?? "";
+            string newNameId = EditorGUILayout.TextField(currentNameId, nameFieldStyle);
+
+            if (newNameId != currentNameId)
             {
-                character.characterName.en = newNameEn;
+                character.characterNameId = newNameId;
+
+                // 如果有新ID且数据已加载，从Google Sheets读取内容
+                if (!string.IsNullOrEmpty(newNameId) && DialogueLocalization.IsLoaded)
+                {
+                    var locData = DialogueLocalization.GetAllLanguages(newNameId);
+                    if (locData != null)
+                    {
+                        character.characterName = new LocalizedText
+                        {
+                            zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                            en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                            ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                        };
+                    }
+                }
             }
+
             EditorGUILayout.EndHorizontal();
 
-            // Chinese Name
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(15);
-            EditorGUILayout.LabelField("中文:", GUILayout.Width(55));
-            string newNameZh = EditorGUILayout.TextField(character.characterName?.zh ?? "", nameFieldStyle);
-            if (newNameZh != (character.characterName?.zh ?? ""))
+            // Name 预览 - 根据当前语言显示
+            if (!string.IsNullOrEmpty(character.characterNameId))
             {
-                character.characterName.zh = newNameZh;
-            }
-            EditorGUILayout.EndHorizontal();
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(15);
 
-            // Japanese Name
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(15);
-            EditorGUILayout.LabelField("日本語:", GUILayout.Width(55));
-            string newNameJa = EditorGUILayout.TextField(character.characterName?.ja ?? "", nameFieldStyle);
-            if (newNameJa != (character.characterName?.ja ?? ""))
-            {
-                character.characterName.ja = newNameJa;
+                if (DialogueLocalization.IsLoaded && DialogueLocalization.HasId(character.characterNameId))
+                {
+                    // 获取当前语言的文本
+                    Language currentLang = Language.ChineseSimplified; // 默认中文，可以从editorWindow获取
+                    string previewText = DialogueLocalization.GetText(character.characterNameId, currentLang);
+
+                    // 显示预览
+                    var previewStyle = new GUIStyle(EditorStyles.label);
+                    previewStyle.normal.textColor = new Color(0.7f, 0.9f, 0.7f); // 淡绿色
+                    previewStyle.wordWrap = true;
+                    EditorGUILayout.LabelField($"预览: {previewText}", previewStyle);
+                }
+                else if (!string.IsNullOrEmpty(character.characterNameId))
+                {
+                    // ID不存在，显示错误
+                    var errorStyle = new GUIStyle(EditorStyles.label);
+                    errorStyle.normal.textColor = new Color(1f, 0.5f, 0.5f); // 淡红色
+                    EditorGUILayout.LabelField($"[错误: ID '{character.characterNameId}' 不存在]", errorStyle);
+                }
+
+                EditorGUILayout.EndHorizontal();
             }
-            EditorGUILayout.EndHorizontal();
+
         }
 
         // 编辑模式下显示avatar选择
@@ -1110,6 +1153,27 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         try
         {
+            // 保存前，从Google Sheets读取所有角色的name
+            if (characterLibrary?.characters != null && DialogueLocalization.IsLoaded)
+            {
+                foreach (var character in characterLibrary.characters)
+                {
+                    if (!string.IsNullOrEmpty(character.characterNameId))
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(character.characterNameId);
+                        if (locData != null)
+                        {
+                            character.characterName = new LocalizedText
+                            {
+                                zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                                en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                                ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                            };
+                        }
+                    }
+                }
+            }
+
             string savePath = GetCharacterLibraryPath();
             string newJson = JsonUtility.ToJson(characterLibrary, true);
 
@@ -3324,6 +3388,38 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     private void RefreshAll()
     {
+
+        // 保存当前的本地化数据用于对比
+        if (DialogueLocalization.IsLoaded)
+        {
+            previousLocalizationData.Clear();
+            foreach (var id in DialogueLocalization.GetAllIds())
+            {
+                var data = DialogueLocalization.GetAllLanguages(id);
+                if (data != null)
+                {
+                    previousLocalizationData[id] = new Dictionary<Language, string>(data);
+                }
+            }
+        }
+
+        // 刷新本地化数据
+        if (!string.IsNullOrEmpty(DialogueLocalization.GetCsvUrl()))
+        {
+            EditorCoroutineRunner.StartCoroutine(DialogueLocalization.LoadFromGoogleSheets((success, message) =>
+            {
+                if (success)
+                {
+                    Debug.Log($"[Localization] {message}");
+                    DetectLocalizationChanges();
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("刷新失败", message, "确定");
+                }
+            }));
+        }
+
         Debug.Log("========== Refreshing All Data ==========");
 
         // 重新加载所有数据
@@ -3910,4 +4006,301 @@ public class DialogueTreeManagerWindow : EditorWindow
 
     #endregion
     #endregion
+
+    #region Localization Methods
+
+    private void DrawLocalizationSettings()
+    {
+        EditorGUILayout.BeginVertical("box");
+
+        EditorGUILayout.BeginHorizontal();
+
+        string statusIcon = DialogueLocalization.IsLoaded ? "✓" : "⚠";
+        string statusText = DialogueLocalization.IsLoaded
+            ? $"{statusIcon} 本地化已加载 ({DialogueLocalization.GetAllIds().Count} 条)"
+            : $"{statusIcon} 本地化未加载";
+
+        GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
+        foldoutStyle.fontStyle = FontStyle.Bold;
+
+        localizationSettingsExpanded = EditorGUILayout.Foldout(
+            localizationSettingsExpanded,
+            statusText,
+            true,
+            foldoutStyle);
+
+        EditorGUILayout.EndHorizontal();
+
+        if (localizationSettingsExpanded)
+        {
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.HelpBox(
+                "Google Sheets 本地化配置\n" +
+                "1. 在Google Sheets: 文件 > 共享 > 发布到网络\n" +
+                "2. 选择工作表，格式选 CSV，点击发布\n" +
+                "3. 复制链接粘贴到下方\n" +
+                "格式: ID, 中文, English, 日语",
+                MessageType.Info);
+
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.LabelField("CSV URL:", EditorStyles.boldLabel);
+            csvUrlScrollPos = EditorGUILayout.BeginScrollView(csvUrlScrollPos, GUILayout.Height(50));
+            csvUrlInput = EditorGUILayout.TextArea(csvUrlInput, GUILayout.ExpandHeight(true));
+            EditorGUILayout.EndScrollView();
+
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.BeginHorizontal();
+
+            GUI.enabled = !string.IsNullOrEmpty(csvUrlInput);
+            if (GUILayout.Button("保存并加载", GUILayout.Height(25)))
+            {
+                SaveAndLoadLocalization();
+            }
+            GUI.enabled = true;
+
+            if (GUILayout.Button("清空", GUILayout.Height(25), GUILayout.Width(60)))
+            {
+                csvUrlInput = "";
+                DialogueLocalization.SetCsvUrl("");
+                DialogueLocalization.Clear();
+                Repaint();
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space(5);
+    }
+
+    private void SaveAndLoadLocalization()
+    {
+        csvUrlInput = csvUrlInput.Trim();
+
+        if (string.IsNullOrEmpty(csvUrlInput))
+        {
+            EditorUtility.DisplayDialog("错误", "请输入CSV URL", "确定");
+            return;
+        }
+
+        if (!csvUrlInput.StartsWith("http://") && !csvUrlInput.StartsWith("https://"))
+        {
+            EditorUtility.DisplayDialog("错误", "URL必须以 http:// 或 https:// 开头", "确定");
+            return;
+        }
+
+        DialogueLocalization.SetCsvUrl(csvUrlInput);
+
+        EditorCoroutineRunner.StartCoroutine(DialogueLocalization.LoadFromGoogleSheets((success, message) =>
+        {
+            if (success)
+            {
+                EditorUtility.DisplayDialog("成功", message, "确定");
+                Repaint();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("失败", message, "确定");
+            }
+        }));
+    }
+
+    private void DetectLocalizationChanges()
+    {
+        if (previousLocalizationData.Count == 0)
+        {
+            Debug.Log("[Localization] 首次加载，无法检测变化");
+            return;
+        }
+
+        List<string> changedIds = new List<string>();
+
+        foreach (var id in DialogueLocalization.GetAllIds())
+        {
+            var newData = DialogueLocalization.GetAllLanguages(id);
+
+            if (!previousLocalizationData.ContainsKey(id))
+            {
+                changedIds.Add(id + " (新增)");
+                continue;
+            }
+
+            var oldData = previousLocalizationData[id];
+
+            bool hasChange = false;
+            foreach (Language lang in System.Enum.GetValues(typeof(Language)))
+            {
+                string oldText = oldData.ContainsKey(lang) ? oldData[lang] : "";
+                string newText = newData.ContainsKey(lang) ? newData[lang] : "";
+
+                if (oldText != newText)
+                {
+                    hasChange = true;
+                    break;
+                }
+            }
+
+            if (hasChange)
+            {
+                changedIds.Add(id);
+            }
+        }
+
+        foreach (var oldId in previousLocalizationData.Keys)
+        {
+            if (!DialogueLocalization.HasId(oldId))
+            {
+                changedIds.Add(oldId + " (已删除)");
+            }
+        }
+
+        if (changedIds.Count == 0)
+        {
+            EditorUtility.DisplayDialog("刷新完成", "本地化数据已刷新，没有检测到变化", "确定");
+            return;
+        }
+
+        List<string> affectedFiles = FindAffectedDialogueFiles(changedIds);
+        ShowChangeDetectionDialog(changedIds, affectedFiles);
+    }
+
+    private List<string> FindAffectedDialogueFiles(List<string> changedIds)
+    {
+        List<string> affectedFiles = new List<string>();
+
+        var pureIds = changedIds.Select(id =>
+        {
+            if (id.EndsWith(" (新增)")) return id.Substring(0, id.Length - 5);
+            if (id.EndsWith(" (已删除)")) return id.Substring(0, id.Length - 6);
+            return id;
+        }).ToList();
+
+        foreach (var kvp in guidToPath)
+        {
+            string path = kvp.Value;
+            if (!path.EndsWith("_editor.json")) continue;
+
+            try
+            {
+                string jsonContent = File.ReadAllText(path);
+
+                bool hasAffectedId = false;
+                foreach (var id in pureIds)
+                {
+                    if (jsonContent.Contains($"\"{{id}}\""))
+                    {
+                        hasAffectedId = true;
+                        break;
+                    }
+                }
+
+                if (hasAffectedId)
+                {
+                    affectedFiles.Add(Path.GetFileName(path));
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Localization] 无法读取文件 {path}: {e.Message}");
+            }
+        }
+
+        return affectedFiles;
+    }
+
+    private void ShowChangeDetectionDialog(List<string> changedIds, List<string> affectedFiles)
+    {
+        string message = "检测到以下ID的内容发生变化:\n\n";
+
+        int displayCount = Mathf.Min(changedIds.Count, 10);
+        for (int i = 0; i < displayCount; i++)
+        {
+            message += $"• {changedIds[i]}\n";
+        }
+
+        if (changedIds.Count > 10)
+        {
+            message += $"\n... 还有 {changedIds.Count - 10} 个ID\n";
+        }
+
+        message += $"\n共 {changedIds.Count} 个ID发生变化\n";
+
+        if (affectedFiles.Count > 0)
+        {
+            message += $"\n受影响的对话树文件 ({affectedFiles.Count}个):\n";
+
+            int fileDisplayCount = Mathf.Min(affectedFiles.Count, 5);
+            for (int i = 0; i < fileDisplayCount; i++)
+            {
+                message += $"• {affectedFiles[i]}\n";
+            }
+
+            if (affectedFiles.Count > 5)
+            {
+                message += $"... 还有 {affectedFiles.Count - 5} 个文件\n";
+            }
+
+            message += "\n是否要重新保存这些对话树文件？\n(这将用最新的本地化内容更新JSON)";
+
+            if (EditorUtility.DisplayDialog("检测到本地化变化", message, "重新保存", "取消"))
+            {
+                ResaveAffectedFiles(affectedFiles);
+            }
+        }
+        else
+        {
+            message += "\n没有找到使用这些ID的对话树文件。";
+            EditorUtility.DisplayDialog("检测到本地化变化", message, "确定");
+        }
+    }
+
+    private void ResaveAffectedFiles(List<string> fileNames)
+    {
+        int savedCount = 0;
+
+        foreach (var fileName in fileNames)
+        {
+            var kvp = guidToPath.FirstOrDefault(x => Path.GetFileName(x.Value) == fileName);
+            if (kvp.Value == null) continue;
+
+            string editorPath = kvp.Value;
+
+            try
+            {
+                if (!File.Exists(editorPath))
+                {
+                    Debug.LogWarning($"[Localization] 文件不存在: {editorPath}");
+                    continue;
+                }
+
+                string jsonContent = File.ReadAllText(editorPath);
+                DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(jsonContent);
+
+                if (data == null)
+                {
+                    Debug.LogWarning($"[Localization] 无法解析文件: {editorPath}");
+                    continue;
+                }
+
+                string runtimePath = editorPath.Replace("_editor.json", ".json");
+                SaveRuntimeJson(runtimePath, data);
+
+                savedCount++;
+                Debug.Log($"[Localization] 已更新: {fileName}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[Localization] 保存文件时出错 {fileName}: {e.Message}");
+            }
+        }
+
+        EditorUtility.DisplayDialog("保存完成", $"成功更新 {savedCount} 个对话树文件", "确定");
+        AssetDatabase.Refresh();
+    }
+
+    #endregion
+
 }

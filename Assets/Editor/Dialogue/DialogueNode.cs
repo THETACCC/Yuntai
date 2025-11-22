@@ -19,6 +19,9 @@ public partial class DialogueNode : Node
     private VisualElement avatarPreview;
     private Label characterLabel;
     private TextField dialogueTextField;
+    private string dialogueTextId = "";  // 对话文本ID
+    private TextField dialogueIdField;  // ID输入框
+    private Label dialoguePreviewLabel;  // 文本预览
     private VisualElement eventsContainer;
     private Button addEventButton;
     private VisualElement choicesContainer;
@@ -27,6 +30,8 @@ public partial class DialogueNode : Node
     private Port inputPort;
     private Port defaultOutputPort;
     private List<Port> choiceOutputPorts = new List<Port>();
+    private List<TextField> choiceIdFields = new List<TextField>();  // Choice ID输入框列表
+    private List<Label> choicePreviewLabels = new List<Label>();  // Choice预览标签列表
     private List<Port> conditionalPorts = new List<Port>();
     private Dictionary<int, ConditionalBranchData> conditionalBranchesData = new Dictionary<int, ConditionalBranchData>();
 
@@ -37,6 +42,7 @@ public partial class DialogueNode : Node
 
     public string CharacterId { get; private set; }  // 角色ID引用
     public string CharacterName => GetCharacterName();
+    public string ContentId => dialogueTextId;  // 对话内容ID（公共只读访问）
     public Sprite AvatarSprite => GetCharacterAvatar();
     public LocalizedText DialogueText { get; private set; } = new LocalizedText();
     public List<ChoiceData> ChoicesData { get; private set; } = new List<ChoiceData>();
@@ -315,45 +321,143 @@ public partial class DialogueNode : Node
             }
         }
     }
+    public void SetContentId(string contentId)
+    {
+        dialogueTextId = contentId ?? "";
+        if (dialogueIdField != null)
+        {
+            dialogueIdField.SetValueWithoutNotify(dialogueTextId);
+            UpdateDialoguePreview();
+        }
+    }
     #endregion
 
     #region Dialogue TextField
     private void CreateDialogueTextField()
     {
-        dialogueTextField = new TextField("Dialogue:")
-        {
-            multiline = true
-        };
+        // 创建容器
+        var dialogueContainer = new VisualElement();
+        dialogueContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.3f));
+        dialogueContainer.style.paddingTop = 5;
+        dialogueContainer.style.paddingBottom = 5;
+        dialogueContainer.style.paddingLeft = 5;
+        dialogueContainer.style.paddingRight = 5;
+        dialogueContainer.style.marginBottom = 10;
 
-        // 使用当前语言的文本
-        if (editorWindow != null && DialogueText != null)
+        // ID输入框
+        dialogueIdField = new TextField("Dialogue ID:");
+        dialogueIdField.value = dialogueTextId;
+        dialogueIdField.style.minWidth = 300;
+        dialogueIdField.style.maxWidth = 300;
+        dialogueIdField.RegisterValueChangedCallback(evt =>
         {
-            dialogueTextField.value = DialogueText.GetText(editorWindow.GetCurrentLanguage());
+            dialogueTextId = evt.newValue.Trim();
+            UpdateDialoguePreview();
+            NotifyChange();
+        });
+        dialogueContainer.Add(dialogueIdField);
+
+        // 预览标签
+        dialoguePreviewLabel = new Label("");
+        dialoguePreviewLabel.style.marginTop = 5;
+        dialoguePreviewLabel.style.paddingLeft = 5;
+        dialoguePreviewLabel.style.paddingRight = 5;
+        dialoguePreviewLabel.style.paddingTop = 5;
+        dialoguePreviewLabel.style.paddingBottom = 5;
+        dialoguePreviewLabel.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        dialoguePreviewLabel.style.borderTopWidth = 1;
+        dialoguePreviewLabel.style.borderBottomWidth = 1;
+        dialoguePreviewLabel.style.borderLeftWidth = 1;
+        dialoguePreviewLabel.style.borderRightWidth = 1;
+        dialoguePreviewLabel.style.borderTopColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        dialoguePreviewLabel.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        dialoguePreviewLabel.style.borderLeftColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        dialoguePreviewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        dialoguePreviewLabel.style.whiteSpace = WhiteSpace.Normal;
+        dialoguePreviewLabel.style.minHeight = 40;
+        dialoguePreviewLabel.style.maxWidth = 300;  // 限制最大宽度，强制换行
+        dialogueContainer.Add(dialoguePreviewLabel);
+
+        UpdateDialoguePreview();
+
+        mainContainer.Add(dialogueContainer);
+    }
+
+    private void UpdateDialoguePreview()
+    {
+        if (dialoguePreviewLabel == null) return;
+
+        if (string.IsNullOrEmpty(dialogueTextId))
+        {
+            dialoguePreviewLabel.text = "[未设置ID]";
+            dialoguePreviewLabel.style.color = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+            return;
+        }
+
+        if (!DialogueLocalization.IsLoaded)
+        {
+            dialoguePreviewLabel.text = "[本地化数据未加载]";
+            dialoguePreviewLabel.style.color = new StyleColor(new Color(0.7f, 0.5f, 0.2f));
+            return;
+        }
+
+        Language currentLang = editorWindow?.GetCurrentLanguage() ?? Language.English;
+        string previewText = DialogueLocalization.GetText(dialogueTextId, currentLang);
+
+        if (previewText == null)
+        {
+            dialoguePreviewLabel.text = $"[错误: ID '{dialogueTextId}' 不存在]";
+            dialoguePreviewLabel.style.color = new StyleColor(new Color(0.8f, 0.2f, 0.2f));
         }
         else
         {
-            dialogueTextField.value = "";
+            dialoguePreviewLabel.text = string.IsNullOrEmpty(previewText)
+                ? "[空文本]"
+                : previewText;
+            dialoguePreviewLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
+        }
+    }
+    private void UpdateChoicePreview(int index)
+    {
+        if (index >= choicePreviewLabels.Count || choicePreviewLabels[index] == null)
+            return;
+
+        var previewLabel = choicePreviewLabels[index];
+
+        if (index >= ChoicesData.Count)
+            return;
+
+        string choiceId = ChoicesData[index].textId;
+
+        if (string.IsNullOrEmpty(choiceId))
+        {
+            previewLabel.text = "[未设置ID]";
+            previewLabel.style.color = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+            return;
         }
 
-        dialogueTextField.style.minWidth = 300;
-        dialogueTextField.style.maxWidth = 300;
-        dialogueTextField.style.minHeight = 60;
-        dialogueTextField.RegisterValueChangedCallback(evt =>
+        if (!DialogueLocalization.IsLoaded)
         {
-            if (DialogueText == null)
-            {
-                DialogueText = new LocalizedText();
-            }
+            previewLabel.text = "[本地化数据未加载]";
+            previewLabel.style.color = new StyleColor(new Color(0.7f, 0.5f, 0.2f));
+            return;
+        }
 
-            // 更新当前语言的文本
-            if (editorWindow != null)
-            {
-                DialogueText.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
-            }
+        Language currentLang = editorWindow?.GetCurrentLanguage() ?? Language.English;
+        string previewText = DialogueLocalization.GetText(choiceId, currentLang);
 
-            NotifyChange();
-        });
-        mainContainer.Add(dialogueTextField);
+        if (previewText == null)
+        {
+            previewLabel.text = $"[错误: ID '{choiceId}' 不存在]";
+            previewLabel.style.color = new StyleColor(new Color(0.8f, 0.2f, 0.2f));
+        }
+        else
+        {
+            previewLabel.text = string.IsNullOrEmpty(previewText)
+                ? "[空文本]"
+                : previewText;
+            previewLabel.style.color = new StyleColor(new Color(0.8f, 0.8f, 0.8f));
+        }
     }
     #endregion
 
@@ -1449,41 +1553,45 @@ public partial class DialogueNode : Node
         inputRow.style.alignItems = Align.Center;
         inputRow.style.marginBottom = 5;
 
-        var textLabel = new Label("Text:");
+        var textLabel = new Label("ID:");
         textLabel.style.minWidth = 40;
         textLabel.style.maxWidth = 40;
         textLabel.style.fontSize = 10;
         textLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
         textLabel.style.marginRight = 5;
 
-        var choiceField = new TextField();
-        choiceField.value = ChoicesData[index].text != null && editorWindow != null ? ChoicesData[index].text.GetText(editorWindow.GetCurrentLanguage()) : "";
-        choiceField.style.flexGrow = 1;
-        choiceField.style.flexShrink = 1;
-        choiceField.style.minWidth = 80;
+        var choiceIdField = new TextField();
+        choiceIdField.value = ChoicesData[index].textId ?? "";
+        choiceIdField.style.flexGrow = 1;
+        choiceIdField.style.flexShrink = 1;
+        choiceIdField.style.minWidth = 80;
+
+        // 保存到列表中以便后续访问
+        while (choiceIdFields.Count <= index)
+        {
+            choiceIdFields.Add(null);
+        }
+        choiceIdFields[index] = choiceIdField;
 
         int currentIndex = index;
-        choiceField.RegisterValueChangedCallback(evt =>
+        choiceIdField.RegisterValueChangedCallback(evt =>
         {
             if (currentIndex < ChoicesData.Count)
             {
-                if (ChoicesData[currentIndex].text == null)
-                {
-                    ChoicesData[currentIndex].text = new LocalizedText();
-                }
+                ChoicesData[currentIndex].textId = evt.newValue.Trim();
+                UpdateChoicePreview(currentIndex);
 
-                if (editorWindow != null)
-                {
-                    ChoicesData[currentIndex].text.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
-                }
-
+                // 更新port名称
                 if (currentIndex < choiceOutputPorts.Count)
                 {
-                    choiceOutputPorts[currentIndex].portName = evt.newValue;
+                    Language currentLang = editorWindow?.GetCurrentLanguage() ?? Language.English;
+                    string previewText = DialogueLocalization.GetText(ChoicesData[currentIndex].textId, currentLang);
+                    choiceOutputPorts[currentIndex].portName = previewText ?? ChoicesData[currentIndex].textId;
                 }
                 NotifyChange();
             }
         });
+
         var removeButton = new Button(() =>
         {
             RemoveChoice(currentIndex);
@@ -1502,9 +1610,38 @@ public partial class DialogueNode : Node
         removeButton.style.flexShrink = 0;
 
         inputRow.Add(textLabel);
-        inputRow.Add(choiceField);
+        inputRow.Add(choiceIdField);
         inputRow.Add(removeButton);
         choiceContainer.Add(inputRow);
+
+        // 添加预览标签
+        var previewLabel = new Label("");
+        previewLabel.style.marginTop = 5;
+        previewLabel.style.marginBottom = 5;
+        previewLabel.style.paddingLeft = 5;
+        previewLabel.style.paddingRight = 5;
+        previewLabel.style.paddingTop = 3;
+        previewLabel.style.paddingBottom = 3;
+        previewLabel.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        previewLabel.style.borderTopWidth = 1;
+        previewLabel.style.borderBottomWidth = 1;
+        previewLabel.style.borderLeftWidth = 1;
+        previewLabel.style.borderRightWidth = 1;
+        previewLabel.style.borderTopColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        previewLabel.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        previewLabel.style.borderLeftColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        previewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+        previewLabel.style.whiteSpace = WhiteSpace.Normal;
+        previewLabel.style.fontSize = 10;
+
+        while (choicePreviewLabels.Count <= index)
+        {
+            choicePreviewLabels.Add(null);
+        }
+        choicePreviewLabels[index] = previewLabel;
+
+        UpdateChoicePreview(index);
+        choiceContainer.Add(previewLabel);
 
         var conditionsHeaderRow = new VisualElement();
         conditionsHeaderRow.style.flexDirection = FlexDirection.Row;
@@ -2419,27 +2556,10 @@ public partial class DialogueNode : Node
             return;
         }
 
-        if (DialogueText == null)
-        {
-            Debug.LogWarning($"[DialogueNode {nodeIndex}] DialogueText is null, cannot refresh language");
-            return;
-        }
+        // 刷新对话文本预览
+        UpdateDialoguePreview();
 
-        // 刷新对话文本
-        if (dialogueTextField != null)
-        {
-            Language currentLang = editorWindow.GetCurrentLanguage();
-            string currentText = dialogueTextField.value;
-            string newText = DialogueText.GetText(currentLang);
-
-            // 只在文本不同时才更新，避免触发回调
-            if (currentText != newText)
-            {
-                dialogueTextField.SetValueWithoutNotify(newText);
-            }
-        }
-
-        // 刷新所有选项的文本
+        // 刷新所有选项的文本预览
         RefreshChoicesLanguage();
     }
 
@@ -2450,30 +2570,17 @@ public partial class DialogueNode : Node
     {
         if (editorWindow == null) return;
 
-        Language currentLang = editorWindow.GetCurrentLanguage();
-
-        // 更新所有现有选项的显示
+        // 更新所有选项的预览
         for (int i = 0; i < ChoicesData.Count; i++)
         {
-            // 找到对应的TextField并更新
-            if (i < choicesContainer.childCount)
-            {
-                var container = choicesContainer[i] as VisualElement;
-                if (container != null)
-                {
-                    var textField = container.Q<TextField>();
-                    if (textField != null && ChoicesData[i].text != null)
-                    {
-                        string newText = ChoicesData[i].text.GetText(currentLang);
-                        textField.SetValueWithoutNotify(newText);
+            UpdateChoicePreview(i);
 
-                        // 同时更新port名称
-                        if (i < choiceOutputPorts.Count && choiceOutputPorts[i] != null)
-                        {
-                            choiceOutputPorts[i].portName = newText;
-                        }
-                    }
-                }
+            // 更新port名称
+            if (i < choiceOutputPorts.Count && choiceOutputPorts[i] != null)
+            {
+                Language currentLang = editorWindow.GetCurrentLanguage();
+                string previewText = DialogueLocalization.GetText(ChoicesData[i].textId, currentLang);
+                choiceOutputPorts[i].portName = previewText ?? ChoicesData[i].textId;
             }
         }
     }
