@@ -1,4 +1,4 @@
-using Fungus;
+﻿using Fungus;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ public class Title_Scene : MonoBehaviour
     public List<TextMeshProUGUI> slotsNames;
     public List<TextMeshProUGUI> slotsTimes;
     public GameObject defaultOptions;
-    public Button loadGameBt;
+    public GameObject loadGameBt;
 
     private void Start()
     {
@@ -21,16 +21,16 @@ public class Title_Scene : MonoBehaviour
         savesSlots.SetActive(false);
         if (SaveManager.instance != null )
         {
-            loadGameBt.gameObject.SetActive(SaveManager.instance.hasGameSave);
+            loadGameBt.SetActive(SaveManager.instance.hasGameSave);
         }
-        
+        Settings.instance.isInGame = false;
     }
 
     private void Update()
     {
         if (SaveManager.instance != null)
         {
-            loadGameBt.gameObject.SetActive(SaveManager.instance.hasGameSave);
+            loadGameBt.SetActive(SaveManager.instance.hasGameSave);
         }
     }
 
@@ -89,7 +89,13 @@ public class Title_Scene : MonoBehaviour
 
     public void ExitGame()
     {
-        
+#if UNITY_EDITOR
+        // 如果在 Unity 编辑器里运行，停止播放
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // 如果是 Build 后的游戏，真正退出应用
+        Application.Quit();
+#endif
     }
 
     public void SlotButtonHit(int slotNum)
