@@ -3814,10 +3814,10 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
 
         if (!EditorUtility.DisplayDialog("Save All",
-            $"Save {guidToPath.Count} file(s)?", "Yes", "Cancel"))
+            $"Save {guidToPath.Count} file(s)?\n\n这将强制重新保存所有文件", "Yes", "Cancel"))
             return;
 
-        int saved = 0, skipped = 0, failed = 0;
+        int saved = 0, failed = 0;
         List<string> errors = new List<string>();
 
         try
@@ -3826,28 +3826,58 @@ public class DialogueTreeManagerWindow : EditorWindow
             foreach (var kvp in guidToPath)
             {
                 idx++;
-                string file = kvp.Value;
-                string name = Path.GetFileName(file);
+                string dtreePath = kvp.Value;
+                string name = Path.GetFileName(dtreePath);
                 EditorUtility.DisplayProgressBar("Save All", $"{idx}/{guidToPath.Count}: {name}", (float)idx / guidToPath.Count);
 
                 try
                 {
-                    if (!File.Exists(file)) { failed++; errors.Add(name + " (not found)"); continue; }
+                    if (!File.Exists(dtreePath)) { failed++; errors.Add(name + " (not found)"); continue; }
 
-                    string json = File.ReadAllText(file);
+                    string json = File.ReadAllText(dtreePath);
                     DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(json);
                     if (data == null || data.nodes == null) { failed++; errors.Add(name + " (invalid)"); continue; }
 
-                    // 检查内容是否改变
-                    string newJson = JsonUtility.ToJson(data, true);
-                    string oldNorm = System.Text.RegularExpressions.Regex.Replace(json, @"\s+", "");
-                    string newNorm = System.Text.RegularExpressions.Regex.Replace(newJson, @"\s+", "");
+                    // 从DialogueLocalization更新所有LocalizedText
+                    if (DialogueLocalization.IsLoaded)
+                    {
+                        foreach (var node in data.nodes)
+                        {
+                            // 更新节点内容
+                            if (!string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                            {
+                                var locData = DialogueLocalization.GetAllLanguages(node.contentId);
+                                if (locData != null)
+                                {
+                                    node.content.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                    node.content.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                    node.content.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                                }
+                            }
 
-                    if (oldNorm == newNorm) { skipped++; continue; }
+                            // 更新选项文本
+                            if (node.choices != null)
+                            {
+                                foreach (var choice in node.choices)
+                                {
+                                    if (!string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                                    {
+                                        var locData = DialogueLocalization.GetAllLanguages(choice.textId);
+                                        if (locData != null)
+                                        {
+                                            choice.text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                            choice.text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                            choice.text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-                    // 保存
-                    SaveRuntimeJson(Path.ChangeExtension(file, ".json"), data);
-                    SaveEditorFormat(file, data);
+                    // 强制保存.dtree和.json
+                    SaveEditorFormat(dtreePath, data);
+                    SaveRuntimeJson(Path.ChangeExtension(dtreePath, ".json"), data);
                     saved++;
                 }
                 catch (System.Exception e) { failed++; errors.Add(name + $" ({e.Message})"); }
@@ -3856,9 +3886,13 @@ public class DialogueTreeManagerWindow : EditorWindow
         finally { EditorUtility.ClearProgressBar(); }
 
         AssetDatabase.Refresh();
-        string msg = $"Saved: {saved}\nSkipped: {skipped}";
+
+        string msg = $"Saved: {saved} files (.dtree + .json)";
         if (failed > 0) { msg += $"\nFailed: {failed}\n"; foreach (var e in errors) msg += $"• {e}\n"; }
         EditorUtility.DisplayDialog("Done", msg, "OK");
+
+        // 刷新所有打开的编辑器窗口
+        RefreshAllOpenEditorWindows();
     }
 
     private void SaveRuntimeJson(string path, DialogueTreeData data)
@@ -4177,6 +4211,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (previousLocalizationData.Count == 0)
         {
             Debug.Log("[Localization] 首次加载，无法检测变化");
+            RefreshAllOpenEditorWindows();
             return;
         }
 
@@ -4224,6 +4259,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         if (changedIds.Count == 0)
         {
             EditorUtility.DisplayDialog("刷新完成", "本地化数据已刷新，没有检测到变化", "确定");
+            RefreshAllOpenEditorWindows();
             return;
         }
 
@@ -4245,7 +4281,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         foreach (var kvp in guidToPath)
         {
             string path = kvp.Value;
-            if (!path.EndsWith("_editor.json")) continue;
+            if (!path.EndsWith(".dtree")) continue;
 
             try
             {
@@ -4254,7 +4290,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                 bool hasAffectedId = false;
                 foreach (var id in pureIds)
                 {
-                    if (jsonContent.Contains($"\"{{id}}\""))
+                    if (jsonContent.Contains($"\"{id}\""))
                     {
                         hasAffectedId = true;
                         break;
@@ -4307,17 +4343,22 @@ public class DialogueTreeManagerWindow : EditorWindow
                 message += $"... 还有 {affectedFiles.Count - 5} 个文件\n";
             }
 
-            message += "\n是否要重新保存这些对话树文件？\n(这将用最新的本地化内容更新JSON)";
+            message += "\n是否要重新保存这些对话树文件？\n(这将同时更新 .dtree 和 .json 文件)";
 
             if (EditorUtility.DisplayDialog("检测到本地化变化", message, "重新保存", "取消"))
             {
                 ResaveAffectedFiles(affectedFiles);
+            }
+            else
+            {
+                RefreshAllOpenEditorWindows();
             }
         }
         else
         {
             message += "\n没有找到使用这些ID的对话树文件。";
             EditorUtility.DisplayDialog("检测到本地化变化", message, "确定");
+            RefreshAllOpenEditorWindows();
         }
     }
 
@@ -4330,30 +4371,78 @@ public class DialogueTreeManagerWindow : EditorWindow
             var kvp = guidToPath.FirstOrDefault(x => Path.GetFileName(x.Value) == fileName);
             if (kvp.Value == null) continue;
 
-            string editorPath = kvp.Value;
+            string dtreePath = kvp.Value;
 
             try
             {
-                if (!File.Exists(editorPath))
+                if (!File.Exists(dtreePath))
                 {
-                    Debug.LogWarning($"[Localization] 文件不存在: {editorPath}");
+                    Debug.LogWarning($"[Localization] 文件不存在: {dtreePath}");
                     continue;
                 }
 
-                string jsonContent = File.ReadAllText(editorPath);
+                string jsonContent = File.ReadAllText(dtreePath);
                 DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(jsonContent);
 
                 if (data == null)
                 {
-                    Debug.LogWarning($"[Localization] 无法解析文件: {editorPath}");
+                    Debug.LogWarning($"[Localization] 无法解析文件: {dtreePath}");
                     continue;
                 }
 
-                string runtimePath = editorPath.Replace("_editor.json", ".json");
-                SaveRuntimeJson(runtimePath, data);
+                // 用DialogueLocalization中的最新数据更新所有LocalizedText
+                bool hasUpdates = false;
+                foreach (var node in data.nodes)
+                {
+                    // 更新节点内容
+                    if (!string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(node.contentId);
+                        if (locData != null)
+                        {
+                            node.content.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                            node.content.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                            node.content.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                            hasUpdates = true;
+                        }
+                    }
 
-                savedCount++;
-                Debug.Log($"[Localization] 已更新: {fileName}");
+                    // 更新选项文本
+                    if (node.choices != null)
+                    {
+                        foreach (var choice in node.choices)
+                        {
+                            if (!string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                            {
+                                var locData = DialogueLocalization.GetAllLanguages(choice.textId);
+                                if (locData != null)
+                                {
+                                    choice.text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                    choice.text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                    choice.text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                                    hasUpdates = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (hasUpdates)
+                {
+                    // 保存更新后的.dtree文件
+                    File.WriteAllText(dtreePath, JsonUtility.ToJson(data, true));
+
+                    // 保存对应的运行时.json文件
+                    string runtimePath = Path.ChangeExtension(dtreePath, ".json");
+                    SaveRuntimeJson(runtimePath, data);
+
+                    Debug.Log($"[Localization] 已同时更新 .dtree 和 .json 文件: {fileName}");
+                    savedCount++;
+                }
+                else
+                {
+                    Debug.LogWarning($"[Localization] {fileName} 没有需要更新的本地化数据");
+                }
             }
             catch (Exception e)
             {
@@ -4361,10 +4450,30 @@ public class DialogueTreeManagerWindow : EditorWindow
             }
         }
 
-        EditorUtility.DisplayDialog("保存完成", $"成功更新 {savedCount} 个对话树文件", "确定");
+        EditorUtility.DisplayDialog("保存完成", $"成功更新 {savedCount} 个对话树文件 (.dtree + .json)", "确定");
         AssetDatabase.Refresh();
+
+        RefreshAllOpenEditorWindows();
     }
 
     #endregion
+
+    private void RefreshAllOpenEditorWindows()
+    {
+        var editorWindows = Resources.FindObjectsOfTypeAll<DialogueTreeEditor>();
+
+        if (editorWindows.Length > 0)
+        {
+            Debug.Log($"[Localization] 正在刷新 {editorWindows.Length} 个打开的编辑器窗口...");
+
+            foreach (var editor in editorWindows)
+            {
+                if (editor != null)
+                {
+                    editor.RefreshLanguageDisplay();
+                }
+            }
+        }
+    }
 
 }

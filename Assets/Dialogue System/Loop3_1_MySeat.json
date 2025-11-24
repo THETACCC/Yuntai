@@ -10,24 +10,13 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "No!",
-        "zh": "不！",
+        "en": "I failed to convince Page...",
+        "zh": "英文也是张嘉随便写的place holder",
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectName": "LevelManager3_1",
-          "componentTypeName": "LevelManager3_1",
-          "methodName": "PlayerSit",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": false
-        }
+        {"targetObjectName": "LevelManager3_1", "componentTypeName": "LevelManager3_1", "methodName": "PlayerSit", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
       ]
     },
     {
@@ -40,24 +29,13 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "What? I'm... back here again?",
-        "zh": "什么？我又......回到了这里？",
+        "en": "Let me try again...",
+        "zh": "",
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectName": "ToNextLoop",
-          "componentTypeName": "ToNextLoop",
-          "methodName": "toNextLoop",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": true
-        }
+        {"targetObjectName": "ToNextLoop", "componentTypeName": "ToNextLoop", "methodName": "toNextLoop", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": true}
       ]
     }
   ],

@@ -895,6 +895,14 @@ public class DialogueTreeEditor : EditorWindow
     {
         return currentLanguage;
     }
+
+    public void RefreshLanguageDisplay()
+    {
+        if (graphView != null)
+        {
+            graphView.RefreshAllNodesLanguage();
+        }
+    }
     #endregion
 
     #endregion

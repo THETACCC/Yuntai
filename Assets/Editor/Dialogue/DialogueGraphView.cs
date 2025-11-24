@@ -345,13 +345,31 @@ public class DialogueGraphView : GraphView
                 }
             }
 
+            // 获取对话内容：优先从Google Sheets读取，否则使用节点中的文本
+            LocalizedText dialogueContent = node.DialogueText ?? new LocalizedText();
+            string contentId = node.ContentId ?? "";
+
+            if (!string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+            {
+                var locData = DialogueLocalization.GetAllLanguages(contentId);
+                if (locData != null)
+                {
+                    dialogueContent = new LocalizedText
+                    {
+                        zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                        en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                        ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                    };
+                }
+            }
+
             var exportData = new RuntimeDialogueData
             {
                 index = node.NodeIndex,
                 name = characterNameLocalized,
                 avatarAddr = runtimeAvatarPath,
                 isPlayer = isPlayerCharacter,
-                content = node.DialogueText,
+                content = dialogueContent,
                 choices = new List<RuntimeChoice>(),
                 nextNodeId = null,
                 eventCalls = new List<DialogueEventCall>(node.EventCalls),
@@ -418,9 +436,28 @@ public class DialogueGraphView : GraphView
                 if (choiceIndex >= 0 && choiceIndex < node.ChoicesData.Count)
                 {
                     var choiceData = node.ChoicesData[choiceIndex];
+
+                    // 获取choice文本：优先从Google Sheets读取
+                    LocalizedText choiceText = choiceData.text ?? new LocalizedText();
+                    string textId = choiceData.textId ?? "";
+
+                    if (!string.IsNullOrEmpty(textId) && DialogueLocalization.IsLoaded)
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(textId);
+                        if (locData != null)
+                        {
+                            choiceText = new LocalizedText
+                            {
+                                zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                                en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                                ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                            };
+                        }
+                    }
+
                     var choice = new RuntimeChoice
                     {
-                        text = choiceData.text,
+                        text = choiceText,
                         nextNodeId = targetNode.GetId(),
                         conditions = new List<ChoiceCondition>(choiceData.conditions),
                         conditionLogic = choiceData.conditionLogic

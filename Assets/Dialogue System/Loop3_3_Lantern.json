@@ -14,9 +14,7 @@
         "zh": "",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 1,
@@ -34,16 +32,12 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "Ok",
             "zh": "",
             "ja": ""
-          },
-          "targetIndex": 2
-        }
-      ],
-      "eventCalls": []
+          }, "targetIndex": 2}
+      ]
     },
     {
       "index": 2,
@@ -60,30 +54,9 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectName": "LevelManager3_3",
-          "componentTypeName": "LevelManager3_3",
-          "methodName": "ChangeLanternToWait",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": true
-        },
-        {
-          "targetObjectName": "LevelManager3_3",
-          "componentTypeName": "LevelManager3_3",
-          "methodName": "LanternPileDisappear",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerOnEnd": true
-        }
+        {"targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "ChangeLanternToWait", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": true},
+        {"targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "LanternPileDisappear", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": true}
       ]
     }
   ],
