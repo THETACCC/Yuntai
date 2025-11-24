@@ -35,7 +35,7 @@ public class LevelManager2_2 : MonoBehaviour
 
     [Header("演出结束时处理")]
     [Tooltip("灯灭后是否把玩家Sprite也隐藏（让“主角也消失”）")]
-    [SerializeField] private bool hidePlayerSpritesWhenEnd = true;
+    [SerializeField] private bool hidePlayerSpritesWhenEnd = false;   // 2-2 不需要消失
 
     [Header("Audio")]
     [SerializeField] private AudioSource assignedAudioSource;
@@ -92,6 +92,11 @@ public class LevelManager2_2 : MonoBehaviour
 
     private Coroutine _deathRoutine;
 
+    // 相机移动的目标 + 原始位置（用来恢复 offset）
+    private Transform _camMoveTarget;
+    private Vector3 _camOriginalPos;
+    private bool _hasCamOriginalPos = false;
+
     private void Awake()
     {
         LoopTracker.I?.SetLoop(myLoop);
@@ -102,32 +107,27 @@ public class LevelManager2_2 : MonoBehaviour
         {
             CachePlayerSpritesAndColliders();
 
-            // 关闭玩家控制但保留物理下落
             _playerCtrl = _player.GetComponent<PlayerController>();
-            if (_playerCtrl) _playerCtrl.enabled = false;
+            if (_playerCtrl)
+                _playerCtrl.DisablePlayerControl();   // 用接口锁控制（会关掉动画和脚步声）
 
             _rb2d = _player.GetComponent<Rigidbody2D>();
             _hasRb = _rb2d != null;
             if (_hasRb)
             {
-                // 记录原设置
                 _origConstraints = _rb2d.constraints;
                 _origGravityScale = _rb2d.gravityScale;
 
-                // 自由落体
                 _rb2d.isKinematic = false;
                 _rb2d.simulated = true;
                 _rb2d.gravityScale = _origGravityScale;
 
-                // 锁水平位移与Z旋转
                 if (freezeXWhileCinematic)
                     _rb2d.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
-                // 清初始X速度
                 _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
             }
 
-            // 只隐藏Sprite，不动Collider
             if (hideSpriteOnAwake) SetPlayerSpritesVisible(false);
         }
         else
@@ -201,7 +201,9 @@ public class LevelManager2_2 : MonoBehaviour
             _rb2d.constraints = _origConstraints;
             _rb2d.velocity = new Vector2(_rb2d.velocity.x, 0f);
         }
-        if (_playerCtrl) _playerCtrl.enabled = true;
+
+        if (_playerCtrl)
+            _playerCtrl.EnablePlayerControl();   // 恢复移动和动画
 
         // 还原额外灯
         if (_extraLightsOrig != null)
@@ -211,7 +213,7 @@ public class LevelManager2_2 : MonoBehaviour
                     extraLights[i].intensity = (i < _extraLightsOrig.Length ? _extraLightsOrig[i] : 1f);
         }
 
-        // 换脸 + 立刻切场景
+        // 换脸 + 立刻切场景（这里是“正常路线”的场景）
         ApplyFaceSwaps();
         GotoNextScene();
     }
@@ -234,7 +236,8 @@ public class LevelManager2_2 : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[LevelManager2_2] nextSceneName 未设置，无法切场景。");
+            // 如果只想用 ToLoop3，这里留空就行，不会乱跳
+            Debug.LogWarning("[LevelManager2_2] nextSceneName 未设置，OnStart2FullyClosed 不会切场景。");
         }
     }
 
@@ -251,7 +254,7 @@ public class LevelManager2_2 : MonoBehaviour
         if (verboseLog) Debug.Log("[2-2] DeathActing start");
 
         // 1) 禁用玩家控制（保留物理）
-        if (_playerCtrl) _playerCtrl.enabled = false;
+        if (_playerCtrl) _playerCtrl.DisablePlayerControl();
         if (_hasRb)
         {
             _rb2d.isKinematic = false;
@@ -261,15 +264,21 @@ public class LevelManager2_2 : MonoBehaviour
             _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
         }
 
-        // 2) 相机先移动到位
-        Transform camMoveTarget = null;
+        // 2) 相机先移动到位（记录原始位置）
+        _camMoveTarget = null;
         if (vcam)
-            camMoveTarget = (moveFollowIfAvailable && vcam.Follow != null) ? vcam.Follow : vcam.transform;
+            _camMoveTarget = (moveFollowIfAvailable && vcam.Follow != null) ? vcam.Follow : vcam.transform;
 
-        if (camMoveTarget && camMoveDuration > 0f)
+        if (_camMoveTarget && camMoveDuration > 0f)
         {
+            if (!_hasCamOriginalPos)
+            {
+                _camOriginalPos = _camMoveTarget.position;   // 记录原始位置，之后恢复
+                _hasCamOriginalPos = true;
+            }
+
             if (verboseLog) Debug.Log("[2-2] Moving camera...");
-            Vector3 camStart = camMoveTarget.position;
+            Vector3 camStart = _camMoveTarget.position;
             Vector3 camTarget = camStart + new Vector3(camMoveDeltaX, 0f, 0f);
 
             float tc = 0f;
@@ -277,10 +286,10 @@ public class LevelManager2_2 : MonoBehaviour
             {
                 tc += DeltaTime();
                 float s = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(tc / camMoveDuration));
-                camMoveTarget.position = Vector3.LerpUnclamped(camStart, camTarget, s);
+                _camMoveTarget.position = Vector3.LerpUnclamped(camStart, camTarget, s);
                 yield return null;
             }
-            camMoveTarget.position = camTarget; // 强制对齐终点
+            _camMoveTarget.position = camTarget; // 强制对齐终点
         }
 
         // 2.5) 到位后等待 1 秒（可配）
@@ -301,13 +310,12 @@ public class LevelManager2_2 : MonoBehaviour
                 deathSpot.pointLightInnerRadius = Mathf.Lerp(0f, spotTargetInnerRadius, s);
                 yield return null;
             }
-            // 保底对齐目标值
             deathSpot.intensity = spotTargetIntensity;
             deathSpot.pointLightOuterRadius = spotTargetOuterRadius;
             deathSpot.pointLightInnerRadius = spotTargetInnerRadius;
         }
 
-        // 4) 直接禁用周叔（你要我来操作，不再等待外部）
+        // 4) 直接禁用周叔
         if (zhoushu && zhoushu.activeSelf)
         {
             if (verboseLog) Debug.Log("[2-2] Disabling Zhoushu GameObject.");
@@ -318,8 +326,8 @@ public class LevelManager2_2 : MonoBehaviour
         if (verboseLog) Debug.Log("[2-2] Fading light...");
         yield return FadeOutDeathLight();
 
-        // 5.5) 可选：把玩家Sprite也隐藏
-        if (hidePlayerSpritesWhenEnd) SetPlayerSpritesVisible(false);
+        // ✅ 不再隐藏玩家 sprite，2-2 表演结束时她还在画面里
+        // if (hidePlayerSpritesWhenEnd) SetPlayerSpritesVisible(false);
 
         // 6) 触发 “Death” 对话
         if (deathTrigger)
@@ -340,16 +348,13 @@ public class LevelManager2_2 : MonoBehaviour
         if (!deathSpot.gameObject.activeInHierarchy) deathSpot.gameObject.SetActive(true);
         if (!deathSpot.enabled) deathSpot.enabled = true;
 
-        // 2D没有Spot类型：使用Point以启用半径属性
         var lt = UnityEngine.Rendering.Universal.Light2D.LightType.Point;
         if (deathSpot.lightType != lt) deathSpot.lightType = lt;
 
-        // 从“无”开始
         deathSpot.intensity = 0f;
         deathSpot.pointLightOuterRadius = 0f;
         deathSpot.pointLightInnerRadius = 0f;
 
-        // 保险：内半径不能大于外半径
         if (spotTargetInnerRadius > spotTargetOuterRadius)
             spotTargetInnerRadius = Mathf.Max(0f, spotTargetOuterRadius - 0.01f);
     }
@@ -358,7 +363,6 @@ public class LevelManager2_2 : MonoBehaviour
     {
         if (!deathSpot) yield break;
 
-        // 已经很暗则直接退出
         if (!deathSpot.enabled || (deathSpot.intensity <= 0.001f && deathSpot.pointLightOuterRadius <= 0.001f))
             yield break;
 
@@ -418,9 +422,32 @@ public class LevelManager2_2 : MonoBehaviour
     public void ToLoop3()
     {
         // 可选：若在演出中，先停掉
-        if (_deathRoutine != null) { StopCoroutine(_deathRoutine); _deathRoutine = null; }
+        if (_deathRoutine != null)
+        {
+            StopCoroutine(_deathRoutine);
+            _deathRoutine = null;
+        }
 
-        // 传送
+        // 1) 在跳场景之前，先把刚体的约束和状态恢复
+        if (_hasRb && _rb2d != null)
+        {
+            _rb2d.constraints = _origConstraints;
+            _rb2d.velocity = Vector2.zero;
+        }
+
+        // 2) 恢复玩家控制（确保 3-1 一进来就能正常移动）
+        if (_playerCtrl != null)
+        {
+            _playerCtrl.EnablePlayerControl();
+        }
+
+        // 3) 恢复相机的跟随目标位置，消掉 offset
+        if (_hasCamOriginalPos && _camMoveTarget != null)
+        {
+            _camMoveTarget.position = _camOriginalPos;
+        }
+
+        // 4) 最后再传送到 3-1
         if (SceneController.instance != null)
         {
             SceneController.instance.LoadSceneAndTeleport("Level3-1", 1);
@@ -430,5 +457,4 @@ public class LevelManager2_2 : MonoBehaviour
             Debug.LogError("[LevelManager2_2] SceneController.instance 为 null，无法传送到 Level3-1(1)。");
         }
     }
-
 }

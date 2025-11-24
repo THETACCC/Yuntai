@@ -114,7 +114,7 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float minVisibleIntensity5B = 0.75f; // 换脸时至少这么亮
     [SerializeField, Min(0f)] private float faceHoldLitSeconds5B = 0.75f;        // 换脸后保持点亮的时间
 
-    // —— runtime 缓存 ——
+    // —— runtime 缓存 ——（每个 Manager 用 tag 找主角）
     private Rigidbody2D _playerRb;
     private PlayerController _playerCtrl;
     private GameObject playerObject;
@@ -125,7 +125,7 @@ public class LevelManager1_2 : MonoBehaviour
         // 开场禁止移动
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Loading;
 
-        // 找 Player 并先隐藏所有 Sprite
+        // ★ 用 tag 找 Player 并缓存组件（所有 manager 都建议这样做）
         playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject)
         {
@@ -248,12 +248,9 @@ public class LevelManager1_2 : MonoBehaviour
     {
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Eventing;
 
-        bool hadController = false;
+        // ★ 停掉玩家控制 + 走路动画 + 脚步声
         if (_playerCtrl)
-        {
-            hadController = _playerCtrl.enabled;
-            _playerCtrl.enabled = false;
-        }
+            _playerCtrl.DisablePlayerControl();
 
         bool hadKinematic = false;
         if (_playerRb)
@@ -289,9 +286,15 @@ public class LevelManager1_2 : MonoBehaviour
     {
         if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Eventing;
 
-        // 禁用控制 / 清速度
-        if (_playerCtrl) _playerCtrl.enabled = false;
-        if (_playerRb) _playerRb.velocity = Vector2.zero;
+        // ★ 禁用玩家控制
+        if (_playerCtrl) _playerCtrl.DisablePlayerControl();
+
+        // ★ 清速度并设成 kinematic，方便我们自己 MovePosition / 瞬移
+        if (_playerRb)
+        {
+            _playerRb.velocity = Vector2.zero;
+            _playerRb.isKinematic = true;
+        }
 
         // 瞬移：女主放到左侧站位点的 X
         if (playerObject && heroineStandLeftX)
@@ -559,10 +562,11 @@ public class LevelManager1_2 : MonoBehaviour
         else t.position = target;
     }
 
-    // 恢复玩家
+    // ★ 恢复玩家（用 PlayerController 的 Enable 接口）
     private void RestorePlayerControl()
     {
-        if (_playerCtrl) _playerCtrl.enabled = true;
+        if (_playerCtrl)
+            _playerCtrl.EnablePlayerControl();
 
         if (_playerRb)
         {
