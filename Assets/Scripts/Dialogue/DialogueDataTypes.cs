@@ -479,4 +479,13 @@ namespace DialogueSystem
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;
     }
+
+    /// <summary>
+    /// 本地化设置 - 存储Google Sheets CSV URL
+    /// </summary>
+    [Serializable]
+    public class LocalizationSettings
+    {
+        public string googleSheetsCsvUrl = "";
+    }
 }
