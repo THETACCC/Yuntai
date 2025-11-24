@@ -174,6 +174,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         LoadVirtualFolderStructure();
         LoadCharacterLibrary();
         LoadCharacterFolderStructure();
+        LoadLocalizationSettings();
         ScanAllDialogueTrees();
 
         // 确保default_folder默认展开
@@ -194,7 +195,6 @@ public class DialogueTreeManagerWindow : EditorWindow
             cachedFocusedBg = MakeTex(2, 2, new Color(0.3f, 0.3f, 0.3f, 1f));
 
         // 初始化本地化
-        csvUrlInput = DialogueLocalization.GetCsvUrl();
         if (!DialogueLocalization.IsLoaded && !string.IsNullOrEmpty(csvUrlInput))
         {
             DialogueLocalization.LoadInEditorSync();
@@ -3305,6 +3305,68 @@ public class DialogueTreeManagerWindow : EditorWindow
         return Path.Combine(scriptFolder, "CharacterLibrary.json");
     }
 
+    private string GetLocalizationSettingsPath()
+    {
+        var script = MonoScript.FromScriptableObject(this);
+        string scriptPath = AssetDatabase.GetAssetPath(script);
+
+        if (string.IsNullOrEmpty(scriptPath))
+        {
+            return "Assets/Editor/Dialogue/LocalizationSettings.json";
+        }
+
+        string scriptFolder = Path.GetDirectoryName(scriptPath);
+        return Path.Combine(scriptFolder, "LocalizationSettings.json");
+    }
+
+    private void LoadLocalizationSettings()
+    {
+        string path = GetLocalizationSettingsPath();
+        if (File.Exists(path))
+        {
+            try
+            {
+                string json = File.ReadAllText(path);
+                LocalizationSettings settings = JsonUtility.FromJson<LocalizationSettings>(json);
+                if (settings != null && !string.IsNullOrEmpty(settings.googleSheetsCsvUrl))
+                {
+                    csvUrlInput = settings.googleSheetsCsvUrl;
+                    DialogueLocalization.SetCsvUrl(csvUrlInput);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to load localization settings: {e.Message}");
+            }
+        }
+    }
+
+    private void SaveLocalizationSettings()
+    {
+        try
+        {
+            LocalizationSettings settings = new LocalizationSettings
+            {
+                googleSheetsCsvUrl = csvUrlInput
+            };
+
+            string path = GetLocalizationSettingsPath();
+            string json = JsonUtility.ToJson(settings, true);
+
+            string folder = Path.GetDirectoryName(path);
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            File.WriteAllText(path, json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to save localization settings: {e.Message}");
+        }
+    }
+
     private string GetCharacterFolderStructurePath()
     {
         var script = MonoScript.FromScriptableObject(this);
@@ -4065,6 +4127,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 csvUrlInput = "";
                 DialogueLocalization.SetCsvUrl("");
+                SaveLocalizationSettings();
                 DialogueLocalization.Clear();
                 Repaint();
             }
@@ -4093,6 +4156,7 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
 
         DialogueLocalization.SetCsvUrl(csvUrlInput);
+        SaveLocalizationSettings();
 
         EditorCoroutineRunner.StartCoroutine(DialogueLocalization.LoadFromGoogleSheets((success, message) =>
         {

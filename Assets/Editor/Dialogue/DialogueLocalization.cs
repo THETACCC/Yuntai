@@ -33,8 +33,6 @@ namespace DialogueSystem
         public static void SetCsvUrl(string url)
         {
             googleSheetsCsvUrl = url;
-            PlayerPrefs.SetString("DialogueLocalization_CsvUrl", url);
-            PlayerPrefs.Save();
         }
 
         /// <summary>
@@ -42,10 +40,6 @@ namespace DialogueSystem
         /// </summary>
         public static string GetCsvUrl()
         {
-            if (string.IsNullOrEmpty(googleSheetsCsvUrl))
-            {
-                googleSheetsCsvUrl = PlayerPrefs.GetString("DialogueLocalization_CsvUrl", "");
-            }
             return googleSheetsCsvUrl;
         }
 
