@@ -2588,6 +2588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DetectiveSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 4720053220516866898, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: key
+      value: Suspicious
+      objectReference: {fileID: 0}
     - target: {fileID: 4970829100880658985, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
       propertyPath: myAffectedTrigger
       value: 
@@ -2648,12 +2652,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9182458906742833072, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: key
+      value: Suspicious
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182458906742833072, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: bodyText0
+      value: 
+      objectReference: {fileID: 775856938}
+    - target: {fileID: 9182458906742833072, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+      propertyPath: descriptionText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4725588508181353349, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+--- !u!114 &775856938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3242900297167135539, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
+  m_PrefabInstance: {fileID: 775856937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &796356084
 GameObject:
   m_ObjectHideFlags: 0
@@ -5417,7 +5444,7 @@ MonoBehaviour:
   spotQuickFadeDuration: 0.25
   zhoushuSitting: {fileID: 297127187}
   zhoushuStanding: {fileID: 422720447}
-  vcam: {fileID: 0}
+  resetCameraOnStart: 1
   useUnscaledTime: 1
   verboseLog: 0
 --- !u!114 &1279740583
