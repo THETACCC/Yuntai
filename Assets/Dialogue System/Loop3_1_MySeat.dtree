@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "contentId": "Loop3_1_MySeat_node_0_dialogue",
+            "content": {
+                "en": "I failed to convince Page...",
+                "zh": "英文也是张嘉随便写的place holder",
+                "ja": ""
+            },
+            "positionX": 687.2000122070313,
+            "positionY": 720.7999877929688,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "adb14c96-12fa-4bad-ac88-e0b5e25c46a9",
+                    "targetObjectName": "LevelManager3_1",
+                    "componentTypeName": "LevelManager3_1",
+                    "methodName": "PlayerSit",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": false
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "contentId": "Loop3_1_MySeat_node_1_dialogue",
+            "content": {
+                "en": "Let me try again...",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1026.39990234375,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c3dcc148-fc87-40b2-8924-653449175923",
+                    "targetObjectName": "ToNextLoop",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

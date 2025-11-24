@@ -1,22 +1,6 @@
 {
     "nodes": [
         {
-            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
-            "index": 2,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "contentId": "Loop3_1_ZhouShuDetectiveFail_node_2_dialogue",
-            "content": {
-                "en": "I don't even know you!",
-                "zh": "",
-                "ja": ""
-            },
-            "positionX": 624.0,
-            "positionY": 199.1999969482422,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
             "index": 0,
             "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
@@ -46,6 +30,35 @@
             "positionY": 245.59999084472657,
             "choices": [],
             "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "contentId": "Loop3_1_ZhouShuDetectiveFail_node_2_dialogue",
+            "content": {
+                "en": "I don't even know you!",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 624.0,
+            "positionY": 199.1999969482422,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "adb14c96-12fa-4bad-ac88-e0b5e25c46a9",
+                    "targetObjectName": "LevelManager3_1",
+                    "componentTypeName": "LevelManager3_1",
+                    "methodName": "ZhouShuFailed",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
             "conditionalBranches": []
         }
     ],
