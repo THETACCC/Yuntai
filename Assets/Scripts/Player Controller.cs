@@ -17,19 +17,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundcheck;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private CinemachineConfiner2D confiner; // Reference to the CinemachineConfiner2D component
-    private PolygonCollider2D boundingArea; // Reference to the PolygonCollider2D component of the bounding area
+    [SerializeField] private CinemachineConfiner2D confiner;
+    private PolygonCollider2D boundingArea;
 
-    [SerializeField] private Animator anim;   
+    [SerializeField] private Animator anim;
     private static readonly int HashIsWalking = Animator.StringToHash("IsWalking");
 
     [Header("Footstep Audio")]
-    [SerializeField] private AudioSource footstepSource;   // 挂在 Player 上，Loop = true
-    [SerializeField] private bool onlyPlayOnGround = true; // 只在地面时播放
+    [SerializeField] private AudioSource footstepSource;
+    [SerializeField] private bool onlyPlayOnGround = true;
     private bool wasWalking = false;
 
+    // 统一锁定开关
+    private bool controlLocked = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (anim == null) anim = GetComponent<Animator>();
@@ -37,11 +38,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        boundingArea = confiner.m_BoundingShape2D as PolygonCollider2D;
+        if (confiner)
+            boundingArea = confiner.m_BoundingShape2D as PolygonCollider2D;
 
-        if (Gamemanager.instance.phase == GamePhase.Moving)
+        bool canMove =
+            Gamemanager.instance != null &&
+            Gamemanager.instance.phase == GamePhase.Moving &&
+            !controlLocked;
+
+        if (canMove)
         {
-            // 1) Read input ONLY from A / D
             horizontal = 0f;
             bool pressA = Input.GetKey(KeyCode.A);
             bool pressD = Input.GetKey(KeyCode.D);
@@ -58,11 +64,9 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                // no movement keys or both pressed → slow down
                 speed -= velocity * acceleration * Time.deltaTime;
             }
 
-            // 2) Clamp speed so it never goes negative
             speed = Mathf.Clamp(speed, 0f, max_hspeed);
         }
         else
@@ -71,28 +75,25 @@ public class PlayerController : MonoBehaviour
             speed = 0f;
         }
 
-        bool isWalkingNow = (Gamemanager.instance.phase == GamePhase.Moving)
-                            && Mathf.Abs(horizontal) > 0.01f
-                            && speed > 0.01f;
+        bool isWalkingNow = canMove &&
+                            Mathf.Abs(horizontal) > 0.01f &&
+                            speed > 0.01f;
+
         if (anim) anim.SetBool(HashIsWalking, isWalkingNow);
 
         bool shouldPlayFootstep = isWalkingNow;
         if (onlyPlayOnGround)
             shouldPlayFootstep = shouldPlayFootstep && IsGrounded();
 
-        if (footstepSource != null)
+        if (footstepSource)
         {
-            // 刚开始走路
             if (shouldPlayFootstep && !wasWalking)
             {
-                if (!footstepSource.isPlaying)
-                    footstepSource.Play();
+                if (!footstepSource.isPlaying) footstepSource.Play();
             }
-            // 停止走路
             else if (!shouldPlayFootstep && wasWalking)
             {
-                if (footstepSource.isPlaying)
-                    footstepSource.Stop();
+                if (footstepSource.isPlaying) footstepSource.Stop();
             }
         }
 
@@ -102,37 +103,15 @@ public class PlayerController : MonoBehaviour
         ConfinePlayerToBoundingArea();
     }
 
-
-    private void ConfinePlayerToBoundingArea()
-    {
-        if (boundingArea == null) return;
-
-        Vector2 playerPosition = transform.position;
-
-        // Debugging: Log the player's position and the closest point
-        //Debug.Log("Player Position: " + playerPosition);
-
-        // Check if the player's position is inside the bounding area
-        if (!boundingArea.OverlapPoint(playerPosition))
-        {
-            // If the player is outside, find the closest point on the bounding area
-            Vector2 closestPoint = boundingArea.ClosestPoint(playerPosition);
-
-            // Debugging: Log the closest point
-            //Debug.Log("Closest Point: " + closestPoint);
-
-            // Move the player to the closest point
-            transform.position = closestPoint;
-        }
-    }
-
     private void FixedUpdate()
     {
+        if (!rb) return;
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
     private bool IsGrounded()
     {
+        if (!groundcheck) return false;
         return Physics2D.OverlapCircle(groundcheck.position, 0.3f, groundLayer);
     }
 
@@ -146,4 +125,45 @@ public class PlayerController : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+
+    private void ConfinePlayerToBoundingArea()
+    {
+        if (boundingArea == null) return;
+
+        Vector2 playerPosition = transform.position;
+
+        if (!boundingArea.OverlapPoint(playerPosition))
+        {
+            Vector2 closestPoint = boundingArea.ClosestPoint(playerPosition);
+            transform.position = closestPoint;
+        }
+    }
+
+    // ===== 对外接口 =====
+
+    public void DisablePlayerControl()
+    {
+        controlLocked = true;
+
+        horizontal = 0f;
+        speed = 0f;
+
+        if (rb)
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+
+        if (anim)
+            anim.SetBool(HashIsWalking, false);
+
+        if (footstepSource && footstepSource.isPlaying)
+            footstepSource.Stop();
+    }
+
+    public void EnablePlayerControl()
+    {
+        controlLocked = false;
+    }
+
+    // 兼容旧名字
+    public void LockControl() => DisablePlayerControl();
+    public void UnlockControl() => EnablePlayerControl();
 }
