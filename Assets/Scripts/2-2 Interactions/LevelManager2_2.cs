@@ -34,8 +34,8 @@ public class LevelManager2_2 : MonoBehaviour
     [SerializeField] private bool freezeXWhileCinematic = true;
 
     [Header("演出结束时处理")]
-    [Tooltip("灯灭后是否把玩家Sprite也隐藏（让“主角也消失”）")]
-    [SerializeField] private bool hidePlayerSpritesWhenEnd = false;   // 2-2 不需要消失
+    [Tooltip("（不再使用）灯灭后是否把玩家Sprite也隐藏")]
+    [SerializeField] private bool hidePlayerSpritesWhenEnd = false;   // 不再在代码中使用
 
     [Header("Audio")]
     [SerializeField] private AudioSource assignedAudioSource;
@@ -77,6 +77,10 @@ public class LevelManager2_2 : MonoBehaviour
     [Tooltip("使用不受 timeScale 影响的时间（建议开，以免暂停卡住）")]
     [SerializeField] private bool useUnscaledTime = true;
     [SerializeField] private bool verboseLog = false;
+
+    [Header("Death Acting - ToNextLoop（2-2 → 3-1 用）")]
+    [SerializeField] private ToNextLoop nextLoop;   // 在 Inspector 里拖 1-2 用的那个，或者另做一个
+
 
     // --- runtime ---
     private GameObject _player;
@@ -236,7 +240,6 @@ public class LevelManager2_2 : MonoBehaviour
         }
         else
         {
-            // 如果只想用 ToLoop3，这里留空就行，不会乱跳
             Debug.LogWarning("[LevelManager2_2] nextSceneName 未设置，OnStart2FullyClosed 不会切场景。");
         }
     }
@@ -326,8 +329,7 @@ public class LevelManager2_2 : MonoBehaviour
         if (verboseLog) Debug.Log("[2-2] Fading light...");
         yield return FadeOutDeathLight();
 
-        // ✅ 不再隐藏玩家 sprite，2-2 表演结束时她还在画面里
-        // if (hidePlayerSpritesWhenEnd) SetPlayerSpritesVisible(false);
+        // 5.5) 不再隐藏玩家 Sprite（你说 2-2 不需要主角消失）
 
         // 6) 触发 “Death” 对话
         if (deathTrigger)
@@ -419,42 +421,49 @@ public class LevelManager2_2 : MonoBehaviour
     }
 
     // 直接跳到 Loop3：Level3-1，出生点=1
+    // 直接跳到 Loop3：Level3-1，出生点=1（经由 ToNextLoop 播完死亡动画再跳）
     public void ToLoop3()
     {
-        // 可选：若在演出中，先停掉
+        // 如果 DeathActing 协程还在跑，先停掉，避免后面再动 camera / light
         if (_deathRoutine != null)
         {
             StopCoroutine(_deathRoutine);
             _deathRoutine = null;
         }
 
-        // 1) 在跳场景之前，先把刚体的约束和状态恢复
+        // ① 恢复刚体原来的约束 & 清速度（防止奇怪的水平锁死）
         if (_hasRb && _rb2d != null)
         {
             _rb2d.constraints = _origConstraints;
             _rb2d.velocity = Vector2.zero;
         }
 
-        // 2) 恢复玩家控制（确保 3-1 一进来就能正常移动）
-        if (_playerCtrl != null)
-        {
-            _playerCtrl.EnablePlayerControl();
-        }
-
-        // 3) 恢复相机的跟随目标位置，消掉 offset
+        // ② 恢复相机位置，消掉 DeathActing 时加的 offset
         if (_hasCamOriginalPos && _camMoveTarget != null)
         {
             _camMoveTarget.position = _camOriginalPos;
         }
 
-        // 4) 最后再传送到 3-1
-        if (SceneController.instance != null)
+        // ③ 通过 ToNextLoop 播放统一的死亡动画 + 黑屏，再切到 3-1
+        if (nextLoop != null)
         {
-            SceneController.instance.LoadSceneAndTeleport("Level3-1", 1);
+            nextLoop.scenename = "Level3-1";
+            nextLoop.SpawnPointLocation = 1;
+            nextLoop.toNextLoop();
         }
         else
         {
-            Debug.LogError("[LevelManager2_2] SceneController.instance 为 null，无法传送到 Level3-1(1)。");
+            // 保险：没挂 ToNextLoop 的时候，退回到“直接传送”的老逻辑
+            Debug.LogWarning("[LevelManager2_2] nextLoop(ToNextLoop) 未设置，退回为直接传送。");
+            if (SceneController.instance != null)
+            {
+                SceneController.instance.LoadSceneAndTeleport("Level3-1", 1);
+            }
+            else
+            {
+                Debug.LogError("[LevelManager2_2] SceneController.instance 为 null，无法传送到 Level3-1(1)。");
+            }
         }
     }
+
 }

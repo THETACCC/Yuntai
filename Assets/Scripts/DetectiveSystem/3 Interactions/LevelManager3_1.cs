@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
+using Fungus;   // 如果你用了 Fungus，对话系统就能在这里直接关掉
 
 public class LevelManager3_1 : MonoBehaviour
 {
     [Header("Next Loop 跳转")]
+    [Tooltip("下一回圈的场景名（若用 SceneController 也请填）")]
     [SerializeField] private string nextSceneName;
+    [Tooltip("若使用 SceneController，则指定出生点编号")]
     [SerializeField] private int nextSpawnPointLocation = 0;
+    [Tooltip("使用 SceneController.instance.LoadSceneAndTeleport() 跳转")]
     [SerializeField] private bool useSceneControllerTeleport = true;
 
     [Header("Spot Light 演出")]
@@ -20,19 +25,24 @@ public class LevelManager3_1 : MonoBehaviour
     [SerializeField] private float spotQuickFadeDuration = 0.25f;
 
     [Header("Actors (先切换坐->站)")]
-    [SerializeField] private GameObject zhoushuSitting;
-    [SerializeField] private GameObject zhoushuStanding;
+    [SerializeField] private GameObject zhoushuSitting;   // 周叔（坐着版本）
+    [SerializeField] private GameObject zhoushuStanding;  // 周叔（站着版本，后续会消失）
+
+    [Header("Camera 设置")]
+    [Tooltip("3-1 开场是否强制把相机对准玩家")]
+    [SerializeField] private bool resetCameraOnStart = true;
 
     [Header("Timing / Debug")]
     [SerializeField] private bool useUnscaledTime = true;
     [SerializeField] private bool verboseLog = false;
 
+    // runtime
     private Coroutine _escapeRoutine;
-
-    // player 相关
     private GameObject _player;
-    private PlayerController _playerCtrl;
     private readonly List<SpriteRenderer> _playerSprites = new();
+    private Rigidbody2D _playerRb;
+    private PlayerController _playerCtrl;
+    private CinemachineVirtualCamera _vcam;
 
     private void Awake()
     {
@@ -48,28 +58,56 @@ public class LevelManager3_1 : MonoBehaviour
             deathSpot.pointLightInnerRadius = 0f;
         }
 
-        // 找主角
+        // 找主角并缓存所有 SpriteRenderer
         _player = GameObject.FindGameObjectWithTag("Player");
-        if (_player)
-        {
-            _playerSprites.Clear();
-            _playerSprites.AddRange(_player.GetComponentsInChildren<SpriteRenderer>(true));
-            foreach (var sr in _playerSprites)
-                if (sr) sr.enabled = true;
-
-            _playerCtrl = _player.GetComponent<PlayerController>();
-            if (_playerCtrl) _playerCtrl.EnablePlayerControl();
-        }
-        else
+        if (!_player)
         {
             Debug.LogWarning("[LevelManager3_1] 未找到 tag=Player 的对象。");
         }
+        else
+        {
+            CachePlayerSprites(_player);
+            _playerRb = _player.GetComponent<Rigidbody2D>();
+            _playerCtrl = _player.GetComponent<PlayerController>();
+        }
 
-        if (Gamemanager.instance)
-            Gamemanager.instance.phase = GamePhase.Moving;
+        // 找相机
+#if UNITY_2023_1_OR_NEWER
+        _vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
+#else
+        _vcam = FindObjectOfType<CinemachineVirtualCamera>();
+#endif
     }
 
-    // public：外面调用开始 ZhouShuEscape（比如对话回调）
+    private void Start()
+    {
+        // 1) 让 GameManager 处于可移动状态
+        if (Gamemanager.instance != null)
+            Gamemanager.instance.phase = GamePhase.Moving;
+
+        // 2) 找 Player，恢复控制
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            var pc = player.GetComponent<PlayerController>();
+            if (pc != null)
+                pc.EnablePlayerControl();
+
+            // 3) 强制 Cinemachine 相机重新跟随 Player，消掉 2-2 留下来的 offset
+            var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            if (vcam != null)
+            {
+                vcam.Follow = player.transform;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[LevelManager3_1] 没找到 tag=Player 的对象。");
+        }
+    }
+
+
+    /// <summary>触发：坐->站，打灯，上人消失，玩家消失，灯灭，跳下一回圈。</summary>
     public void ZhouShuEscape()
     {
         if (_escapeRoutine != null) StopCoroutine(_escapeRoutine);
@@ -80,13 +118,10 @@ public class LevelManager3_1 : MonoBehaviour
     {
         if (verboseLog) Debug.Log("[3-1] ZhouShuEscape start");
 
-        // 表演开始时可以锁一下玩家（防止乱动），反正后面要跳场景
-        if (_playerCtrl) _playerCtrl.DisablePlayerControl();
-
-        // 0) 坐 -> 站
+        // 0) 先切换对象：关闭“坐着”，启用“站着”
         SwitchZhoushuToStanding();
 
-        // 1) 灯变亮
+        // 1) 灯从无到有
         InitDeathLight();
         if (deathSpot && spotRiseDuration > 0f)
         {
@@ -105,12 +140,12 @@ public class LevelManager3_1 : MonoBehaviour
             deathSpot.pointLightInnerRadius = spotTargetInnerRadius;
         }
 
-        // 2) 周叔消失
+        // 2) 让“站着”的周叔消失（整物体禁用）
         if (zhoushuStanding && zhoushuStanding.activeSelf)
             zhoushuStanding.SetActive(false);
 
-        // 3) 玩家只隐藏 sprite（如果你想要一起消失，把下面这一行打开）
-        // SetPlayerSpritesVisible(false);
+        // 3) 主角仅隐藏 Sprite（不 Destroy、不禁用脚本/碰撞，只看不见）
+        SetPlayerSpritesVisible(false);
 
         // 4) 灯快速淡出
         yield return FadeOutDeathLight();
@@ -122,19 +157,28 @@ public class LevelManager3_1 : MonoBehaviour
         _escapeRoutine = null;
     }
 
+    // —— 工具 —— //
     private void SwitchZhoushuToStanding()
     {
+        // 关闭坐着
         if (zhoushuSitting && zhoushuSitting.activeSelf)
             zhoushuSitting.SetActive(false);
 
+        // 启用站着
         if (zhoushuStanding && !zhoushuStanding.activeSelf)
             zhoushuStanding.SetActive(true);
     }
 
+    private void CachePlayerSprites(GameObject playerRoot)
+    {
+        _playerSprites.Clear();
+        if (!playerRoot) return;
+        _playerSprites.AddRange(playerRoot.GetComponentsInChildren<SpriteRenderer>(true));
+    }
+
     private void SetPlayerSpritesVisible(bool visible)
     {
-        foreach (var sr in _playerSprites)
-            if (sr) sr.enabled = visible;
+        foreach (var sr in _playerSprites) if (sr) sr.enabled = visible;
     }
 
     private void InitDeathLight()

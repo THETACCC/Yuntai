@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     public float horizontal;
     public float acceleration;
     public float max_hspeed;
@@ -13,41 +14,45 @@ public class PlayerController : MonoBehaviour
 
     private bool isFacingRight = true;
 
+    [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundcheck;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private CinemachineConfiner2D confiner;
-    private PolygonCollider2D boundingArea;
+    [SerializeField] private CinemachineConfiner2D confiner; // Reference to the CinemachineConfiner2D component
+    private PolygonCollider2D boundingArea;                  // Reference to the PolygonCollider2D component of the bounding area
 
     [SerializeField] private Animator anim;
     private static readonly int HashIsWalking = Animator.StringToHash("IsWalking");
 
     [Header("Footstep Audio")]
-    [SerializeField] private AudioSource footstepSource;
-    [SerializeField] private bool onlyPlayOnGround = true;
+    [SerializeField] private AudioSource footstepSource;   // 挂在 Player 上，Loop = true
+    [SerializeField] private bool onlyPlayOnGround = true; // 只在地面时播放
     private bool wasWalking = false;
 
-    // 统一锁定开关
+    // ★★★ 统一控制锁：演出 / 死亡动画时，锁住它 ★★★
     private bool controlLocked = false;
 
-    void Start()
+    // ----------------- Unity Lifecycle ----------------- //
+
+    private void Start()
     {
-        if (anim == null) anim = GetComponent<Animator>();
+        if (!anim) anim = GetComponent<Animator>();
+        if (!rb) rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (confiner)
+        if (confiner != null)
             boundingArea = confiner.m_BoundingShape2D as PolygonCollider2D;
 
-        bool canMove =
-            Gamemanager.instance != null &&
-            Gamemanager.instance.phase == GamePhase.Moving &&
-            !controlLocked;
+        var gm = Gamemanager.instance;
+        bool phaseMoving = (gm != null && gm.phase == GamePhase.Moving);
+        bool canMove = phaseMoving && !controlLocked;
 
         if (canMove)
         {
+            // 只读 A / D
             horizontal = 0f;
             bool pressA = Input.GetKey(KeyCode.A);
             bool pressD = Input.GetKey(KeyCode.D);
@@ -64,36 +69,42 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                // 松键或同时按 → 减速
                 speed -= velocity * acceleration * Time.deltaTime;
             }
 
+            // 不要速度倒着变负
             speed = Mathf.Clamp(speed, 0f, max_hspeed);
         }
         else
         {
+            // 不允许移动时：强制停下
             horizontal = 0f;
             speed = 0f;
         }
 
-        bool isWalkingNow = canMove &&
-                            Mathf.Abs(horizontal) > 0.01f &&
-                            speed > 0.01f;
-
+        // 动画参数
+        bool isWalkingNow = canMove && Mathf.Abs(horizontal) > 0.01f && speed > 0.01f;
         if (anim) anim.SetBool(HashIsWalking, isWalkingNow);
 
+        // 脚步声逻辑
         bool shouldPlayFootstep = isWalkingNow;
         if (onlyPlayOnGround)
             shouldPlayFootstep = shouldPlayFootstep && IsGrounded();
 
-        if (footstepSource)
+        if (footstepSource != null)
         {
+            // 刚开始走路
             if (shouldPlayFootstep && !wasWalking)
             {
-                if (!footstepSource.isPlaying) footstepSource.Play();
+                if (!footstepSource.isPlaying)
+                    footstepSource.Play();
             }
+            // 停止走路
             else if (!shouldPlayFootstep && wasWalking)
             {
-                if (footstepSource.isPlaying) footstepSource.Stop();
+                if (footstepSource.isPlaying)
+                    footstepSource.Stop();
             }
         }
 
@@ -105,9 +116,42 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!rb) return;
+        if (rb == null) return;
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
+
+    // ----------------- 公共接口：统一给 Manager / ToNextLoop 调用 ----------------- //
+
+    /// <summary>
+    /// 锁住玩家控制：不能移动、不能播放走路动画、脚步声停。
+    /// （用在演出 / 死亡动画期间）
+    /// </summary>
+    public void DisablePlayerControl()
+    {
+        controlLocked = true;
+        horizontal = 0f;
+        speed = 0f;
+
+        if (rb != null)
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+
+        if (anim != null)
+            anim.SetBool(HashIsWalking, false);
+
+        if (footstepSource != null && footstepSource.isPlaying)
+            footstepSource.Stop();
+    }
+
+    /// <summary>
+    /// 解除锁定：恢复到正常，由 GamePhase 决定能不能动。
+    /// （一般在演出 / 死亡动画结束 / 新场景开始时调用）
+    /// </summary>
+    public void EnablePlayerControl()
+    {
+        controlLocked = false;
+    }
+
+    // ----------------- 工具函数 ----------------- //
 
     private bool IsGrounded()
     {
@@ -138,32 +182,4 @@ public class PlayerController : MonoBehaviour
             transform.position = closestPoint;
         }
     }
-
-    // ===== 对外接口 =====
-
-    public void DisablePlayerControl()
-    {
-        controlLocked = true;
-
-        horizontal = 0f;
-        speed = 0f;
-
-        if (rb)
-            rb.velocity = new Vector2(0f, rb.velocity.y);
-
-        if (anim)
-            anim.SetBool(HashIsWalking, false);
-
-        if (footstepSource && footstepSource.isPlaying)
-            footstepSource.Stop();
-    }
-
-    public void EnablePlayerControl()
-    {
-        controlLocked = false;
-    }
-
-    // 兼容旧名字
-    public void LockControl() => DisablePlayerControl();
-    public void UnlockControl() => EnablePlayerControl();
 }
