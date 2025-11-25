@@ -1268,12 +1268,13 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         try
         {
-            // 保存前，从Google Sheets读取所有角色的name
+            // 保存前，只在Use ID模式时从Google Sheets读取角色name
             if (characterLibrary?.characters != null && DialogueLocalization.IsLoaded)
             {
                 foreach (var character in characterLibrary.characters)
                 {
-                    if (!string.IsNullOrEmpty(character.nameId))
+                    // 只在Use ID模式时才从DialogueLocalization更新
+                    if (character.useNameId && !string.IsNullOrEmpty(character.nameId))
                     {
                         var locData = DialogueLocalization.GetAllLanguages(character.nameId);
                         if (locData != null)
@@ -1286,6 +1287,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                             };
                         }
                     }
+                    // Direct Input模式时不做任何处理，保持characterName不变
                 }
             }
 
@@ -1387,12 +1389,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                             needsSave = true;
                         }
 
-                        // 兼容旧文件：如果useNameId是false但nameId有值，说明是旧文件
-                        if (!character.useNameId && !string.IsNullOrEmpty(character.nameId))
-                        {
-                            character.useNameId = true;
-                            needsSave = true;
-                        }
+                        // 不再自动判断模式，完全依赖useNameId字段
                     }
                 }
 
