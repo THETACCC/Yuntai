@@ -338,20 +338,47 @@ public class DialogueGraphView : GraphView
                 var character = System.Array.Find(characterLibrary.characters, c => c.id == node.CharacterId);
                 if (character != null)
                 {
-                    characterName = character.characterName?.en ?? "";
-                    characterNameLocalized = character.characterName;
+                    // 根据模式获取Character Name
+                    if (character.useNameId && !string.IsNullOrEmpty(character.nameId) && DialogueLocalization.IsLoaded)
+                    {
+                        // Use ID模式：从DialogueLocalization读取
+                        var locData = DialogueLocalization.GetAllLanguages(character.nameId);
+                        if (locData != null)
+                        {
+                            characterNameLocalized = new LocalizedText
+                            {
+                                zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                                en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                                ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                            };
+                            characterName = characterNameLocalized.en;
+                        }
+                        else
+                        {
+                            // ID不存在，使用character字段
+                            characterName = character.character ?? "";
+                            characterNameLocalized = character.characterName;
+                        }
+                    }
+                    else
+                    {
+                        // Direct Input模式：直接使用characterName
+                        characterName = character.characterName?.en ?? "";
+                        characterNameLocalized = character.characterName;
+                    }
+
                     runtimeAvatarPath = ConvertSpritePathToRuntimePath(character.avatarAssetPath);
                     isPlayerCharacter = character.isPlayer;
                 }
             }
 
-            // 获取对话内容：优先从Google Sheets读取，否则使用节点中的文本
+            // 获取对话内容
             LocalizedText dialogueContent = node.DialogueText ?? new LocalizedText();
-            string contentId = node.ContentId ?? "";
 
-            if (!string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+            // 只在Use ID模式才从DialogueLocalization读取
+            if (node.UseContentId && !string.IsNullOrEmpty(node.ContentId) && DialogueLocalization.IsLoaded)
             {
-                var locData = DialogueLocalization.GetAllLanguages(contentId);
+                var locData = DialogueLocalization.GetAllLanguages(node.ContentId);
                 if (locData != null)
                 {
                     dialogueContent = new LocalizedText
@@ -362,6 +389,7 @@ public class DialogueGraphView : GraphView
                     };
                 }
             }
+
 
             var exportData = new RuntimeDialogueData
             {
@@ -437,13 +465,13 @@ public class DialogueGraphView : GraphView
                 {
                     var choiceData = node.ChoicesData[choiceIndex];
 
-                    // 获取choice文本：优先从Google Sheets读取
+                    // 获取choice文本
                     LocalizedText choiceText = choiceData.text ?? new LocalizedText();
-                    string textId = choiceData.textId ?? "";
 
-                    if (!string.IsNullOrEmpty(textId) && DialogueLocalization.IsLoaded)
+                    // 只在Use ID模式才从DialogueLocalization读取
+                    if (choiceData.useTextId && !string.IsNullOrEmpty(choiceData.textId) && DialogueLocalization.IsLoaded)
                     {
-                        var locData = DialogueLocalization.GetAllLanguages(textId);
+                        var locData = DialogueLocalization.GetAllLanguages(choiceData.textId);
                         if (locData != null)
                         {
                             choiceText = new LocalizedText
@@ -454,6 +482,7 @@ public class DialogueGraphView : GraphView
                             };
                         }
                     }
+
 
                     var choice = new RuntimeChoice
                     {
@@ -571,11 +600,13 @@ public class DialogueGraphView : GraphView
             {
                 if (node == null) continue;
 
-                // 获取对话内容：优先从Google Sheets读取，否则使用节点中的文本
+                // 获取对话内容
                 LocalizedText dialogueContent = node.DialogueText ?? new LocalizedText();
                 string contentId = node.ContentId ?? "";
+                bool useContentId = node.UseContentId;
 
-                if (!string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+                // 只在Use ID模式才从DialogueLocalization读取
+                if (useContentId && !string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
                 {
                     var locData = DialogueLocalization.GetAllLanguages(contentId);
                     if (locData != null)
@@ -594,7 +625,7 @@ public class DialogueGraphView : GraphView
                     }
                 }
 
-                // 处理选择文本：同样从Google Sheets读取
+                // 处理选择文本
                 var choicesData = new List<ChoiceData>();
                 if (node.ChoicesData != null)
                 {
@@ -602,14 +633,15 @@ public class DialogueGraphView : GraphView
                     {
                         var choiceData = new ChoiceData
                         {
+                            useTextId = choice.useTextId,  // 保存模式
                             textId = choice.textId ?? "",
                             text = choice.text ?? new LocalizedText(),
                             conditions = choice.conditions,
                             conditionLogic = choice.conditionLogic
                         };
 
-                        // 如果有textId，从Google Sheets读取
-                        if (!string.IsNullOrEmpty(choiceData.textId) && DialogueLocalization.IsLoaded)
+                        // 只在Use ID模式才从DialogueLocalization读取
+                        if (choiceData.useTextId && !string.IsNullOrEmpty(choiceData.textId) && DialogueLocalization.IsLoaded)
                         {
                             var locData = DialogueLocalization.GetAllLanguages(choiceData.textId);
                             if (locData != null)
@@ -636,6 +668,7 @@ public class DialogueGraphView : GraphView
                     id = node.GetId(),
                     index = node.NodeIndex,
                     characterId = node.CharacterId ?? "",
+                    useContentId = useContentId,  // 保存模式标识
                     contentId = contentId,
                     content = dialogueContent,
                     positionX = node.GetPosition().x,
@@ -697,6 +730,7 @@ public class DialogueGraphView : GraphView
 
         Debug.Log($"[LoadDialogueTree] Loading {sortedNodes.Count} nodes");
 
+        // 直接使用useContentId字段，不做自动判断
         foreach (var nodeData in sortedNodes)
         {
             Vector2 position = new Vector2(nodeData.positionX, nodeData.positionY);
@@ -710,11 +744,10 @@ public class DialogueGraphView : GraphView
             {
                 node.SetDialogueText(nodeData.content);
             }
-            // 设置对话内容ID
-            if (!string.IsNullOrEmpty(nodeData.contentId))
-            {
-                node.SetContentId(nodeData.contentId);
-            }
+
+            // 设置内容模式和ID
+            // 完全依赖useContentId字段，不依赖contentId是否为空
+            node.SetContentMode(nodeData.useContentId, nodeData.contentId ?? "");
 
             node.SetChoicesData(nodeData.choices);
             node.SetEventCalls(nodeData.eventCalls);

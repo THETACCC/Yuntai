@@ -321,8 +321,9 @@ namespace DialogueSystem
     [Serializable]
     public class ChoiceData
     {
-        public string textId = "";  // 选择文本ID（用于从本地化数据读取）
-        public LocalizedText text = new LocalizedText();  // 改为本地化文本
+        public bool useTextId = false;       // 是否使用textId模式（false=直接输入，true=使用ID）
+        public string textId = "";           // 文本ID（从DialogueLocalization读取）
+        public LocalizedText text = new LocalizedText();  // 本地化文本（直接输入）
         public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
         public ConditionLogic conditionLogic = ConditionLogic.AND;
     }
@@ -359,8 +360,9 @@ namespace DialogueSystem
     {
         public string id;                           // 唯一ID
         public string character;                    // Manager中显示的分类名称
-        public string characterNameId = "";  // 角色名称ID（用于从本地化数据读取）
-        public LocalizedText characterName = new LocalizedText();  // 角色名称（改为本地化）
+        public bool useNameId = false;              // 是否使用nameId模式（false=直接输入，true=使用ID）
+        public string nameId = "";                  // 名称ID（从DialogueLocalization读取）
+        public LocalizedText characterName = new LocalizedText();  // 角色名称（直接输入）
         public string avatarAssetPath;              // Avatar 资源路径
         public bool isPlayer = false;               // 是否为玩家角色（用于 separatePlayerAndNPC）
 
@@ -368,6 +370,8 @@ namespace DialogueSystem
         {
             id = Guid.NewGuid().ToString();
             character = "New Character";
+            useNameId = false;
+            nameId = "";
             characterName = new LocalizedText("New Character");
             avatarAssetPath = "";
             isPlayer = false;
@@ -377,6 +381,8 @@ namespace DialogueSystem
         {
             id = Guid.NewGuid().ToString();
             character = name;
+            useNameId = false;
+            nameId = "";
             characterName = new LocalizedText(name);
             avatarAssetPath = avatarPath;
             isPlayer = false;
@@ -414,8 +420,9 @@ namespace DialogueSystem
         public string id;
         public int index;
         public string characterId = "";      // 角色ID引用
-        public string contentId = "";  // 对话内容ID（用于从本地化数据读取）
-        public LocalizedText content = new LocalizedText();  // 改为本地化文本
+        public bool useContentId = false;    // 是否使用contentId模式（false=直接输入，true=使用ID）
+        public string contentId = "";        // 内容ID（从DialogueLocalization读取）
+        public LocalizedText content = new LocalizedText();  // 本地化文本（直接输入）
         public float positionX;
         public float positionY;
         public List<ChoiceData> choices = new List<ChoiceData>();
@@ -481,10 +488,10 @@ namespace DialogueSystem
     }
 
     /// <summary>
-    /// 本地化设置 - 存储Google Sheets CSV URL
+    /// 本地化设置数据（用于保存Google Sheets URL）
     /// </summary>
     [Serializable]
-    public class LocalizationSettings
+    public class DialogueLocalizationSettings
     {
         public string googleSheetsCsvUrl = "";
     }

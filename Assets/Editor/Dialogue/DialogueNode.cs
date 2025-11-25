@@ -18,10 +18,14 @@ public partial class DialogueNode : Node
     private VisualElement characterContainer;
     private VisualElement avatarPreview;
     private Label characterLabel;
-    private TextField dialogueTextField;
-    private string dialogueTextId = "";  // 对话文本ID
-    private TextField dialogueIdField;  // ID输入框
-    private Label dialoguePreviewLabel;  // 文本预览
+    private TextField dialogueTextField;  // Direct Input模式的多行文本框
+    private TextField dialogueIdField;  // Use ID模式的ID输入框
+    private Label dialoguePreviewLabel;  // Use ID模式的预览标签
+    private DropdownField contentModeDropdown;  // 模式选择下拉框
+    private VisualElement dialogueInputContainer;  // 输入区域容器
+
+    private bool useContentId = false;  // 是否使用ID模式（默认false=Direct Input）
+    private string contentId = "";  // 内容ID（Use ID模式时使用）
     private VisualElement eventsContainer;
     private Button addEventButton;
     private VisualElement choicesContainer;
@@ -42,8 +46,9 @@ public partial class DialogueNode : Node
 
     public string CharacterId { get; private set; }  // 角色ID引用
     public string CharacterName => GetCharacterName();
-    public string ContentId => dialogueTextId;  // 对话内容ID（公共只读访问）
     public Sprite AvatarSprite => GetCharacterAvatar();
+    public bool UseContentId => useContentId;  // 是否使用ID模式
+    public string ContentId => contentId;  // 对话内容ID
     public LocalizedText DialogueText { get; private set; } = new LocalizedText();
     public List<ChoiceData> ChoicesData { get; private set; } = new List<ChoiceData>();
     public List<DialogueEventCall> EventCalls { get; private set; } = new List<DialogueEventCall>();
@@ -321,14 +326,28 @@ public partial class DialogueNode : Node
             }
         }
     }
-    public void SetContentId(string contentId)
+    public void SetContentId(string id)
     {
-        dialogueTextId = contentId ?? "";
+        this.contentId = id ?? "";
         if (dialogueIdField != null)
         {
-            dialogueIdField.SetValueWithoutNotify(dialogueTextId);
+            dialogueIdField.SetValueWithoutNotify(this.contentId);
             UpdateDialoguePreview();
         }
+    }
+
+    public void SetContentMode(bool useId, string id)
+    {
+        useContentId = useId;
+        contentId = id ?? "";
+
+        // 更新下拉框
+        if (contentModeDropdown != null)
+        {
+            contentModeDropdown.SetValueWithoutNotify(useId ? "Use ID" : "Direct Input");
+        }
+
+        UpdateDialogueInputFields();
     }
     #endregion
 
@@ -336,28 +355,98 @@ public partial class DialogueNode : Node
     private void CreateDialogueTextField()
     {
         // 创建容器
-        var dialogueContainer = new VisualElement();
-        dialogueContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.3f));
-        dialogueContainer.style.paddingTop = 5;
-        dialogueContainer.style.paddingBottom = 5;
-        dialogueContainer.style.paddingLeft = 5;
-        dialogueContainer.style.paddingRight = 5;
-        dialogueContainer.style.marginBottom = 10;
+        dialogueInputContainer = new VisualElement();
+        dialogueInputContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.2f, 0.2f, 0.3f));
+        dialogueInputContainer.style.paddingTop = 5;
+        dialogueInputContainer.style.paddingBottom = 5;
+        dialogueInputContainer.style.paddingLeft = 5;
+        dialogueInputContainer.style.paddingRight = 5;
+        dialogueInputContainer.style.marginBottom = 10;
 
-        // ID输入框
+        // 1. 创建模式下拉框（始终显示）
+        contentModeDropdown = new DropdownField("Input Mode:",
+            new List<string> { "Direct Input", "Use ID" },
+            useContentId ? 1 : 0);
+        contentModeDropdown.RegisterValueChangedCallback(evt =>
+        {
+            bool newUseId = (evt.newValue == "Use ID");
+
+            // 模式切换时的数据迁移
+            if (useContentId && !newUseId)
+            {
+                // 从Use ID切换到Direct Input
+                // 只在DialogueText为空时才从ID读取内容（避免覆盖用户编辑的内容）
+                bool isEmpty = DialogueText == null ||
+                              (string.IsNullOrEmpty(DialogueText.en) &&
+                               string.IsNullOrEmpty(DialogueText.zh) &&
+                               string.IsNullOrEmpty(DialogueText.ja));
+
+                if (isEmpty && !string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+                {
+                    var locData = DialogueLocalization.GetAllLanguages(contentId);
+                    if (locData != null)
+                    {
+                        if (DialogueText == null) DialogueText = new LocalizedText();
+                        // 只在空的时候填充
+                        DialogueText.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                        DialogueText.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                        DialogueText.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                    }
+                }
+            }
+
+            useContentId = newUseId;
+            UpdateDialogueInputFields();
+            NotifyChange();
+        });
+        dialogueInputContainer.Add(contentModeDropdown);
+
+        // 2. 创建Direct Input的多行文本框
+        dialogueTextField = new TextField("Dialogue:")
+        {
+            multiline = true
+        };
+        dialogueTextField.style.minWidth = 300;
+        dialogueTextField.style.maxWidth = 300;
+        dialogueTextField.style.minHeight = 60;
+        dialogueTextField.RegisterValueChangedCallback(evt =>
+        {
+            if (DialogueText == null)
+            {
+                DialogueText = new LocalizedText();
+            }
+            if (editorWindow != null)
+            {
+                DialogueText.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
+            }
+            NotifyChange();
+        });
+
+        // 3. 创建Use ID的ID输入框
         dialogueIdField = new TextField("Dialogue ID:");
-        dialogueIdField.value = dialogueTextId;
         dialogueIdField.style.minWidth = 300;
         dialogueIdField.style.maxWidth = 300;
         dialogueIdField.RegisterValueChangedCallback(evt =>
         {
-            dialogueTextId = evt.newValue.Trim();
+            contentId = evt.newValue.Trim();
             UpdateDialoguePreview();
+
+            // 从DialogueLocalization读取内容到DialogueText
+            if (!string.IsNullOrEmpty(contentId) && DialogueLocalization.IsLoaded)
+            {
+                var locData = DialogueLocalization.GetAllLanguages(contentId);
+                if (locData != null)
+                {
+                    DialogueText.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                    DialogueText.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                    DialogueText.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                }
+            }
+
             NotifyChange();
         });
-        dialogueContainer.Add(dialogueIdField);
 
-        // 预览标签
+        // 4. 创建Use ID的预览标签（保留原有样式）
         dialoguePreviewLabel = new Label("");
         dialoguePreviewLabel.style.marginTop = 5;
         dialoguePreviewLabel.style.paddingLeft = 5;
@@ -375,19 +464,53 @@ public partial class DialogueNode : Node
         dialoguePreviewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
         dialoguePreviewLabel.style.whiteSpace = WhiteSpace.Normal;
         dialoguePreviewLabel.style.minHeight = 40;
-        dialoguePreviewLabel.style.maxWidth = 300;  // 限制最大宽度，强制换行
-        dialogueContainer.Add(dialoguePreviewLabel);
+        dialoguePreviewLabel.style.maxWidth = 300;
 
-        UpdateDialoguePreview();
+        // 根据当前模式显示对应的控件
+        UpdateDialogueInputFields();
 
-        mainContainer.Add(dialogueContainer);
+        mainContainer.Add(dialogueInputContainer);
+    }
+
+    private void UpdateDialogueInputFields()
+    {
+        // 移除所有输入控件（但保留下拉框）
+        dialogueTextField.RemoveFromHierarchy();
+        dialogueIdField.RemoveFromHierarchy();
+        dialoguePreviewLabel.RemoveFromHierarchy();
+
+        // 确保下拉框始终在最前面
+        if (contentModeDropdown.parent != dialogueInputContainer)
+        {
+            dialogueInputContainer.Insert(0, contentModeDropdown);
+        }
+
+        if (useContentId)
+        {
+            // Use ID模式：显示ID输入框 + 预览标签
+            dialogueInputContainer.Add(dialogueIdField);
+            dialogueInputContainer.Add(dialoguePreviewLabel);
+
+            dialogueIdField.SetValueWithoutNotify(contentId ?? "");
+            UpdateDialoguePreview();  // 更新预览
+        }
+        else
+        {
+            // Direct Input模式：只显示多行文本框
+            dialogueInputContainer.Add(dialogueTextField);
+
+            if (editorWindow != null && DialogueText != null)
+            {
+                dialogueTextField.SetValueWithoutNotify(DialogueText.GetText(editorWindow.GetCurrentLanguage()));
+            }
+        }
     }
 
     private void UpdateDialoguePreview()
     {
         if (dialoguePreviewLabel == null) return;
 
-        if (string.IsNullOrEmpty(dialogueTextId))
+        if (string.IsNullOrEmpty(contentId))
         {
             dialoguePreviewLabel.text = "[未设置ID]";
             dialoguePreviewLabel.style.color = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
@@ -402,11 +525,11 @@ public partial class DialogueNode : Node
         }
 
         Language currentLang = editorWindow?.GetCurrentLanguage() ?? Language.English;
-        string previewText = DialogueLocalization.GetText(dialogueTextId, currentLang);
+        string previewText = DialogueLocalization.GetText(contentId, currentLang);
 
         if (previewText == null)
         {
-            dialoguePreviewLabel.text = $"[错误: ID '{dialogueTextId}' 不存在]";
+            dialoguePreviewLabel.text = $"[错误: ID '{contentId}' 不存在]";
             dialoguePreviewLabel.style.color = new StyleColor(new Color(0.8f, 0.2f, 0.2f));
         }
         else
@@ -1548,49 +1671,164 @@ public partial class DialogueNode : Node
         portRow.Add(outputPort);
         choiceContainer.Add(portRow);
 
+        // 添加模式选择下拉框
+        var modeRow = new VisualElement();
+        modeRow.style.marginBottom = 5;
+
+        var choiceModeDropdown = new DropdownField("Input Mode:",
+            new List<string> { "Direct Input", "Use ID" },
+            ChoicesData[index].useTextId ? 1 : 0);
+        choiceModeDropdown.style.fontSize = 9;
+        int currentIndex = index;
+        choiceModeDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (currentIndex < ChoicesData.Count)
+            {
+                bool oldUseId = ChoicesData[currentIndex].useTextId;
+                bool newUseId = (evt.newValue == "Use ID");
+
+                // 模式切换时的数据迁移
+                if (oldUseId && !newUseId)
+                {
+                    // 从Use ID切换到Direct Input
+                    // 只在text为空时才从ID读取内容（避免覆盖用户编辑的内容）
+                    bool isEmpty = ChoicesData[currentIndex].text == null ||
+                                  (string.IsNullOrEmpty(ChoicesData[currentIndex].text.en) &&
+                                   string.IsNullOrEmpty(ChoicesData[currentIndex].text.zh) &&
+                                   string.IsNullOrEmpty(ChoicesData[currentIndex].text.ja));
+
+                    string textId = ChoicesData[currentIndex].textId;
+                    if (isEmpty && !string.IsNullOrEmpty(textId) && DialogueLocalization.IsLoaded)
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(textId);
+                        if (locData != null)
+                        {
+                            if (ChoicesData[currentIndex].text == null)
+                            {
+                                ChoicesData[currentIndex].text = new LocalizedText();
+                            }
+                            // 只在空的时候填充
+                            ChoicesData[currentIndex].text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                            ChoicesData[currentIndex].text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                            ChoicesData[currentIndex].text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                        }
+                    }
+                }
+
+                ChoicesData[currentIndex].useTextId = newUseId;
+                // 重建整个Choice UI
+                if (currentIndex < choicesContainer.childCount)
+                {
+                    choicesContainer.RemoveAt(currentIndex);
+                    RebuildChoiceUI(currentIndex);
+                }
+                NotifyChange();
+            }
+        });
+        modeRow.Add(choiceModeDropdown);
+        choiceContainer.Add(modeRow);
+
+        // 根据模式创建不同的输入框
         var inputRow = new VisualElement();
         inputRow.style.flexDirection = FlexDirection.Row;
         inputRow.style.alignItems = Align.Center;
         inputRow.style.marginBottom = 5;
 
-        var textLabel = new Label("ID:");
-        textLabel.style.minWidth = 40;
-        textLabel.style.maxWidth = 40;
-        textLabel.style.fontSize = 10;
-        textLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
-        textLabel.style.marginRight = 5;
-
-        var choiceIdField = new TextField();
-        choiceIdField.value = ChoicesData[index].textId ?? "";
-        choiceIdField.style.flexGrow = 1;
-        choiceIdField.style.flexShrink = 1;
-        choiceIdField.style.minWidth = 80;
-
-        // 保存到列表中以便后续访问
-        while (choiceIdFields.Count <= index)
+        if (ChoicesData[index].useTextId)
         {
-            choiceIdFields.Add(null);
-        }
-        choiceIdFields[index] = choiceIdField;
+            // ID模式
+            var idLabel = new Label("Text ID:");
+            idLabel.style.minWidth = 50;
+            idLabel.style.maxWidth = 50;
+            idLabel.style.fontSize = 10;
+            idLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+            idLabel.style.marginRight = 5;
 
-        int currentIndex = index;
-        choiceIdField.RegisterValueChangedCallback(evt =>
-        {
-            if (currentIndex < ChoicesData.Count)
+            var textIdField = new TextField();
+            textIdField.value = ChoicesData[index].textId ?? "";
+            textIdField.style.flexGrow = 1;
+            textIdField.style.flexShrink = 1;
+            textIdField.style.minWidth = 80;
+
+            // 保存到列表中
+            while (choiceIdFields.Count <= index)
             {
-                ChoicesData[currentIndex].textId = evt.newValue.Trim();
-                UpdateChoicePreview(currentIndex);
-
-                // 更新port名称
-                if (currentIndex < choiceOutputPorts.Count)
-                {
-                    Language currentLang = editorWindow?.GetCurrentLanguage() ?? Language.English;
-                    string previewText = DialogueLocalization.GetText(ChoicesData[currentIndex].textId, currentLang);
-                    choiceOutputPorts[currentIndex].portName = previewText ?? ChoicesData[currentIndex].textId;
-                }
-                NotifyChange();
+                choiceIdFields.Add(null);
             }
-        });
+            choiceIdFields[index] = textIdField;
+
+            textIdField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < ChoicesData.Count)
+                {
+                    ChoicesData[currentIndex].textId = evt.newValue.Trim();
+                    UpdateChoicePreview(currentIndex);
+
+                    // 从DialogueLocalization读取文本并更新port名称
+                    if (!string.IsNullOrEmpty(evt.newValue) && DialogueLocalization.IsLoaded)
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(evt.newValue);
+                        if (locData != null)
+                        {
+                            ChoicesData[currentIndex].text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                            ChoicesData[currentIndex].text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                            ChoicesData[currentIndex].text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+
+                            // 更新port名称
+                            if (currentIndex < choiceOutputPorts.Count && editorWindow != null)
+                            {
+                                choiceOutputPorts[currentIndex].portName = ChoicesData[currentIndex].text.GetText(editorWindow.GetCurrentLanguage());
+                            }
+                        }
+                    }
+                    NotifyChange();
+                }
+            });
+
+            inputRow.Add(idLabel);
+            inputRow.Add(textIdField);
+        }
+        else
+        {
+            // 直接输入模式
+            var textLabel = new Label("Text:");
+            textLabel.style.minWidth = 40;
+            textLabel.style.maxWidth = 40;
+            textLabel.style.fontSize = 10;
+            textLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+            textLabel.style.marginRight = 5;
+
+            var choiceField = new TextField();
+            choiceField.value = ChoicesData[index].text != null && editorWindow != null ? ChoicesData[index].text.GetText(editorWindow.GetCurrentLanguage()) : "";
+            choiceField.style.flexGrow = 1;
+            choiceField.style.flexShrink = 1;
+            choiceField.style.minWidth = 80;
+
+            choiceField.RegisterValueChangedCallback(evt =>
+            {
+                if (currentIndex < ChoicesData.Count)
+                {
+                    if (ChoicesData[currentIndex].text == null)
+                    {
+                        ChoicesData[currentIndex].text = new LocalizedText();
+                    }
+
+                    if (editorWindow != null)
+                    {
+                        ChoicesData[currentIndex].text.SetText(editorWindow.GetCurrentLanguage(), evt.newValue);
+                    }
+
+                    if (currentIndex < choiceOutputPorts.Count)
+                    {
+                        choiceOutputPorts[currentIndex].portName = evt.newValue;
+                    }
+                    NotifyChange();
+                }
+            });
+
+            inputRow.Add(textLabel);
+            inputRow.Add(choiceField);
+        }
 
         var removeButton = new Button(() =>
         {
@@ -1609,30 +1847,34 @@ public partial class DialogueNode : Node
         removeButton.style.backgroundColor = new StyleColor(new Color(0.6f, 0.2f, 0.2f));
         removeButton.style.flexShrink = 0;
 
-        inputRow.Add(textLabel);
-        inputRow.Add(choiceIdField);
         inputRow.Add(removeButton);
         choiceContainer.Add(inputRow);
 
-        // 添加预览标签
-        var previewLabel = new Label("");
-        previewLabel.style.marginTop = 5;
-        previewLabel.style.marginBottom = 5;
-        previewLabel.style.paddingLeft = 5;
-        previewLabel.style.paddingRight = 5;
-        previewLabel.style.paddingTop = 3;
-        previewLabel.style.paddingBottom = 3;
-        previewLabel.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
-        previewLabel.style.borderTopWidth = 1;
-        previewLabel.style.borderBottomWidth = 1;
-        previewLabel.style.borderLeftWidth = 1;
-        previewLabel.style.borderRightWidth = 1;
-        previewLabel.style.borderTopColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
-        previewLabel.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
-        previewLabel.style.borderLeftColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
-        previewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
-        previewLabel.style.whiteSpace = WhiteSpace.Normal;
-        previewLabel.style.fontSize = 10;
+        // 添加预览标签（仅在Use ID模式显示）
+        Label previewLabel = null;
+        if (ChoicesData[index].useTextId)
+        {
+            previewLabel = new Label("");
+            previewLabel.style.marginTop = 5;
+            previewLabel.style.marginBottom = 5;
+            previewLabel.style.paddingLeft = 5;
+            previewLabel.style.paddingRight = 5;
+            previewLabel.style.paddingTop = 3;
+            previewLabel.style.paddingBottom = 3;
+            previewLabel.style.backgroundColor = new StyleColor(new Color(0.15f, 0.15f, 0.15f, 0.8f));
+            previewLabel.style.borderTopWidth = 1;
+            previewLabel.style.borderBottomWidth = 1;
+            previewLabel.style.borderLeftWidth = 1;
+            previewLabel.style.borderRightWidth = 1;
+            previewLabel.style.borderTopColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+            previewLabel.style.borderBottomColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+            previewLabel.style.borderLeftColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+            previewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
+            previewLabel.style.whiteSpace = WhiteSpace.Normal;
+            previewLabel.style.fontSize = 10;
+
+            choiceContainer.Add(previewLabel);
+        }
 
         while (choicePreviewLabels.Count <= index)
         {
@@ -1640,8 +1882,11 @@ public partial class DialogueNode : Node
         }
         choicePreviewLabels[index] = previewLabel;
 
-        UpdateChoicePreview(index);
-        choiceContainer.Add(previewLabel);
+        // 只在Use ID模式更新预览
+        if (ChoicesData[index].useTextId)
+        {
+            UpdateChoicePreview(index);
+        }
 
         var conditionsHeaderRow = new VisualElement();
         conditionsHeaderRow.style.flexDirection = FlexDirection.Row;
@@ -2488,6 +2733,7 @@ public partial class DialogueNode : Node
 
         for (int i = 0; i < choicesData.Count; i++)
         {
+            // 直接使用useTextId字段，不做自动判断
             ChoicesData.Add(choicesData[i]);
             RebuildChoiceUI(i);
         }

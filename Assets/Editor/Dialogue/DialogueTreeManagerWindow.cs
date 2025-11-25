@@ -653,62 +653,153 @@ public class DialogueTreeManagerWindow : EditorWindow
             nameFieldStyle.normal.textColor = Color.white;
             nameFieldStyle.focused.textColor = Color.white;
 
-            // Name ID 输入
+            // 模式选择下拉框
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(15);
-            EditorGUILayout.LabelField("Name ID:", GUILayout.Width(70));
+            EditorGUILayout.LabelField("Input Mode:", GUILayout.Width(80));
 
-            string currentNameId = character.characterNameId ?? "";
-            string newNameId = EditorGUILayout.TextField(currentNameId, nameFieldStyle);
+            string[] modeOptions = new string[] { "Direct Input", "Use ID" };
+            int currentMode = character.useNameId ? 1 : 0;
+            int newMode = EditorGUILayout.Popup(currentMode, modeOptions);
 
-            if (newNameId != currentNameId)
+            if (newMode != currentMode)
             {
-                character.characterNameId = newNameId;
+                bool oldUseId = character.useNameId;
+                bool newUseId = (newMode == 1);
 
-                // 如果有新ID且数据已加载，从Google Sheets读取内容
-                if (!string.IsNullOrEmpty(newNameId) && DialogueLocalization.IsLoaded)
+                // 模式切换时的数据迁移
+                if (oldUseId && !newUseId)
                 {
-                    var locData = DialogueLocalization.GetAllLanguages(newNameId);
-                    if (locData != null)
+                    // 从Use ID切换到Direct Input
+                    // 只在characterName为空时才从ID读取内容（避免覆盖用户编辑的内容）
+                    bool isEmpty = character.characterName == null ||
+                                  (string.IsNullOrEmpty(character.characterName.en) &&
+                                   string.IsNullOrEmpty(character.characterName.zh) &&
+                                   string.IsNullOrEmpty(character.characterName.ja));
+
+                    if (isEmpty && !string.IsNullOrEmpty(character.nameId) && DialogueLocalization.IsLoaded)
                     {
-                        character.characterName = new LocalizedText
+                        var locData = DialogueLocalization.GetAllLanguages(character.nameId);
+                        if (locData != null)
                         {
-                            zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
-                            en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
-                            ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
-                        };
+                            if (character.characterName == null)
+                            {
+                                character.characterName = new LocalizedText();
+                            }
+                            // 只在空的时候填充
+                            character.characterName.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                            character.characterName.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                            character.characterName.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                        }
                     }
                 }
+
+                character.useNameId = newUseId;
             }
 
             EditorGUILayout.EndHorizontal();
 
-            // Name 预览 - 根据当前语言显示
-            if (!string.IsNullOrEmpty(character.characterNameId))
+            if (character.useNameId)
             {
+                // Use ID 模式
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(15);
+                EditorGUILayout.LabelField("Name ID:", GUILayout.Width(70));
 
-                if (DialogueLocalization.IsLoaded && DialogueLocalization.HasId(character.characterNameId))
+                string currentNameId = character.nameId ?? "";
+                string newNameId = EditorGUILayout.TextField(currentNameId, nameFieldStyle);
+
+                if (newNameId != currentNameId)
                 {
-                    // 获取当前语言的文本
-                    Language currentLang = Language.ChineseSimplified; // 默认中文，可以从editorWindow获取
-                    string previewText = DialogueLocalization.GetText(character.characterNameId, currentLang);
+                    character.nameId = newNameId;
 
-                    // 显示预览
-                    var previewStyle = new GUIStyle(EditorStyles.label);
-                    previewStyle.normal.textColor = new Color(0.7f, 0.9f, 0.7f); // 淡绿色
-                    previewStyle.wordWrap = true;
-                    EditorGUILayout.LabelField($"预览: {previewText}", previewStyle);
+                    // 如果有新ID且数据已加载，从Google Sheets读取内容
+                    if (!string.IsNullOrEmpty(newNameId) && DialogueLocalization.IsLoaded)
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(newNameId);
+                        if (locData != null)
+                        {
+                            character.characterName = new LocalizedText
+                            {
+                                zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                                en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                                ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                            };
+                        }
+                    }
                 }
-                else if (!string.IsNullOrEmpty(character.characterNameId))
+
+                EditorGUILayout.EndHorizontal();
+
+                // Name 预览 - 根据当前语言显示
+                if (!string.IsNullOrEmpty(character.nameId))
                 {
-                    // ID不存在，显示错误
-                    var errorStyle = new GUIStyle(EditorStyles.label);
-                    errorStyle.normal.textColor = new Color(1f, 0.5f, 0.5f); // 淡红色
-                    EditorGUILayout.LabelField($"[错误: ID '{character.characterNameId}' 不存在]", errorStyle);
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Space(15);
+
+                    if (DialogueLocalization.IsLoaded && DialogueLocalization.HasId(character.nameId))
+                    {
+                        // 获取当前语言的文本
+                        Language currentLang = Language.ChineseSimplified; // 默认中文，可以从editorWindow获取
+                        string previewText = DialogueLocalization.GetText(character.nameId, currentLang);
+
+                        // 显示预览
+                        var previewStyle = new GUIStyle(EditorStyles.label);
+                        previewStyle.normal.textColor = new Color(0.7f, 0.9f, 0.7f); // 淡绿色
+                        previewStyle.wordWrap = true;
+                        EditorGUILayout.LabelField($"预览: {previewText}", previewStyle);
+                    }
+                    else if (!string.IsNullOrEmpty(character.nameId))
+                    {
+                        // ID不存在，显示错误
+                        var errorStyle = new GUIStyle(EditorStyles.label);
+                        errorStyle.normal.textColor = new Color(1f, 0.5f, 0.5f); // 淡红色
+                        EditorGUILayout.LabelField($"[错误: ID '{character.nameId}' 不存在]", errorStyle);
+                    }
+
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+            else
+            {
+                // Direct Input 模式 - 显示三个语言的输入框
+                // 中文
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(15);
+                EditorGUILayout.LabelField("中文:", GUILayout.Width(70));
+
+                if (character.characterName == null)
+                {
+                    character.characterName = new LocalizedText();
                 }
 
+                string newZh = EditorGUILayout.TextField(character.characterName.zh ?? "", nameFieldStyle);
+                if (newZh != character.characterName.zh)
+                {
+                    character.characterName.zh = newZh;
+                }
+                EditorGUILayout.EndHorizontal();
+
+                // English
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(15);
+                EditorGUILayout.LabelField("English:", GUILayout.Width(70));
+                string newEn = EditorGUILayout.TextField(character.characterName.en ?? "", nameFieldStyle);
+                if (newEn != character.characterName.en)
+                {
+                    character.characterName.en = newEn;
+                }
+                EditorGUILayout.EndHorizontal();
+
+                // 日本語
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(15);
+                EditorGUILayout.LabelField("日本語:", GUILayout.Width(70));
+                string newJa = EditorGUILayout.TextField(character.characterName.ja ?? "", nameFieldStyle);
+                if (newJa != character.characterName.ja)
+                {
+                    character.characterName.ja = newJa;
+                }
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -1158,9 +1249,9 @@ public class DialogueTreeManagerWindow : EditorWindow
             {
                 foreach (var character in characterLibrary.characters)
                 {
-                    if (!string.IsNullOrEmpty(character.characterNameId))
+                    if (!string.IsNullOrEmpty(character.nameId))
                     {
-                        var locData = DialogueLocalization.GetAllLanguages(character.characterNameId);
+                        var locData = DialogueLocalization.GetAllLanguages(character.nameId);
                         if (locData != null)
                         {
                             character.characterName = new LocalizedText
@@ -1269,6 +1360,13 @@ public class DialogueTreeManagerWindow : EditorWindow
                         {
                             // 如果没有character字段，使用characterName填充
                             character.character = character.characterName?.en ?? "New Character";
+                            needsSave = true;
+                        }
+
+                        // 兼容旧文件：如果useNameId是false但nameId有值，说明是旧文件
+                        if (!character.useNameId && !string.IsNullOrEmpty(character.nameId))
+                        {
+                            character.useNameId = true;
                             needsSave = true;
                         }
                     }
@@ -3327,7 +3425,7 @@ public class DialogueTreeManagerWindow : EditorWindow
             try
             {
                 string json = File.ReadAllText(path);
-                LocalizationSettings settings = JsonUtility.FromJson<LocalizationSettings>(json);
+                DialogueLocalizationSettings settings = JsonUtility.FromJson<DialogueLocalizationSettings>(json);
                 if (settings != null && !string.IsNullOrEmpty(settings.googleSheetsCsvUrl))
                 {
                     csvUrlInput = settings.googleSheetsCsvUrl;
@@ -3345,7 +3443,7 @@ public class DialogueTreeManagerWindow : EditorWindow
     {
         try
         {
-            LocalizationSettings settings = new LocalizationSettings
+            DialogueLocalizationSettings settings = new DialogueLocalizationSettings
             {
                 googleSheetsCsvUrl = csvUrlInput
             };
@@ -3838,13 +3936,13 @@ public class DialogueTreeManagerWindow : EditorWindow
                     DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(json);
                     if (data == null || data.nodes == null) { failed++; errors.Add(name + " (invalid)"); continue; }
 
-                    // 从DialogueLocalization更新所有LocalizedText
+                    // 从DialogueLocalization更新所有LocalizedText（只更新Use ID模式的内容）
                     if (DialogueLocalization.IsLoaded)
                     {
                         foreach (var node in data.nodes)
                         {
-                            // 更新节点内容
-                            if (!string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                            // 只在Use ID模式时更新节点内容
+                            if (node.useContentId && !string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
                             {
                                 var locData = DialogueLocalization.GetAllLanguages(node.contentId);
                                 if (locData != null)
@@ -3855,12 +3953,12 @@ public class DialogueTreeManagerWindow : EditorWindow
                                 }
                             }
 
-                            // 更新选项文本
+                            // 只在Use ID模式时更新选项文本
                             if (node.choices != null)
                             {
                                 foreach (var choice in node.choices)
                                 {
-                                    if (!string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                                    if (choice.useTextId && !string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
                                     {
                                         var locData = DialogueLocalization.GetAllLanguages(choice.textId);
                                         if (locData != null)
@@ -4390,12 +4488,12 @@ public class DialogueTreeManagerWindow : EditorWindow
                     continue;
                 }
 
-                // 用DialogueLocalization中的最新数据更新所有LocalizedText
+                // 用DialogueLocalization中的最新数据更新所有LocalizedText（只更新Use ID模式的内容）
                 bool hasUpdates = false;
                 foreach (var node in data.nodes)
                 {
-                    // 更新节点内容
-                    if (!string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                    // 只在Use ID模式时更新节点内容
+                    if (node.useContentId && !string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
                     {
                         var locData = DialogueLocalization.GetAllLanguages(node.contentId);
                         if (locData != null)
@@ -4407,12 +4505,12 @@ public class DialogueTreeManagerWindow : EditorWindow
                         }
                     }
 
-                    // 更新选项文本
+                    // 只在Use ID模式时更新选项文本
                     if (node.choices != null)
                     {
                         foreach (var choice in node.choices)
                         {
-                            if (!string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                            if (choice.useTextId && !string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
                             {
                                 var locData = DialogueLocalization.GetAllLanguages(choice.textId);
                                 if (locData != null)
