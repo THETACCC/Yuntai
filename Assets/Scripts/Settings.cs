@@ -16,8 +16,8 @@ public class Settings : MonoBehaviour
     public string currentLanguage = "en"; //zh en ja
 
     public float mainVolume;
-    public Slider mainVolumeSlider;
-    public TextMeshProUGUI mainVolumeNum;
+    //public Slider mainVolumeSlider;
+    //public TextMeshProUGUI mainVolumeNum;
 
     bool isOpen = false;
     int _localeIndex;
@@ -61,8 +61,8 @@ public class Settings : MonoBehaviour
             }
         }
 
-        mainVolume = mainVolumeSlider.value;
-        mainVolumeNum.text = mainVolumeSlider.value.ToString();
+        //mainVolume = mainVolumeSlider.value;
+        //mainVolumeNum.text = mainVolumeSlider.value.ToString();
     }
 
     public void OpenSettings()
