@@ -14,7 +14,9 @@
         "zh": "（之前没能和这个人对话，而灯暗下来后她就消失了。）",
         "ja": ""
       },
-      "nextIndex": 8
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -31,8 +33,19 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetGotFoodTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetGotFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -51,31 +64,80 @@
       },
       "nextIndex": -1,
       "choices": [
-        {"text": {
+        {
+          "text": {
             "en": "5",
             "zh": "5",
             "ja": ""
-          }, "targetIndex": 3, "conditions": [
-            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv5", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
-        {"text": {
+          },
+          "targetIndex": 3,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv5",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": {
             "en": "6",
             "zh": "6",
             "ja": ""
-          }, "targetIndex": 4, "conditions": [
-            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv6", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
-        {"text": {
+          },
+          "targetIndex": 4,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv6",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": {
             "en": "7",
             "zh": "7",
             "ja": ""
-          }, "targetIndex": 5, "conditions": [
-            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv7", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
-        {"text": {
+          },
+          "targetIndex": 5,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_Conv7",
+              "comparison": "Equal",
+              "compareValue": "False"
+            }
+          ],
+          "conditionLogic": "AND"
+        },
+        {
+          "text": {
             "en": "You know, I saw...",
             "zh": "",
             "ja": ""
-          }, "targetIndex": 6, "conditions": [
-            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_AllConv", "comparison": "Equal", "compareValue": "True"}], "conditionLogic": "AND"}
-      ]
+          },
+          "targetIndex": 6,
+          "conditions": [
+            {
+              "targetObjectName": "LevelManager2_1",
+              "componentTypeName": "LevelManager2_1",
+              "variableName": "isZhouShu_AllConv",
+              "comparison": "Equal",
+              "compareValue": "True"
+            }
+          ],
+          "conditionLogic": "AND"
+        }
+      ],
+      "eventCalls": []
     },
     {
       "index": 3,
@@ -92,9 +154,30 @@
         "ja": ""
       },
       "nextIndex": 2,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoFiveTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false},
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv5", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoFiveTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv5",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -112,9 +195,30 @@
         "ja": ""
       },
       "nextIndex": 2,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoSixTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false},
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv6", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoSixTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv6",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -132,9 +236,30 @@
         "ja": ""
       },
       "nextIndex": 2,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoSevenTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false},
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv7", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoSevenTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetZhouShuConv7",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -152,9 +277,30 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "BlinkThenDim", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false},
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "WorkerChangeAndOpenTrigger", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "BlinkThenDim",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "WorkerChangeAndOpenTrigger",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -171,7 +317,9 @@
         "zh": "饿...我好饿...饿...",
         "ja": ""
       },
-      "nextIndex": 13
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 8,
@@ -188,8 +336,19 @@
         "ja": ""
       },
       "nextIndex": 9,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "snd_hungry", "componentTypeName": "AudioSource", "methodName": "Play", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "snd_hungry",
+          "componentTypeName": "AudioSource",
+          "methodName": "Play",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -206,7 +365,9 @@
         "zh": "您好，请问——",
         "ja": ""
       },
-      "nextIndex": 10
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 10,
@@ -222,7 +383,9 @@
         "zh": "呃——",
         "ja": ""
       },
-      "nextIndex": 11
+      "nextIndex": 11,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 11,
@@ -238,7 +401,9 @@
         "zh": "您说什么？我没有听清。",
         "ja": ""
       },
-      "nextIndex": 7
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 12,
@@ -255,9 +420,30 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoThreeTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false},
-        {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "ChangeStewardessToForFood", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoThreeTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        },
+        {
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "ChangeStewardessToForFood",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
       ]
     },
     {
@@ -274,7 +460,9 @@
         "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
         "ja": ""
       },
-      "nextIndex": 12
+      "nextIndex": 12,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0

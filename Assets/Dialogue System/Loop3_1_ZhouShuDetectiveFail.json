@@ -14,7 +14,9 @@
         "zh": "…",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -30,7 +32,9 @@
         "zh": "",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -47,8 +51,19 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectName": "LevelManager3_1", "componentTypeName": "LevelManager3_1", "methodName": "ZhouShuFailed", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": true}
+        {
+          "targetObjectName": "LevelManager3_1",
+          "componentTypeName": "LevelManager3_1",
+          "methodName": "ZhouShuFailed",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": true
+        }
       ]
     }
   ],
