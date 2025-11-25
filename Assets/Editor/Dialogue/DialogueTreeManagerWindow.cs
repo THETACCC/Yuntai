@@ -731,33 +731,57 @@ public class DialogueTreeManagerWindow : EditorWindow
 
                 EditorGUILayout.EndHorizontal();
 
-                // Name 预览 - 根据当前语言显示
+                // Name 预览 - 显示三个语言
                 if (!string.IsNullOrEmpty(character.nameId))
                 {
-                    EditorGUILayout.BeginHorizontal();
-                    GUILayout.Space(15);
-
                     if (DialogueLocalization.IsLoaded && DialogueLocalization.HasId(character.nameId))
                     {
-                        // 获取当前语言的文本
-                        Language currentLang = Language.ChineseSimplified; // 默认中文，可以从editorWindow获取
-                        string previewText = DialogueLocalization.GetText(character.nameId, currentLang);
+                        // 获取所有语言的文本
+                        var locData = DialogueLocalization.GetAllLanguages(character.nameId);
+                        if (locData != null)
+                        {
+                            var previewStyle = new GUIStyle(EditorStyles.label);
+                            previewStyle.normal.textColor = new Color(0.7f, 0.9f, 0.7f); // 淡绿色
+                            previewStyle.wordWrap = true;
 
-                        // 显示预览
-                        var previewStyle = new GUIStyle(EditorStyles.label);
-                        previewStyle.normal.textColor = new Color(0.7f, 0.9f, 0.7f); // 淡绿色
-                        previewStyle.wordWrap = true;
-                        EditorGUILayout.LabelField($"预览: {previewText}", previewStyle);
+                            // 中文
+                            if (locData.ContainsKey(Language.ChineseSimplified))
+                            {
+                                EditorGUILayout.BeginHorizontal();
+                                GUILayout.Space(15);
+                                EditorGUILayout.LabelField($"中文: {locData[Language.ChineseSimplified]}", previewStyle);
+                                EditorGUILayout.EndHorizontal();
+                            }
+
+                            // English
+                            if (locData.ContainsKey(Language.English))
+                            {
+                                EditorGUILayout.BeginHorizontal();
+                                GUILayout.Space(15);
+                                EditorGUILayout.LabelField($"EN: {locData[Language.English]}", previewStyle);
+                                EditorGUILayout.EndHorizontal();
+                            }
+
+                            // 日本語
+                            if (locData.ContainsKey(Language.Japanese))
+                            {
+                                EditorGUILayout.BeginHorizontal();
+                                GUILayout.Space(15);
+                                EditorGUILayout.LabelField($"日本語: {locData[Language.Japanese]}", previewStyle);
+                                EditorGUILayout.EndHorizontal();
+                            }
+                        }
                     }
                     else if (!string.IsNullOrEmpty(character.nameId))
                     {
                         // ID不存在，显示错误
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Space(15);
                         var errorStyle = new GUIStyle(EditorStyles.label);
                         errorStyle.normal.textColor = new Color(1f, 0.5f, 0.5f); // 淡红色
                         EditorGUILayout.LabelField($"[错误: ID '{character.nameId}' 不存在]", errorStyle);
+                        EditorGUILayout.EndHorizontal();
                     }
-
-                    EditorGUILayout.EndHorizontal();
                 }
             }
             else
