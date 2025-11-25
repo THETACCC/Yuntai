@@ -100,7 +100,7 @@ public static class GlobalLibrary
         {SceneTitle.Level3_2, "Level3-2" },
         {SceneTitle.Level3_3, "Level3-3" },
         {SceneTitle.Level3_4, "Level3-4" },
-        {SceneTitle.Level3_4, "Level3-5" },
+        {SceneTitle.Level3_5, "Level3-5" },
     };
 
     public static readonly Dictionary<int, SceneTitle> G_SCENE_INDEX = new Dictionary<int, SceneTitle>()
