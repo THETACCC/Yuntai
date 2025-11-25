@@ -34,6 +34,9 @@ public class NoteBookReader : MonoBehaviour
     // 标志位，表示是否已经成功加载
     private bool hasLoaded = false;
 
+    // 记录上次加载的语言
+    private string lastLoadedLanguage = "";
+
     private struct DataRow
     {
         public string NameID;
@@ -43,17 +46,56 @@ public class NoteBookReader : MonoBehaviour
         public string Body1ID;
     }
 
+    private void OnEnable()
+    {
+        // 订阅语言切换事件
+        NoteBookLocalization.OnLanguageChanged += OnLanguageChanged;
+
+        // GameObject激活时检查是否需要加载或重新加载
+        CheckAndLoad();
+    }
+
+    private void OnDisable()
+    {
+        // 取消订阅语言切换事件
+        NoteBookLocalization.OnLanguageChanged -= OnLanguageChanged;
+    }
+
+    /// <summary>
+    /// 语言切换时的回调 - 立即重新加载
+    /// </summary>
+    private void OnLanguageChanged()
+    {
+        Debug.Log($"[NoteBookReader] Language changed event received for key '{key}' on {gameObject.name}, reloading immediately...");
+        hasLoaded = false;
+
+        // 立即重新加载（不等待Update）
+        CheckAndLoad();
+    }
+
     private void Update()
     {
-        // 如果已经加载过了，就不再尝试
-        if (hasLoaded)
-            return;
+        // 持续检查并加载（CheckAndLoad内部会判断是否真的需要加载）
+        CheckAndLoad();
+    }
 
+    /// <summary>
+    /// 检查条件并加载数据
+    /// </summary>
+    private void CheckAndLoad()
+    {
         // 检查所有条件是否满足
         if (NoteBookManager.instance == null || NoteBookLocalization.instance == null)
             return;
 
         if (!NoteBookManager.instance.IsDataReady || !NoteBookLocalization.instance.IsDataReady)
+            return;
+
+        // 检查是否需要加载：未加载过 或 语言已变化
+        string currentLanguage = NoteBookLocalization.instance.currentLanguage;
+        bool needLoad = !hasLoaded || (lastLoadedLanguage != currentLanguage);
+
+        if (!needLoad)
             return;
 
         // 条件满足，开始加载
@@ -103,10 +145,11 @@ public class NoteBookReader : MonoBehaviour
         if (bodyText1 != null)
             bodyText1.text = NoteBookLocalization.instance.GetText(data.Body1ID);
 
-        // 标记为已成功加载
+        // 标记为已成功加载，并记录当前语言
         hasLoaded = true;
+        lastLoadedLanguage = NoteBookLocalization.instance.currentLanguage;
 
-        Debug.Log($"[NoteBookReader] Successfully loaded data for key '{key}' on {gameObject.name}");
+        Debug.Log($"[NoteBookReader] Successfully loaded data for key '{key}' in language '{lastLoadedLanguage}' on {gameObject.name}");
     }
 
     private static Dictionary<string, DataRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)

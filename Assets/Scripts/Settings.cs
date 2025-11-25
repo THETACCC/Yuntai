@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -10,17 +10,17 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public CanvasGroup canvasGroup;
 
-    public GameObject inGameSettings;
-    public GameObject outGameSettings;
-
     public string currentLanguage = "en"; //zh en ja
 
     public float mainVolume;
     //public Slider mainVolumeSlider;
     //public TextMeshProUGUI mainVolumeNum;
 
-    bool isOpen = false;
+    public bool isSettingsOpen = false;
     int _localeIndex;
+
+    public GameObject returnToMain;
+    public GameObject saveFile;
 
     private void Awake()
     {
@@ -51,7 +51,7 @@ public class Settings : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (isOpen)
+                if (isSettingsOpen)
                 {
                     CloseSettings();
                 } else
@@ -67,24 +67,24 @@ public class Settings : MonoBehaviour
 
     public void OpenSettings()
     {
-        isOpen = true;
+        isSettingsOpen = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        Debug.Log("222");
+        
         if (isInGame)
         {
-            inGameSettings.SetActive(true);
-            outGameSettings.SetActive(false);
+            returnToMain.SetActive(true);
+            saveFile.SetActive(true);
         } else
         {
-            inGameSettings.SetActive(false);
-            outGameSettings.SetActive(true);
+            returnToMain.SetActive(false);
+            saveFile.SetActive(false);
         }
      }
 
     public void CloseSettings()
     {
-        isOpen = false;
+        isSettingsOpen = false;
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0;
     }
@@ -104,8 +104,19 @@ public class Settings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
-        DialogueSettings.instance.SetLanguage(languageCode); //dialogue
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(languageCode); //UI
-        
+
+        //更新Dialogue
+        DialogueSettings.instance.SetLanguage(currentLanguage); //dialogue
+        if (DialogueManager.instance.isDialogueActive)
+        {
+            DialogueManager.instance.UpdateDialogue();
+        }
+
+        //更新Notebook
+        NoteBookLocalization.instance.SetLanguage(currentLanguage);
+
+        //更新普通UI
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage); //UI
+
     }
 }

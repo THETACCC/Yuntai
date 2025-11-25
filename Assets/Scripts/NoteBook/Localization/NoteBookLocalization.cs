@@ -8,6 +8,9 @@ public class NoteBookLocalization : MonoBehaviour
 {
     public static NoteBookLocalization instance;
 
+    // 语言切换事件
+    public static event Action OnLanguageChanged;
+
     [Header("Localization Settings")]
     [Tooltip("本地化表CSV文件（如果使用本地文件）")]
     public TextAsset localizationTable;
@@ -15,8 +18,8 @@ public class NoteBookLocalization : MonoBehaviour
     [Tooltip("Google Sheets发布的CSV URL（如果使用在线表格）")]
     public string googleSheetsURL = "";
 
-    [Tooltip("当前语言（CN, EN, JP等）")]
-    public string currentLanguage = "CN";
+    [Tooltip("当前语言（zh, en, ja等）")]
+    public string currentLanguage = "zh";
 
     [Header("CSV Settings")]
     [SerializeField] private char csvDelimiter = ',';
@@ -50,6 +53,9 @@ public class NoteBookLocalization : MonoBehaviour
     /// </summary>
     public void LoadLocalizationTable()
     {
+        // 开始加载时先标记为未就绪
+        IsDataReady = false;
+
         // 优先使用Google Sheets URL
         if (!string.IsNullOrEmpty(googleSheetsURL))
         {
@@ -90,6 +96,10 @@ public class NoteBookLocalization : MonoBehaviour
         {
             localizationDict = ParseLocalizationCsv(csvText, currentLanguage, csvDelimiter, csvQuoteChar);
             IsDataReady = true;
+            Debug.Log($"[NoteBookLocalization] Successfully loaded {localizationDict.Count} entries for language: {currentLanguage}");
+
+            // 数据加载完成，触发语言切换事件通知所有Reader更新
+            OnLanguageChanged?.Invoke();
         }
         catch (Exception ex)
         {
@@ -123,7 +133,7 @@ public class NoteBookLocalization : MonoBehaviour
         currentLanguage = newLanguage;
         LoadLocalizationTable();
 
-        Debug.Log($"[NoteBookLocalization] Language changed to '{currentLanguage}'.");
+        Debug.Log($"[NoteBookLocalization] Language changing to '{currentLanguage}'...");
     }
 
     /// <summary>

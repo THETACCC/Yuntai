@@ -9,12 +9,14 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using DialogueSystem;
 using Fungus;
+using MoreMountains.Tools;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
 
     public bool isDialogueActive = false;
+
     public CanvasGroup UIGroup;
     public Image avatar;
     public TextMeshProUGUI speaker;
@@ -62,9 +64,10 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        MoveToNextInputCheck();
-
-
+        if (isDialogueActive && !Settings.instance.isSettingsOpen)
+        {
+            MoveToNextInputCheck();
+        }
     }
 
     void MoveToNextInputCheck()
