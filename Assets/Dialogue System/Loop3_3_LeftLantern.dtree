@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "53bd084c-e5db-4c5e-9748-0a9e3917bece",
+            "index": 0,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "屋檐上挂着许多装饰性的灯笼。",
+                "ja": ""
+            },
+            "positionX": 226.39999389648438,
+            "positionY": 218.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "508fc01f-35e2-4d67-94d7-1b811b229980",
+            "index": 1,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "很有节日氛围。",
+                "ja": ""
+            },
+            "positionX": 564.0,
+            "positionY": 218.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "53bd084c-e5db-4c5e-9748-0a9e3917bece",
+            "inputNodeId": "508fc01f-35e2-4d67-94d7-1b811b229980",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
