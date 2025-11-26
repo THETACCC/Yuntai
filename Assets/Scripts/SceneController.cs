@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,10 +11,15 @@ public class SceneController : MonoBehaviour
     [Tooltip("If true, zeroes out the player's Rigidbody2D velocity when teleporting.")]
     public bool resetPlayerVelocity2D = true;
 
+    [Header("Camera Bound")]
+    [Tooltip("可选：场景里的 CameraBound 物体（上面挂着 FindBound）。如果不指定，会在场景中自动查找。")]
     public GameObject CameraBound;
     public FindBound findbound;
 
-    [SerializeField] Animator transitionAnim;
+    [SerializeField] private Animator transitionAnim;
+
+    [Header("Debug")]
+    [SerializeField] private bool verboseLog = false;
 
     private void Awake()
     {
@@ -31,10 +36,35 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        findbound = CameraBound.GetComponent<FindBound>();
-        //transitionAnim.SetTrigger("Start");
+        RefreshCameraBound();
     }
 
+    /// <summary>
+    /// 每次进新场景后，重新找一遍 FindBound / CameraBound。
+    /// </summary>
+    private void RefreshCameraBound()
+    {
+        // 如果 Inspector 里没指定 CameraBound，就直接全局找一个 FindBound
+        if (CameraBound == null)
+        {
+            findbound = FindObjectOfType<FindBound>();
+            if (findbound != null)
+            {
+                CameraBound = findbound.gameObject;
+                if (verboseLog) Debug.Log("[SceneController] Found FindBound via FindObjectOfType.");
+            }
+            else
+            {
+                if (verboseLog) Debug.LogWarning("[SceneController] No FindBound found in scene.");
+            }
+        }
+        else
+        {
+            findbound = CameraBound.GetComponent<FindBound>();
+            if (findbound == null && verboseLog)
+                Debug.LogWarning("[SceneController] CameraBound is set but has no FindBound component.");
+        }
+    }
 
     /// <summary>
     /// Loads the scene asynchronously and teleports the player to the SpawnPoint with the given numeric id.
@@ -46,46 +76,85 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAndTeleportRoutine(string sceneName, int spawnId)
     {
-        // Make the Screen Go Black
-        transitionAnim.SetTrigger("End");
-        yield return new WaitForSeconds(1.5f);
-        // Start loading the scene
+        if (verboseLog)
+            Debug.Log($"[SceneController] LoadSceneAndTeleport -> scene='{sceneName}', spawnId={spawnId}");
+
+        // 1) 黑屏
+        if (transitionAnim != null)
+        {
+            transitionAnim.SetTrigger("End");
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        // 2) 异步加载新场景
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
             yield return null;
 
-        // Scene is loaded��find the player and the target spawn point.
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // 3) 场景加载完了，刷新 CameraBound / FindBound 引用
+        RefreshCameraBound();
+
+        // 4) 找 Player —— 优先单例，其次 tag
+        GameObject player = null;
+        PlayerController pc = PlayerController.Instance;
+        if (pc != null)
+        {
+            player = pc.gameObject;
+            if (verboseLog)
+                Debug.Log("[SceneController] Found Player via PlayerController.Instance.");
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null && verboseLog)
+                Debug.Log("[SceneController] Found Player via tag 'Player'.");
+        }
+
         if (player == null)
         {
-            Debug.LogWarning("SceneController: Player (tag 'Player') not found after scene load.");
+            Debug.LogWarning($"[SceneController] Player not found after loading scene '{sceneName}'.");
             yield break;
         }
 
+        // 5) 找 SpawnPoint
         Transform targetSpawn = FindSpawnPointTransform(spawnId);
         if (targetSpawn == null)
         {
-            Debug.LogWarning($"SceneController: No SpawnPoint with id {spawnId} found in scene '{sceneName}'.");
+            Debug.LogWarning($"[SceneController] No SpawnPoint with id {spawnId} found in scene '{sceneName}'.");
             yield break;
         }
 
-        // Teleport
+        // 6) 传送
+        if (verboseLog)
+        {
+            Debug.Log($"[SceneController] Teleporting player from {player.transform.position} to {targetSpawn.position}");
+        }
+
         player.transform.position = targetSpawn.position;
 
-        // CameraRelated
-        findbound.AssignNearestBound(player.transform, "Bounds");
+        // 7) Camera 边界绑定
+        if (findbound != null)
+        {
+            findbound.AssignNearestBound(player.transform, "Bounds");
+        }
+        else if (verboseLog)
+        {
+            Debug.LogWarning("[SceneController] findbound is null, cannot assign camera bounds.");
+        }
 
-        // Optional: reset 2D velocity so the player doesn't slide off spawn
+        // 8) 可选：清零速度
         if (resetPlayerVelocity2D)
         {
             var rb2d = player.GetComponent<Rigidbody2D>();
             if (rb2d) rb2d.velocity = Vector2.zero;
         }
 
-        //Start Transition
-        yield return new WaitForSeconds(0.5f);
-        transitionAnim.SetTrigger("Start");
-
+        // 9) 打开画面
+        if (transitionAnim != null)
+        {
+            yield return new WaitForSeconds(0.5f);
+            transitionAnim.SetTrigger("Start");
+        }
     }
 
     /// <summary>
