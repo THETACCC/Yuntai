@@ -1,0 +1,119 @@
+{
+    "nodes": [
+        {
+            "id": "01951c7e-c830-46f1-8a5a-84a9d9995133",
+            "index": 0,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "您好，这些都是手工制成的木偶吗？",
+                "ja": ""
+            },
+            "positionX": 205.59999084472657,
+            "positionY": -134.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bcaf3f7d-c37a-4192-a675-10d3cb0aa902",
+            "index": 1,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "那当然！这可是代代流传下来的手艺！",
+                "ja": ""
+            },
+            "positionX": 552.7999877929688,
+            "positionY": -133.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "da241eb6-deba-4e60-a49e-92093cde6868",
+            "index": 2,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "你看这里的花纹，啧啧，再看这里的雕刻细节......",
+                "ja": ""
+            },
+            "positionX": 900.7999877929688,
+            "positionY": -134.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a317d114-c409-404c-a0d3-e4bc5903db68",
+            "index": 3,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "（他似乎相当热衷于木偶。）",
+                "ja": ""
+            },
+            "positionX": 1237.5999755859375,
+            "positionY": -134.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "77cacd5f-ea00-466c-9044-3bb2307fe732",
+            "index": 4,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "（等等，连接这些木偶的丝线，和我在飞机上看到的有些类似。）",
+                "ja": ""
+            },
+            "positionX": 1588.0,
+            "positionY": -131.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "01951c7e-c830-46f1-8a5a-84a9d9995133",
+            "inputNodeId": "bcaf3f7d-c37a-4192-a675-10d3cb0aa902",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bcaf3f7d-c37a-4192-a675-10d3cb0aa902",
+            "inputNodeId": "da241eb6-deba-4e60-a49e-92093cde6868",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "da241eb6-deba-4e60-a49e-92093cde6868",
+            "inputNodeId": "a317d114-c409-404c-a0d3-e4bc5903db68",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a317d114-c409-404c-a0d3-e4bc5903db68",
+            "inputNodeId": "77cacd5f-ea00-466c-9044-3bb2307fe732",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "99b85e71-40bf-4507-bb55-e9948ca0fd20",
+            "index": 0,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "堆积的花灯挡住了去路。",
+                "ja": ""
+            },
+            "positionX": 141.59999084472657,
+            "positionY": -134.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "67841548-1a45-401a-980b-3e51ffdb3b9d",
+            "index": 1,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "啊，实在不好意思，我一会儿就去把它们挂起来。",
+                "ja": ""
+            },
+            "positionX": 497.6000061035156,
+            "positionY": -134.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1fa410eb-befb-4e81-bb33-665df1ad00a7",
+            "index": 2,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "摊主拄着拐杖，似乎是伤了腿。",
+                "ja": ""
+            },
+            "positionX": 852.0,
+            "positionY": -132.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bb4835f1-a493-4e4c-bc16-2be4a48b00f7",
+            "index": 3,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "New Dialogue",
+                "zh": "这种情况下，估计要花上很久才能挂好所有花灯吧。",
+                "ja": ""
+            },
+            "positionX": 1204.7999267578125,
+            "positionY": -131.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "99b85e71-40bf-4507-bb55-e9948ca0fd20",
+            "inputNodeId": "67841548-1a45-401a-980b-3e51ffdb3b9d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "67841548-1a45-401a-980b-3e51ffdb3b9d",
+            "inputNodeId": "1fa410eb-befb-4e81-bb33-665df1ad00a7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1fa410eb-befb-4e81-bb33-665df1ad00a7",
+            "inputNodeId": "bb4835f1-a493-4e4c-bc16-2be4a48b00f7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -60,6 +60,10 @@ public class LevelManager3_3 : MonoBehaviour
     private Animator[] playerAnimators;
     private float[] animatorOrigSpeeds;
 
+    [Header("Dialogue After Horror")]
+    [SerializeField] private DialogueTrigger MC_scaredDialogue;
+
+
     private void Awake()
     {
         if (!puzzleLanternManager)
@@ -288,6 +292,11 @@ public class LevelManager3_3 : MonoBehaviour
 
         // —— 解锁 Player —— //
         FreezePlayer(false);
+
+        if (MC_scaredDialogue != null)
+        {
+            MC_scaredDialogue.TriggerDialogue();
+        }
 
         isPlayingLanternHorror = false;
     }
