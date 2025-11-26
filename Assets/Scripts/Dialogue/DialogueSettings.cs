@@ -50,30 +50,35 @@ public class DialogueSettings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
-        TextMeshProUGUI speaker = DialogueManager.instance.speaker;
-        TextMeshProUGUI content = DialogueManager.instance.contentText;
-        TextMeshProUGUI choice = DialogueManager.instance.choicePrefab.GetComponent<DialogueChoice>().content;
-        TextMeshProUGUI NPCSpeaker = DialogueManager.instance.NPCName;
-        switch (currentLanguage)
+        if (DialogueManager.instance != null)
         {
-            case "zh":
-                speaker.font = ChineseFont;
-                content.font = ChineseFont;
-                choice.font = ChineseFont;
-                NPCSpeaker.font = ChineseFont;
-                break;
-            case "en":
-                speaker.font = EnglishFont;
-                content.font = EnglishFont;
-                choice.font = EnglishFont;
-                NPCSpeaker.font = EnglishFont;
-                break;
-            case "ja":
-                speaker.font = JapaneseFont;
-                content.font = JapaneseFont;
-                choice.font = JapaneseFont;
-                NPCSpeaker.font = JapaneseFont;
-                break;
+            TextMeshProUGUI speaker = DialogueManager.instance.speaker;
+            TextMeshProUGUI content = DialogueManager.instance.contentText;
+            TextMeshProUGUI choice = DialogueManager.instance.choicePrefab.GetComponent<DialogueChoice>().content;
+            TextMeshProUGUI NPCSpeaker = DialogueManager.instance.NPCName;
+
+            switch (currentLanguage)
+            {
+                case "zh":
+                    speaker.font = ChineseFont;
+                    content.font = ChineseFont;
+                    choice.font = ChineseFont;
+                    NPCSpeaker.font = ChineseFont;
+                    break;
+                case "en":
+                    speaker.font = EnglishFont;
+                    content.font = EnglishFont;
+                    choice.font = EnglishFont;
+                    NPCSpeaker.font = EnglishFont;
+                    break;
+                case "ja":
+                    speaker.font = JapaneseFont;
+                    content.font = JapaneseFont;
+                    choice.font = JapaneseFont;
+                    NPCSpeaker.font = JapaneseFont;
+                    break;
+            }
         }
+        
     }
 }
