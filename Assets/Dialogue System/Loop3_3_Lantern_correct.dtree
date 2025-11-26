@@ -3,15 +3,16 @@
         {
             "id": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
             "index": 0,
-            "characterId": "",
-            "contentId": "Loop3_3_Lantern_correct_node_0_dialogue",
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3116",
             "content": {
-                "en": "Yes!! Thank you so much!",
-                "zh": "",
+                "en": "All the lanterns are up, and they’re all in the right positions! Thank you so much!",
+                "zh": "花灯都挂好了！位置也都没有问题！真是太感谢你了！",
                 "ja": ""
             },
-            "positionX": -70.4000015258789,
-            "positionY": -325.6000061035156,
+            "positionX": -70.66667175292969,
+            "positionY": -326.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -19,15 +20,67 @@
         {
             "id": "515ae1d1-6985-417c-9f3d-a3b01e931658",
             "index": 1,
-            "characterId": "",
-            "contentId": "Loop3_3_Lantern_correct_node_1_dialogue",
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch1_3117",
             "content": {
-                "en": "Let me know if you need help with anything.",
-                "zh": "",
+                "en": "You’re welcome. I actually have things to do around here, so I might need your help again later.",
+                "zh": "不客气，我在这附近正好有事要做，或许一会还得来找你帮忙也说不定。",
                 "ja": ""
             },
-            "positionX": 267.20001220703127,
-            "positionY": -325.6000061035156,
+            "positionX": 266.6666564941406,
+            "positionY": -326.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "index": 2,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3118",
+            "content": {
+                "en": "Of course, no problem! We help each other out!",
+                "zh": "当然没问题！互帮互助嘛！",
+                "ja": ""
+            },
+            "positionX": 632.6666870117188,
+            "positionY": -321.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "index": 3,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3119",
+            "content": {
+                "en": "Ah, those lanterns look so beautiful from a distance. They really are the result of months of hard work!",
+                "zh": "啊，这些花灯远远望去真是太漂亮了，不愧是我这几个月来的心血！",
+                "ja": ""
+            },
+            "positionX": 1001.3333740234375,
+            "positionY": -316.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7a366852-bce3-4201-8e08-caad24caf8f3",
+            "index": 4,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3120",
+            "content": {
+                "en": "(The vendor seems really happy. I can move on now.)",
+                "zh": "（摊贩似乎非常高兴，我也可以继续前进了。）",
+                "ja": ""
+            },
+            "positionX": 1358.0,
+            "positionY": -312.6666564941406,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -37,6 +90,27 @@
         {
             "outputNodeId": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
             "inputNodeId": "515ae1d1-6985-417c-9f3d-a3b01e931658",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "515ae1d1-6985-417c-9f3d-a3b01e931658",
+            "inputNodeId": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "inputNodeId": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "inputNodeId": "7a366852-bce3-4201-8e08-caad24caf8f3",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

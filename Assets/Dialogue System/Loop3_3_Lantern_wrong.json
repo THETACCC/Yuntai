@@ -3,21 +3,50 @@
     {
       "index": 0,
       "name": {
-        "en": "",
-        "zh": "",
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
         "ja": ""
       },
-      "avatarAddr": "",
+      "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "You are wrong. Try again.",
-        "zh": "",
+        "en": "Uh… the lanterns don’t seem to be in the right spots.",
+        "zh": "呃，花灯的位置似乎不太对。",
+        "ja": ""
+      },
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": [
+        {
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "MarkNeedToPlayLanternAnim",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerOnEnd": false
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "It’s okay. Please take another look at the diagram and try again!",
+        "zh": "没关系的，请阅读一下示意图再尝试吧！",
         "ja": ""
       },
       "nextIndex": -1,
-      "eventCalls": [
-        {"targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "MarkNeedToPlayLanternAnim", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerOnEnd": false}
-      ]
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
