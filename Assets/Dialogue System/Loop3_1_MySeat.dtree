@@ -4,14 +4,15 @@
             "id": "24780d77-067e-4524-ae90-87dde0265d8f",
             "index": 0,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "contentId": "Loop3_1_MySeat_node_0_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_3157",
             "content": {
-                "en": "I failed to convince Page...",
-                "zh": "英文也是张嘉随便写的place holder",
+                "en": "Huh..",
+                "zh": "呃..",
                 "ja": ""
             },
-            "positionX": 686.6666870117188,
-            "positionY": 720.6666870117188,
+            "positionX": 266.6666564941406,
+            "positionY": 724.6666870117188,
             "choices": [],
             "eventCalls": [
                 {
@@ -33,14 +34,15 @@
             "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
             "index": 1,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "contentId": "Loop3_1_MySeat_node_1_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_3158",
             "content": {
-                "en": "Let me try again...",
-                "zh": "",
+                "en": "I guess I failed to convince Page…",
+                "zh": "刚刚我没能说服周书……",
                 "ja": ""
             },
-            "positionX": 1026.0,
-            "positionY": 724.0,
+            "positionX": 648.0,
+            "positionY": 727.3333129882813,
             "choices": [],
             "eventCalls": [
                 {
@@ -57,12 +59,84 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "4ab3466c-2aa0-489e-9144-26df497d1430",
+            "index": 2,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3159",
+            "content": {
+                "en": "!!",
+                "zh": "！！",
+                "ja": ""
+            },
+            "positionX": 1040.6666259765625,
+            "positionY": 728.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e0c2f65a-d854-41e8-a7b9-34c7610116e2",
+            "index": 3,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch1_3160",
+            "content": {
+                "en": "Another loop?",
+                "zh": "又是轮回？",
+                "ja": ""
+            },
+            "positionX": 1424.0,
+            "positionY": 725.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e457b27e-4b86-4e51-9561-0743fefdc8aa",
+            "index": 4,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3161",
+            "content": {
+                "en": "I’ll go try again.",
+                "zh": "让我再去试试。",
+                "ja": ""
+            },
+            "positionX": 1798.0,
+            "positionY": 728.6666870117188,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
         {
             "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
             "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "inputNodeId": "4ab3466c-2aa0-489e-9144-26df497d1430",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "4ab3466c-2aa0-489e-9144-26df497d1430",
+            "inputNodeId": "e0c2f65a-d854-41e8-a7b9-34c7610116e2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e0c2f65a-d854-41e8-a7b9-34c7610116e2",
+            "inputNodeId": "e457b27e-4b86-4e51-9561-0743fefdc8aa",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
