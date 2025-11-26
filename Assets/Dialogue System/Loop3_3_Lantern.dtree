@@ -18,6 +18,77 @@
             "conditionalBranches": []
         },
         {
+            "id": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
+            "index": 1,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3105",
+            "content": {
+                "en": "Ah! Really? That’s such perfect timing!",
+                "zh": "啊！可以吗！这可真是太及时了！",
+                "ja": ""
+            },
+            "positionX": 3253.33349609375,
+            "positionY": -302.66668701171877,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_3106",
+                    "text": {
+                        "en": "It’s no problem. Where do they need to be hung?",
+                        "zh": "没事的，请问需要挂到哪里呢？",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
+            "index": 2,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3107",
+            "content": {
+                "en": "Ah! There’s a diagram here. Just follow it and hang them under the eaves over on the left.",
+                "zh": "啊！这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
+                "ja": ""
+            },
+            "positionX": 3636.0,
+            "positionY": 19.333335876464845,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "ChangeLanternToWait",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                },
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "LanternPileDisappear",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerOnEnd": true
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "278623af-895c-4da0-83fa-41f5684c1fd3",
             "index": 3,
             "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
@@ -152,87 +223,9 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
-        },
-        {
-            "id": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
-            "index": 2,
-            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
-            "useContentId": true,
-            "contentId": "ch1_3107",
-            "content": {
-                "en": "Ah! There’s a diagram here. Just follow it and hang them under the eaves over on the left.",
-                "zh": "啊！这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
-                "ja": ""
-            },
-            "positionX": 3636.0,
-            "positionY": 19.333335876464845,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
-                    "targetObjectName": "LevelManager3_3",
-                    "componentTypeName": "LevelManager3_3",
-                    "methodName": "ChangeLanternToWait",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": true
-                },
-                {
-                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
-                    "targetObjectName": "LevelManager3_3",
-                    "componentTypeName": "LevelManager3_3",
-                    "methodName": "LanternPileDisappear",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": true
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
-            "index": 1,
-            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
-            "useContentId": true,
-            "contentId": "ch1_3105",
-            "content": {
-                "en": "Ah! Really? That’s such perfect timing!",
-                "zh": "啊！可以吗！这可真是太及时了！",
-                "ja": ""
-            },
-            "positionX": 3253.33349609375,
-            "positionY": -302.66668701171877,
-            "choices": [
-                {
-                    "useTextId": false,
-                    "textId": "Loop3_3_Lantern_node_1_choice_0",
-                    "text": {
-                        "en": "It’s okay. Where do they need to be hung?",
-                        "zh": "没事的，请问需要挂到哪里呢？",
-                        "ja": ""
-                    },
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [],
-            "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
-            "inputNodeId": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
-            "choiceIndex": 0,
-            "choiceText": "It’s okay. Where do they need to be hung?",
-            "branchPriority": -2
-        },
         {
             "outputNodeId": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
             "inputNodeId": "278623af-895c-4da0-83fa-41f5684c1fd3",
