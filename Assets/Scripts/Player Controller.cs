@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // ✅ 全局唯一 Player 入口
+    public static PlayerController Instance { get; private set; }
+
     [Header("Movement")]
     public float horizontal;
     public float acceleration;
@@ -35,8 +38,27 @@ public class PlayerController : MonoBehaviour
 
     // ----------------- Unity Lifecycle ----------------- //
 
+    private void Awake()
+    {
+        // ✅ 单例：保证全局只存在一个 PlayerController
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning($"[PlayerController] Duplicate Player detected, destroying {gameObject.name} in scene {gameObject.scene.name}");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);   // ✅ Player 在场景切换中保留
+
+        // 组件兜底
+        if (!anim) anim = GetComponent<Animator>();
+        if (!rb) rb = GetComponent<Rigidbody2D>();
+    }
+
     private void Start()
     {
+        // 这里现在可以留空，或者再防御性获取一次（可选）
         if (!anim) anim = GetComponent<Animator>();
         if (!rb) rb = GetComponent<Rigidbody2D>();
     }
