@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
-public class LevelManager2_2 : MonoBehaviour
+public class LevelManager2_2 : BaseLevelManager
 {
     [Header("Loop / Tag")]
     [SerializeField] private int myLoop = 2;
@@ -26,16 +26,9 @@ public class LevelManager2_2 : MonoBehaviour
     [SerializeField, Min(0f)] private float start1Delay = 0f;
     [SerializeField, Min(0f)] private float start2Delay = 0f;
 
-    [Header("主角可见性/移动")]
-    [Tooltip("开场是否隐藏 Sprite（Collider 不再关闭）")]
-    [SerializeField] private bool hideSpriteOnAwake = true;
-
+    [Header("演出期间锁移动")]
     [Tooltip("演出期间锁住水平位移，让角色只受重力沿Y轴下落")]
     [SerializeField] private bool freezeXWhileCinematic = true;
-
-    [Header("演出结束时处理")]
-    [Tooltip("（不再使用）灯灭后是否把玩家Sprite也隐藏")]
-    [SerializeField] private bool hidePlayerSpritesWhenEnd = false;   // 不再在代码中使用
 
     [Header("Audio")]
     [SerializeField] private AudioSource assignedAudioSource;
@@ -48,7 +41,7 @@ public class LevelManager2_2 : MonoBehaviour
     [Header("2-2 换脸设置（和 1-2 同逻辑）")]
     [SerializeField] private List<FaceSwap> faceSwaps = new();
 
-    [Header("下一个 Loop 的场景名")]
+    [Header("下一个 Loop 的场景名（正常线）")]
     [SerializeField] private string nextSceneName;
 
     // ====== Death Acting（相机自动寻找版） ======
@@ -79,15 +72,10 @@ public class LevelManager2_2 : MonoBehaviour
     [SerializeField] private bool verboseLog = false;
 
     [Header("Death Acting - ToNextLoop（2-2 → 3-1 用）")]
-    [SerializeField] private ToNextLoop nextLoop;   // 在 Inspector 里拖 1-2 用的那个，或者另做一个
-
+    [SerializeField] private ToNextLoop nextLoop;   // 在 Inspector 里拖 ToNextLoop
 
     // --- runtime ---
-    private GameObject _player;
-    private readonly List<SpriteRenderer> _playerSprites = new();
     private readonly List<Collider2D> _playerCols = new(); // 不禁用，只缓存
-    private PlayerController _playerCtrl;
-    private Rigidbody2D _rb2d;
 
     private float[] _extraLightsOrig;
     private RigidbodyConstraints2D _origConstraints;
@@ -101,42 +89,38 @@ public class LevelManager2_2 : MonoBehaviour
     private Vector3 _camOriginalPos;
     private bool _hasCamOriginalPos = false;
 
-    private void Awake()
+    // ========= 生命周期 =========
+    protected override void Awake()
     {
+        // 先让基类处理：锁玩家 / 找 PlayerController 单例 / 缓 Sprite / 隐藏等
+        base.Awake();
+
         LoopTracker.I?.SetLoop(myLoop);
 
-        // 找 Player（禁止手动指派）
-        _player = GameObject.FindGameObjectWithTag("Player");
-        if (_player)
+        if (playerObject)
         {
-            CachePlayerSpritesAndColliders();
+            CachePlayerColliders(); // Sprites 已在 Base 里 Cache 过，这里只补 colliders
 
-            _playerCtrl = _player.GetComponent<PlayerController>();
-            if (_playerCtrl)
-                _playerCtrl.DisablePlayerControl();   // 用接口锁控制（会关掉动画和脚步声）
-
-            _rb2d = _player.GetComponent<Rigidbody2D>();
-            _hasRb = _rb2d != null;
+            _hasRb = playerRb != null;
             if (_hasRb)
             {
-                _origConstraints = _rb2d.constraints;
-                _origGravityScale = _rb2d.gravityScale;
+                _origConstraints = playerRb.constraints;
+                _origGravityScale = playerRb.gravityScale;
 
-                _rb2d.isKinematic = false;
-                _rb2d.simulated = true;
-                _rb2d.gravityScale = _origGravityScale;
+                playerRb.isKinematic = false;
+                playerRb.simulated = true;
+                playerRb.gravityScale = _origGravityScale;
 
                 if (freezeXWhileCinematic)
-                    _rb2d.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                    playerRb.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
-                _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
+                // 清掉水平速度，保留竖直速度给“掉落感”
+                playerRb.velocity = new Vector2(0f, playerRb.velocity.y);
             }
-
-            if (hideSpriteOnAwake) SetPlayerSpritesVisible(false);
         }
         else
         {
-            Debug.LogWarning("[LevelManager2_2] 未找到 tag=Player 的对象。");
+            Debug.LogWarning("[LevelManager2_2] 未找到 Player（BaseLevelManager 已经尝试用单例查找）。");
         }
 
         // 灯控全黑
@@ -147,8 +131,6 @@ public class LevelManager2_2 : MonoBehaviour
         _extraLightsOrig = LightControl.CaptureIntensities(extraLights);
         for (int i = 0; i < extraLights.Count; i++)
             if (extraLights[i]) extraLights[i].intensity = 0f;
-
-        if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Loading;
 
         // 自动寻找 VCam（若未手动指派）
         if (!vcam)
@@ -168,6 +150,7 @@ public class LevelManager2_2 : MonoBehaviour
         StartCoroutine(Sequence_Intro());
     }
 
+    // ========= 开场：黑 → 灯亮 → Start1 =========
     private IEnumerator Sequence_Intro()
     {
         if (blackHoldSeconds > 0f) yield return WaitSeconds(blackHoldSeconds);
@@ -185,7 +168,7 @@ public class LevelManager2_2 : MonoBehaviour
     /// <summary>Start1 完全关闭后：仅显示玩家Sprite，然后触发Start2。</summary>
     public void OnStart1FullyClosed()
     {
-        SetPlayerSpritesVisible(true);
+        SetPlayerSpritesVisible(true);     // 用 Base 的函数
         StartCoroutine(CoTriggerStart2());
     }
 
@@ -200,14 +183,14 @@ public class LevelManager2_2 : MonoBehaviour
     public void OnStart2FullyClosed()
     {
         // 恢复刚体原约束与控制
-        if (_hasRb)
+        if (_hasRb && playerRb != null)
         {
-            _rb2d.constraints = _origConstraints;
-            _rb2d.velocity = new Vector2(_rb2d.velocity.x, 0f);
+            playerRb.constraints = _origConstraints;
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0f);
         }
 
-        if (_playerCtrl)
-            _playerCtrl.EnablePlayerControl();   // 恢复移动和动画
+        if (playerCtrl)
+            playerCtrl.EnablePlayerControl();   // 恢复移动和动画
 
         // 还原额外灯
         if (_extraLightsOrig != null)
@@ -257,14 +240,14 @@ public class LevelManager2_2 : MonoBehaviour
         if (verboseLog) Debug.Log("[2-2] DeathActing start");
 
         // 1) 禁用玩家控制（保留物理）
-        if (_playerCtrl) _playerCtrl.DisablePlayerControl();
-        if (_hasRb)
+        if (playerCtrl) playerCtrl.DisablePlayerControl();
+        if (_hasRb && playerRb != null)
         {
-            _rb2d.isKinematic = false;
-            _rb2d.simulated = true;
+            playerRb.isKinematic = false;
+            playerRb.simulated = true;
             if (freezeXWhileCinematic)
-                _rb2d.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
+                playerRb.constraints = _origConstraints | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            playerRb.velocity = new Vector2(0f, playerRb.velocity.y);
         }
 
         // 2) 相机先移动到位（记录原始位置）
@@ -328,8 +311,6 @@ public class LevelManager2_2 : MonoBehaviour
         // 5) 灯光快速淡出
         if (verboseLog) Debug.Log("[2-2] Fading light...");
         yield return FadeOutDeathLight();
-
-        // 5.5) 不再隐藏玩家 Sprite（你说 2-2 不需要主角消失）
 
         // 6) 触发 “Death” 对话
         if (deathTrigger)
@@ -399,19 +380,11 @@ public class LevelManager2_2 : MonoBehaviour
         else yield return new WaitForSeconds(seconds);
     }
 
-    private void CachePlayerSpritesAndColliders()
+    private void CachePlayerColliders()
     {
-        _playerSprites.Clear();
         _playerCols.Clear();
-        if (!_player) return;
-
-        _playerSprites.AddRange(_player.GetComponentsInChildren<SpriteRenderer>(true));
-        _playerCols.AddRange(_player.GetComponentsInChildren<Collider2D>(true));
-    }
-
-    private void SetPlayerSpritesVisible(bool visible)
-    {
-        foreach (var sr in _playerSprites) if (sr) sr.enabled = visible;
+        if (!playerObject) return;
+        _playerCols.AddRange(playerObject.GetComponentsInChildren<Collider2D>(true));
     }
 
     // 备用：只显形不解锁移动
@@ -420,7 +393,6 @@ public class LevelManager2_2 : MonoBehaviour
         SetPlayerSpritesVisible(true);
     }
 
-    // 直接跳到 Loop3：Level3-1，出生点=1
     // 直接跳到 Loop3：Level3-1，出生点=1（经由 ToNextLoop 播完死亡动画再跳）
     public void ToLoop3()
     {
@@ -432,10 +404,10 @@ public class LevelManager2_2 : MonoBehaviour
         }
 
         // ① 恢复刚体原来的约束 & 清速度（防止奇怪的水平锁死）
-        if (_hasRb && _rb2d != null)
+        if (_hasRb && playerRb != null)
         {
-            _rb2d.constraints = _origConstraints;
-            _rb2d.velocity = Vector2.zero;
+            playerRb.constraints = _origConstraints;
+            playerRb.velocity = Vector2.zero;
         }
 
         // ② 恢复相机位置，消掉 DeathActing 时加的 offset
@@ -465,5 +437,4 @@ public class LevelManager2_2 : MonoBehaviour
             }
         }
     }
-
 }

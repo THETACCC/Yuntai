@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
-using Fungus;    // ★ 为了 StopAllBlocks / SayDialog
+using Fungus;    // 为了 StopAllBlocks / SayDialog
 
 public class ToNextLoop : MonoBehaviour
 {
@@ -40,16 +40,16 @@ public class ToNextLoop : MonoBehaviour
     {
         if (verboseLog) Debug.Log("[ToNextLoop] Waiting for Dead animation...");
 
-        // ★ 1) 先关掉所有 Fungus 对话，避免 2-2 的对话跑到 3-1
+        // 1) 把 Fungus 对话停掉 + 锁住玩家
         KillDialogAndFreezePlayer();
 
-        // ★ 2) 打开承载死亡动画的对象
+        // 2) 打开死亡动画容器
         if (DeathAnimationPlayer)
             DeathAnimationPlayer.SetActive(true);
 
         if (!deathAnimator)
         {
-            if (verboseLog) Debug.LogWarning("[ToNextLoop] Missing Animator.");
+            if (verboseLog) Debug.LogWarning("[ToNextLoop] Missing Animator, skip to next loop.");
             ProceedToNextLoop();
             yield break;
         }
@@ -57,21 +57,20 @@ public class ToNextLoop : MonoBehaviour
         int layer = 0;
         float t = 0f;
 
-        // === 等 Animator 进入 targetStateName（但不要立刻跳关！）===
+        // === 等 Animator 进入 targetStateName ===
         while (true)
         {
             AnimatorStateInfo info = deathAnimator.GetCurrentAnimatorStateInfo(layer);
             if (info.IsName(targetStateName))
             {
                 if (verboseLog) Debug.Log("[ToNextLoop] Entered Dead state.");
-                // 这里只 break，不再调用 ProceedToNextLoop()
                 break;
             }
 
             t += Time.unscaledDeltaTime;
             if (t > hardTimeoutSeconds)
             {
-                if (verboseLog) Debug.LogWarning("[ToNextLoop] Timeout before entering Dead state. Proceeding.");
+                if (verboseLog) Debug.LogWarning("[ToNextLoop] Timeout BEFORE entering Dead state. Proceeding.");
                 ProceedToNextLoop();
                 yield break;
             }
@@ -79,7 +78,7 @@ public class ToNextLoop : MonoBehaviour
             yield return null;
         }
 
-        // === 等动画真正播完 ===
+        // === 等 Dead 动画真正播完 ===
         t = 0f;
         while (true)
         {
@@ -102,7 +101,7 @@ public class ToNextLoop : MonoBehaviour
             t += Time.unscaledDeltaTime;
             if (t > hardTimeoutSeconds)
             {
-                if (verboseLog) Debug.LogWarning("[ToNextLoop] Hard timeout reached. Proceeding.");
+                if (verboseLog) Debug.LogWarning("[ToNextLoop] Hard timeout AFTER entering Dead. Proceeding.");
                 break;
             }
 
@@ -134,37 +133,72 @@ public class ToNextLoop : MonoBehaviour
         }
 
         // 2) 锁玩家，让她在死亡动画期间不能走
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (!player) return;
+        var pc = PlayerController.Instance;
+        if (pc == null)
+        {
+            // 兜底：如果单例没找到，用 tag 试一次
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                pc = player.GetComponent<PlayerController>();
+        }
 
-        var pc = player.GetComponent<PlayerController>();
         if (pc != null)
-            pc.DisablePlayerControl();  // 你之前写好的接口，会关掉动画和脚步声
+        {
+            pc.DisablePlayerControl();  // 你之前写的接口
+            if (verboseLog) Debug.Log("[ToNextLoop] Player control disabled before death animation.");
+        }
+        else
+        {
+            if (verboseLog) Debug.LogWarning("[ToNextLoop] KillDialogAndFreezePlayer: PlayerController not found.");
+        }
 
         if (Gamemanager.instance)
             Gamemanager.instance.phase = GamePhase.Eventing;
     }
 
     /// <summary>
-    /// 真正切到下一回圈前，可以顺便让玩家恢复正常（下一关能走路）。
+    /// 真正切到下一回圈前，把玩家设成“下一关准备好的状态”。
+    /// 注意：这里只管控制状态，坐标是 SceneController.LoadSceneAndTeleport 负责。
     /// </summary>
     private void RestorePlayerForNextScene()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (!player) return;
+        var pc = PlayerController.Instance;
+        if (pc == null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                pc = player.GetComponent<PlayerController>();
+        }
 
-        var pc = player.GetComponent<PlayerController>();
         if (pc != null)
-            pc.EnablePlayerControl();   // 让 3-1 一进来就能动；若新关卡自己改 phase，会覆盖这里
+        {
+            pc.EnablePlayerControl();
+            if (verboseLog) Debug.Log("[ToNextLoop] Player control enabled for next scene.");
+        }
+
         if (Gamemanager.instance)
             Gamemanager.instance.phase = GamePhase.Moving;
     }
 
     private void ProceedToNextLoop()
     {
-        if (verboseLog) Debug.Log("[ToNextLoop] Proceeding to next scene...");
+        if (verboseLog)
+        {
+            var pc = PlayerController.Instance;
+            if (pc != null)
+            {
+                var pos = pc.transform.position;
+                Debug.Log($"[ToNextLoop] Proceeding to next scene {scenename}, spawnIndex={SpawnPointLocation}, " +
+                          $"current player pos={pos}");
+            }
+            else
+            {
+                Debug.Log($"[ToNextLoop] Proceeding to next scene {scenename}, spawnIndex={SpawnPointLocation}, " +
+                          $"PlayerController.Instance is null.");
+            }
+        }
 
-        // ★ 先把玩家恢复到“正常可以走”的状态，交给下一关管理
+        // 先把玩家恢复到正常“可走”状态（下一个场景的 LevelManager 也可以再改）
         RestorePlayerForNextScene();
 
         LoopTracker.I?.IncrementLoop();

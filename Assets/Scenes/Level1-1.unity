@@ -2273,9 +2273,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 550904811}
-        m_TargetAssemblyTypeName: _1_1_PlayerSitUp, Assembly-CSharp
-        m_MethodName: MakePlayerOpaque
+      - m_Target: {fileID: 1759201108}
+        m_TargetAssemblyTypeName: BaseLevelManager, Assembly-CSharp
+        m_MethodName: ShowPlayerAndAllowMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10834,6 +10834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589fdbf5fc719624fa05e4d3201fa7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidePlayerOnSceneStart: 1
+  lockPlayerOnSceneStart: 1
   myLoop: 1
 --- !u!4 &1759201109
 Transform:
@@ -10910,7 +10912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: 26.55
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10918,7 +10920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3226782936490935484, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: 26.55
       objectReference: {fileID: 0}
     - target: {fileID: 3226782936490935484, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12358,13 +12360,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 661106783174399314, guid: f802cdbc2b70f7a42a0efff8e84924c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4051136274731376256}
   m_SourcePrefab: {fileID: 100100000, guid: f802cdbc2b70f7a42a0efff8e84924c4, type: 3}
 --- !u!4 &4051136274731376254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2721678067491034875, guid: f802cdbc2b70f7a42a0efff8e84924c4, type: 3}
   m_PrefabInstance: {fileID: 4051136274731376253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4051136274731376255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 661106783174399314, guid: f802cdbc2b70f7a42a0efff8e84924c4, type: 3}
+  m_PrefabInstance: {fileID: 4051136274731376253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4051136274731376256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051136274731376255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d2b243ae7d8c644ad8358cec5c417c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hidePlayerOnSceneStart: 1
+  lockPlayerOnSceneStart: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
