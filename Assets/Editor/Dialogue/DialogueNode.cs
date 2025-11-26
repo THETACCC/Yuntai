@@ -1633,6 +1633,70 @@ public partial class DialogueNode : Node
         }
     }
 
+    private void RebuildAllChoicesUI()
+    {
+        // 保存当前的连线信息
+        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+        var savedConnections = new List<(int choiceIndex, DialogueNode targetNode)>();
+
+        if (graphView != null)
+        {
+            var edges = graphView.edges.ToList();
+            foreach (var edge in edges)
+            {
+                if (edge.output.node == this)
+                {
+                    int choiceIndex = GetChoiceIndexForPort(edge.output);
+                    if (choiceIndex >= 0 && edge.input.node is DialogueNode targetNode)
+                    {
+                        savedConnections.Add((choiceIndex, targetNode));
+                    }
+                }
+            }
+
+            // 删除旧的连线
+            foreach (var edge in edges)
+            {
+                if (edge.output.node == this)
+                {
+                    graphView.RemoveElement(edge);
+                }
+            }
+        }
+
+        // 清空现有UI
+        choicesContainer.Clear();
+        choiceOutputPorts.Clear();
+        choiceIdFields.Clear();
+
+        // 重建所有Choice
+        for (int i = 0; i < ChoicesData.Count; i++)
+        {
+            RebuildChoiceUI(i);
+        }
+
+        RefreshExpandedState();
+        RefreshPorts();
+
+        // 恢复连线
+        if (graphView != null && savedConnections.Count > 0)
+        {
+            foreach (var (choiceIndex, targetNode) in savedConnections)
+            {
+                if (choiceIndex < choiceOutputPorts.Count)
+                {
+                    var outputPort = choiceOutputPorts[choiceIndex];
+                    var inputPort = targetNode.inputContainer.Q<Port>();
+                    if (inputPort != null)
+                    {
+                        var edge = outputPort.ConnectTo(inputPort);
+                        graphView.AddElement(edge);
+                    }
+                }
+            }
+        }
+    }
+
     private void RebuildChoiceUI(int index)
     {
         var choiceContainer = new VisualElement();
@@ -1716,12 +1780,8 @@ public partial class DialogueNode : Node
                 }
 
                 ChoicesData[currentIndex].useTextId = newUseId;
-                // 重建整个Choice UI
-                if (currentIndex < choicesContainer.childCount)
-                {
-                    choicesContainer.RemoveAt(currentIndex);
-                    RebuildChoiceUI(currentIndex);
-                }
+                // 重建所有Choice UI（避免索引错位）
+                RebuildAllChoicesUI();
                 NotifyChange();
             }
         });
