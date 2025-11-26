@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
-public class LevelManager3_3 : MonoBehaviour
+public class LevelManager3_3 : BaseLevelManager
 {
     [Header("Lantern Stall")]
     [SerializeField] private GameObject LanternStall;
@@ -37,7 +37,10 @@ public class LevelManager3_3 : MonoBehaviour
     [SerializeField] private AudioSource horrorAudioSource;
     [SerializeField] private AudioClip horrorRoarClip;
 
-    // Camera shake（可以挂在 trigger 上）
+    [Header("Dialogue After Horror")]
+    [SerializeField] private DialogueTrigger MC_scaredDialogue;
+
+    // Camera shake
     private CameraShake cameraShake;
 
     // 黑幕
@@ -50,22 +53,19 @@ public class LevelManager3_3 : MonoBehaviour
     // 自动收集的 PuzzleLantern 列表
     private PuzzleLantern[] puzzleLanterns = new PuzzleLantern[0];
 
-    // ===== Player（通过 tag=Player 找） =====
-    private GameObject playerObj;
-    private PlayerController playerCtrl;
-    private Rigidbody2D rb2d;
+    // ==== Player 物理 & 动画（基于 BaseLevelManager 的缓存）====
     private bool rb2dHadSimulated;
     private RigidbodyConstraints2D rb2dOldConstraints;
 
     private Animator[] playerAnimators;
     private float[] animatorOrigSpeeds;
 
-    [Header("Dialogue After Horror")]
-    [SerializeField] private DialogueTrigger MC_scaredDialogue;
-
-
-    private void Awake()
+    // ===== 生命周期 =====
+    protected override void Awake()
     {
+        // 先让 BaseLevelManager 做：找 PlayerController.Instance，按需要隐藏/锁控制
+        base.Awake();
+
         if (!puzzleLanternManager)
             puzzleLanternManager = FindObjectOfType<PuzzleLanternManager>();
 
@@ -73,24 +73,16 @@ public class LevelManager3_3 : MonoBehaviour
 
         cameraShake = FindObjectOfType<CameraShake>();
 
-        // Player 相关
-        playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (!playerObj)
+        // Player 相关：用 Base 里的 playerObject / playerRb / playerCtrl
+        if (playerObject)
         {
-            Debug.LogWarning("[LevelManager3_3] No Player with tag=Player found.");
-        }
-        else
-        {
-            playerCtrl = playerObj.GetComponentInChildren<PlayerController>();
-            rb2d = playerObj.GetComponentInChildren<Rigidbody2D>();
-
-            if (rb2d)
+            if (playerRb != null)
             {
-                rb2dHadSimulated = rb2d.simulated;
-                rb2dOldConstraints = rb2d.constraints;
+                rb2dHadSimulated = playerRb.simulated;
+                rb2dOldConstraints = playerRb.constraints;
             }
 
-            playerAnimators = playerObj.GetComponentsInChildren<Animator>(true);
+            playerAnimators = playerObject.GetComponentsInChildren<Animator>(true);
             if (playerAnimators != null && playerAnimators.Length > 0)
             {
                 animatorOrigSpeeds = new float[playerAnimators.Length];
@@ -98,10 +90,33 @@ public class LevelManager3_3 : MonoBehaviour
                     animatorOrigSpeeds[i] = playerAnimators[i].speed;
             }
         }
+        else
+        {
+            Debug.LogWarning("[LevelManager3_3] Awake: PlayerController.Instance / Player 未找到。");
+        }
 
         overlayCG = GetOrCreateBlackOverlay();
 
         Debug.Log($"[LevelManager3_3] Awake: found {puzzleLanterns.Length} PuzzleLantern(s).");
+    }
+
+    private void Start()
+    {
+        // 3-3 一进来，确保玩家可见 + 可以移动
+        ShowPlayerAndAllowMove();
+
+        if (playerObject != null)
+        {
+            CachePlayerSprites();
+            foreach (var sr in _playerSprites)
+            {
+                if (!sr) continue;
+                sr.enabled = true;
+                var c = sr.color;
+                c.a = 1f;
+                sr.color = c;
+            }
+        }
     }
 
     // ========= 普通 puzzle =========
@@ -225,7 +240,7 @@ public class LevelManager3_3 : MonoBehaviour
 
         Debug.Log("[LevelManager3_3] >>> START Lantern Horror Sequence <<<");
 
-        // 再刷新一次，防止中途有变化
+        // 防止中途有变化
         RefreshPuzzleLanternList();
 
         // —— 完全锁 Player（位置 + 输入 + 动画） —— //
@@ -253,9 +268,7 @@ public class LevelManager3_3 : MonoBehaviour
             yield return new WaitForSeconds(greenOffTime);
         }
 
-        // 此时：灯还在「挂上」，绿光已经关掉
-
-        // 3) 抖屏 + 音效（灯仍然挂着）
+        // 3) 抖屏 + 音效
         if (cameraShake)
         {
             cameraShake.Shake(cameraShake.defaultAmplitude,
@@ -354,35 +367,25 @@ public class LevelManager3_3 : MonoBehaviour
 
     private void FreezePlayer(bool freeze)
     {
-        if (!playerObj) return;
+        if (!playerObject || playerCtrl == null) return;
 
-        // movement 脚本
-        if (playerCtrl)
-            playerCtrl.enabled = !freeze;
-
-        // 物理
-        if (rb2d)
+        if (freeze)
         {
-            if (freeze)
-            {
-                rb2dHadSimulated = rb2d.simulated;
-                rb2dOldConstraints = rb2d.constraints;
+            // 锁移动（会把 Gamemanager.phase 设为 Loading，并关掉走路动画 & 脚步声）
+            playerCtrl.DisablePlayerControl();
 
-                rb2d.velocity = Vector2.zero;
-                rb2d.angularVelocity = 0f;
-                rb2d.simulated = false;
-            }
-            else
+            if (playerRb != null)
             {
-                rb2d.simulated = rb2dHadSimulated;
-                rb2d.constraints = rb2dOldConstraints;
-            }
-        }
+                rb2dHadSimulated = playerRb.simulated;
+                rb2dOldConstraints = playerRb.constraints;
 
-        // 动画：直接暂停所有 Animator
-        if (playerAnimators != null && playerAnimators.Length > 0)
-        {
-            if (freeze)
+                playerRb.velocity = Vector2.zero;
+                playerRb.angularVelocity = 0f;
+                playerRb.simulated = false;
+            }
+
+            // 暂停所有 Animator
+            if (playerAnimators != null && playerAnimators.Length > 0)
             {
                 if (animatorOrigSpeeds == null || animatorOrigSpeeds.Length != playerAnimators.Length)
                     animatorOrigSpeeds = new float[playerAnimators.Length];
@@ -395,18 +398,38 @@ public class LevelManager3_3 : MonoBehaviour
                     anim.speed = 0f;
                 }
             }
-            else
+
+            if (Gamemanager.instance)
+                Gamemanager.instance.phase = GamePhase.Eventing;
+        }
+        else
+        {
+            // 恢复物理
+            if (playerRb != null)
+            {
+                playerRb.simulated = rb2dHadSimulated;
+                playerRb.constraints = rb2dOldConstraints;
+            }
+
+            // 恢复 Animator 速度
+            if (playerAnimators != null && playerAnimators.Length > 0)
             {
                 for (int i = 0; i < playerAnimators.Length; i++)
                 {
                     var anim = playerAnimators[i];
                     if (!anim) continue;
+
                     float orig = (animatorOrigSpeeds != null && i < animatorOrigSpeeds.Length)
                                  ? animatorOrigSpeeds[i]
                                  : 1f;
                     anim.speed = orig;
                 }
             }
+
+            // 解锁移动
+            playerCtrl.EnablePlayerControl();
+            if (Gamemanager.instance)
+                Gamemanager.instance.phase = GamePhase.Moving;
         }
     }
 }

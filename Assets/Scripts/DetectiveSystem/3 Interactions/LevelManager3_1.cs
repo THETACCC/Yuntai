@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
-public class LevelManager3_1 : MonoBehaviour
+public class LevelManager3_1 : BaseLevelManager
 {
     [Header("Next Loop 跳转")]
     [Tooltip("下一回圈的场景名（若用 SceneController 也请填）")]
@@ -42,14 +42,14 @@ public class LevelManager3_1 : MonoBehaviour
 
     // runtime
     private Coroutine _escapeRoutine;
-    private GameObject _player;
-    private readonly List<SpriteRenderer> _playerSprites = new();
-    private Rigidbody2D _playerRb;
-    private PlayerController _playerCtrl;
     private CinemachineVirtualCamera _vcam;
 
-    private void Awake()
+    // ===== 生命周期 =====
+    protected override void Awake()
     {
+        // 先让 BaseLevelManager 做：锁/找 Player、缓存 sprite 等
+        base.Awake();
+
         // 初始化灯
         if (deathSpot)
         {
@@ -60,93 +60,47 @@ public class LevelManager3_1 : MonoBehaviour
             deathSpot.intensity = 0f;
             deathSpot.pointLightOuterRadius = 0f;
             deathSpot.pointLightInnerRadius = 0f;
+            if (spotTargetInnerRadius > spotTargetOuterRadius)
+                spotTargetInnerRadius = Mathf.Max(0f, spotTargetOuterRadius - 0.01f);
         }
 
-        // 先缓存相机引用
+        // 相机引用
 #if UNITY_2023_1_OR_NEWER
         _vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
 #else
         _vcam = FindObjectOfType<CinemachineVirtualCamera>();
 #endif
-
-        // 这里只是拿引用，不在 Awake 里乱动 Sprite / 控制
-        _player = GameObject.FindGameObjectWithTag("Player");
-        if (!_player)
-        {
-            Debug.LogWarning("[LevelManager3_1] Awake: 未找到 tag=Player 的对象。");
-        }
-        else
-        {
-            _playerRb = _player.GetComponent<Rigidbody2D>();
-            _playerCtrl = _player.GetComponent<PlayerController>();
-        }
     }
 
-    // ★★★★★ 这段是关键：开场强制把 Player 的所有 Sprite 打开，并恢复控制 + 相机 ★★★★★
     private void Start()
     {
-        // 1) 确保 GameManager 处于可移动状态
+        // 3-1 开场：玩家应该是可见 + 可以走
         if (Gamemanager.instance != null)
             Gamemanager.instance.phase = GamePhase.Moving;
 
-        // 2) 找 Player
-        _player = GameObject.FindGameObjectWithTag("Player");
-        if (_player != null)
+        if (playerCtrl != null)
+            playerCtrl.EnablePlayerControl();
+
+        // 强制把所有 Player sprite 打开并把 alpha 设为 1
+        ForceShowPlayerSpritesFullOpaque();
+
+        // 坐姿替身默认关掉（如果开场就要坐，你之后可以手动 PlayerSit）
+        if (playerSit != null)
+            playerSit.SetActive(false);
+
+        // 重设相机 Follow
+        if (resetCameraOnStart && _vcam != null && playerObject != null)
         {
-            _playerRb = _player.GetComponent<Rigidbody2D>();
-            _playerCtrl = _player.GetComponent<PlayerController>();
-
-            // 把她身上（以及子物体上）的所有 SpriteRenderer 打开 + alpha = 1
-            SpriteRenderer[] sprites = _player.GetComponentsInChildren<SpriteRenderer>(true);
-            foreach (var sr in sprites)
-            {
-                if (sr != null)
-                {
-                    sr.enabled = true;
-                    Color c = sr.color;
-                    c.a = 1f;
-                    sr.color = c;
-                }
-            }
-
-            // 缓存一下方便后面用
-            _playerSprites.Clear();
-            _playerSprites.AddRange(sprites);
-
-            // 恢复控制
-            if (_playerCtrl != null)
-                _playerCtrl.EnablePlayerControl();
-
-            if (_playerRb != null)
-            {
-                _playerRb.isKinematic = false;
-                _playerRb.velocity = Vector2.zero;
-            }
-
-            // 坐姿替身默认关掉（如果你想开场就坐着，可以在 Inspector 里把 playerSit 设 active 然后在别处手动调用 PlayerStand）
-            if (playerSit != null)
-                playerSit.SetActive(false);
-
-            // 3) 重设相机跟随，消掉 2-2 / 之前的 offset
-            if (resetCameraOnStart)
-            {
-                var vcam = _vcam != null ? _vcam : FindObjectOfType<CinemachineVirtualCamera>();
-                if (vcam != null)
-                {
-                    vcam.Follow = _player.transform;
-                }
-            }
-
-            if (verboseLog)
-                Debug.Log($"[LevelManager3_1] Start: 强制打开 Player Sprite（{_playerSprites.Count} 个）并允许移动。");
+            _vcam.Follow = playerObject.transform;
         }
-        else
-        {
-            Debug.LogWarning("[LevelManager3_1] Start: 没找到 tag=Player 的对象。");
-        }
+
+        if (verboseLog)
+            Debug.Log("[LevelManager3_1] Start: 恢复玩家可见 & 可移动。");
     }
 
-    /// <summary>触发：坐->站，打灯，上人消失，玩家消失，灯灭，跳下一回圈。</summary>
+    // ================== 周叔逃走 ==================
+
+    /// <summary>触发：坐->站，打灯，上人消失，玩家隐藏，灯灭，跳下一回圈。</summary>
     public void ZhouShuEscape()
     {
         if (_escapeRoutine != null) StopCoroutine(_escapeRoutine);
@@ -157,7 +111,15 @@ public class LevelManager3_1 : MonoBehaviour
     {
         if (verboseLog) Debug.Log("[3-1] ZhouShuEscape start");
 
-        // 0) 先切换对象：关闭“坐着”，启用“站着”
+        // 0) 锁住玩家：不能再乱走
+        DisablePlayerMovement();              // Base 的接口：锁 GamePhase + PlayerController
+        if (playerRb != null)
+        {
+            playerRb.velocity = Vector2.zero;
+            playerRb.isKinematic = false;     // 保持物理，但速度为 0
+        }
+
+        // 切换坐->站
         SwitchZhoushuToStanding();
 
         // 1) 灯从无到有
@@ -183,8 +145,10 @@ public class LevelManager3_1 : MonoBehaviour
         if (zhoushuStanding && zhoushuStanding.activeSelf)
             zhoushuStanding.SetActive(false);
 
-        // 3) 主角仅隐藏 Sprite（不 Destroy、不禁用脚本/碰撞，只看不见）
-        SetPlayerSpritesVisible(false);
+        // 3) 主角隐藏（只隐藏 sprite，不 Destroy）
+        HidePlayerSprites();      // BaseLevelManager 提供
+        // 保险：把 alpha 也清理一下
+        ForceHidePlayerSprites();
 
         // 4) 灯快速淡出
         yield return FadeOutDeathLight();
@@ -196,48 +160,100 @@ public class LevelManager3_1 : MonoBehaviour
         _escapeRoutine = null;
     }
 
-    // —— 工具 —— //
+    // ================== 坐下 / 站起（给 Fungus 之类调用） ==================
+
+    public void PlayerSit()
+    {
+        // 隐藏玩家 Sprite，启用坐姿替身
+        HidePlayerSprites();
+        ForceHidePlayerSprites();
+
+        if (playerSit != null)
+            playerSit.SetActive(true);
+
+        if (playerCtrl != null)
+            playerCtrl.DisablePlayerControl();
+
+        if (Gamemanager.instance != null)
+            Gamemanager.instance.phase = GamePhase.Eventing;
+    }
+
+    public void PlayerStand()
+    {
+        // 关闭坐姿替身，恢复玩家 sprite
+        if (playerSit != null)
+            playerSit.SetActive(false);
+
+        RevealPlayerSprites();
+        ForceShowPlayerSpritesFullOpaque();
+
+        if (playerCtrl != null)
+            playerCtrl.EnablePlayerControl();
+
+        if (Gamemanager.instance != null)
+            Gamemanager.instance.phase = GamePhase.Moving;
+
+        // 确保相机重新 Follow Player
+        if (_vcam != null && playerObject != null)
+            _vcam.Follow = playerObject.transform;
+    }
+
+    // ================== ZhouShu 失败 ==================
+    public void ZhouShuFailed()
+    {
+        foreach (var go in zhoushuFailObjects)
+        {
+            if (go != null && go.activeSelf)
+                go.SetActive(false);
+        }
+
+        if (interactableSeat != null)
+            interactableSeat.SetActive(true);
+    }
+
+    // ================== 工具函数 ==================
+
     private void SwitchZhoushuToStanding()
     {
-        // 关闭坐着
         if (zhoushuSitting && zhoushuSitting.activeSelf)
             zhoushuSitting.SetActive(false);
 
-        // 启用站着
         if (zhoushuStanding && !zhoushuStanding.activeSelf)
             zhoushuStanding.SetActive(true);
     }
 
-    private void CachePlayerSprites(GameObject playerRoot)
+    // 把 BaseLevelManager 缓存的 sprite 全部打开 + alpha=1
+    private void ForceShowPlayerSpritesFullOpaque()
     {
-        _playerSprites.Clear();
-        if (!playerRoot) return;
-        _playerSprites.AddRange(playerRoot.GetComponentsInChildren<SpriteRenderer>(true));
+        if (playerObject == null) return;
+
+        // Base 里已经 Cache 过一次，但再取一次也没问题
+        CachePlayerSprites();
+
+        foreach (var sr in _playerSprites)
+        {
+            if (!sr) continue;
+            sr.enabled = true;
+            var c = sr.color;
+            c.a = 1f;
+            sr.color = c;
+        }
     }
 
-    private void SetPlayerSpritesVisible(bool visible)
+    // 把 sprite 全关掉（包括 alpha = 0，防止别的地方手滑改了）
+    private void ForceHidePlayerSprites()
     {
-        // 超暴力：每次都重新取一遍，避免缓存丢失
-        GameObject player = _player != null ? _player : GameObject.FindGameObjectWithTag("Player");
-        if (!player) return;
+        if (playerObject == null) return;
 
-        var srs = player.GetComponentsInChildren<SpriteRenderer>(true);
-        foreach (var sr in srs)
+        CachePlayerSprites();
+        foreach (var sr in _playerSprites)
         {
-            if (sr != null)
-            {
-                sr.enabled = visible;
-                if (visible)
-                {
-                    Color c = sr.color;
-                    c.a = 1f;
-                    sr.color = c;
-                }
-            }
+            if (!sr) continue;
+            sr.enabled = false;
+            var c = sr.color;
+            c.a = 0f;
+            sr.color = c;
         }
-
-        _playerSprites.Clear();
-        _playerSprites.AddRange(srs);
     }
 
     private void InitDeathLight()
@@ -250,6 +266,7 @@ public class LevelManager3_1 : MonoBehaviour
         deathSpot.intensity = 0f;
         deathSpot.pointLightOuterRadius = 0f;
         deathSpot.pointLightInnerRadius = 0f;
+
         if (spotTargetInnerRadius > spotTargetOuterRadius)
             spotTargetInnerRadius = Mathf.Max(0f, spotTargetOuterRadius - 0.01f);
     }
@@ -303,83 +320,4 @@ public class LevelManager3_1 : MonoBehaviour
     }
 
     private float DeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-
-    public void ZhouShuFailed()
-    {
-        foreach (var go in zhoushuFailObjects)
-        {
-            if (go != null && go.activeSelf)
-            {
-                go.SetActive(false);
-            }
-        }
-
-        if (interactableSeat != null)
-            interactableSeat.SetActive(true);
-    }
-
-    // ================== 坐下 / 站起（给别的地方调用） ==================
-
-    public void PlayerSit()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            // 隐藏 Player 所有 Sprite
-            var srs = player.GetComponentsInChildren<SpriteRenderer>(true);
-            foreach (var sr in srs)
-                if (sr != null) sr.enabled = false;
-        }
-
-        if (playerSit != null)
-            playerSit.SetActive(true);
-
-        // 锁玩家移动
-        if (_playerCtrl == null && player != null)
-            _playerCtrl = player.GetComponent<PlayerController>();
-        if (_playerCtrl != null)
-            _playerCtrl.DisablePlayerControl();
-
-        if (Gamemanager.instance != null)
-            Gamemanager.instance.phase = GamePhase.Eventing;
-    }
-
-    public void PlayerStand()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            // ★ 强制打开所有 SpriteRenderer + alpha = 1 ★
-            var srs = player.GetComponentsInChildren<SpriteRenderer>(true);
-            foreach (var sr in srs)
-            {
-                if (sr != null)
-                {
-                    sr.enabled = true;
-                    Color c = sr.color;
-                    c.a = 1f;
-                    sr.color = c;
-                }
-            }
-
-            _player = player;
-        }
-
-        if (playerSit != null)
-            playerSit.SetActive(false);
-
-        // 恢复玩家移动
-        if (_playerCtrl == null && player != null)
-            _playerCtrl = player.GetComponent<PlayerController>();
-        if (_playerCtrl != null)
-            _playerCtrl.EnablePlayerControl();
-
-        if (Gamemanager.instance != null)
-            Gamemanager.instance.phase = GamePhase.Moving;
-
-        // 确保相机重新 Follow Player
-        var vcam = _vcam != null ? _vcam : FindObjectOfType<CinemachineVirtualCamera>();
-        if (vcam != null && player != null)
-            vcam.Follow = player.transform;
-    }
 }

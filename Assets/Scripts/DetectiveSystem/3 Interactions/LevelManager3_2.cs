@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
-public class LevelManager3_2 : MonoBehaviour
+public class LevelManager3_2 : BaseLevelManager
 {
     [Header("Spot Light 演出")]
     [SerializeField] private URPLight2D deathSpot;
@@ -23,32 +23,37 @@ public class LevelManager3_2 : MonoBehaviour
     // runtime
     private Coroutine _leaveRoutine;
 
-    private void Awake()
+    // ===== 生命周期 =====
+    protected override void Awake()
     {
+        // 先让 BaseLevelManager 做：找 Player、根据勾选隐藏/锁控制
+        base.Awake();
+
         // 初始化灯（先关到 0，类型设成 Point）
         InitDeathLight();
     }
 
     private void Start()
     {
-        // 用 tag 找到 DontDestroyOnLoad 的 Player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (!player)
-        {
-            Debug.LogWarning("[LevelManager3_2] 没有找到 tag=Player 的对象。");
-            return;
-        }
+        // 3-2 一进来：玩家应该重新出现并可以移动
+        ShowPlayerAndAllowMove();      // BaseLevelManager：Reveal + phase=Moving
 
-        // 把她身上（以及子物体上）的所有 SpriteRenderer 打开
-        SpriteRenderer[] sprites = player.GetComponentsInChildren<SpriteRenderer>(true);
-        foreach (var sr in sprites)
+        // 强制把 alpha 也拉回 1（防止上一关改过）
+        if (playerObject != null)
         {
-            if (sr != null)
+            CachePlayerSprites();
+            foreach (var sr in _playerSprites)
+            {
+                if (!sr) continue;
                 sr.enabled = true;
+                var c = sr.color;
+                c.a = 1f;
+                sr.color = c;
+            }
         }
 
         if (verboseLog)
-            Debug.Log($"[LevelManager3_2] 已为 Player 重新启用 {sprites.Length} 个 SpriteRenderer。");
+            Debug.Log("[LevelManager3_2] Player sprite 已恢复可见并允许移动。");
     }
 
     /// <summary>
@@ -88,7 +93,7 @@ public class LevelManager3_2 : MonoBehaviour
         if (zhoushuStanding && zhoushuStanding.activeSelf)
             zhoushuStanding.SetActive(false);
 
-        // 3) 灯快速淡出（如果你想一直亮，可以把这行改成 "yield break;"）
+        // 3) 灯快速淡出
         yield return FadeOutDeathLight();
 
         if (verboseLog) Debug.Log("[3-2] ZhouShuLeave end");
