@@ -65,7 +65,7 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Min(1)] private int flickerCount = 3;            // 闪烁次数（最后一次点亮后转头）
     [SerializeField, Min(0f)] private float flickerOffTime = 0.12f;   // 熄灭时长
     [SerializeField, Min(0f)] private float flickerOnTime = 0.18f;    // 点亮时长
-    [SerializeField] private List<URPLight2D> sceneLights = new();     // 需要一起闪烁的灯（可为空则用 lightToBlinkAndDim）
+    [SerializeField] private List<URPLight2D> sceneLights = new();    // 需要一起闪烁的灯（可为空则用 lightToBlinkAndDim）
 
     [Header("【演绎】换脸后触发对话5-a")]
     [SerializeField] private DialogueTrigger dialogueTrigger2;
@@ -114,7 +114,7 @@ public class LevelManager1_2 : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float minVisibleIntensity5B = 0.75f; // 换脸时至少这么亮
     [SerializeField, Min(0f)] private float faceHoldLitSeconds5B = 0.75f;        // 换脸后保持点亮的时间
 
-    // —— runtime 缓存 ——（每个 Manager 用 tag 找主角）
+    // —— runtime 缓存 ——（改成用 PlayerController.Instance）
     private Rigidbody2D _playerRb;
     private PlayerController _playerCtrl;
     private GameObject playerObject;
@@ -123,21 +123,22 @@ public class LevelManager1_2 : MonoBehaviour
     private void Awake()
     {
         // 开场禁止移动
-        if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Loading;
+        if (Gamemanager.instance)
+            Gamemanager.instance.phase = GamePhase.Loading;
 
-        // ★ 用 tag 找 Player 并缓存组件（所有 manager 都建议这样做）
-        playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject)
+        // ✅ 用单例拿到唯一 Player
+        _playerCtrl = PlayerController.Instance;
+        if (_playerCtrl != null)
         {
+            playerObject = _playerCtrl.gameObject;
+            _playerRb = playerObject.GetComponent<Rigidbody2D>();
+
             CachePlayerSprites();
             SetPlayerSpritesVisible(false);
-
-            _playerRb = playerObject.GetComponent<Rigidbody2D>();
-            _playerCtrl = playerObject.GetComponent<PlayerController>();
         }
         else
         {
-            Debug.LogWarning("[LevelManager1_2] 没找到 tag=Player 的激活对象。");
+            Debug.LogWarning("[LevelManager1_2] PlayerController.Instance is null. Player not cached.");
         }
 
         if (!dialogueTrigger)
@@ -185,7 +186,7 @@ public class LevelManager1_2 : MonoBehaviour
         var sr = BathroomSign ? BathroomSign.GetComponent<SpriteRenderer>() : null;
         if (sr && Sign_on) sr.sprite = Sign_on;
         if (redLightObject) redLightObject.SetActive(true);
-        snd_RedLight.Play();
+        if (snd_RedLight) snd_RedLight.Play();
 
         // —— 4) 等 2 秒 ——
         yield return new WaitForSeconds(2f);
@@ -202,7 +203,7 @@ public class LevelManager1_2 : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // —— 7) 角色出现——
-        snd_toiletDoor.Play();
+        if (snd_toiletDoor) snd_toiletDoor.Play();
         SetPlayerSpritesVisible(true);
 
         // —— 8) 等 0.7 秒 → 对话框 ——
@@ -211,7 +212,8 @@ public class LevelManager1_2 : MonoBehaviour
         if (objectToReveal && !objectToReveal.activeSelf)
             objectToReveal.SetActive(true);
 
-        dialogueTrigger?.TriggerDialogue();
+        if (dialogueTrigger)
+            dialogueTrigger.TriggerDialogue();
     }
 
     private void CachePlayerSprites()
@@ -276,7 +278,8 @@ public class LevelManager1_2 : MonoBehaviour
 
         // 恢复玩家可动 + 对话
         RestorePlayerControl();
-        dialogueTrigger2?.TriggerDialogue();
+        if (dialogueTrigger2)
+            dialogueTrigger2.TriggerDialogue();
 
         _eventRoutine = null;
     }
@@ -423,8 +426,8 @@ public class LevelManager1_2 : MonoBehaviour
         // ★ 还原覆盖，避免影响其它流程
         s_MinOnIntensityOverride = 0f;
 
-        nextLoop?.toNextLoop();
-        yield break;
+        if (nextLoop)
+            nextLoop.toNextLoop();
     }
 
     // ========= 工具：抛物线跳跃 =========
