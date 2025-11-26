@@ -11,5 +11,4 @@ public class LevelManager1_1 : BaseLevelManager
         LoopTracker.I?.SetLoop(myLoop);
     }
 
-    
 }
