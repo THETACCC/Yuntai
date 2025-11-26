@@ -14,7 +14,7 @@
         "zh": "什么！那可是师父特意派我去取的宝贝，外人不可能知道......",
         "ja": ""
       },
-      "nextIndex": 1,
+      "nextIndex": 6,
       "choices": [],
       "eventCalls": []
     },
@@ -79,7 +79,7 @@
         "zh": "周书",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/周书_日常",
+      "avatarAddr": "DialogueImages/周书_惊讶",
       "isPlayer": false,
       "content": {
         "en": "I have no idea what you're talking about.",
@@ -100,8 +100,8 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "Anyway, don’t let go no matter what! We should be within city range now—hopefully this works.",
-        "zh": "不管怎样，待会千万别松手！现在应该在市区范围了，但愿这能行。",
+        "en": "Whatever you do, don’t let go. We should be within the city limits now. I hope this works.",
+        "zh": "千万别松手，现在应该在市区范围了，但愿这能行。",
         "ja": ""
       },
       "nextIndex": -1,
@@ -119,6 +119,60 @@
           "triggerOnEnd": true
         }
       ]
+    },
+    {
+      "index": 6,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Veris quickly tells Page what happened in the previous loop.",
+        "zh": "何以真快速将上个循环发生的事告诉了周书。",
+        "ja": ""
+      },
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 7,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "A loop? That’s impossible...",
+        "zh": "循环?这怎么可能......",
+        "ja": ""
+      },
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 8,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "At the end of the last loop, I saw the mirror in your hand glowing, and then you disappeared.",
+        "zh": "我在上个循环的最后看到你手里的镜子发出了光，然后你整个人消失了。",
+        "ja": ""
+      },
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
