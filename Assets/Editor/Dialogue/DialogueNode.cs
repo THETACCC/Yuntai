@@ -1633,6 +1633,23 @@ public partial class DialogueNode : Node
         }
     }
 
+    private void RebuildAllChoicesUI()
+    {
+        // 清空现有UI
+        choicesContainer.Clear();
+        choiceOutputPorts.Clear();
+        choiceIdFields.Clear();
+
+        // 重建所有Choice
+        for (int i = 0; i < ChoicesData.Count; i++)
+        {
+            RebuildChoiceUI(i);
+        }
+
+        RefreshExpandedState();
+        RefreshPorts();
+    }
+
     private void RebuildChoiceUI(int index)
     {
         var choiceContainer = new VisualElement();
@@ -1716,12 +1733,8 @@ public partial class DialogueNode : Node
                 }
 
                 ChoicesData[currentIndex].useTextId = newUseId;
-                // 重建整个Choice UI
-                if (currentIndex < choicesContainer.childCount)
-                {
-                    choicesContainer.RemoveAt(currentIndex);
-                    RebuildChoiceUI(currentIndex);
-                }
+                // 重建所有Choice UI（避免索引错位）
+                RebuildAllChoicesUI();
                 NotifyChange();
             }
         });
