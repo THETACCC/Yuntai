@@ -1073,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2815594171043420281, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.21
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: 3440351065112717841, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_Sprite
@@ -1179,6 +1179,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: 267a7ffcd5c7edf41844afa39e2eb5ae, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 1
 --- !u!1 &276969500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.81
+      value: 3.66
       objectReference: {fileID: 0}
     - target: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5579,6 +5580,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: 37bd897d4098ed84b8e1cfa9d937c34d, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
@@ -6818,6 +6820,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 6.51
+      objectReference: {fileID: 0}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: jsonFile
       value: 
@@ -6971,6 +6981,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 1
   isMainDialogueFinished: 0
+  isDoor: 0
   usePostDialogue: 0
   delay: 0
 --- !u!4 &1511649204
@@ -7975,6 +7986,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: 7d15bcabe3ba46346b36c1f6e47ad05d, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!61 &1677128406
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8783,6 +8795,10 @@ PrefabInstance:
     - target: {fileID: 878121195541122374, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_Name
       value: SpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226782936490935484, guid: 306363f08061241468b76fd999968abd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.06
       objectReference: {fileID: 0}
     - target: {fileID: 7822667411873779507, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x

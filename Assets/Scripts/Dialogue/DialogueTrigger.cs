@@ -8,6 +8,8 @@ public class DialogueTrigger : MonoBehaviour
     public bool isReadyToTrigger = false; //是否可以触发对话
     public bool isMainDialogueFinished = false; //主要对话是否结束
 
+    [SerializeField] bool isDoor = false;
+
     //public UnityEvent OnDialogueCompleted;
 
     
@@ -23,6 +25,10 @@ public class DialogueTrigger : MonoBehaviour
         if (isReadyToTrigger)
         {
             if (Input.GetKeyDown(KeyCode.E))
+            {
+                TriggerDialogue();
+            }
+            if (Input.GetKeyDown(KeyCode.W) && isDoor)
             {
                 TriggerDialogue();
             }
