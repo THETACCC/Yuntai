@@ -29,7 +29,7 @@ public class DetectiveManager : MonoBehaviour
     {
         if(isPlayingDetective)
         {
-            Gamemanager.instance?.StartDialogue();
+        //    Gamemanager.instance?.StartDialogue();
         }
     }
 
