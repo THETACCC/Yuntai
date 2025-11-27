@@ -38,6 +38,13 @@ public class DetectiveManager : MonoBehaviour
 
     public void StartDetectiveGame()
     {
+        StartCoroutine(StartDetectiveGameDelayed());
+    }
+
+    private IEnumerator StartDetectiveGameDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+
         if (myDetectiveCanvas != null)
         {
             myDetectiveCanvas.SetActive(true);

@@ -522,13 +522,13 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueDefaultSequence.instance.isActice = false;
         isDialogueFinished = true;
-        Gamemanager.instance?.EndDialogue();
+
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear, 1f,
             t => UIGroup.alpha = 1 - t,
             () => {
                 UIGroup.alpha = 0;
-
+                Gamemanager.instance?.EndDialogue();
                 if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
                 isDialogueActive = false;
                 isDialogueFinished = false;
