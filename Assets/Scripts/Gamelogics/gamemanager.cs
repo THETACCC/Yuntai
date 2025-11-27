@@ -46,6 +46,15 @@ public class Gamemanager : MonoBehaviour
         phase = GamePhase.Moving;
     }
 
+    public void StartMiniGame()
+    {
+        phase = GamePhase.Eventing;
+    }
+
+    public void EndMiniGame()
+    {
+        phase = GamePhase.Moving;
+    }
 
 
 }

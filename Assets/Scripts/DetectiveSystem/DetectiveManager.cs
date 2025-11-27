@@ -17,10 +17,24 @@ public class DetectiveManager : MonoBehaviour
 
     public DialogueTrigger myAffectedTrigger;
 
+
+    private bool isPlayingDetective = false;
+
     public void Start()
     {
         myDetectiveCanvas.SetActive(false);
     }
+
+    public void Update()
+    {
+        if(isPlayingDetective)
+        {
+            Gamemanager.instance?.StartDialogue();
+        }
+    }
+
+
+
 
     public void StartDetectiveGame()
     {
@@ -28,6 +42,7 @@ public class DetectiveManager : MonoBehaviour
         {
             myDetectiveCanvas.SetActive(true);
             Gamemanager.instance?.StartDialogue();
+            isPlayingDetective = true;
         }
     }
 
@@ -37,6 +52,7 @@ public class DetectiveManager : MonoBehaviour
         {
             myDetectiveCanvas.SetActive(false);
             Gamemanager.instance?.EndDialogue();
+            isPlayingDetective = false;
         }
     }
 
@@ -57,9 +73,10 @@ public class DetectiveManager : MonoBehaviour
     {
         EndDetectiveGame();
         DisableAllContent();
-        Gamemanager.instance?.StartDialogue();
+
         DialogueManager.instance.LoadDialogueFromFile(CorrectDialogueJsonFile);
         DialogueManager.instance.StartDialogue();
+        Gamemanager.instance?.StartDialogue();
     }
 
     public void SelectedWrong()
@@ -68,28 +85,30 @@ public class DetectiveManager : MonoBehaviour
         {
             EndDetectiveGame();
             DisableAllContent();
-            Gamemanager.instance?.StartDialogue();
+
             DialogueManager.instance.LoadDialogueFromFile(FirstWrongDialogueJsonFile);
             DialogueManager.instance.StartDialogue();
+            Gamemanager.instance?.StartDialogue();
             WrongTimes += 1;
         }
         else if (WrongTimes == 1)
         {
             EndDetectiveGame();
             DisableAllContent();
-            Gamemanager.instance?.StartDialogue();
+
             DialogueManager.instance.LoadDialogueFromFile(SecondWrongDialogueJsonFile);
             DialogueManager.instance.StartDialogue();
+            Gamemanager.instance?.StartDialogue();
             WrongTimes += 1;
         }
         else if(WrongTimes == 2)
         {
             EndDetectiveGame();
             DisableAllContent();
-            Gamemanager.instance?.StartDialogue();
+
             DialogueManager.instance.LoadDialogueFromFile(FailDialogueJsonFile);
             DialogueManager.instance.StartDialogue();
-
+            Gamemanager.instance?.StartDialogue();
             //This disables the conversation, can add other effects such as death
             myAffectedTrigger.enabled = false;
         }
