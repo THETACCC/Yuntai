@@ -272,6 +272,17 @@ namespace DialogueSystem
     }
 
     // ==================== 事件系统 ====================
+    /// <summary>
+    /// Event trigger timing options
+    /// </summary>
+    [Serializable]
+    public enum EventTriggerTiming
+    {
+        OnDialogueStart,        // 对话开始时触发
+        OnDialogueEnd,          // 对话结束时触发（点击后）
+        OnDialogueDisappear     // 对话框完全消失后触发（仅当没有下一个节点时有效）
+    }
+
 
     /// <summary>
     /// Parameter types supported by dialogue events
@@ -301,7 +312,7 @@ namespace DialogueSystem
         public float floatParameter = 0f;     // Float parameter
         public bool boolParameter = false;    // Boolean parameter
         public ParameterType parameterType = ParameterType.None; // Parameter type
-        public bool triggerOnEnd = false;     // 是否在对话结束时触发
+        public EventTriggerTiming triggerTiming = EventTriggerTiming.OnDialogueStart;     // 事件触发时机
     }
 
     /// <summary>

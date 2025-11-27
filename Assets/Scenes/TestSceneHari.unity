@@ -388,6 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 194736694}
   - component: {fileID: 194736693}
+  - component: {fileID: 194736695}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -424,6 +425,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &194736695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194736692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 09ad9222-8617-4f29-9ccd-2e071c3d8c9c
 --- !u!1 &264994858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,6 +1915,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 1
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!4 &1440304107
 Transform:
   m_ObjectHideFlags: 0
@@ -3160,7 +3175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8666715169463334479, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
       propertyPath: currentLanguage
-      value: zh
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 8805798512563012681, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
       propertyPath: m_AnchorMax.x

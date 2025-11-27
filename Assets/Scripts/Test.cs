@@ -28,8 +28,8 @@ public class Test : MonoBehaviour
         Debug.Log("CallDuringNode");
     }
 
-    public void CallDuringNode(int i)
+    public void CallAfterNodeDisappear(int i)
     {
-        Debug.Log("CallDuringNode " + i);
+        Debug.Log("CallAfterNodeDisappear " + i);
     }
 }

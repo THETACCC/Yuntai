@@ -250,8 +250,9 @@ public class DialogueManager : MonoBehaviour
                     continue;
                 }
 
-                if (!eventCall.triggerOnEnd)
+                if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueStart)
                 {
+                    Debug.Log("红红火火恍恍惚惚");
                     DialogueEventExecutor.ExecuteSingleEvent(eventCall);
                 }
 
@@ -520,8 +521,12 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        Debug.Log($"[EndDialogue] lastConversation index: {currentConversation?.index}, nextIndex: {currentConversation?.nextIndex}");
+
         DialogueDefaultSequence.instance.isActice = false;
         isDialogueFinished = true;
+
+        var lastConversation = currentConversation;
 
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear, 1f,
@@ -532,6 +537,24 @@ public class DialogueManager : MonoBehaviour
                 if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
                 isDialogueActive = false;
                 isDialogueFinished = false;
+
+                //excute event on disappear
+                if (lastConversation?.eventCalls != null && lastConversation.eventCalls.Count != 0)
+                {
+                    foreach (var eventCall in lastConversation.eventCalls)
+                    {
+                        if (!DialogueEventExecutor.IsValidEventCall(eventCall))
+                        {
+                            DialogueEventExecutor.LogWarning($"Invalid event call: missing required fields");
+                            continue;
+                        }
+
+                        if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueDisappear)
+                        {
+                            DialogueEventExecutor.ExecuteSingleEvent(eventCall);
+                        }
+                    }
+                }
             }));
     }
 
@@ -618,6 +641,7 @@ public class DialogueManager : MonoBehaviour
 
         //Debug.Log(currentConversation.nextIndex);
 
+        //excute event on end
         if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
         {
             foreach (var eventCall in currentConversation.eventCalls)
@@ -628,7 +652,7 @@ public class DialogueManager : MonoBehaviour
                     continue;
                 }
 
-                if (eventCall.triggerOnEnd)
+                if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueEnd)
                 {
                     DialogueEventExecutor.ExecuteSingleEvent(eventCall);
                 }

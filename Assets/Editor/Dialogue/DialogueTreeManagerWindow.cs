@@ -1720,7 +1720,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                     formattedJson += $"          \"intParameter\": {evt.intParameter},\n";
                     formattedJson += $"          \"floatParameter\": {evt.floatParameter},\n";
                     formattedJson += $"          \"boolParameter\": {evt.boolParameter.ToString().ToLower()},\n";
-                    formattedJson += $"          \"triggerOnEnd\": {evt.triggerOnEnd.ToString().ToLower()}\n";
+                    formattedJson += $"          \"triggerTiming\": {(int)evt.triggerTiming}\n";
                     formattedJson += "        }";
                     if (j < item.eventCalls.Count - 1) formattedJson += ",";
                     formattedJson += "\n";
@@ -4114,7 +4114,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                     sb.Append($"\"intParameter\": {ev.intParameter}, ");
                     sb.Append($"\"floatParameter\": {ev.floatParameter}, ");
                     sb.Append($"\"boolParameter\": {ev.boolParameter.ToString().ToLower()}, ");
-                    sb.Append($"\"triggerOnEnd\": {ev.triggerOnEnd.ToString().ToLower()}}}");
+                    sb.Append($"\"triggerTiming\": {(int)ev.triggerTiming}");
                     if (j < item.eventCalls.Count - 1) sb.Append(",");
                 }
                 sb.Append("\n      ]");

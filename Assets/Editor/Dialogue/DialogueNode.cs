@@ -147,8 +147,8 @@ public partial class DialogueNode : Node
         characterContainer.style.borderTopRightRadius = 4;
         characterContainer.style.borderBottomLeftRadius = 4;
         characterContainer.style.borderBottomRightRadius = 4;
-        characterContainer.style.minWidth = 300;
-        characterContainer.style.maxWidth = 300;
+        characterContainer.style.minWidth = 310;
+        characterContainer.style.maxWidth = 310;
 
         // 简化为单行显示
         var contentRow = new VisualElement();
@@ -406,8 +406,8 @@ public partial class DialogueNode : Node
         {
             multiline = true
         };
-        dialogueTextField.style.minWidth = 300;
-        dialogueTextField.style.maxWidth = 300;
+        dialogueTextField.style.minWidth = 290;
+        dialogueTextField.style.maxWidth = 290;
         dialogueTextField.style.minHeight = 60;
         dialogueTextField.RegisterValueChangedCallback(evt =>
         {
@@ -424,8 +424,8 @@ public partial class DialogueNode : Node
 
         // 3. 创建Use ID的ID输入框
         dialogueIdField = new TextField("Dialogue ID:");
-        dialogueIdField.style.minWidth = 300;
-        dialogueIdField.style.maxWidth = 300;
+        dialogueIdField.style.minWidth = 290;
+        dialogueIdField.style.maxWidth = 290;
         dialogueIdField.RegisterValueChangedCallback(evt =>
         {
             contentId = evt.newValue.Trim();
@@ -464,7 +464,7 @@ public partial class DialogueNode : Node
         dialoguePreviewLabel.style.borderRightColor = new StyleColor(new Color(0.3f, 0.3f, 0.3f));
         dialoguePreviewLabel.style.whiteSpace = WhiteSpace.Normal;
         dialoguePreviewLabel.style.minHeight = 40;
-        dialoguePreviewLabel.style.maxWidth = 300;
+        dialoguePreviewLabel.style.maxWidth = 290;
 
         // 根据当前模式显示对应的控件
         UpdateDialogueInputFields();
@@ -710,61 +710,46 @@ public partial class DialogueNode : Node
             eventContainer.Add(titleRow);
 
             // 触发时机选择
-            var triggerTimingRow = new VisualElement();
-            triggerTimingRow.style.flexDirection = FlexDirection.Row;
-            triggerTimingRow.style.alignItems = Align.Center;
-            triggerTimingRow.style.marginTop = 5;
-            triggerTimingRow.style.backgroundColor = new StyleColor(new Color(0.25f, 0.25f, 0.35f, 0.3f));
-            triggerTimingRow.style.paddingTop = 3;
-            triggerTimingRow.style.paddingBottom = 3;
-            triggerTimingRow.style.paddingLeft = 5;
-            triggerTimingRow.style.paddingRight = 5;
-            triggerTimingRow.style.borderTopLeftRadius = 3;
-            triggerTimingRow.style.borderTopRightRadius = 3;
-            triggerTimingRow.style.borderBottomLeftRadius = 3;
-            triggerTimingRow.style.borderBottomRightRadius = 3;
-
-            var triggerLabel = new Label("Call After Node:");
-            triggerLabel.style.minWidth = 100;
-            triggerLabel.style.fontSize = 10;
-            triggerLabel.style.color = new StyleColor(new Color(0.9f, 0.9f, 0.9f));
-
-            var triggerToggle = new Toggle()
-            {
-                value = eventCall.triggerOnEnd
-            };
-            triggerToggle.style.flexGrow = 1;
-
-            var toggleLabel = triggerToggle.Q<Label>();
-            if (toggleLabel != null)
-            {
-                toggleLabel.text = eventCall.triggerOnEnd ? "On Dialogue End" : "On Dialogue Start";
-                toggleLabel.style.fontSize = 10;
-                toggleLabel.style.color = eventCall.triggerOnEnd ?
-                    new StyleColor(new Color(1f, 0.7f, 0.3f)) :
-                    new StyleColor(new Color(0.3f, 0.8f, 1f));
-            }
-
-            triggerToggle.RegisterValueChangedCallback(evt =>
+            var triggerEnum = new EnumField("Event Timing:", eventCall.triggerTiming);
+            triggerEnum.style.marginTop = 3;
+            triggerEnum.RegisterValueChangedCallback(evt =>
             {
                 if (currentIndex < EventCalls.Count)
                 {
-                    EventCalls[currentIndex].triggerOnEnd = evt.newValue;
-                    var label = triggerToggle.Q<Label>();
-                    if (label != null)
-                    {
-                        label.text = evt.newValue ? "On Dialogue End" : "On Dialogue Start";
-                        label.style.color = evt.newValue ?
-                            new StyleColor(new Color(1f, 0.7f, 0.3f)) :
-                            new StyleColor(new Color(0.3f, 0.8f, 1f));
-                    }
+                    EventCalls[currentIndex].triggerTiming = (EventTriggerTiming)evt.newValue;
+                    UpdateEventsDisplay();
                     NotifyChange();
                 }
             });
+            eventContainer.Add(triggerEnum);
 
-            triggerTimingRow.Add(triggerLabel);
-            triggerTimingRow.Add(triggerToggle);
-            eventContainer.Add(triggerTimingRow);
+            // 警告提示 - 如果选择了 OnDialogueDisappear 但节点有下一个节点
+            // 检查是否有下一个节点：有choices、有conditional branches、或者default output连接了
+            bool hasNextNode = (ChoicesData.Count > 0) ||
+                               (conditionalBranchesData.Count > 0) ||
+                               (defaultOutputPort != null && defaultOutputPort.connected);
+            if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueDisappear && hasNextNode)
+            {
+                var warningBox = new VisualElement();
+                warningBox.style.marginTop = 2;
+                warningBox.style.backgroundColor = new StyleColor(new Color(0.8f, 0.4f, 0.2f, 0.3f));
+                warningBox.style.paddingTop = 2;
+                warningBox.style.paddingBottom = 2;
+                warningBox.style.paddingLeft = 5;
+                warningBox.style.paddingRight = 5;
+                warningBox.style.borderTopLeftRadius = 2;
+                warningBox.style.borderTopRightRadius = 2;
+                warningBox.style.borderBottomLeftRadius = 2;
+                warningBox.style.borderBottomRightRadius = 2;
+
+                var warningLabel = new Label("⚠ This event will NOT run (node has next dialogue)");
+                warningLabel.style.fontSize = 9;
+                warningLabel.style.color = new StyleColor(new Color(1f, 0.8f, 0.3f));
+                warningLabel.style.whiteSpace = WhiteSpace.Normal;
+
+                warningBox.Add(warningLabel);
+                eventContainer.Add(warningBox);
+            }
 
             GameObject currentGameObject = null;
             // 优先使用ID查找

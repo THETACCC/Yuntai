@@ -11,21 +11,33 @@
                 "zh": "我快憋不住了",
                 "ja": ""
             },
-            "positionX": 186.0,
-            "positionY": -120.66666412353516,
-            "choices": [],
+            "positionX": 291.33331298828127,
+            "positionY": -245.3333282470703,
+            "choices": [
+                {
+                    "useTextId": false,
+                    "textId": "",
+                    "text": {
+                        "en": "New Choice",
+                        "zh": "",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": [
                 {
-                    "targetObjectID": "",
+                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
                     "targetObjectName": "Test",
                     "componentTypeName": "Test",
-                    "methodName": "CallDuringNode",
+                    "methodName": "CallAfterNodeDisappear|Int32",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
+                    "parameterType": 2,
+                    "triggerTiming": 2
                 }
             ],
             "conditionalBranches": []
@@ -56,7 +68,20 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallAfterNodeDisappear|Int32",
+                    "stringParameter": "",
+                    "intParameter": 2222,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 2,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -90,7 +115,20 @@
             "positionX": 1743.333251953125,
             "positionY": -267.33331298828127,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
+                    "targetObjectName": "Test",
+                    "componentTypeName": "Test",
+                    "methodName": "CallAfterNodeDisappear|Int32",
+                    "stringParameter": "",
+                    "intParameter": 1111,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 2,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         }
     ],
