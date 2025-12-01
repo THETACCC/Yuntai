@@ -21,6 +21,14 @@ public class SoundMiniGameManager : MonoBehaviour
     private Color originalColor;
     private Coroutine feedbackRoutine;
 
+
+    //isCorrect
+    public bool isPuzzleSolved = false;
+
+    //Connect to Indicator
+    public SoundMiniGameIndicator mySoundGameIndicator;
+
+
     void Start()
     {
         // Store original color
@@ -68,6 +76,7 @@ public class SoundMiniGameManager : MonoBehaviour
     public void OnCheckAnswerButtonPressed()
     {
         bool correct = IsCorrect();
+        isPuzzleSolved = correct;
         Debug.Log(correct ? "Correct Answer!" : "Wrong Answer.");
 
         if (myPuzzleSolveImage == null)
@@ -94,6 +103,14 @@ public class SoundMiniGameManager : MonoBehaviour
 
         myPuzzleSolveImage.color = originalColor;
         feedbackRoutine = null;
+
+        //CLose Game
+        if(isPuzzleSolved)
+        {
+            mySoundGameIndicator.SolvedMiniGame();
+        }
+
+
     }
 
     [ContextMenu("Test Puzzle")]

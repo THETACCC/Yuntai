@@ -18418,7 +18418,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1205609635}
-  - component: {fileID: 1205609638}
   - component: {fileID: 1205609637}
   - component: {fileID: 1205609636}
   - component: {fileID: 1205609639}
@@ -18468,6 +18467,8 @@ MonoBehaviour:
   myPuzzleSolveImage: {fileID: 619888389}
   blinkDuration: 0.15
   blinkTimes: 3
+  isPuzzleSolved: 0
+  mySoundGameIndicator: {fileID: 1205609637}
 --- !u!114 &1205609637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18482,19 +18483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReadyToTrigger: 1
   myMiniGame: {fileID: 1413511351}
---- !u!114 &1205609638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205609634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractIndicator: {fileID: 1559898000}
+  myUI_E: {fileID: 1559898000}
 --- !u!61 &1205609639
 BoxCollider2D:
   m_ObjectHideFlags: 0
