@@ -6,7 +6,7 @@ public class SoundMiniGameIndicator : MonoBehaviour
 {
 
     public bool isReadyToTrigger = false;
-
+    public GameObject myMiniGame;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +24,26 @@ public class SoundMiniGameIndicator : MonoBehaviour
             }
 
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+          //  CloseMiniGame();
+        }
+
+
+    }
+
+    public void CloseMiniGame()
+    {
+        Gamemanager.instance?.EndDialogue();
+        myMiniGame.SetActive(false);
     }
 
     public void OpenMiniGame()
     {
         //Set the GameState To Talking
         Gamemanager.instance?.StartDialogue();
+        myMiniGame.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
