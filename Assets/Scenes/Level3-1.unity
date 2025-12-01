@@ -1159,7 +1159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2815594171043420281, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.56
+      value: 7.65
       objectReference: {fileID: 0}
     - target: {fileID: 3440351065112717841, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_Sprite
@@ -1216,17 +1216,17 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 226171908}
+      addedObject: {fileID: 226171909}
     - targetCorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 226171909}
+      addedObject: {fileID: 226171910}
   m_SourcePrefab: {fileID: 100100000, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
 --- !u!4 &226171903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 226171902}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &226171905 stripped
+--- !u!1 &226171904 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 578562779672608513, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 226171902}
@@ -1236,19 +1236,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 226171902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &226171908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226171906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractIndicator: {fileID: 226171905}
 --- !u!114 &226171909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,7 +1252,20 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: 4d0b8ec493e7abf4ebcf7ce7ef005785, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
-  isDoor: 0
+  isDoor: 1
+--- !u!114 &226171910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226171906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractIndicator: {fileID: 226171904}
 --- !u!1 &276969500
 GameObject:
   m_ObjectHideFlags: 0
