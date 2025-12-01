@@ -1,6 +1,23 @@
 {
     "nodes": [
         {
+            "id": "116dec64-a924-4160-8508-7b214d1f8254",
+            "index": 0,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_2006",
+            "content": {
+                "en": "!!!",
+                "zh": "！！！",
+                "ja": ""
+            },
+            "positionX": 294.4000244140625,
+            "positionY": 288.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
             "id": "c9aea572-bf54-4639-a938-8f51644e2179",
             "index": 1,
             "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
@@ -11,8 +28,8 @@
                 "zh": "怎...怎么回事？",
                 "ja": ""
             },
-            "positionX": 649.3333740234375,
-            "positionY": 288.6666564941406,
+            "positionX": 649.6000366210938,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +45,8 @@
                 "zh": "（灯光是亮着的，乘务员小姐看上去也很正常。）",
                 "ja": ""
             },
-            "positionX": 1014.6666870117188,
-            "positionY": 288.6666564941406,
+            "positionX": 1015.2000122070313,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,96 +62,8 @@
                 "zh": "是我做了噩梦？",
                 "ja": ""
             },
-            "positionX": 1385.333251953125,
-            "positionY": 288.6666564941406,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b0b95a78-492b-422c-ac57-10d5c8b31868",
-            "index": 5,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch1_2011",
-            "content": {
-                "en": "Calm down. First thing I need to do is figure out what’s going on.",
-                "zh": "冷静点，必须得先收集关于现状的信息才行。",
-                "ja": ""
-            },
-            "positionX": 2134.666748046875,
-            "positionY": 288.6666564941406,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "",
-                    "targetObjectName": "EventTab",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Event1_Dream",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                },
-                {
-                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
-                    "targetObjectName": "NoteBook",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": false
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
-            "index": 6,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_2013",
-            "content": {
-                "en": "Suddenly Veris felt a current of warmth in her hand. something is wrong about her notebook.",
-                "zh": "忽然，何以真感到手心涌起一股暖意。她的笔记本有些不对劲。",
-                "ja": ""
-            },
-            "positionX": 2942.666748046875,
-            "positionY": 288.6666564941406,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "116dec64-a924-4160-8508-7b214d1f8254",
-            "index": 0,
-            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
-            "useContentId": true,
-            "contentId": "ch1_2006",
-            "content": {
-                "en": "!!!",
-                "zh": "！！！",
-                "ja": ""
-            },
-            "positionX": 294.0,
-            "positionY": 288.6666564941406,
+            "positionX": 1385.5999755859375,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -151,7 +80,24 @@
                 "ja": ""
             },
             "positionX": 1748.0,
-            "positionY": 288.6666564941406,
+            "positionY": 288.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fb6fe35f-8618-4bdb-b358-189b153ef039",
+            "index": 6,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2013",
+            "content": {
+                "en": "Suddenly Veris felt a current of warmth in her hand. something is wrong about her notebook.",
+                "zh": "忽然，何以真感到手心涌起一股暖意。她的笔记本有些不对劲。",
+                "ja": ""
+            },
+            "positionX": 2943.199951171875,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -168,7 +114,7 @@
                 "ja": ""
             },
             "positionX": 2508.0,
-            "positionY": 288.6666564941406,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -184,10 +130,88 @@
                 "zh": "提示：退出对话后，按TAB键打开笔记本",
                 "ja": ""
             },
-            "positionX": 3326.0,
-            "positionY": 288.6666564941406,
+            "positionX": 3326.39990234375,
+            "positionY": 288.79998779296877,
             "choices": [],
             "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b0b95a78-492b-422c-ac57-10d5c8b31868",
+            "index": 5,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2011",
+            "content": {
+                "en": "Calm down. First thing I need to do is figure out what’s going on.",
+                "zh": "冷静点，必须得先收集关于现状的信息才行。",
+                "ja": ""
+            },
+            "positionX": 2135.199951171875,
+            "positionY": 288.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "",
+                    "targetObjectName": "EventTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "ObjectiveTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective1",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Event1_Dream",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         }
     ],
