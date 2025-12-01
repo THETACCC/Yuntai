@@ -11,4 +11,9 @@ public class isThisUnlocked : MonoBehaviour
         isThisThingUnlocked = true;
     }
 
+    public void LockThis()
+    {
+        isThisThingUnlocked = false;
+    }
+
 }
