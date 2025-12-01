@@ -30,7 +30,7 @@ public class UI_E : MonoBehaviour
         // This disables the E when player presses
         if (collision.CompareTag("Player"))
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E) || (Input.GetKey(KeyCode.W)))
                 SetIndicator(false);
         }
     }
