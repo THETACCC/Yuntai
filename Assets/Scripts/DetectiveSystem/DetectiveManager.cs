@@ -33,17 +33,15 @@ public class DetectiveManager : MonoBehaviour
         }
     }
 
-
+    public void StopPlayerMovement()
+    {
+        Gamemanager.instance?.StartDialogue();
+    }
 
 
     public void StartDetectiveGame()
     {
-        StartCoroutine(StartDetectiveGameDelayed());
-    }
-
-    private IEnumerator StartDetectiveGameDelayed()
-    {
-        yield return new WaitForSeconds(1f);
+        //tartCoroutine(StartDetectiveGameDelayed());
 
         if (myDetectiveCanvas != null)
         {
@@ -51,6 +49,12 @@ public class DetectiveManager : MonoBehaviour
             Gamemanager.instance?.StartDialogue();
             isPlayingDetective = true;
         }
+    }
+
+    private IEnumerator StartDetectiveGameDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+
     }
 
     public void EndDetectiveGame()
