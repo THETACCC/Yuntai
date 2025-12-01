@@ -53,6 +53,12 @@ public class NoteBookLocalization : MonoBehaviour
     /// </summary>
     public void LoadLocalizationTable()
     {
+        if (Settings.instance != null)
+        {
+            currentLanguage = Settings.instance.currentLanguage;
+        }
+        
+
         // 开始加载时先标记为未就绪
         IsDataReady = false;
 
