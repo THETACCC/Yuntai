@@ -48,7 +48,7 @@ public class DialogueDefaultSequence : MonoBehaviour
     {
         if (DialogueManager.instance != null)
         {
-            DialogueManager.instance.UpdateDialogue();
+            DialogueManager.instance.UpdateDialogue(DialogueSettings.instance?.currentLanguage);
         }
         else
         {

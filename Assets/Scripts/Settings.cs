@@ -1,8 +1,15 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Localization.Settings;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+[System.Serializable]
+public class GameLanguage
+{
+    public string languageCode;
+    public TMP_FontAsset font;
+}
 
 public class Settings : MonoBehaviour
 {
@@ -10,11 +17,29 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public CanvasGroup canvasGroup;
 
-    public string currentLanguage = "en"; //zh en ja
+    [Header("Localization")]
+    [SerializeField]
+    [Tooltip("Current language code (en, zh, ja)")]
+    private string _currentLanguage = "en"; //zh, en, ja
+    public string currentLanguage
+    {
+        get => _currentLanguage;
+        set
+        {
+            if (_currentLanguage != value)
+            {
+                Debug.Log("to " + value);
+                _currentLanguage = value;
+                OnLanguageChanged?.Invoke(_currentLanguage);
+            }
+        }
+    }
+    public List<GameLanguage> gameLanguages;
+    public event Action<string> OnLanguageChanged;
+    [HideInInspector] public Dictionary<string, TMP_FontAsset> fontDictionary;
 
     public float mainVolume;
-    //public Slider mainVolumeSlider;
-    //public TextMeshProUGUI mainVolumeNum;
+    public Slider mainVolumeSlider;
 
     public bool isSettingsOpen = false;
     int _localeIndex;
@@ -30,6 +55,7 @@ public class Settings : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            InitializeFontDictionary();
         }
         else
         {
@@ -39,9 +65,11 @@ public class Settings : MonoBehaviour
 
     private void Start()
     {
-        if (currentLanguage != null)
+        
+
+        if (currentLanguage != null && OnLanguageChanged != null)
         {
-            SetLanguage(currentLanguage);
+            OnLanguageChanged(currentLanguage);
         }
     }
 
@@ -60,9 +88,18 @@ public class Settings : MonoBehaviour
                 }
             }
         }
+    }
 
-        //mainVolume = mainVolumeSlider.value;
-        //mainVolumeNum.text = mainVolumeSlider.value.ToString();
+    void InitializeFontDictionary()
+    {
+        fontDictionary = new Dictionary<string, TMP_FontAsset>();
+        foreach (var pair in gameLanguages)
+        {
+            if (!string.IsNullOrEmpty(pair.languageCode) && pair.font != null)
+            {
+                fontDictionary[pair.languageCode] = pair.font;
+            }
+        }
     }
 
     public void OpenSettings()
@@ -104,19 +141,6 @@ public class Settings : MonoBehaviour
     public void SetLanguage(string languageCode)
     {
         currentLanguage = languageCode;
-
-        //更新Dialogue
-        DialogueSettings.instance.SetLanguage(currentLanguage); //dialogue
-        if (DialogueManager.instance.isDialogueActive)
-        {
-            DialogueManager.instance.UpdateDialogue();
-        }
-
-        //更新Notebook
-        NoteBookLocalization.instance.SetLanguage(currentLanguage);
-
-        //更新普通UI
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage); //UI
-
+        //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage); //UI
     }
 }

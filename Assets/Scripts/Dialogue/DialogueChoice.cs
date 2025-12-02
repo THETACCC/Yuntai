@@ -44,7 +44,7 @@ public class DialogueChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (DialogueManager.instance != null)
         {
-            DialogueManager.instance.UpdateDialogue();
+            DialogueManager.instance.UpdateDialogue(DialogueSettings.instance?.currentLanguage);
         }
         else
         {

@@ -10,9 +10,9 @@ public class DialogueSettingsEditor : Editor
         DialogueSettings settings = (DialogueSettings)target;
 
         settings.currentLanguage = EditorGUILayout.TextField("Dialogue Language", settings.currentLanguage);
-        settings.ChineseFont = (TMP_FontAsset)EditorGUILayout.ObjectField("Chinese Font", settings.ChineseFont, typeof(TMP_FontAsset), false);
-        settings.EnglishFont = (TMP_FontAsset)EditorGUILayout.ObjectField("English Font", settings.EnglishFont, typeof(TMP_FontAsset), false);
-        settings.JapaneseFont = (TMP_FontAsset)EditorGUILayout.ObjectField("Japanese Font", settings.JapaneseFont, typeof(TMP_FontAsset), false);
+        //settings.ChineseFont = (TMP_FontAsset)EditorGUILayout.ObjectField("Chinese Font", settings.ChineseFont, typeof(TMP_FontAsset), false);
+        //settings.EnglishFont = (TMP_FontAsset)EditorGUILayout.ObjectField("English Font", settings.EnglishFont, typeof(TMP_FontAsset), false);
+        //settings.JapaneseFont = (TMP_FontAsset)EditorGUILayout.ObjectField("Japanese Font", settings.JapaneseFont, typeof(TMP_FontAsset), false);
 
         EditorGUILayout.Space(); // 顶部空一行
         EditorGUILayout.LabelField("Template Settings", EditorStyles.boldLabel);

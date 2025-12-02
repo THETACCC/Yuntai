@@ -48,6 +48,14 @@ public class NoteBookLocalization : MonoBehaviour
         LoadLocalizationTable();
     }
 
+    private void Start()
+    {
+        if (Settings.instance != null)
+        {
+            Settings.instance.OnLanguageChanged += SetLanguage;
+        }
+    }
+
     /// <summary>
     /// 加载本地化表
     /// </summary>

@@ -51,6 +51,12 @@ public class NoteBookReader : MonoBehaviour
         // 订阅语言切换事件
         NoteBookLocalization.OnLanguageChanged += OnLanguageChanged;
 
+        // 订阅Settings语言切换事件（用于字体更新）
+        if (Settings.instance != null)
+        {
+            Settings.instance.OnLanguageChanged += OnSettingsLanguageChanged;
+        }
+
         // GameObject激活时检查是否需要加载或重新加载
         CheckAndLoad();
     }
@@ -59,6 +65,20 @@ public class NoteBookReader : MonoBehaviour
     {
         // 取消订阅语言切换事件
         NoteBookLocalization.OnLanguageChanged -= OnLanguageChanged;
+
+        if (Settings.instance != null)
+        {
+            Settings.instance.OnLanguageChanged -= OnSettingsLanguageChanged;
+        }
+    }
+
+    /// <summary>
+    /// Settings语言切换时的回调 - 更新字体
+    /// </summary>
+    private void OnSettingsLanguageChanged(string languageCode)
+    {
+        Debug.Log($"[NoteBookReader] Settings language changed to '{languageCode}' for key '{key}', updating fonts...");
+        UpdateAllFonts(languageCode);
     }
 
     /// <summary>
@@ -145,11 +165,46 @@ public class NoteBookReader : MonoBehaviour
         if (bodyText1 != null)
             bodyText1.text = NoteBookLocalization.instance.GetText(data.Body1ID);
 
+        // 更新所有文本的字体
+        if (Settings.instance != null)
+        {
+            UpdateAllFonts(Settings.instance.currentLanguage);
+        }
+
         // 标记为已成功加载，并记录当前语言
         hasLoaded = true;
         lastLoadedLanguage = NoteBookLocalization.instance.currentLanguage;
 
         Debug.Log($"[NoteBookReader] Successfully loaded data for key '{key}' in language '{lastLoadedLanguage}' on {gameObject.name}");
+    }
+
+    /// <summary>
+    /// 更新所有TextMeshProUGUI组件的字体
+    /// </summary>
+    private void UpdateAllFonts(string languageCode)
+    {
+        if (Settings.instance == null || Settings.instance.fontDictionary == null)
+        {
+            Debug.LogWarning($"[NoteBookReader] Settings or font dictionary not available!");
+            return;
+        }
+
+        if (!Settings.instance.fontDictionary.ContainsKey(languageCode))
+        {
+            Debug.LogWarning($"[NoteBookReader] Font for language '{languageCode}' not found!");
+            return;
+        }
+
+        TMP_FontAsset font = Settings.instance.fontDictionary[languageCode];
+
+        // 更新所有TextMeshProUGUI的字体
+        if (nameText != null) nameText.font = font;
+        if (descriptionText != null) descriptionText.font = font;
+        if (titleText != null) titleText.font = font;
+        if (bodyText0 != null) bodyText0.font = font;
+        if (bodyText1 != null) bodyText1.font = font;
+
+        Debug.Log($"[NoteBookReader] Updated fonts to '{languageCode}' for key '{key}'");
     }
 
     private static Dictionary<string, DataRow> ParseNoteBookData(string csv, char delimiter, char quoteChar)

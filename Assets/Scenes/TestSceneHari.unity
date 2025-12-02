@@ -922,7 +922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3888101460547212704, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6969277537713515028, guid: 41b0682ccb505dd449526674f5162a2d, type: 3}
       propertyPath: m_IsActive
@@ -2263,57 +2263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1749694895
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1749694897}
-  - component: {fileID: 1749694896}
-  m_Layer: 0
-  m_Name: Dialogue Settings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1749694896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749694895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ccc72c01cc713047a0f12cd7e060073, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 0}
-  currentLanguage: en
-  ChineseFont: {fileID: 0}
-  EnglishFont: {fileID: 0}
-  JapaneseFont: {fileID: 0}
-  separatePlayerAndNPC: 1
-  inactiveAvatarColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!4 &1749694897
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749694895}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1394.343, y: 743.39594, z: -7.2661033}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1770085076
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,9 +3410,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 2106816501}
   currentLanguage: en
-  ChineseFont: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
-  EnglishFont: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
-  JapaneseFont: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
   separatePlayerAndNPC: 1
   inactiveAvatarColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2132408211
@@ -3665,7 +3611,6 @@ SceneRoots:
   - {fileID: 357035038}
   - {fileID: 194736694}
   - {fileID: 333475065}
-  - {fileID: 1749694897}
   - {fileID: 825691868}
   - {fileID: 1935837051}
   - {fileID: 552861672}

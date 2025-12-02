@@ -59,6 +59,10 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         //LoadDialogueFromResources();
+        if (Settings.instance != null)
+        {
+            Settings.instance.OnLanguageChanged += UpdateDialogue;
+        }
         UIGroup.alpha = 0;
     }
 
@@ -90,174 +94,179 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void UpdateDialogue()
+    public void UpdateDialogue(string languageCode)
     {
-        //clean choices
-        for (int i = choiceParent.transform.childCount - 1; i >= 0; i--)
+        if (isDialogueActive)
         {
-            Destroy(choiceParent.transform.GetChild(i).gameObject);
-        }
-
-        //close Dialogue if index is -1
-        if (dialogueData.currentIndex == -1)
-        {
-            EndDialogue();
-            return;
-        }
-
-        // 通过 index 字段查找 conversation
-        currentConversation = GetConversationByIndex(dialogueData.currentIndex);
-        if (currentConversation == null)
-        {
-            Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
-            EndDialogue();
-            return;
-        }
-
-        //update information
-
-        // stop previous typing if still running
-        if (textAnimationCoroutine != null)
-            StopCoroutine(textAnimationCoroutine);
-        // start new typing animation
-        textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(Settings.instance.currentLanguage)));
-        string speakerName = currentConversation.name.GetText(Settings.instance.currentLanguage);
-
-        //check if separate
-        if (DialogueSettings.instance.separatePlayerAndNPC)
-        {
-            speaker.transform.parent.gameObject.SetActive(currentConversation.isPlayer && speakerName != "");
-            NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer && speakerName != "");
-            if (currentConversation.isPlayer)
+            //clean choices
+            for (int i = choiceParent.transform.childCount - 1; i >= 0; i--)
             {
-                speaker.text = speakerName;
+                Destroy(choiceParent.transform.GetChild(i).gameObject);
             }
-            else
-            {
-                NPCName.text = speakerName;
-            }
-        }
-        else
-        {
-            speaker.text = speakerName;
-        }
 
-        if (currentConversation.avatarAddr != null)
-        {
-            if (currentConversation.avatarAddr == "")
+            //close Dialogue if index is -1
+            if (dialogueData.currentIndex == -1)
             {
-                NPCAvatar.gameObject.SetActive(false);
-                avatar.gameObject.SetActive(false);
-            } else
+                EndDialogue();
+                return;
+            }
+
+            // 通过 index 字段查找 conversation
+            currentConversation = GetConversationByIndex(dialogueData.currentIndex);
+            if (currentConversation == null)
             {
-                Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
-                if (s != null)
+                Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
+                EndDialogue();
+                return;
+            }
+
+            //update information
+
+            // stop previous typing if still running
+            if (textAnimationCoroutine != null)
+                StopCoroutine(textAnimationCoroutine);
+            // start new typing animation
+            textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(languageCode)));
+            string speakerName = currentConversation.name.GetText(languageCode);
+
+            //check if separate
+            if (DialogueSettings.instance.separatePlayerAndNPC)
+            {
+                speaker.transform.parent.gameObject.SetActive(currentConversation.isPlayer && speakerName != "");
+                NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer && speakerName != "");
+                if (currentConversation.isPlayer)
                 {
-                    if (DialogueSettings.instance.separatePlayerAndNPC)
-                    {
-                        //Debug.Log(NPCAvatar.sprite != null);
-
-                        //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
-                        //avatar.gameObject.SetActive(currentConversation.isPlayer);
-                        //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
-                        //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
-                        if (currentConversation.isPlayer)
-                        {
-                            NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
-                            avatar.color = Color.white;
-                            avatar.sprite = s;
-                        }
-                        else
-                        {
-                            avatar.color = DialogueSettings.instance.inactiveAvatarColor;
-                            NPCAvatar.color = Color.white;
-                            NPCAvatar.sprite = s;
-                        }
-                        NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
-                        avatar.gameObject.SetActive(avatar.sprite != null);
-                    }
-                    else
-                    {
-                        avatar.sprite = s;
-                    }
+                    speaker.text = speakerName;
                 }
                 else
                 {
-                    Debug.LogError("Failed to load image from address: Resources/" + currentConversation.avatarAddr);
+                    NPCName.text = speakerName;
                 }
             }
-        }
-
-        // Handle Conditional Branches
-        if (currentConversation.conditionalBranches != null)
-        {
-            if (currentConversation.conditionalBranches.Length > 0)
+            else
             {
-                for (int i = 0; i < currentConversation.conditionalBranches.Length; i++)
+                speaker.text = speakerName;
+            }
+
+            if (currentConversation.avatarAddr != null)
+            {
+                if (currentConversation.avatarAddr == "")
                 {
-                    ConditionalBranch branch = currentConversation.conditionalBranches[i];
-
-                    //check condition
-                    bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
-
-                    if (conditionResult)
+                    NPCAvatar.gameObject.SetActive(false);
+                    avatar.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
+                    if (s != null)
                     {
-                        currentConversation.nextIndex = branch.targetIndex;
-                        break;
+                        if (DialogueSettings.instance.separatePlayerAndNPC)
+                        {
+                            //Debug.Log(NPCAvatar.sprite != null);
+
+                            //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
+                            //avatar.gameObject.SetActive(currentConversation.isPlayer);
+                            //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
+                            //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+                            if (currentConversation.isPlayer)
+                            {
+                                NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                                avatar.color = Color.white;
+                                avatar.sprite = s;
+                            }
+                            else
+                            {
+                                avatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                                NPCAvatar.color = Color.white;
+                                NPCAvatar.sprite = s;
+                            }
+                            NPCAvatar.gameObject.SetActive(NPCAvatar.sprite != null);
+                            avatar.gameObject.SetActive(avatar.sprite != null);
+                        }
+                        else
+                        {
+                            avatar.sprite = s;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to load image from address: Resources/" + currentConversation.avatarAddr);
                     }
                 }
             }
-        }
 
-
-        // Handle choices
-        if (currentConversation.choices?.Length > 0)
-        {
-            DialogueDefaultSequence.instance.isActice = false; //make sure default is turned off
-            for (int i = 0; i < currentConversation.choices.Length; i++)
+            // Handle Conditional Branches
+            if (currentConversation.conditionalBranches != null)
             {
-                Choice choice = currentConversation.choices[i];
-
-                //check condition
-                bool conditionResult = ConditionResult(choice.conditions, choice.conditionLogic);
-
-                ///如果condition正确则生成选项
-                if (conditionResult)
+                if (currentConversation.conditionalBranches.Length > 0)
                 {
-                    GameObject newChoice = Instantiate(choicePrefab, choiceParent.transform);
-                    newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text.GetText(Settings.instance.currentLanguage);
-                    newChoice.GetComponent<DialogueChoice>().index = choice.targetIndex;
+                    for (int i = 0; i < currentConversation.conditionalBranches.Length; i++)
+                    {
+                        ConditionalBranch branch = currentConversation.conditionalBranches[i];
+
+                        //check condition
+                        bool conditionResult = ConditionResult(branch.conditions, branch.conditionLogic);
+
+                        if (conditionResult)
+                        {
+                            currentConversation.nextIndex = branch.targetIndex;
+                            break;
+                        }
+                    }
                 }
             }
-            if (choiceParent.transform.childCount == 0)
+
+
+            // Handle choices
+            if (currentConversation.choices?.Length > 0)
             {
-                DialogueDefaultSequence.instance.isActice = true;
+                DialogueDefaultSequence.instance.isActice = false; //make sure default is turned off
+                for (int i = 0; i < currentConversation.choices.Length; i++)
+                {
+                    Choice choice = currentConversation.choices[i];
+
+                    //check condition
+                    bool conditionResult = ConditionResult(choice.conditions, choice.conditionLogic);
+
+                    ///如果condition正确则生成选项
+                    if (conditionResult)
+                    {
+                        GameObject newChoice = Instantiate(choicePrefab, choiceParent.transform);
+                        newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text.GetText(languageCode);
+                        newChoice.GetComponent<DialogueChoice>().index = choice.targetIndex;
+                    }
+                }
+                if (choiceParent.transform.childCount == 0)
+                {
+                    DialogueDefaultSequence.instance.isActice = true;
+                }
+            }
+            else
+            {
+                DialogueDefaultSequence.instance.isActice = true; // turn on default
+            }
+
+
+            if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
+            {
+                foreach (var eventCall in currentConversation.eventCalls)
+                {
+                    if (!DialogueEventExecutor.IsValidEventCall(eventCall))
+                    {
+                        DialogueEventExecutor.LogWarning($"Invalid event call: missing required fields");
+                        continue;
+                    }
+
+                    if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueStart)
+                    {
+                        Debug.Log("红红火火恍恍惚惚");
+                        DialogueEventExecutor.ExecuteSingleEvent(eventCall);
+                    }
+
+                }
             }
         }
-        else
-        {
-            DialogueDefaultSequence.instance.isActice = true; // turn on default
-        }
-
-
-        if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
-        {
-            foreach (var eventCall in currentConversation.eventCalls)
-            {
-                if (!DialogueEventExecutor.IsValidEventCall(eventCall))
-                {
-                    DialogueEventExecutor.LogWarning($"Invalid event call: missing required fields");
-                    continue;
-                }
-
-                if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueStart)
-                {
-                    Debug.Log("红红火火恍恍惚惚");
-                    DialogueEventExecutor.ExecuteSingleEvent(eventCall);
-                }
-
-            }
-        }
+        
 
     }
 
@@ -619,7 +628,7 @@ public class DialogueManager : MonoBehaviour
 
         // show UI
         StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
-        UpdateDialogue();
+        UpdateDialogue(DialogueSettings.instance.currentLanguage);
     }
 
 
