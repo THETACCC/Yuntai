@@ -17,7 +17,7 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public CanvasGroup canvasGroup;
 
-    [Header("Localization")]
+    [Header("Localization Settings")]
     [SerializeField]
     [Tooltip("Current language code (en, zh, ja)")]
     private string _currentLanguage = "en"; //zh, en, ja
@@ -38,8 +38,10 @@ public class Settings : MonoBehaviour
     public event Action<string> OnLanguageChanged;
     [HideInInspector] public Dictionary<string, TMP_FontAsset> fontDictionary;
 
-    public float mainVolume;
+    [Header("Volume Settings")]
     public Slider mainVolumeSlider;
+    public TextMeshProUGUI mainVolumeText;
+    private UILocalization volumeLocalization;
 
     public bool isSettingsOpen = false;
     int _localeIndex;
@@ -61,12 +63,11 @@ public class Settings : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        volumeLocalization = mainVolumeText.GetComponent<UILocalization>();
     }
 
     private void Start()
     {
-        
-
         if (currentLanguage != null && OnLanguageChanged != null)
         {
             OnLanguageChanged(currentLanguage);
@@ -88,6 +89,8 @@ public class Settings : MonoBehaviour
                 }
             }
         }
+
+        mainVolumeText.text = volumeLocalization.contentDictionary[currentLanguage] + " " + mainVolumeSlider.value.ToString("F0");
     }
 
     void InitializeFontDictionary()

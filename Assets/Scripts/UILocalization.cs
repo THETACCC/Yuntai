@@ -25,7 +25,7 @@ public class UILocalization : MonoBehaviour
 
     public List<UILanguage> UILanguages;
     private Dictionary<string, TMP_FontAsset> fontDictionary;
-    private Dictionary<string, string> contentDictionary;
+    public Dictionary<string, string> contentDictionary;
 
 
     private void Awake()

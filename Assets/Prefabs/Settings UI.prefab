@@ -707,6 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInGame: 0
   canvasGroup: {fileID: 320148587779274006}
+  _currentLanguage: en
   gameLanguages:
   - languageCode: en
     font: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
@@ -714,8 +715,8 @@ MonoBehaviour:
     font: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
   - languageCode: ja
     font: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
-  mainVolume: 0
   mainVolumeSlider: {fileID: 4831128170053375142}
+  mainVolumeText: {fileID: 5501923630364308982}
   isSettingsOpen: 0
   returnToMain: {fileID: 4799456526957518203}
   saveFile: {fileID: 370711006874379966}
@@ -984,7 +985,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2969602355445285981}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
