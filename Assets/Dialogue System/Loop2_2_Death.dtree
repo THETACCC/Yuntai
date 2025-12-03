@@ -3,15 +3,16 @@
         {
             "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
             "index": 0,
-            "characterId": "1ffcc74a-6725-4645-8998-a387ea429fb7",
-            "contentId": "Loop2_2_Death_node_0_dialogue",
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2101",
             "content": {
-                "en": "Hurry… come with me.",
-                "zh": "快...跟我走",
+                "en": "A fleeting illusion upon that mirror… I see.",
+                "zh": "镜花水月，原来如此。",
                 "ja": ""
             },
-            "positionX": 1096.6666259765625,
-            "positionY": 774.0,
+            "positionX": 1096.7999267578125,
+            "positionY": 773.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -19,47 +20,50 @@
         {
             "id": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
             "index": 1,
-            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
-            "contentId": "Loop2_2_Death_node_1_dialogue",
-            "content": {
-                "en": "Still, it’s pointless.",
-                "zh": "不过，仍是徒劳。",
-                "ja": ""
-            },
-            "positionX": 1786.0,
-            "positionY": 774.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "440cc413-4085-4218-b097-ed4352bb7292",
-            "index": 2,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
-            "contentId": "Loop2_2_Death_node_2_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2103",
             "content": {
                 "en": "(This person—did they do something to Page—?)",
                 "zh": "（这个人，难道是它把周书——）",
                 "ja": ""
             },
-            "positionX": 2133.33349609375,
-            "positionY": 773.3333129882813,
+            "positionX": 1786.39990234375,
+            "positionY": 773.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "index": 3,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2102",
+            "content": {
+                "en": "Still, it’s pointless.",
+                "zh": "不过，仍是徒劳。",
+                "ja": ""
+            },
+            "positionX": 1451.199951171875,
+            "positionY": 773.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
             "id": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
-            "index": 3,
+            "index": 2,
             "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
-            "contentId": "Loop2_2_Death_node_3_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2104",
             "content": {
                 "en": "Die.",
                 "zh": "死吧。",
                 "ja": ""
             },
-            "positionX": 2480.666748046875,
-            "positionY": 773.3333129882813,
+            "positionX": 2142.39990234375,
+            "positionY": 773.5999755859375,
             "choices": [],
             "eventCalls": [
                 {
@@ -72,43 +76,13 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerOnEnd": true
+                    "triggerTiming": 0
                 }
             ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
-            "index": 4,
-            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
-            "contentId": "Loop2_2_Death_node_4_dialogue",
-            "content": {
-                "en": "A fleeting illusion upon that mirror… I see.",
-                "zh": "镜花水月，原来如此。",
-                "ja": ""
-            },
-            "positionX": 1450.6666259765625,
-            "positionY": 772.0,
-            "choices": [],
-            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "440cc413-4085-4218-b097-ed4352bb7292",
-            "inputNodeId": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
-            "inputNodeId": "440cc413-4085-4218-b097-ed4352bb7292",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
             "inputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
@@ -119,6 +93,13 @@
         {
             "outputNodeId": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
             "inputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "inputNodeId": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
