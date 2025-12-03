@@ -17,6 +17,7 @@ public class LevelManager3_3 : BaseLevelManager
     [Header("Puzzle")]
     [SerializeField] private PuzzleLanternManager puzzleLanternManager;
     [SerializeField] private Collider2D puzzleLanternCollider;
+    [SerializeField] private Collider2D puzzleLanternColliderChild;
 
     [Header("Horror Lantern Sequence")]
     [Tooltip("是否需要播放恐怖花灯动画（摊主对话里错误时设为 true）。")]
@@ -146,9 +147,10 @@ public class LevelManager3_3 : BaseLevelManager
             LanternStall_wait.SetActive(false);
             LanternStall_wrong.SetActive(false);
             LanternStall_correct.SetActive(true);
-
+            /*
             if (puzzleLanternCollider)
                 puzzleLanternCollider.enabled = false;
+            */
         }
         else
         {
@@ -159,10 +161,16 @@ public class LevelManager3_3 : BaseLevelManager
         }
     }
 
+    public void lanternBlockColliderDisappear()
+    {
+        puzzleLanternCollider.enabled = false;
+        puzzleLanternColliderChild.enabled = false;
+    }
     public void LanternPileDisappear()
     {
-        if (LanternPile) LanternPile.SetActive(false);
-        if (Lanterns) Lanterns.SetActive(true);
+        LanternPile.SetActive(false);
+        Lanterns.SetActive(true);
+        ChangeLanternToWait();
     }
 
     // ========= NeedToPlayLanternAnim =========

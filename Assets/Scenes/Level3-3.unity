@@ -665,6 +665,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: fc58fdd3e622a1e4e99340e9bb44e10e, type: 3}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: fc58fdd3e622a1e4e99340e9bb44e10e, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4389,8 +4397,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -59.873837, y: 44.36797}
       - {x: -66.94787, y: -68.44938}
-      - {x: 153.86128, y: -66.13981}
-      - {x: 154.91646, y: 45.199844}
+      - {x: 230.3724, y: -67.83066}
+      - {x: 229.31403, y: 41.81814}
   m_UseDelaunayMesh: 0
 --- !u!1001 &347563437
 PrefabInstance:
@@ -5344,6 +5352,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 721656344}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &440264937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440264934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 09c50557-3829-4a13-b1e6-eed633b320c3
 --- !u!1001 &441822775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5392,13 +5413,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 059aa3659746b58478e12b34388f96d0, type: 3}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 059aa3659746b58478e12b34388f96d0, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Name
-      value: ' trope member'
+      value: trope member
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8974,6 +9003,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.16037738
       objectReference: {fileID: 0}
+    - target: {fileID: 900734632522922850, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 9.66
@@ -8994,10 +9027,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u4E00\u5806\u82B1\u706F"
       objectReference: {fileID: 0}
+    - target: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 440264937}
     - targetCorrespondingSourceObject: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 721656346}
@@ -9748,7 +9788,7 @@ Transform:
   m_GameObject: {fileID: 769601381}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 146.65, y: -5.41203, z: -0.34570083}
+  m_LocalPosition: {x: 146.82, y: -5.41203, z: -0.34570083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16412,6 +16452,7 @@ MonoBehaviour:
   Lanterns: {fileID: 1283386927}
   puzzleLanternManager: {fileID: 1283386929}
   puzzleLanternCollider: {fileID: 769601383}
+  puzzleLanternColliderChild: {fileID: 1739576176}
   NeedToPlayLanternAnim: 0
   beastShadow: {fileID: 0}
   greenBlinkCount: 3
@@ -21391,6 +21432,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 19ce26ec77e2dd4408b9bdd06d6949cd, type: 3}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 19ce26ec77e2dd4408b9bdd06d6949cd, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 1

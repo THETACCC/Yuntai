@@ -11,8 +11,8 @@
                 "zh": "花灯都挂好了！位置也都没有问题！真是太感谢你了！",
                 "ja": ""
             },
-            "positionX": -70.66667175292969,
-            "positionY": -326.0,
+            "positionX": -70.4000015258789,
+            "positionY": -326.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "不客气，我在这附近正好有事要做，或许一会还得来找你帮忙也说不定。",
                 "ja": ""
             },
-            "positionX": 266.6666564941406,
-            "positionY": -326.0,
+            "positionX": 267.20001220703127,
+            "positionY": -326.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,8 +45,8 @@
                 "zh": "当然没问题！互帮互助嘛！",
                 "ja": ""
             },
-            "positionX": 632.6666870117188,
-            "positionY": -321.3333435058594,
+            "positionX": 632.7999877929688,
+            "positionY": -321.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -62,8 +62,8 @@
                 "zh": "啊，这些花灯远远望去真是太漂亮了，不愧是我这几个月来的心血！",
                 "ja": ""
             },
-            "positionX": 1001.3333740234375,
-            "positionY": -316.6666564941406,
+            "positionX": 1001.6000366210938,
+            "positionY": -316.8000183105469,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -79,10 +79,23 @@
                 "zh": "（摊贩似乎非常高兴，我也可以继续前进了。）",
                 "ja": ""
             },
-            "positionX": 1358.0,
-            "positionY": -312.6666564941406,
+            "positionX": 1358.39990234375,
+            "positionY": -312.8000183105469,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "lanternBlockColliderDisappear",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],
