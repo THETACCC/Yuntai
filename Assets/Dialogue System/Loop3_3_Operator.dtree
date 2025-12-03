@@ -1,23 +1,6 @@
 {
     "nodes": [
         {
-            "id": "f3af1f14-a919-4481-a206-c3c27d7d0ee2",
-            "index": 0,
-            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
-            "useContentId": true,
-            "contentId": "ch1_3121",
-            "content": {
-                "en": "Ugh, I’m not a hardware person… How am I supposed to fix this?",
-                "zh": "嘶，我不是搞硬件的啊，这个该怎么弄呢?",
-                "ja": ""
-            },
-            "positionX": 186.39999389648438,
-            "positionY": 123.19999694824219,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "46c1bd5a-eb3d-45c1-8f69-d43519001ee5",
             "index": 1,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -201,7 +184,50 @@
             "positionX": 3816.0,
             "positionY": 124.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomOut_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f3af1f14-a919-4481-a206-c3c27d7d0ee2",
+            "index": 0,
+            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
+            "useContentId": true,
+            "contentId": "ch1_3121",
+            "content": {
+                "en": "Ugh, I’m not a hardware person… How am I supposed to fix this?",
+                "zh": "嘶，我不是搞硬件的啊，这个该怎么弄呢?",
+                "ja": ""
+            },
+            "positionX": 186.39999389648438,
+            "positionY": 123.19999694824219,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomIn_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         }
     ],

@@ -26,7 +26,7 @@ public class BaseLevelManager : MonoBehaviour
     [SerializeField] protected CinemachineVirtualCamera mainVCam;
 
     [Tooltip("Zoom In 时的目标 Orthographic Size（越小越“拉近”。建议设成比当前值小一点点，例如 11.9 → 8）")]
-    [SerializeField] protected float zoomInOrthoSize = 8f;
+    protected float zoomInOrthoSize = 6f;
 
     [Tooltip("相机缩放动画时间（秒）")]
     [SerializeField, Min(0f)] protected float zoomDuration = 0.5f;
