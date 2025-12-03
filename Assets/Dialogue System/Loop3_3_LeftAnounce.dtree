@@ -11,10 +11,23 @@
                 "zh": "（这里的围栏上贴了一张告示。）",
                 "ja": ""
             },
-            "positionX": 172.6666717529297,
-            "positionY": 106.0,
+            "positionX": 172.8000030517578,
+            "positionY": 105.60000610351563,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomIn_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -28,8 +41,8 @@
                 "zh": "“请在完成摊位准备后向左离开，并于次日上午7：00重新入场。”",
                 "ja": ""
             },
-            "positionX": 514.6666870117188,
-            "positionY": 106.0,
+            "positionX": 515.2000122070313,
+            "positionY": 105.60000610351563,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,10 +58,23 @@
                 "zh": "看来我是正巧来到会场中了，现在还不是离开的时候，先往右边调查吧。",
                 "ja": ""
             },
-            "positionX": 864.6666870117188,
-            "positionY": 106.0,
+            "positionX": 864.7999877929688,
+            "positionY": 105.60000610351563,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
+                    "targetObjectName": "LevelManager3_3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomOut_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],

@@ -449,4 +449,13 @@ public class LevelManager3_3 : BaseLevelManager
                 Gamemanager.instance.phase = GamePhase.Moving;
         }
     }
+
+    public void CameraZoomIn_3_3()
+    {
+        CameraZoomIn();
+    }
+    public void CameraZoomOut_3_3()
+    {
+        CameraZoomOut();
+    }
 }
