@@ -103,23 +103,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "36ecf552-b402-4778-9c05-7f5847d4f59b",
-            "index": 7,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch1_3007",
-            "content": {
-                "en": "Maybe at the end of the last loop, she managed to escape.",
-                "zh": "或许上一次循环的最后，她成功逃出去了。",
-                "ja": ""
-            },
-            "positionX": 2859.199951171875,
-            "positionY": 729.5999755859375,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "05cb228a-5abe-4a40-ad63-fb5eb66709a8",
             "index": 6,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -169,8 +152,37 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective2",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "36ecf552-b402-4778-9c05-7f5847d4f59b",
+            "index": 7,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_3007",
+            "content": {
+                "en": "Maybe at the end of the last loop, she managed to escape.",
+                "zh": "或许上一次循环的最后，她成功逃出去了。",
+                "ja": ""
+            },
+            "positionX": 2859.199951171875,
+            "positionY": 729.5999755859375,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],

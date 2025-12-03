@@ -18,6 +18,60 @@
             "conditionalBranches": []
         },
         {
+            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
+            "index": 1,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": false,
+            "contentId": "Loop2_1_ZhouShu_node_1_dialogue",
+            "content": {
+                "en": "Thank you so much!! Yum Yum.",
+                "zh": "谢谢你！",
+                "ja": ""
+            },
+            "positionX": 996.7999877929688,
+            "positionY": 256.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "",
+                    "targetObjectName": "LevelManager2_1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetGotFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "ObjectiveTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective2",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "006ce4c9-3551-4154-983c-9313469e4485",
             "index": 2,
             "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
@@ -474,60 +528,6 @@
             "positionY": 260.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
-            "index": 1,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_1_dialogue",
-            "content": {
-                "en": "Thank you so much!! Yum Yum.",
-                "zh": "谢谢你！",
-                "ja": ""
-            },
-            "positionX": 996.7999877929688,
-            "positionY": 256.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "",
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetGotFoodTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
-                    "targetObjectName": "ObjectiveTab",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Objective2",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "LockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
             "conditionalBranches": []
         }
     ],
