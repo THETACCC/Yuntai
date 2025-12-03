@@ -24,6 +24,7 @@ public class ButtonHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointe
         ResetVisuals();
     }
 
+    private void OnEnable()
     {
         // When you come back to this page/panel, clear any old hover state
         ResetVisuals();
