@@ -11,8 +11,8 @@
                 "zh": "您好，我看到摊位旁边似乎堆着不少花灯？",
                 "ja": ""
             },
-            "positionX": -70.66667175292969,
-            "positionY": -326.0,
+            "positionX": -70.4000015258789,
+            "positionY": -326.4000244140625,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "啊！可以吗！这可真是太及时了！",
                 "ja": ""
             },
-            "positionX": 3253.33349609375,
-            "positionY": -302.66668701171877,
+            "positionX": 3253.599853515625,
+            "positionY": -303.20001220703127,
             "choices": [
                 {
                     "useTextId": true,
@@ -58,21 +58,9 @@
                 "ja": ""
             },
             "positionX": 3636.0,
-            "positionY": 19.333335876464845,
+            "positionY": 19.200000762939454,
             "choices": [],
             "eventCalls": [
-                {
-                    "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
-                    "targetObjectName": "LevelManager3_3",
-                    "componentTypeName": "LevelManager3_3",
-                    "methodName": "ChangeLanternToWait",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerOnEnd": true
-                },
                 {
                     "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
                     "targetObjectName": "LevelManager3_3",
@@ -83,7 +71,7 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerOnEnd": true
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
@@ -99,8 +87,8 @@
                 "zh": "啊，挡着您路了吗？真不好意思！",
                 "ja": ""
             },
-            "positionX": 292.6666564941406,
-            "positionY": -323.3333435058594,
+            "positionX": 292.8000183105469,
+            "positionY": -323.20001220703127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -116,8 +104,8 @@
                 "zh": "我也想尽快挂好这些花灯的，可是您瞧......",
                 "ja": ""
             },
-            "positionX": 669.3333740234375,
-            "positionY": -321.3333435058594,
+            "positionX": 669.6000366210938,
+            "positionY": -321.6000061035156,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -133,8 +121,8 @@
                 "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
                 "ja": ""
             },
-            "positionX": 1021.3333740234375,
-            "positionY": -318.6666564941406,
+            "positionX": 1021.6000366210938,
+            "positionY": -319.20001220703127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -150,7 +138,7 @@
                 "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
                 "ja": ""
             },
-            "positionX": 1389.333251953125,
+            "positionX": 1389.5999755859375,
             "positionY": -316.0,
             "choices": [],
             "eventCalls": [],
@@ -167,8 +155,8 @@
                 "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
                 "ja": ""
             },
-            "positionX": 1751.333251953125,
-            "positionY": -315.3333435058594,
+            "positionX": 1751.199951171875,
+            "positionY": -315.20001220703127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -185,7 +173,7 @@
                 "ja": ""
             },
             "positionX": 2116.0,
-            "positionY": -310.6666564941406,
+            "positionY": -311.20001220703127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -201,8 +189,8 @@
                 "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
                 "ja": ""
             },
-            "positionX": 2514.666748046875,
-            "positionY": -306.66668701171877,
+            "positionX": 2515.199951171875,
+            "positionY": -307.20001220703127,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -218,8 +206,8 @@
                 "zh": "嗯，不如由我来帮您把花灯挂上吧。",
                 "ja": ""
             },
-            "positionX": 2887.33349609375,
-            "positionY": -304.66668701171877,
+            "positionX": 2887.199951171875,
+            "positionY": -304.8000183105469,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -288,6 +276,13 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
+            "inputNodeId": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
+            "choiceIndex": 0,
+            "choiceText": "It’s no problem. Where do they need to be hung?",
+            "branchPriority": -2
         }
     ]
 }
