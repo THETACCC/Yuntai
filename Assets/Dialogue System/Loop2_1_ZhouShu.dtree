@@ -43,6 +43,30 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "ObjectiveTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective2",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
@@ -423,7 +447,7 @@
                 "ja": ""
             },
             "positionX": 484.0,
-            "positionY": 256.0,
+            "positionY": 260.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -443,6 +467,42 @@
                     "targetObjectName": "LevelManager2_1",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "ChangeStewardessToForFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "ObjectiveTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective1",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectName": "Objective2",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
