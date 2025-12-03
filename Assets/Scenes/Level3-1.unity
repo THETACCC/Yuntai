@@ -2705,7 +2705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2704479446142928623, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3608556622470407265, guid: 83bb5388fb98f1f4bbb1803742da9cc5, type: 3}
       propertyPath: m_Name
@@ -5653,6 +5653,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hidePlayerOnSceneStart: 0
   lockPlayerOnSceneStart: 0
+  mainVCam: {fileID: 0}
+  zoomDuration: 0.5
   nextSceneName: Level3-2
   nextSpawnPointLocation: 0
   useSceneControllerTeleport: 1
