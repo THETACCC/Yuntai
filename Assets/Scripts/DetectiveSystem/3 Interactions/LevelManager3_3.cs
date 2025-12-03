@@ -41,6 +41,10 @@ public class LevelManager3_3 : BaseLevelManager
     [Header("Dialogue After Horror")]
     [SerializeField] private DialogueTrigger MC_scaredDialogue;
 
+    [Header("Doors")]
+    [SerializeField] private GameObject door1;
+    [SerializeField] private GameObject door2;
+
     // Camera shake
     private CameraShake cameraShake;
 
@@ -369,6 +373,11 @@ public class LevelManager3_3 : BaseLevelManager
             yield return null;
         }
         overlayCG.alpha = target;
+    }
+
+    public void ChangeScenePortal()
+    {
+
     }
 
     // ========= Player 冻结 =========
