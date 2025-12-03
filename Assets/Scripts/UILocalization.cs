@@ -101,23 +101,27 @@ public class UILocalization : MonoBehaviour
             return;
         }
 
-        if (contentDictionary.ContainsKey(languageCode))
+        if (tmp != null)
         {
-            tmp.text = contentDictionary[languageCode];
-        }
-        else
-        {
-            Debug.LogWarning($"GameObject: {gameObject.name}, Language: '{languageCode}' 's content is not set");
-        }
+            if (contentDictionary.ContainsKey(languageCode))
+            {
+                tmp.text = contentDictionary[languageCode];
+            }
+            else
+            {
+                Debug.LogWarning($"GameObject: {gameObject.name}, Language: '{languageCode}' 's content is not set");
+            }
 
-        if (fontDictionary.ContainsKey(languageCode))
-        {
-            tmp.font = fontDictionary[languageCode];
+            if (fontDictionary.ContainsKey(languageCode))
+            {
+                tmp.font = fontDictionary[languageCode];
+            }
+            else
+            {
+                Debug.LogWarning($"GameObject: {gameObject.name}, Language: '{languageCode}' 's font is not set");
+            }
         }
-        else
-        {
-            Debug.LogWarning($"GameObject: {gameObject.name}, Language: '{languageCode}' 's font is not set");
-        }
+        
     }
 
 #if UNITY_EDITOR
