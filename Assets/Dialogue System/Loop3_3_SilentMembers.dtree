@@ -1,0 +1,119 @@
+{
+    "nodes": [
+        {
+            "id": "bad465b7-1784-4173-bf5a-2e0aab2b9e9e",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_3133",
+            "content": {
+                "en": "Excuse me?",
+                "zh": "不好意思？",
+                "ja": ""
+            },
+            "positionX": 6092.80029296875,
+            "positionY": 164.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5ca77f17-6ec2-4f37-b477-456b9def8a37",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_3134",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 6415.2001953125,
+            "positionY": 166.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "687e8193-9902-48bb-9d9d-32bdaf5162b3",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_3135",
+            "content": {
+                "en": "Hello?",
+                "zh": "你好？",
+                "ja": ""
+            },
+            "positionX": 6754.400390625,
+            "positionY": 168.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ab6ea124-a596-4ebd-a863-62f57d5dec70",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_3136",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 7099.2001953125,
+            "positionY": 168.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9594e59f-84c8-4827-b2d3-7b0af25f24f7",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_3137",
+            "content": {
+                "en": "(They completely ignore me, as if they can’t hear me at all.)",
+                "zh": "（它们完全不理会我，就好像没有听到我的话一样。）",
+                "ja": ""
+            },
+            "positionX": 7432.0,
+            "positionY": 168.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "bad465b7-1784-4173-bf5a-2e0aab2b9e9e",
+            "inputNodeId": "5ca77f17-6ec2-4f37-b477-456b9def8a37",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5ca77f17-6ec2-4f37-b477-456b9def8a37",
+            "inputNodeId": "687e8193-9902-48bb-9d9d-32bdaf5162b3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "687e8193-9902-48bb-9d9d-32bdaf5162b3",
+            "inputNodeId": "ab6ea124-a596-4ebd-a863-62f57d5dec70",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ab6ea124-a596-4ebd-a863-62f57d5dec70",
+            "inputNodeId": "9594e59f-84c8-4827-b2d3-7b0af25f24f7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
