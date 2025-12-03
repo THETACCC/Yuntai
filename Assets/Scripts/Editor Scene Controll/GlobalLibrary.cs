@@ -72,6 +72,11 @@ public static class GlobalLibrary
 
 
         }},
+        {SceneTitle.JasmineTest, new SceneSpecifics()
+        {
+
+
+        }},
     };
 
 
@@ -82,7 +87,7 @@ public static class GlobalLibrary
     public static readonly Dictionary<SceneCategory, SceneTitle[]> G_SCENE_CATEGORY_DICT = new Dictionary<SceneCategory, SceneTitle[]>
     {
         {SceneCategory.Common, new SceneTitle[]{ SceneTitle.TitleScene, SceneTitle.GYM_Level, SceneTitle.InitialCG, SceneTitle.Level1_1, SceneTitle.Level1_2 , SceneTitle.Level2_1 , SceneTitle.Level2_2
-            , SceneTitle.Level3_1, SceneTitle.Level3_2, SceneTitle.Level3_3, SceneTitle.Level3_4, SceneTitle.Level3_5 } },
+            , SceneTitle.Level3_1, SceneTitle.Level3_2, SceneTitle.Level3_3, SceneTitle.Level3_4, SceneTitle.Level3_5, SceneTitle.JasmineTest } },
 
     };
 
@@ -101,6 +106,8 @@ public static class GlobalLibrary
         {SceneTitle.Level3_3, "Level3-3" },
         {SceneTitle.Level3_4, "Level3-4" },
         {SceneTitle.Level3_5, "Level3-5" },
+
+        {SceneTitle.JasmineTest, "JasmineTest" },
     };
 
     public static readonly Dictionary<int, SceneTitle> G_SCENE_INDEX = new Dictionary<int, SceneTitle>()
