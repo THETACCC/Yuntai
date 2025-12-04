@@ -15,8 +15,10 @@ MonoBehaviour:
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
+  m_RendererFeatures:
+  - {fileID: 3678407332615217860}
+  - {fileID: 4928597194532117335}
+  m_RendererFeatureMap: c4e2b8dffa530c3357db121d09e56544
   m_UseNativeRenderPass: 0
   m_TransparencySortMode: 0
   m_TransparencySortAxis: {x: 0, y: 1, z: 0}
@@ -37,7 +39,7 @@ MonoBehaviour:
     blendMode: 0
   m_UseDepthStencilBuffer: 1
   m_UseCameraSortingLayersTexture: 0
-  m_CameraSortingLayersTextureBound: 0
+  m_CameraSortingLayersTextureBound: -1
   m_CameraSortingLayerDownsamplingMethod: 0
   m_MaxLightRenderTextureCount: 16
   m_MaxShadowRenderTextureCount: 1
@@ -61,3 +63,37 @@ MonoBehaviour:
   m_DefaultLitMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_DefaultUnlitMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_DefaultMaskMaterial: {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+--- !u!114 &3678407332615217860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  passMaterial: {fileID: 2100000, guid: 1330ce31e39ad3740836741f18d99872, type: 2}
+  injectionPoint: 600
+  requirements: 4
+  passIndex: 0
+--- !u!114 &4928597194532117335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  passMaterial: {fileID: 2100000, guid: be4e2d6f79120af478f0ffb845a9f083, type: 2}
+  injectionPoint: 600
+  requirements: 4
+  passIndex: 0
