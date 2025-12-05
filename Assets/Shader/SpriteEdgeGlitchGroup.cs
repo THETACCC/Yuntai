@@ -2,12 +2,10 @@
 
 public class SpriteEdgeGlitchGroup : MonoBehaviour
 {
-    [Header("Overlay Material (ShaderLab/EdgeGlitch)")]
+    [Header("Overlay Material")]
     [SerializeField] private Material edgeWaveMaterial;
 
-    [Header("Apply To Children In This Hierarchy")]
-    [Tooltip("If true, all SpriteRenderers under this object get edge overlays.")]
-    [SerializeField] private bool includeInactive = true;
+    private bool includeInactive = true;
 
     private static readonly int RandomSeedID = Shader.PropertyToID("_RandomSeed");
 
@@ -15,7 +13,7 @@ public class SpriteEdgeGlitchGroup : MonoBehaviour
     {
         if (edgeWaveMaterial == null)
         {
-            Debug.LogError("[SpriteEdgeWaveGroup] Please assign an edgeWaveMaterial using ShaderLab/EdgeGlitch.", this);
+            Debug.LogError("Please assign the edgeWaveMaterial.");
             enabled = false;
             return;
         }
@@ -27,9 +25,9 @@ public class SpriteEdgeGlitchGroup : MonoBehaviour
             if (baseSr == null) continue;
 
             // Create overlay child object
-            GameObject overlayObj =
-                new GameObject(baseSr.gameObject.name + "_EdgeWaveOverlay");
-            overlayObj.transform.SetParent(baseSr.transform, worldPositionStays: false);
+            GameObject overlayObj = new GameObject(baseSr.gameObject.name + "_EdgeWaveOverlay");
+            overlayObj.transform.SetParent(baseSr.transform, worldPositionStays: false); //Parents it to the original sprite’s transform
+            //Resets local transform so it perfectly overlaps
             overlayObj.transform.localPosition = Vector3.zero;
             overlayObj.transform.localRotation = Quaternion.identity;
             overlayObj.transform.localScale = Vector3.one;

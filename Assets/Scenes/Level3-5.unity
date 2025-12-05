@@ -5938,7 +5938,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000031abee32
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -6215,6 +6215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e7eb43284ddbc42afe5d6ba8835c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidePlayerOnSceneStart: 0
+  lockPlayerOnSceneStart: 0
+  mainVCam: {fileID: 0}
+  zoomDuration: 0.5
   myLoop: 2
   globalLight: {fileID: 1171284213}
   extraLights: []
@@ -6231,9 +6235,7 @@ MonoBehaviour:
   start2Trigger: {fileID: 1279740583}
   start1Delay: 0.7
   start2Delay: 1
-  hideSpriteOnAwake: 1
   freezeXWhileCinematic: 1
-  hidePlayerSpritesWhenEnd: 1
   assignedAudioSource: {fileID: 1279740585}
   faceSwaps: []
   nextSceneName: 
@@ -6269,6 +6271,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: d684f0ea000231542b6eb4b81adbbfec, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6285,6 +6288,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: b3b2d38ec7f90ac4b8966ce18f7f9c1b, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!82 &1279740585
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6397,6 +6401,7 @@ MonoBehaviour:
   postDialogueJsonFile: {fileID: 4900000, guid: 906782be72afcaa4b850178fbb01a778, type: 3}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
+  isDoor: 0
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0

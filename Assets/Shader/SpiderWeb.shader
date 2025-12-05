@@ -30,6 +30,10 @@
 
         // Fade out near edge of web
         _EdgeFade    ("Edge Fade", Range(0, 1)) = 0.3
+
+        // build animation
+        _BuildProgress ("Build Progress", Range(0,1)) = 1.0
+        _BuildFeather  ("Build Feather",  Range(0.0,0.25)) = 0.03
     }
 
     SubShader
@@ -71,6 +75,9 @@
                 float  _MaxRadius;
                 float  _RingMaxRadius;
                 float  _EdgeFade;
+
+                float  _BuildProgress;
+                float  _BuildFeather;
             CBUFFER_END
 
             TEXTURE2D(_BlitTexture);
@@ -103,20 +110,21 @@
                 // aspect-corrected coordinates from center
                 float2 d = uv - _CenterUV.xy;
 
+                //stretch X so circles don’t get squished by screen aspect
                 float aspect = _BlitTexture_TexelSize.z / _BlitTexture_TexelSize.w; // width/height
                 float2 dWeb = float2(d.x * aspect, d.y);
 
                 float r = length(dWeb);
-
+                //If outside maxRadius, don’t draw web but the original scene color
                 if (r > _MaxRadius)
                     return sceneCol;
 
-                // angle [-PI, PI] -> [0,1]
+                // angle [-PI, PI] is mapped to [0,1] around the circle
                 float angle = atan2(dWeb.y, dWeb.x);
                 float angle01 = angle / (2.0 * PI) + 0.5;
 
                 // normalized radius & normalized position
-                float rNorm = r / _MaxRadius;
+                float rNorm = r / _MaxRadius; // center=0, outer web radius=1
                 float2 pNorm = dWeb / _MaxRadius; // radius <= 1
 
                 // convert pixel thickness to "radius units"
@@ -124,9 +132,12 @@
                 float spokeWidth = (_SpokePixels * pixelUV) / max(_MaxRadius, 1e-4);
                 float ringWidth  = (_RingPixels  * pixelUV) / max(_MaxRadius, 1e-4);
 
-                // Radial lines
+                float buildP  = saturate(_BuildProgress); //0 web invisible, 1 fully drawn
+                float buildFeather = max(_BuildFeather, 1e-4); //how smoothly new segments appear
+
+                // radial lines:
                 float minSpokeDist = 1e5;
-                int   spokeCount   = (int)_SpokeCount;
+                int spokeCount = (int)_SpokeCount;
                 spokeCount = clamp(spokeCount, 1, MAX_SPOKES);
 
                 [unroll]
@@ -136,7 +147,7 @@
                         break;
 
                     float ang = (2.0 * PI * (float)s) / max(_SpokeCount, 1.0);
-                    float2 dir = float2(cos(ang), sin(ang)); // unit direction of this spoke
+                    float2 dir = float2(cos(ang), sin(ang));// unit direction of this spoke
 
                     // distance from point to infinite line through origin along dir
                     float proj = dot(pNorm, dir);
@@ -149,16 +160,20 @@
 
                 float spokeMask = smoothstep(spokeWidth, 0.0, minSpokeDist);
 
-                // sectorT: 0 at one spoke, 1 at next spoke, for ring sag
+                // build timing for spokes: center first, outer later
+                float spokeBirth  = rNorm; // 0 at center, 1 at edge
+                float spokeVisible = saturate( (buildP - spokeBirth) / buildFeather );
+                spokeMask *= spokeVisible;
+
+                // sectorT: 0 at one spoke, 1 at next spoke (for ring sag / segment timing)
                 float sectorCoord = angle01 * _SpokeCount;
                 float sectorT     = frac(sectorCoord);
 
-                // Rings (curved arcs between spokes)
-                float minRingDist = 1e5;
-
-                int ringCount = (int)_RingCount;
+                //rings:
+                float minRingDist   = 1e5;
+                int   ringCount     = (int)_RingCount;
                 ringCount = clamp(ringCount, 0, MAX_RINGS);
-                float ringMax = saturate(_RingMaxRadius); // no rings beyond this fraction
+                float ringMax       = saturate(_RingMaxRadius); // no rings beyond this fraction
 
                 // inner dense / middle loose / outer normal
                 float innerRegion = ringMax * 0.35;
@@ -166,6 +181,8 @@
 
                 int innerCount = max(1, ringCount / 2);
                 int outerCount = max(0, ringCount - innerCount);
+
+                float nearestRingIdx = -1.0;
 
                 [unroll]
                 for (int k = 0; k < MAX_RINGS; k++)
@@ -188,7 +205,7 @@
                         int idxOuter = k - innerCount;
                         float g = (float)(idxOuter + 1) / (float)(outerCount + 1 + 1e-4); // 0..1
 
-                        // >1 exponent -> looser in middle, slightly denser near outer edge
+                        // exponent >1 -> looser in middle, a bit denser near outer edge
                         float baseMidOuter = pow(g, 1.5);
 
                         float span = max(ringMax - innerRegion, 1e-4);
@@ -200,10 +217,28 @@
                     targetRadius *= (1.0 - sag);
 
                     float dist = abs(rNorm - targetRadius);
-                    minRingDist = min(minRingDist, dist);
+                    if (dist < minRingDist)
+                    {
+                        minRingDist   = dist;
+                        nearestRingIdx = (float)k;
+                    }
                 }
 
                 float ringMask = smoothstep(ringWidth, 0.0, minRingDist);
+
+                // build timing for rings: inner rings first, then outer; within ring,
+                // go from one spoke to the next (small segments).
+                float ringVisible = 1.0;
+                if (ringCount > 0 && nearestRingIdx >= 0.0)
+                {
+                    float ringStep = 1.0 / (ringCount + 1); // radial step
+                    float ringBase = nearestRingIdx * ringStep; // this ring's base time
+                    // add sectorT so we build along the arc segment-by-segment
+                    float ringBirth = ringBase + sectorT * ringStep; // 0..1
+
+                    ringVisible = saturate( (buildP - ringBirth) / buildFeather );
+                }
+                ringMask *= ringVisible;
 
                 // combine
                 float webMask = saturate(spokeMask + ringMask);
@@ -220,6 +255,8 @@
                 if (alpha <= 0.001)
                     return sceneCol;
 
+                //alpha 0 scene
+                //alpha 1 web
                 float3 webColor = _WebColor.rgb;
                 float3 finalRGB = lerp(sceneCol.rgb, webColor, alpha);
 

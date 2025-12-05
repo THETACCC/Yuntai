@@ -13143,7 +13143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1037051375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15144,7 +15144,7 @@ MonoBehaviour:
   m_Intensity: 0.57
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000008131045e53cf9d7031abee32
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -15174,6 +15174,54 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1182711118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182711120}
+  - component: {fileID: 1182711119}
+  m_Layer: 0
+  m_Name: SpiderWeb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1182711119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182711118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f8e4356b6284746bfac74c460b0e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiderWebMaterial: {fileID: 2100000, guid: be4e2d6f79120af478f0ffb845a9f083, type: 2}
+  buildDuration: 3
+  buildFeather: 0.03
+  playOnStart: 1
+--- !u!4 &1182711120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182711118}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.9, y: 6.5, z: -35.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185102918
 GameObject:
   m_ObjectHideFlags: 0
@@ -15716,7 +15764,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edgeWaveMaterial: {fileID: 2100000, guid: a375424e3607a0543b5cd048dc1d490a, type: 2}
-  includeInactive: 1
 --- !u!1 &1206306365
 GameObject:
   m_ObjectHideFlags: 0
@@ -26221,4 +26268,5 @@ SceneRoots:
   - {fileID: 301910737}
   - {fileID: 1627561068}
   - {fileID: 1880142178}
+  - {fileID: 1182711120}
   - {fileID: 1037051378}
