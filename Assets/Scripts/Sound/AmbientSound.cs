@@ -51,6 +51,11 @@ public class AmbientSound : MonoBehaviour
             source.Play();
             FadeTo(startVolume, fadeInSeconds);
         }
+
+        if (AudioManager.instance != null && AudioManager.instance.musicGroup != null)
+        {
+            source.outputAudioMixerGroup = AudioManager.instance.musicGroup;
+        }
     }
 
     private void OnValidate()

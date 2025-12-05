@@ -90,7 +90,13 @@ public class Settings : MonoBehaviour
             }
         }
 
-        mainVolumeText.text = volumeLocalization.contentDictionary[currentLanguage] + " " + mainVolumeSlider.value.ToString("F0");
+        //set volume
+        if (isSettingsOpen)
+        {
+            mainVolumeText.text = volumeLocalization.contentDictionary[currentLanguage] + " " + mainVolumeSlider.value.ToString("F0");
+            AudioManager.instance.SetMasterVolume(mainVolumeSlider.value);
+        }
+        
     }
 
     void InitializeFontDictionary()
