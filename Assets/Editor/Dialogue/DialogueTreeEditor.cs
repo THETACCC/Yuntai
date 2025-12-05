@@ -660,6 +660,7 @@ public class DialogueTreeEditor : EditorWindow
                 {
                     var evt = item.eventCalls[j];
                     formattedJson += "        {\n";
+                    formattedJson += $"          \"targetObjectID\": \"{EscapeJsonString(evt.targetObjectID)}\",\n";
                     formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(evt.targetObjectName)}\",\n";
                     formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(evt.componentTypeName)}\",\n";
                     formattedJson += $"          \"methodName\": \"{EscapeJsonString(evt.methodName)}\",\n";

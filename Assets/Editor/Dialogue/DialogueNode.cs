@@ -764,6 +764,17 @@ public partial class DialogueNode : Node
                 currentGameObject = System.Array.Find(allObjects, obj => obj.name == eventCall.targetObjectName && obj.scene.IsValid());
             }
 
+            // 重要：如果找到GameObject，同步更新保存的名字（防止GameObject改名后不同步）
+            if (currentGameObject != null && currentIndex < EventCalls.Count)
+            {
+                string currentName = currentGameObject.name;
+                if (EventCalls[currentIndex].targetObjectName != currentName)
+                {
+                    EventCalls[currentIndex].targetObjectName = currentName;
+                    NotifyChange();
+                }
+            }
+
             var gameObjectField = new ObjectField("Target GameObject:")
             {
                 objectType = typeof(GameObject),
