@@ -15,6 +15,7 @@ public class Settings : MonoBehaviour
 {
     public static Settings instance;
     public bool isInGame = false;
+    public bool canOpenSettings = true;
     public CanvasGroup canvasGroup;
 
     [Header("Localization Settings")]
@@ -85,7 +86,10 @@ public class Settings : MonoBehaviour
                     CloseSettings();
                 } else
                 {
-                    OpenSettings();
+                    if (canOpenSettings)
+                    {
+                        OpenSettings();
+                    }
                 }
             }
         }
