@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 366844504770273250}
   - component: {fileID: 8111305933039065816}
   - component: {fileID: 8952812772146502242}
+  - component: {fileID: 6394262019634508306}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1029,7 +1030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 707.5, y: 485.5}
+  m_AnchoredPosition: {x: 707.5, y: 480}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8111305933039065816
@@ -1129,6 +1130,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6394262019634508306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800020491615704195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801a1b2fff1f45e4f84fce85928d5fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDifferentFonts: 0
+  UILanguages:
+  - languageCode: zh
+    content: "\u7B14\u8BB0\u672C\u5DF2\u66F4\u65B0..."
+    font: {fileID: 0}
+  - languageCode: en
+    content: Notebook updated...
+    font: {fileID: 0}
 --- !u!1 &907796370503733606
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,7 +3414,7 @@ MonoBehaviour:
         DebugActive: 0
         BoundImage: {fileID: 6234534655701122812}
         Mode: 2
-        Duration: 1
+        Duration: 1.5
         AllowAdditivePlays: 0
         InstantAlpha: 1
         Curve:
@@ -3426,7 +3447,7 @@ MonoBehaviour:
           Initialized: 0
         CurveRemapZero: 0
         CurveRemapOne: 1
-        DestinationAlpha: 1
+        DestinationAlpha: 255
         DisableOnStop: 0
     - rid: 1612196919455252482
       type: {class: MMF_TMPAlpha, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
@@ -3504,7 +3525,7 @@ MonoBehaviour:
         DebugActive: 0
         TargetTMPText: {fileID: 8952812772146502242}
         AlphaMode: 2
-        Duration: 1
+        Duration: 1.5
         InstantAlpha: 1
         Curve:
           MMTweenDefinitionType: 0
@@ -3536,7 +3557,7 @@ MonoBehaviour:
           Initialized: 0
         CurveRemapZero: 0
         CurveRemapOne: 1
-        DestinationAlpha: 1
+        DestinationAlpha: 255
         AllowAdditivePlays: 0
     - rid: 1612196919455252483
       type: {class: MMF_Pause, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
@@ -3696,7 +3717,7 @@ MonoBehaviour:
         DebugActive: 0
         BoundImage: {fileID: 6234534655701122812}
         Mode: 2
-        Duration: 1
+        Duration: 1.5
         AllowAdditivePlays: 0
         InstantAlpha: 1
         Curve:
@@ -3807,7 +3828,7 @@ MonoBehaviour:
         DebugActive: 0
         TargetTMPText: {fileID: 8952812772146502242}
         AlphaMode: 2
-        Duration: 1
+        Duration: 1.5
         InstantAlpha: 1
         Curve:
           MMTweenDefinitionType: 0
@@ -5377,7 +5398,7 @@ GameObject:
   - component: {fileID: 3101064967999802186}
   - component: {fileID: 1339187012079066043}
   m_Layer: 0
-  m_Name: NoteBookNewVersion
+  m_Name: NoteBook
   m_TagString: NoteBook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5748,7 +5769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 884, y: 461}
+  m_AnchoredPosition: {x: 884, y: 476}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1529887300052829193
@@ -5779,7 +5800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: af7fce81f92d00e4489cbdfc5c423792, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

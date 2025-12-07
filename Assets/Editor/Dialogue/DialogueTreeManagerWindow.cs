@@ -4106,7 +4106,8 @@ public class DialogueTreeManagerWindow : EditorWindow
                 for (int j = 0; j < item.eventCalls.Count; j++)
                 {
                     var ev = item.eventCalls[j];
-                    sb.Append($"\n        {{\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
+                    sb.Append($"\n        {{\"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\", ");
+                    sb.Append($"\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
                     sb.Append($"\"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\", ");
                     sb.Append($"\"methodName\": \"{EscapeJsonString(ev.methodName)}\", ");
                     sb.Append($"\"parameterType\": \"{ev.parameterType}\", ");

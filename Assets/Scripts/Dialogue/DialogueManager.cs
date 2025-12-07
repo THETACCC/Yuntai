@@ -530,7 +530,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        Debug.Log($"[EndDialogue] lastConversation index: {currentConversation?.index}, nextIndex: {currentConversation?.nextIndex}");
+        //Debug.Log($"[EndDialogue] lastConversation index: {currentConversation?.index}, nextIndex: {currentConversation?.nextIndex}");
 
         DialogueDefaultSequence.instance.isActice = false;
         isDialogueFinished = true;

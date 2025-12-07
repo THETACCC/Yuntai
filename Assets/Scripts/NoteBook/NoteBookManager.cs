@@ -142,6 +142,7 @@ public class NoteBookManager : MonoBehaviour
 
     public void UnlockEventFeedBack()
     {
+        Debug.Log("UPDATING LOOGGGGG NTOEBOOK");
         NoteBookUpdate?.PlayFeedbacks();
     }
 
