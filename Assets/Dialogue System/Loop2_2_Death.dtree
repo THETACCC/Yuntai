@@ -1,23 +1,6 @@
 {
     "nodes": [
         {
-            "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
-            "index": 0,
-            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
-            "useContentId": true,
-            "contentId": "ch1_2101",
-            "content": {
-                "en": "A fleeting illusion upon that mirror… I see.",
-                "zh": "镜花水月，原来如此。",
-                "ja": ""
-            },
-            "positionX": 1096.7999267578125,
-            "positionY": 773.5999755859375,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
             "index": 1,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
@@ -79,6 +62,60 @@
             "positionY": 773.5999755859375,
             "choices": [],
             "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "index": 0,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2101",
+            "content": {
+                "en": "A fleeting illusion upon that mirror… I see.",
+                "zh": "镜花水月，原来如此。",
+                "ja": ""
+            },
+            "positionX": 1093.5999755859375,
+            "positionY": 773.5999755859375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectName": "NoteBook",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectName": "ObjectiveTab",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "497ce0da-9af6-4f63-a307-c3a69594e9b8",
+                    "targetObjectName": "Event9_DrumBeat",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],
