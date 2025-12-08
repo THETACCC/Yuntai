@@ -752,16 +752,20 @@ public partial class DialogueNode : Node
             }
 
             GameObject currentGameObject = null;
+            bool objectFoundInScene = false;
+
             // 优先使用ID查找
             if (!string.IsNullOrEmpty(eventCall.targetObjectID))
             {
                 currentGameObject = DialogueReference.FindByID(eventCall.targetObjectID);
+                objectFoundInScene = (currentGameObject != null);
             }
-            // 向后兼容：如果没有ID，使用名字查找
+            // 向后兼容：如果没有ID,使用名字查找
             else if (!string.IsNullOrEmpty(eventCall.targetObjectName))
             {
                 var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
                 currentGameObject = System.Array.Find(allObjects, obj => obj.name == eventCall.targetObjectName && obj.scene.IsValid());
+                objectFoundInScene = (currentGameObject != null);
             }
 
             // 重要：只有在ID和名字一致时才同步更新名字（防止错误的ID覆盖正确的名字）
@@ -811,11 +815,13 @@ public partial class DialogueNode : Node
                         var refComponent = DialogueReference.GetOrCreate(selectedGO);
                         EventCalls[currentIndex].targetObjectID = refComponent.UniqueID;
                         EventCalls[currentIndex].targetObjectName = selectedGO.name;
+                        EventCalls[currentIndex].targetSceneName = selectedGO.scene.name;
                     }
                     else
                     {
                         EventCalls[currentIndex].targetObjectID = "";
                         EventCalls[currentIndex].targetObjectName = "";
+                        EventCalls[currentIndex].targetSceneName = "";
                     }
 
                     // 修复：使用延迟刷新，避免在对象选择器打开时立即重建UI导致选择被取消
@@ -1074,12 +1080,82 @@ public partial class DialogueNode : Node
             }
             else
             {
-                var hintLabel = new Label("Select a GameObject first");
-                hintLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
-                hintLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
-                hintLabel.style.marginTop = 3;
-                hintLabel.style.paddingLeft = 10;
-                eventContainer.Add(hintLabel);
+                // 检查是否有保存的信息
+                bool hasSavedInfo = !string.IsNullOrEmpty(eventCall.targetObjectID) || !string.IsNullOrEmpty(eventCall.targetObjectName);
+
+                if (hasSavedInfo)
+                {
+                    // 检查是否有场景名
+                    bool hasSceneName = !string.IsNullOrEmpty(eventCall.targetSceneName);
+                    string sceneName = hasSceneName ? eventCall.targetSceneName : "Unknown";
+
+                    if (hasSceneName)
+                    {
+                        // 有场景名：灰色普通提示
+                        var savedLabel = new Label($"Object {eventCall.targetObjectName} from Scene {sceneName}");
+                        savedLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                        savedLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+                        savedLabel.style.marginTop = 3;
+                        savedLabel.style.paddingLeft = 10;
+                        savedLabel.style.fontSize = 10;
+                        eventContainer.Add(savedLabel);
+
+                        var notFoundLabel = new Label("Object not found in current scene.");
+                        notFoundLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                        notFoundLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+                        notFoundLabel.style.marginTop = 1;
+                        notFoundLabel.style.paddingLeft = 10;
+                        notFoundLabel.style.fontSize = 9;
+                        notFoundLabel.style.whiteSpace = WhiteSpace.Normal;
+                        notFoundLabel.style.maxWidth = 280;
+                        eventContainer.Add(notFoundLabel);
+
+                        var hintLabel = new Label("Drag a new object or load the correct scene to see details.");
+                        hintLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                        hintLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+                        hintLabel.style.marginTop = 1;
+                        hintLabel.style.paddingLeft = 10;
+                        hintLabel.style.fontSize = 9;
+                        hintLabel.style.whiteSpace = WhiteSpace.Normal;
+                        hintLabel.style.maxWidth = 280;
+                        eventContainer.Add(hintLabel);
+                    }
+                    else
+                    {
+                        // 没有场景名：橙色警告
+                        var warningContainer = new VisualElement();
+                        warningContainer.style.marginTop = 3;
+                        warningContainer.style.marginLeft = 10;
+                        warningContainer.style.backgroundColor = new StyleColor(new Color(0.6f, 0.3f, 0.2f, 0.4f));
+                        warningContainer.style.paddingTop = 3;
+                        warningContainer.style.paddingBottom = 3;
+                        warningContainer.style.paddingLeft = 5;
+                        warningContainer.style.paddingRight = 5;
+                        warningContainer.style.borderTopLeftRadius = 2;
+                        warningContainer.style.borderTopRightRadius = 2;
+                        warningContainer.style.borderBottomLeftRadius = 2;
+                        warningContainer.style.borderBottomRightRadius = 2;
+                        warningContainer.style.maxWidth = 270;
+
+                        var savedLabel = new Label($"⚠ Object {eventCall.targetObjectName} not found in any scene");
+                        savedLabel.style.color = new StyleColor(new Color(1f, 0.9f, 0.7f));
+                        savedLabel.style.fontSize = 10;
+                        savedLabel.style.whiteSpace = WhiteSpace.Normal;
+                        warningContainer.Add(savedLabel);
+
+                        eventContainer.Add(warningContainer);
+                    }
+                }
+                else
+                {
+                    // 没有保存信息，显示提示
+                    var hintLabel = new Label("Select a GameObject first");
+                    hintLabel.style.color = new StyleColor(new Color(0.7f, 0.7f, 0.7f));
+                    hintLabel.style.unityFontStyleAndWeight = FontStyle.Italic;
+                    hintLabel.style.marginTop = 3;
+                    hintLabel.style.paddingLeft = 10;
+                    eventContainer.Add(hintLabel);
+                }
             }
 
             eventsContainer.Add(eventContainer);

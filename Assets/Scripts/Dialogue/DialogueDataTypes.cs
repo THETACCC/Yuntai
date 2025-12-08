@@ -305,6 +305,7 @@ namespace DialogueSystem
     {
         public string targetObjectID = "";    // Target GameObject unique ID (推荐使用)
         public string targetObjectName = "";  // Target GameObject name (向后兼容)
+        public string targetSceneName = "";   // Scene name where the object was saved (for reference)
         public string componentTypeName = ""; // Component type name
         public string methodName = "";        // Method name
         public string stringParameter = "";   // String parameter

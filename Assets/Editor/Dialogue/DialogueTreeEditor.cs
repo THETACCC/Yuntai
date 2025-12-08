@@ -757,8 +757,8 @@ public class DialogueTreeEditor : EditorWindow
                     }
                 };
 
-                Debug.Log($"Dialogue tree loaded from: {path}");
-                Debug.Log($"currentFilePath set to: {currentFilePath}");
+                //Debug.Log($"Dialogue tree loaded from: {path}");
+                //Debug.Log($"currentFilePath set to: {currentFilePath}");
                 UpdateStatusBar();  // 更新状态栏
             }
             else

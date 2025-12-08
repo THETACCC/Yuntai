@@ -43,27 +43,29 @@ public class DialogueReference : MonoBehaviour
             return;
         }
 
-        // 检测ID重复（这是新增的关键代码）
-        if (IsDuplicateID(uniqueID))
+        // ⚠️ 已禁用自动重复检测，避免意外重新生成ID
+        // 如果需要检测重复ID，请使用菜单：Tools > Dialogue System > Fix All Duplicate IDs in Scene
+
+        // 如果在播放模式下且对象在DontDestroyOnLoad场景，跳过所有检测
+        if (Application.isPlaying && gameObject.scene.name == "DontDestroyOnLoad")
         {
-            Debug.LogWarning($"[DialogueReference] 检测到重复ID！GameObject '{gameObject.name}' 的ID '{uniqueID}' 已被其他对象使用，正在重新生成...");
-            GenerateNewID();
+            return;
         }
 #else
-        // 运行时只确保有ID
+        // 运行时不应该修改ID
         if (string.IsNullOrEmpty(uniqueID))
         {
-            GenerateNewID();
+            Debug.LogError($"[DialogueReference] GameObject '{gameObject.name}' 没有ID！");
         }
 #endif
     }
 
     private void Awake()
     {
-        // 运行时也确保有ID
+        // 运行时检查ID，如果没有ID则报错（不能在运行时生成新ID，因为JSON中已经保存了ID）
         if (string.IsNullOrEmpty(uniqueID))
         {
-            GenerateNewID();
+            Debug.LogError($"[DialogueReference] GameObject '{gameObject.name}' 没有ID！这个对象可能无法被对话系统找到。请在编辑器中重新保存场景。");
         }
     }
 
@@ -78,13 +80,40 @@ public class DialogueReference : MonoBehaviour
         // 查找所有DialogueReference
         var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
 
-        // 筛选出场景中的有效对象（排除预制体）
-        var sceneRefs = allRefs.Where(r => r != null &&
-                                           r.gameObject.scene.IsValid() &&
-                                           r != this).ToList();
+        // 筛选出真实场景中的有效对象（排除Prefab资源、自己、以及预览场景）
+        var sceneRefs = allRefs.Where(r =>
+        {
+            if (r == null || r == this) return false;
+
+            // 排除Prefab资源（不在任何场景中的）
+            if (!r.gameObject.scene.IsValid()) return false;
+
+            // 排除预览场景
+            if (r.gameObject.scene.name == null) return false;
+
+            // 排除Prefab编辑模式下的临时场景
+            if (r.gameObject.scene.path == r.gameObject.scene.name) return false;
+
+            // DontDestroyOnLoad的对象在特殊场景中，场景名为"DontDestroyOnLoad"
+            // 但它们仍然是有效的，应该被包含在检查中
+
+            return true;
+        }).ToList();
 
         // 检查是否有其他对象使用相同ID
-        return sceneRefs.Any(r => r.uniqueID == id);
+        bool hasDuplicate = sceneRefs.Any(r => r.uniqueID == id);
+
+        if (hasDuplicate)
+        {
+            // 打印详细信息帮助调试
+            var duplicates = sceneRefs.Where(r => r.uniqueID == id).ToList();
+            foreach (var dup in duplicates)
+            {
+                Debug.Log($"[DialogueReference] 发现重复ID的对象: {dup.gameObject.name} (场景: {dup.gameObject.scene.name})");
+            }
+        }
+
+        return hasDuplicate;
     }
 #endif
 
@@ -149,10 +178,24 @@ public class DialogueReference : MonoBehaviour
 #if UNITY_EDITOR
     /// <summary>
     /// 编辑器菜单：修复当前场景中的所有重复ID
+    /// ⚠️ 使用此工具后，需要使用 DialogueIDFixer 更新对话树文件中的ID
     /// </summary>
     [MenuItem("Tools/Dialogue System/Fix All Duplicate IDs in Scene")]
     public static void FixAllDuplicateIDsInScene()
     {
+        if (!EditorUtility.DisplayDialog("⚠️ 重要警告",
+            "此操作会重新生成重复的ID！\n\n" +
+            "如果你的对话树文件中引用了这些对象，\n" +
+            "修复后你需要使用:\n" +
+            "Tools > Dialogue System > Fix Dialogue Tree IDs\n" +
+            "来更新对话树文件中的ID引用\n\n" +
+            "建议先备份场景和对话树文件！\n\n" +
+            "确定要继续吗？",
+            "确定", "取消"))
+        {
+            return;
+        }
+
         var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
         var sceneRefs = allRefs.Where(r => r != null && r.gameObject.scene.IsValid()).ToList();
 
@@ -212,7 +255,39 @@ public class DialogueReference : MonoBehaviour
 
         foreach (var refComp in sceneRefs)
         {
-            Debug.Log($"GameObject: {refComp.gameObject.name} | ID: {refComp.UniqueID}");
+            Debug.Log($"GameObject: {refComp.gameObject.name} | ID: {refComp.UniqueID} | 场景: {refComp.gameObject.scene.name}");
+        }
+    }
+
+    /// <summary>
+    /// 编辑器菜单：为所有Prefab实例重新生成ID
+    /// </summary>
+    [MenuItem("Tools/Dialogue System/Regenerate IDs for All Prefab Instances")]
+    public static void RegenerateIDsForPrefabInstances()
+    {
+        var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
+        var sceneRefs = allRefs.Where(r => r != null && r.gameObject.scene.IsValid()).ToList();
+
+        int count = 0;
+        foreach (var refComp in sceneRefs)
+        {
+            var prefabStatus = PrefabUtility.GetPrefabInstanceStatus(refComp.gameObject);
+            if (prefabStatus == PrefabInstanceStatus.Connected)
+            {
+                Undo.RecordObject(refComp, "Regenerate Prefab Instance ID");
+                refComp.ForceRegenerateID();
+                count++;
+                Debug.Log($"[DialogueReference] 为Prefab实例 '{refComp.gameObject.name}' 重新生成ID");
+            }
+        }
+
+        if (count > 0)
+        {
+            EditorUtility.DisplayDialog("完成", $"已为 {count} 个Prefab实例重新生成ID", "确定");
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("完成", "场景中没有发现Prefab实例", "确定");
         }
     }
 #endif

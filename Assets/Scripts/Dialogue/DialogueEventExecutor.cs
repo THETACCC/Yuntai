@@ -24,7 +24,7 @@ public static class DialogueEventExecutor
         {
             if (!IsValidEventCall(eventCall))
             {
-                LogWarning($"Invalid event call: missing required fields");
+                LogError($"Invalid event call: missing required fields");
                 continue;
             }
 
@@ -36,12 +36,14 @@ public static class DialogueEventExecutor
     {
         try
         {
-            // 优先使用ID，如果为空则使用名字（向后兼容）
-            string identifier = !string.IsNullOrEmpty(eventCall.targetObjectID)
-                ? eventCall.targetObjectID
-                : eventCall.targetObjectName;
+            // 只使用ID查找
+            if (string.IsNullOrEmpty(eventCall.targetObjectID))
+            {
+                LogError($"Event call missing target object ID (targetObjectName: '{eventCall.targetObjectName}')");
+                return;
+            }
 
-            var targetObject = FindTargetObject(identifier);
+            var targetObject = FindTargetObject(eventCall.targetObjectID, eventCall.targetObjectName);
             if (targetObject == null) return;
 
             var component = GetTargetComponent(targetObject, eventCall.componentTypeName);
@@ -62,28 +64,15 @@ public static class DialogueEventExecutor
                !string.IsNullOrEmpty(eventCall.methodName);
     }
 
-    private static GameObject FindTargetObject(string objectNameOrID)
+    private static GameObject FindTargetObject(string objectID, string objectName)
     {
-        // 优先尝试作为ID查找
-        var targetObject = DialogueReference.FindByID(objectNameOrID);
-
-        // 如果ID查找失败，尝试作为名字查找（向后兼容）
-        if (targetObject == null)
-        {
-            // 先尝试使用 GameObject.Find (只查找 active 对象，性能更好)
-            targetObject = GameObject.Find(objectNameOrID);
-
-            // 如果还没找到，使用 FindObjectsOfTypeAll 查找包括 inactive 的对象
-            if (targetObject == null)
-            {
-                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-                targetObject = System.Array.Find(allObjects, obj => obj.name == objectNameOrID && obj.scene.IsValid());
-            }
-        }
+        // 只通过ID查找
+        var targetObject = DialogueReference.FindByID(objectID);
 
         if (targetObject == null)
         {
-            LogWarning($"GameObject '{objectNameOrID}' not found (searched by ID and name, including inactive objects)");
+            string displayName = !string.IsNullOrEmpty(objectName) ? $"'{objectName}'" : "(unnamed)";
+            LogError($"GameObject {displayName} with ID '{objectID}' not found. Please ensure the object exists in the scene and has a DialogueReference component with this ID.");
         }
 
         return targetObject;
@@ -94,14 +83,14 @@ public static class DialogueEventExecutor
         var componentType = GetComponentType(componentTypeName);
         if (componentType == null)
         {
-            LogWarning($"Component type '{componentTypeName}' not found");
+            LogError($"Component type '{componentTypeName}' not found");
             return null;
         }
 
         var component = targetObject.GetComponent(componentType);
         if (component == null)
         {
-            LogWarning($"Component '{componentTypeName}' not found on GameObject '{targetObject.name}'");
+            LogError($"Component '{componentTypeName}' not found on GameObject '{targetObject.name}'");
         }
         return component;
     }
@@ -179,12 +168,6 @@ public static class DialogueEventExecutor
                 break;
         }
 
-        string paramInfo = paramTypes.Length == 0
-            ? "no parameters"
-            : $"parameter: {paramTypes[0].Name} = {parameter}";
-
-        Debug.Log($"[DialogueEvent] Attempting to call '{baseName}' with {paramInfo}");
-
         // 查找方法
         var method = component.GetType().GetMethod(
             baseName,
@@ -201,20 +184,11 @@ public static class DialogueEventExecutor
 
             if (allMethods.Count > 0)
             {
-                LogWarning($"Method '{baseName}' with signature ({string.Join(", ", paramTypes.Select(t => t.Name))}) not found");
-                Debug.Log($"[DialogueEvent] Available overloads for '{baseName}':");
-                foreach (var m in allMethods)
-                {
-                    var methodParams = m.GetParameters();
-                    string methodSig = methodParams.Length == 0
-                        ? "()"
-                        : $"({string.Join(", ", methodParams.Select(p => p.ParameterType.Name))})";
-                    Debug.Log($"[DialogueEvent]   - {m.Name}{methodSig}");
-                }
+                LogError($"Method '{baseName}' with signature ({string.Join(", ", paramTypes.Select(t => t.Name))}) not found on component '{component.GetType().Name}'");
             }
             else
             {
-                LogWarning($"Method '{baseName}' not found on component '{component.GetType().Name}'");
+                LogError($"Method '{baseName}' not found on component '{component.GetType().Name}'");
             }
             return;
         }
@@ -226,26 +200,16 @@ public static class DialogueEventExecutor
                 method.Invoke(component, null);
             else
                 method.Invoke(component, new object[] { parameter });
-
-            string callInfo = paramTypes.Length == 0
-                ? "()"
-                : $"({parameter})";
-            LogSuccess($"Successfully called {component.GetType().Name}.{baseName}{callInfo} on {component.gameObject.name}");
         }
         catch (Exception e)
         {
-            LogError($"Error invoking method {baseName}: {e.InnerException?.Message ?? e.Message}");
+            LogError($"Error invoking method {baseName} on GameObject '{component.gameObject.name}': {e.InnerException?.Message ?? e.Message}");
         }
     }
 
     public static void ClearTypeCache()
     {
         typeCache.Clear();
-    }
-
-    private static void LogSuccess(string message)
-    {
-        Debug.Log($"[DialogueEvent] {message}");
     }
 
     public static void LogWarning(string message)
