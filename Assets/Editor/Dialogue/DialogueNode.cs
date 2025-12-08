@@ -764,14 +764,20 @@ public partial class DialogueNode : Node
                 currentGameObject = System.Array.Find(allObjects, obj => obj.name == eventCall.targetObjectName && obj.scene.IsValid());
             }
 
-            // 重要：如果找到GameObject，同步更新保存的名字（防止GameObject改名后不同步）
+            // 重要：只有在ID和名字一致时才同步更新名字（防止错误的ID覆盖正确的名字）
             if (currentGameObject != null && currentIndex < EventCalls.Count)
             {
                 string currentName = currentGameObject.name;
-                if (EventCalls[currentIndex].targetObjectName != currentName)
+
+                // 只有当ID确实指向正确的对象时，才同步名字
+                if (string.IsNullOrEmpty(eventCall.targetObjectName) ||
+                    eventCall.targetObjectName == currentName)
                 {
-                    EventCalls[currentIndex].targetObjectName = currentName;
-                    NotifyChange();
+                    if (EventCalls[currentIndex].targetObjectName != currentName)
+                    {
+                        EventCalls[currentIndex].targetObjectName = currentName;
+                        NotifyChange();
+                    }
                 }
             }
 
@@ -811,8 +817,16 @@ public partial class DialogueNode : Node
                         EventCalls[currentIndex].targetObjectID = "";
                         EventCalls[currentIndex].targetObjectName = "";
                     }
-                    // 修复：移除UpdateEventsDisplay()调用，避免在选择GameObject时重建UI导致选择被取消
-                    // UpdateEventsDisplay();
+
+                    // 修复：使用延迟刷新，避免在对象选择器打开时立即重建UI导致选择被取消
+                    EditorApplication.delayCall += () =>
+                    {
+                        if (this != null)
+                        {
+                            UpdateEventsDisplay();
+                        }
+                    };
+
                     NotifyChange();
                 }
             });
