@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;   // 相机缩放用 Cinemachine
+using Cinemachine;
 
 /// <summary>
 /// 所有关卡 Manager 的基类：统一处理 Player 的查找 / 隐藏 / 锁移动。
@@ -22,26 +22,16 @@ public class BaseLevelManager : MonoBehaviour
 
     // ===== Camera Zoom Helper（通用相机缩放） =====
     [Header("Camera Zoom (Cinemachine)")]
-    [Tooltip("本关主用的 CinemachineVirtualCamera；可不填，让脚本自动查场景里的第一个。")]
     [SerializeField] protected CinemachineVirtualCamera mainVCam;
-
-    [Tooltip("Zoom In 时的目标 Orthographic Size（越小越“拉近”。建议设成比当前值小一点点，例如 11.9 → 8）")]
     protected float zoomInOrthoSize = 6f;
-
-    [Tooltip("相机缩放动画时间（秒）")]
     [SerializeField, Min(0f)] protected float zoomDuration = 0.5f;
 
-    /// <summary>本次缩放前记录的 Ortho Size，用于 ZoomOut 回到这个值。</summary>
     protected float _originalOrthoSize;
     protected bool _hasOriginalOrthoSize = false;
-
-    /// <summary>相机缩放协程（避免多次叠加）。</summary>
     protected Coroutine _camZoomRoutine;
 
-    /// <summary>
-    /// 基类 Awake：自动查找 PlayerController.Instance，按设置隐藏 / 锁定。
-    /// 子类如果重写 Awake，一定要记得 base.Awake().
-    /// </summary>
+    // ================= Awake =================
+
     protected virtual void Awake()
     {
         // 1) 锁 GamePhase（统一开场禁止随便乱走）
@@ -50,7 +40,7 @@ public class BaseLevelManager : MonoBehaviour
             Gamemanager.instance.phase = GamePhase.Loading;
         }
 
-        // 2) 用单例找 Player（避免场景里有奇怪的重复 prefab 被误拿）
+        // 2) 用单例找 Player
         playerCtrl = PlayerController.Instance;
         if (playerCtrl == null)
         {
@@ -74,7 +64,6 @@ public class BaseLevelManager : MonoBehaviour
         InitMainVCam();
     }
 
-    /// <summary>重新找一遍 Player（比如某些特殊场景你想手动刷新）</summary>
     protected void RefreshPlayerReference(bool recacheSprites = true)
     {
         playerCtrl = PlayerController.Instance;
@@ -113,7 +102,6 @@ public class BaseLevelManager : MonoBehaviour
     /// 场景一开始根据 hidePlayerOnSceneStart 决定玩家的可见性：
     /// - hidePlayerOnSceneStart = true  → 全部 sprite 关闭，alpha=0
     /// - hidePlayerOnSceneStart = false → 全部 sprite 打开，alpha=1
-    /// 用来“覆盖”上一场景对玩家 sprite 的各种乱改动。
     /// </summary>
     protected void ApplyInitialPlayerVisibility()
     {
@@ -142,20 +130,39 @@ public class BaseLevelManager : MonoBehaviour
         }
     }
 
-    /// <summary>给 Fungus / Timeline 用：让玩家出现</summary>
+    /// <summary>给 Fungus / Timeline 用：让玩家出现（enabled=true + alpha=1）</summary>
     public void RevealPlayerSprites()
     {
-        SetPlayerSpritesVisible(true);
+        if (!playerObject) return;
+
+        CachePlayerSprites();
+        foreach (var sr in _playerSprites)
+        {
+            if (!sr) continue;
+            sr.enabled = true;
+            var c = sr.color;
+            c.a = 1f;             // ⭐ 关键：重新把 alpha 调回 1
+            sr.color = c;
+        }
     }
 
-    /// <summary>给 Fungus / Timeline 用：再次隐藏玩家</summary>
+    /// <summary>给 Fungus / Timeline 用：再次隐藏玩家（enabled=false + alpha=0）</summary>
     public void HidePlayerSprites()
     {
-        SetPlayerSpritesVisible(false);
+        if (!playerObject) return;
+
+        CachePlayerSprites();
+        foreach (var sr in _playerSprites)
+        {
+            if (!sr) continue;
+            sr.enabled = false;
+            var c = sr.color;
+            c.a = 0f;             // 对称：隐藏时顺便把 alpha 也清掉
+            sr.color = c;
+        }
     }
 
     // ===== 移动锁定相关 =====
-    /// <summary>锁住玩家移动（控制+GamePhase 都锁）</summary>
     public void DisablePlayerMovement()
     {
         if (Gamemanager.instance)
@@ -165,7 +172,6 @@ public class BaseLevelManager : MonoBehaviour
             playerCtrl.DisablePlayerControl();
     }
 
-    /// <summary>解锁玩家移动（GamePhase=Moving，控制打开）</summary>
     public void EnablePlayerMovement()
     {
         if (Gamemanager.instance)
@@ -181,13 +187,7 @@ public class BaseLevelManager : MonoBehaviour
         EnablePlayerMovement();
     }
 
-    // =========================================================
-    // ===============   Camera Zoom 核心逻辑   ================
-    // =========================================================
-
-    /// <summary>
-    /// 初始化主相机引用：若 Inspector 没手动指定，则自动找场景里的第一个 CinemachineVirtualCamera。
-    /// </summary>
+    // ===== Camera Zoom 相关（原样保留） =====
     protected void InitMainVCam()
     {
         if (!mainVCam)
@@ -206,44 +206,28 @@ public class BaseLevelManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 给 Fungus / Timeline 直接调用的：相机 Zoom In。
-    /// 会在“开始缩放之前”记录当前 Orthographic Size，方便之后 ZoomOut 回到这个值。
-    /// </summary>
     public void CameraZoomIn()
     {
         if (!EnsureMainVCam()) return;
 
-        // 在缩放前，记录当前的 size（例如 11.9）
         _originalOrthoSize = mainVCam.m_Lens.OrthographicSize;
         _hasOriginalOrthoSize = true;
-
-        // 然后缩到 Inspector 里设定的 zoomInOrthoSize（例如 8）
         StartCameraZoom(zoomInOrthoSize);
     }
 
-    /// <summary>
-    /// 给 Fungus / Timeline 直接调用的：相机 Zoom Out。
-    /// 回到“本次 ZoomIn 开始时”记录下来的 Orthographic Size。
-    /// </summary>
     public void CameraZoomOut()
     {
         if (!EnsureMainVCam()) return;
 
-        // 如果还没记录过，就以当前值作为“要回去的值”
         if (!_hasOriginalOrthoSize)
         {
             _originalOrthoSize = mainVCam.m_Lens.OrthographicSize;
             _hasOriginalOrthoSize = true;
         }
 
-        // 回到刚才记录的 size（例如从 8 回到 11.9）
         StartCameraZoom(_originalOrthoSize);
     }
 
-    /// <summary>
-    /// 如果相机还没初始化，尝试初始化一下。
-    /// </summary>
     protected bool EnsureMainVCam()
     {
         if (!mainVCam)
@@ -257,9 +241,6 @@ public class BaseLevelManager : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// 启动一次新的缩放协程（会自动停止上一次的）。
-    /// </summary>
     protected void StartCameraZoom(float targetSize)
     {
         if (_camZoomRoutine != null)
@@ -268,9 +249,6 @@ public class BaseLevelManager : MonoBehaviour
         _camZoomRoutine = StartCoroutine(CoCameraZoom(targetSize));
     }
 
-    /// <summary>
-    /// 实际的相机缩放协程：在 zoomDuration 内平滑插值到 targetSize。
-    /// </summary>
     protected System.Collections.IEnumerator CoCameraZoom(float targetSize)
     {
         if (!mainVCam)
@@ -281,7 +259,6 @@ public class BaseLevelManager : MonoBehaviour
 
         float startSize = mainVCam.m_Lens.OrthographicSize;
 
-        // 缩放时间为 0 或负数时，直接瞬移
         if (zoomDuration <= 0f)
         {
             mainVCam.m_Lens.OrthographicSize = targetSize;
@@ -294,7 +271,6 @@ public class BaseLevelManager : MonoBehaviour
         {
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / zoomDuration);
-            // 用 SmoothStep 稍微柔一点
             float k = Mathf.SmoothStep(0f, 1f, u);
             mainVCam.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, k);
             yield return null;
