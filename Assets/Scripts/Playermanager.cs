@@ -29,7 +29,7 @@ public class Playermanager : MonoBehaviour
     private PolygonCollider2D thevirtualbound;
     private void Start()
     {
-        thevirtualbound = virtualbound.GetComponent<PolygonCollider2D>();
+        //thevirtualbound = virtualbound.GetComponent<PolygonCollider2D>();
         confiner = cam.GetComponent<CinemachineConfiner2D>();
         //virtualplayer = GetComponent<GameObject>(); 
         virtualcam = cam.GetComponent<CinemachineVirtualCamera>();
@@ -38,6 +38,7 @@ public class Playermanager : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Y) && !transfercontroll)
         {
             avatarBoundingArea = confiner.m_BoundingShape2D;
@@ -49,7 +50,7 @@ public class Playermanager : MonoBehaviour
             transfercontroll = false;
             confiner.m_BoundingShape2D = avatarBoundingArea;
         }
-
+        */
         //this is where controll transfer between player happens
         controlltransfer();
     }
