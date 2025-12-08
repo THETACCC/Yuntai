@@ -79,6 +79,7 @@ public class LevelManager1_2 : BaseLevelManager
     [SerializeField] private AudioSource snd_breakBones3;
     [SerializeField] private AudioSource snd_boyJump;
     [SerializeField] private AudioSource snd_JumpScareSound;
+    [SerializeField] private AudioSource snd_HorrorTextureOneShot;
     // —— 乘务员扭头图 —— 
     [Header("【演绎5B】乘务员扭头 Sprite")]
     [SerializeField] private SpriteRenderer stewardessRenderer;
@@ -388,6 +389,7 @@ public class LevelManager1_2 : BaseLevelManager
         if (snd_breakBones3)
         {
             snd_breakBones3.Play();
+            if(snd_HorrorTextureOneShot) snd_HorrorTextureOneShot.Play();
             if (snd_breakBones3.clip) yield return new WaitForSeconds(snd_breakBones3.clip.length);
             else while (snd_breakBones3.isPlaying) yield return null;
         }

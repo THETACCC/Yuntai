@@ -27,6 +27,10 @@ public class NoteBookManager : MonoBehaviour
     [Header("Feedback Reference")]
     public MMFeedbacks NoteBookUpdate;
 
+    //Audio
+    public AudioSource OpenNoteBook;
+
+
     private void Awake()
     {
         if (instance == null)
@@ -83,6 +87,7 @@ public class NoteBookManager : MonoBehaviour
         {
             if (!isOpen)
             {
+                if(OpenNoteBook) OpenNoteBook.Play();
                 DisablePlayerMovement();
                 NoteBook_Canvas.SetActive(true);
                 isOpen = true;

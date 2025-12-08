@@ -27,7 +27,7 @@ public class ToNextLoop : MonoBehaviour
 
     [Header("Sound")]
     public AudioSource DeathAnimationSound;
-
+    public AudioSource DeathAnimationSoundOneShot;
     [Header("Debug")]
     public bool verboseLog = false;
 
@@ -35,7 +35,8 @@ public class ToNextLoop : MonoBehaviour
 
     public void toNextLoop()
     {
-        DeathAnimationSound.Play();
+        if(DeathAnimationSound) DeathAnimationSound.Play();
+        //DeathAnimationSoundOneShot.Play();
         if (_runCo != null) return;
         _runCo = StartCoroutine(WaitForAnimationAndLoad());
     }
