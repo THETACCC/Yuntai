@@ -5124,10 +5124,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279740581}
-  - component: {fileID: 1279740582}
   - component: {fileID: 1279740583}
+  - component: {fileID: 1279740585}
+  - component: {fileID: 1279740584}
   m_Layer: 0
-  m_Name: LevelManager3_2
+  m_Name: LevelManager3_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5148,31 +5149,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1279740582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9b1db458b4e7445b921439c975e2f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hidePlayerOnSceneStart: 0
-  lockPlayerOnSceneStart: 0
-  mainVCam: {fileID: 0}
-  zoomDuration: 0.5
-  deathSpot: {fileID: 303310896}
-  spotRiseDuration: 3
-  spotTargetIntensity: 1000
-  spotTargetOuterRadius: 7.5
-  spotTargetInnerRadius: 3
-  spotQuickFadeDuration: 0.25
-  zhoushuStanding: {fileID: 2093182417}
-  useUnscaledTime: 1
-  verboseLog: 0
 --- !u!114 &1279740583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5186,6 +5162,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 1de23f33-f038-4a83-bfac-69e628a83834
+--- !u!114 &1279740584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: 23afc144d5a88814984336e42ff1283d, type: 3}
+  postDialogueJsonFile: {fileID: 4900000, guid: 23afc144d5a88814984336e42ff1283d, type: 3}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+--- !u!114 &1279740585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a81d40b2633fbf44b0800bdebe5c4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hidePlayerOnSceneStart: 0
+  lockPlayerOnSceneStart: 0
+  mainVCam: {fileID: 0}
+  zoomDuration: 0.5
+  exitSpot: {fileID: 303310896}
+  spotRiseDuration: 3
+  spotTargetIntensity: 1000
+  spotTargetOuterRadius: 7.5
+  spotTargetInnerRadius: 3
+  spotQuickFadeDuration: 0.25
+  zhoushuObject: {fileID: 2093182417}
+  zhoushuStart2Trigger: {fileID: 1279740584}
+  verboseLog: 0
 --- !u!1 &1293080901
 GameObject:
   m_ObjectHideFlags: 0
@@ -8025,7 +8043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -43.35
+      value: -39.97
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8318,7 +8336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainDialogueJsonFile: {fileID: 4900000, guid: 6b45edcb1ede0eb4ead0c1189921ffc2, type: 3}
+  mainDialogueJsonFile: {fileID: 4900000, guid: edc1d76fab5207e4590d0630e2d2c0a7, type: 3}
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
