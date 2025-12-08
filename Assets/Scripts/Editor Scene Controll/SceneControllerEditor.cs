@@ -162,6 +162,7 @@ public enum SceneTitle
     Level3_3 = 9,
     Level3_4 = 10,
     Level3_5 = 11,
+    Level3_6 = 12,
 
     JasmineTest = 50
 }

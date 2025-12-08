@@ -63,9 +63,8 @@ public class BaseLevelManager : MonoBehaviour
             playerRb = playerCtrl.GetComponent<Rigidbody2D>();
 
             CachePlayerSprites();
-
-            if (hidePlayerOnSceneStart)
-                SetPlayerSpritesVisible(false);
+            // ⭐ 每个场景开头都重置一次可见性，覆盖上一关的隐藏/透明状态
+            ApplyInitialPlayerVisibility();
 
             if (lockPlayerOnSceneStart)
                 playerCtrl.DisablePlayerControl();
@@ -107,6 +106,39 @@ public class BaseLevelManager : MonoBehaviour
         {
             if (sr != null)
                 sr.enabled = visible;
+        }
+    }
+
+    /// <summary>
+    /// 场景一开始根据 hidePlayerOnSceneStart 决定玩家的可见性：
+    /// - hidePlayerOnSceneStart = true  → 全部 sprite 关闭，alpha=0
+    /// - hidePlayerOnSceneStart = false → 全部 sprite 打开，alpha=1
+    /// 用来“覆盖”上一场景对玩家 sprite 的各种乱改动。
+    /// </summary>
+    protected void ApplyInitialPlayerVisibility()
+    {
+        if (!playerObject) return;
+
+        CachePlayerSprites();
+
+        foreach (var sr in _playerSprites)
+        {
+            if (!sr) continue;
+
+            var c = sr.color;
+
+            if (hidePlayerOnSceneStart)
+            {
+                sr.enabled = false;
+                c.a = 0f;
+            }
+            else
+            {
+                sr.enabled = true;
+                c.a = 1f;
+            }
+
+            sr.color = c;
         }
     }
 
@@ -182,7 +214,7 @@ public class BaseLevelManager : MonoBehaviour
     {
         if (!EnsureMainVCam()) return;
 
-        // ⭐ 在缩放前，记录当前的 size（例如 11.9）
+        // 在缩放前，记录当前的 size（例如 11.9）
         _originalOrthoSize = mainVCam.m_Lens.OrthographicSize;
         _hasOriginalOrthoSize = true;
 
@@ -205,7 +237,7 @@ public class BaseLevelManager : MonoBehaviour
             _hasOriginalOrthoSize = true;
         }
 
-        // ⭐ 回到刚才记录的 size（例如从 8 回到 11.9）
+        // 回到刚才记录的 size（例如从 8 回到 11.9）
         StartCameraZoom(_originalOrthoSize);
     }
 

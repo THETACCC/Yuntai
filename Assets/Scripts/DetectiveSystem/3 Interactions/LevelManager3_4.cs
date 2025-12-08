@@ -1,43 +1,29 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
-using DialogueSystem;
 
-public class LevelManager3_5 : BaseLevelManager
+public class LevelManager3_4 : BaseLevelManager
 {
-    // ========== ① CG 播放 ==========
+    // ========== ① 黑场 + Zhoushu2 对话 ==========
 
-    [Header("CGDialogue Settings")]
-    [SerializeField] private CGDialogue cgDialogue;
-
-    [Header("周叔对话")]
-    [SerializeField] private DialogueTrigger zhoushu1Trigger;
-    [SerializeField] private DialogueTrigger zhoushu2Trigger;
-
-    // ========== ② 黑场（Global Light）+ 音效 ==========
-
-    [Header("黑场（Global Light）")]
+    [Header("全局灯光（URP 2D Global Light）")]
     [SerializeField] private URPLight2D globalLight;
-    [SerializeField, Min(0f)] private float fadeOutDuration = 0.5f;
-    [SerializeField, Min(0f)] private float blackHoldDuration = 1.5f;
-    [SerializeField, Min(0f)] private float fadeInDuration = 0.8f;
-    [SerializeField] private AudioSource blackoutSfx;
 
-    private Coroutine _blackoutRoutine;
+    [Header("黑场与渐变时间设置")]
+    [SerializeField, Min(0f)] private float fadeOutDuration = 0.5f;   // 灯光缓出（变黑）时间
+    [SerializeField, Min(0f)] private float blackHoldDuration = 2.5f; // 全黑停留时间
+    [SerializeField, Min(0f)] private float fadeInDuration = 0.8f;    // 灯光缓入（变亮）时间
 
-    // ========== ③ 周叔外观切换：Normal → Blood ==========
+    [Header("周叔对话 Zhoushu2")]
+    [SerializeField] private DialogueTrigger dialogueZhoushu2;
+    [SerializeField, Min(0f)] private float dialogueDelayAfterFadeIn = 0f; // 灯完全亮起后，再等多久才叫对话
 
-    [Header("ZhouShu 外观切换")]
-    [Tooltip("普通状态的周叔（黑屏前显示的那个）")]
-    [SerializeField] private GameObject zhoushuNormalObject;
-    [Tooltip("血周叔（黑屏期间切换到这个）")]
-    [SerializeField] private GameObject zhoushuBloodObject;
-
-    // ========== ④ 周叔 + 玩家一起“发光消失”并传送 ==========
+    // ========== ② 周叔离场 + 跳下一回圈 ==========
 
     [Header("Next Loop 跳转")]
-    [Tooltip("下一回圈的场景名（若用 Scene Controller 也请填）")]
+    [Tooltip("下一回圈的场景名（若用 SceneController 也请填）")]
     [SerializeField] private string nextSceneName;
     [Tooltip("若使用 SceneController，则指定出生点编号")]
     [SerializeField] private int nextSpawnPointLocation = 0;
@@ -52,113 +38,44 @@ public class LevelManager3_5 : BaseLevelManager
     [SerializeField] private float spotTargetInnerRadius = 3f;
     [SerializeField, Min(0f)] private float spotQuickFadeDuration = 0.25f;
 
-    [Header("离场时要消失的周叔（runtime 会在黑屏时改成血周叔）")]
-    [SerializeField] private GameObject zhoushuObject;
+    [Header("Actors")]
+    [SerializeField] private GameObject zhoushuObject; // 3-4 里要被“传送走”的周叔
 
     [Header("Debug")]
     [SerializeField] private bool verboseLog = false;
 
+    private Coroutine _blackoutRoutine;
     private Coroutine _exitRoutine;
 
-    // ========== 生命周期 ==========
+    // ========== ① 黑场 + Zhoushu2 对话：对外接口 ==========
 
     /// <summary>
-    /// 3-5 这里我们希望一进场玩家就“在场且可动”。
+    /// 从外部（Fungus/Trigger）调用：
+    /// 让全局灯光黑 2.5 秒（带缓入缓出），然后触发对话 Zhoushu2。
+    /// 黑着的时候锁住玩家，灯亮回来的瞬间解锁。
     /// </summary>
-    protected override void Awake()
+    public void PlayZhoushu2Blackout()
     {
-        hidePlayerOnSceneStart = false;
-        lockPlayerOnSceneStart = false;
-        base.Awake();
+        if (_blackoutRoutine != null)
+            return; // 防止重复触发
+
+        _blackoutRoutine = StartCoroutine(BlackoutThenDialogueRoutine());
     }
 
-    private void Start()
+    private IEnumerator BlackoutThenDialogueRoutine()
     {
-        // 保险：再次确认玩家可见 + 可移动
-        ShowPlayerAndAllowMove();
-
-        if (cgDialogue != null)
+        if (!globalLight)
         {
-            cgDialogue.OnCGFinished -= HandleCGFinished;
-            cgDialogue.OnCGFinished += HandleCGFinished;
-        }
-        else
-        {
-            Debug.LogWarning("[LevelManager3_5] cgDialogue 未设置。");
+            Debug.LogWarning("[LevelManager3_4] globalLight 未设置，无法执行黑场演出。");
+            yield break;
         }
 
-        // 如果没手动指定 zhoushuObject，就默认用 normal 版本
-        if (!zhoushuObject && zhoushuNormalObject)
-            zhoushuObject = zhoushuNormalObject;
-    }
-
-    // ========== ① CG 相关 ==========
-
-    /// <summary>
-    /// 给 Fungus / Trigger 调用：
-    /// “开始 CG”——会先锁住玩家，然后让 CGDialogue 播放。
-    /// </summary>
-    public void StartGC()
-    {
-        if (cgDialogue == null)
-        {
-            Debug.LogWarning("[LevelManager3_5] StartGC: cgDialogue 未设置。");
-            return;
-        }
-
-        // 锁住玩家移动
+        // 黑屏开始前：锁玩家（用 BaseLevelManager 提供的接口）
         DisablePlayerMovement();
         if (Gamemanager.instance)
             Gamemanager.instance.phase = GamePhase.Eventing;
 
-        cgDialogue.StartCG();
-    }
-
-    /// <summary>
-    /// CG 完成后由 CGDialogue 回调：先播放 ZhouShu1 对话。
-    /// </summary>
-    private void HandleCGFinished()
-    {
-        if (zhoushu1Trigger != null)
-        {
-            zhoushu1Trigger.TriggerDialogue();
-        }
-        else
-        {
-            Debug.LogWarning("[LevelManager3_5] zhoushu1Trigger 未设置。");
-        }
-
-        // 这里仍然保持玩家被锁住，
-        // 直到黑屏 + ZhouShu2 完成后或者你直接调用 ZhouShuLeave_3_5。
-    }
-
-    // ========== ② Global Light 黑屏 + ZhouShu2（期间切换 Blood 版） ==========
-
-    /// <summary>
-    /// 请在 ZhouShu1 对话的最后一行（Fungus 或你的对话系统里）调用：
-    /// Global Light 黑屏（带音效，黑屏期间把周叔换成 Blood 版）→ 灯光恢复 → 解锁玩家 → 触发 ZhouShu2。
-    /// </summary>
-    public void StartBlackoutThenZhouShu2()
-    {
-        if (_blackoutRoutine != null)
-            StopCoroutine(_blackoutRoutine);
-
-        _blackoutRoutine = StartCoroutine(CoBlackoutThenZhouShu2());
-    }
-
-    private IEnumerator CoBlackoutThenZhouShu2()
-    {
-        if (!globalLight)
-        {
-            Debug.LogWarning("[LevelManager3_5] globalLight 未设置，无法执行黑场。");
-            yield break;
-        }
-
         float originalIntensity = globalLight.intensity;
-
-        // 播放黑场音效
-        if (blackoutSfx)
-            blackoutSfx.Play();
 
         // --- 1) 灯光渐暗到全黑（缓出） ---
         if (fadeOutDuration <= 0f)
@@ -177,9 +94,6 @@ public class LevelManager3_5 : BaseLevelManager
             }
             globalLight.intensity = 0f;
         }
-
-        // ⭐ 此时已经是全黑，趁黑屏把周叔从 normal 换成 blood
-        SwitchZhoushuToBlood();
 
         // --- 2) 全黑维持 blackHoldDuration 秒 ---
         if (blackHoldDuration > 0f)
@@ -203,66 +117,45 @@ public class LevelManager3_5 : BaseLevelManager
             globalLight.intensity = originalIntensity;
         }
 
-        // 黑屏完成：按你之前的规则，这里解锁玩家
+        // ✅ 黑屏 + 渐亮结束：立刻解锁玩家
         EnablePlayerMovement();
         if (Gamemanager.instance)
             Gamemanager.instance.phase = GamePhase.Moving;
 
-        // 然后触发 ZhouShu2 对话（现在画面上是血周叔）
-        if (zhoushu2Trigger != null)
+        // 灯亮以后再等一点点时间（可选）
+        if (dialogueDelayAfterFadeIn > 0f)
+            yield return new WaitForSeconds(dialogueDelayAfterFadeIn);
+
+        // --- 4) 触发周叔对话 Zhoushu2 ---
+        if (dialogueZhoushu2)
         {
-            zhoushu2Trigger.TriggerDialogue();
+            dialogueZhoushu2.TriggerDialogue();
         }
         else
         {
-            Debug.LogWarning("[LevelManager3_5] zhoushu2Trigger 未设置。");
+            Debug.LogWarning("[LevelManager3_4] dialogueZhoushu2 未指定。");
         }
 
         _blackoutRoutine = null;
     }
 
-    /// <summary>
-    /// 正常周叔 → 关掉；血周叔 → 打开；并把 zhoushuObject 指向血周叔（后面离场发光消失用）。
-    /// </summary>
-    private void SwitchZhoushuToBlood()
-    {
-        if (zhoushuNormalObject && zhoushuNormalObject.activeSelf)
-            zhoushuNormalObject.SetActive(false);
-
-        if (zhoushuBloodObject)
-        {
-            zhoushuBloodObject.SetActive(true);
-            // 之后 ZhouShuLeave_3_5 时消失的就是血周叔
-            zhoushuObject = zhoushuBloodObject;
-
-            if (verboseLog)
-                Debug.Log("[LevelManager3_5] Switched ZhouShu: Normal → Blood.");
-        }
-        else
-        {
-            if (verboseLog)
-                Debug.LogWarning("[LevelManager3_5] zhoushuBloodObject 未设置，无法切换到血周叔。");
-        }
-    }
-
-    // ========== ③ 周叔 + 玩家 SpotLight 发光消失 + 传送（目标是血周叔） ==========
+    // ========== ② 周叔离场 + 跳下一回圈：对外接口 ==========
 
     /// <summary>
-    /// 和 3-1 / 3-4 一样：
+    /// 和 3-1 的 ZhouShuEscape 类似：
     /// Spot Light 亮起 → 周叔和玩家“消失” → 切到下一回圈 Scene。
-    /// 这里会使用当前的 zhoushuObject（黑屏后已被改成血周叔）。
     /// </summary>
-    public void ZhouShuLeave_3_5()
+    public void ZhouShuLeave_3_4()
     {
         if (_exitRoutine != null)
             StopCoroutine(_exitRoutine);
 
-        _exitRoutine = StartCoroutine(CoZhouShuLeave_3_5());
+        _exitRoutine = StartCoroutine(CoZhouShuLeave_3_4());
     }
 
-    private IEnumerator CoZhouShuLeave_3_5()
+    private IEnumerator CoZhouShuLeave_3_4()
     {
-        if (verboseLog) Debug.Log("[3-5] ZhouShuLeave_3_5 start");
+        if (verboseLog) Debug.Log("[3-4] ZhouShuLeave_3_4 start");
 
         // 0) 锁住玩家：不能再乱走
         DisablePlayerMovement();              // Base 的接口：锁 GamePhase + PlayerController
@@ -298,7 +191,7 @@ public class LevelManager3_5 : BaseLevelManager
 
         // 3) 周叔 & 玩家“被传送走” —— 直接隐藏
         if (zhoushuObject && zhoushuObject.activeSelf)
-            zhoushuObject.SetActive(false);      // 这里是血周叔
+            zhoushuObject.SetActive(false);
 
         HidePlayerSprites();      // BaseLevelManager 提供
         ForceHidePlayerSprites(); // 把 alpha 也置 0，保险
@@ -309,7 +202,7 @@ public class LevelManager3_5 : BaseLevelManager
         // 5) 跳到下一回圈
         GotoNextLoop();
 
-        if (verboseLog) Debug.Log("[3-5] ZhouShuLeave_3_5 end");
+        if (verboseLog) Debug.Log("[3-4] ZhouShuLeave_3_4 end");
         _exitRoutine = null;
     }
 
@@ -362,7 +255,7 @@ public class LevelManager3_5 : BaseLevelManager
         exitSpot.enabled = false;
     }
 
-    // ========== 工具：强制隐藏玩家所有 Sprite（含 alpha=0） ==========
+    // ========== 工具：隐藏玩家所有 Sprite（和 3-1 同逻辑） ==========
 
     private void ForceHidePlayerSprites()
     {
@@ -380,7 +273,7 @@ public class LevelManager3_5 : BaseLevelManager
         }
     }
 
-    // ========== 工具：跳转到下一个 Scene（和 3-1 / 3-4 同逻辑） ==========
+    // ========== 工具：跳转到下一个 Scene（和 3-1 同逻辑） ==========
 
     private void GotoNextLoop()
     {
@@ -392,7 +285,7 @@ public class LevelManager3_5 : BaseLevelManager
             }
             else
             {
-                Debug.LogWarning("[LevelManager3_5] 未配置 nextSceneName，无法通过 SceneController 跳转。");
+                Debug.LogWarning("[LevelManager3_4] 未配置 nextSceneName，无法通过 SceneController 跳转。");
             }
         }
         else if (!string.IsNullOrEmpty(nextSceneName))
@@ -401,7 +294,7 @@ public class LevelManager3_5 : BaseLevelManager
         }
         else
         {
-            Debug.LogWarning("[LevelManager3_5] 未配置下一回圈跳转：请填 nextSceneName 或开启 useSceneControllerTeleport。");
+            Debug.LogWarning("[LevelManager3_4] 未配置下一回圈跳转：请填 nextSceneName 或开启 useSceneControllerTeleport。");
         }
     }
 }
