@@ -16,7 +16,44 @@
       },
       "nextIndex": 3,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "497ce0da-9af6-4f63-a307-c3a69594e9b8",
+          "targetObjectName": "Event9_DrumBeat",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
     },
     {
       "index": 1,
@@ -54,6 +91,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_2",
           "componentTypeName": "LevelManager2_2",
           "methodName": "ToLoop3",
