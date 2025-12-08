@@ -166,11 +166,15 @@ public class LevelManager2_2 : BaseLevelManager
     }
 
     /// <summary>Start1 完全关闭后：仅显示玩家Sprite，然后触发Start2。</summary>
+    /// <summary>Start1 完全关闭后：仅显示玩家Sprite，然后触发Start2。</summary>
     public void OnStart1FullyClosed()
     {
-        SetPlayerSpritesVisible(true);     // 用 Base 的函数
+        // 原来是：SetPlayerSpritesVisible(true);
+        RevealPlayerSprites();           
+
         StartCoroutine(CoTriggerStart2());
     }
+
 
     private IEnumerator CoTriggerStart2()
     {
