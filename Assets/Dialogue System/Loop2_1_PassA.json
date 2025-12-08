@@ -126,8 +126,8 @@
       "avatarAddr": "DialogueImages/何以真_惊醒",
       "isPlayer": true,
       "content": {
-        "en": "(That’s exactly what he said in the dream… and that puppet in his hand—it reminds me of what he turned into.)",
-        "zh": "（和之前梦里一模一样的对话，还有男孩手里的木偶......让我想起了他之前变成的那个样子。）",
+        "en": "(That’s exactly what he said in the dream… and that<color=red> puppet</color> in his hand—it reminds me of what he turned into.)",
+        "zh": "（和之前梦里一模一样的对话，还有男孩手里的<color=red>木偶</color>......让我想起了他之前变成的那个样子。）",
         "ja": ""
       },
       "nextIndex": 4,
@@ -270,14 +270,15 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "About this \"Troupe Elysium\"...",
-        "zh": "关于这个“极乐戏团”...",
+        "en": "About this \"Troupe Elysium\"—would you mind sharing what you know about them?",
+        "zh": "关于这个“极乐戏团”，您方便告诉我一些关于他们的事吗？",
         "ja": ""
       },
       "nextIndex": 17,
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoPass1True",
@@ -308,6 +309,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoPass2True",
@@ -338,6 +340,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoPass3True",
@@ -613,7 +616,7 @@
       "isPlayer": false,
       "content": {
         "en": "Most of the outside groups that compete in the festival don’t cause any trouble, historically speaking.",
-        "zh": "历年来参与斗巧的外地团体其实很少，一般不会起什么事端。",
+        "zh": "不过历年来参与斗巧的外地团体其实很少，一般不会起什么事端。",
         "ja": ""
       },
       "nextIndex": 32,
@@ -638,6 +641,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
           "targetObjectName": "EventTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -649,6 +653,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "ad670803-66db-4eb1-9401-1ec422e3e992",
           "targetObjectName": "Event3_Qiqiao",
           "componentTypeName": "isThisUnlocked",
           "methodName": "UnlockThis",
@@ -660,6 +665,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
           "targetObjectName": "NoteBook",
           "componentTypeName": "NoteBookManager",
           "methodName": "UnlockEventFeedBack",
@@ -690,6 +696,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
           "targetObjectName": "EventTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -701,6 +708,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "65db928c-f716-43f1-aee3-b965e5222a69",
           "targetObjectName": "Event2_SusGroup",
           "componentTypeName": "isThisUnlocked",
           "methodName": "UnlockThis",
@@ -712,6 +720,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
           "targetObjectName": "NoteBook",
           "componentTypeName": "NoteBookManager",
           "methodName": "UnlockEventFeedBack",
@@ -753,7 +762,7 @@
       "isPlayer": false,
       "content": {
         "en": "Oh, then you’re in luck! It’s the perfect time to visit. Hope you have a great time here!",
-        "zh": "哎呀，这样正好赶上才叫幸运呢！",
+        "zh": "哎呀，这样正好赶上才叫幸运呢！在芸台玩的开心哦！",
         "ja": ""
       },
       "nextIndex": 46,
@@ -814,6 +823,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
           "targetObjectName": "NoteBook",
           "componentTypeName": "NoteBookManager",
           "methodName": "UnlockEventFeedBack",
@@ -825,6 +835,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
           "targetObjectName": "EventTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -836,6 +847,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "c1748a8b-1624-492b-8fe0-557d862455ea",
           "targetObjectName": "Event4_CityLock",
           "componentTypeName": "isThisUnlocked",
           "methodName": "UnlockThis",
