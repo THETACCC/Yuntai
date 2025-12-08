@@ -8,7 +8,6 @@ using UnityEditor;
 
 /// <summary>
 /// 为GameObject提供持久化的唯一ID，用于对话系统的引用
-/// 修复版本：自动检测并修复重复ID
 /// </summary>
 [ExecuteAlways]
 [DisallowMultipleComponent]
@@ -29,30 +28,29 @@ public class DialogueReference : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // 用于检测是否刚被复制
     private static HashSet<string> registeredIDs = new HashSet<string>();
 #endif
 
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        // 确保有ID
         if (string.IsNullOrEmpty(uniqueID))
         {
             GenerateNewID();
             return;
         }
 
-        // ⚠️ 已禁用自动重复检测，避免意外重新生成ID
-        // 如果需要检测重复ID，请使用菜单：Tools > Dialogue System > Fix All Duplicate IDs in Scene
-
-        // 如果在播放模式下且对象在DontDestroyOnLoad场景，跳过所有检测
         if (Application.isPlaying && gameObject.scene.name == "DontDestroyOnLoad")
         {
             return;
         }
+
+        if (IsDuplicateID(uniqueID))
+        {
+            var duplicates = FindDuplicateObjects(uniqueID);
+            Debug.LogError($"⚠️ [DialogueReference] ID CONFLICT!\nGameObject '{gameObject.name}' has duplicate ID: {uniqueID}\nConflicts with: {string.Join(", ", duplicates.Select(d => $"'{d.gameObject.name}'"))}\nFix: Tools > Dialogue System > Fix All Duplicate IDs", this);
+        }
 #else
-        // 运行时不应该修改ID
         if (string.IsNullOrEmpty(uniqueID))
         {
             Debug.LogError($"[DialogueReference] GameObject '{gameObject.name}' 没有ID！");
@@ -62,58 +60,89 @@ public class DialogueReference : MonoBehaviour
 
     private void Awake()
     {
-        // 运行时检查ID，如果没有ID则报错（不能在运行时生成新ID，因为JSON中已经保存了ID）
         if (string.IsNullOrEmpty(uniqueID))
         {
-            Debug.LogError($"[DialogueReference] GameObject '{gameObject.name}' 没有ID！这个对象可能无法被对话系统找到。请在编辑器中重新保存场景。");
+            Debug.LogError($"[DialogueReference] GameObject '{gameObject.name}' 没有ID！");
         }
     }
 
 #if UNITY_EDITOR
-    /// <summary>
-    /// 检测当前ID是否与其他对象重复
-    /// </summary>
     private bool IsDuplicateID(string id)
     {
         if (string.IsNullOrEmpty(id)) return false;
 
-        // 查找所有DialogueReference
         var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
-
-        // 筛选出真实场景中的有效对象（排除Prefab资源、自己、以及预览场景）
         var sceneRefs = allRefs.Where(r =>
         {
             if (r == null || r == this) return false;
-
-            // 排除Prefab资源（不在任何场景中的）
             if (!r.gameObject.scene.IsValid()) return false;
-
-            // 排除预览场景
             if (r.gameObject.scene.name == null) return false;
-
-            // 排除Prefab编辑模式下的临时场景
             if (r.gameObject.scene.path == r.gameObject.scene.name) return false;
-
-            // DontDestroyOnLoad的对象在特殊场景中，场景名为"DontDestroyOnLoad"
-            // 但它们仍然是有效的，应该被包含在检查中
-
             return true;
         }).ToList();
 
-        // 检查是否有其他对象使用相同ID
-        bool hasDuplicate = sceneRefs.Any(r => r.uniqueID == id);
+        return sceneRefs.Any(r => r.uniqueID == id);
+    }
 
-        if (hasDuplicate)
+    private List<DialogueReference> FindDuplicateObjects(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return new List<DialogueReference>();
+
+        var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
+        return allRefs.Where(r =>
         {
-            // 打印详细信息帮助调试
-            var duplicates = sceneRefs.Where(r => r.uniqueID == id).ToList();
-            foreach (var dup in duplicates)
+            if (r == null || r == this) return false;
+            if (!r.gameObject.scene.IsValid()) return false;
+            if (r.gameObject.scene.name == null) return false;
+            if (r.gameObject.scene.path == r.gameObject.scene.name) return false;
+            return r.uniqueID == id;
+        }).ToList();
+    }
+
+    /// <summary>
+    /// 获取GameObject在场景中的完整路径
+    /// </summary>
+    private static string GetGameObjectPath(GameObject obj)
+    {
+        string path = obj.name;
+        Transform parent = obj.transform.parent;
+        while (parent != null)
+        {
+            path = parent.name + "/" + path;
+            parent = parent.parent;
+        }
+        return path;
+    }
+
+    /// <summary>
+    /// 通过路径查找GameObject
+    /// </summary>
+    private static GameObject FindGameObjectByPath(string path)
+    {
+        var parts = path.Split('/');
+        GameObject current = null;
+
+        // 查找根对象
+        foreach (GameObject rootObj in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (rootObj.name == parts[0])
             {
-                Debug.Log($"[DialogueReference] 发现重复ID的对象: {dup.gameObject.name} (场景: {dup.gameObject.scene.name})");
+                current = rootObj;
+                break;
             }
         }
 
-        return hasDuplicate;
+        if (current == null) return null;
+
+        // 遍历子对象
+        for (int i = 1; i < parts.Length; i++)
+        {
+            Transform child = current.transform.Find(parts[i]);
+            if (child == null) return null;
+            current = child.gameObject;
+        }
+
+        return current;
     }
 #endif
 
@@ -135,17 +164,11 @@ public class DialogueReference : MonoBehaviour
 #endif
     }
 
-    /// <summary>
-    /// 手动重新生成ID（用于修复工具）
-    /// </summary>
     public void ForceRegenerateID()
     {
         GenerateNewID();
     }
 
-    /// <summary>
-    /// 查找所有场景中的DialogueReference（包括inactive对象）
-    /// </summary>
     public static GameObject FindByID(string id)
     {
         if (string.IsNullOrEmpty(id)) return null;
@@ -156,9 +179,6 @@ public class DialogueReference : MonoBehaviour
         return target?.gameObject;
     }
 
-    /// <summary>
-    /// 获取或创建GameObject的DialogueReference组件
-    /// </summary>
     public static DialogueReference GetOrCreate(GameObject obj)
     {
         if (obj == null) return null;
@@ -177,117 +197,476 @@ public class DialogueReference : MonoBehaviour
 
 #if UNITY_EDITOR
     /// <summary>
-    /// 编辑器菜单：修复当前场景中的所有重复ID
-    /// ⚠️ 使用此工具后，需要使用 DialogueIDFixer 更新对话树文件中的ID
+    /// 检查所有 Build Settings 场景的ID冲突
     /// </summary>
-    [MenuItem("Tools/Dialogue System/Fix All Duplicate IDs in Scene")]
-    public static void FixAllDuplicateIDsInScene()
+    [MenuItem("Tools/Dialogue System/Check All Build Scenes for ID Conflicts")]
+    public static void CheckAllBuildScenesForConflicts()
     {
-        if (!EditorUtility.DisplayDialog("⚠️ 重要警告",
-            "此操作会重新生成重复的ID！\n\n" +
-            "如果你的对话树文件中引用了这些对象，\n" +
-            "修复后你需要使用:\n" +
-            "Tools > Dialogue System > Fix Dialogue Tree IDs\n" +
-            "来更新对话树文件中的ID引用\n\n" +
-            "建议先备份场景和对话树文件！\n\n" +
-            "确定要继续吗？",
+        var allScenes = EditorBuildSettings.scenes.ToList();
+        var enabledScenes = allScenes.Where(s => s.enabled).ToList();
+
+        if (enabledScenes.Count == 0)
+        {
+            EditorUtility.DisplayDialog("No Scenes", "No enabled scenes found in Build Settings.", "OK");
+            return;
+        }
+
+        // 首先检查 Build Settings 中是否有重复场景
+        Debug.Log("====== Checking Build Settings ======");
+        var pathGroups = enabledScenes.GroupBy(s => s.path).OrderBy(g => g.Key);
+        var duplicateScenes = pathGroups.Where(g => g.Count() > 1).ToList();
+
+        if (duplicateScenes.Count > 0)
+        {
+            Debug.LogError($"⚠️ Found {duplicateScenes.Count} duplicate scenes in Build Settings!");
+            foreach (var group in duplicateScenes)
+            {
+                string sceneName = System.IO.Path.GetFileNameWithoutExtension(group.Key);
+                Debug.LogError($"  - '{sceneName}' appears {group.Count()} times in Build Settings!");
+            }
+            Debug.LogError("This will cause false positives in ID conflict detection!");
+            Debug.LogError("Fix: Go to File > Build Settings and remove duplicate scenes.\n");
+        }
+        else
+        {
+            Debug.Log($"✓ No duplicate scenes in Build Settings ({enabledScenes.Count} unique scenes).\n");
+        }
+
+        // 获取唯一的场景路径列表
+        var uniqueScenes = pathGroups.Select(g => g.Key).ToList();
+
+        var idRegistry = new Dictionary<string, List<(string scenePath, string objectPath)>>();
+        var currentScenes = SaveCurrentScenes();
+
+        try
+        {
+            EditorUtility.DisplayProgressBar("Checking ID Conflicts", "Scanning scenes...", 0f);
+
+            Debug.Log("====== Scanning Scenes for ID Conflicts ======");
+
+            for (int i = 0; i < uniqueScenes.Count; i++)
+            {
+                var scenePath = uniqueScenes[i];
+                EditorUtility.DisplayProgressBar("Checking ID Conflicts",
+                    $"Scanning {System.IO.Path.GetFileNameWithoutExtension(scenePath)}...",
+                    (float)i / uniqueScenes.Count);
+
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                var sceneRefs = Resources.FindObjectsOfTypeAll<DialogueReference>()
+                    .Where(r => r != null && r.gameObject.scene == scene)
+                    .ToList();
+
+                foreach (var refComp in sceneRefs)
+                {
+                    string id = refComp.uniqueID;
+                    if (string.IsNullOrEmpty(id)) continue;
+
+                    string objPath = GetGameObjectPath(refComp.gameObject);
+
+                    if (!idRegistry.ContainsKey(id))
+                    {
+                        idRegistry[id] = new List<(string, string)>();
+                    }
+                    idRegistry[id].Add((scenePath, objPath));
+                }
+            }
+        }
+        finally
+        {
+            EditorUtility.ClearProgressBar();
+            RestoreScenes(currentScenes);
+        }
+
+        var duplicates = idRegistry.Where(kvp => kvp.Value.Count > 1).ToList();
+
+        if (duplicates.Count > 0)
+        {
+            string errorMsg = $"⚠️ Found {duplicates.Count} ID conflicts!\n\n";
+
+            foreach (var dup in duplicates)
+            {
+                errorMsg += $"ID: {dup.Key.Substring(0, 8)}... ({dup.Value.Count} objects):\n";
+                foreach (var (scenePath, objPath) in dup.Value)
+                {
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+                    errorMsg += $"  - '{objPath}' in [{sceneName}]\n";
+                }
+                errorMsg += "\n";
+            }
+
+            Debug.LogError($"[DialogueReference] {errorMsg}");
+
+            // 根据是否有重复场景给出不同的提示
+            string dialogMsg;
+            if (duplicateScenes.Count > 0)
+            {
+                dialogMsg = $"Found {duplicates.Count} ID conflicts!\n\n⚠️ WARNING: You have {duplicateScenes.Count} duplicate scenes in Build Settings!\n\nFix duplicate scenes first:\nFile > Build Settings\n\nThen re-run this check.";
+            }
+            else
+            {
+                dialogMsg = $"Found {duplicates.Count} ID conflicts!\n\nCheck Console for details.\n\nUse: Tools > Dialogue System > Fix All Duplicate IDs";
+            }
+
+            EditorUtility.DisplayDialog("⚠️ ID Conflicts Found!", dialogMsg, "OK");
+        }
+        else
+        {
+            if (duplicateScenes.Count > 0)
+            {
+                Debug.LogWarning("No ID conflicts found, but you have duplicate scenes in Build Settings.");
+                EditorUtility.DisplayDialog("⚠️ Warning",
+                    $"No ID conflicts found.\n\nBut you have {duplicateScenes.Count} duplicate scenes in Build Settings!\n\nFix: File > Build Settings", "OK");
+            }
+            else
+            {
+                Debug.Log($"✓ No ID conflicts found. All {uniqueScenes.Count} scenes checked.");
+                EditorUtility.DisplayDialog("✓ No Conflicts",
+                    $"Checked {uniqueScenes.Count} scenes.\n\nNo ID conflicts found!", "OK");
+            }
+        }
+    }
+
+    /// <summary>
+    /// 调试工具：显示当前场景所有 DialogueReference 的详细信息
+    /// </summary>
+    [MenuItem("Tools/Dialogue System/Debug: Show All DialogueReference in Current Scene")]
+    public static void DebugShowAllReferencesInCurrentScene()
+    {
+        var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+
+        var sceneRefs = Resources.FindObjectsOfTypeAll<DialogueReference>()
+            .Where(r => r != null && r.gameObject.scene == scene)
+            .ToList();
+
+        Debug.Log($"====== DialogueReference in Scene: {scene.name} ======");
+        Debug.Log($"Total found: {sceneRefs.Count}");
+        Debug.Log("");
+
+        var idGroups = sceneRefs.GroupBy(r => r.uniqueID).OrderBy(g => g.Key);
+
+        foreach (var group in idGroups)
+        {
+            string id = group.Key;
+            var refs = group.ToList();
+
+            if (refs.Count > 1)
+            {
+                Debug.LogError($"⚠️ DUPLICATE ID: {id.Substring(0, 8)}... ({refs.Count} objects)");
+            }
+            else
+            {
+                Debug.Log($"ID: {id.Substring(0, 8)}...");
+            }
+
+            foreach (var refComp in refs)
+            {
+                string path = GetGameObjectPath(refComp.gameObject);
+                string activeStatus = refComp.gameObject.activeInHierarchy ? "Active" : "Inactive";
+                string enabledStatus = refComp.gameObject.activeSelf ? "Self-Enabled" : "Self-Disabled";
+
+                Debug.Log($"  └─ {path}");
+                Debug.Log($"     Status: {activeStatus}, {enabledStatus}");
+                Debug.Log($"     InstanceID: {refComp.GetInstanceID()}");
+                Debug.Log($"", refComp.gameObject);  // 可点击定位
+            }
+            Debug.Log("");
+        }
+
+        EditorUtility.DisplayDialog("Debug Complete",
+            $"Found {sceneRefs.Count} DialogueReference objects.\nCheck Console for details.", "OK");
+    }
+
+    /// <summary>
+    /// 修复所有 Build Settings 场景中的重复ID
+    /// 策略：按场景处理，在场景打开时直接修复，避免对象查找问题
+    /// </summary>
+    [MenuItem("Tools/Dialogue System/Fix All Duplicate IDs")]
+    public static void FixAllDuplicateIDs()
+    {
+        var allScenes = EditorBuildSettings.scenes.ToList();
+        var enabledScenes = allScenes.Where(s => s.enabled).ToList();
+
+        if (enabledScenes.Count == 0)
+        {
+            EditorUtility.DisplayDialog("No Scenes", "No enabled scenes found in Build Settings.", "OK");
+            return;
+        }
+
+        // 检查是否有重复场景
+        var pathGroups = enabledScenes.GroupBy(s => s.path);
+        var duplicateScenes = pathGroups.Where(g => g.Count() > 1).ToList();
+
+        if (duplicateScenes.Count > 0)
+        {
+            string warningMsg = $"⚠️ Warning: Found {duplicateScenes.Count} duplicate scenes in Build Settings:\n\n";
+            foreach (var group in duplicateScenes)
+            {
+                string sceneName = System.IO.Path.GetFileNameWithoutExtension(group.Key);
+                warningMsg += $"- '{sceneName}' appears {group.Count()} times\n";
+            }
+            warningMsg += "\nPlease remove duplicates from Build Settings first!\n\nContinue anyway?";
+
+            if (!EditorUtility.DisplayDialog("Duplicate Scenes Detected", warningMsg, "Continue Anyway", "Cancel"))
+            {
+                return;
+            }
+        }
+
+        if (!EditorUtility.DisplayDialog("⚠️ 警告",
+            "此操作会扫描所有 Build Settings 场景并修复重复ID！\n\n建议先备份！\n\n确定继续吗？",
             "确定", "取消"))
         {
             return;
         }
 
-        var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
-        var sceneRefs = allRefs.Where(r => r != null && r.gameObject.scene.IsValid()).ToList();
+        // 使用唯一场景列表
+        var uniqueScenes = pathGroups.Select(g => g.Key).ToList();
+        var currentScenes = SaveCurrentScenes();
 
-        // 统计ID出现次数
-        var idCounts = new Dictionary<string, List<DialogueReference>>();
+        // 第一遍：收集所有ID和它们的引用
+        var allIDRefs = new Dictionary<string, List<(string scenePath, DialogueReference refComp)>>();
 
-        foreach (var refComp in sceneRefs)
+        try
         {
-            string id = refComp.uniqueID;
-            if (string.IsNullOrEmpty(id)) continue;
+            EditorUtility.DisplayProgressBar("Scanning", "Step 1/2: Collecting all IDs...", 0f);
 
-            if (!idCounts.ContainsKey(id))
+            for (int i = 0; i < uniqueScenes.Count; i++)
             {
-                idCounts[id] = new List<DialogueReference>();
+                var scenePath = uniqueScenes[i];
+                EditorUtility.DisplayProgressBar("Scanning",
+                    $"Step 1/2: {System.IO.Path.GetFileNameWithoutExtension(scenePath)}...",
+                    (float)i / uniqueScenes.Count / 2f);
+
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                var sceneRefs = Resources.FindObjectsOfTypeAll<DialogueReference>()
+                    .Where(r => r != null && r.gameObject.scene == scene)
+                    .ToList();
+
+                foreach (var refComp in sceneRefs)
+                {
+                    string id = refComp.uniqueID;
+                    if (string.IsNullOrEmpty(id)) continue;
+
+                    if (!allIDRefs.ContainsKey(id))
+                    {
+                        allIDRefs[id] = new List<(string, DialogueReference)>();
+                    }
+                    allIDRefs[id].Add((scenePath, refComp));
+                }
             }
-            idCounts[id].Add(refComp);
+
+            // 找出所有重复的ID
+            var duplicateIDs = allIDRefs.Where(kvp => kvp.Value.Count > 1).ToList();
+
+            if (duplicateIDs.Count == 0)
+            {
+                EditorUtility.ClearProgressBar();
+                RestoreScenes(currentScenes);
+                EditorUtility.DisplayDialog("检查完成", "没有发现重复ID", "确定");
+                return;
+            }
+
+            // 第二遍：按场景分组修复
+            // 先按场景分组所有需要修复的对象
+            var sceneFixList = new Dictionary<string, List<DialogueReference>>();
+
+            foreach (var dup in duplicateIDs)
+            {
+                string duplicateID = dup.Key;
+                var refs = dup.Value;
+
+                Debug.LogWarning($"[DialogueReference] 发现重复ID: {duplicateID}，共 {refs.Count} 个对象");
+
+                // 保留第一个，修复其他的
+                for (int i = 1; i < refs.Count; i++)
+                {
+                    var (scenePath, refComp) = refs[i];
+
+                    if (!sceneFixList.ContainsKey(scenePath))
+                    {
+                        sceneFixList[scenePath] = new List<DialogueReference>();
+                    }
+                    sceneFixList[scenePath].Add(refComp);
+                }
+            }
+
+            // 逐个场景打开并修复
+            int totalFixed = 0;
+            int sceneIndex = 0;
+
+            foreach (var scenePath in sceneFixList.Keys)
+            {
+                sceneIndex++;
+                EditorUtility.DisplayProgressBar("Fixing",
+                    $"Step 2/2: Fixing scene {sceneIndex}/{sceneFixList.Count}: {System.IO.Path.GetFileNameWithoutExtension(scenePath)}...",
+                    0.5f + (float)sceneIndex / sceneFixList.Count / 2f);
+
+                // 打开场景
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                // 获取场景中所有DialogueReference（因为场景重新加载，需要重新获取）
+                var currentSceneRefs = Resources.FindObjectsOfTypeAll<DialogueReference>()
+                    .Where(r => r != null && r.gameObject.scene == scene)
+                    .ToList();
+
+                // 需要修复的ID列表
+                var refsToFix = sceneFixList[scenePath];
+                var oldIDsToFix = refsToFix.Select(r => r.uniqueID).ToHashSet();
+
+                // 在当前场景中找到这些ID对应的对象并修复
+                int fixedInScene = 0;
+                foreach (var refComp in currentSceneRefs)
+                {
+                    if (oldIDsToFix.Contains(refComp.uniqueID))
+                    {
+                        string oldID = refComp.uniqueID;
+                        string objPath = GetGameObjectPath(refComp.gameObject);
+
+                        Undo.RecordObject(refComp, "Fix Duplicate ID");
+                        refComp.ForceRegenerateID();
+
+                        fixedInScene++;
+                        totalFixed++;
+
+                        Debug.Log($"[DialogueReference] 已修复 '{objPath}' (场景: {System.IO.Path.GetFileNameWithoutExtension(scenePath)}, 旧ID: {oldID.Substring(0, 8)}...)");
+                    }
+                }
+
+                // 保存场景
+                UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+
+                Debug.Log($"[DialogueReference] 场景 {System.IO.Path.GetFileNameWithoutExtension(scenePath)} 修复完成，共修复 {fixedInScene} 个对象");
+            }
+
+            EditorUtility.ClearProgressBar();
+            RestoreScenes(currentScenes);
+
+            EditorUtility.DisplayDialog("修复完成",
+                $"修复了 {duplicateIDs.Count} 组重复ID\n总共 {totalFixed} 个对象\n保存了 {sceneFixList.Count} 个场景", "确定");
         }
-
-        // 找出重复的ID
-        var duplicates = idCounts.Where(kvp => kvp.Value.Count > 1).ToList();
-
-        if (duplicates.Count == 0)
+        catch (System.Exception e)
         {
-            EditorUtility.DisplayDialog("检查完成", "没有发现重复ID", "确定");
+            EditorUtility.ClearProgressBar();
+            RestoreScenes(currentScenes);
+            Debug.LogError($"[DialogueReference] 修复过程出错: {e.Message}\n{e.StackTrace}");
+            EditorUtility.DisplayDialog("错误", $"修复过程出错:\n{e.Message}", "确定");
+        }
+    }
+
+    private static List<string> SaveCurrentScenes()
+    {
+        var currentScenes = new List<string>();
+        for (int i = 0; i < UnityEditor.SceneManagement.EditorSceneManager.sceneCount; i++)
+        {
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneAt(i);
+            if (scene.isLoaded)
+            {
+                currentScenes.Add(scene.path);
+            }
+        }
+        return currentScenes;
+    }
+
+    private static void RestoreScenes(List<string> scenePaths)
+    {
+        if (scenePaths.Count > 0)
+        {
+            UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePaths[0], UnityEditor.SceneManagement.OpenSceneMode.Single);
+            for (int i = 1; i < scenePaths.Count; i++)
+            {
+                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePaths[i], UnityEditor.SceneManagement.OpenSceneMode.Additive);
+            }
+        }
+    }
+
+    [InitializeOnLoadMethod]
+    private static void InitializePlayModeCheck()
+    {
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+    }
+
+    private static void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        if (state == PlayModeStateChange.ExitingEditMode)
+        {
+            CheckAllIDConflictsBeforePlay();
+        }
+    }
+
+    private static void CheckAllIDConflictsBeforePlay()
+    {
+        var allScenes = EditorBuildSettings.scenes.ToList();
+        var enabledScenes = allScenes.Where(s => s.enabled).ToList();
+
+        if (enabledScenes.Count == 0)
+        {
+            Debug.LogWarning("[DialogueReference] No scenes in Build Settings.");
             return;
         }
 
-        int fixedCount = 0;
-        foreach (var dup in duplicates)
-        {
-            Debug.LogWarning($"[DialogueReference] 发现重复ID: {dup.Key}，共 {dup.Value.Count} 个对象");
+        // 使用唯一场景列表
+        var uniqueScenes = enabledScenes.GroupBy(s => s.path).Select(g => g.Key).ToList();
 
-            // 保留第一个，重新生成其他的ID
-            for (int i = 1; i < dup.Value.Count; i++)
+        var idRegistry = new Dictionary<string, List<(string scenePath, string objectPath)>>();
+        var currentScenes = SaveCurrentScenes();
+
+        try
+        {
+            foreach (var scenePath in uniqueScenes)
             {
-                Undo.RecordObject(dup.Value[i], "Fix Duplicate DialogueReference ID");
-                dup.Value[i].ForceRegenerateID();
-                fixedCount++;
-                Debug.Log($"[DialogueReference] 已为 '{dup.Value[i].gameObject.name}' 重新生成ID");
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                var sceneRefs = Resources.FindObjectsOfTypeAll<DialogueReference>()
+                    .Where(r => r != null && r.gameObject.scene == scene)
+                    .ToList();
+
+                foreach (var refComp in sceneRefs)
+                {
+                    string id = refComp.uniqueID;
+                    if (string.IsNullOrEmpty(id)) continue;
+
+                    string objPath = GetGameObjectPath(refComp.gameObject);
+
+                    if (!idRegistry.ContainsKey(id))
+                    {
+                        idRegistry[id] = new List<(string, string)>();
+                    }
+                    idRegistry[id].Add((scenePath, objPath));
+                }
             }
         }
-
-        EditorUtility.DisplayDialog("修复完成",
-            $"发现 {duplicates.Count} 组重复ID\n已修复 {fixedCount} 个对象", "确定");
-    }
-
-    /// <summary>
-    /// 编辑器菜单：显示当前场景所有DialogueReference的ID
-    /// </summary>
-    [MenuItem("Tools/Dialogue System/List All DialogueReference IDs")]
-    public static void ListAllIDs()
-    {
-        var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
-        var sceneRefs = allRefs.Where(r => r != null && r.gameObject.scene.IsValid()).ToList();
-
-        Debug.Log($"====== 场景中的 DialogueReference 列表 (共 {sceneRefs.Count} 个) ======");
-
-        foreach (var refComp in sceneRefs)
+        finally
         {
-            Debug.Log($"GameObject: {refComp.gameObject.name} | ID: {refComp.UniqueID} | 场景: {refComp.gameObject.scene.name}");
+            RestoreScenes(currentScenes);
         }
-    }
 
-    /// <summary>
-    /// 编辑器菜单：为所有Prefab实例重新生成ID
-    /// </summary>
-    [MenuItem("Tools/Dialogue System/Regenerate IDs for All Prefab Instances")]
-    public static void RegenerateIDsForPrefabInstances()
-    {
-        var allRefs = Resources.FindObjectsOfTypeAll<DialogueReference>();
-        var sceneRefs = allRefs.Where(r => r != null && r.gameObject.scene.IsValid()).ToList();
+        var duplicates = idRegistry.Where(kvp => kvp.Value.Count > 1).ToList();
 
-        int count = 0;
-        foreach (var refComp in sceneRefs)
+        if (duplicates.Count > 0)
         {
-            var prefabStatus = PrefabUtility.GetPrefabInstanceStatus(refComp.gameObject);
-            if (prefabStatus == PrefabInstanceStatus.Connected)
+            string errorMsg = "⚠️ ID CONFLICTS! Cannot Play!\n\nCRITICAL for DontDestroyOnLoad!\n\n";
+
+            foreach (var dup in duplicates)
             {
-                Undo.RecordObject(refComp, "Regenerate Prefab Instance ID");
-                refComp.ForceRegenerateID();
-                count++;
-                Debug.Log($"[DialogueReference] 为Prefab实例 '{refComp.gameObject.name}' 重新生成ID");
+                errorMsg += $"ID: {dup.Key.Substring(0, 8)}... ({dup.Value.Count} objects):\n";
+                foreach (var (scenePath, objPath) in dup.Value)
+                {
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+                    errorMsg += $"  - '{objPath}' [{sceneName}]\n";
+                }
+                errorMsg += "\n";
             }
-        }
 
-        if (count > 0)
-        {
-            EditorUtility.DisplayDialog("完成", $"已为 {count} 个Prefab实例重新生成ID", "确定");
-        }
-        else
-        {
-            EditorUtility.DisplayDialog("完成", "场景中没有发现Prefab实例", "确定");
+            errorMsg += "Fix: Tools > Dialogue System > Fix All Duplicate IDs";
+
+            Debug.LogError($"[DialogueReference] {errorMsg}");
+            EditorApplication.isPlaying = false;
+
+            EditorUtility.DisplayDialog("⚠️ ID Conflict!",
+                $"Found {duplicates.Count} ID conflicts!\n\nCannot enter Play Mode!\n\nCheck Console.", "OK");
         }
     }
 #endif
