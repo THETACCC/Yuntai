@@ -51,7 +51,8 @@ public class LevelManager3_4 : BaseLevelManager
 
     /// <summary>
     /// 从外部（Fungus/Trigger）调用：
-    /// 让全局灯光黑 2.5 秒（带缓入缓出），然后触发对话 Zhoushu2
+    /// 让全局灯光黑 2.5 秒（带缓入缓出），然后触发对话 Zhoushu2。
+    /// 黑着的时候锁住玩家，灯亮回来的瞬间解锁。
     /// </summary>
     public void PlayZhoushu2Blackout()
     {
@@ -69,7 +70,7 @@ public class LevelManager3_4 : BaseLevelManager
             yield break;
         }
 
-        // ✅ 黑屏开始前：锁玩家（用 BaseLevelManager 提供的接口）
+        // 黑屏开始前：锁玩家（用 BaseLevelManager 提供的接口）
         DisablePlayerMovement();
         if (Gamemanager.instance)
             Gamemanager.instance.phase = GamePhase.Eventing;

@@ -1,4 +1,5 @@
-﻿using DialogueSystem;
+﻿using System;
+using DialogueSystem;
 using Fungus;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,10 +10,13 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class CGDialogue : MonoBehaviour
 {
-    //public bool begin = false;
+    // CG 播放完的回调（例如让 LevelManager 接后续演出）
+    public Action OnCGFinished;
+
     public TextAsset dialogueJsonFile;
-    [HideInInspector]public GameObject contentParent;
+    [HideInInspector] public GameObject contentParent;
     [HideInInspector] public GameObject oneLine;
+
     private DialogueData dialogueData;
     public float durationPerLine;
     private Dictionary<int, Conversation> conversationDict = new Dictionary<int, Conversation>();
@@ -23,31 +27,34 @@ public class CGDialogue : MonoBehaviour
         UIGroup = GetComponent<CanvasGroup>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         LoadDialogueFromFile(dialogueJsonFile);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartCG()
     {
         Settings.instance.canOpenSettings = false;
+
+        // CG UI 淡入，然后开始播放第一句
         StartCoroutine(Tweening.StartTweening(
-        TweeningCurve.Linear,
+            TweeningCurve.Linear,
             durationPerLine,
-        t => UIGroup.alpha = t,
-        () =>
+            t => UIGroup.alpha = t,
+            () =>
             {
                 UIGroup.alpha = 1;
+                if (dialogueData == null || dialogueData.conversations == null ||
+                    !conversationDict.ContainsKey(dialogueData.currentIndex))
+                {
+                    Debug.LogWarning("[CGDialogue] Dialogue data is invalid, EndCG directly.");
+                    EndCG();
+                    return;
+                }
+
                 PrintNextLine(conversationDict[dialogueData.currentIndex]);
             }
-            ));
+        ));
     }
 
     public void LoadDialogueFromFile(TextAsset dialogueJsonFile)
@@ -79,6 +86,7 @@ public class CGDialogue : MonoBehaviour
         TextMeshProUGUI tmp = newLine.GetComponent<TextMeshProUGUI>();
         tmp.font = Settings.instance.fontDictionary[Settings.instance.currentLanguage];
         tmp.text = conversation.content.GetText(Settings.instance.currentLanguage);
+
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear,
             durationPerLine,
@@ -89,22 +97,38 @@ public class CGDialogue : MonoBehaviour
                 if (conversation.nextIndex != -1)
                 {
                     dialogueData.currentIndex++;
-                    PrintNextLine(conversationDict[dialogueData.currentIndex]);
-                } else
+                    if (conversationDict.TryGetValue(dialogueData.currentIndex, out var nextConv))
+                    {
+                        PrintNextLine(nextConv);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[CGDialogue] nextIndex not found in conversationDict, EndCG.");
+                        EndCG();
+                    }
+                }
+                else
                 {
+                    // 没有下一句了，结束 CG
                     EndCG();
                 }
             }
-            ));
+        ));
     }
 
     void EndCG()
     {
+        // CG UI 淡出
         StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear, 2f,
             t => UIGroup.alpha = 1 - t,
-            () => {
+            () =>
+            {
                 UIGroup.alpha = 0;
-            }));
+                Settings.instance.canOpenSettings = true;
+                // ⭐ 通知外部 “CG 完了”
+                OnCGFinished?.Invoke();
+            }
+        ));
     }
 }
