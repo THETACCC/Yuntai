@@ -59,7 +59,7 @@ public static class DialogueEventExecutor
 
     public static bool IsValidEventCall(DialogueEventCall eventCall)
     {
-        return !string.IsNullOrEmpty(eventCall.targetObjectName) &&
+        return !string.IsNullOrEmpty(eventCall.targetObjectID) &&
                !string.IsNullOrEmpty(eventCall.componentTypeName) &&
                !string.IsNullOrEmpty(eventCall.methodName);
     }

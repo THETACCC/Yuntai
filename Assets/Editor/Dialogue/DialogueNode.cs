@@ -754,17 +754,10 @@ public partial class DialogueNode : Node
             GameObject currentGameObject = null;
             bool objectFoundInScene = false;
 
-            // 优先使用ID查找
+            // 只使用ID查找
             if (!string.IsNullOrEmpty(eventCall.targetObjectID))
             {
                 currentGameObject = DialogueReference.FindByID(eventCall.targetObjectID);
-                objectFoundInScene = (currentGameObject != null);
-            }
-            // 向后兼容：如果没有ID,使用名字查找
-            else if (!string.IsNullOrEmpty(eventCall.targetObjectName))
-            {
-                var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-                currentGameObject = System.Array.Find(allObjects, obj => obj.name == eventCall.targetObjectName && obj.scene.IsValid());
                 objectFoundInScene = (currentGameObject != null);
             }
 
