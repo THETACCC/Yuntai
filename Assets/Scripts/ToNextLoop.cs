@@ -25,6 +25,9 @@ public class ToNextLoop : MonoBehaviour
     [Tooltip("是否允许按任意键跳过动画。")]
     public bool allowSkipWithAnyKey = false;
 
+    [Header("Sound")]
+    public AudioSource DeathAnimationSound;
+
     [Header("Debug")]
     public bool verboseLog = false;
 
@@ -32,6 +35,7 @@ public class ToNextLoop : MonoBehaviour
 
     public void toNextLoop()
     {
+        DeathAnimationSound.Play();
         if (_runCo != null) return;
         _runCo = StartCoroutine(WaitForAnimationAndLoad());
     }

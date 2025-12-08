@@ -78,7 +78,7 @@ public class LevelManager1_2 : BaseLevelManager
     [SerializeField] private AudioSource snd_breakBones2;
     [SerializeField] private AudioSource snd_breakBones3;
     [SerializeField] private AudioSource snd_boyJump;
-
+    [SerializeField] private AudioSource snd_JumpScareSound;
     // —— 乘务员扭头图 —— 
     [Header("【演绎5B】乘务员扭头 Sprite")]
     [SerializeField] private SpriteRenderer stewardessRenderer;
@@ -305,6 +305,8 @@ public class LevelManager1_2 : BaseLevelManager
 
         // Step 1
         if (snd_breakBones) snd_breakBones.Play();
+        if (snd_JumpScareSound) snd_JumpScareSound.Play();
+        
         yield return PulseOnce(
             lights, original,
             flickerOffTime, flickerOnTime,
