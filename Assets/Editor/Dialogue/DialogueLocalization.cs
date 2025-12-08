@@ -132,6 +132,67 @@ namespace DialogueSystem
         }
 
         /// <summary>
+        /// 将CSV内容正确分割成行 - 支持引号内的换行符
+        /// </summary>
+        private static string[] SplitCsvIntoRows(string csvContent)
+        {
+            List<string> rows = new List<string>();
+            string currentRow = "";
+            bool inQuotes = false;
+
+            for (int i = 0; i < csvContent.Length; i++)
+            {
+                char c = csvContent[i];
+                char nextChar = (i + 1 < csvContent.Length) ? csvContent[i + 1] : '\0';
+
+                if (c == '"')
+                {
+                    if (inQuotes && nextChar == '"')
+                    {
+                        // 转义的引号（两个连续引号 ""）
+                        currentRow += c;
+                        currentRow += nextChar;
+                        i++; // 跳过下一个引号
+                    }
+                    else
+                    {
+                        // 切换引号状态
+                        inQuotes = !inQuotes;
+                        currentRow += c;
+                    }
+                }
+                else if ((c == '\r' || c == '\n') && !inQuotes)
+                {
+                    // 行结束（不在引号内）
+                    if (c == '\r' && nextChar == '\n')
+                    {
+                        i++; // 跳过\n
+                    }
+
+                    // 添加这一行（如果不为空）
+                    if (!string.IsNullOrEmpty(currentRow.Trim()))
+                    {
+                        rows.Add(currentRow);
+                    }
+                    currentRow = "";
+                }
+                else
+                {
+                    // 普通字符（包括引号内的换行符）
+                    currentRow += c;
+                }
+            }
+
+            // 处理最后一行
+            if (!string.IsNullOrEmpty(currentRow.Trim()))
+            {
+                rows.Add(currentRow);
+            }
+
+            return rows.ToArray();
+        }
+
+        /// <summary>
         /// 解析CSV数据 - 格式: ID, 中文, English, 日语
         /// </summary>
         private static bool ParseCsvData(string csvContent, out string error)
@@ -149,7 +210,8 @@ namespace DialogueSystem
             {
                 Debug.Log($"[DialogueLocalization] CSV原始内容前200字符:\n{csvContent.Substring(0, Mathf.Min(200, csvContent.Length))}");
 
-                string[] lines = csvContent.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                // 使用支持跨行引号的分割方法
+                string[] lines = SplitCsvIntoRows(csvContent);
 
                 Debug.Log($"[DialogueLocalization] CSV总行数: {lines.Length}");
 
@@ -373,7 +435,7 @@ namespace DialogueSystem
         {
             EditorApplication.CallbackFunction update = null;
             object current = null;
-            
+
             update = () =>
             {
                 try
@@ -386,10 +448,10 @@ namespace DialogueSystem
                             return; // 继续等待
                         }
                     }
-                    
+
                     // 继续执行协程
                     bool hasNext = routine.MoveNext();
-                    
+
                     if (!hasNext)
                     {
                         // 协程结束
@@ -407,7 +469,7 @@ namespace DialogueSystem
                     EditorApplication.update -= update;
                 }
             };
-            
+
             EditorApplication.update += update;
         }
     }

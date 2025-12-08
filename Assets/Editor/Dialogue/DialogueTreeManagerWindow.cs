@@ -1294,11 +1294,17 @@ public class DialogueTreeManagerWindow : EditorWindow
             string savePath = GetCharacterLibraryPath();
             string newJson = JsonUtility.ToJson(characterLibrary, true).Trim();
 
+            // 强制统一换行符为 LF（Unix格式）
+            newJson = newJson.Replace("\r\n", "\n");
+
             // 只有在内容真正改变时才写入文件
             bool needsSave = true;
             if (File.Exists(savePath))
             {
                 string existingJson = File.ReadAllText(savePath);
+                // 也统一现有文件的换行符来比较
+                existingJson = existingJson.Replace("\r\n", "\n");
+
                 if (existingJson == newJson)
                 {
                     needsSave = false;
@@ -1313,7 +1319,9 @@ public class DialogueTreeManagerWindow : EditorWindow
                     Directory.CreateDirectory(folder);
                 }
 
-                File.WriteAllText(savePath, newJson, System.Text.Encoding.UTF8);
+                // 使用 UTF8 without BOM，并确保换行符一致
+                System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                File.WriteAllText(savePath, newJson, utf8WithoutBom);
                 Debug.Log("[Manager] Character library saved (content changed)");
             }
         }
@@ -1330,11 +1338,17 @@ public class DialogueTreeManagerWindow : EditorWindow
             string savePath = GetCharacterLibraryPath();
             string newJson = JsonUtility.ToJson(characterLibrary, true).Trim();
 
+            // 强制统一换行符为 LF（Unix格式）
+            newJson = newJson.Replace("\r\n", "\n");
+
             // 只有在内容真正改变时才写入文件
             bool needsSave = true;
             if (File.Exists(savePath))
             {
                 string existingJson = File.ReadAllText(savePath);
+                // 也统一现有文件的换行符来比较
+                existingJson = existingJson.Replace("\r\n", "\n");
+
                 if (existingJson == newJson)
                 {
                     needsSave = false;
@@ -1349,7 +1363,9 @@ public class DialogueTreeManagerWindow : EditorWindow
                     Directory.CreateDirectory(folder);
                 }
 
-                File.WriteAllText(savePath, newJson, System.Text.Encoding.UTF8);
+                // 使用 UTF8 without BOM，并确保换行符一致
+                System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                File.WriteAllText(savePath, newJson, utf8WithoutBom);
                 Debug.Log("[Manager] Character library saved (content changed)");
 
                 EditorApplication.delayCall += () =>
@@ -1446,11 +1462,17 @@ public class DialogueTreeManagerWindow : EditorWindow
             string savePath = GetCharacterFolderStructurePath();
             string newJson = JsonUtility.ToJson(characterFolderData, true).Trim();
 
+            // 强制统一换行符为 LF（Unix格式）
+            newJson = newJson.Replace("\r\n", "\n");
+
             // 只有在内容真正改变时才写入文件
             bool needsSave = true;
             if (File.Exists(savePath))
             {
                 string existingJson = File.ReadAllText(savePath);
+                // 也统一现有文件的换行符来比较
+                existingJson = existingJson.Replace("\r\n", "\n");
+
                 if (existingJson == newJson)
                 {
                     needsSave = false;
@@ -1465,7 +1487,9 @@ public class DialogueTreeManagerWindow : EditorWindow
                     Directory.CreateDirectory(folder);
                 }
 
-                File.WriteAllText(savePath, newJson, System.Text.Encoding.UTF8);
+                // 使用 UTF8 without BOM，并确保换行符一致
+                System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                File.WriteAllText(savePath, newJson, utf8WithoutBom);
                 Debug.Log("[Manager] Character folder structure saved (content changed)");
             }
         }
@@ -1738,7 +1762,10 @@ public class DialogueTreeManagerWindow : EditorWindow
         }
         formattedJson += "  ],\n  \"currentIndex\": 0\n}";
 
-        File.WriteAllText(jsonPath, formattedJson, System.Text.Encoding.UTF8);
+        // 统一使用 LF 换行符和 UTF8 without BOM
+        formattedJson = formattedJson.Replace("\r\n", "\n");
+        System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+        File.WriteAllText(jsonPath, formattedJson, utf8WithoutBom);
     }
 
     #endregion
@@ -2382,12 +2409,15 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 保存 .dtree 文件
             string json = JsonUtility.ToJson(emptyTree, true).Trim();
-            File.WriteAllText(savePath, json, System.Text.Encoding.UTF8);
+            // 统一使用 LF 换行符和 UTF8 without BOM
+            json = json.Replace("\r\n", "\n");
+            System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+            File.WriteAllText(savePath, json, utf8WithoutBom);
 
             // 创建对应的 .json 运行时文件
             string jsonPath = Path.ChangeExtension(savePath, ".json");
             string runtimeJson = "{\n  \"conversations\": [\n    {\n      \"index\": 0,\n      \"name\": \"\",\n      \"avatarAddr\": \"\",\n      \"isPlayer\": false,\n      \"content\": \"Start dialogue here...\",\n      \"nextIndex\": -1,\n      \"choices\": [],\n      \"eventCalls\": [],\n      \"conditionalBranches\": []\n    }\n  ],\n  \"currentIndex\": 0\n}";
-            File.WriteAllText(jsonPath, runtimeJson, System.Text.Encoding.UTF8);
+            File.WriteAllText(jsonPath, runtimeJson, utf8WithoutBom);
 
             // 刷新资源
             AssetDatabase.Refresh();
@@ -2522,11 +2552,17 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             string newJson = JsonUtility.ToJson(folderData, true).Trim();
 
+            // 强制统一换行符为 LF（Unix格式）
+            newJson = newJson.Replace("\r\n", "\n");
+
             // 只有在内容真正改变时才写入文件
             bool needsSave = true;
             if (File.Exists(savePath))
             {
                 string existingJson = File.ReadAllText(savePath);
+                // 也统一现有文件的换行符来比较
+                existingJson = existingJson.Replace("\r\n", "\n");
+
                 if (existingJson == newJson)
                 {
                     needsSave = false;
@@ -2541,7 +2577,9 @@ public class DialogueTreeManagerWindow : EditorWindow
                     Directory.CreateDirectory(folder);
                 }
 
-                File.WriteAllText(savePath, newJson, System.Text.Encoding.UTF8);
+                // 使用 UTF8 without BOM，并确保换行符一致
+                System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                File.WriteAllText(savePath, newJson, utf8WithoutBom);
                 Debug.Log("[Manager] Folder structure saved (content changed)");
             }
         }
@@ -3348,7 +3386,10 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             // 保存文件
             string updatedJson = JsonUtility.ToJson(treeData, true).Trim();
-            File.WriteAllText(dtreePath, updatedJson, System.Text.Encoding.UTF8);
+            // 统一使用 LF 换行符和 UTF8 without BOM
+            updatedJson = updatedJson.Replace("\r\n", "\n");
+            System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+            File.WriteAllText(dtreePath, updatedJson, utf8WithoutBom);
 
             return true;
         }
@@ -3478,7 +3519,10 @@ public class DialogueTreeManagerWindow : EditorWindow
                 Directory.CreateDirectory(folder);
             }
 
-            File.WriteAllText(path, json, System.Text.Encoding.UTF8);
+            // 统一使用 LF 换行符和 UTF8 without BOM
+            json = json.Replace("\r\n", "\n");
+            System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+            File.WriteAllText(path, json, utf8WithoutBom);
         }
         catch (Exception e)
         {
