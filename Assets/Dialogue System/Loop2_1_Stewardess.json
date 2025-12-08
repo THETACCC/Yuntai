@@ -38,21 +38,22 @@
     {
       "index": 3,
       "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
+        "en": "Veris",
+        "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "isPlayer": false,
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
       "content": {
-        "en": "......",
-        "zh": "......",
+        "en": "You’ve been standing here for quite a while... may I ask—",
+        "zh": "您似乎已经在这里站了好一阵了，请问——",
         "ja": ""
       },
-      "nextIndex": 4,
+      "nextIndex": 15,
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoFourTrue",
@@ -61,7 +62,7 @@
           "intParameter": 0,
           "floatParameter": 0,
           "boolParameter": false,
-          "triggerOnEnd": false
+          "triggerTiming": 0
         }
       ]
     },
@@ -93,7 +94,7 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "Oh, I don’t know, ma’am. It’s just that our glorious chief attendant suddenly ordered me to stand here on standby. I’m not allowed to leave until she gets back to me.",
+        "en": "Oh, I wouldn’t know, miss. Our highly esteemed chief attendant suddenly ordered me to stand here on standby. Until she responds, I absolutely cannot leave my post.",
         "zh": "我也不知道呢这位女士。只是我们尊敬的乘务长大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
         "ja": ""
       },
@@ -111,7 +112,7 @@
       "avatarAddr": "DialogueImages/何以真_惊恐",
       "isPlayer": true,
       "content": {
-        "en": "(She’s literally grinding her teeth...)",
+        "en": "(She’s speaking through clenched teeth...)",
         "zh": "（她在咬着牙说话......）",
         "ja": ""
       },
@@ -129,7 +130,7 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "(Better not push this any further.)",
+        "en": "(Better drop the subject.)",
         "zh": "（还是结束这个话题吧。）",
         "ja": ""
       },
@@ -166,7 +167,7 @@
       "isPlayer": false,
       "content": {
         "en": "......",
-        "zh": "......",
+        "zh": "…...",
         "ja": ""
       },
       "nextIndex": 10,
@@ -219,8 +220,8 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "The restroom for economy is <color=red>waaay down at the other end</color>, dear.",
-        "zh": "经济舱的洗手间，在<color=red>另一边最远处</color>哦。",
+        "en": "The restroom for economy is waaay down at the other end, dear.",
+        "zh": "经济舱的洗手间，在另一边最远处哦。",
         "ja": ""
       },
       "nextIndex": 13,
@@ -238,7 +239,7 @@
       "isPlayer": true,
       "content": {
         "en": "(What exactly happened when the lights dimmed earlier? How did she end up like that?)",
-        "zh": "",
+        "zh": "（她看起来一如既往的刻薄。之前灯光暗下来的时候到底发生了什么，她为什么会变成那副样子？）",
         "ja": ""
       },
       "nextIndex": 14,
@@ -256,10 +257,28 @@
       "isPlayer": false,
       "content": {
         "en": "Ma’am? If you’re going to zone out, could you please move somewhere that’s not in the way?",
-        "zh": "",
+        "zh": "女士？要发呆的话，请到不那么挡路的地方去好吗？",
         "ja": ""
       },
       "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
+    },
+    {
+      "index": 15,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "......",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": 4,
       "choices": [],
       "eventCalls": []
     }
