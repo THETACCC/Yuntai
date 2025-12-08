@@ -1,8 +1,11 @@
-﻿using MoreMountains.Tools;
+﻿using Fungus;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class CG_Manager : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class CG_Manager : MonoBehaviour
     [Header("Next Scene")]
     public string scenename;
     public int SpawnPointLocation;
+    public Image chapterSwitch;
 
     [Header("Video Settings")]
     [Tooltip("Assign your Video Player component here.")]
@@ -63,7 +67,37 @@ public class CG_Manager : MonoBehaviour
     {
         if (_sceneLoaded) return;    // 避免 double space 已经触发过
         Debug.Log("[CG_Manager] Video has finished playing.");
-        SkipToNextScene();
+        // 可选：先停掉视频
+        if (videoPlayer != null && videoPlayer.isPlaying)
+        {
+            videoPlayer.Stop();
+        }
+
+        //如果有章节切换，先显示章节切换然后再换场景
+        if (chapterSwitch == null)
+        {
+            SkipToNextScene();
+        } else
+        {
+            StartCoroutine(Tweening.StartTweening(
+            TweeningCurve.Linear,
+            3f,
+            t => chapterSwitch.color = new Color(chapterSwitch.color.r, chapterSwitch.color.g, chapterSwitch.color.b, t),
+            () =>
+            {
+                StartCoroutine(Tweening.StartTweening(
+                    TweeningCurve.Linear, 
+                    2f,
+                    t => chapterSwitch.color = new Color(chapterSwitch.color.r, chapterSwitch.color.g, chapterSwitch.color.b, 1 - t),
+                    () =>
+                    {
+                        SkipToNextScene();
+                    }
+                ));
+            }
+        ));
+        }
+        
     }
 
     /// <summary>
@@ -72,12 +106,6 @@ public class CG_Manager : MonoBehaviour
     private void SkipToNextScene()
     {
         _sceneLoaded = true;
-
-        // 可选：先停掉视频
-        if (videoPlayer != null && videoPlayer.isPlaying)
-        {
-            videoPlayer.Stop();
-        }
 
         if (SceneController.instance != null)
         {
@@ -88,6 +116,8 @@ public class CG_Manager : MonoBehaviour
             Debug.LogError("[CG_Manager] SceneController.instance is null, cannot load scene.");
         }
     }
+
+
 
     // Optional: Clean up event subscription
     private void OnDestroy()
