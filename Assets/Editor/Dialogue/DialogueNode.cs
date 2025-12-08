@@ -811,7 +811,8 @@ public partial class DialogueNode : Node
                         EventCalls[currentIndex].targetObjectID = "";
                         EventCalls[currentIndex].targetObjectName = "";
                     }
-                    UpdateEventsDisplay();
+                    // 修复：移除UpdateEventsDisplay()调用，避免在选择GameObject时重建UI导致选择被取消
+                    // UpdateEventsDisplay();
                     NotifyChange();
                 }
             });
