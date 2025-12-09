@@ -11,8 +11,8 @@
                 "zh": "（之前没能和这个人对话，而灯暗下来后她就消失了。）",
                 "ja": ""
             },
-            "positionX": -1934.0,
-            "positionY": 261.0,
+            "positionX": -1933.60009765625,
+            "positionY": 260.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,7 +28,7 @@
                 "zh": "谢谢你！",
                 "ja": ""
             },
-            "positionX": 997.0,
+            "positionX": 997.6000366210938,
             "positionY": 256.0,
             "choices": [],
             "eventCalls": [
@@ -98,7 +98,7 @@
                 "zh": "你想知道什么？",
                 "ja": ""
             },
-            "positionX": 1398.0,
+            "positionX": 1398.39990234375,
             "positionY": 260.0,
             "choices": [
                 {
@@ -197,7 +197,7 @@
                 "ja": ""
             },
             "positionX": 1880.0,
-            "positionY": 232.0,
+            "positionY": 232.00001525878907,
             "choices": [],
             "eventCalls": [
                 {
@@ -372,8 +372,8 @@
                 "zh": "饿...我好饿...饿...",
                 "ja": ""
             },
-            "positionX": -198.0,
-            "positionY": 262.0,
+            "positionX": -197.60000610351563,
+            "positionY": 261.5999755859375,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -389,8 +389,8 @@
                 "zh": "唔~~",
                 "ja": ""
             },
-            "positionX": -1551.0,
-            "positionY": 261.0,
+            "positionX": -1550.4000244140625,
+            "positionY": 260.79998779296877,
             "choices": [],
             "eventCalls": [
                 {
@@ -420,42 +420,8 @@
                 "zh": "您好，请问——",
                 "ja": ""
             },
-            "positionX": -1195.0,
-            "positionY": 261.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
-            "index": 11,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
-            "useContentId": true,
-            "contentId": "ch1_2019",
-            "content": {
-                "en": "I’m sorry, what did you say?",
-                "zh": "您说什么？我没有听清。",
-                "ja": ""
-            },
-            "positionX": -515.0,
-            "positionY": 261.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
-            "index": 13,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": true,
-            "contentId": "ch1_2021",
-            "content": {
-                "en": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
-                "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
-                "ja": ""
-            },
-            "positionX": 122.0,
-            "positionY": 260.0,
+            "positionX": -1194.4000244140625,
+            "positionY": 260.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -471,8 +437,25 @@
                 "zh": "呃——",
                 "ja": ""
             },
-            "positionX": -842.0,
-            "positionY": 261.0,
+            "positionX": -841.5999755859375,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "index": 11,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2019",
+            "content": {
+                "en": "I’m sorry, what did you say?",
+                "zh": "您说什么？我没有听清。",
+                "ja": ""
+            },
+            "positionX": -514.3999633789063,
+            "positionY": 260.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -543,8 +526,51 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoThreeTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "index": 13,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": true,
+            "contentId": "ch1_2021",
+            "content": {
+                "en": "The flight attendant who’s supposed to bring the meals… she still hasn’t come... I’m really… starving...",
+                "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
+                "ja": ""
+            },
+            "positionX": 122.39999389648438,
+            "positionY": 260.0,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
