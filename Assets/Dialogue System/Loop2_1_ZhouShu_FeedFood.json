@@ -14,9 +14,7 @@
         "zh": "打扰了。这个是我从乘务员小姐那里要来的，不介意的话，你先拿去吃吧？",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 1,
@@ -34,80 +32,31 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "",
             "zh": "",
             "ja": ""
-          },
-          "targetIndex": 2,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv5",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 2, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv5", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "",
             "zh": "",
             "ja": ""
-          },
-          "targetIndex": 3,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv6",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 3, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv6", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "",
             "zh": "",
             "ja": ""
-          },
-          "targetIndex": 4,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv7",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 4, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv7", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "",
             "zh": "",
             "ja": ""
-          },
-          "targetIndex": 5,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_AllConv",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        }
-      ],
-      "eventCalls": []
+          }, "targetIndex": 5, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_AllConv", "comparison": "Equal", "compareValue": "True"}], "conditionLogic": "AND"}
+      ]
     },
     {
       "index": 2,
@@ -124,32 +73,9 @@
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoFiveTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv5",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoFiveTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv5", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -167,32 +93,9 @@
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoSixTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv6",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoSixTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv6", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -210,32 +113,9 @@
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoSevenTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv7",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoSevenTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv7", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -253,32 +133,9 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "BlinkThenDim",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "WorkerChangeAndOpenTrigger",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "BlinkThenDim", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "WorkerChangeAndOpenTrigger", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -292,12 +149,10 @@
       "isPlayer": true,
       "content": {
         "en": "I’m Page from Jinlan Temple in Yuntai. Thank you so much for saving me! May I ask your name?",
-        "zh": "我是芸台<color=red>金兰观的周书</color>，非常感谢你的搭救！可以请教你的姓名吗？",
+        "zh": "我是芸台<color=orange>金兰观的周书</color>，非常感谢你的搭救！可以请教你的姓名吗？",
         "ja": ""
       },
-      "nextIndex": 39,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 39
     },
     {
       "index": 7,
@@ -313,9 +168,7 @@
         "zh": "啊？啊啊！是飞机餐！真的吗？太感谢你了！",
         "ja": ""
       },
-      "nextIndex": 8,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 8
     },
     {
       "index": 8,
@@ -331,9 +184,7 @@
         "zh": "（她吃东西的速度好快，一眨眼的功夫食物就都消失了。）",
         "ja": ""
       },
-      "nextIndex": 9,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 9
     },
     {
       "index": 9,
@@ -349,9 +200,7 @@
         "zh": "呼~活过来了！之前为了赶飞机没来得及吃东西，回过神来的时候就已经饿的神志不清了。",
         "ja": ""
       },
-      "nextIndex": 10,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 10
     },
     {
       "index": 10,
@@ -367,9 +216,7 @@
         "zh": "啊！不好意思啊！刚才只顾着吃，把你晾在一边了！",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     },
     {
       "index": 11,
@@ -387,56 +234,21 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "What is this Jinlan Temple you mentioned?",
             "zh": "请问，你说的金兰观是？",
             "ja": ""
-          },
-          "targetIndex": 12,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv5",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 12, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv5", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "That’s a very unique outfit...",
             "zh": "很有特色的穿着......",
             "ja": ""
-          },
-          "targetIndex": 22,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv6",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        }
+          }, "targetIndex": 22, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv6", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"}
       ],
       "eventCalls": [
-        {
-          "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetGotFoodTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetGotFoodTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -450,36 +262,13 @@
       "isPlayer": true,
       "content": {
         "en": "May I ask, the Jinlan Temple you mentioned earlier—is that where you work?",
-        "zh": "请问刚才提到的<color=red>金兰观</color>，是你工作的地方吗？",
+        "zh": "请问刚才提到的<color=orange>金兰观</color>，是你工作的地方吗？",
         "ja": ""
       },
       "nextIndex": 13,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "",
-          "targetObjectName": "",
-          "componentTypeName": "",
-          "methodName": "",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv5",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "", "targetObjectName": "", "componentTypeName": "", "methodName": "", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv5", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -496,9 +285,7 @@
         "zh": "唔~算是吧，其实更像是我家，因为是我从小长大的地方。",
         "ja": ""
       },
-      "nextIndex": 14,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 14
     },
     {
       "index": 14,
@@ -514,9 +301,7 @@
         "zh": "原来如此，我对芸台的本地文化不太了解，这里有很多这样的道观吗？",
         "ja": ""
       },
-      "nextIndex": 15,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 15
     },
     {
       "index": 15,
@@ -532,9 +317,7 @@
         "zh": "那倒不是，我们应该算是市里独大的道派。而且金兰观好像在芸台建市之初就已经存在了，算是很有历史的道观了。",
         "ja": ""
       },
-      "nextIndex": 16,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 16
     },
     {
       "index": 16,
@@ -550,9 +333,7 @@
         "zh": "听起来很了不起。",
         "ja": ""
       },
-      "nextIndex": 17,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 17
     },
     {
       "index": 17,
@@ -568,9 +349,7 @@
         "zh": "没有啦~其实从我记事起，道观就一直没多少人来。师父说这是因为什么......文化偏移，还是什么东西......",
         "ja": ""
       },
-      "nextIndex": 18,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 18
     },
     {
       "index": 18,
@@ -586,9 +365,7 @@
         "zh": "反正现在年轻人里拜双星的人根本没几个，道观其实也算是没落了吧。",
         "ja": ""
       },
-      "nextIndex": 19,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 19
     },
     {
       "index": 19,
@@ -604,9 +381,7 @@
         "zh": "这样啊...",
         "ja": ""
       },
-      "nextIndex": 20,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 20
     },
     {
       "index": 20,
@@ -622,9 +397,7 @@
         "zh": "啊！不用担心啦，再怎么落魄也不会倒闭的，怎么着也算是历史古迹呢！",
         "ja": ""
       },
-      "nextIndex": 40,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 40
     },
     {
       "index": 21,
@@ -641,27 +414,10 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 31,
-          "priority": 1,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv6",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 11,
-          "priority": 0
-        }
-      ],
-      "choices": [],
-      "eventCalls": []
+        {"targetIndex": 31, "priority": 1, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv6", "comparison": "Equal", "compareValue": "True"}], "conditionLogic": "AND"},
+        {"targetIndex": 11, "priority": 0}
+      ]
     },
     {
       "index": 22,
@@ -678,20 +434,8 @@
         "ja": ""
       },
       "nextIndex": 23,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv6",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv6", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -708,9 +452,7 @@
         "zh": "对啊，我是道士嘛！不过其实也没有要求说一直穿着的，但我觉得道袍穿着很舒服，所以就一直这样穿了。",
         "ja": ""
       },
-      "nextIndex": 24,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 24
     },
     {
       "index": 24,
@@ -726,9 +468,7 @@
         "zh": "纹秋市里从来没有道士呢，我有些好奇，道士的生活是什么样的？",
         "ja": ""
       },
-      "nextIndex": 25,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 25
     },
     {
       "index": 25,
@@ -744,9 +484,7 @@
         "zh": "也没什么特别的吧，我们道派本来算是偏向术法符文专精的，但我实在学不来那些弯弯绕绕的仪式法咒。",
         "ja": ""
       },
-      "nextIndex": 26,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 26
     },
     {
       "index": 26,
@@ -762,9 +500,7 @@
         "zh": "不过我身体素质很好，所以基本就一直在炼体和练剑来着......",
         "ja": ""
       },
-      "nextIndex": 27,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 27
     },
     {
       "index": 27,
@@ -780,9 +516,7 @@
         "zh": "有点听不明白......",
         "ja": ""
       },
-      "nextIndex": 28,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 28
     },
     {
       "index": 28,
@@ -798,9 +532,7 @@
         "zh": "啊不好意思！一直跟你唠叨乱七八糟的东西！其实大部分时间还是在做收门票一类的杂活啦！",
         "ja": ""
       },
-      "nextIndex": 29,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 29
     },
     {
       "index": 29,
@@ -816,9 +548,7 @@
         "zh": "因为我记不住什么历史，所以没法给游客当导游。",
         "ja": ""
       },
-      "nextIndex": 41,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 41
     },
     {
       "index": 30,
@@ -835,27 +565,10 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 31,
-          "priority": 1,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "isZhouShu_Conv5",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 11,
-          "priority": 0
-        }
-      ],
-      "choices": [],
-      "eventCalls": []
+        {"targetIndex": 31, "priority": 1, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "isZhouShu_Conv5", "comparison": "Equal", "compareValue": "True"}], "conditionLogic": "AND"},
+        {"targetIndex": 11, "priority": 0}
+      ]
     },
     {
       "index": 31,
@@ -872,20 +585,8 @@
         "ja": ""
       },
       "nextIndex": 32,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetZhouShuConv7",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetZhouShuConv7", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -902,9 +603,7 @@
         "zh": "你之前提到过的炼体，是指锻炼身体一类吗？",
         "ja": ""
       },
-      "nextIndex": 33,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 33
     },
     {
       "index": 33,
@@ -920,9 +619,7 @@
         "zh": "差不多吧！也包括格斗术之类的练习就是了。",
         "ja": ""
       },
-      "nextIndex": 34,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 34
     },
     {
       "index": 34,
@@ -938,9 +635,7 @@
         "zh": "（我应该把之前梦里看到过的情景告诉她，哪怕只是以防万一。）",
         "ja": ""
       },
-      "nextIndex": 35,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 35
     },
     {
       "index": 35,
@@ -956,9 +651,7 @@
         "zh": "虽然听起来很荒唐，但是我之前好像在前面的机舱看到了一些奇怪的......人。",
         "ja": ""
       },
-      "nextIndex": 36,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 36
     },
     {
       "index": 36,
@@ -974,9 +667,7 @@
         "zh": "啊？是什么样子的？",
         "ja": ""
       },
-      "nextIndex": 37,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 37
     },
     {
       "index": 37,
@@ -992,9 +683,7 @@
         "zh": "是一些关节处很僵硬，会像人偶一样转动身体，脸上还挂着奇怪笑容的人。",
         "ja": ""
       },
-      "nextIndex": 38,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 38
     },
     {
       "index": 38,
@@ -1011,20 +700,8 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "BlinkThenDim",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 2
-        }
+        {"targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "BlinkThenDim", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2
       ]
     },
     {
@@ -1041,9 +718,7 @@
         "zh": "不用客气，你没事就好。我是何以真，来自纹秋市。",
         "ja": ""
       },
-      "nextIndex": 11,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 11
     },
     {
       "index": 40,
@@ -1059,9 +734,7 @@
         "zh": "师父之前也在考虑提高门票的事，我觉得涨到10块就能解决问题了！",
         "ja": ""
       },
-      "nextIndex": 21,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 21
     },
     {
       "index": 41,
@@ -1077,9 +750,7 @@
         "zh": "结果明明我算是观内弟子里辈分最大的，却基本上每天都在做杂活，还有当苦力搬东西......",
         "ja": ""
       },
-      "nextIndex": 30,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 30
     }
   ],
   "currentIndex": 0

@@ -14,9 +14,7 @@
         "zh": "！！！",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 1,
@@ -32,9 +30,7 @@
         "zh": "怎...怎么回事？",
         "ja": ""
       },
-      "nextIndex": 2,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 2
     },
     {
       "index": 2,
@@ -50,9 +46,7 @@
         "zh": "（灯光是亮着的，乘务员小姐看上去也很正常。）",
         "ja": ""
       },
-      "nextIndex": 3,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 3
     },
     {
       "index": 3,
@@ -68,9 +62,7 @@
         "zh": "是我做了噩梦？",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -86,9 +78,7 @@
         "zh": "（可那些人的脸，还有那种疼痛......太真实了，我现在都还忘不掉，这难道全部都是梦吗？）",
         "ja": ""
       },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 5
     },
     {
       "index": 5,
@@ -105,80 +95,13 @@
         "ja": ""
       },
       "nextIndex": 7,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "enableNoteBook",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff",
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "9a0f4bbf-af8c-412a-b0fd-41b55091e8b4",
-          "targetObjectName": "Event1_Dream",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
-          "targetObjectName": "ObjectiveTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222",
-          "targetObjectName": "Objective1",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "enableNoteBook", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "9a0f4bbf-af8c-412a-b0fd-41b55091e8b4", "targetObjectName": "Event1_Dream", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222", "targetObjectName": "Objective1", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -195,9 +118,7 @@
         "zh": "这不是我的笔迹，不对，这根本就是印刷体。。",
         "ja": ""
       },
-      "nextIndex": 8,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 8
     },
     {
       "index": 7,
@@ -213,9 +134,7 @@
         "zh": "奇怪？之前的笔记本写满了，这个明明是我来芸台前新买的，为什么会有字？",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     },
     {
       "index": 8,
@@ -227,13 +146,11 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "GUIDE: Press <color=red>TAB</color> to open the notebook when not in conversation",
-        "zh": "提示：退出对话后，按<color=red>TAB</color>键打开笔记本",
+        "en": "GUIDE: Press <color=orange>TAB</color> to open the notebook when not in conversation",
+        "zh": "提示：退出对话后，按<color=orange>TAB</color>键打开笔记本",
         "ja": ""
       },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": -1
     }
   ],
   "currentIndex": 0
