@@ -18,92 +18,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
-            "index": 1,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_2024",
-            "content": {
-                "en": "(They seem to be locals returning from a trip. They probably know a bit about what’s going on in Yuntai. I could use this chance to ask about the city.)",
-                "zh": "（他们似乎是旅游回来的本地居民，对芸台市的近况较为了解。 我可以趁机打听一些当地的事。）",
-                "ja": ""
-            },
-            "positionX": 4105.60009765625,
-            "positionY": 357.5999755859375,
-            "choices": [
-                {
-                    "useTextId": true,
-                    "textId": "ch1_2025",
-                    "text": {
-                        "en": "About this \"<color=red>Troupe Elysium</color>\"...",
-                        "zh": "关于这个“<color=red>极乐戏团</color>”...",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoPassA_1",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": true,
-                    "textId": "ch1_2026",
-                    "text": {
-                        "en": "What is the <color=red>festival</color>?",
-                        "zh": "您提到的<color=red>大会</color>是指？",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoPassA_2",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": true,
-                    "textId": "ch1_2027",
-                    "text": {
-                        "en": "Thank you for telling me all this.",
-                        "zh": "非常感谢您告诉我这些事。（结束对话）",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoPassA_1",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        },
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "infoPassA_2",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
             "index": 2,
             "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
@@ -272,7 +186,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "0a8f5e4a-4a4a-428a-9810-b60d439a9849",
+                    "targetObjectID": "3a3b8781-76aa-4d0b-82d4-cd7194c09d95",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -303,7 +217,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "0a8f5e4a-4a4a-428a-9810-b60d439a9849",
+                    "targetObjectID": "3a3b8781-76aa-4d0b-82d4-cd7194c09d95",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -334,7 +248,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "0a8f5e4a-4a4a-428a-9810-b60d439a9849",
+                    "targetObjectID": "3a3b8781-76aa-4d0b-82d4-cd7194c09d95",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -976,6 +890,92 @@
             "positionX": 6709.60009765625,
             "positionY": 1116.0,
             "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2024",
+            "content": {
+                "en": "(They seem to be locals returning from a trip. They probably know a bit about what’s going on in Yuntai. I could use this chance to ask about the city.)",
+                "zh": "（他们似乎是旅游回来的本地居民，对芸台市的近况较为了解。 我可以趁机打听一些当地的事。）",
+                "ja": ""
+            },
+            "positionX": 4105.60009765625,
+            "positionY": 357.5999755859375,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2025",
+                    "text": {
+                        "en": "About this \"<color=red>Troupe Elysium</color>\"...",
+                        "zh": "关于这个“<color=red>极乐戏团</color>”...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2026",
+                    "text": {
+                        "en": "What is the <color=red>festival</color>?",
+                        "zh": "您提到的<color=red>大会</color>是指？",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2027",
+                    "text": {
+                        "en": "Thank you for telling me all this.",
+                        "zh": "非常感谢您告诉我这些事。（结束对话）",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": [],
             "conditionalBranches": []
         }
