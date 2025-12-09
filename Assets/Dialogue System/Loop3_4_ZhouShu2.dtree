@@ -11,7 +11,7 @@
                 "zh": "东西都齐了，幸好帮了那位摊主还有那个工作人员。",
                 "ja": ""
             },
-            "positionX": 7494.66650390625,
+            "positionX": 7495.0,
             "positionY": 184.0,
             "choices": [],
             "eventCalls": [],
@@ -29,7 +29,7 @@
                 "ja": ""
             },
             "positionX": 7824.0,
-            "positionY": 185.3333282470703,
+            "positionY": 185.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,7 +45,7 @@
                 "zh": "刚才我在周边遇到了一位本地木偶匠人，他用来制作木偶的丝线和我之前在飞机上看到的非常类似。",
                 "ja": ""
             },
-            "positionX": 8141.3330078125,
+            "positionX": 8141.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -63,7 +63,7 @@
                 "ja": ""
             },
             "positionX": 8472.0,
-            "positionY": 186.6666717529297,
+            "positionY": 187.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -79,10 +79,50 @@
                 "zh": "对了，那些人身体里被植入了丝线！",
                 "ja": ""
             },
-            "positionX": 8800.6669921875,
+            "positionX": 8801.0,
             "positionY": 186.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "bd0046b6-952b-44ed-93c3-e76a9b0b853e",
+                    "targetObjectName": "Event8_Silk",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -113,7 +153,7 @@
                 "zh": "花灯摊位有纸制品且靠近热源，属于易引发火灾的摊位类型。",
                 "ja": ""
             },
-            "positionX": 9436.6669921875,
+            "positionX": 9437.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -130,7 +170,7 @@
                 "zh": "啊！只要我们拿这个喷飞机上被控制的人——",
                 "ja": ""
             },
-            "positionX": 9754.6669921875,
+            "positionX": 9755.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -147,8 +187,8 @@
                 "zh": "是的，我推测应该可以令他们暂时失去行动能力！",
                 "ja": ""
             },
-            "positionX": 10073.333984375,
-            "positionY": 186.6666717529297,
+            "positionX": 10073.0,
+            "positionY": 187.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -160,7 +200,7 @@
             "useContentId": true,
             "contentId": "ch1_3197",
             "content": {
-                "en": "Haha! You’re amazing! Master was totally right about you!",
+                "en": "Haha! You’re amazing! Shifu was totally right about you!",
                 "zh": "哈哈！你真是太厉害了！师父果然是对的！",
                 "ja": ""
             },
@@ -249,7 +289,7 @@
                 "zh": "一位工作人员告诉我，戏团的成员希望在摊位附近的音响循环播放一种鼓点。",
                 "ja": ""
             },
-            "positionX": 11996.6669921875,
+            "positionX": 11997.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -266,7 +306,7 @@
                 "zh": "鼓点？说起来，我之前在飞机上就一直能听到一种很轻很低的响声来着......",
                 "ja": ""
             },
-            "positionX": 12324.6669921875,
+            "positionX": 12325.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -283,7 +323,7 @@
                 "zh": "嗯，刚才我修好音响后听了一下，摊位和飞机上播放的确实是同一种鼓点。",
                 "ja": ""
             },
-            "positionX": 12642.6669921875,
+            "positionX": 12643.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -317,7 +357,7 @@
                 "zh": "这和那个鼓点有什么关系呢？",
                 "ja": ""
             },
-            "positionX": 13298.6669921875,
+            "positionX": 13299.0,
             "positionY": 186.0,
             "choices": [],
             "eventCalls": [],
@@ -334,8 +374,8 @@
                 "zh": "你之前提到过，被控制的人是被植入了丝线。也就是说戏团的偶师并不是从外部控制的它们，而是使用某种方法直接调动了人们体内的丝线。",
                 "ja": ""
             },
-            "positionX": 13617.333984375,
-            "positionY": 186.6666717529297,
+            "positionX": 13617.0,
+            "positionY": 187.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -368,7 +408,7 @@
                 "zh": "但戏团的需求，说明鼓声对于控制过程也是必要的。",
                 "ja": ""
             },
-            "positionX": 14264.6669921875,
+            "positionX": 14265.0,
             "positionY": 188.0,
             "choices": [],
             "eventCalls": [],
@@ -385,7 +425,7 @@
                 "zh": "我猜想那种鼓点或许充当了一种调频媒介。",
                 "ja": ""
             },
-            "positionX": 14582.6669921875,
+            "positionX": 14583.0,
             "positionY": 188.0,
             "choices": [],
             "eventCalls": [],
@@ -419,7 +459,7 @@
                 "zh": "还记得我之前说蜘蛛是靠震动感受蛛网情况的吗？我认为飞机上的过程是相反的。",
                 "ja": ""
             },
-            "positionX": 15237.333984375,
+            "positionX": 15237.0,
             "positionY": 188.0,
             "choices": [],
             "eventCalls": [],
@@ -436,8 +476,8 @@
                 "zh": "鼓点就像是一段持续的震动一样，让被控制的人们，维持成了<color=red>“蛛网”般的联合性受控状态。</color>",
                 "ja": ""
             },
-            "positionX": 15566.6669921875,
-            "positionY": 188.6666717529297,
+            "positionX": 15567.0,
+            "positionY": 189.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -453,8 +493,8 @@
                 "zh": "我感觉我的脑子要爆炸了......",
                 "ja": ""
             },
-            "positionX": 15885.333984375,
-            "positionY": 189.3333282470703,
+            "positionX": 15885.0,
+            "positionY": 189.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -488,7 +528,7 @@
                 "ja": ""
             },
             "positionX": 16522.0,
-            "positionY": 190.6666717529297,
+            "positionY": 191.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -504,7 +544,7 @@
                 "zh": "而我们只需要破坏掉它就好了，或许一点摇滚乐就能搞定。",
                 "ja": ""
             },
-            "positionX": 16849.33203125,
+            "positionX": 16849.0,
             "positionY": 192.0,
             "choices": [],
             "eventCalls": [],
@@ -521,8 +561,8 @@
                 "zh": "好！",
                 "ja": ""
             },
-            "positionX": 17178.666015625,
-            "positionY": 192.6666717529297,
+            "positionX": 17179.0,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -539,7 +579,7 @@
                 "ja": ""
             },
             "positionX": 17512.0,
-            "positionY": 192.6666717529297,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -555,8 +595,8 @@
                 "zh": "待会儿上去之后我拿灭火器开路，你用音响播放曲子破坏鼓点？",
                 "ja": ""
             },
-            "positionX": 17841.33203125,
-            "positionY": 192.6666717529297,
+            "positionX": 17841.0,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -572,8 +612,8 @@
                 "zh": "嗯。无效化那些人偶之后，你能对付那个偶师吗？",
                 "ja": ""
             },
-            "positionX": 18168.666015625,
-            "positionY": 193.3333282470703,
+            "positionX": 18169.0,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -589,8 +629,8 @@
                 "zh": "不用顾及被控制的人，那就肯定没问题！我可是我们道观武斗最高连胜记录保持者！",
                 "ja": ""
             },
-            "positionX": 18494.666015625,
-            "positionY": 192.6666717529297,
+            "positionX": 18495.0,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -606,13 +646,14 @@
                 "zh": "好，那我们走吧。",
                 "ja": ""
             },
-            "positionX": 18813.33203125,
-            "positionY": 193.3333282470703,
+            "positionX": 18813.0,
+            "positionY": 193.0,
             "choices": [],
             "eventCalls": [
                 {
                     "targetObjectID": "1de23f33-f038-4a83-bfac-69e628a83834",
                     "targetObjectName": "LevelManager3_4",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager3_4",
                     "methodName": "ZhouShuLeave_3_4",
                     "stringParameter": "",
@@ -636,7 +677,7 @@
                 "zh": "所以摊位里配备了不少二氧化碳灭火器。这种灭火器可以在飞机内小范围使用，能够快速降温。",
                 "ja": ""
             },
-            "positionX": 9622.6669921875,
+            "positionX": 9623.0,
             "positionY": -262.0,
             "choices": [],
             "eventCalls": [],
