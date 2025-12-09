@@ -4,6 +4,7 @@
             "id": "116dec64-a924-4160-8508-7b214d1f8254",
             "index": 0,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": false,
             "contentId": "Loop2_1_Worker_node_0_dialogue",
             "content": {
                 "en": "By talking to the worker, I learned that Yun Tai is not safe and weird recently.",
@@ -15,8 +16,9 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "",
+                    "targetObjectID": "0a8f5e4a-4a4a-428a-9810-b60d439a9849",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoTwoTrue",
                     "stringParameter": "",
@@ -24,7 +26,7 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerOnEnd": false
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
