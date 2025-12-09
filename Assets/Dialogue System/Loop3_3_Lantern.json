@@ -10,13 +10,11 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Excuse me, I see quite a few <color=red>lanterns</color> piled up next to your stall?",
-        "zh": "您好，我看到摊位旁边似乎堆着不少<color=red>花灯</color>？",
+        "en": "Excuse me, I see quite a few <color=orange>lanterns</color> piled up next to your stall?",
+        "zh": "您好，我看到摊位旁边似乎堆着不少<color=orange>花灯</color>？",
         "ja": ""
       },
-      "nextIndex": 3,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 3
     },
     {
       "index": 1,
@@ -34,16 +32,12 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "It’s no problem. Where do they need to be hung?",
             "zh": "没事的，请问需要挂到哪里呢？",
             "ja": ""
-          },
-          "targetIndex": 2
-        }
-      ],
-      "eventCalls": []
+          }, "targetIndex": 2}
+      ]
     },
     {
       "index": 2,
@@ -55,97 +49,19 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "Ah! There’s a <color=red>diagram</color> here. Just follow it and <color=red>hang them under the eaves over on the left</color>.",
-        "zh": "啊！这里有张<color=red>示意图</color>，照着这个去<color=red>左边那里的屋檐处挂上</color>就好。",
+        "en": "Ah! There’s a <color=orange>diagram</color> here. Just follow it and <color=orange>hang them under the eaves over on the left</color>.",
+        "zh": "啊！这里有张<color=orange>示意图</color>，照着这个去<color=orange>左边那里的屋檐处挂上</color>就好。",
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
-          "targetObjectName": "LevelManager3_3",
-          "componentTypeName": "LevelManager3_3",
-          "methodName": "LanternPileDisappear",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
-          "targetObjectName": "ObjectiveTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "2ac8001b-1c0f-4a51-97eb-97964153bd79",
-          "targetObjectName": "Objective4_1",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "608d03d5-13c3-4328-b854-673f091fce12",
-          "targetObjectName": "Objective4",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "LockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff",
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "53bace39-e9ac-4fa1-b20e-1afd6fe35328",
-          "targetObjectName": "Event6_Lanterns",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d", "targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "LanternPileDisappear", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "2ac8001b-1c0f-4a51-97eb-97964153bd79", "targetObjectName": "Objective4_1", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "608d03d5-13c3-4328-b854-673f091fce12", "targetObjectName": "Objective4", "componentTypeName": "isThisUnlocked", "methodName": "LockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
+        {"targetObjectID": "53bace39-e9ac-4fa1-b20e-1afd6fe35328", "targetObjectName": "Event6_Lanterns", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -162,9 +78,7 @@
         "zh": "啊，挡着您路了吗？真不好意思！",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -180,9 +94,7 @@
         "zh": "我也想尽快挂好这些花灯的，可是您瞧......",
         "ja": ""
       },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 5
     },
     {
       "index": 5,
@@ -198,9 +110,7 @@
         "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     },
     {
       "index": 6,
@@ -216,9 +126,7 @@
         "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 7,
@@ -234,9 +142,7 @@
         "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
         "ja": ""
       },
-      "nextIndex": 8,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 8
     },
     {
       "index": 8,
@@ -252,9 +158,7 @@
         "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
         "ja": ""
       },
-      "nextIndex": 9,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 9
     },
     {
       "index": 9,
@@ -270,9 +174,7 @@
         "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
         "ja": ""
       },
-      "nextIndex": 10,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 10
     },
     {
       "index": 10,
@@ -288,9 +190,7 @@
         "zh": "嗯，不如由我来帮您把花灯挂上吧。",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     }
   ],
   "currentIndex": 0
