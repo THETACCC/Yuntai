@@ -20,6 +20,9 @@
         _RedDominanceMin     ("Red Dominance Min",     Range(0,1)) = 0.15
         _RedSaturationMin    ("Red Saturation Min",    Range(0,1)) = 0.5
         _RedValueMin         ("Red Value Min",         Range(0,1)) = 0.3
+
+        // NEW: 整体效果强度
+        _EffectIntensity ("Effect Intensity", Range(0,1)) = 1.0
     }
 
     SubShader
@@ -54,6 +57,8 @@
                 float  _RedDominanceMin;
                 float  _RedSaturationMin;
                 float  _RedValueMin;
+
+                float  _EffectIntensity;   // 0..1
             CBUFFER_END
 
             TEXTURE2D(_BlitTexture);
@@ -110,8 +115,7 @@
                 float L12 = get_luminance(SAMPLE_TEXTURE2D(_BlitTexture, sampler_BlitTexture, uv + texel * float2( 0, 1)).rgb);
                 float L22 = get_luminance(SAMPLE_TEXTURE2D(_BlitTexture, sampler_BlitTexture, uv + texel * float2( 1, 1)).rgb);
 
-                float Gx = -L00 + L20 - 2.0 * L01 + 2.0 * L21 -L02 + L22;
-
+                float Gx = -L00 + L20 - 2.0 * L01 + 2.0 * L21 - L02 + L22;
                 float Gy = -L00 - 2.0 * L10 - L20 + L02 + 2.0 * L12 + L22;
 
                 float edgeMag = length(float2(Gx, Gy));
@@ -129,31 +133,25 @@
 
                 float3 grayRGB = gray.xxx;
 
-                // preserve red highlights:
-                // keep the original rgb for pixels that are: red-dominant (r >> g,b), reasonably saturated and bright so the red lanterns + light glows.
-
+                // preserve red highlights
                 float maxC = max(rgb.r, max(rgb.g, rgb.b));
                 float minC = min(rgb.r, min(rgb.g, rgb.b));
                 float value = maxC;
-                float sat = (maxC - minC) / max(maxC, 1e-5);
+                float sat   = (maxC - minC) / max(maxC, 1e-5);
 
                 float redDominance = rgb.r - max(rgb.g, rgb.b); // how much r is above others
 
-                // each term becomes >0 only when above threshold, then we clamp 0..1
-                /*
-                redDomMask ≈ 1 only when redDominance > _RedDominanceMin (strong red).
-                satMask ≈ 1 only when saturation is above _RedSaturationMin.
-                valMask ≈ 1 only when brightness is above _RedValueMin
-                */
                 float redDomMask = saturate((redDominance - _RedDominanceMin) * 10.0);
-                float satMask = saturate((sat - _RedSaturationMin) * 5.0);
-                float valMask = saturate((value - _RedValueMin) * 5.0);
+                float satMask    = saturate((sat          - _RedSaturationMin) * 5.0);
+                float valMask    = saturate((value       - _RedValueMin)      * 5.0);
 
-                float preserveMask = redDomMask * satMask * valMask; //only pixels that are red-dominant, saturated, and bright get preserveMask close to 1
+                float preserveMask = redDomMask * satMask * valMask;
                 preserveMask *= _PreserveRedStrength;
 
-                // blend between grayscale and original color
-                float3 finalRGB = lerp(grayRGB, rgb, preserveMask);
+                float3 bwRGB = lerp(grayRGB, rgb, preserveMask);
+
+                // NEW: 效果强度 0..1，0 时直接用原图 rgb
+                float3 finalRGB = lerp(rgb, bwRGB, _EffectIntensity);
 
                 return float4(finalRGB, 1.0);
             }

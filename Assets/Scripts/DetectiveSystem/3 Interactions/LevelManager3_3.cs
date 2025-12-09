@@ -45,6 +45,10 @@ public class LevelManager3_3 : BaseLevelManager
     [SerializeField] private GameObject door1;
     [SerializeField] private GameObject door2;
 
+    [Header("Horror – Player Soul & BW")]
+    [SerializeField] private PlayerSoulEchoController playerSoulEcho;   // 你前面写的灵魂出窍脚本
+    [SerializeField] private BlackAndWhiteFlicker blackWhiteFlicker;    // 全局黑白控制
+
     // Camera shake
     private CameraShake cameraShake;
 
@@ -103,6 +107,20 @@ public class LevelManager3_3 : BaseLevelManager
         overlayCG = GetOrCreateBlackOverlay();
 
         Debug.Log($"[LevelManager3_3] Awake: found {puzzleLanterns.Length} PuzzleLantern(s).");
+
+        if (playerSoulEcho == null && playerObject != null)
+        {
+            // ★ 在 Player 的所有子物体里找 PlayerSoulEchoController（包括你那个 child）
+            playerSoulEcho = playerObject.GetComponentInChildren<PlayerSoulEchoController>(true);
+            Debug.Log("[LevelManager3_3] Auto-found PlayerSoulEchoController (in children): " + playerSoulEcho, this);
+        }
+
+
+        if (blackWhiteFlicker == null)
+        {
+            blackWhiteFlicker = FindObjectOfType<BlackAndWhiteFlicker>();
+            Debug.Log("[LevelManager3_3] Auto-found BlackAndWhiteFlicker: " + blackWhiteFlicker, this);
+        }
     }
 
     private void Start()
@@ -116,13 +134,34 @@ public class LevelManager3_3 : BaseLevelManager
             foreach (var sr in _playerSprites)
             {
                 if (!sr) continue;
+
+                // 这里可以保留 / 删除之前的判定无所谓，
+                // 反正后面我们会强制关掉 soul 的 sprite
                 sr.enabled = true;
                 var c = sr.color;
                 c.a = 1f;
                 sr.color = c;
             }
         }
+
+        // ★ 最后一步：无论上面发生了什么，都把灵魂 sprite 全部关掉
+        HideSoulEchoSprites();
     }
+
+    // ========= Soul Echo Sprite helper =========
+    private void HideSoulEchoSprites()
+    {
+        if (playerSoulEcho == null) return;
+
+        // 找到挂在 PlayerSoulEchoController 下面的所有 SpriteRenderer，一律关掉
+        var soulSrs = playerSoulEcho.GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (var sr in soulSrs)
+        {
+            if (!sr) continue;
+            sr.enabled = false;
+        }
+    }
+
 
     // ========= 普通 puzzle =========
 
@@ -245,6 +284,7 @@ public class LevelManager3_3 : BaseLevelManager
         StartCoroutine(CoLanternHorrorSequence());
     }
 
+    /*
     private IEnumerator CoLanternHorrorSequence()
     {
         isPlayingLanternHorror = true;
@@ -325,6 +365,130 @@ public class LevelManager3_3 : BaseLevelManager
 
         isPlayingLanternHorror = false;
     }
+    */
+
+    private IEnumerator CoLanternHorrorSequence()
+    {
+        isPlayingLanternHorror = true;
+        ClearNeedToPlayLanternAnim();
+
+        Debug.Log("[LevelManager3_3] >>> START Lantern Horror Sequence <<<");
+
+        // 防止中途有变化，重新收集花灯
+        RefreshPuzzleLanternList();
+
+        // —— 完全锁 Player（位置 + 输入 + 动画） —— //
+        FreezePlayer(true);
+
+        // 1) 所有灯像「挂上」那样亮起来
+        if (Lanterns) Lanterns.SetActive(true);
+        ForceAllLanternsHanged(true);
+        SetAllLanternsGreen(false);   // 先关绿光，再开始后续演出
+
+        // 1.5) 先把主角打飞出去（灵魂出窍）—— 比较慢一点
+        if (playerSoulEcho != null)
+        {
+            playerSoulEcho.StartKnockOut();
+
+            // 等待灵魂飞出去：多等一点时间更明显
+            float waitKnock = playerSoulEcho.knockDuration + 0.2f;
+            yield return new WaitForSeconds(waitKnock);
+        }
+        else
+        {
+            Debug.LogWarning("[LevelManager3_3] CoLanternHorrorSequence: playerSoulEcho is null, cannot play soul effect.");
+        }
+
+        // 2) 绿光闪烁几次，黑白效果和绿灯同步闪（此时主角保持飞出去状态）
+        for (int i = 0; i < greenBlinkCount; i++)
+        {
+            // 绿灯 ON + 黑白 ON
+            SetAllLanternsGreen(true);
+            if (blackWhiteFlicker != null)
+                blackWhiteFlicker.SetIntensity(1f);
+
+            // 最后一次闪的时候出现巨兽影子
+            if (beastShadow && i == greenBlinkCount - 1)
+                beastShadow.SetActive(true);
+
+            yield return new WaitForSeconds(greenOnTime);
+
+            // 绿灯 OFF + 黑白 OFF
+            if (beastShadow)
+                beastShadow.SetActive(false);
+
+            SetAllLanternsGreen(false);
+            if (blackWhiteFlicker != null)
+                blackWhiteFlicker.SetIntensity(0f);
+
+            yield return new WaitForSeconds(greenOffTime);
+        }
+
+        // 3) 灯光闪完之后，再把主角残影拉回本体
+        if (playerSoulEcho != null)
+        {
+            playerSoulEcho.StartReturn();
+
+            float waitReturn = playerSoulEcho.returnDuration + 0.2f;
+            yield return new WaitForSeconds(waitReturn);
+        }
+
+        // 4) 抖屏 + 音效（此时主角已经合体回来）
+        if (cameraShake)
+        {
+            cameraShake.Shake(
+                cameraShake.defaultAmplitude,
+                cameraShake.defaultFrequency,
+                shakeDuration
+            );
+        }
+
+        if (horrorAudioSource && horrorRoarClip)
+        {
+            horrorAudioSource.PlayOneShot(horrorRoarClip);
+        }
+
+        yield return new WaitForSeconds(shakeDuration);
+
+        // 5) 黑屏（UI CanvasGroup 覆盖）
+        if (overlayCG)
+        {
+            // 黑屏淡入
+            yield return FadeOverlay(1f, blackFadeTime);
+
+            // 黑屏时，把所有灯「取下」
+            ForceAllLanternsHanged(false);
+
+            // 黑屏停留
+            yield return new WaitForSeconds(blackHoldTime);
+
+            // 黑屏淡出
+            yield return FadeOverlay(0f, blackFadeTime);
+        }
+        else
+        {
+            // 没黑幕的话，就直接让灯消失
+            ForceAllLanternsHanged(false);
+        }
+
+        // 确保结尾关闭黑白效果
+        if (blackWhiteFlicker != null)
+        {
+            blackWhiteFlicker.SetIntensity(0f);
+        }
+
+        // —— 解锁 Player —— //
+        FreezePlayer(false);
+
+        // 恐怖演出后的 MC scared 对话
+        if (MC_scaredDialogue != null)
+        {
+            MC_scaredDialogue.TriggerDialogue();
+        }
+
+        isPlayingLanternHorror = false;
+    }
+
 
     // ========= 黑幕 =========
 

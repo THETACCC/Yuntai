@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackAndWhite
-  m_Shader: {fileID: 4800000, guid: 19859f6934a3d754b86e166bacb35cc8, type: 3}
+  m_Name: PlayerChromaticAberration
+  m_Shader: {fileID: 4800000, guid: 8a26a33cd933acf43ac3bd3634969001, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,27 +23,27 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _ditherPattern:
-        m_Texture: {fileID: 2800000, guid: a97cd21847e8d0340ac59725f119d611, type: 3}
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Brightness: 0.021
-    - _Contrast: 1.06
-    - _EdgeOnlyMix: 0.744
-    - _EdgeStrength: 4.09
-    - _EdgeThreshold: 0.246
-    - _EffectIntensity: 0
-    - _Exposure: 1.62
-    - _Gamma: 0.833
-    - _LineDarkening: 0.597
-    - _PreserveRedStrength: 1
-    - _RedDominanceMin: 0.15
-    - _RedSaturationMin: 0.5
-    - _RedValueMin: 0.3
-    - _Steps: 5.61
-    - _ToneMid: 0.408
-    - _ToneShadow: 0.019
-    m_Colors: []
+    - _EchoAlphaFalloff: 0.7
+    - _EchoCount: 3
+    - _EchoFalloff: 2.5
+    - _EchoIntensity: 0.32
+    - _GhostCount: 3
+    - _GhostFade: 1
+    - _GhostOpacity: 1.5
+    - _GhostSpacingPx: 32
+    - _MaxOffset: 0.113
+    - _MaxOffsetPx: 32
+    - _Phase: 0
+    - _SoulAmount: 0
+    - _SoulPhase: 0
+    - _TintStrength: 0.8
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Direction: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
