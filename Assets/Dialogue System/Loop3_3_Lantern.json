@@ -14,7 +14,9 @@
         "zh": "您好，我看到摊位旁边似乎堆着不少<color=orange>花灯</color>？",
         "ja": ""
       },
-      "nextIndex": 3
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -32,12 +34,16 @@
       },
       "nextIndex": -1,
       "choices": [
-        {"text": {
+        {
+          "text": {
             "en": "It’s no problem. Where do they need to be hung?",
             "zh": "没事的，请问需要挂到哪里呢？",
             "ja": ""
-          }, "targetIndex": 2}
-      ]
+          },
+          "targetIndex": 2
+        }
+      ],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -54,14 +60,92 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {"targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d", "targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "LanternPileDisappear", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
-        {"targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
-        {"targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
-        {"targetObjectID": "2ac8001b-1c0f-4a51-97eb-97964153bd79", "targetObjectName": "Objective4_1", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
-        {"targetObjectID": "608d03d5-13c3-4328-b854-673f091fce12", "targetObjectName": "Objective4", "componentTypeName": "isThisUnlocked", "methodName": "LockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
-        {"targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0,
-        {"targetObjectID": "53bace39-e9ac-4fa1-b20e-1afd6fe35328", "targetObjectName": "Event6_Lanterns", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "LanternPileDisappear",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+          "targetObjectName": "Objective4_1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+          "targetObjectName": "Objective4",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+          "targetObjectName": "EventTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "dbd1346d-1417-496e-b97b-98dea0ceb7fa",
+          "targetObjectName": "Event6_Lanterns",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
       ]
     },
     {
@@ -78,7 +162,9 @@
         "zh": "啊，挡着您路了吗？真不好意思！",
         "ja": ""
       },
-      "nextIndex": 4
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 4,
@@ -94,7 +180,9 @@
         "zh": "我也想尽快挂好这些花灯的，可是您瞧......",
         "ja": ""
       },
-      "nextIndex": 5
+      "nextIndex": 5,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 5,
@@ -110,7 +198,9 @@
         "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
         "ja": ""
       },
-      "nextIndex": 6
+      "nextIndex": 6,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 6,
@@ -126,7 +216,9 @@
         "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
         "ja": ""
       },
-      "nextIndex": 7
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 7,
@@ -142,7 +234,9 @@
         "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
         "ja": ""
       },
-      "nextIndex": 8
+      "nextIndex": 8,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 8,
@@ -158,7 +252,9 @@
         "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
         "ja": ""
       },
-      "nextIndex": 9
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 9,
@@ -174,7 +270,9 @@
         "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
         "ja": ""
       },
-      "nextIndex": 10
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 10,
@@ -190,7 +288,9 @@
         "zh": "嗯，不如由我来帮您把花灯挂上吧。",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0

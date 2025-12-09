@@ -5026,9 +5026,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279740581}
-  - component: {fileID: 1279740583}
   - component: {fileID: 1279740584}
   - component: {fileID: 1279740585}
+  - component: {fileID: 1279740586}
   m_Layer: 0
   m_Name: LevelManager3_4
   m_TagString: Untagged
@@ -5051,19 +5051,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1279740583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 2f4fa692-09db-49f3-81bb-1c1de569cbc2
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5114,6 +5101,19 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
+--- !u!114 &1279740586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 19c011a4-1a3a-4949-8d45-25a8f982fc29
 --- !u!1 &1293080901
 GameObject:
   m_ObjectHideFlags: 0

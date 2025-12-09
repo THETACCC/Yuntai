@@ -18334,8 +18334,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
-  - component: {fileID: 1279740583}
   - component: {fileID: 1279740584}
+  - component: {fileID: 1279740585}
   m_Layer: 0
   m_Name: LevelManager3_3
   m_TagString: Untagged
@@ -18396,19 +18396,6 @@ MonoBehaviour:
   MC_scaredDialogue: {fileID: 1279740584}
   door1: {fileID: 149014560}
   door2: {fileID: 2041698050}
---- !u!114 &1279740583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 01caa6ed-12f3-46b0-9378-847380577f0d
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18426,6 +18413,19 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
+--- !u!114 &1279740585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: f3c78097-f6b9-4192-82c6-457003e8c026
 --- !u!1 &1283118736
 GameObject:
   m_ObjectHideFlags: 0

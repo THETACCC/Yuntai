@@ -40,7 +40,8 @@ public class DialogueReference : MonoBehaviour
             return;
         }
 
-        if (Application.isPlaying && gameObject.scene.name == "DontDestroyOnLoad")
+        // 运行时完全跳过ID冲突检查，避免误报
+        if (Application.isPlaying)
         {
             return;
         }

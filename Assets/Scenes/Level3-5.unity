@@ -6264,9 +6264,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
-  - component: {fileID: 1279740583}
   - component: {fileID: 1279740585}
   - component: {fileID: 1279740584}
+  - component: {fileID: 1279740586}
   m_Layer: 0
   m_Name: LevelManager3_5
   m_TagString: Untagged
@@ -6326,19 +6326,6 @@ MonoBehaviour:
   spotQuickFadeDuration: 0.25
   zhoushuObject: {fileID: 1964546954}
   verboseLog: 0
---- !u!114 &1279740583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 35ffb999-d136-4101-bdef-64abbdea05b3
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6373,6 +6360,19 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
+--- !u!114 &1279740586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 95d5d1ca-ea7f-4956-bdc3-d21b1346a895
 --- !u!1 &1300498786
 GameObject:
   m_ObjectHideFlags: 0
