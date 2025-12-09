@@ -30,6 +30,9 @@ public class NoteBookManager : MonoBehaviour
     //Audio
     public AudioSource OpenNoteBook;
 
+    //
+    [Header("NoteBook Master Controll")]
+    public bool allowOpen = false;
 
     private void Awake()
     {
@@ -83,22 +86,36 @@ public class NoteBookManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
+        if(allowOpen)
         {
-            if (!isOpen)
+            if ((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
             {
-                if(OpenNoteBook) OpenNoteBook.Play();
-                DisablePlayerMovement();
-                NoteBook_Canvas.SetActive(true);
-                isOpen = true;
-            }
-            else
-            {
-                EnablePlayerMovement();
-                NoteBook_Canvas.SetActive(false);
-                isOpen = false;
+                if (!isOpen)
+                {
+                    if (OpenNoteBook) OpenNoteBook.Play();
+                    DisablePlayerMovement();
+                    NoteBook_Canvas.SetActive(true);
+                    isOpen = true;
+                }
+                else
+                {
+                    EnablePlayerMovement();
+                    NoteBook_Canvas.SetActive(false);
+                    isOpen = false;
+                }
             }
         }
+
+    }
+
+    public void enableNoteBook()
+    {
+        allowOpen = true;
+    }
+
+    public void disableNoteBook()
+    {
+        allowOpen = false;
     }
 
     /// <summary>
