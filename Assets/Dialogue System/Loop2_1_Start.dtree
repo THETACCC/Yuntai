@@ -11,8 +11,8 @@
                 "zh": "！！！",
                 "ja": ""
             },
-            "positionX": 294.4000244140625,
-            "positionY": 288.79998779296877,
+            "positionX": 294.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "怎...怎么回事？",
                 "ja": ""
             },
-            "positionX": 649.6000366210938,
-            "positionY": 288.79998779296877,
+            "positionX": 650.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,8 +45,8 @@
                 "zh": "（灯光是亮着的，乘务员小姐看上去也很正常。）",
                 "ja": ""
             },
-            "positionX": 1015.2000122070313,
-            "positionY": 288.79998779296877,
+            "positionX": 1015.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -62,8 +62,8 @@
                 "zh": "是我做了噩梦？",
                 "ja": ""
             },
-            "positionX": 1385.5999755859375,
-            "positionY": 288.79998779296877,
+            "positionX": 1386.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -80,7 +80,7 @@
                 "ja": ""
             },
             "positionX": 1748.0,
-            "positionY": 288.79998779296877,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -96,15 +96,16 @@
                 "zh": "冷静点，必须得先收集关于现状的信息才行。",
                 "ja": ""
             },
-            "positionX": 2135.199951171875,
-            "positionY": 288.79998779296877,
+            "positionX": 2135.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "",
-                    "targetObjectName": "EventTab",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
+                    "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "enableNoteBook",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -113,8 +114,9 @@
                     "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "09e0c5c3-0cc9-471a-8688-7c565f40fd26",
+                    "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
                     "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "NoteBookManager",
                     "methodName": "UnlockEventFeedBack",
                     "stringParameter": "",
@@ -125,8 +127,9 @@
                     "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
-                    "targetObjectName": "ObjectiveTab",
+                    "targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "TabManager",
                     "methodName": "RefreshUnlockedTabs",
                     "stringParameter": "",
@@ -137,8 +140,9 @@
                     "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Objective1",
+                    "targetObjectID": "9a0f4bbf-af8c-412a-b0fd-41b55091e8b4",
+                    "targetObjectName": "Event1_Dream",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "isThisUnlocked",
                     "methodName": "UnlockThis",
                     "stringParameter": "",
@@ -149,8 +153,22 @@
                     "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Event1_Dream",
+                    "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222",
+                    "targetObjectName": "Objective1",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "isThisUnlocked",
                     "methodName": "UnlockThis",
                     "stringParameter": "",
@@ -158,7 +176,7 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerTiming": 1
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
@@ -170,12 +188,12 @@
             "useContentId": true,
             "contentId": "ch1_2013",
             "content": {
-                "en": "Suddenly Veris felt a current of warmth in her hand. something is wrong about her notebook.",
-                "zh": "忽然，何以真感到手心涌起一股暖意。她的笔记本有些不对劲。",
+                "en": "This isn’t my handwriting… wait—it’s printed text.",
+                "zh": "这不是我的笔迹，不对，这根本就是印刷体。。",
                 "ja": ""
             },
-            "positionX": 2943.199951171875,
-            "positionY": 288.79998779296877,
+            "positionX": 2943.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -187,12 +205,12 @@
             "useContentId": true,
             "contentId": "ch1_2012",
             "content": {
-                "en": "Why does this thing feel so hot?",
-                "zh": "这东西怎么这么烫？",
+                "en": "Huh? That’s strange. My old notebook was full, and I bought this one just before coming to Yuntai. Why are there already entries in it?",
+                "zh": "奇怪？之前的笔记本写满了，这个明明是我来芸台前新买的，为什么会有字？",
                 "ja": ""
             },
             "positionX": 2508.0,
-            "positionY": 288.79998779296877,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -204,12 +222,12 @@
             "useContentId": true,
             "contentId": "ch1_2014",
             "content": {
-                "en": "GUIDE: Press TAB to open the notebook when not in conversation",
-                "zh": "提示：退出对话后，按TAB键打开笔记本",
+                "en": "GUIDE: Press <color=red>TAB</color> to open the notebook when not in conversation",
+                "zh": "提示：退出对话后，按<color=red>TAB</color>键打开笔记本",
                 "ja": ""
             },
-            "positionX": 3326.39990234375,
-            "positionY": 288.79998779296877,
+            "positionX": 3326.0,
+            "positionY": 289.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []

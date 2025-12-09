@@ -108,9 +108,10 @@
       "choices": [],
       "eventCalls": [
         {
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "enableNoteBook",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -119,6 +120,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
           "targetObjectName": "NoteBook",
           "componentTypeName": "NoteBookManager",
           "methodName": "UnlockEventFeedBack",
@@ -130,6 +132,31 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "546c8926-d4f3-4b82-9f24-52d4b7308fff",
+          "targetObjectName": "EventTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "9a0f4bbf-af8c-412a-b0fd-41b55091e8b4",
+          "targetObjectName": "Event1_Dream",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
           "targetObjectName": "ObjectiveTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -141,6 +168,7 @@
           "triggerTiming": 1
         },
         {
+          "targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222",
           "targetObjectName": "Objective1",
           "componentTypeName": "isThisUnlocked",
           "methodName": "UnlockThis",
@@ -149,18 +177,7 @@
           "intParameter": 0,
           "floatParameter": 0,
           "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectName": "Event1_Dream",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
+          "triggerTiming": 0
         }
       ]
     },
@@ -174,8 +191,8 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Suddenly Veris felt a current of warmth in her hand. something is wrong about her notebook.",
-        "zh": "忽然，何以真感到手心涌起一股暖意。她的笔记本有些不对劲。",
+        "en": "This isn’t my handwriting… wait—it’s printed text.",
+        "zh": "这不是我的笔迹，不对，这根本就是印刷体。。",
         "ja": ""
       },
       "nextIndex": 8,
@@ -192,8 +209,8 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "Why does this thing feel so hot?",
-        "zh": "这东西怎么这么烫？",
+        "en": "Huh? That’s strange. My old notebook was full, and I bought this one just before coming to Yuntai. Why are there already entries in it?",
+        "zh": "奇怪？之前的笔记本写满了，这个明明是我来芸台前新买的，为什么会有字？",
         "ja": ""
       },
       "nextIndex": 6,
@@ -210,8 +227,8 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "GUIDE: Press TAB to open the notebook when not in conversation",
-        "zh": "提示：退出对话后，按TAB键打开笔记本",
+        "en": "GUIDE: Press <color=red>TAB</color> to open the notebook when not in conversation",
+        "zh": "提示：退出对话后，按<color=red>TAB</color>键打开笔记本",
         "ja": ""
       },
       "nextIndex": -1,
