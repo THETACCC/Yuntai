@@ -296,7 +296,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -394,37 +394,6 @@
             "positionY": 451.1999816894531,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
-            "index": 14,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_2117",
-            "content": {
-                "en": "The chief attendant you mentioned earlier—do you know where she is now?",
-                "zh": "您之前提到过的那位乘务长，她现在在哪里呢？",
-                "ja": ""
-            },
-            "positionX": -681.5999755859375,
-            "positionY": 1036.800048828125,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetStewardessConv4",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
             "conditionalBranches": []
         },
         {
@@ -601,7 +570,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -632,7 +601,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -663,7 +632,7 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
@@ -1050,6 +1019,50 @@
             "conditionalBranches": []
         },
         {
+            "id": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "index": 35,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2137",
+            "content": {
+                "en": "(I’m out of things to talk about...)",
+                "zh": "（糟了，已经想不出其他的话题了...）",
+                "ja": ""
+            },
+            "positionX": 1934.39990234375,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessAndZhouShuToGotFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "078a1373-4042-4603-ac64-b545cc28c383",
             "index": 36,
             "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
@@ -1237,39 +1250,26 @@
             "conditionalBranches": []
         },
         {
-            "id": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
-            "index": 35,
+            "id": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
+            "index": 14,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
-            "contentId": "ch1_2137",
+            "contentId": "ch1_2117",
             "content": {
-                "en": "(I’m out of things to talk about...)",
-                "zh": "（糟了，已经想不出其他的话题了...）",
+                "en": "The chief attendant you mentioned earlier—do you know where she is now?",
+                "zh": "您之前提到过的那位乘务长，她现在在哪里呢？",
                 "ja": ""
             },
-            "positionX": 1934.39990234375,
-            "positionY": 1840.0,
+            "positionX": -681.5999755859375,
+            "positionY": 1036.800048828125,
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
+                    "targetObjectID": "c3ba9508-3a9d-45aa-9562-9a4a562a9d24",
                     "targetObjectName": "LevelManager2_1",
                     "targetSceneName": "Level2-1",
                     "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetgetFoodTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "67b1d35b-750f-4d96-9966-f6adcaf6859a",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "ChangeStewardessAndZhouShuToGotFood",
+                    "methodName": "SetStewardessConv4",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
