@@ -16,7 +16,56 @@
       },
       "nextIndex": 1,
       "choices": [],
-      "eventCalls": []
+      "eventCalls": [
+        {
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "608d03d5-13c3-4328-b854-673f091fce12",
+          "targetObjectName": "Objective4",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "9e11dc5b-ea1a-4d48-adc3-09e905a05b66",
+          "targetObjectName": "Objective3",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 1,
@@ -287,6 +336,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "1de23f33-f038-4a83-bfac-69e628a83834",
           "targetObjectName": "LevelManager3_2",
           "componentTypeName": "LevelManager3_2",
           "methodName": "ZhouShuLeave",
@@ -435,7 +485,7 @@
       "avatarAddr": "DialogueImages/周书_大笑",
       "isPlayer": false,
       "content": {
-        "en": "Haha, it’s because my master thinks I’m slow, so she purposely gave me that name!",
+        "en": "Haha, it’s because my Shifu thinks I’m slow, so she purposely gave me that name!",
         "zh": "哈哈，就是因为我师父嫌我脑袋瓜不灵光，特意给我起的！",
         "ja": ""
       },
@@ -551,6 +601,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "1de23f33-f038-4a83-bfac-69e628a83834",
           "targetObjectName": "LevelManager3_2",
           "componentTypeName": "LevelManager3_2",
           "methodName": "ZhouShuLeave",

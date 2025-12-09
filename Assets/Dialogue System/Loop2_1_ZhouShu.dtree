@@ -11,8 +11,8 @@
                 "zh": "（之前没能和这个人对话，而灯暗下来后她就消失了。）",
                 "ja": ""
             },
-            "positionX": -1934.4000244140625,
-            "positionY": 260.79998779296877,
+            "positionX": -1934.0,
+            "positionY": 261.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,15 +28,16 @@
                 "zh": "谢谢你！",
                 "ja": ""
             },
-            "positionX": 996.7999877929688,
+            "positionX": 997.0,
             "positionY": 256.0,
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "",
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetGotFoodTrue",
+                    "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -45,8 +46,9 @@
                     "triggerTiming": 0
                 },
                 {
-                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
                     "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "TabManager",
                     "methodName": "RefreshUnlockedTabs",
                     "stringParameter": "",
@@ -57,10 +59,24 @@
                     "triggerTiming": 0
                 },
                 {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
+                    "targetObjectID": "e182ee09-2cd2-49e4-a522-fb8f720b5bd1",
                     "targetObjectName": "Objective2",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "isThisUnlocked",
                     "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "9e11dc5b-ea1a-4d48-adc3-09e905a05b66",
+                    "targetObjectName": "Objective3",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -82,7 +98,7 @@
                 "zh": "你想知道什么？",
                 "ja": ""
             },
-            "positionX": 1397.5999755859375,
+            "positionX": 1398.0,
             "positionY": 260.0,
             "choices": [
                 {
@@ -181,12 +197,13 @@
                 "ja": ""
             },
             "positionX": 1880.0,
-            "positionY": 232.00001525878907,
+            "positionY": 232.0,
             "choices": [],
             "eventCalls": [
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoFiveTrue",
                     "stringParameter": "",
@@ -199,6 +216,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetZhouShuConv5",
                     "stringParameter": "",
@@ -229,6 +247,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoSixTrue",
                     "stringParameter": "",
@@ -241,6 +260,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetZhouShuConv6",
                     "stringParameter": "",
@@ -271,6 +291,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetInfoSevenTrue",
                     "stringParameter": "",
@@ -283,6 +304,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "SetZhouShuConv7",
                     "stringParameter": "",
@@ -313,6 +335,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "BlinkThenDim",
                     "stringParameter": "",
@@ -325,6 +348,7 @@
                 {
                     "targetObjectID": "",
                     "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "",
                     "componentTypeName": "LevelManager2_1",
                     "methodName": "WorkerChangeAndOpenTrigger",
                     "stringParameter": "",
@@ -348,8 +372,8 @@
                 "zh": "饿...我好饿...饿...",
                 "ja": ""
             },
-            "positionX": -197.60000610351563,
-            "positionY": 262.3999938964844,
+            "positionX": -198.0,
+            "positionY": 262.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -365,13 +389,14 @@
                 "zh": "唔~~",
                 "ja": ""
             },
-            "positionX": -1551.2000732421875,
-            "positionY": 260.79998779296877,
+            "positionX": -1551.0,
+            "positionY": 261.0,
             "choices": [],
             "eventCalls": [
                 {
                     "targetObjectID": "951e7e29-713d-4e58-8375-bb044e697851",
                     "targetObjectName": "snd_hungry",
+                    "targetSceneName": "",
                     "componentTypeName": "AudioSource",
                     "methodName": "Play",
                     "stringParameter": "",
@@ -395,25 +420,8 @@
                 "zh": "您好，请问——",
                 "ja": ""
             },
-            "positionX": -1195.2000732421875,
-            "positionY": 260.79998779296877,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
-            "index": 10,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": true,
-            "contentId": "ch1_2018",
-            "content": {
-                "en": "Eh…",
-                "zh": "呃——",
-                "ja": ""
-            },
-            "positionX": -841.5999755859375,
-            "positionY": 260.79998779296877,
+            "positionX": -1195.0,
+            "positionY": 261.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -429,8 +437,8 @@
                 "zh": "您说什么？我没有听清。",
                 "ja": ""
             },
-            "positionX": -515.2000122070313,
-            "positionY": 260.79998779296877,
+            "positionX": -515.0,
+            "positionY": 261.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -446,8 +454,25 @@
                 "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
                 "ja": ""
             },
-            "positionX": 122.39999389648438,
+            "positionX": 122.0,
             "positionY": 260.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "index": 10,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": true,
+            "contentId": "ch1_2018",
+            "content": {
+                "en": "Eh…",
+                "zh": "呃——",
+                "ja": ""
+            },
+            "positionX": -842.0,
+            "positionY": 261.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -459,8 +484,8 @@
             "useContentId": true,
             "contentId": "ch1_2022",
             "content": {
-                "en": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
-                "zh": "（感觉没法和这种状态下的她交流啊，去问问看乘务员小姐能不能给我一盒飞机餐吧。）",
+                "en": "(Doesn't seem like I can get through to her in that state... maybe I can <color=red>ask the flight attendant for a meal box</color> instead.)",
+                "zh": "（感觉没法和这种状态下的她交流啊，<color=red>去问问看乘务员小姐能不能给我一盒飞机餐吧。</color>）",
                 "ja": ""
             },
             "positionX": 484.0,
@@ -468,10 +493,11 @@
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "",
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoThreeTrue",
+                    "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -480,20 +506,9 @@
                     "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "",
-                    "targetObjectName": "LevelManager2_1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "ChangeStewardessToForFood",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
+                    "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
                     "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "TabManager",
                     "methodName": "RefreshUnlockedTabs",
                     "stringParameter": "",
@@ -501,13 +516,14 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerTiming": 2
+                    "triggerTiming": 1
                 },
                 {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Objective1",
+                    "targetObjectID": "e182ee09-2cd2-49e4-a522-fb8f720b5bd1",
+                    "targetObjectName": "Objective2",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "isThisUnlocked",
-                    "methodName": "LockThis",
+                    "methodName": "UnlockThis",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -516,10 +532,11 @@
                     "triggerTiming": 2
                 },
                 {
-                    "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
-                    "targetObjectName": "Objective2",
+                    "targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222",
+                    "targetObjectName": "Objective1",
+                    "targetSceneName": "Initiate",
                     "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
+                    "methodName": "LockThis",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,

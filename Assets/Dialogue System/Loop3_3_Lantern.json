@@ -10,8 +10,8 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Excuse me, I see quite a few lanterns piled up next to your stall?",
-        "zh": "您好，我看到摊位旁边似乎堆着不少花灯？",
+        "en": "Excuse me, I see quite a few <color=red>lanterns</color> piled up next to your stall?",
+        "zh": "您好，我看到摊位旁边似乎堆着不少<color=red>花灯</color>？",
         "ja": ""
       },
       "nextIndex": 3,
@@ -55,14 +55,15 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "Ah! There’s a diagram here. Just follow it and hang them under the eaves over on the left.",
-        "zh": "啊！这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
+        "en": "Ah! There’s a <color=red>diagram</color> here. Just follow it and <color=red>hang them under the eaves over on the left</color>.",
+        "zh": "啊！这里有张<color=red>示意图</color>，照着这个去<color=red>左边那里的屋檐处挂上</color>就好。",
         "ja": ""
       },
       "nextIndex": -1,
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "01caa6ed-12f3-46b0-9378-847380577f0d",
           "targetObjectName": "LevelManager3_3",
           "componentTypeName": "LevelManager3_3",
           "methodName": "LanternPileDisappear",
@@ -72,6 +73,54 @@
           "floatParameter": 0,
           "boolParameter": false,
           "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "2ac8001b-1c0f-4a51-97eb-97964153bd79",
+          "targetObjectName": "Objective4_1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "608d03d5-13c3-4328-b854-673f091fce12",
+          "targetObjectName": "Objective4",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
         }
       ]
     },

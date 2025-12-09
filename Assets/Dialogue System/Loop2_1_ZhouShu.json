@@ -36,9 +36,10 @@
       "choices": [],
       "eventCalls": [
         {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetGotFoodTrue",
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -47,6 +48,7 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
           "targetObjectName": "ObjectiveTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -58,9 +60,22 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "e182ee09-2cd2-49e4-a522-fb8f720b5bd1",
           "targetObjectName": "Objective2",
           "componentTypeName": "isThisUnlocked",
           "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "9e11dc5b-ea1a-4d48-adc3-09e905a05b66",
+          "targetObjectName": "Objective3",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -179,6 +194,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoFiveTrue",
@@ -190,6 +206,7 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetZhouShuConv5",
@@ -220,6 +237,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoSixTrue",
@@ -231,6 +249,7 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetZhouShuConv6",
@@ -261,6 +280,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetInfoSevenTrue",
@@ -272,6 +292,7 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "SetZhouShuConv7",
@@ -302,6 +323,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "BlinkThenDim",
@@ -313,6 +335,7 @@
           "triggerTiming": 0
         },
         {
+          "targetObjectID": "",
           "targetObjectName": "LevelManager2_1",
           "componentTypeName": "LevelManager2_1",
           "methodName": "WorkerChangeAndOpenTrigger",
@@ -361,6 +384,7 @@
       "choices": [],
       "eventCalls": [
         {
+          "targetObjectID": "951e7e29-713d-4e58-8375-bb044e697851",
           "targetObjectName": "snd_hungry",
           "componentTypeName": "AudioSource",
           "methodName": "Play",
@@ -437,17 +461,18 @@
       "avatarAddr": "DialogueImages/何以真_闭眼",
       "isPlayer": true,
       "content": {
-        "en": "(Doesn't seem like I can get through to her in that state... maybe I can ask the flight attendant for a meal box instead.)",
-        "zh": "（感觉没法和这种状态下的她交流啊，去问问看乘务员小姐能不能给我一盒飞机餐吧。）",
+        "en": "(Doesn't seem like I can get through to her in that state... maybe I can <color=red>ask the flight attendant for a meal box</color> instead.)",
+        "zh": "（感觉没法和这种状态下的她交流啊，<color=red>去问问看乘务员小姐能不能给我一盒飞机餐吧。</color>）",
         "ja": ""
       },
       "nextIndex": -1,
       "choices": [],
       "eventCalls": [
         {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoThreeTrue",
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -456,17 +481,7 @@
           "triggerTiming": 1
         },
         {
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "ChangeStewardessToForFood",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
+          "targetObjectID": "514ec17c-7057-4b9d-8a64-2fce8a41624d",
           "targetObjectName": "ObjectiveTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -475,12 +490,13 @@
           "intParameter": 0,
           "floatParameter": 0,
           "boolParameter": false,
-          "triggerTiming": 2
+          "triggerTiming": 1
         },
         {
-          "targetObjectName": "Objective1",
+          "targetObjectID": "e182ee09-2cd2-49e4-a522-fb8f720b5bd1",
+          "targetObjectName": "Objective2",
           "componentTypeName": "isThisUnlocked",
-          "methodName": "LockThis",
+          "methodName": "UnlockThis",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -489,9 +505,10 @@
           "triggerTiming": 2
         },
         {
-          "targetObjectName": "Objective2",
+          "targetObjectID": "9ecd8702-5b43-46f6-a89c-9151c2336222",
+          "targetObjectName": "Objective1",
           "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
+          "methodName": "LockThis",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,

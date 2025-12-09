@@ -64,8 +64,8 @@
       "avatarAddr": "DialogueImages/何以真_惊醒",
       "isPlayer": true,
       "content": {
-        "en": "Just like the last two times. So every time I die... I return to this moment?",
-        "zh": "和前两次一样。只要我死去......就会回到这个时间点？",
+        "en": "Just like the last two times. <color=red>So every time I die... I return to this moment?</color>",
+        "zh": "和前两次一样。<color=red>只要我死去......就会回到这个时间点？</color>",
         "ja": ""
       },
       "nextIndex": 4,
@@ -126,9 +126,10 @@
       "choices": [],
       "eventCalls": [
         {
-          "targetObjectName": "LevelManager3_1",
-          "componentTypeName": "LevelManager3_1",
-          "methodName": "PlayerStand",
+          "targetObjectID": "cebc684b-407d-4784-8b5f-f3f39b71a381",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -137,6 +138,7 @@
           "triggerTiming": 2
         },
         {
+          "targetObjectID": "1175873a-279b-436d-9780-9ead830025e7",
           "targetObjectName": "ObjectiveTab",
           "componentTypeName": "TabManager",
           "methodName": "RefreshUnlockedTabs",
@@ -148,6 +150,7 @@
           "triggerTiming": 2
         },
         {
+          "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
           "targetObjectName": "Objective3",
           "componentTypeName": "isThisUnlocked",
           "methodName": "UnlockThis",
@@ -159,6 +162,7 @@
           "triggerTiming": 2
         },
         {
+          "targetObjectID": "8bbba7b8-646d-4625-b24d-d0826b194eb6",
           "targetObjectName": "Objective2",
           "componentTypeName": "isThisUnlocked",
           "methodName": "LockThis",
