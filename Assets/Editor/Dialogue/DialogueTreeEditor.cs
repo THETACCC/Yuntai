@@ -179,7 +179,7 @@ public class DialogueTreeEditor : EditorWindow
                 serializedGraphJson = JsonUtility.ToJson(treeData, false);
                 hasSerializedData = true;
                 wasUnsaved = hasUnsavedChanges;
-                Debug.Log($"[Dialogue Editor] Serialized {treeData.nodes.Count} nodes before compilation");
+                //Debug.Log($"[Dialogue Editor] Serialized {treeData.nodes.Count} nodes before compilation");
             }
             catch (System.Exception e)
             {

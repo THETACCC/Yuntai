@@ -1415,7 +1415,7 @@ public class DialogueTreeManagerWindow : EditorWindow
                     Debug.Log("Updated character library with new 'character' field for compatibility");
                 }
 
-                Debug.Log($"Loaded character library from: {loadPath}");
+                //Debug.Log($"Loaded character library from: {loadPath}");
             }
             else
             {

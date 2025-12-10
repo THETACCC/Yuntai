@@ -260,7 +260,7 @@ public class DialogueManager : MonoBehaviour
 
                     if (eventCall.triggerTiming == EventTriggerTiming.OnDialogueStart)
                     {
-                        Debug.Log("红红火火恍恍惚惚");
+                        //Debug.Log("红红火火恍恍惚惚");
                         DialogueEventExecutor.ExecuteSingleEvent(eventCall);
                     }
 
