@@ -83,6 +83,7 @@ public class DialogueManager : MonoBehaviour
                 StopCoroutine(textAnimationCoroutine);
                 textAnimationCoroutine = null;
                 contentText.text = currentConversation.content.GetText(Settings.instance.currentLanguage); // 直接显示完整文本
+                contentText.maxVisibleCharacters = 99999; // 显示所有字符
             }
             else
             {
