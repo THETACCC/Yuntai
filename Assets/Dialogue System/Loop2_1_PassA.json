@@ -14,9 +14,7 @@
         "zh": "（是之前见过的一家三口...）",
         "ja": ""
       },
-      "nextIndex": 2,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 2
     },
     {
       "index": 1,
@@ -34,69 +32,26 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "About this \"<color=orange>Troupe Elysium</color>\"...",
             "zh": "关于这个“<color=orange>极乐戏团</color>”...",
             "ja": ""
-          },
-          "targetIndex": 12,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoPassA_1",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 12, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "infoPassA_1", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "What is the <color=orange>festival</color>?",
             "zh": "您提到的<color=orange>大会</color>是指？",
             "ja": ""
-          },
-          "targetIndex": 13,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoPassA_2",
-              "comparison": "Equal",
-              "compareValue": "False"
-            }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          }, "targetIndex": 13, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "infoPassA_2", "comparison": "Equal", "compareValue": "False"}], "conditionLogic": "AND"},
+        {"text": {
             "en": "Thank you for telling me all this.",
             "zh": "非常感谢您告诉我这些事。（结束对话）",
             "ja": ""
-          },
-          "targetIndex": 14,
-          "conditions": [
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoPassA_1",
-              "comparison": "Equal",
-              "compareValue": "True"
-            },
-            {
-              "targetObjectName": "LevelManager2_1",
-              "componentTypeName": "LevelManager2_1",
-              "variableName": "infoPassA_2",
-              "comparison": "Equal",
-              "compareValue": "True"
-            }
-          ],
-          "conditionLogic": "AND"
-        }
-      ],
-      "eventCalls": []
+          }, "targetIndex": 14, "conditions": [
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "infoPassA_1", "comparison": "Equal", "compareValue": "True"},
+            {"targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "variableName": "infoPassA_2", "comparison": "Equal", "compareValue": "True"}], "conditionLogic": "AND"}
+      ]
     },
     {
       "index": 2,
@@ -112,9 +67,7 @@
         "zh": "爸爸！你看这个可以从后面弯过去，好厉害啊！",
         "ja": ""
       },
-      "nextIndex": 3,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 3
     },
     {
       "index": 3,
@@ -130,9 +83,7 @@
         "zh": "（和之前梦里一模一样的对话，还有男孩手里的<color=orange>木偶</color>......让我想起了他之前变成的那个样子。）",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -148,9 +99,7 @@
         "zh": "（胡思乱想也没有用，试着搭一下话吧。）",
         "ja": ""
       },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 5
     },
     {
       "index": 5,
@@ -166,9 +115,7 @@
         "zh": "我从来没有见过这种样式的木偶呢？请问你们是在哪里买到的呢？",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     },
     {
       "index": 6,
@@ -184,9 +131,7 @@
         "zh": "这是别人送给我的！出去玩之前我就带在身上了！",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 7,
@@ -202,9 +147,7 @@
         "zh": "喜欢的话就要收好哦，不要像之前一样忘在酒店里了。",
         "ja": ""
       },
-      "nextIndex": 8,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 8
     },
     {
       "index": 8,
@@ -220,9 +163,7 @@
         "zh": "唉，我其实不希望他收下那个木偶的，那些<color=orange>穿着斗篷的人</color>实在太奇怪了。",
         "ja": ""
       },
-      "nextIndex": 9,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 9
     },
     {
       "index": 9,
@@ -238,9 +179,7 @@
         "zh": "穿着斗篷的人？",
         "ja": ""
       },
-      "nextIndex": 40,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 40
     },
     {
       "index": 10,
@@ -256,9 +195,7 @@
         "zh": "我实在拗不过这孩子才同意让他收下的，没想到他喜欢到出来旅行都要带着。",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 12,
@@ -275,20 +212,8 @@
         "ja": ""
       },
       "nextIndex": 17,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoPass1True",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoPass1True", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -306,20 +231,8 @@
         "ja": ""
       },
       "nextIndex": 24,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoPass2True",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoPass2True", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -337,20 +250,8 @@
         "ja": ""
       },
       "nextIndex": 34,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoPass3True",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoPass3True", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0
       ]
     },
     {
@@ -367,9 +268,7 @@
         "zh": "哎呀，你们这个年纪的孩子果然会对这种神秘团体感兴趣呢~",
         "ja": ""
       },
-      "nextIndex": 18,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 18
     },
     {
       "index": 18,
@@ -385,9 +284,7 @@
         "zh": "呵呵呵~阿姨我大学的时候也很喜欢研究这种事，还加入了研究本地民俗的社团，拜此所赐遇见了这孩子的父亲，很青春吧？",
         "ja": ""
       },
-      "nextIndex": 19,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 19
     },
     {
       "index": 19,
@@ -403,9 +300,7 @@
         "zh": "......（脸红）。",
         "ja": ""
       },
-      "nextIndex": 20,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 20
     },
     {
       "index": 20,
@@ -421,9 +316,7 @@
         "zh": "哈哈哈哈爸爸又不好意思了！",
         "ja": ""
       },
-      "nextIndex": 21,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 21
     },
     {
       "index": 21,
@@ -439,9 +332,7 @@
         "zh": "（真是个有活力的家庭啊。）",
         "ja": ""
       },
-      "nextIndex": 22,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 22
     },
     {
       "index": 22,
@@ -457,9 +348,7 @@
         "zh": "不过我确实不是很了解这个戏团的事。",
         "ja": ""
       },
-      "nextIndex": 23,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 23
     },
     {
       "index": 23,
@@ -475,9 +364,7 @@
         "zh": "那些人看起来实在太可疑了，要不是他们的宣传单写着要在今年<color=orange>乞巧大会</color>上表演，我都担心是有什么奇怪的异教团体混进了芸台。",
         "ja": ""
       },
-      "nextIndex": 33,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 33
     },
     {
       "index": 24,
@@ -493,9 +380,7 @@
         "zh": "你不知道吗？芸台每两年一届的<color=orange>乞巧大会</color>啊！那可是芸台特有的，城市级别的盛会。",
         "ja": ""
       },
-      "nextIndex": 44,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 44
     },
     {
       "index": 25,
@@ -511,9 +396,7 @@
         "zh": "真的特别好玩！我们今天回去，正好能赶上明天大会正式开幕呢！",
         "ja": ""
       },
-      "nextIndex": 26,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 26
     },
     {
       "index": 26,
@@ -529,9 +412,7 @@
         "zh": "嗯，我们这班飞机好像预计是晚上八点落地吧，还有一个多小时。",
         "ja": ""
       },
-      "nextIndex": 27,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 27
     },
     {
       "index": 27,
@@ -547,9 +428,7 @@
         "zh": "（<color=orange>乞巧</color>？我记得好像是和星象相关的节日？我们那里没有过这个节的习惯。）",
         "ja": ""
       },
-      "nextIndex": 28,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 28
     },
     {
       "index": 28,
@@ -565,9 +444,7 @@
         "zh": "<color=orange>乞巧节</color>我似乎有印象，芸台是有拜双星的传统吗？",
         "ja": ""
       },
-      "nextIndex": 29,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 29
     },
     {
       "index": 29,
@@ -583,9 +460,7 @@
         "zh": "双星？",
         "ja": ""
       },
-      "nextIndex": 30,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 30
     },
     {
       "index": 30,
@@ -601,9 +476,7 @@
         "zh": "啊，芸台现在的乞巧大会已经没有拜星环节啦~不过拜<color=orange>喜母</color>的人似乎还是有很多的。",
         "ja": ""
       },
-      "nextIndex": 45,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 45
     },
     {
       "index": 31,
@@ -619,9 +492,7 @@
         "zh": "不过历年来参与斗巧的外地团体其实很少，一般不会起什么事端。",
         "ja": ""
       },
-      "nextIndex": 32,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 32
     },
     {
       "index": 32,
@@ -638,44 +509,10 @@
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "c4ed4bb1-f7a3-4648-957f-d3d4ccd47243",
-          "targetObjectName": "Event3_Qiqiao",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "c4ed4bb1-f7a3-4648-957f-d3d4ccd47243", "targetObjectName": "Event3_Qiqiao", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1
       ]
     },
     {
@@ -693,44 +530,10 @@
         "ja": ""
       },
       "nextIndex": 1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "c6675a35-4562-4720-aeb9-2d2dc6f85ca3",
-          "targetObjectName": "Event2_SusGroup",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "c6675a35-4562-4720-aeb9-2d2dc6f85ca3", "targetObjectName": "Event2_SusGroup", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1
       ]
     },
     {
@@ -747,9 +550,7 @@
         "zh": "是的阿姨，我是受朋友邀请而来的，事先都不知道有乞巧大会的事。",
         "ja": ""
       },
-      "nextIndex": 35,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 35
     },
     {
       "index": 35,
@@ -765,9 +566,7 @@
         "zh": "哎呀，这样正好赶上才叫幸运呢！在芸台玩的开心哦！",
         "ja": ""
       },
-      "nextIndex": 46,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 46
     },
     {
       "index": 36,
@@ -783,9 +582,7 @@
         "zh": "欸？",
         "ja": ""
       },
-      "nextIndex": 37,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 37
     },
     {
       "index": 37,
@@ -801,9 +598,7 @@
         "zh": "没有吗，那记得平常都跟朋友呆在一起。",
         "ja": ""
       },
-      "nextIndex": 47,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 47
     },
     {
       "index": 38,
@@ -820,44 +615,10 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-          "targetObjectName": "EventTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        },
-        {
-          "targetObjectID": "3f001509-962d-4ff0-ba56-84f65a8a30ab",
-          "targetObjectName": "Event4_CityLock",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44", "targetObjectName": "EventTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1,
+        {"targetObjectID": "3f001509-962d-4ff0-ba56-84f65a8a30ab", "targetObjectName": "Event4_CityLock", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1
       ]
     },
     {
@@ -870,13 +631,11 @@
       "avatarAddr": "DialogueImages/IMG_5819",
       "isPlayer": false,
       "content": {
-        "en": "Yeah, maybe starting about half a month ago, there were folks showing up in Yuntai calling themselves the “Troupe Elysium.”",
+        "en": "Yeah, maybe starting about half a month ago, there were folks showing up in Yuntai calling themselves the \"Troupe Elysium.\"",
         "zh": "从大概半个月前开始吧，芸台市里开始出现一些自称为“极乐戏团”成员的人",
         "ja": ""
       },
-      "nextIndex": 41,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 41
     },
     {
       "index": 41,
@@ -892,9 +651,7 @@
         "zh": "他们好像是要参与今年的大会进行表演吧，一直在市区各种地方进行宣传。",
         "ja": ""
       },
-      "nextIndex": 42,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 42
     },
     {
       "index": 42,
@@ -910,9 +667,7 @@
         "zh": "我带这孩子放学回家的时候，正好碰上他们在路边发放免费的周边，这孩子特别喜欢其中的木偶。",
         "ja": ""
       },
-      "nextIndex": 10,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 10
     },
     {
       "index": 43,
@@ -928,9 +683,7 @@
         "zh": "虽然经常能见到他们的成员在路边发放周边和进行宣讲活动，但是我见过的所有成员都<color=orange>带着面具，穿着带有兜帽的长袍</color>。",
         "ja": ""
       },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": -1
     },
     {
       "index": 44,
@@ -946,9 +699,7 @@
         "zh": "大会上有各种各样有趣的活动，还会有很多本地特色的表演节目哦！",
         "ja": ""
       },
-      "nextIndex": 25,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 25
     },
     {
       "index": 45,
@@ -960,13 +711,11 @@
       "avatarAddr": "DialogueImages/IMG_5819",
       "isPlayer": false,
       "content": {
-        "en": "The festival still keeps the old “<color=orange>craft competitions</color>,” which is probably how strange groups like <color=orange>Troupe Elysium</color> get a chance to perform.",
+        "en": "The festival still keeps the old \"<color=orange>craft competitions</color>,\" which is probably how strange groups like <color=orange>Troupe Elysium</color> get a chance to perform.",
         "zh": "大会也保留着<color=orange>斗巧</color>的传统，这也是为什么像<color=orange>极乐戏团</color>这种不知来路的奇怪团体也能参与大会进行表演。",
         "ja": ""
       },
-      "nextIndex": 31,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 31
     },
     {
       "index": 46,
@@ -982,9 +731,7 @@
         "zh": "不过每次大会即将召开之际，芸台都会暂时<color=orange>封城</color>直到三日后大会结束，这点你的朋友有告诉过你吗？",
         "ja": ""
       },
-      "nextIndex": 36,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 36
     },
     {
       "index": 47,
@@ -1000,9 +747,7 @@
         "zh": "往届乞巧大会期间，市内偶尔有些骚动，近几年局势似乎有些紧张，一定要注意安全哦。",
         "ja": ""
       },
-      "nextIndex": 38,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 38
     }
   ],
   "currentIndex": 0
