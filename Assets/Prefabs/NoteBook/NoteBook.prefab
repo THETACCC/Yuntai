@@ -4999,6 +4999,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1261027408041942401}
+        m_TargetAssemblyTypeName: NoteBookManager, Assembly-CSharp
+        m_MethodName: closeNoteBook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7339737299500330337
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,6 +5727,7 @@ GameObject:
   - component: {fileID: 5210371089670765639}
   - component: {fileID: 1261027408041942401}
   - component: {fileID: 3101064967999802186}
+  - component: {fileID: 2524680507557741114}
   m_Layer: 0
   m_Name: NoteBook
   m_TagString: NoteBook
@@ -5754,6 +5767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoteBook_Canvas: {fileID: 2067414156824978943}
+  isOpen: 0
   noteBookData: {fileID: 4900000, guid: fb795ad199965bb4d89dc00bc1dd1148, type: 3}
   googleSheetsURL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR0mmuag8xOIibjuDdcYRaeD2W4pdCKeqT7P13JXjww1oqrBzlMpes1xWqVIkmQ_WVsDu38Jxl_JPx4/pub?gid=480235077&single=true&output=csv
   NoteBookUpdate: {fileID: 8051383933775872654}
@@ -5776,6 +5790,19 @@ MonoBehaviour:
   currentLanguage: zh
   csvDelimiter: 44
   csvQuoteChar: 34
+--- !u!114 &2524680507557741114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967469790519628874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 7ac1d589-d6bd-41bc-9908-ae4cbb6d3838
 --- !u!1 &9028739400360924764
 GameObject:
   m_ObjectHideFlags: 0

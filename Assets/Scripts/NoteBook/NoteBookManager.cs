@@ -118,6 +118,11 @@ public class NoteBookManager : MonoBehaviour
         allowOpen = false;
     }
 
+    public void closeNoteBook()
+    {
+        isOpen = false;
+    }
+
     /// <summary>
     /// 获取NoteBookData的CSV文本
     /// </summary>
