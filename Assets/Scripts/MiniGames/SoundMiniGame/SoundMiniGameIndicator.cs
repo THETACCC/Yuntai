@@ -10,7 +10,6 @@ public class SoundMiniGameIndicator : MonoBehaviour
 
     public GameObject myUI_E;
 
-    [SerializeField] GameObject scenePortal1;
     [SerializeField] GameObject scenePortal2;
     [SerializeField] private DialogueTrigger gameInComplete;
     [SerializeField] private DialogueTrigger gameComplete;
@@ -56,8 +55,7 @@ public class SoundMiniGameIndicator : MonoBehaviour
         isReadyToTrigger = false;
         isSolved = true;
 
-        scenePortal1.SetActive(false);
-        scenePortal1.SetActive(true);
+        scenePortal2.SetActive(true);
         if (gameComplete) gameComplete.TriggerDialogue();
         print("mini game win!");
     }
