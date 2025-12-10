@@ -11,8 +11,8 @@
                 "zh": "嘶，我不是搞硬件的啊，这个该怎么弄呢?",
                 "ja": ""
             },
-            "positionX": 186.0,
-            "positionY": 122.66667175292969,
+            "positionX": 186.39999389648438,
+            "positionY": 122.40000915527344,
             "choices": [],
             "eventCalls": [
                 {
@@ -42,8 +42,8 @@
                 "zh": "不好意思打扰你一下。",
                 "ja": ""
             },
-            "positionX": 522.0,
-            "positionY": 122.66667175292969,
+            "positionX": 522.4000244140625,
+            "positionY": 122.40000915527344,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -60,7 +60,7 @@
                 "ja": ""
             },
             "positionX": 856.0,
-            "positionY": 124.66667175292969,
+            "positionY": 124.80000305175781,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -76,7 +76,7 @@
                 "zh": "请问您这是在修理什么呢？",
                 "ja": ""
             },
-            "positionX": 1174.0,
+            "positionX": 1174.39990234375,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -93,8 +93,8 @@
                 "zh": "本来不是修理的。这些人想要用印象在摊位旁边循环播放一个音效，我本来只是过来帮他们设定好程序的。",
                 "ja": ""
             },
-            "positionX": 1504.6666259765625,
-            "positionY": 122.66667175292969,
+            "positionX": 1504.7999267578125,
+            "positionY": 122.40000915527344,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -110,7 +110,7 @@
                 "zh": "结果硬件好像出问题了，现在一直没法正常播放，我还在苦恼怎么办呢。",
                 "ja": ""
             },
-            "positionX": 1837.333251953125,
+            "positionX": 1837.5999755859375,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -127,7 +127,7 @@
                 "zh": "什么样的音效？",
                 "ja": ""
             },
-            "positionX": 2172.666748046875,
+            "positionX": 2172.800048828125,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -144,7 +144,7 @@
                 "zh": "嗯，是种<color=orange>有点奇怪的鼓点</color>，不太好描述。",
                 "ja": ""
             },
-            "positionX": 2502.666748046875,
+            "positionX": 2503.199951171875,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -161,7 +161,7 @@
                 "zh": "要是能修好音响的话你就能直接听见了，但现在恐怕没办法了。",
                 "ja": ""
             },
-            "positionX": 2838.666748046875,
+            "positionX": 2839.199951171875,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -179,7 +179,7 @@
                 "ja": ""
             },
             "positionX": 3168.0,
-            "positionY": 122.66667175292969,
+            "positionY": 122.40000915527344,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -195,8 +195,8 @@
                 "zh": "（之前在飞机上的时候，飞机上的广播系统似乎也在播放某种鼓声。）",
                 "ja": ""
             },
-            "positionX": 3497.33349609375,
-            "positionY": 122.66667175292969,
+            "positionX": 3497.599853515625,
+            "positionY": 122.40000915527344,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -228,6 +228,19 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "df8c648d-2f74-4761-91aa-fbdc7c97e287",
+                    "targetObjectName": "SoundMiniGame",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "SoundMiniGameIndicator",
+                    "methodName": "OpenMiniGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
             "conditionalBranches": []
