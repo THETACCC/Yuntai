@@ -805,6 +805,40 @@ public partial class DialogueNode : Node
                     var selectedGO = evt.newValue as GameObject;
                     if (selectedGO != null)
                     {
+                        // 检测是否是prefab asset（在Assets文件夹中的prefab）
+                        if (PrefabUtility.IsPartOfPrefabAsset(selectedGO))
+                        {
+                            EditorUtility.DisplayDialog(
+                                "Invalid Target",
+                                "Cannot use prefab as event target.\n\n" +
+                                "Prefab assets in the Assets folder cannot be used as event targets because:\n" +
+                                "• They are templates, not active GameObjects in the scene\n" +
+                                "• Runtime execution would target the prefab file, not scene instances\n" +
+                                "• Multiple instances would cause ID conflicts\n\n" +
+                                "Please drag the prefab into the scene first, then select the scene instance.",
+                                "OK"
+                            );
+
+                            // 清空选择
+                            gameObjectField.value = null;
+
+                            // 清空事件数据
+                            EventCalls[currentIndex].targetObjectID = "";
+                            EventCalls[currentIndex].targetObjectName = "";
+                            EventCalls[currentIndex].targetSceneName = "";
+
+                            EditorApplication.delayCall += () =>
+                            {
+                                if (this != null)
+                                {
+                                    UpdateEventsDisplay();
+                                }
+                            };
+
+                            NotifyChange();
+                            return;
+                        }
+
                         var refComponent = DialogueReference.GetOrCreate(selectedGO);
                         EventCalls[currentIndex].targetObjectID = refComponent.UniqueID;
                         EventCalls[currentIndex].targetObjectName = selectedGO.name;
