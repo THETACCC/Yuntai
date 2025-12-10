@@ -9,7 +9,7 @@ public class NoteBookManager : MonoBehaviour
 
     public GameObject NoteBook_Canvas;
 
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     [Header("Data Source")]
     [Tooltip("NoteBook数据表CSV文件（如果使用本地文件）")]
