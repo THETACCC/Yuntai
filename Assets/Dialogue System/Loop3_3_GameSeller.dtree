@@ -11,8 +11,8 @@
                 "zh": "您好，这些都是手工制成的木偶吗？",
                 "ja": ""
             },
-            "positionX": 205.33334350585938,
-            "positionY": -135.33334350585938,
+            "positionX": 205.0,
+            "positionY": -135.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -42,8 +42,8 @@
                 "zh": "那当然！这可是代代流传下来的手艺！",
                 "ja": ""
             },
-            "positionX": 552.6666870117188,
-            "positionY": -134.66665649414063,
+            "positionX": 553.0,
+            "positionY": -135.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -59,8 +59,8 @@
                 "zh": "你看这里的花纹，啧啧，再看这里的雕刻细节......",
                 "ja": ""
             },
-            "positionX": 900.6666870117188,
-            "positionY": -135.33334350585938,
+            "positionX": 901.0,
+            "positionY": -135.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -76,8 +76,8 @@
                 "zh": "（他似乎相当热衷于木偶。）",
                 "ja": ""
             },
-            "positionX": 1237.333251953125,
-            "positionY": -135.33334350585938,
+            "positionX": 1237.0,
+            "positionY": -135.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -94,7 +94,7 @@
                 "ja": ""
             },
             "positionX": 1588.0,
-            "positionY": -131.33334350585938,
+            "positionY": -131.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -128,7 +128,7 @@
                 "ja": ""
             },
             "positionX": 2342.0,
-            "positionY": -125.33333587646485,
+            "positionY": -125.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -144,8 +144,8 @@
                 "zh": "噢！那你可来对了地方了！我们芸台的手作木偶可是很有名气的。",
                 "ja": ""
             },
-            "positionX": 2729.33349609375,
-            "positionY": -122.66666412353516,
+            "positionX": 2729.0,
+            "positionY": -123.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -161,8 +161,8 @@
                 "zh": "我正是慕名而来，之前也在芸台购置过一些木偶。",
                 "ja": ""
             },
-            "positionX": 3118.666748046875,
-            "positionY": -111.33332824707031,
+            "positionX": 3119.0,
+            "positionY": -111.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -178,8 +178,8 @@
                 "zh": "只是我保存的木偶，丝线常常会自己断裂，却又找不到原因。",
                 "ja": ""
             },
-            "positionX": 3502.666748046875,
-            "positionY": -114.66667175292969,
+            "positionX": 3503.0,
+            "positionY": -115.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -196,7 +196,7 @@
                 "ja": ""
             },
             "positionX": 3882.0,
-            "positionY": -110.66667175292969,
+            "positionY": -111.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -213,7 +213,7 @@
                 "ja": ""
             },
             "positionX": 4278.0,
-            "positionY": -102.66667175292969,
+            "positionY": -103.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -229,8 +229,8 @@
                 "zh": "嗯，我们本地最古老的木偶做法，便是使用蛛丝连接木偶关节的。",
                 "ja": ""
             },
-            "positionX": 4658.66650390625,
-            "positionY": -98.66667175292969,
+            "positionX": 4659.0,
+            "positionY": -99.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -247,7 +247,7 @@
                 "ja": ""
             },
             "positionX": 5046.0,
-            "positionY": -97.33332824707031,
+            "positionY": -97.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -264,7 +264,7 @@
                 "ja": ""
             },
             "positionX": 5418.0,
-            "positionY": -95.33332824707031,
+            "positionY": -95.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -280,8 +280,8 @@
                 "zh": "如果温度太低或太高的话......",
                 "ja": ""
             },
-            "positionX": 5784.66650390625,
-            "positionY": -91.33332824707031,
+            "positionX": 5785.0,
+            "positionY": -91.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -297,10 +297,50 @@
                 "zh": "<color=orange>温度太高丝线会溶解，太低则容易脆化断裂</color>，所以保存时要控制好温度。",
                 "ja": ""
             },
-            "positionX": 6150.66650390625,
-            "positionY": -87.33332824707031,
+            "positionX": 6151.0,
+            "positionY": -87.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "b7747cab-c455-4a7f-878d-8c7763cb609a",
+                    "targetObjectName": "Event8_Silk",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -314,8 +354,8 @@
                 "zh": "非常感谢您！真是帮了大忙了！",
                 "ja": ""
             },
-            "positionX": 6550.66650390625,
-            "positionY": -86.66667175292969,
+            "positionX": 6551.0,
+            "positionY": -87.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -331,8 +371,8 @@
                 "zh": "哈哈哈哈哈不客气不客气！好久没遇到这么喜欢木偶的人了！",
                 "ja": ""
             },
-            "positionX": 6930.66650390625,
-            "positionY": -86.66667175292969,
+            "positionX": 6931.0,
+            "positionY": -87.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -366,7 +406,7 @@
                 "ja": ""
             },
             "positionX": 7676.0,
-            "positionY": -81.33333587646485,
+            "positionY": -81.0,
             "choices": [],
             "eventCalls": [
                 {
