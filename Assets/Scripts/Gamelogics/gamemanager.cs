@@ -38,7 +38,7 @@ public class Gamemanager : MonoBehaviour
 
     public void Update()
     {
-        Debug.Log(phase);
+        //Debug.Log(phase);
     }
 
     public void StartDialogue()
