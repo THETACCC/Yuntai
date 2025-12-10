@@ -266,26 +266,44 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-        
+
 
     }
 
     private IEnumerator TextAnimation(string text)
     {
-        contentText.text = "";
-        foreach (char c in text)
-        {
-            contentText.text += c;
+        contentText.text = text; // 先设置完整文本，让 TMP 解析富文本标签
+        contentText.maxVisibleCharacters = 0; // 从 0 个可见字符开始
 
-            // 如果是标点符号，增加额外停顿
-            if ("，,。.！？!?…".Contains(c.ToString()))
-                yield return new WaitForSeconds(punctuationPause);
+        // 强制更新文本网格，确保 textInfo 正确
+        contentText.ForceMeshUpdate();
+
+        int totalVisibleCharacters = contentText.textInfo.characterCount; // 获取实际字符数（不包括富文本标签）
+
+        for (int i = 0; i <= totalVisibleCharacters; i++)
+        {
+            contentText.maxVisibleCharacters = i; // 逐渐显示字符
+
+            // 获取当前显示的最后一个字符来判断是否需要标点停顿
+            if (i > 0 && i <= totalVisibleCharacters)
+            {
+                char currentChar = contentText.textInfo.characterInfo[i - 1].character;
+
+                // 如果是标点符号，增加额外停顿
+                if ("，,。.！？!?…".Contains(currentChar.ToString()))
+                    yield return new WaitForSeconds(punctuationPause);
+                else
+                    yield return new WaitForSeconds(textSpeed);
+            }
             else
+            {
                 yield return new WaitForSeconds(textSpeed);
+            }
         }
 
         textAnimationCoroutine = null;
     }
+
 
     bool ConditionResult(List<ChoiceCondition> conditions, ConditionLogic conditionLogic)
     {
