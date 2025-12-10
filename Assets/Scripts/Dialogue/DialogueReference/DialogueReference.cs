@@ -37,6 +37,7 @@ public class DialogueReference : MonoBehaviour
         if (string.IsNullOrEmpty(uniqueID))
         {
             GenerateNewID();
+            RegisterToIDRegistry();
             return;
         }
 
@@ -46,10 +47,32 @@ public class DialogueReference : MonoBehaviour
             return;
         }
 
+        // 检查IDRegistry中是否已存在此ID
+        if (DialogueSystem.IDRegistry.Instance.Contains(uniqueID))
+        {
+            // 再次确认：真的有其他对象在用这个ID吗？
+            var duplicates = FindDuplicateObjects(uniqueID);
+
+            if (duplicates.Count > 0)
+            {
+                // 确实有重复！自动重新生成ID
+                string oldID = uniqueID;
+                Debug.LogWarning($"⚠️ [DialogueReference] 检测到重复ID '{oldID.Substring(0, 8)}...' on GameObject '{gameObject.name}'，自动生成新ID", this);
+
+                GenerateNewID();
+
+                Debug.Log($"[DialogueReference] GameObject '{gameObject.name}' ID已更新: {oldID.Substring(0, 8)}... → {uniqueID.Substring(0, 8)}...");
+            }
+        }
+
+        // 注册到IDRegistry（新ID或已存在但无冲突的ID）
+        RegisterToIDRegistry();
+
+        // 额外检查：使用旧方法double check（防御性编程）
         if (IsDuplicateID(uniqueID))
         {
             var duplicates = FindDuplicateObjects(uniqueID);
-            Debug.LogError($"⚠️ [DialogueReference] ID CONFLICT!\nGameObject '{gameObject.name}' has duplicate ID: {uniqueID}\nConflicts with: {string.Join(", ", duplicates.Select(d => $"'{d.gameObject.name}'"))}\nFix: Tools > Dialogue System > Fix All Duplicate IDs", this);
+            Debug.LogError($"⚠️ [DialogueReference] ID CONFLICT DETECTED!\nGameObject '{gameObject.name}' has duplicate ID: {uniqueID}\nConflicts with: {string.Join(", ", duplicates.Select(d => $"'{d.gameObject.name}'"))}\nThis should not happen with ID Registry enabled.", this);
         }
 #else
         if (string.IsNullOrEmpty(uniqueID))
@@ -168,7 +191,49 @@ public class DialogueReference : MonoBehaviour
     public void ForceRegenerateID()
     {
         GenerateNewID();
+#if UNITY_EDITOR
+        RegisterToIDRegistry();
+#endif
     }
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// 注册到ID注册表
+    /// </summary>
+    private void RegisterToIDRegistry()
+    {
+        if (string.IsNullOrEmpty(uniqueID)) return;
+        if (!gameObject.scene.IsValid()) return;  // prefab asset不注册
+
+        string scenePath = gameObject.scene.path;
+        if (string.IsNullOrEmpty(scenePath)) return;  // 未保存的场景
+
+        DialogueSystem.IDRegistry.Instance.Add(uniqueID, scenePath, gameObject.name);
+    }
+
+    /// <summary>
+    /// 对象销毁时，从ID注册表中移除
+    /// </summary>
+    private void OnDestroy()
+    {
+        // 只在编辑器模式下处理
+        if (!Application.isPlaying)
+        {
+            // 判断：是对象被删除，还是场景卸载？
+            if (gameObject.scene.isLoaded)
+            {
+                // 场景还加载着，说明是对象被删除
+                if (!string.IsNullOrEmpty(uniqueID))
+                {
+                    DialogueSystem.IDRegistry.Instance.Remove(uniqueID);
+                    Debug.Log($"[DialogueReference] GameObject '{gameObject.name}' 被删除，已从注册表移除ID");
+                }
+            }
+            // 如果场景已卸载，不做任何处理（保留ID在注册表中）
+        }
+    }
+#endif
+
 
     public static GameObject FindByID(string id)
     {
