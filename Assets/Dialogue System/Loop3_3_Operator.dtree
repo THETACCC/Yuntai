@@ -60,7 +60,7 @@
                 "ja": ""
             },
             "positionX": 856.0,
-            "positionY": 124.66667175292969,
+            "positionY": 125.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -93,7 +93,7 @@
                 "zh": "本来不是修理的。这些人想要用印象在摊位旁边循环播放一个音效，我本来只是过来帮他们设定好程序的。",
                 "ja": ""
             },
-            "positionX": 1504.6666259765625,
+            "positionX": 1505.0,
             "positionY": 122.0,
             "choices": [],
             "eventCalls": [],
@@ -110,7 +110,7 @@
                 "zh": "结果硬件好像出问题了，现在一直没法正常播放，我还在苦恼怎么办呢。",
                 "ja": ""
             },
-            "positionX": 1837.333251953125,
+            "positionX": 1837.0,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -127,7 +127,7 @@
                 "zh": "可以让我看看吗？说不定能帮到你！",
                 "ja": ""
             },
-            "positionX": 2172.666748046875,
+            "positionX": 2173.0,
             "positionY": 124.0,
             "choices": [],
             "eventCalls": [],
@@ -145,7 +145,7 @@
                 "ja": ""
             },
             "positionX": 2558.0,
-            "positionY": 124.66667175292969,
+            "positionY": 125.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -161,8 +161,8 @@
                 "zh": "我来试试！",
                 "ja": ""
             },
-            "positionX": 2876.666748046875,
-            "positionY": 126.66667175292969,
+            "positionX": 2876.0,
+            "positionY": 125.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -190,6 +190,58 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+                    "targetObjectName": "Objective4_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "7f8cb4f2-ad32-4cec-ac79-148d4dcc0240",
+                    "targetObjectName": "Objective4_2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
