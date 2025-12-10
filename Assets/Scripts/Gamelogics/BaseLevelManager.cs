@@ -23,8 +23,15 @@ public class BaseLevelManager : MonoBehaviour
     // ===== Camera Zoom Helper（通用相机缩放） =====
     [Header("Camera Zoom (Cinemachine)")]
     [SerializeField] protected CinemachineVirtualCamera mainVCam;
+
+    [Tooltip("Zoom In 之后相机的 Orthographic Size（数值越小，越放大）。")]
+    [SerializeField, Min(0.1f)]
     protected float zoomInOrthoSize = 6f;
-    [SerializeField, Min(0f)] protected float zoomDuration = 0.5f;
+
+    [Tooltip("从当前 size 缩放到目标 size 需要的时间（秒）。")]
+    [SerializeField, Min(0f)]
+    protected float zoomDuration = 0.5f;
+
 
     protected float _originalOrthoSize;
     protected bool _hasOriginalOrthoSize = false;
