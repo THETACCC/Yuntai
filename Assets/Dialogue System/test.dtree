@@ -7,8 +7,8 @@
             "useContentId": true,
             "contentId": "test_node_0_dialogue",
             "content": {
-                "en": "The restroom for economy is <color=red>waaay down at the other end</color>, dear.",
-                "zh": "我快憋不住了",
+                "en": "The restroom for economy is <color=orange>waaay down at the other end</color>, dear.",
+                "zh": "我快\n憋不住了",
                 "ja": ""
             },
             "positionX": 291.33331298828127,
@@ -26,20 +26,7 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": [
-                {
-                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
-                    "targetObjectName": "Test",
-                    "componentTypeName": "Test",
-                    "methodName": "CallAfterNodeDisappear|Int32",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 2,
-                    "triggerTiming": 2
-                }
-            ],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -68,20 +55,7 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": [
-                {
-                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
-                    "targetObjectName": "Test",
-                    "componentTypeName": "Test",
-                    "methodName": "CallAfterNodeDisappear|Int32",
-                    "stringParameter": "",
-                    "intParameter": 2222,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 2,
-                    "triggerTiming": 2
-                }
-            ],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -115,20 +89,7 @@
             "positionX": 1743.333251953125,
             "positionY": -267.33331298828127,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "09ad9222-8617-4f29-9ccd-2e071c3d8c9c",
-                    "targetObjectName": "Test",
-                    "componentTypeName": "Test",
-                    "methodName": "CallAfterNodeDisappear|Int32",
-                    "stringParameter": "",
-                    "intParameter": 1111,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 2,
-                    "triggerTiming": 2
-                }
-            ],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
