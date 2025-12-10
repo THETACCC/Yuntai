@@ -1,0 +1,74 @@
+{
+    "nodes": [
+        {
+            "id": "7be1ebbc-02e8-4be4-a88e-35acec83b948",
+            "index": 0,
+            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
+            "useContentId": true,
+            "contentId": "ch1_3269",
+            "content": {
+                "en": "How’s it going? Any ideas yet?",
+                "zh": "看的怎么样？有什么头绪吗？",
+                "ja": ""
+            },
+            "positionX": 1060.6666259765625,
+            "positionY": 16.666664123535158,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9aaf2697-68bb-4608-92bb-0dc4d000f9b7",
+            "index": 1,
+            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
+            "useContentId": true,
+            "contentId": "ch1_3270",
+            "content": {
+                "en": "There’s a<color=orange> note</color>on the speaker that might give you a hint.",
+                "zh": "音响上好像有张<color=orange>纸条</color>，说不定它能帮到你。",
+                "ja": ""
+            },
+            "positionX": 1412.6666259765625,
+            "positionY": 19.333335876464845,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomOut_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "df8c648d-2f74-4761-91aa-fbdc7c97e287",
+                    "targetObjectName": "SoundMiniGame",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "SoundMiniGameIndicator",
+                    "methodName": "OpenMiniGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "7be1ebbc-02e8-4be4-a88e-35acec83b948",
+            "inputNodeId": "9aaf2697-68bb-4608-92bb-0dc4d000f9b7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
