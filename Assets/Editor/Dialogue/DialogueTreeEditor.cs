@@ -647,10 +647,6 @@ public class DialogueTreeEditor : EditorWindow
                 }
                 formattedJson += "      ]";
             }
-            else
-            {
-                formattedJson += ",\n      \"choices\": []";
-            }
 
             // Events (包含 triggerOnEnd 字段)
             if (item.eventCalls.Count > 0)
@@ -675,10 +671,6 @@ public class DialogueTreeEditor : EditorWindow
                     formattedJson += "\n";
                 }
                 formattedJson += "      ]";
-            }
-            else
-            {
-                formattedJson += ",\n      \"eventCalls\": []";
             }
 
             formattedJson += "\n    }";

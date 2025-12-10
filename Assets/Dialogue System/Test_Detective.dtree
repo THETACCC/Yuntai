@@ -4,6 +4,7 @@
             "id": "811867e6-7f26-4a00-8e57-f38a7e372bf9",
             "index": 0,
             "characterId": "",
+            "useContentId": false,
             "contentId": "Test_Detective_node_0_dialogue",
             "content": {
                 "en": "Speaker speaks",
@@ -20,6 +21,7 @@
             "id": "b7ffb52a-5875-4280-a54d-a390d28dcdf1",
             "index": 1,
             "characterId": "",
+            "useContentId": false,
             "contentId": "Test_Detective_node_1_dialogue",
             "content": {
                 "en": "Open Detective",
@@ -33,6 +35,7 @@
                 {
                     "targetObjectID": "de877e29-e1dc-43ae-9e97-49a0d0bd1ca1",
                     "targetObjectName": "DetectiveSystem",
+                    "targetSceneName": "",
                     "componentTypeName": "DetectiveManager",
                     "methodName": "StartDetectiveGame",
                     "stringParameter": "",
@@ -40,7 +43,7 @@
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerOnEnd": true
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []

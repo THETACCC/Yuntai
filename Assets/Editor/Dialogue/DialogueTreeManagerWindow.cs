@@ -4086,18 +4086,23 @@ public class DialogueTreeManagerWindow : EditorWindow
                     sb.Append($"\n        {{\"targetIndex\": {br.targetIndex}, \"priority\": {br.priority}");
                     if (br.priority > 0 && br.conditions?.Count > 0)
                     {
-                        sb.Append(", \"conditions\": [");
+                        sb.Append(", \"conditions\": [\n");
                         for (int k = 0; k < br.conditions.Count; k++)
                         {
                             var c = br.conditions[k];
-                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
-                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
-                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
-                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
-                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}}");
+                            sb.Append("            {\n");
+                            sb.Append($"              \"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\",\n");
+                            sb.Append($"              \"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\",\n");
+                            sb.Append($"              \"variableName\": \"{EscapeJsonString(c.variableName)}\",\n");
+                            sb.Append($"              \"comparison\": \"{c.comparison}\",\n");
+                            sb.Append($"              \"compareValue\": \"{EscapeJsonString(c.compareValue)}\"\n");
+                            sb.Append("            }");
                             if (k < br.conditions.Count - 1) sb.Append(",");
+                            sb.Append("\n");
                         }
-                        sb.Append($"], \"conditionLogic\": \"{br.conditionLogic}\"");
+                        sb.Append("          ], \"conditionLogic\": \"");
+                        sb.Append(br.conditionLogic);
+                        sb.Append("\"");
                     }
                     sb.Append("}");
                     if (j < item.conditionalBranches.Count - 1) sb.Append(",");
@@ -4125,18 +4130,23 @@ public class DialogueTreeManagerWindow : EditorWindow
                     sb.Append($"\n        {{\"text\": {SerializeLocalizedText(ch.text, 5)}, \"targetIndex\": {tgt}");
                     if (ch.conditions?.Count > 0)
                     {
-                        sb.Append(", \"conditions\": [");
+                        sb.Append(", \"conditions\": [\n");
                         for (int k = 0; k < ch.conditions.Count; k++)
                         {
                             var c = ch.conditions[k];
-                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
-                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
-                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
-                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
-                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}}");
+                            sb.Append("            {\n");
+                            sb.Append($"              \"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\",\n");
+                            sb.Append($"              \"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\",\n");
+                            sb.Append($"              \"variableName\": \"{EscapeJsonString(c.variableName)}\",\n");
+                            sb.Append($"              \"comparison\": \"{c.comparison}\",\n");
+                            sb.Append($"              \"compareValue\": \"{EscapeJsonString(c.compareValue)}\"\n");
+                            sb.Append("            }");
                             if (k < ch.conditions.Count - 1) sb.Append(",");
+                            sb.Append("\n");
                         }
-                        sb.Append($"], \"conditionLogic\": \"{ch.conditionLogic}\"");
+                        sb.Append("          ], \"conditionLogic\": \"");
+                        sb.Append(ch.conditionLogic);
+                        sb.Append("\"");
                     }
                     sb.Append("}");
                     if (j < item.choices.Count - 1) sb.Append(",");
@@ -4146,23 +4156,26 @@ public class DialogueTreeManagerWindow : EditorWindow
 
             if (item.eventCalls?.Count > 0)
             {
-                sb.Append(",\n      \"eventCalls\": [");
+                sb.Append(",\n      \"eventCalls\": [\n");
                 for (int j = 0; j < item.eventCalls.Count; j++)
                 {
                     var ev = item.eventCalls[j];
-                    sb.Append($"\n        {{\"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\", ");
-                    sb.Append($"\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
-                    sb.Append($"\"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\", ");
-                    sb.Append($"\"methodName\": \"{EscapeJsonString(ev.methodName)}\", ");
-                    sb.Append($"\"parameterType\": \"{ev.parameterType}\", ");
-                    sb.Append($"\"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\", ");
-                    sb.Append($"\"intParameter\": {ev.intParameter}, ");
-                    sb.Append($"\"floatParameter\": {ev.floatParameter}, ");
-                    sb.Append($"\"boolParameter\": {ev.boolParameter.ToString().ToLower()}, ");
-                    sb.Append($"\"triggerTiming\": {(int)ev.triggerTiming}");
+                    sb.Append("        {\n");
+                    sb.Append($"          \"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\",\n");
+                    sb.Append($"          \"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\",\n");
+                    sb.Append($"          \"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\",\n");
+                    sb.Append($"          \"methodName\": \"{EscapeJsonString(ev.methodName)}\",\n");
+                    sb.Append($"          \"parameterType\": \"{ev.parameterType}\",\n");
+                    sb.Append($"          \"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\",\n");
+                    sb.Append($"          \"intParameter\": {ev.intParameter},\n");
+                    sb.Append($"          \"floatParameter\": {ev.floatParameter},\n");
+                    sb.Append($"          \"boolParameter\": {ev.boolParameter.ToString().ToLower()},\n");
+                    sb.Append($"          \"triggerTiming\": {(int)ev.triggerTiming}\n");
+                    sb.Append("        }");
                     if (j < item.eventCalls.Count - 1) sb.Append(",");
+                    sb.Append("\n");
                 }
-                sb.Append("\n      ]");
+                sb.Append("      ]");
             }
 
             sb.Append("\n    }");

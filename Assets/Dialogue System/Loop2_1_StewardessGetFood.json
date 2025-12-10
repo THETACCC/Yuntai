@@ -14,9 +14,7 @@
         "zh": "那个，乘务员小姐？",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 1,
@@ -32,9 +30,7 @@
         "zh": "嗯？又有什么事吗女士？（微笑）",
         "ja": ""
       },
-      "nextIndex": 2,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 2
     },
     {
       "index": 2,
@@ -50,9 +46,7 @@
         "zh": "后面有一个女生似乎饿得很厉害，请问我可以先从这里拿一盒飞机餐给她吗？",
         "ja": ""
       },
-      "nextIndex": 3,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 3
     },
     {
       "index": 3,
@@ -68,9 +62,7 @@
         "zh": "哎呀，那可不成~飞机上的所有餐饮都是统一发放的，还请您耐~心~等待吧。",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -86,9 +78,7 @@
         "zh": "可是——",
         "ja": ""
       },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 5
     },
     {
       "index": 5,
@@ -104,9 +94,7 @@
         "zh": "规矩就是规矩哦~",
         "ja": ""
       },
-      "nextIndex": 46,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 46
     },
     {
       "index": 6,
@@ -122,9 +110,7 @@
         "zh": "（也许就这样<color=orange>不断找她聊天</color>的话，她耐心耗尽就会把飞机餐给我了。）",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 7,
@@ -142,14 +128,11 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "Why standing here this whole time?",
             "zh": "您为什么一直站在这里呢？",
             "ja": ""
-          },
-          "targetIndex": 8,
-          "conditions": [
+          }, "targetIndex": 8, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -157,17 +140,12 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          ], "conditionLogic": "AND"},
+        {"text": {
             "en": "You mentioned your supervisor earlier...",
             "zh": "之前提到的乘务长...",
             "ja": ""
-          },
-          "targetIndex": 14,
-          "conditions": [
+          }, "targetIndex": 14, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -182,17 +160,12 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          ], "conditionLogic": "AND"},
+        {"text": {
             "en": "The strange groups in the city...",
             "zh": "城里奇怪的团体...",
             "ja": ""
-          },
-          "targetIndex": 19,
-          "conditions": [
+          }, "targetIndex": 19, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -207,17 +180,12 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          ], "conditionLogic": "AND"},
+        {"text": {
             "en": "The Qiqiao Festival is starting soon...",
             "zh": "乞巧大会就要开始了...",
             "ja": ""
-          },
-          "targetIndex": 20,
-          "conditions": [
+          }, "targetIndex": 20, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -232,17 +200,12 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          ], "conditionLogic": "AND"},
+        {"text": {
             "en": "About Yuntai going into lockdown...",
             "zh": "关于芸台封城的事...",
             "ja": ""
-          },
-          "targetIndex": 21,
-          "conditions": [
+          }, "targetIndex": 21, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -257,19 +220,13 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "text": {
+          ], "conditionLogic": "AND"},
+        {"text": {
             "en": "Sorry to bother you. I’ll be going now.",
             "zh": "打扰您了，我这就走。（结束对话）",
             "ja": ""
-          },
-          "targetIndex": 34
-        }
-      ],
-      "eventCalls": []
+          }, "targetIndex": 34}
+      ]
     },
     {
       "index": 8,
@@ -286,7 +243,6 @@
         "ja": ""
       },
       "nextIndex": 9,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -316,9 +272,7 @@
         "zh": "......（微笑）",
         "ja": ""
       },
-      "nextIndex": 10,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 10
     },
     {
       "index": 10,
@@ -334,9 +288,7 @@
         "zh": "（好可怕！）",
         "ja": ""
       },
-      "nextIndex": 11,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 11
     },
     {
       "index": 11,
@@ -352,9 +304,7 @@
         "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
         "ja": ""
       },
-      "nextIndex": 12,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 12
     },
     {
       "index": 12,
@@ -370,9 +320,7 @@
         "zh": "（她在咬着牙说话......）",
         "ja": ""
       },
-      "nextIndex": 13,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 13
     },
     {
       "index": 13,
@@ -388,9 +336,7 @@
         "zh": "（还是结束这个话题吧。）",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 14,
@@ -407,7 +353,6 @@
         "ja": ""
       },
       "nextIndex": 15,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -437,9 +382,7 @@
         "zh": "大概就在前面的机舱里吧，具体我也不清楚呢。",
         "ja": ""
       },
-      "nextIndex": 16,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 16
     },
     {
       "index": 16,
@@ -455,9 +398,7 @@
         "zh": "您和她很熟吗？",
         "ja": ""
       },
-      "nextIndex": 17,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 17
     },
     {
       "index": 17,
@@ -473,9 +414,7 @@
         "zh": "我看着像和她很熟的样子吗？",
         "ja": ""
       },
-      "nextIndex": 18,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 18
     },
     {
       "index": 18,
@@ -492,10 +431,7 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 44,
-          "priority": 2,
-          "conditions": [
+        {"targetIndex": 44, "priority": 2, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -510,13 +446,8 @@
               "comparison": "Equal",
               "compareValue": "True"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 35,
-          "priority": 1,
-          "conditions": [
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 35, "priority": 1, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -531,15 +462,9 @@
               "comparison": "Equal",
               "compareValue": "True"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 7,
-          "priority": 0
-        }
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 7, "priority": 0}
       ],
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
@@ -594,7 +519,6 @@
         "ja": ""
       },
       "nextIndex": 22,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -625,7 +549,6 @@
         "ja": ""
       },
       "nextIndex": 28,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -656,7 +579,6 @@
         "ja": ""
       },
       "nextIndex": 32,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -686,9 +608,7 @@
         "zh": "女士，我不是芸台人，也并不了解这些事。我只是在飞机上工作而已。",
         "ja": ""
       },
-      "nextIndex": 23,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 23
     },
     {
       "index": 23,
@@ -704,9 +624,7 @@
         "zh": "您近来有在飞机上见过类似的可疑人士吗？",
         "ja": ""
       },
-      "nextIndex": 24,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 24
     },
     {
       "index": 24,
@@ -722,9 +640,7 @@
         "zh": "当然有了，后面机舱那位穿着奇怪道袍的小姐不就很可疑吗？",
         "ja": ""
       },
-      "nextIndex": 25,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 25
     },
     {
       "index": 25,
@@ -740,9 +656,7 @@
         "zh": "（她看起来确实挺可疑的。）",
         "ja": ""
       },
-      "nextIndex": 26,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 26
     },
     {
       "index": 26,
@@ -758,9 +672,7 @@
         "zh": "但只要没有造成危害就没有介入的需要，我们毕竟是服务人员，不能以貌取人。",
         "ja": ""
       },
-      "nextIndex": 27,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 27
     },
     {
       "index": 27,
@@ -777,10 +689,7 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 44,
-          "priority": 2,
-          "conditions": [
+        {"targetIndex": 44, "priority": 2, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -795,13 +704,8 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 35,
-          "priority": 1,
-          "conditions": [
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 35, "priority": 1, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -816,16 +720,9 @@
               "comparison": "Equal",
               "compareValue": "True"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 7,
-          "priority": 0
-        }
-      ],
-      "choices": [],
-      "eventCalls": []
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 7, "priority": 0}
+      ]
     },
     {
       "index": 28,
@@ -841,9 +738,7 @@
         "zh": "唔，这个大会似乎还挺有名气的，往年也常有乘客在这个时段慕名而来。",
         "ja": ""
       },
-      "nextIndex": 29,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 29
     },
     {
       "index": 29,
@@ -859,9 +754,7 @@
         "zh": "您降落之后会去大会看看吗？",
         "ja": ""
       },
-      "nextIndex": 30,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 30
     },
     {
       "index": 30,
@@ -877,9 +770,7 @@
         "zh": "这就是私人安排了，女士。不过我一向不喜欢人多的地方，尤其是如您这样聒噪的人聚集的地方。",
         "ja": ""
       },
-      "nextIndex": 31,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 31
     },
     {
       "index": 31,
@@ -896,10 +787,7 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 44,
-          "priority": 2,
-          "conditions": [
+        {"targetIndex": 44, "priority": 2, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -914,13 +802,8 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 35,
-          "priority": 1,
-          "conditions": [
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 35, "priority": 1, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -935,16 +818,9 @@
               "comparison": "Equal",
               "compareValue": "True"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 7,
-          "priority": 0
-        }
-      ],
-      "choices": [],
-      "eventCalls": []
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 7, "priority": 0}
+      ]
     },
     {
       "index": 32,
@@ -960,9 +836,7 @@
         "zh": "唉~每年都会这样，我去年待的机组在封城前返回了。",
         "ja": ""
       },
-      "nextIndex": 45,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 45
     },
     {
       "index": 33,
@@ -979,10 +853,7 @@
         "ja": ""
       },
       "conditionalBranches": [
-        {
-          "targetIndex": 44,
-          "priority": 2,
-          "conditions": [
+        {"targetIndex": 44, "priority": 2, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -997,13 +868,8 @@
               "comparison": "Equal",
               "compareValue": "False"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 35,
-          "priority": 1,
-          "conditions": [
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 35, "priority": 1, "conditions": [
             {
               "targetObjectName": "LevelManager2_1",
               "componentTypeName": "LevelManager2_1",
@@ -1018,16 +884,9 @@
               "comparison": "Equal",
               "compareValue": "True"
             }
-          ],
-          "conditionLogic": "AND"
-        },
-        {
-          "targetIndex": 7,
-          "priority": 0
-        }
-      ],
-      "choices": [],
-      "eventCalls": []
+          ], "conditionLogic": "AND"},
+        {"targetIndex": 7, "priority": 0}
+      ]
     },
     {
       "index": 34,
@@ -1043,9 +902,7 @@
         "zh": "打扰您了，我这就离开。",
         "ja": ""
       },
-      "nextIndex": 42,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 42
     },
     {
       "index": 35,
@@ -1062,7 +919,6 @@
         "ja": ""
       },
       "nextIndex": 36,
-      "choices": [],
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -1104,9 +960,7 @@
         "zh": "行了女士，我也不是有意为难你，你站在这里跟我说了这么久，就是为了拿一份飞机餐吧。",
         "ja": ""
       },
-      "nextIndex": 37,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 37
     },
     {
       "index": 37,
@@ -1122,9 +976,7 @@
         "zh": "（糟糕，策略好像被识破了）",
         "ja": ""
       },
-      "nextIndex": 38,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 38
     },
     {
       "index": 38,
@@ -1140,9 +992,7 @@
         "zh": "给，拿了这个赶快走吧。不要告诉别的乘客哦，如果所有人都一窝蜂过来的话我会很困扰的。",
         "ja": ""
       },
-      "nextIndex": 39,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 39
     },
     {
       "index": 39,
@@ -1158,9 +1008,7 @@
         "zh": "好的！非常感谢您！",
         "ja": ""
       },
-      "nextIndex": 40,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 40
     },
     {
       "index": 40,
@@ -1176,9 +1024,7 @@
         "zh": "行了行了快走吧......",
         "ja": ""
       },
-      "nextIndex": 41,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 41
     },
     {
       "index": 41,
@@ -1194,9 +1040,7 @@
         "zh": "（虽然被识破，但策略本身好像还是奏效了。）",
         "ja": ""
       },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": -1
     },
     {
       "index": 42,
@@ -1212,9 +1056,7 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 43,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 43
     },
     {
       "index": 43,
@@ -1230,9 +1072,7 @@
         "zh": "（快走快走。）",
         "ja": ""
       },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": -1
     },
     {
       "index": 44,
@@ -1248,9 +1088,7 @@
         "zh": "没有其他话题可以聊了",
         "ja": ""
       },
-      "nextIndex": -1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": -1
     },
     {
       "index": 45,
@@ -1266,9 +1104,7 @@
         "zh": "（她虽然这么说，但脸上的笑容却前所未有的真诚，她应该很高兴能休假吧。）",
         "ja": ""
       },
-      "nextIndex": 33,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 33
     },
     {
       "index": 46,
@@ -1284,9 +1120,7 @@
         "zh": "（她似乎完全不想跟我说话）",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     }
   ],
   "currentIndex": 0
