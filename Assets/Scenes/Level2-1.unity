@@ -10092,6 +10092,72 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2076769200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076769203}
+  - component: {fileID: 2076769202}
+  - component: {fileID: 2076769201}
+  m_Layer: 0
+  m_Name: NoteBookTriggerOnce
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2076769201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076769200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d876d626d4f75594db3ba89c7caba1d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpenOnce: 0
+  isCloseOnce: 0
+  isTriggered: 0
+  myDialogue: {fileID: 2076769202}
+--- !u!114 &2076769202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076769200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: c422afc15c9797d4bb9c91cdc893fea7, type: 3}
+  postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+--- !u!4 &2076769203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076769200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.035879, y: -0.99510515, z: 1.0937765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2119608157
 GameObject:
   m_ObjectHideFlags: 0
@@ -10280,3 +10346,4 @@ SceneRoots:
   - {fileID: 1279740581}
   - {fileID: 1677128407}
   - {fileID: 920281957}
+  - {fileID: 2076769203}
