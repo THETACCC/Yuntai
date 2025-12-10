@@ -42,8 +42,7 @@ public class LevelManager3_3 : BaseLevelManager
     [SerializeField] private DialogueTrigger MC_scaredDialogue;
 
     [Header("Doors")]
-    [SerializeField] private GameObject door1;
-    [SerializeField] private GameObject door2;
+    [SerializeField] private GameObject door;
 
     // Camera shake
     private CameraShake cameraShake;
