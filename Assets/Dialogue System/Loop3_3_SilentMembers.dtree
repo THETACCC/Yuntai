@@ -11,10 +11,24 @@
                 "zh": "不好意思？",
                 "ja": ""
             },
-            "positionX": 6092.80029296875,
+            "positionX": 6092.66650390625,
             "positionY": 164.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomIn_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -28,8 +42,8 @@
                 "zh": "......",
                 "ja": ""
             },
-            "positionX": 6415.2001953125,
-            "positionY": 165.60000610351563,
+            "positionX": 6414.66650390625,
+            "positionY": 166.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,7 +59,7 @@
                 "zh": "你好？",
                 "ja": ""
             },
-            "positionX": 6754.400390625,
+            "positionX": 6754.0,
             "positionY": 168.0,
             "choices": [],
             "eventCalls": [],
@@ -62,7 +76,7 @@
                 "zh": "......",
                 "ja": ""
             },
-            "positionX": 7099.2001953125,
+            "positionX": 7098.66650390625,
             "positionY": 168.0,
             "choices": [],
             "eventCalls": [],
@@ -82,7 +96,21 @@
             "positionX": 7432.0,
             "positionY": 168.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomOut_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],
