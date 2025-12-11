@@ -15252,7 +15252,7 @@ MonoBehaviour:
   spiderWebMaterial: {fileID: 2100000, guid: be4e2d6f79120af478f0ffb845a9f083, type: 2}
   buildDuration: 3
   buildFeather: 0.03
-  playOnStart: 1
+  playOnStart: 0
 --- !u!4 &1182711120
 Transform:
   m_ObjectHideFlags: 0
@@ -16797,6 +16797,38 @@ MonoBehaviour:
   door2: {fileID: 2041698050}
   playerSoulEcho: {fileID: 0}
   blackWhiteFlicker: {fileID: 0}
+  horrorVCam: {fileID: 0}
+  soulZoomSize: 8
+  soulZoomTime: 0.6
+  soulTiltAngle: -8
+  soulZoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  wipeSmearMaterial: {fileID: 2100000, guid: 56303c1d489afe844af2f68353429db3, type: 2}
+  wipeSmearDuration: 1.2
+  spiderWebAnimator: {fileID: 1182711119}
+  spiderWebExtraHold: 0.3
 --- !u!114 &1279740583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26343,6 +26375,6 @@ SceneRoots:
   - {fileID: 301910737}
   - {fileID: 1627561068}
   - {fileID: 1880142178}
-  - {fileID: 1182711120}
   - {fileID: 1037051378}
   - {fileID: 682509753}
+  - {fileID: 1182711120}

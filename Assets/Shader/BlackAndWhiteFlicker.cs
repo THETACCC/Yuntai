@@ -2,11 +2,11 @@
 
 public class BlackAndWhiteFlicker : MonoBehaviour
 {
-    [Tooltip("使用 ShaderLab/BlackAndWhite 的后处理材质（Renderer Feature 用的那个）。")]
+    [Tooltip("ShaderLab/BlackAndWhite")]
     public Material bwMaterial;
 
     [Range(0f, 1f)]
-    public float defaultIntensity = 0f; // 默认先关掉
+    public float defaultIntensity = 0f; //default off
 
     private static readonly int EffectIntensityID = Shader.PropertyToID("_EffectIntensity");
 
@@ -22,7 +22,7 @@ public class BlackAndWhiteFlicker : MonoBehaviour
         }
     }
 
-    /// <summary>设置黑白效果强度：0=完全关闭，1=完全黑白。</summary>
+    //0=fully closed，1=black and white
     public void SetIntensity(float value)
     {
         if (!bwMaterial) return;

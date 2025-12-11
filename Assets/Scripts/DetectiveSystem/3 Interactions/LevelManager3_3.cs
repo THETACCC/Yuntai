@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;  
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
 public class LevelManager3_3 : BaseLevelManager
@@ -20,10 +21,10 @@ public class LevelManager3_3 : BaseLevelManager
     [SerializeField] private Collider2D puzzleLanternColliderChild;
 
     [Header("Horror Lantern Sequence")]
-    [Tooltip("是否需要播放恐怖花灯动画（摊主对话里错误时设为 true）。")]
+    [Tooltip("Set to true from dialogue when the horror sequence should run.")]
     public bool NeedToPlayLanternAnim = false;
 
-    [Tooltip("恐怖演出时短暂出现的巨兽幽影（可选）。")]
+    [Tooltip("Optional giant shadow shown during the last green flash.")]
     [SerializeField] private GameObject beastShadow;
 
     [Header("Horror Timing")]
@@ -46,33 +47,60 @@ public class LevelManager3_3 : BaseLevelManager
     [SerializeField] private GameObject door2;
 
     [Header("Horror – Player Soul & BW")]
-    [SerializeField] private PlayerSoulEchoController playerSoulEcho;   // 你前面写的灵魂出窍脚本
-    [SerializeField] private BlackAndWhiteFlicker blackWhiteFlicker;    // 全局黑白控制
+    [SerializeField] private PlayerSoulEchoController playerSoulEcho;
+    [SerializeField] private BlackAndWhiteFlicker blackWhiteFlicker;
 
-    // Camera shake
+    [Header("Horror Camera Zoom/Tilt")]
+    [Tooltip("VCam used for the horror sequence (usually the main camera).")]
+    [SerializeField] private CinemachineVirtualCamera horrorVCam;
+
+    [Tooltip("Target orthographic size during the soul-out shot.")]
+    [SerializeField] private float soulZoomSize = 7.5f;
+
+    [Tooltip("Duration of the zoom / tilt tween.")]
+    [SerializeField] private float soulZoomTime = 0.4f;
+
+    [Tooltip("Extra Z-rotation applied during the horror zoom.")]
+    [SerializeField] private float soulTiltAngle = 8f;
+
+    [Tooltip("Easing for the camera zoom / tilt.")]
+    [SerializeField]
+    private AnimationCurve soulZoomCurve =
+        AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Horror Post FX – Wipe & Web")]
+    [Tooltip("Full-screen wipe/smear material.")]
+    [SerializeField] private Material wipeSmearMaterial;
+    [SerializeField] private float wipeSmearDuration = 1.2f;
+
+    [Tooltip("Controls the spider-web build up effect.")]
+    [SerializeField] private SpiderWebAnimator spiderWebAnimator;
+    [SerializeField] private float spiderWebExtraHold = 0.3f;
+
     private CameraShake cameraShake;
 
-    // 黑幕
     private const string OverlayName = "__BlackOverlay__";
     private CanvasGroup overlayCG;
 
-    // 状态
     private bool isPlayingLanternHorror = false;
 
-    // 自动收集的 PuzzleLantern 列表
     private PuzzleLantern[] puzzleLanterns = new PuzzleLantern[0];
 
-    // ==== Player 物理 & 动画（基于 BaseLevelManager 的缓存）====
     private bool rb2dHadSimulated;
     private RigidbodyConstraints2D rb2dOldConstraints;
 
     private Animator[] playerAnimators;
     private float[] animatorOrigSpeeds;
 
-    // ===== 生命周期 =====
+    private float originalOrthoSize;
+    private Quaternion originalCamRot;
+    private Coroutine camTweenRoutine;
+
+    private static readonly int PropWipeProgress = Shader.PropertyToID("_WipeProgress");
+    private static readonly int PropWebBuildProgress = Shader.PropertyToID("_BuildProgress");
+
     protected override void Awake()
     {
-        // 先让 BaseLevelManager 做：找 PlayerController.Instance，按需要隐藏/锁控制
         base.Awake();
 
         if (!puzzleLanternManager)
@@ -82,7 +110,13 @@ public class LevelManager3_3 : BaseLevelManager
 
         cameraShake = FindObjectOfType<CameraShake>();
 
-        // Player 相关：用 Base 里的 playerObject / playerRb / playerCtrl
+        if (horrorVCam == null)
+        {
+            horrorVCam = FindObjectOfType<CinemachineVirtualCamera>();
+            if (horrorVCam)
+                Debug.Log("[LevelManager3_3] Auto-found CinemachineVirtualCamera: " + horrorVCam.name, this);
+        }
+
         if (playerObject)
         {
             if (playerRb != null)
@@ -101,7 +135,7 @@ public class LevelManager3_3 : BaseLevelManager
         }
         else
         {
-            Debug.LogWarning("[LevelManager3_3] Awake: PlayerController.Instance / Player 未找到。");
+            Debug.LogWarning("[LevelManager3_3] Awake: PlayerController.Instance / Player not found.");
         }
 
         overlayCG = GetOrCreateBlackOverlay();
@@ -110,22 +144,25 @@ public class LevelManager3_3 : BaseLevelManager
 
         if (playerSoulEcho == null && playerObject != null)
         {
-            // ★ 在 Player 的所有子物体里找 PlayerSoulEchoController（包括你那个 child）
             playerSoulEcho = playerObject.GetComponentInChildren<PlayerSoulEchoController>(true);
             Debug.Log("[LevelManager3_3] Auto-found PlayerSoulEchoController (in children): " + playerSoulEcho, this);
         }
-
 
         if (blackWhiteFlicker == null)
         {
             blackWhiteFlicker = FindObjectOfType<BlackAndWhiteFlicker>();
             Debug.Log("[LevelManager3_3] Auto-found BlackAndWhiteFlicker: " + blackWhiteFlicker, this);
         }
+
+        if (wipeSmearMaterial != null)
+            wipeSmearMaterial.SetFloat(PropWipeProgress, 0f);
+
+        if (spiderWebAnimator != null && spiderWebAnimator.spiderWebMaterial != null)
+            spiderWebAnimator.spiderWebMaterial.SetFloat(PropWebBuildProgress, 0f);
     }
 
     private void Start()
     {
-        // 3-3 一进来，确保玩家可见 + 可以移动
         ShowPlayerAndAllowMove();
 
         if (playerObject != null)
@@ -134,9 +171,6 @@ public class LevelManager3_3 : BaseLevelManager
             foreach (var sr in _playerSprites)
             {
                 if (!sr) continue;
-
-                // 这里可以保留 / 删除之前的判定无所谓，
-                // 反正后面我们会强制关掉 soul 的 sprite
                 sr.enabled = true;
                 var c = sr.color;
                 c.a = 1f;
@@ -144,16 +178,14 @@ public class LevelManager3_3 : BaseLevelManager
             }
         }
 
-        // ★ 最后一步：无论上面发生了什么，都把灵魂 sprite 全部关掉
         HideSoulEchoSprites();
+        ResetHorrorPostFX();
     }
 
-    // ========= Soul Echo Sprite helper =========
     private void HideSoulEchoSprites()
     {
         if (playerSoulEcho == null) return;
 
-        // 找到挂在 PlayerSoulEchoController 下面的所有 SpriteRenderer，一律关掉
         var soulSrs = playerSoulEcho.GetComponentsInChildren<SpriteRenderer>(true);
         foreach (var sr in soulSrs)
         {
@@ -161,9 +193,6 @@ public class LevelManager3_3 : BaseLevelManager
             sr.enabled = false;
         }
     }
-
-
-    // ========= 普通 puzzle =========
 
     public void ChangeLanternToWait()
     {
@@ -190,10 +219,6 @@ public class LevelManager3_3 : BaseLevelManager
             LanternStall_wait.SetActive(false);
             LanternStall_wrong.SetActive(false);
             LanternStall_correct.SetActive(true);
-            /*
-            if (puzzleLanternCollider)
-                puzzleLanternCollider.enabled = false;
-            */
         }
         else
         {
@@ -209,14 +234,13 @@ public class LevelManager3_3 : BaseLevelManager
         puzzleLanternCollider.enabled = false;
         puzzleLanternColliderChild.enabled = false;
     }
+
     public void LanternPileDisappear()
     {
         LanternPile.SetActive(false);
         Lanterns.SetActive(true);
         ChangeLanternToWait();
     }
-
-    // ========= NeedToPlayLanternAnim =========
 
     public void MarkNeedToPlayLanternAnim()
     {
@@ -228,18 +252,12 @@ public class LevelManager3_3 : BaseLevelManager
         NeedToPlayLanternAnim = false;
     }
 
-    // ========= 收集 / 控制 Lantern =========
-
     private void RefreshPuzzleLanternList()
     {
         if (puzzleLanternManager)
-        {
             puzzleLanterns = puzzleLanternManager.GetComponentsInChildren<PuzzleLantern>(true);
-        }
         else
-        {
             puzzleLanterns = FindObjectsOfType<PuzzleLantern>(true);
-        }
     }
 
     private void SetAllLanternsGreen(bool on)
@@ -274,8 +292,6 @@ public class LevelManager3_3 : BaseLevelManager
         Debug.Log($"[LevelManager3_3] ForceAllLanternsHanged({hanged}) on {puzzleLanterns.Length} lanterns.");
     }
 
-    // ========= 对外接口：恐怖演出 =========
-
     public void PlayLanternHorrorSequence()
     {
         if (isPlayingLanternHorror) return;
@@ -284,7 +300,6 @@ public class LevelManager3_3 : BaseLevelManager
         StartCoroutine(CoLanternHorrorSequence());
     }
 
-    /*
     private IEnumerator CoLanternHorrorSequence()
     {
         isPlayingLanternHorror = true;
@@ -292,128 +307,44 @@ public class LevelManager3_3 : BaseLevelManager
 
         Debug.Log("[LevelManager3_3] >>> START Lantern Horror Sequence <<<");
 
-        // 防止中途有变化
         RefreshPuzzleLanternList();
-
-        // —— 完全锁 Player（位置 + 输入 + 动画） —— //
         FreezePlayer(true);
 
-        // 1) 所有灯像「挂上」那样亮起来
         if (Lanterns) Lanterns.SetActive(true);
         ForceAllLanternsHanged(true);
-        SetAllLanternsGreen(false);   // 先关绿光，再开始闪
+        SetAllLanternsGreen(false);
 
-        // 2) 绿光闪烁几次，最后一次加野兽幽影
-        for (int i = 0; i < greenBlinkCount; i++)
-        {
-            SetAllLanternsGreen(true);
-
-            if (beastShadow && i == greenBlinkCount - 1)
-                beastShadow.SetActive(true);
-
-            yield return new WaitForSeconds(greenOnTime);
-
-            if (beastShadow)
-                beastShadow.SetActive(false);
-
-            SetAllLanternsGreen(false);
-            yield return new WaitForSeconds(greenOffTime);
-        }
-
-        // 3) 抖屏 + 音效
-        if (cameraShake)
-        {
-            cameraShake.Shake(cameraShake.defaultAmplitude,
-                              cameraShake.defaultFrequency,
-                              shakeDuration);
-        }
-        if (horrorAudioSource && horrorRoarClip)
-        {
-            horrorAudioSource.PlayOneShot(horrorRoarClip);
-        }
-
-        yield return new WaitForSeconds(shakeDuration);
-
-        // 4) 黑屏
-        if (overlayCG)
-        {
-            // 黑屏淡入
-            yield return FadeOverlay(1f, blackFadeTime);
-
-            // 黑屏时，把所有灯「取下」
-            ForceAllLanternsHanged(false);
-
-            // 黑屏停留
-            yield return new WaitForSeconds(blackHoldTime);
-
-            // 黑屏淡出
-            yield return FadeOverlay(0f, blackFadeTime);
-        }
-        else
-        {
-            // 没黑幕的话，就直接让灯消失
-            ForceAllLanternsHanged(false);
-        }
-
-        // —— 解锁 Player —— //
-        FreezePlayer(false);
-
-        if (MC_scaredDialogue != null)
-        {
-            MC_scaredDialogue.TriggerDialogue();
-        }
-
-        isPlayingLanternHorror = false;
-    }
-    */
-
-    private IEnumerator CoLanternHorrorSequence()
-    {
-        isPlayingLanternHorror = true;
-        ClearNeedToPlayLanternAnim();
-
-        Debug.Log("[LevelManager3_3] >>> START Lantern Horror Sequence <<<");
-
-        // 防止中途有变化，重新收集花灯
-        RefreshPuzzleLanternList();
-
-        // —— 完全锁 Player（位置 + 输入 + 动画） —— //
-        FreezePlayer(true);
-
-        // 1) 所有灯像「挂上」那样亮起来
-        if (Lanterns) Lanterns.SetActive(true);
-        ForceAllLanternsHanged(true);
-        SetAllLanternsGreen(false);   // 先关绿光，再开始后续演出
-
-        // 1.5) 先把主角打飞出去（灵魂出窍）—— 比较慢一点
         if (playerSoulEcho != null)
         {
-            playerSoulEcho.StartKnockOut();
+            var soulSrs = playerSoulEcho.GetComponentsInChildren<SpriteRenderer>(true);
+            foreach (var sr in soulSrs)
+            {
+                if (!sr) continue;
+                sr.enabled = true;
+            }
 
-            // 等待灵魂飞出去：多等一点时间更明显
+            playerSoulEcho.StartKnockOut();
+            StartSoulCameraEffect();
+
             float waitKnock = playerSoulEcho.knockDuration + 0.2f;
             yield return new WaitForSeconds(waitKnock);
         }
         else
         {
-            Debug.LogWarning("[LevelManager3_3] CoLanternHorrorSequence: playerSoulEcho is null, cannot play soul effect.");
+            Debug.LogWarning("[LevelManager3_3] CoLanternHorrorSequence: playerSoulEcho is null.");
         }
 
-        // 2) 绿光闪烁几次，黑白效果和绿灯同步闪（此时主角保持飞出去状态）
         for (int i = 0; i < greenBlinkCount; i++)
         {
-            // 绿灯 ON + 黑白 ON
             SetAllLanternsGreen(true);
             if (blackWhiteFlicker != null)
                 blackWhiteFlicker.SetIntensity(1f);
 
-            // 最后一次闪的时候出现巨兽影子
             if (beastShadow && i == greenBlinkCount - 1)
                 beastShadow.SetActive(true);
 
             yield return new WaitForSeconds(greenOnTime);
 
-            // 绿灯 OFF + 黑白 OFF
             if (beastShadow)
                 beastShadow.SetActive(false);
 
@@ -424,16 +355,18 @@ public class LevelManager3_3 : BaseLevelManager
             yield return new WaitForSeconds(greenOffTime);
         }
 
-        // 3) 灯光闪完之后，再把主角残影拉回本体
         if (playerSoulEcho != null)
         {
             playerSoulEcho.StartReturn();
 
             float waitReturn = playerSoulEcho.returnDuration + 0.2f;
             yield return new WaitForSeconds(waitReturn);
+
+            HideSoulEchoSprites();
         }
 
-        // 4) 抖屏 + 音效（此时主角已经合体回来）
+        RestoreSoulCameraEffect();
+
         if (cameraShake)
         {
             cameraShake.Shake(
@@ -450,47 +383,136 @@ public class LevelManager3_3 : BaseLevelManager
 
         yield return new WaitForSeconds(shakeDuration);
 
-        // 5) 黑屏（UI CanvasGroup 覆盖）
+        if (wipeSmearMaterial != null)
+            yield return PlayWipeSmearEffect();
+
+        if (spiderWebAnimator != null && spiderWebAnimator.spiderWebMaterial != null)
+        {
+            spiderWebAnimator.Play();
+            float buildDur = Mathf.Max(spiderWebAnimator.buildDuration, 0.01f);
+            yield return new WaitForSeconds(buildDur + spiderWebExtraHold);
+        }
+
         if (overlayCG)
         {
-            // 黑屏淡入
+            // effects still visible during fade-in
             yield return FadeOverlay(1f, blackFadeTime);
 
-            // 黑屏时，把所有灯「取下」
+            // once fully black, clear post FX
+            ResetHorrorPostFX();
+
             ForceAllLanternsHanged(false);
 
-            // 黑屏停留
             yield return new WaitForSeconds(blackHoldTime);
 
-            // 黑屏淡出
             yield return FadeOverlay(0f, blackFadeTime);
         }
         else
         {
-            // 没黑幕的话，就直接让灯消失
             ForceAllLanternsHanged(false);
+            ResetHorrorPostFX();
         }
 
-        // 确保结尾关闭黑白效果
         if (blackWhiteFlicker != null)
-        {
             blackWhiteFlicker.SetIntensity(0f);
-        }
 
-        // —— 解锁 Player —— //
         FreezePlayer(false);
 
-        // 恐怖演出后的 MC scared 对话
         if (MC_scaredDialogue != null)
-        {
             MC_scaredDialogue.TriggerDialogue();
-        }
 
         isPlayingLanternHorror = false;
     }
 
+    private void ResetHorrorPostFX()
+    {
+        if (wipeSmearMaterial != null)
+            wipeSmearMaterial.SetFloat(PropWipeProgress, 0f);
 
-    // ========= 黑幕 =========
+        if (spiderWebAnimator != null && spiderWebAnimator.spiderWebMaterial != null)
+            spiderWebAnimator.spiderWebMaterial.SetFloat(PropWebBuildProgress, 0f);
+    }
+
+    private IEnumerator PlayWipeSmearEffect()
+    {
+        if (wipeSmearMaterial == null)
+            yield break;
+
+        float duration = Mathf.Max(0.05f, wipeSmearDuration);
+        float t = 0f;
+
+        wipeSmearMaterial.SetFloat(PropWipeProgress, 0f);
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
+
+            float progress = Mathf.Lerp(0f, 1.2f, u);
+            wipeSmearMaterial.SetFloat(PropWipeProgress, progress);
+
+            yield return null;
+        }
+
+        wipeSmearMaterial.SetFloat(PropWipeProgress, 1.2f);
+    }
+
+    private void StartSoulCameraEffect()
+    {
+        if (horrorVCam == null) return;
+
+        if (camTweenRoutine != null)
+            StopCoroutine(camTweenRoutine);
+
+        originalOrthoSize = horrorVCam.m_Lens.OrthographicSize;
+        originalCamRot = horrorVCam.transform.rotation;
+
+        Vector3 e = horrorVCam.transform.eulerAngles;
+        float targetZ = e.z + soulTiltAngle;
+        Quaternion targetRot = Quaternion.Euler(e.x, e.y, targetZ);
+
+        camTweenRoutine = StartCoroutine(
+            TweenCameraTo(soulZoomSize, targetRot, soulZoomTime)
+        );
+    }
+
+    private void RestoreSoulCameraEffect()
+    {
+        if (horrorVCam == null) return;
+
+        if (camTweenRoutine != null)
+            StopCoroutine(camTweenRoutine);
+
+        camTweenRoutine = StartCoroutine(
+            TweenCameraTo(originalOrthoSize, originalCamRot, soulZoomTime)
+        );
+    }
+
+    private IEnumerator TweenCameraTo(float targetSize, Quaternion targetRot, float duration)
+    {
+        if (horrorVCam == null) yield break;
+
+        float startSize = horrorVCam.m_Lens.OrthographicSize;
+        Quaternion startRot = horrorVCam.transform.rotation;
+
+        float t = 0f;
+        duration = Mathf.Max(0.0001f, duration);
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
+            float k = soulZoomCurve != null ? soulZoomCurve.Evaluate(u) : u;
+
+            horrorVCam.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, k);
+            horrorVCam.transform.rotation = Quaternion.Slerp(startRot, targetRot, k);
+
+            yield return null;
+        }
+
+        horrorVCam.m_Lens.OrthographicSize = targetSize;
+        horrorVCam.transform.rotation = targetRot;
+    }
 
     private CanvasGroup GetOrCreateBlackOverlay()
     {
@@ -541,10 +563,7 @@ public class LevelManager3_3 : BaseLevelManager
 
     public void ChangeScenePortal()
     {
-
     }
-
-    // ========= Player 冻结 =========
 
     private void FreezePlayer(bool freeze)
     {
@@ -552,7 +571,6 @@ public class LevelManager3_3 : BaseLevelManager
 
         if (freeze)
         {
-            // 锁移动（会把 Gamemanager.phase 设为 Loading，并关掉走路动画 & 脚步声）
             playerCtrl.DisablePlayerControl();
 
             if (playerRb != null)
@@ -565,7 +583,6 @@ public class LevelManager3_3 : BaseLevelManager
                 playerRb.simulated = false;
             }
 
-            // 暂停所有 Animator
             if (playerAnimators != null && playerAnimators.Length > 0)
             {
                 if (animatorOrigSpeeds == null || animatorOrigSpeeds.Length != playerAnimators.Length)
@@ -585,14 +602,12 @@ public class LevelManager3_3 : BaseLevelManager
         }
         else
         {
-            // 恢复物理
             if (playerRb != null)
             {
                 playerRb.simulated = rb2dHadSimulated;
                 playerRb.constraints = rb2dOldConstraints;
             }
 
-            // 恢复 Animator 速度
             if (playerAnimators != null && playerAnimators.Length > 0)
             {
                 for (int i = 0; i < playerAnimators.Length; i++)
@@ -607,7 +622,6 @@ public class LevelManager3_3 : BaseLevelManager
                 }
             }
 
-            // 解锁移动
             playerCtrl.EnablePlayerControl();
             if (Gamemanager.instance)
                 Gamemanager.instance.phase = GamePhase.Moving;
@@ -618,6 +632,7 @@ public class LevelManager3_3 : BaseLevelManager
     {
         CameraZoomIn();
     }
+
     public void CameraZoomOut_3_3()
     {
         CameraZoomOut();

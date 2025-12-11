@@ -21,7 +21,6 @@
         _RedSaturationMin    ("Red Saturation Min",    Range(0,1)) = 0.5
         _RedValueMin         ("Red Value Min",         Range(0,1)) = 0.3
 
-        // NEW: 整体效果强度
         _EffectIntensity ("Effect Intensity", Range(0,1)) = 1.0
     }
 
@@ -150,7 +149,7 @@
 
                 float3 bwRGB = lerp(grayRGB, rgb, preserveMask);
 
-                // NEW: 效果强度 0..1，0 时直接用原图 rgb
+                // _EffectIntensity 0..1，use RGB when 0
                 float3 finalRGB = lerp(rgb, bwRGB, _EffectIntensity);
 
                 return float4(finalRGB, 1.0);

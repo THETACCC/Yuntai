@@ -163,8 +163,8 @@ public class PlayerSoulEchoController : MonoBehaviour
         _knockCo = StartCoroutine(CoKnockOut());
     }
 
-    /// Called by LevelManager3_3 after green flicker.
-    /// Animates echoes coming back toward the player and fading out.
+    // Called by LevelManager3_3 after green flicker.
+    // Animates echoes coming back toward the player and fading out.
     public void StartReturn()
     {
         if (_echoes.Count == 0)
@@ -285,10 +285,4 @@ public class PlayerSoulEchoController : MonoBehaviour
         _echoes.Clear();
     }
 
-    /*
-    // --- Old single-ghost version (for reference, commented out) ---
-    // This used to move one ghost child object along knockDirection
-    // and drive _Phase directly on that material in Update().
-    // Now we spawn multiple echoes and control them via coroutines.
-    */
 }
