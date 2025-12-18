@@ -211,27 +211,9 @@ public class DialogueReference : MonoBehaviour
         DialogueSystem.IDRegistry.Instance.Add(uniqueID, scenePath, gameObject.name);
     }
 
-    /// <summary>
-    /// 对象销毁时，从ID注册表中移除
-    /// </summary>
-    private void OnDestroy()
-    {
-        // 只在编辑器模式下处理
-        if (!Application.isPlaying)
-        {
-            // 判断：是对象被删除，还是场景卸载？
-            if (gameObject.scene.isLoaded)
-            {
-                // 场景还加载着，说明是对象被删除
-                if (!string.IsNullOrEmpty(uniqueID))
-                {
-                    DialogueSystem.IDRegistry.Instance.Remove(uniqueID);
-                    Debug.Log($"[DialogueReference] GameObject '{gameObject.name}' 被删除，已从注册表移除ID");
-                }
-            }
-            // 如果场景已卸载，不做任何处理（保留ID在注册表中）
-        }
-    }
+
+    // 注意：不需要OnDestroy来清理ID
+    // ID的清理由 DialogueReferenceAutoCleanup 在场景打开/保存时自动处理
 #endif
 
 

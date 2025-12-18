@@ -53,17 +53,17 @@ namespace DialogueSystem
                         .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
                         .Select(path => AssetDatabase.LoadAssetAtPath<IDRegistry>(path))
                         .FirstOrDefault();
-                    
+
                     // 如果不存在，创建新的
                     if (instance == null)
                     {
                         instance = CreateInstance<IDRegistry>();
-                        
+
                         // 保存到Assets根目录
                         string path = "Assets/DialogueIDRegistry.asset";
                         AssetDatabase.CreateAsset(instance, path);
                         AssetDatabase.SaveAssets();
-                        
+
                         Debug.Log($"[IDRegistry] 创建新的ID注册表: {path}");
                     }
 #else
@@ -134,6 +134,8 @@ namespace DialogueSystem
                 idLookup.Add(id);
             }
 
+            // 排序以保证顺序固定，避免Git产生无意义的diff
+            SortRecords();
             MarkDirty();
         }
 
@@ -147,6 +149,7 @@ namespace DialogueSystem
             records.RemoveAll(r => r.id == id);
             idLookup.Remove(id);
 
+            SortRecords();
             MarkDirty();
         }
 
@@ -168,6 +171,7 @@ namespace DialogueSystem
             if (toRemove.Count > 0)
             {
                 Debug.Log($"[IDRegistry] 已清理场景 '{scenePath}' 的 {toRemove.Count} 个ID记录");
+                SortRecords();
                 MarkDirty();
             }
         }
@@ -212,6 +216,21 @@ namespace DialogueSystem
             Debug.Log("[IDRegistry] 已清空所有ID记录");
         }
 
+        /// <summary>
+        /// 对记录进行排序，确保顺序固定（先按场景路径，再按对象名称）
+        /// 避免Git产生无意义的diff
+        /// </summary>
+        private void SortRecords()
+        {
+            records.Sort((a, b) =>
+            {
+                int sceneCompare = string.Compare(a.scenePath, b.scenePath, System.StringComparison.Ordinal);
+                if (sceneCompare != 0)
+                    return sceneCompare;
+                return string.Compare(a.objectName, b.objectName, System.StringComparison.Ordinal);
+            });
+        }
+
         private void MarkDirty()
         {
 #if UNITY_EDITOR
@@ -235,22 +254,22 @@ namespace DialogueSystem
             {
                 return;
             }
-            
+
             var registry = Instance;
             registry.Clear();
-            
+
             var enabledScenes = EditorBuildSettings.scenes
                 .Where(s => s.enabled)
                 .Select(s => s.path)
                 .Distinct()
                 .ToList();
-            
+
             if (enabledScenes.Count == 0)
             {
                 EditorUtility.DisplayDialog("错误", "Build Settings中没有启用的场景", "确定");
                 return;
             }
-            
+
             // 保存当前场景
             var currentScenes = new List<string>();
             for (int i = 0; i < UnityEditor.SceneManagement.EditorSceneManager.sceneCount; i++)
@@ -261,24 +280,24 @@ namespace DialogueSystem
                     currentScenes.Add(scene.path);
                 }
             }
-            
+
             int totalFound = 0;
-            
+
             try
             {
                 for (int i = 0; i < enabledScenes.Count; i++)
                 {
                     string scenePath = enabledScenes[i];
-                    EditorUtility.DisplayProgressBar("重建ID注册表", 
-                        $"扫描场景 {i + 1}/{enabledScenes.Count}: {System.IO.Path.GetFileNameWithoutExtension(scenePath)}", 
+                    EditorUtility.DisplayProgressBar("重建ID注册表",
+                        $"扫描场景 {i + 1}/{enabledScenes.Count}: {System.IO.Path.GetFileNameWithoutExtension(scenePath)}",
                         (float)i / enabledScenes.Count);
-                    
+
                     var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
-                        scenePath, 
+                        scenePath,
                         UnityEditor.SceneManagement.OpenSceneMode.Single);
-                    
+
                     var refs = Object.FindObjectsOfType<DialogueReference>();
-                    
+
                     foreach (var refComp in refs)
                     {
                         if (!string.IsNullOrEmpty(refComp.UniqueID))
@@ -288,30 +307,30 @@ namespace DialogueSystem
                         }
                     }
                 }
-                
+
                 EditorUtility.ClearProgressBar();
-                
+
                 // 恢复原来的场景
                 if (currentScenes.Count > 0)
                 {
                     UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
-                        currentScenes[0], 
+                        currentScenes[0],
                         UnityEditor.SceneManagement.OpenSceneMode.Single);
-                    
+
                     for (int i = 1; i < currentScenes.Count; i++)
                     {
                         UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
-                            currentScenes[i], 
+                            currentScenes[i],
                             UnityEditor.SceneManagement.OpenSceneMode.Additive);
                     }
                 }
-                
+
                 AssetDatabase.SaveAssets();
-                
-                EditorUtility.DisplayDialog("完成", 
+
+                EditorUtility.DisplayDialog("完成",
                     $"重建完成！\n\n" +
                     $"扫描场景数: {enabledScenes.Count}\n" +
-                    $"找到ID数: {totalFound}", 
+                    $"找到ID数: {totalFound}",
                     "确定");
             }
             catch (System.Exception e)
@@ -321,7 +340,7 @@ namespace DialogueSystem
                 EditorUtility.DisplayDialog("错误", $"重建失败:\n{e.Message}", "确定");
             }
         }
-        
+
         /// <summary>
         /// 查看ID注册表内容
         /// </summary>
