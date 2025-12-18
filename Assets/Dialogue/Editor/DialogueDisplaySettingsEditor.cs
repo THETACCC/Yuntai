@@ -2,12 +2,12 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(DialogueSettings))]
-public class DialogueSettingsEditor : Editor
+[CustomEditor(typeof(DialogueDisplaySettings))]
+public class DialogueDisplaySettingsEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DialogueSettings settings = (DialogueSettings)target;
+        DialogueDisplaySettings settings = (DialogueDisplaySettings)target;
 
         settings.currentLanguage = EditorGUILayout.TextField("Dialogue Language", settings.currentLanguage);
         //settings.ChineseFont = (TMP_FontAsset)EditorGUILayout.ObjectField("Chinese Font", settings.ChineseFont, typeof(TMP_FontAsset), false);
@@ -17,7 +17,7 @@ public class DialogueSettingsEditor : Editor
         EditorGUILayout.Space(); // 顶部空一行
         EditorGUILayout.LabelField("Template Settings", EditorStyles.boldLabel);
         settings.separatePlayerAndNPC = EditorGUILayout.Toggle("Separate Player and NPC", settings.separatePlayerAndNPC);
-        
+
 
         // 如果 separatePlayerAndNPC 勾选了，显示额外字段
         if (settings.separatePlayerAndNPC)

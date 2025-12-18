@@ -11,7 +11,7 @@ using DialogueSystem;
 /// </summary>
 public class DialogueTreeEditor : EditorWindow
 {
-    private DialogueGraphView graphView;
+    private DialogueGraphViewEditor graphView;
     private string currentFilePath = "";
     private new bool hasUnsavedChanges = false;
 
@@ -314,7 +314,7 @@ public class DialogueTreeEditor : EditorWindow
         rootVisualElement.Add(toolbar);
 
         // 创建图形视图
-        graphView = new DialogueGraphView();
+        graphView = new DialogueGraphViewEditor();
         graphView.SetEditorWindow(this);
         graphView.style.flexGrow = 1;
         graphView.graphViewChanged += OnGraphViewChanged;
@@ -534,7 +534,7 @@ public class DialogueTreeEditor : EditorWindow
     {
         List<RuntimeDialogueData> exportData = graphView.GetDialogueSequence();
         var nodeIdToIndex = new Dictionary<string, int>();
-        var allNodes = graphView.nodes.Cast<DialogueNode>().OrderBy(n => n.NodeIndex).ToList();
+        var allNodes = graphView.nodes.Cast<DialogueNodeEditor>().OrderBy(n => n.NodeIndex).ToList();
 
         foreach (var node in allNodes)
         {
@@ -817,7 +817,7 @@ public class DialogueTreeEditor : EditorWindow
     {
         if (graphView == null) return;
 
-        var nodes = graphView.nodes.Cast<DialogueNode>().ToList();
+        var nodes = graphView.nodes.Cast<DialogueNodeEditor>().ToList();
         foreach (var node in nodes)
         {
             node.RefreshCharacterDisplay();

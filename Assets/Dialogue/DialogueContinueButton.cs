@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueDefaultSequence : MonoBehaviour
+public class DialogueContinueButton : MonoBehaviour
 {
-    public static DialogueDefaultSequence instance;
+    public static DialogueContinueButton instance;
 
     Button button;
 
@@ -34,25 +34,25 @@ public class DialogueDefaultSequence : MonoBehaviour
 
     void NextDialogueIndex()
     {
-        if (DialogueManager.instance != null)
+        if (DialogueController.instance != null)
         {
-            DialogueManager.instance.NextDialogueIndex();
+            DialogueController.instance.NextDialogueIndex();
         }
         else
         {
-            Debug.LogError("Please Assign DialogueManager");
+            Debug.LogError("Please Assign DialogueController");
         }
     }
 
     void UpdateDialogue()
     {
-        if (DialogueManager.instance != null)
+        if (DialogueController.instance != null)
         {
-            DialogueManager.instance.UpdateDialogue(DialogueSettings.instance?.currentLanguage);
+            DialogueController.instance.UpdateDialogue(DialogueDisplaySettings.instance?.currentLanguage);
         }
         else
         {
-            Debug.LogError("Please Assign DialogueManager");
+            Debug.LogError("Please Assign DialogueController");
         }
     }
 }

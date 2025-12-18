@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SceneStartDialogue : DialogueTrigger
+public class SceneDialogueStarter : DialogueTrigger
 {
     [Header("Start options")]
     public bool usePostDialogue = false;   // play post instead of main
@@ -19,4 +19,3 @@ public class SceneStartDialogue : DialogueTrigger
 
 
 }
-

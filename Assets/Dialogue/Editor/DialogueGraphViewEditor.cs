@@ -11,12 +11,12 @@ using DialogueSystem;
 /// <summary>
 /// 对话图形视图 - 管理节点图的显示和交互
 /// </summary>
-public class DialogueGraphView : GraphView
+public class DialogueGraphViewEditor : GraphView
 {
     private DialogueTreeEditor editorWindow;
     private int nextNodeIndex = 0;
 
-    public DialogueGraphView()
+    public DialogueGraphViewEditor()
     {
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
         this.AddManipulator(new ContentDragger());
@@ -45,7 +45,7 @@ public class DialogueGraphView : GraphView
 
             foreach (var element in change.elementsToRemove)
             {
-                if (element is DialogueNode node)
+                if (element is DialogueNodeEditor node)
                 {
                     var connectedEdges = edges.ToList().Where(edge =>
                         edge.input?.node == node || edge.output?.node == node).ToList();
@@ -70,7 +70,7 @@ public class DialogueGraphView : GraphView
 
             foreach (var edge in edgesToReplace)
             {
-                var outputNode = edge.output?.node as DialogueNode;
+                var outputNode = edge.output?.node as DialogueNodeEditor;
                 if (outputNode == null)
                 {
                     change.edgesToCreate.Add(edge);
@@ -81,7 +81,7 @@ public class DialogueGraphView : GraphView
 
                 if (branchPriority >= 0 && outputNode.IsConditionalMode())
                 {
-                    var conditionalEdge = new ConditionalEdge(this, editorWindow);
+                    var conditionalEdge = new ConditionalEdgeEditor(this, editorWindow);
                     conditionalEdge.input = edge.input;
                     conditionalEdge.output = edge.output;
                     conditionalEdge.branchPriority = branchPriority;
@@ -126,7 +126,7 @@ public class DialogueGraphView : GraphView
 
     public void CenterOnNode0()
     {
-        var node0 = nodes.Cast<DialogueNode>().FirstOrDefault(n => n.NodeIndex == 0);
+        var node0 = nodes.Cast<DialogueNodeEditor>().FirstOrDefault(n => n.NodeIndex == 0);
         if (node0 == null)
         {
             Debug.LogWarning("Node 0 not found for centering");
@@ -232,7 +232,7 @@ public class DialogueGraphView : GraphView
             }
         });
 
-        var selectedNodes = selection.OfType<DialogueNode>().ToList();
+        var selectedNodes = selection.OfType<DialogueNodeEditor>().ToList();
         if (selectedNodes.Count > 0)
         {
             evt.menu.AppendSeparator();
@@ -245,7 +245,7 @@ public class DialogueGraphView : GraphView
 
     public override EventPropagation DeleteSelection()
     {
-        var nodesToDelete = selection.OfType<DialogueNode>().ToList();
+        var nodesToDelete = selection.OfType<DialogueNodeEditor>().ToList();
 
         foreach (var node in nodesToDelete)
         {
@@ -270,7 +270,7 @@ public class DialogueGraphView : GraphView
     {
         var elementsList = elements.ToList();
 
-        var nodesToDelete = elementsList.OfType<DialogueNode>().ToList();
+        var nodesToDelete = elementsList.OfType<DialogueNodeEditor>().ToList();
 
         var edgesToDelete = new List<Edge>();
         foreach (var node in nodesToDelete)
@@ -300,10 +300,10 @@ public class DialogueGraphView : GraphView
         }
     }
 
-    public DialogueNode CreateDialogueNode(string characterName, Sprite avatarSprite,
+    public DialogueNodeEditor CreateDialogueNode(string characterName, Sprite avatarSprite,
                                           string content, Vector2 position = default)
     {
-        var dialogueNode = new DialogueNode("", null, content,
+        var dialogueNode = new DialogueNodeEditor("", null, content,
                                            nextNodeIndex++, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
@@ -319,7 +319,7 @@ public class DialogueGraphView : GraphView
     public List<RuntimeDialogueData> GetDialogueSequence()
     {
         var exportDict = new Dictionary<string, RuntimeDialogueData>();
-        var nodes = this.nodes.Cast<DialogueNode>().ToList();
+        var nodes = this.nodes.Cast<DialogueNodeEditor>().ToList();
         var edges = this.edges.ToList();
 
         // 加载角色库
@@ -411,7 +411,7 @@ public class DialogueGraphView : GraphView
                 var connection = edges.FirstOrDefault(e =>
                 {
                     if (e.output?.node != node) return false;
-                    var conditionalEdge = e as ConditionalEdge;
+                    var conditionalEdge = e as ConditionalEdgeEditor;
                     if (conditionalEdge != null)
                     {
                         return conditionalEdge.branchPriority == branch.priority;
@@ -422,7 +422,7 @@ public class DialogueGraphView : GraphView
                     }
                 });
 
-                if (connection?.input?.node is DialogueNode targetNode)
+                if (connection?.input?.node is DialogueNodeEditor targetNode)
                 {
                     targetNodeId = targetNode.GetId();
                 }
@@ -456,7 +456,7 @@ public class DialogueGraphView : GraphView
 
             foreach (var connection in outputConnections)
             {
-                var targetNode = connection.input.node as DialogueNode;
+                var targetNode = connection.input.node as DialogueNodeEditor;
                 if (targetNode == null) continue;
 
                 int choiceIndex = node.GetChoiceIndexForPort(connection.output);
@@ -519,7 +519,7 @@ public class DialogueGraphView : GraphView
                     var connection = edges.FirstOrDefault(e =>
                     {
                         if (e.output?.node != node) return false;
-                        var conditionalEdge = e as ConditionalEdge;
+                        var conditionalEdge = e as ConditionalEdgeEditor;
                         if (conditionalEdge != null)
                         {
                             return conditionalEdge.branchPriority == branch.priority;
@@ -530,7 +530,7 @@ public class DialogueGraphView : GraphView
                         }
                     });
 
-                    if (connection?.input?.node is DialogueNode targetNode)
+                    if (connection?.input?.node is DialogueNodeEditor targetNode)
                     {
                         string targetNodeId = targetNode.GetId();
                         if (nodeIdToIndex.ContainsKey(targetNodeId))
@@ -595,7 +595,7 @@ public class DialogueGraphView : GraphView
 
         try
         {
-            var nodes = this.nodes.Cast<DialogueNode>().ToList();
+            var nodes = this.nodes.Cast<DialogueNodeEditor>().ToList();
             foreach (var node in nodes)
             {
                 if (node == null) continue;
@@ -685,8 +685,8 @@ public class DialogueGraphView : GraphView
             {
                 if (edge?.output?.node == null || edge?.input?.node == null) continue;
 
-                var outputNode = edge.output.node as DialogueNode;
-                var inputNode = edge.input.node as DialogueNode;
+                var outputNode = edge.output.node as DialogueNodeEditor;
+                var inputNode = edge.input.node as DialogueNodeEditor;
 
                 if (outputNode != null && inputNode != null)
                 {
@@ -725,7 +725,7 @@ public class DialogueGraphView : GraphView
     {
         DeleteElements(graphElements.ToList());
 
-        var nodeDict = new Dictionary<string, DialogueNode>();
+        var nodeDict = new Dictionary<string, DialogueNodeEditor>();
         var sortedNodes = treeData.nodes.OrderBy(n => n.index).ToList();
 
         Debug.Log($"[LoadDialogueTree] Loading {sortedNodes.Count} nodes");
@@ -797,7 +797,7 @@ public class DialogueGraphView : GraphView
 
                 if (connectionData.branchPriority >= 0 && outputNode.IsConditionalMode())
                 {
-                    var conditionalEdge = new ConditionalEdge(this, editorWindow);
+                    var conditionalEdge = new ConditionalEdgeEditor(this, editorWindow);
                     conditionalEdge.input = edge.input;
                     conditionalEdge.output = edge.output;
                     conditionalEdge.branchPriority = connectionData.branchPriority;
@@ -824,10 +824,10 @@ public class DialogueGraphView : GraphView
         Debug.Log($"[LoadDialogueTree] Loaded {nodeDict.Count} nodes and {treeData.connections.Count} connections");
     }
 
-    private DialogueNode CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite,
+    private DialogueNodeEditor CreateDialogueNodeWithIndex(string characterName, Sprite avatarSprite,
                                                      string content, Vector2 position, int index)
     {
-        var dialogueNode = new DialogueNode("", null, content, index, editorWindow);
+        var dialogueNode = new DialogueNodeEditor("", null, content, index, editorWindow);
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
 
@@ -855,7 +855,7 @@ public class DialogueGraphView : GraphView
     /// </summary>
     private void ReorderNodeIndices()
     {
-        var allNodes = nodes.Cast<DialogueNode>().ToList();
+        var allNodes = nodes.Cast<DialogueNodeEditor>().ToList();
 
         if (allNodes.Count == 0)
         {
@@ -875,7 +875,7 @@ public class DialogueGraphView : GraphView
         // 更新 nextNodeIndex
         nextNodeIndex = allNodes.Count;
 
-        //Debug.Log($"[DialogueGraphView] Reordered node indices: {allNodes.Count} nodes, nextIndex = {nextNodeIndex}");
+        //Debug.Log($"[DialogueGraphViewEditor] Reordered node indices: {allNodes.Count} nodes, nextIndex = {nextNodeIndex}");
 
         // 标记为已修改
         if (editorWindow != null)
@@ -891,7 +891,7 @@ public class DialogueGraphView : GraphView
     /// </summary>
     private string OnSerializeGraphElements(IEnumerable<GraphElement> elements)
     {
-        var nodesToCopy = elements.OfType<DialogueNode>().ToList();
+        var nodesToCopy = elements.OfType<DialogueNodeEditor>().ToList();
 
         if (nodesToCopy.Count == 0)
             return string.Empty;
@@ -1033,11 +1033,34 @@ public class DialogueGraphView : GraphView
     /// </summary>
     public void RefreshAllNodesLanguage()
     {
-        var dialogueNodes = nodes.ToList().OfType<DialogueNode>();
+        var dialogueNodes = nodes.ToList().OfType<DialogueNodeEditor>();
         foreach (var node in dialogueNodes)
         {
             node.RefreshLanguageDisplay();
         }
     }
 
+}
+/// <summary>
+/// 条件连线 - 不显示标签
+/// </summary>
+public class ConditionalEdgeEditor : Edge
+{
+    private DialogueGraphViewEditor graphView;
+    private DialogueTreeEditor editorWindow;
+
+    public int branchPriority;
+    public List<ChoiceCondition> conditions = new List<ChoiceCondition>();
+    public ConditionLogic conditionLogic = ConditionLogic.AND;
+
+    public ConditionalEdgeEditor(DialogueGraphViewEditor graphView, DialogueTreeEditor editorWindow)
+    {
+        this.graphView = graphView;
+        this.editorWindow = editorWindow;
+    }
+
+    public void UpdateLabel()
+    {
+        // 不再显示标签，因为节点内部已有 Conditional Branches 显示
+    }
 }

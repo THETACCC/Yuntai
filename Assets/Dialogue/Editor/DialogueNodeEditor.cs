@@ -12,7 +12,7 @@ using UnityEditor.UIElements;
 /// <summary>
 /// 对话节点 - 角色系统版本
 /// </summary>
-public partial class DialogueNode : Node
+public partial class DialogueNodeEditor : Node
 {
     private DialogueTreeEditor editorWindow;
     private VisualElement characterContainer;
@@ -56,7 +56,7 @@ public partial class DialogueNode : Node
 
     public event System.Action OnNodeChanged;
 
-    public DialogueNode(string characterName = "Character", Sprite avatarSprite = null,
+    public DialogueNodeEditor(string characterName = "Character", Sprite avatarSprite = null,
                        string dialogueText = "New Dialogue", int index = 0,
                        DialogueTreeEditor editor = null)
     {
@@ -1683,7 +1683,7 @@ public partial class DialogueNode : Node
     {
         if (index >= 0 && index < ChoicesData.Count)
         {
-            var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+            var graphView = GetFirstAncestorOfType<DialogueGraphViewEditor>();
 
             var connectionData = new Dictionary<int, Port>();
             for (int i = 0; i < choiceOutputPorts.Count; i++)
@@ -1750,8 +1750,8 @@ public partial class DialogueNode : Node
     private void RebuildAllChoicesUI()
     {
         // 保存当前的连线信息
-        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
-        var savedConnections = new List<(int choiceIndex, DialogueNode targetNode)>();
+        var graphView = GetFirstAncestorOfType<DialogueGraphViewEditor>();
+        var savedConnections = new List<(int choiceIndex, DialogueNodeEditor targetNode)>();
 
         if (graphView != null)
         {
@@ -1761,7 +1761,7 @@ public partial class DialogueNode : Node
                 if (edge.output.node == this)
                 {
                     int choiceIndex = GetChoiceIndexForPort(edge.output);
-                    if (choiceIndex >= 0 && edge.input.node is DialogueNode targetNode)
+                    if (choiceIndex >= 0 && edge.input.node is DialogueNodeEditor targetNode)
                     {
                         savedConnections.Add((choiceIndex, targetNode));
                     }
@@ -2563,7 +2563,7 @@ public partial class DialogueNode : Node
     {
         isConditionalMode = true;
 
-        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+        var graphView = GetFirstAncestorOfType<DialogueGraphViewEditor>();
         Edge existingEdge = null;
         Port existingTargetPort = null;
 
@@ -2678,7 +2678,7 @@ public partial class DialogueNode : Node
 
     private void RemoveBranch(int priorityToRemove)
     {
-        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+        var graphView = GetFirstAncestorOfType<DialogueGraphViewEditor>();
         var portToRemove = conditionalPorts.FirstOrDefault(p => p != null && (int)p.userData == priorityToRemove);
 
         if (portToRemove != null)
@@ -2783,7 +2783,7 @@ public partial class DialogueNode : Node
     {
         isConditionalMode = false;
 
-        var graphView = GetFirstAncestorOfType<DialogueGraphView>();
+        var graphView = GetFirstAncestorOfType<DialogueGraphViewEditor>();
         Edge existingEdge = null;
         Port existingTargetPort = null;
 
@@ -2972,7 +2972,7 @@ public partial class DialogueNode : Node
     {
         if (editorWindow == null)
         {
-            Debug.LogWarning($"[DialogueNode {nodeIndex}] editorWindow is null, cannot refresh language");
+            Debug.LogWarning($"[DialogueNodeEditor {nodeIndex}] editorWindow is null, cannot refresh language");
             return;
         }
 

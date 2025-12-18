@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DialogueFinishListener_JsonOnly : MonoBehaviour
+public class DialogueFinishListener : MonoBehaviour
 {
     [Header("Only listen to these JSON files")]
     public List<TextAsset> allowedJsonFiles = new();
@@ -52,7 +52,7 @@ public class DialogueFinishListener_JsonOnly : MonoBehaviour
 
     private void Update()
     {
-        var dm = DialogueManager.instance;
+        var dm = DialogueController.instance;
         if (dm == null) return;
 
         // Rising edge for the short isDialogueFinished pulse

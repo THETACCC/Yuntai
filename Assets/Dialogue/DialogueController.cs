@@ -11,9 +11,9 @@ using DialogueSystem;
 using Fungus;
 using MoreMountains.Tools;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueController : MonoBehaviour
 {
-    public static DialogueManager instance;
+    public static DialogueController instance;
 
     public bool isDialogueActive = false;
 
@@ -87,9 +87,9 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                if (DialogueDefaultSequence.instance.isActice)
+                if (DialogueContinueButton.instance.isActice)
                 {
-                    DialogueDefaultSequence.instance.GoToNextDialogue();
+                    DialogueContinueButton.instance.GoToNextDialogue();
                 }
             }
         }
@@ -116,7 +116,7 @@ public class DialogueManager : MonoBehaviour
             currentConversation = GetConversationByIndex(dialogueData.currentIndex);
             if (currentConversation == null)
             {
-                Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
+                Debug.LogError($"[DialogueController] Cannot find conversation with index {dialogueData.currentIndex}");
                 EndDialogue();
                 return;
             }
@@ -131,7 +131,7 @@ public class DialogueManager : MonoBehaviour
             string speakerName = currentConversation.name.GetText(languageCode);
 
             //check if separate
-            if (DialogueSettings.instance.separatePlayerAndNPC)
+            if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
             {
                 speaker.transform.parent.gameObject.SetActive(currentConversation.isPlayer && speakerName != "");
                 NPCName.transform.parent.gameObject.SetActive(!currentConversation.isPlayer && speakerName != "");
@@ -161,23 +161,23 @@ public class DialogueManager : MonoBehaviour
                     Sprite s = Resources.Load<Sprite>(currentConversation.avatarAddr);
                     if (s != null)
                     {
-                        if (DialogueSettings.instance.separatePlayerAndNPC)
+                        if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
                         {
                             //Debug.Log(NPCAvatar.sprite != null);
 
                             //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
                             //avatar.gameObject.SetActive(currentConversation.isPlayer);
-                            //playerAvatar.gameObject.SetActive(speakerName == DialogueSettings.instance.playerName);
-                            //NPCAvatar.gameObject.SetActive(speakerName != DialogueSettings.instance.playerName);
+                            //playerAvatar.gameObject.SetActive(speakerName == DialogueDisplaySettings.instance.playerName);
+                            //NPCAvatar.gameObject.SetActive(speakerName != DialogueDisplaySettings.instance.playerName);
                             if (currentConversation.isPlayer)
                             {
-                                NPCAvatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                                NPCAvatar.color = DialogueDisplaySettings.instance.inactiveAvatarColor;
                                 avatar.color = Color.white;
                                 avatar.sprite = s;
                             }
                             else
                             {
-                                avatar.color = DialogueSettings.instance.inactiveAvatarColor;
+                                avatar.color = DialogueDisplaySettings.instance.inactiveAvatarColor;
                                 NPCAvatar.color = Color.white;
                                 NPCAvatar.sprite = s;
                             }
@@ -221,7 +221,7 @@ public class DialogueManager : MonoBehaviour
             // Handle choices
             if (currentConversation.choices?.Length > 0)
             {
-                DialogueDefaultSequence.instance.isActice = false; //make sure default is turned off
+                DialogueContinueButton.instance.isActice = false; //make sure default is turned off
                 for (int i = 0; i < currentConversation.choices.Length; i++)
                 {
                     Choice choice = currentConversation.choices[i];
@@ -234,17 +234,17 @@ public class DialogueManager : MonoBehaviour
                     {
                         GameObject newChoice = Instantiate(choicePrefab, choiceParent.transform);
                         newChoice.GetComponentInChildren<TextMeshProUGUI>().text = choice.text.GetText(languageCode);
-                        newChoice.GetComponent<DialogueChoice>().index = choice.targetIndex;
+                        newChoice.GetComponent<DialogueChoiceButton>().index = choice.targetIndex;
                     }
                 }
                 if (choiceParent.transform.childCount == 0)
                 {
-                    DialogueDefaultSequence.instance.isActice = true;
+                    DialogueContinueButton.instance.isActice = true;
                 }
             }
             else
             {
-                DialogueDefaultSequence.instance.isActice = true; // turn on default
+                DialogueContinueButton.instance.isActice = true; // turn on default
             }
 
 
@@ -551,7 +551,7 @@ public class DialogueManager : MonoBehaviour
     {
         //Debug.Log($"[EndDialogue] lastConversation index: {currentConversation?.index}, nextIndex: {currentConversation?.nextIndex}");
 
-        DialogueDefaultSequence.instance.isActice = false;
+        DialogueContinueButton.instance.isActice = false;
         isDialogueFinished = true;
 
         var lastConversation = currentConversation;
@@ -602,7 +602,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     conversationDict[conversation.index] = conversation;
                 }
-                //Debug.Log($"[DialogueManager] Loaded {conversationDict.Count} conversations");
+                //Debug.Log($"[DialogueController] Loaded {conversationDict.Count} conversations");
             }
 
             /*
@@ -625,14 +625,14 @@ public class DialogueManager : MonoBehaviour
         //StartDialogueAtIndex(0);
         if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
         {
-            Debug.LogError("[DialogueManager] dialogueData is null or empty. Load a JSON first.");
+            Debug.LogError("[DialogueController] dialogueData is null or empty. Load a JSON first.");
             return;
         }
 
         dialogueData.currentIndex = dialogueData.conversations[0].index;
 
         //clear avatars
-        if (DialogueSettings.instance.separatePlayerAndNPC)
+        if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
         {
             if (NPCAvatar != null)
             {
@@ -647,7 +647,7 @@ public class DialogueManager : MonoBehaviour
 
         // show UI
         StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
-        UpdateDialogue(DialogueSettings.instance.currentLanguage);
+        UpdateDialogue(DialogueDisplaySettings.instance.currentLanguage);
     }
 
 
@@ -662,7 +662,7 @@ public class DialogueManager : MonoBehaviour
         var currentConversation = GetConversationByIndex(dialogueData.currentIndex);
         if (currentConversation == null)
         {
-            Debug.LogError($"[DialogueManager] Cannot find conversation with index {dialogueData.currentIndex}");
+            Debug.LogError($"[DialogueController] Cannot find conversation with index {dialogueData.currentIndex}");
             dialogueData.currentIndex = -1;
             return;
         }
@@ -698,7 +698,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
         {
-            Debug.LogError("[DialogueManager] dialogueData is null or empty. Load a JSON first.");
+            Debug.LogError("[DialogueController] dialogueData is null or empty. Load a JSON first.");
             return;
         }
 
@@ -713,7 +713,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (json == null)
         {
-            Debug.LogError("[DialogueManager] JSON is null.");
+            Debug.LogError("[DialogueController] JSON is null.");
             return;
         }
         LoadDialogueFromFile(json);
@@ -735,7 +735,7 @@ public class DialogueManager : MonoBehaviour
             return conversation;
         }
 
-        Debug.LogError($"[DialogueManager] Conversation with index {index} not found");
+        Debug.LogError($"[DialogueController] Conversation with index {index} not found");
         return null;
     }
 }

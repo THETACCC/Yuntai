@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DialogueChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
+public class DialogueChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
     public int index;
     public bool visible = true;
@@ -31,24 +31,25 @@ public class DialogueChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void SetDialogueIndex()
     {
-        if (DialogueManager.instance != null)
+        if (DialogueController.instance != null)
         {
-            DialogueManager.instance.SetDialogueIndex(index);
-        } else
+            DialogueController.instance.SetDialogueIndex(index);
+        }
+        else
         {
-            Debug.LogError("Please Assign DialogueManager");
+            Debug.LogError("Please Assign DialogueController");
         }
     }
 
     void UpdateDialogue()
     {
-        if (DialogueManager.instance != null)
+        if (DialogueController.instance != null)
         {
-            DialogueManager.instance.UpdateDialogue(DialogueSettings.instance?.currentLanguage);
+            DialogueController.instance.UpdateDialogue(DialogueDisplaySettings.instance?.currentLanguage);
         }
         else
         {
-            Debug.LogError("Please Assign DialogueManager");
+            Debug.LogError("Please Assign DialogueController");
         }
     }
 
@@ -87,5 +88,3 @@ public class DialogueChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
 }
-
-

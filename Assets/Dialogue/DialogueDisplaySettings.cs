@@ -12,11 +12,11 @@ public class DialogueLanguage
 }
 
 [ExecuteAlways]
-public class DialogueSettings : MonoBehaviour
+public class DialogueDisplaySettings : MonoBehaviour
 {
-    public static DialogueSettings instance;
+    public static DialogueDisplaySettings instance;
 
-    public DialogueManager dialogueManager;
+    public DialogueController dialogueManager;
 
     public string currentLanguage = "en";
     public List<DialogueLanguage> DialogueLanguages;
@@ -29,7 +29,7 @@ public class DialogueSettings : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        dialogueManager = GetComponent<DialogueManager>();
+        dialogueManager = GetComponent<DialogueController>();
 
         if (Settings.instance != null && (DialogueLanguages == null || DialogueLanguages.Count == 0))
         {
@@ -77,7 +77,7 @@ public class DialogueSettings : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[DialogueSettings] Settings.instance is null in Start!");
+            Debug.LogWarning("[DialogueDisplaySettings] Settings.instance is null in Start!");
         }
     }
 
@@ -107,7 +107,7 @@ public class DialogueSettings : MonoBehaviour
 
         if (DialogueLanguages == null)
         {
-            Debug.LogWarning("[DialogueSettings] DialogueLanguages is null, cannot initialize font dictionary!");
+            Debug.LogWarning("[DialogueDisplaySettings] DialogueLanguages is null, cannot initialize font dictionary!");
             return;
         }
 
@@ -121,7 +121,7 @@ public class DialogueSettings : MonoBehaviour
 
         if (fontDictionary.Count == 0)
         {
-            Debug.LogWarning("[DialogueSettings] Font dictionary is empty after initialization!");
+            Debug.LogWarning("[DialogueDisplaySettings] Font dictionary is empty after initialization!");
         }
     }
 
@@ -129,19 +129,19 @@ public class DialogueSettings : MonoBehaviour
     {
         currentLanguage = languageCode;
 
-        DialogueManager dm = DialogueManager.instance;
+        DialogueController dm = DialogueController.instance;
 
         if (dm != null)
         {
             if (fontDictionary == null || fontDictionary.Count == 0)
             {
-                Debug.LogWarning("[DialogueSettings] Font dictionary is not initialized!");
+                Debug.LogWarning("[DialogueDisplaySettings] Font dictionary is not initialized!");
                 return;
             }
 
             if (!fontDictionary.ContainsKey(languageCode))
             {
-                Debug.LogWarning($"[DialogueSettings] Font for language '{languageCode}' not found in dictionary!");
+                Debug.LogWarning($"[DialogueDisplaySettings] Font for language '{languageCode}' not found in dictionary!");
                 return;
             }
 
@@ -152,7 +152,7 @@ public class DialogueSettings : MonoBehaviour
             if (dm.NPCName != null) dm.NPCName.font = font;
             if (dm.choicePrefab != null)
             {
-                var choice = dm.choicePrefab.GetComponent<DialogueChoice>();
+                var choice = dm.choicePrefab.GetComponent<DialogueChoiceButton>();
                 if (choice != null && choice.content != null)
                 {
                     choice.content.font = font;

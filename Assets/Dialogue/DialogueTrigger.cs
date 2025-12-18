@@ -12,11 +12,11 @@ public class DialogueTrigger : MonoBehaviour
 
     //public UnityEvent OnDialogueCompleted;
 
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -38,22 +38,22 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        if (!DialogueManager.instance.isDialogueActive)
+        if (!DialogueController.instance.isDialogueActive)
         {
             if (!isMainDialogueFinished)
             {
-                DialogueManager.instance.currentTrigger = this;
+                DialogueController.instance.currentTrigger = this;
                 Gamemanager.instance?.StartDialogue();
-                DialogueManager.instance.LoadDialogueFromFile(mainDialogueJsonFile);
-                DialogueManager.instance.StartDialogue();
+                DialogueController.instance.LoadDialogueFromFile(mainDialogueJsonFile);
+                DialogueController.instance.StartDialogue();
             }
             else
             {
                 if (postDialogueJsonFile != null)
                 {
                     Gamemanager.instance?.StartDialogue();
-                    DialogueManager.instance.LoadDialogueFromFile(postDialogueJsonFile);
-                    DialogueManager.instance.StartDialogue();
+                    DialogueController.instance.LoadDialogueFromFile(postDialogueJsonFile);
+                    DialogueController.instance.StartDialogue();
                 }
             }
         }
