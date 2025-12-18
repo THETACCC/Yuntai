@@ -1,11 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using UnityEditor.Experimental.GraphView;
-using System;
+﻿using UnityEditor.Experimental.GraphView;
 using System.Collections.Generic;
-using System.Linq;
 using DialogueSystem;
 
 /// <summary>
