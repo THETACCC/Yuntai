@@ -14,10 +14,10 @@ namespace DialogueSystem
         private string searchFilter = "";
         private bool groupByScene = true;
 
-        [MenuItem("Tools/Dialogue System/Event ID Registry Viewer")]
+        [MenuItem("Tools/Dialogue System/Event ID Window")]
         public static void ShowWindow()
         {
-            var window = GetWindow<DialogueEventIDRegistryViewer>("Event ID Registry");
+            var window = GetWindow<DialogueEventIDRegistryViewer>("Event ID Window");
             window.minSize = new Vector2(600, 400);
             window.Show();
         }
@@ -38,7 +38,19 @@ namespace DialogueSystem
                     Repaint();
                 }
 
-                if (GUILayout.Button("Rebuild Registry", EditorStyles.toolbarButton, GUILayout.Width(120)))
+                if (GUILayout.Button("Check Conflicts", EditorStyles.toolbarButton, GUILayout.Width(110)))
+                {
+                    DialogueEventIDRegistry.CheckIDConflicts();
+                    Repaint();
+                }
+
+                if (GUILayout.Button("Fix Duplicates", EditorStyles.toolbarButton, GUILayout.Width(100)))
+                {
+                    DialogueEventIDRegistry.FixDuplicateIDs();
+                    Repaint();
+                }
+
+                if (GUILayout.Button("Rebuild Registry", EditorStyles.toolbarButton, GUILayout.Width(110)))
                 {
                     DialogueEventIDRegistry.RebuildRegistry();
                     Repaint();

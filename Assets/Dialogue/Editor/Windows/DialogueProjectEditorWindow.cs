@@ -21,7 +21,7 @@ public class DialogueProjectEditorWindow : EditorWindow
     // UI State
     private Vector2 scrollPos;
 
-    [MenuItem("Tools/Dialogue Tree Manager")]
+    [MenuItem("Tools/Dialogue System/Manager Window")]
     public static void ShowWindow()
     {
         var window = GetWindow<DialogueProjectEditorWindow>();

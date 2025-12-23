@@ -28,7 +28,7 @@ public class DialogueTreeEditor : EditorWindow
     private string CURRENT_FILE_KEY => $"DialogueTreeEditor_CurrentFile_{Application.dataPath.GetHashCode()}";
 
     #region Menu Items
-    [MenuItem("Tools/Dialogue Tree Editor/Open Editor")]
+    [MenuItem("Tools/Dialogue System/Tree Editor Window")]
     public static void OpenWindow()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
@@ -38,7 +38,6 @@ public class DialogueTreeEditor : EditorWindow
         window.ForceInitialize();
     }
 
-    [MenuItem("Tools/Dialogue Tree Editor/Create New")]
     public static void CreateNewFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
@@ -59,7 +58,6 @@ public class DialogueTreeEditor : EditorWindow
         window.NewDialogueTree();
     }
 
-    [MenuItem("Tools/Dialogue Tree Editor/Load")]
     public static void LoadFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
@@ -70,7 +68,6 @@ public class DialogueTreeEditor : EditorWindow
         window.LoadDialogueTree();
     }
 
-    [MenuItem("Tools/Dialogue Tree Editor/Save Current #s")]  // 添加快捷键提示
     public static void SaveCurrentFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();
@@ -80,7 +77,6 @@ public class DialogueTreeEditor : EditorWindow
         }
     }
 
-    [MenuItem("Tools/Dialogue Tree Editor/Save As...")]
     public static void SaveAsFromMenu()
     {
         DialogueTreeEditor window = GetWindow<DialogueTreeEditor>();

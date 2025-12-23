@@ -242,7 +242,7 @@ namespace DialogueSystem
         /// <summary>
         /// 扫描所有场景，重建注册表（用于初始化或修复）
         /// </summary>
-        [MenuItem("Tools/Dialogue System/Rebuild ID Registry")]
+        // Accessed from Event ID Window
         public static void RebuildRegistry()
         {
             if (!EditorUtility.DisplayDialog(
@@ -345,7 +345,7 @@ namespace DialogueSystem
         /// <summary>
         /// 检查Registry中的ID冲突（无需打开场景）
         /// </summary>
-        [MenuItem("Tools/Dialogue System/Check All Build Scenes for ID Conflicts")]
+        // Accessed from Event ID Window
         public static void CheckIDConflicts()
         {
             // 首先检查Build Settings中是否有重复场景
@@ -411,10 +411,10 @@ namespace DialogueSystem
 
             Debug.LogError($"[DialogueEventIDRegistry] {errorMsg}");
             EditorUtility.DisplayDialog("⚠️ Conflicts Found!",
-                $"Found {grouped.Count} conflicts!\n\nCheck Console.\n\nUse Fix All Duplicate IDs", "OK");
+                $"Found {grouped.Count} conflicts!\n\nCheck Console.\n\nUse Fix Duplicate Event Target IDs", "OK");
         }
 
-        [MenuItem("Tools/Dialogue System/Fix All Duplicate IDs")]
+        // Accessed from Event ID Window
         public static void FixDuplicateIDs()
         {
             var registry = Instance;
