@@ -6,28 +6,28 @@ using System.Linq;
 namespace DialogueSystem
 {
     /// <summary>
-    /// ID注册表查看器 - 可视化显示所有注册的ID
+    /// 对话事件ID注册表查看器 - 可视化显示所有注册的ID
     /// </summary>
-    public class IDRegistryViewer : EditorWindow
+    public class DialogueEventIDRegistryViewer : EditorWindow
     {
         private Vector2 scrollPosition;
         private string searchFilter = "";
         private bool groupByScene = true;
 
-        [MenuItem("Tools/Dialogue System/ID Registry Viewer")]
+        [MenuItem("Tools/Dialogue System/Event ID Registry Viewer")]
         public static void ShowWindow()
         {
-            var window = GetWindow<IDRegistryViewer>("ID Registry Viewer");
+            var window = GetWindow<DialogueEventIDRegistryViewer>("Event ID Registry");
             window.minSize = new Vector2(600, 400);
             window.Show();
         }
 
         private void OnGUI()
         {
-            var registry = IDRegistry.Instance;
+            var registry = DialogueEventIDRegistry.Instance;
 
             // 标题
-            EditorGUILayout.LabelField("Dialogue System ID Registry", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Dialogue Event ID Registry", EditorStyles.boldLabel);
             EditorGUILayout.Space();
 
             // 工具栏
@@ -40,7 +40,7 @@ namespace DialogueSystem
 
                 if (GUILayout.Button("Rebuild Registry", EditorStyles.toolbarButton, GUILayout.Width(120)))
                 {
-                    IDRegistry.RebuildRegistry();
+                    DialogueEventIDRegistry.RebuildRegistry();
                     Repaint();
                 }
 
@@ -114,7 +114,7 @@ namespace DialogueSystem
             EditorGUILayout.EndScrollView();
         }
 
-        private void DrawGroupedByScene(List<IDRegistry.IDRecord> records)
+        private void DrawGroupedByScene(List<DialogueEventIDRegistry.IDRecord> records)
         {
             var grouped = records.GroupBy(r => r.scenePath).OrderBy(g => g.Key);
 
@@ -154,7 +154,7 @@ namespace DialogueSystem
             }
         }
 
-        private void DrawFlatList(List<IDRegistry.IDRecord> records)
+        private void DrawFlatList(List<DialogueEventIDRegistry.IDRecord> records)
         {
             foreach (var record in records.OrderBy(r => r.objectName))
             {
@@ -164,7 +164,7 @@ namespace DialogueSystem
             }
         }
 
-        private void DrawRecord(IDRegistry.IDRecord record)
+        private void DrawRecord(DialogueEventIDRegistry.IDRecord record)
         {
             EditorGUILayout.BeginHorizontal();
             {
@@ -183,16 +183,16 @@ namespace DialogueSystem
             EditorGUILayout.EndHorizontal();
         }
 
-        private void FindAndSelectObject(IDRegistry.IDRecord record)
+        private void FindAndSelectObject(DialogueEventIDRegistry.IDRecord record)
         {
             // 尝试在当前加载的场景中查找
-            var obj = DialogueReference.FindByID(record.id);
+            var obj = DialogueEventTarget.FindByID(record.id);
 
             if (obj != null)
             {
                 Selection.activeGameObject = obj;
                 EditorGUIUtility.PingObject(obj);
-                Debug.Log($"[IDRegistry] Found object '{record.objectName}' with ID {record.id}");
+                Debug.Log($"[DialogueEventIDRegistry] Found object '{record.objectName}' with ID {record.id}");
             }
             else
             {
@@ -211,7 +211,7 @@ namespace DialogueSystem
                             UnityEditor.SceneManagement.OpenSceneMode.Single);
 
                         // 场景加载后再次查找
-                        obj = DialogueReference.FindByID(record.id);
+                        obj = DialogueEventTarget.FindByID(record.id);
                         if (obj != null)
                         {
                             Selection.activeGameObject = obj;
@@ -219,7 +219,7 @@ namespace DialogueSystem
                         }
                         else
                         {
-                            Debug.LogWarning($"[IDRegistry] Object not found even after loading scene. The object may have been deleted.");
+                            Debug.LogWarning($"[DialogueEventIDRegistry] Object not found even after loading scene. The object may have been deleted.");
                         }
                     }
                 }

@@ -8,9 +8,9 @@ using UnityEditor;
 namespace DialogueSystem
 {
     /// <summary>
-    /// 监听场景文件删除，自动清理ID注册表
+    /// ID注册表场景监控器 - 监听场景文件删除/移动，自动维护注册表
     /// </summary>
-    public class IDRegistryAssetProcessor : AssetModificationProcessor
+    public class DialogueEventIDRegistrySceneMonitor : AssetModificationProcessor
     {
         /// <summary>
         /// 在资源删除前调用
@@ -21,9 +21,9 @@ namespace DialogueSystem
             if (assetPath.EndsWith(".unity"))
             {
                 // 场景文件被删除，清理该场景的所有ID
-                IDRegistry.Instance.RemoveByScene(assetPath);
+                DialogueEventIDRegistry.Instance.RemoveByScene(assetPath);
 
-                Debug.Log($"[IDRegistry] 场景文件被删除: {assetPath}，已自动清理相关ID");
+                Debug.Log($"[DialogueEventIDRegistry] 场景文件被删除: {assetPath}，已自动清理相关ID");
             }
 
             return AssetDeleteResult.DidNotDelete;
@@ -40,7 +40,7 @@ namespace DialogueSystem
                 // 场景文件被移动或重命名
                 // 需要更新注册表中该场景的路径
 
-                var registry = IDRegistry.Instance;
+                var registry = DialogueEventIDRegistry.Instance;
                 var records = registry.GetAllRecords();
 
                 // 找出该场景的所有记录并更新路径
@@ -57,7 +57,7 @@ namespace DialogueSystem
                         registry.Add(record.id, destinationPath, record.objectName);
                     }
 
-                    Debug.Log($"[IDRegistry] 场景文件移动: {sourcePath} → {destinationPath}，已更新 {affectedRecords.Count} 个ID记录");
+                    Debug.Log($"[DialogueEventIDRegistry] 场景文件移动: {sourcePath} → {destinationPath}，已更新 {affectedRecords.Count} 个ID记录");
                 }
             }
 

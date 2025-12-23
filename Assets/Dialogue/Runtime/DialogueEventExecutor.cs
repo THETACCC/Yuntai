@@ -67,12 +67,12 @@ public static class DialogueEventExecutor
     private static GameObject FindTargetObject(string objectID, string objectName)
     {
         // 只通过ID查找
-        var targetObject = DialogueReference.FindByID(objectID);
+        var targetObject = DialogueEventTarget.FindByID(objectID);
 
         if (targetObject == null)
         {
             string displayName = !string.IsNullOrEmpty(objectName) ? $"'{objectName}'" : "(unnamed)";
-            LogError($"GameObject {displayName} with ID '{objectID}' not found. Please ensure the object exists in the scene and has a DialogueReference component with this ID.");
+            LogError($"GameObject {displayName} with ID '{objectID}' not found. Please ensure the object exists in the scene and has a DialogueEventTarget component with this ID.");
         }
 
         return targetObject;

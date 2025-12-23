@@ -4627,7 +4627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026961654}
   - component: {fileID: 1026961656}
-  - component: {fileID: 1026961655}
+  - component: {fileID: 1026961657}
   m_Layer: 0
   m_Name: snd_hungry
   m_TagString: Untagged
@@ -4650,19 +4650,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 658547375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1026961655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026961653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 951e7e29-713d-4e58-8375-bb044e697851
 --- !u!82 &1026961656
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4759,6 +4746,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1026961657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026961653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 951e7e29-713d-4e58-8375-bb044e697851
 --- !u!1 &1075040057
 GameObject:
   m_ObjectHideFlags: 0
@@ -5322,7 +5322,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203927951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 01204240-613d-49da-a2c3-023d40f43cc4
@@ -5723,7 +5723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279740580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: c53927c3-c77c-4e2f-8953-f20a86ed29da

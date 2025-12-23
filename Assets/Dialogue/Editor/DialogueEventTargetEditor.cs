@@ -3,23 +3,39 @@ using UnityEditor;
 using System.Linq;
 
 /// <summary>
-/// DialogueReference 自定义Inspector
+/// DialogueEventTarget 自定义Inspector
 /// 显示ID信息和冲突检测
 /// </summary>
-[CustomEditor(typeof(DialogueReference))]
-public class DialogueReferenceEditor : Editor
+[CustomEditor(typeof(DialogueEventTarget), true)] // true允许子类也使用
+public class DialogueEventTargetEditor : Editor
 {
-    private DialogueReference script;
+    private DialogueEventTarget script;
+    private bool isObsoleteClass = false;
 
     private void OnEnable()
     {
-        script = (DialogueReference)target;
+        script = (DialogueEventTarget)target;
+
+        // 检查是否是旧的DialogueReference类
+        isObsoleteClass = script.GetType().Name == "DialogueReference";
     }
 
     public override void OnInspectorGUI()
     {
+        // 如果是旧类，显示警告
+        if (isObsoleteClass)
+        {
+            EditorGUILayout.HelpBox(
+                "⚠️ DialogueReference is deprecated!\n\n" +
+                "This component still works, but please migrate to DialogueEventTarget.\n\n" +
+                "Use: Tools > Dialogue System > Migrate DialogueReference to DialogueEventTarget",
+                MessageType.Warning);
+            EditorGUILayout.Space();
+        }
+
         // 标题
-        EditorGUILayout.LabelField("Dialogue Reference Component", EditorStyles.boldLabel);
+        string title = isObsoleteClass ? "Dialogue Reference Component (Deprecated)" : "Dialogue Event Target Component";
+        EditorGUILayout.LabelField(title, EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         // 显示ID
@@ -65,19 +81,29 @@ public class DialogueReferenceEditor : Editor
             if (GUILayout.Button("📋 Copy ID"))
             {
                 EditorGUIUtility.systemCopyBuffer = script.UniqueID;
-                Debug.Log($"[DialogueReference] ID copied to clipboard: {script.UniqueID}");
+                Debug.Log($"[DialogueEventTarget] ID copied to clipboard: {script.UniqueID}");
             }
         }
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space();
 
+        // 迁移按钮（仅对旧类显示）
+        if (isObsoleteClass)
+        {
+            if (GUILayout.Button("🔧 Migrate This Component to DialogueEventTarget", GUILayout.Height(30)))
+            {
+                MigrateSingleComponent();
+            }
+            EditorGUILayout.Space();
+        }
+
         // 信息
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
             EditorGUILayout.LabelField("ℹ️ About this component:", EditorStyles.miniLabel);
             EditorGUILayout.LabelField("• Provides a persistent unique ID for this GameObject", EditorStyles.wordWrappedMiniLabel);
-            EditorGUILayout.LabelField("• Used by the Dialogue System to reference objects", EditorStyles.wordWrappedMiniLabel);
+            EditorGUILayout.LabelField("• Used by the Dialogue System to reference objects in events", EditorStyles.wordWrappedMiniLabel);
             EditorGUILayout.LabelField("• Automatically added when selecting objects in Dialogue Events", EditorStyles.wordWrappedMiniLabel);
             EditorGUILayout.LabelField("• ID is preserved when copying, but automatically regenerated if duplicate detected", EditorStyles.wordWrappedMiniLabel);
         }
@@ -86,19 +112,19 @@ public class DialogueReferenceEditor : Editor
         EditorGUILayout.Space();
 
         // 调试信息
-        if (EditorGUILayout.Foldout(SessionState.GetBool("DialogueReference_ShowDebug", false), "Debug Info"))
+        if (EditorGUILayout.Foldout(SessionState.GetBool("DialogueEventTarget_ShowDebug", false), "Debug Info"))
         {
-            SessionState.SetBool("DialogueReference_ShowDebug", true);
+            SessionState.SetBool("DialogueEventTarget_ShowDebug", true);
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             {
+                EditorGUILayout.LabelField("Component Type:", script.GetType().Name);
                 EditorGUILayout.LabelField("GameObject:", script.gameObject.name);
                 EditorGUILayout.LabelField("Scene:", script.gameObject.scene.name);
                 EditorGUILayout.LabelField("Scene Path:", script.gameObject.scene.path);
                 EditorGUILayout.LabelField("Is Valid Scene:", script.gameObject.scene.IsValid().ToString());
 
-#if UNITY_EDITOR
-                var registry = DialogueSystem.IDRegistry.Instance;
+                var registry = DialogueSystem.DialogueEventIDRegistry.Instance;
                 bool inRegistry = registry.Contains(script.UniqueID);
                 EditorGUILayout.LabelField("In ID Registry:", inRegistry.ToString());
 
@@ -112,21 +138,19 @@ public class DialogueReferenceEditor : Editor
                         EditorGUILayout.LabelField("Registry Name:", record.objectName);
                     }
                 }
-#endif
             }
             EditorGUILayout.EndVertical();
         }
         else
         {
-            SessionState.SetBool("DialogueReference_ShowDebug", false);
+            SessionState.SetBool("DialogueEventTarget_ShowDebug", false);
         }
     }
 
     private void CheckForConflicts()
     {
-#if UNITY_EDITOR
         // 使用IDRegistry检查
-        var registry = DialogueSystem.IDRegistry.Instance;
+        var registry = DialogueSystem.DialogueEventIDRegistry.Instance;
 
         if (!registry.Contains(script.UniqueID))
         {
@@ -135,8 +159,8 @@ public class DialogueReferenceEditor : Editor
             return;
         }
 
-        // 查找是否有其他对象使用相同ID
-        var allRefs = FindObjectsOfType<DialogueReference>();
+        // 查找是否有其他对象使用相同ID（包括DialogueReference和DialogueEventTarget）
+        var allRefs = FindObjectsOfType<DialogueEventTarget>();
         var duplicates = allRefs.Where(r => r != script && r.UniqueID == script.UniqueID).ToList();
 
         if (duplicates.Count > 0)
@@ -153,7 +177,7 @@ public class DialogueReferenceEditor : Editor
                 Undo.RecordObject(script, "Fix ID Conflict");
                 script.ForceRegenerateID();
                 EditorUtility.SetDirty(script);
-                Debug.Log($"[DialogueReference] ID conflict fixed for '{script.gameObject.name}'");
+                Debug.Log($"[DialogueEventTarget] ID conflict fixed for '{script.gameObject.name}'");
             }
         }
         else
@@ -161,6 +185,42 @@ public class DialogueReferenceEditor : Editor
             // 无冲突
             EditorGUILayout.HelpBox("✅ No conflicts detected. ID is unique.", MessageType.Info);
         }
-#endif
+    }
+
+    private void MigrateSingleComponent()
+    {
+        if (!isObsoleteClass) return;
+
+        var go = script.gameObject;
+        string id = script.UniqueID;
+
+        if (EditorUtility.DisplayDialog(
+            "Migrate Component",
+            $"This will replace DialogueReference with DialogueEventTarget on '{go.name}'.\n\n" +
+            "The ID will be preserved.\n\n" +
+            "Continue?",
+            "Yes", "Cancel"))
+        {
+            Undo.RecordObject(go, "Migrate DialogueReference");
+
+            // 移除旧组件
+            DestroyImmediate(script);
+
+            // 添加新组件
+            var newComponent = go.AddComponent<DialogueEventTarget>();
+
+            // 通过反射设置ID（保持原ID）
+            var field = typeof(DialogueEventTarget).GetField("uniqueID",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (field != null)
+            {
+                field.SetValue(newComponent, id);
+            }
+
+            EditorUtility.SetDirty(go);
+
+            Debug.Log($"[DialogueEventTarget] Migrated '{go.name}' from DialogueReference to DialogueEventTarget (ID preserved: {id})");
+            EditorUtility.DisplayDialog("Success", $"Component migrated!\n\nID preserved: {id.Substring(0, 8)}...", "OK");
+        }
     }
 }

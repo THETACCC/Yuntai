@@ -292,8 +292,8 @@ public partial class DialogueNodeEditor : Node
 
     private string GetCharacterLibraryPath()
     {
-        // 获取 DialogueTreeManagerWindow 脚本路径
-        var managerScript = AssetDatabase.FindAssets("t:Script DialogueTreeManagerWindow");
+        // 获取 DialogueProjectEditorWindow 脚本路径
+        var managerScript = AssetDatabase.FindAssets("t:Script DialogueProjectEditorWindow");
         if (managerScript.Length > 0)
         {
             string scriptPath = AssetDatabase.GUIDToAssetPath(managerScript[0]);
@@ -757,7 +757,7 @@ public partial class DialogueNodeEditor : Node
             // 只使用ID查找
             if (!string.IsNullOrEmpty(eventCall.targetObjectID))
             {
-                currentGameObject = DialogueReference.FindByID(eventCall.targetObjectID);
+                currentGameObject = DialogueEventTarget.FindByID(eventCall.targetObjectID);
                 objectFoundInScene = (currentGameObject != null);
             }
 
@@ -839,7 +839,7 @@ public partial class DialogueNodeEditor : Node
                             return;
                         }
 
-                        var refComponent = DialogueReference.GetOrCreate(selectedGO);
+                        var refComponent = DialogueEventTarget.GetOrCreate(selectedGO);
                         EventCalls[currentIndex].targetObjectID = refComponent.UniqueID;
                         EventCalls[currentIndex].targetObjectName = selectedGO.name;
                         EventCalls[currentIndex].targetSceneName = selectedGO.scene.name;
@@ -1367,7 +1367,7 @@ public partial class DialogueNodeEditor : Node
         // 优先使用ID查找
         if (!string.IsNullOrEmpty(condition.targetObjectID))
         {
-            currentGO = DialogueReference.FindByID(condition.targetObjectID);
+            currentGO = DialogueEventTarget.FindByID(condition.targetObjectID);
         }
         // 向后兼容：如果没有ID，使用名字查找
         else if (!string.IsNullOrEmpty(condition.targetObjectName))
@@ -2190,7 +2190,7 @@ public partial class DialogueNodeEditor : Node
             // 优先使用ID查找
             if (!string.IsNullOrEmpty(condition.targetObjectID))
             {
-                currentGameObject = DialogueReference.FindByID(condition.targetObjectID);
+                currentGameObject = DialogueEventTarget.FindByID(condition.targetObjectID);
             }
             // 向后兼容：如果没有ID，使用名字查找
             else if (!string.IsNullOrEmpty(condition.targetObjectName))

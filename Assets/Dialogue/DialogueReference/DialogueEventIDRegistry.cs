@@ -9,12 +9,12 @@ using UnityEditor;
 namespace DialogueSystem
 {
     /// <summary>
-    /// 对话系统ID注册表 - 自动管理所有DialogueReference的唯一ID
+    /// 对话系统ID注册表 - 自动管理所有DialogueEventTarget的唯一ID
     /// 用户无需手动维护，完全自动化
     /// </summary>
-    public class IDRegistry : ScriptableObject
+    public class DialogueEventIDRegistry : ScriptableObject
     {
-        private static IDRegistry instance;
+        private static DialogueEventIDRegistry instance;
 
         [System.Serializable]
         public class IDRecord
@@ -41,7 +41,7 @@ namespace DialogueSystem
         [System.NonSerialized]
         private bool isInitialized = false;
 
-        public static IDRegistry Instance
+        public static DialogueEventIDRegistry Instance
         {
             get
             {
@@ -49,25 +49,25 @@ namespace DialogueSystem
                 {
 #if UNITY_EDITOR
                     // 尝试加载已存在的注册表
-                    instance = AssetDatabase.FindAssets("t:IDRegistry")
+                    instance = AssetDatabase.FindAssets("t:DialogueEventIDRegistry")
                         .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                        .Select(path => AssetDatabase.LoadAssetAtPath<IDRegistry>(path))
+                        .Select(path => AssetDatabase.LoadAssetAtPath<DialogueEventIDRegistry>(path))
                         .FirstOrDefault();
 
                     // 如果不存在，创建新的
                     if (instance == null)
                     {
-                        instance = CreateInstance<IDRegistry>();
+                        instance = CreateInstance<DialogueEventIDRegistry>();
 
                         // 保存到Assets根目录
-                        string path = "Assets/DialogueIDRegistry.asset";
+                        string path = "Assets/DialogueDialogueEventIDRegistry.asset";
                         AssetDatabase.CreateAsset(instance, path);
                         AssetDatabase.SaveAssets();
 
-                        Debug.Log($"[IDRegistry] 创建新的ID注册表: {path}");
+                        Debug.Log($"[DialogueEventIDRegistry] 创建新的ID注册表: {path}");
                     }
 #else
-                    Debug.LogError("[IDRegistry] Cannot create IDRegistry at runtime!");
+                    Debug.LogError("[DialogueEventIDRegistry] Cannot create DialogueEventIDRegistry at runtime!");
 #endif
                 }
 
@@ -170,7 +170,7 @@ namespace DialogueSystem
 
             if (toRemove.Count > 0)
             {
-                Debug.Log($"[IDRegistry] 已清理场景 '{scenePath}' 的 {toRemove.Count} 个ID记录");
+                Debug.Log($"[DialogueEventIDRegistry] 已清理场景 '{scenePath}' 的 {toRemove.Count} 个ID记录");
                 SortRecords();
                 MarkDirty();
             }
@@ -213,7 +213,7 @@ namespace DialogueSystem
                 idLookup.Clear();
             }
             MarkDirty();
-            Debug.Log("[IDRegistry] 已清空所有ID记录");
+            Debug.Log("[DialogueEventIDRegistry] 已清空所有ID记录");
         }
 
         /// <summary>
@@ -246,10 +246,12 @@ namespace DialogueSystem
         public static void RebuildRegistry()
         {
             if (!EditorUtility.DisplayDialog(
-                "重建ID注册表",
-                "这将扫描所有Build Settings中的场景，重建ID注册表。\n\n" +
-                "注意：这会清空现有注册表数据。\n\n" +
-                "建议：仅在初始化项目或修复问题时使用。",
+                "重建ID注册表索引",
+                "这将重新扫描所有场景，重建ID注册表索引。\n\n" +
+                "✅ 组件上的ID不会改变\n" +
+                "✅ 不会重新生成ID\n" +
+                "✅ 只是重新录入现有ID到注册表\n\n" +
+                "用途：Registry数据丢失或不一致时使用。",
                 "继续", "取消"))
             {
                 return;
@@ -296,7 +298,7 @@ namespace DialogueSystem
                         scenePath,
                         UnityEditor.SceneManagement.OpenSceneMode.Single);
 
-                    var refs = Object.FindObjectsOfType<DialogueReference>();
+                    var refs = Object.FindObjectsOfType<DialogueEventTarget>();
 
                     foreach (var refComp in refs)
                     {
@@ -336,20 +338,171 @@ namespace DialogueSystem
             catch (System.Exception e)
             {
                 EditorUtility.ClearProgressBar();
-                Debug.LogError($"[IDRegistry] 重建失败: {e.Message}");
+                Debug.LogError($"[DialogueEventIDRegistry] 重建失败: {e.Message}");
                 EditorUtility.DisplayDialog("错误", $"重建失败:\n{e.Message}", "确定");
             }
         }
-
         /// <summary>
-        /// 查看ID注册表内容
+        /// 检查Registry中的ID冲突（无需打开场景）
         /// </summary>
-        [MenuItem("Tools/Dialogue System/View ID Registry")]
-        public static void ViewRegistry()
+        [MenuItem("Tools/Dialogue System/Check All Build Scenes for ID Conflicts")]
+        public static void CheckIDConflicts()
+        {
+            // 首先检查Build Settings中是否有重复场景
+            var allScenes = EditorBuildSettings.scenes.ToList();
+            var enabledScenes = allScenes.Where(s => s.enabled).ToList();
+
+            if (enabledScenes.Count == 0)
+            {
+                EditorUtility.DisplayDialog("No Scenes", "No enabled scenes in Build Settings.", "OK");
+                return;
+            }
+
+            var pathGroups = enabledScenes.GroupBy(s => s.path).OrderBy(g => g.Key);
+            var duplicateScenes = pathGroups.Where(g => g.Count() > 1).ToList();
+
+            if (duplicateScenes.Count > 0)
+            {
+                Debug.LogError("====== Build Settings Issue ======");
+                Debug.LogError($"⚠️ Found {duplicateScenes.Count} duplicate scenes in Build Settings!");
+                foreach (var group in duplicateScenes)
+                {
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(group.Key);
+                    Debug.LogError($"  - '{sceneName}' appears {group.Count()} times");
+                }
+                Debug.LogError("This can cause false ID conflicts!");
+                Debug.LogError("Fix: File > Build Settings, remove duplicates.\n");
+
+                EditorUtility.DisplayDialog("⚠️ Duplicate Scenes!",
+                    $"Found {duplicateScenes.Count} duplicate scenes in Build Settings!\n\n" +
+                    "This will cause false ID conflicts.\n\n" +
+                    "Fix: File > Build Settings\nRemove duplicate scenes first!",
+                    "OK");
+                return;
+            }
+
+            // 检查Registry中的ID冲突
+            var registry = Instance;
+            var records = registry.GetAllRecords();
+
+            var grouped = records.GroupBy(r => r.id).Where(g => g.Count() > 1).ToList();
+
+            if (grouped.Count == 0)
+            {
+                Debug.Log($"✅ No ID conflicts found! ({enabledScenes.Count} scenes, {records.Count} IDs)");
+                EditorUtility.DisplayDialog("✓ No Conflicts",
+                    $"Checked {enabledScenes.Count} scenes.\n{records.Count} IDs.\n\nNo conflicts found!", "OK");
+                return;
+            }
+
+            // 发现冲突
+            string errorMsg = $"⚠️ Found {grouped.Count} ID conflicts!\n\n";
+
+            foreach (var group in grouped)
+            {
+                errorMsg += $"ID: {group.Key.Substring(0, 8)}... ({group.Count()} objects):\n";
+                foreach (var record in group)
+                {
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(record.scenePath);
+                    errorMsg += $"  - '{record.objectName}' in [{sceneName}]\n";
+                }
+                errorMsg += "\n";
+            }
+
+            Debug.LogError($"[DialogueEventIDRegistry] {errorMsg}");
+            EditorUtility.DisplayDialog("⚠️ Conflicts Found!",
+                $"Found {grouped.Count} conflicts!\n\nCheck Console.\n\nUse Fix All Duplicate IDs", "OK");
+        }
+
+        [MenuItem("Tools/Dialogue System/Fix All Duplicate IDs")]
+        public static void FixDuplicateIDs()
         {
             var registry = Instance;
-            Selection.activeObject = registry;
-            EditorGUIUtility.PingObject(registry);
+            var duplicates = registry.GetAllRecords().GroupBy(r => r.id).Where(g => g.Count() > 1).ToList();
+
+            if (duplicates.Count == 0)
+            {
+                EditorUtility.DisplayDialog("No Conflicts", "No duplicate IDs found.", "OK");
+                return;
+            }
+
+            if (!EditorUtility.DisplayDialog("⚠️ 警告",
+                $"发现 {duplicates.Count} 组重复ID！\n\n建议先备份！\n\n确定继续吗？",
+                "确定", "取消"))
+                return;
+
+            var currentScenes = SaveCurrentScenes();
+            var sceneFixList = new Dictionary<string, List<string>>();
+
+            foreach (var dup in duplicates)
+            {
+                var refs = dup.ToList();
+                for (int i = 1; i < refs.Count; i++)
+                {
+                    if (!sceneFixList.ContainsKey(refs[i].scenePath))
+                        sceneFixList[refs[i].scenePath] = new List<string>();
+                    sceneFixList[refs[i].scenePath].Add(dup.Key);
+                }
+            }
+
+            int totalFixed = 0;
+            try
+            {
+                int idx = 0;
+                foreach (var kvp in sceneFixList)
+                {
+                    idx++;
+                    EditorUtility.DisplayProgressBar("Fixing", $"Scene {idx}/{sceneFixList.Count}...", (float)idx / sceneFixList.Count);
+
+                    var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(kvp.Key, UnityEditor.SceneManagement.OpenSceneMode.Single);
+                    var targets = Resources.FindObjectsOfTypeAll<DialogueEventTarget>().Where(r => r != null && r.gameObject.scene == scene).ToList();
+                    var idsToFix = new HashSet<string>(kvp.Value);
+
+                    foreach (var t in targets)
+                    {
+                        if (idsToFix.Contains(t.UniqueID))
+                        {
+                            Undo.RecordObject(t, "Fix ID");
+                            t.ForceRegenerateID();
+                            totalFixed++;
+                        }
+                    }
+
+                    UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+                    UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+                }
+
+                EditorUtility.ClearProgressBar();
+                RestoreScenes(currentScenes);
+                EditorUtility.DisplayDialog("完成", $"修复了 {totalFixed} 个对象", "确定");
+            }
+            catch (System.Exception e)
+            {
+                EditorUtility.ClearProgressBar();
+                RestoreScenes(currentScenes);
+                Debug.LogError($"[DialogueEventIDRegistry] Error: {e.Message}");
+            }
+        }
+
+        private static List<string> SaveCurrentScenes()
+        {
+            var list = new List<string>();
+            for (int i = 0; i < UnityEditor.SceneManagement.EditorSceneManager.sceneCount; i++)
+            {
+                var s = UnityEditor.SceneManagement.EditorSceneManager.GetSceneAt(i);
+                if (s.isLoaded) list.Add(s.path);
+            }
+            return list;
+        }
+
+        private static void RestoreScenes(List<string> paths)
+        {
+            if (paths.Count > 0)
+            {
+                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(paths[0], UnityEditor.SceneManagement.OpenSceneMode.Single);
+                for (int i = 1; i < paths.Count; i++)
+                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(paths[i], UnityEditor.SceneManagement.OpenSceneMode.Additive);
+            }
         }
 #endif
     }

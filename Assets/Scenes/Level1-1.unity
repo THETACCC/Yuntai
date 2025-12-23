@@ -2089,7 +2089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 358573744}
   - component: {fileID: 358573746}
-  - component: {fileID: 358573745}
+  - component: {fileID: 358573747}
   m_Layer: 0
   m_Name: snd_Hungry
   m_TagString: Untagged
@@ -2112,19 +2112,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1761808173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &358573745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358573743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: b595db33-8c3a-439f-abba-0c0f4c1efa1f
 --- !u!82 &358573746
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2221,6 +2208,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &358573747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358573743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: b595db33-8c3a-439f-abba-0c0f4c1efa1f
 --- !u!1 &367917595
 GameObject:
   m_ObjectHideFlags: 0
@@ -10993,7 +10993,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1759201107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 757f007d-1692-472a-92ca-dbf36652f2f4

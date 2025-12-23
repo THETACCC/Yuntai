@@ -370,7 +370,7 @@ public class DialogueController : MonoBehaviour
         // 优先使用ID查找
         if (!string.IsNullOrEmpty(condition.targetObjectID))
         {
-            targetObject = DialogueReference.FindByID(condition.targetObjectID);
+            targetObject = DialogueEventTarget.FindByID(condition.targetObjectID);
         }
 
         // 向后兼容：如果没有ID或ID查找失败，使用名字查找

@@ -6,13 +6,13 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 /// <summary>
-/// DialogueReference ID 自动清理管理器
+/// DialogueEventTarget ID 自动清理管理器
 /// 在场景打开和保存时自动清理无效的ID
 /// </summary>
 [InitializeOnLoad]
-public static class DialogueReferenceAutoCleanup
+public static class DialogueEventTargetAutoCleanup
 {
-    static DialogueReferenceAutoCleanup()
+    static DialogueEventTargetAutoCleanup()
     {
         // 场景打开时清理
         EditorSceneManager.sceneOpened += OnSceneOpened;
@@ -46,7 +46,7 @@ public static class DialogueReferenceAutoCleanup
     /// </summary>
     private static void CleanupSceneIDs(UnityEngine.SceneManagement.Scene scene, string scenePath)
     {
-        var registry = DialogueSystem.IDRegistry.Instance;
+        var registry = DialogueSystem.DialogueEventIDRegistry.Instance;
         var records = registry.GetAllRecords();
 
         // 找出注册表中属于这个场景的所有ID
@@ -59,7 +59,7 @@ public static class DialogueReferenceAutoCleanup
         // 遍历该场景的所有ID，检查GameObject是否还存在
         foreach (var record in sceneRecords)
         {
-            var obj = DialogueReference.FindByID(record.id);
+            var obj = DialogueEventTarget.FindByID(record.id);
 
             if (obj == null)
             {
@@ -71,7 +71,7 @@ public static class DialogueReferenceAutoCleanup
 
         if (removedCount > 0)
         {
-            Debug.Log($"[DialogueReference] 场景 '{scene.name}' 自动清理了 {removedCount} 个无效ID");
+            Debug.Log($"[DialogueEventTarget] 场景 '{scene.name}' 自动清理了 {removedCount} 个无效ID");
         }
     }
 }
