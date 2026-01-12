@@ -11,6 +11,7 @@ using DialogueSystem;
 using Fungus;
 using MoreMountains.Tools;
 
+//原Dialogue Manager，已改名
 public class DialogueController : MonoBehaviour
 {
     public static DialogueController instance;

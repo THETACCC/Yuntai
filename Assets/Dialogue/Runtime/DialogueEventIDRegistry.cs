@@ -59,8 +59,16 @@ namespace DialogueSystem
                     {
                         instance = CreateInstance<DialogueEventIDRegistry>();
 
-                        // 保存到Assets根目录
-                        string path = "Assets/DialogueDialogueEventIDRegistry.asset";
+                        // 保存到Dialogue/Editor/Data目录
+                        string path = "Assets/Dialogue/Editor/Data/DialogueDialogueEventIDRegistry.asset";
+                        
+                        // 确保目录存在
+                        string directory = System.IO.Path.GetDirectoryName(path);
+                        if (!AssetDatabase.IsValidFolder(directory))
+                        {
+                            Debug.LogError($"[DialogueEventIDRegistry] 目录不存在: {directory}");
+                        }
+                        
                         AssetDatabase.CreateAsset(instance, path);
                         AssetDatabase.SaveAssets();
 
