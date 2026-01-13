@@ -1,8 +1,653 @@
 # Dialogue System & Localization
 
+[English](#english) | [中文](#中文)
+
+---
+
+<a name="english"></a>
+
+## English Version
+
+A comprehensive Unity dialogue system with visual dialogue tree editor, multi-language localization, conditional branching, choice system, and event triggering.
+
+### Table of Contents
+
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Core Components](#core-components)
+- [Localization System](#localization-system)
+- [Dialogue Tree Editor](#dialogue-tree-editor)
+- [Advanced Features](#advanced-features)
+- [API Reference](#api-reference)
+- [Best Practices](#best-practices)
+- [FAQ](#faq)
+- [Tech Stack](#tech-stack)
+
+---
+
+### Features
+
+#### Dialogue System
+- ✅ **Visual Dialogue Tree Editor** - Node-based dialogue flow design
+- ✅ **Branching Dialogues** - Support for player choices and multi-branch storylines
+- ✅ **Conditional Logic** - Dynamic dialogue flow based on game state
+- ✅ **Event System** - Trigger game events during dialogues
+- ✅ **Character Management** - Centralized character and avatar management
+- ✅ **Typewriter Effect** - Customizable text display animation
+
+#### Localization System
+- 🌍 **Multi-language Support** - English / 中文 / 日本語
+- 📊 **Google Sheets Integration** - Import translations from cloud spreadsheets
+- 🔄 **Auto Fallback** - Automatic fallback when translations are missing
+- 🎨 **Font Switching** - Automatic font change based on language
+- 📝 **Hybrid Mode** - Support both ID reference and direct input
+
+---
+
+### Quick Start
+
+#### 1. Open Manager Window
+
+```
+Unity Menu → Tools → Dialogue System → Manager Window
+```
+
+#### 2. Setup Localization (Optional)
+
+In the manager window header:
+1. Enter Google Sheets CSV public URL
+2. Click **Load** to load localization data
+3. System will cache data for editor use
+
+#### 3. Create Characters
+
+In the **Characters** section:
+1. Click **+ Add Character**
+2. Set character name and avatar path
+3. Choose if it's a player character (for UI separation)
+
+#### 4. Create Dialogue Tree
+
+1. Click **+ Create Tree** in the **Folder Tree** section
+2. Enter dialogue tree filename
+3. Double-click to open dialogue tree editor
+
+#### 5. Use in Scene
+
+Add `DialogueController` prefab to your scene, then:
+
+```csharp
+// Load dialogue data
+DialogueController.instance.LoadDialogueFromFile(dialogueJsonFile);
+
+// Start dialogue
+DialogueController.instance.StartDialogue();
+```
+
+---
+
+### Core Components
+
+#### DialogueController
+
+The core controller for the dialogue system, responsible for dialogue flow, UI updates, and event triggering.
+
+**Main Responsibilities:**
+- Manage dialogue state and flow
+- Handle user input (Space/Mouse click)
+- Display dialogue content and choices
+- Execute conditional logic and event calls
+
+**Key Methods:**
+
+```csharp
+// Load dialogue JSON file
+void LoadDialogueFromFile(TextAsset dialogueJsonFile)
+
+// Start dialogue
+void StartDialogue()
+
+// Set current dialogue node
+void SetDialogueIndex(int index)
+
+// Move to next dialogue node
+void NextDialogueIndex()
+```
+
+#### DialogueDisplaySettings
+
+Controls dialogue display appearance and language switching.
+
+**Main Features:**
+- Manage multi-language font configuration
+- Control player/NPC separation display mode
+- Respond to language change events
+
+**Configuration Example:**
+
+```csharp
+public bool separatePlayerAndNPC;  // Separate player and NPC UI
+public Color inactiveAvatarColor;  // Inactive avatar color
+```
+
+---
+
+### Localization System
+
+#### LocalizedText Class
+
+Core data structure for storing multi-language text.
+
+**Usage:**
+
+```csharp
+// Create localized text
+LocalizedText text = new LocalizedText();
+text.SetText("en", "Hello");
+text.SetText("zh", "你好");
+text.SetText("ja", "こんにちは");
+
+// Get text in current language
+string displayText = text.GetText(Settings.instance.currentLanguage);
+
+// Create from string (defaults to English)
+LocalizedText simple = new LocalizedText("Hello World");
+```
+
+**Fallback Mechanism:**
+
+If text is missing in current language, system tries in this order:
+1. Current language
+2. English
+3. Chinese
+4. Japanese
+
+#### DialogueLocalization
+
+Load and manage localization data from Google Sheets.
+
+**CSV Format Requirements:**
+
+```csv
+ID,中文,English,日本語
+greeting_hello,你好,Hello,こんにちは
+greeting_goodbye,再见,Goodbye,さようなら
+```
+
+**Usage Flow:**
+
+1. **Prepare Google Sheets**
+   - Create new spreadsheet, fill in above format
+   - File → Share → Publish to web → Select CSV format
+   - Copy public URL
+
+2. **Load in Editor**
+   ```
+   Manager Window → Enter CSV URL → Click Load
+   ```
+
+3. **Use in Code**
+   ```csharp
+   // Get text by ID
+   string text = DialogueLocalization.GetText("greeting_hello", Language.ChineseSimplified);
+   
+   // Check if ID exists
+   if (DialogueLocalization.HasId("greeting_hello")) {
+       // ...
+   }
+   ```
+
+#### Hybrid Usage Mode
+
+System supports two text management approaches:
+
+**Method 1: ID Reference Mode** (Recommended for frequently updated content)
+```csharp
+node.useContentId = true;
+node.contentId = "dialogue_intro_001";
+// Runtime fetches from DialogueLocalization
+```
+
+**Method 2: Direct Input Mode** (For one-time content or testing)
+```csharp
+node.useContentId = false;
+node.content.SetText("en", "Hello!");
+node.content.SetText("zh", "你好！");
+```
+
+---
+
+### Dialogue Tree Editor
+
+#### Node Types
+
+**Basic Dialogue Node**
+- Display text content
+- Set character and avatar
+- Configure next node
+
+**Choice Node**
+- Add multiple choices
+- Each choice can jump to different nodes
+- Support conditional display
+
+**Conditional Branch Node**
+- Auto-jump based on game state
+- Support priority ordering
+- Multi-condition logic (AND/OR)
+
+#### Creating Dialogue Flow
+
+1. **Add Nodes**
+   - Right-click → Create Node or use toolbar
+   - Set node content and character
+
+2. **Connect Nodes**
+   - Drag from output port to input port
+   - Green line = default connection, Yellow = choice, Purple = conditional branch
+
+3. **Add Choices**
+   - Click **+ Add Choice** on node
+   - Set choice text and conditions
+   - Connect to target node
+
+4. **Add Events**
+   - Click event button on node
+   - Select target object and method
+   - Set trigger timing
+
+5. **Export Runtime Data**
+   - Click **Export** button in toolbar
+   - Choose save location
+   - Generate JSON file for game use
+
+---
+
+### Advanced Features
+
+#### Condition System
+
+Dialogue choices and branches can show/hide based on game state.
+
+**Condition Types:**
+
+| Comparison Type | Symbol | Supported Types |
+|----------------|--------|-----------------|
+| Equal | == | int, float, bool |
+| NotEqual | != | int, float, bool |
+| Greater | > | int, float |
+| Less | < | int, float |
+| GreaterOrEqual | >= | int, float |
+| LessOrEqual | <= | int, float |
+
+**Configuration Example:**
+
+```csharp
+ChoiceCondition condition = new ChoiceCondition {
+    targetObjectID = "player_stats_id",  // Recommended: use unique ID
+    // targetObjectName = "Player",      // Backward compatible: use name
+    componentTypeName = "PlayerStats",
+    variableName = "level",
+    comparison = ComparisonType.GreaterOrEqual,
+    compareValue = "5"
+};
+```
+
+**Multi-Condition Logic:**
+
+```csharp
+// AND logic: all conditions must be met
+choice.conditionLogic = ConditionLogic.AND;
+
+// OR logic: any condition can be met
+choice.conditionLogic = ConditionLogic.OR;
+```
+
+#### Event System
+
+Call methods in the game during dialogue.
+
+**Trigger Timing:**
+
+- `OnDialogueStart` - Triggered when dialogue node appears
+- `OnDialogueEnd` - Triggered after player clicks continue
+- `OnDialogueDisappear` - Triggered after dialogue box fully disappears (last node only)
+
+**Supported Parameter Types:**
+
+- None - No parameter method
+- String - String parameter
+- Int - Integer parameter
+- Float - Float parameter
+- Bool - Boolean parameter
+
+**Configuration Example:**
+
+```csharp
+DialogueEventCall eventCall = new DialogueEventCall {
+    targetObjectID = "quest_manager_id",     // Recommended: use unique ID
+    // targetObjectName = "QuestManager",    // Backward compatible: use name
+    componentTypeName = "QuestManager",
+    methodName = "StartQuest",
+    parameterType = ParameterType.String,
+    stringParameter = "main_quest_01",
+    triggerTiming = EventTriggerTiming.OnDialogueEnd
+};
+```
+
+**Define Callable Methods in Component:**
+
+```csharp
+public class QuestManager : MonoBehaviour {
+    // No parameter method
+    public void CompleteCurrentQuest() {
+        // ...
+    }
+    
+    // String parameter method
+    public void StartQuest(string questId) {
+        // ...
+    }
+    
+    // Integer parameter method
+    public void AddExperience(int amount) {
+        // ...
+    }
+}
+```
+
+#### Character System
+
+Centralized management of all dialogue characters.
+
+**Character Data Structure:**
+
+```csharp
+public class CharacterData {
+    public string id;                    // Unique ID (auto-generated)
+    public string character;             // Display name
+    public bool useNameId;               // Use localization ID
+    public string nameId;                // Localization ID
+    public LocalizedText characterName;  // Direct input name
+    public string avatarAssetPath;       // Avatar resource path
+    public bool isPlayer;                // Is player character
+}
+```
+
+**Using Characters:**
+
+1. Create characters in Manager Window
+2. Select character in dialogue nodes
+3. Export automatically associates character info
+
+#### Separate UI Mode
+
+Support distinguishing player and NPC dialogue display.
+
+**Enable:**
+
+```csharp
+DialogueDisplaySettings.instance.separatePlayerAndNPC = true;
+```
+
+**Effect:**
+- Player dialogue: Left avatar highlighted, right dimmed
+- NPC dialogue: Right avatar highlighted, left dimmed
+- Name labels auto-switch display position
+
+---
+
+### API Reference
+
+#### DialogueController API
+
+```csharp
+// Singleton access
+DialogueController.instance
+
+// Load dialogue data
+void LoadDialogueFromFile(TextAsset dialogueJsonFile)
+
+// Start dialogue
+void StartDialogue()
+
+// Set dialogue index
+void SetDialogueIndex(int index)
+
+// Move to next line
+void NextDialogueIndex()
+
+// State queries
+bool isDialogueActive     // Is dialogue in progress
+bool isDialogueFinished   // Is dialogue finished
+```
+
+#### LocalizedText API
+
+```csharp
+// Create
+LocalizedText text = new LocalizedText();
+LocalizedText text = new LocalizedText("Default Text");
+
+// Set text
+void SetText(string languageCode, string text)
+void SetText(Language language, string text)
+
+// Get text (with Fallback)
+string GetText(string languageCode)
+string GetText(Language language)
+
+// Get directly (no Fallback)
+string GetTextDirect(string languageCode)
+string GetTextDirect(Language language)
+
+// Check
+bool HasAnyText()
+
+// Language codes
+"en" / "english" → English
+"zh" / "chinese" → Chinese
+"ja" / "japanese" → Japanese
+```
+
+#### DialogueLocalization API
+
+```csharp
+// Load data
+IEnumerator LoadFromGoogleSheets(Action<bool, string> onComplete)
+
+// Get text
+string GetText(string id, Language language)
+
+// Check ID
+bool HasId(string id)
+
+// Get all languages
+Dictionary<Language, string> GetAllLanguages(string id)
+
+// Query state
+bool IsLoaded
+
+// Clear cache
+void Clear()
+```
+
+#### Data Structures
+
+```csharp
+// Dialogue data
+public class Conversation {
+    public int index;
+    public LocalizedText name;
+    public string avatarAddr;
+    public bool isPlayer;
+    public LocalizedText content;
+    public ConditionalBranch[] conditionalBranches;
+    public Choice[] choices;
+    public int nextIndex;
+    public List<DialogueEventCall> eventCalls;
+}
+
+// Choice data
+public struct Choice {
+    public LocalizedText text;
+    public int targetIndex;
+    public List<ChoiceCondition> conditions;
+    public ConditionLogic conditionLogic;
+}
+
+// Condition data
+public class ChoiceCondition {
+    public string targetObjectID;
+    public string targetObjectName;
+    public string componentTypeName;
+    public string variableName;
+    public ComparisonType comparison;
+    public string compareValue;
+}
+
+// Event data
+public class DialogueEventCall {
+    public string targetObjectID;
+    public string targetObjectName;
+    public string componentTypeName;
+    public string methodName;
+    public ParameterType parameterType;
+    public string stringParameter;
+    public int intParameter;
+    public float floatParameter;
+    public bool boolParameter;
+    public EventTriggerTiming triggerTiming;
+}
+```
+
+---
+
+### Best Practices
+
+#### 1. Dialogue Design
+
+- ✅ Use meaningful node names for easy management
+- ✅ Break long dialogues into segments, avoid overly long text in single nodes
+- ✅ Use conditional branches wisely to create dynamic dialogues
+- ✅ Add clear hints for important choices
+
+#### 2. Localization Management
+
+- ✅ Use ID reference mode for frequently translated content
+- ✅ Maintain ID naming conventions in Google Sheets (e.g., `dialogue_chapter1_001`)
+- ✅ Regularly backup localization spreadsheets
+- ✅ Use Fallback mechanism to show English first when translations are missing
+
+#### 3. Performance Optimization
+
+- ✅ Avoid frequently calling complex events in dialogues
+- ✅ Cache JSON after exporting dialogue trees, avoid repeated loading
+- ✅ Use object pool to manage choice buttons
+- ✅ Prioritize using targetObjectID over name lookup in conditions
+
+#### 4. Debugging Tips
+
+- ✅ Use Debug.Log to track dialogue flow
+- ✅ Test all branch paths in editor
+- ✅ Check edge cases in conditional logic
+- ✅ Verify target objects and methods exist for event calls
+
+---
+
+### FAQ
+
+**Q: Why does localization loading fail?**
+
+A: Check the following:
+1. Is Google Sheets published as CSV?
+2. Is URL correct (should include `/pub?output=csv`)
+3. Is first row `ID,中文,English,日本語`?
+4. Is network connection working?
+
+**Q: How to handle text with commas inside quotes?**
+
+A: System supports standard CSV format, wrap text with commas in double quotes:
+```csv
+ID,中文,English,日本語
+greeting,"你好，世界","Hello, World","こんにちは、世界"
+```
+
+**Q: Condition checks not working?**
+
+A: Confirm:
+1. targetObjectID or targetObjectName is correct
+2. Component type name spelling is correct (case-sensitive)
+3. Variable name is correct and is public field or property
+4. Variable type matches compareValue
+
+**Q: Event calls failing?**
+
+A: Check:
+1. Target object exists and is active in scene
+2. Component is correctly added to object
+3. Method is public and parameter type matches
+4. Method is not static
+
+**Q: How to support more languages?**
+
+A: In `DialogueDataTypes.cs`:
+1. Add new language to `Language` enum
+2. Add corresponding field in `LocalizedText` class
+3. Update `GetText` and `SetText` methods
+4. Add corresponding column in Google Sheets
+
+---
+
+### Tech Stack
+
+- **Unity Version**: 2020.3+ (Recommended 2021.3 LTS)
+- **Dependencies**:
+  - TextMeshPro
+  - Unity UI
+  - UnityEngine.Networking (for localization loading)
+
+---
+
+### Version History
+
+#### Current Version
+- ✅ Multi-language support (Chinese, English, Japanese)
+- ✅ Google Sheets integration
+- ✅ Visual dialogue tree editor
+- ✅ Condition and event systems
+- ✅ Character management system
+- ✅ Separate UI mode
+
+---
+
+### License
+
+Internal tool, all rights reserved.
+
+---
+
+### Contributing
+
+For issues or suggestions, please contact the project maintainer.
+
+---
+
+**Last Updated**: 2025-01-13
+
+---
+---
+
+<a name="中文"></a>
+
+<details>
+<summary><h2>📖 中文版本 (点击展开)</h2></summary>
+
+## 中文文档
+
 一个功能完整的 Unity 对话系统，支持可视化对话树编辑、多语言本地化、条件分支、选项系统和事件触发。
 
-## 目录
+### 目录
 
 - [功能特性](#功能特性)
 - [快速开始](#快速开始)
@@ -11,12 +656,15 @@
 - [对话树编辑器](#对话树编辑器)
 - [高级功能](#高级功能)
 - [API 参考](#api-参考)
+- [最佳实践](#最佳实践)
+- [常见问题](#常见问题)
+- [技术栈](#技术栈)
 
 ---
 
-## 功能特性
+### 功能特性
 
-### 对话系统
+#### 对话系统
 - ✅ **可视化对话树编辑器** - 节点式对话流程设计
 - ✅ **分支对话** - 支持玩家选择和多分支剧情
 - ✅ **条件判断** - 基于游戏状态的动态对话流程
@@ -24,7 +672,7 @@
 - ✅ **角色管理** - 统一管理对话角色和头像
 - ✅ **打字机效果** - 可自定义速度的文字显示动画
 
-### 本地化系统
+#### 本地化系统
 - 🌍 **多语言支持** - English / 中文 / 日本語
 - 📊 **Google Sheets 集成** - 从云端表格导入翻译
 - 🔄 **自动 Fallback** - 缺失翻译时自动降级显示
@@ -33,35 +681,35 @@
 
 ---
 
-## 快速开始
+### 快速开始
 
-### 1. 打开管理窗口
+#### 1. 打开管理窗口
 
 ```
 Unity 菜单栏 → Tools → Dialogue System → Manager Window
 ```
 
-### 2. 设置本地化（可选）
+#### 2. 设置本地化（可选）
 
 在管理窗口顶部：
 1. 输入 Google Sheets 的 CSV 公开链接
 2. 点击 **Load** 加载本地化数据
 3. 系统会自动缓存数据供编辑器使用
 
-### 3. 创建角色
+#### 3. 创建角色
 
 在 **Characters** 区域：
 1. 点击 **+ Add Character**
 2. 设置角色名称和头像路径
 3. 选择是否为玩家角色（用于UI区分）
 
-### 4. 创建对话树
+#### 4. 创建对话树
 
 1. 在 **Folder Tree** 区域点击 **+ Create Tree**
 2. 输入对话树文件名
 3. 双击打开对话树编辑器
 
-### 5. 在场景中使用
+#### 5. 在场景中使用
 
 将 `DialogueController` 预制体添加到场景，然后：
 
@@ -75,9 +723,9 @@ DialogueController.instance.StartDialogue();
 
 ---
 
-## 核心组件
+### 核心组件
 
-### DialogueController
+#### DialogueController
 
 对话系统的核心控制器，负责对话流程、UI更新和事件触发。
 
@@ -103,7 +751,7 @@ void SetDialogueIndex(int index)
 void NextDialogueIndex()
 ```
 
-### DialogueDisplaySettings
+#### DialogueDisplaySettings
 
 对话显示设置，控制UI外观和语言切换。
 
@@ -121,9 +769,9 @@ public Color inactiveAvatarColor;  // 非激活状态头像颜色
 
 ---
 
-## 本地化系统
+### 本地化系统
 
-### LocalizedText 类
+#### LocalizedText 类
 
 存储多语言文本的核心数据结构。
 
@@ -151,7 +799,7 @@ LocalizedText simple = new LocalizedText("Hello World");
 3. 中文
 4. 日本語
 
-### DialogueLocalization
+#### DialogueLocalization
 
 从 Google Sheets 加载和管理本地化数据。
 
@@ -186,7 +834,7 @@ greeting_goodbye,再见,Goodbye,さようなら
    }
    ```
 
-### 混合使用模式
+#### 混合使用模式
 
 系统支持两种文本管理方式：
 
@@ -206,9 +854,9 @@ node.content.SetText("zh", "你好！");
 
 ---
 
-## 对话树编辑器
+### 对话树编辑器
 
-### 节点类型
+#### 节点类型
 
 **基础对话节点**
 - 显示文本内容
@@ -225,7 +873,7 @@ node.content.SetText("zh", "你好！");
 - 支持优先级排序
 - 多条件逻辑（AND/OR）
 
-### 创建对话流程
+#### 创建对话流程
 
 1. **添加节点**
    - 右键 → Create Node 或使用工具栏
@@ -252,9 +900,9 @@ node.content.SetText("zh", "你好！");
 
 ---
 
-## 高级功能
+### 高级功能
 
-### 条件系统
+#### 条件系统
 
 对话选项和分支可以根据游戏状态显示/隐藏。
 
@@ -292,7 +940,7 @@ choice.conditionLogic = ConditionLogic.AND;
 choice.conditionLogic = ConditionLogic.OR;
 ```
 
-### 事件系统
+#### 事件系统
 
 在对话过程中调用游戏中的方法。
 
@@ -345,7 +993,7 @@ public class QuestManager : MonoBehaviour {
 }
 ```
 
-### 角色系统
+#### 角色系统
 
 统一管理所有对话角色。
 
@@ -369,7 +1017,7 @@ public class CharacterData {
 2. 在对话节点中选择角色
 3. 导出时自动关联角色信息
 
-### 分离式UI模式
+#### 分离式UI模式
 
 支持区分玩家和NPC的对话显示。
 
@@ -386,9 +1034,9 @@ DialogueDisplaySettings.instance.separatePlayerAndNPC = true;
 
 ---
 
-## API 参考
+### API 参考
 
-### DialogueController API
+#### DialogueController API
 
 ```csharp
 // 单例访问
@@ -411,7 +1059,7 @@ bool isDialogueActive     // 对话是否正在进行
 bool isDialogueFinished   // 对话是否已结束
 ```
 
-### LocalizedText API
+#### LocalizedText API
 
 ```csharp
 // 创建
@@ -439,7 +1087,7 @@ bool HasAnyText()
 "ja" / "japanese" → 日本語
 ```
 
-### DialogueLocalization API
+#### DialogueLocalization API
 
 ```csharp
 // 加载数据
@@ -461,7 +1109,7 @@ bool IsLoaded
 void Clear()
 ```
 
-### 数据结构
+#### 数据结构
 
 ```csharp
 // 对话数据
@@ -512,30 +1160,30 @@ public class DialogueEventCall {
 
 ---
 
-## 最佳实践
+### 最佳实践
 
-### 1. 对话设计
+#### 1. 对话设计
 
 - ✅ 使用有意义的节点名称便于管理
 - ✅ 对长对话进行分段，避免单节点文本过长
 - ✅ 合理使用条件分支创建动态对话
 - ✅ 为重要选择添加清晰的提示
 
-### 2. 本地化管理
+#### 2. 本地化管理
 
 - ✅ 使用 ID 引用模式管理需要频繁翻译的内容
 - ✅ 在 Google Sheets 中保持ID命名规范（如 `dialogue_chapter1_001`）
 - ✅ 定期备份本地化表格
 - ✅ 翻译缺失时利用 Fallback 机制先显示英文
 
-### 3. 性能优化
+#### 3. 性能优化
 
 - ✅ 避免在对话中频繁调用复杂事件
 - ✅ 对话树导出后缓存 JSON，避免重复加载
 - ✅ 使用对象池管理选项按钮
 - ✅ 条件判断优先使用 targetObjectID 而非名称查找
 
-### 4. 调试技巧
+#### 4. 调试技巧
 
 - ✅ 使用 Debug.Log 追踪对话流程
 - ✅ 在编辑器中测试所有分支路径
@@ -544,7 +1192,7 @@ public class DialogueEventCall {
 
 ---
 
-## 常见问题
+### 常见问题
 
 **Q: 为什么本地化加载失败？**
 
@@ -588,7 +1236,7 @@ A: 在 `DialogueDataTypes.cs` 中：
 
 ---
 
-## 技术栈
+### 技术栈
 
 - **Unity 版本**: 2020.3+ (推荐 2021.3 LTS)
 - **依赖**:
@@ -598,9 +1246,9 @@ A: 在 `DialogueDataTypes.cs` 中：
 
 ---
 
-## 版本历史
+### 版本历史
 
-### Current Version
+#### 当前版本
 - ✅ 多语言支持（中英日）
 - ✅ Google Sheets 集成
 - ✅ 可视化对话树编辑器
@@ -610,16 +1258,18 @@ A: 在 `DialogueDataTypes.cs` 中：
 
 ---
 
-## 许可证
+### 许可证
 
 本项目为内部工具，版权归项目所有者所有。
 
 ---
 
-## 贡献
+### 贡献
 
 如有问题或建议，请联系项目维护者。
 
 ---
 
 **最后更新**: 2025-01-13
+
+</details>
