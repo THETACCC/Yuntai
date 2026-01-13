@@ -40,7 +40,7 @@ A comprehensive Unity dialogue system with visual dialogue tree editor, multi-la
 - 📊 **Google Sheets Integration** - Import translations from cloud spreadsheets
 - 🔄 **Auto Fallback** - Automatic fallback when translations are missing
 - 🎨 **Font Switching** - Automatic font change based on language
-- 📝 **Hybrid Mode** - Support both ID reference and direct input
+- 📝 **Dual Mode** - Support both local editing and online management
 
 ---
 
@@ -52,12 +52,17 @@ A comprehensive Unity dialogue system with visual dialogue tree editor, multi-la
 Unity Menu → Tools → Dialogue System → Manager Window
 ```
 
-#### 2. Setup Localization (Optional)
+#### 2. Choose Your Localization Mode
 
-In the manager window header:
-1. Enter Google Sheets CSV public URL
-2. Click **Load** to load localization data
-3. System will cache data for editor use
+**Option A: Local Mode (Quick Start)**
+- Enter text directly in editor
+- Best for prototyping and small projects
+- No setup required
+
+**Option B: Online Mode (Team Collaboration)**
+- Use Google Sheets to manage translations
+- Best for large projects with translation teams
+- Requires initial Google Sheets setup
 
 #### 3. Create Characters
 
@@ -134,85 +139,262 @@ public Color inactiveAvatarColor;  // Inactive avatar color
 
 ### Localization System
 
-#### LocalizedText Class
+The dialogue system supports **two text management modes** to fit different workflow needs:
 
-Core data structure for storing multi-language text.
+#### 📝 Mode Overview
 
-**Usage:**
+| Mode | Best For | Workflow | Updates |
+|------|----------|----------|---------|
+| **Local Mode** | Prototyping, small projects, testing | Enter text directly in editor | Edit in Unity editor |
+| **Online Mode** | Large projects, team collaboration, frequent translations | Use Google Sheets with IDs | Update spreadsheet, reload |
+
+**Choose based on your project scale and team structure.**
+
+---
+
+#### 🔧 Mode 1: Local Mode (Direct Input)
+
+**When to use:**
+- Quick prototyping and testing
+- Small dialogue systems
+- No translation team
+- Content rarely changes
+
+**How it works:**
+Enter translations directly for each dialogue node in the editor.
+
+**Setup:**
+
+1. In dialogue tree editor, set node's `useContentId = false`
+2. Enter text for each language directly:
 
 ```csharp
-// Create localized text
+node.useContentId = false;
+node.content.SetText("en", "Hello, traveler!");
+node.content.SetText("zh", "你好，旅行者！");
+node.content.SetText("ja", "こんにちは、旅行者！");
+```
+
+**Pros:**
+- ✅ Quick to set up, no external tools needed
+- ✅ See translations immediately
+- ✅ Simple for small projects
+
+**Cons:**
+- ❌ Hard to manage large amounts of text
+- ❌ Difficult for translators (need Unity access)
+- ❌ Changes require re-editing in editor
+
+---
+
+#### 🌐 Mode 2: Online Mode (Google Sheets)
+
+**When to use:**
+- Professional projects with many dialogues
+- Team collaboration with translators
+- Frequent text updates
+- Need centralized translation management
+
+**How it works:**
+Store all dialogue text in a Google Sheets spreadsheet. Each text has an ID. The editor loads translations from the sheet and associates them with dialogue nodes by ID.
+
+**Complete Setup Guide:**
+
+##### Step 1: Create Google Sheets
+
+1. Go to [Google Sheets](https://sheets.google.com) and create a new spreadsheet
+2. Name it (e.g., "GameDialogueTranslations")
+3. Set up columns in this **exact format**:
+
+   | ID | 中文 | English | 日本語 |
+   |----|------|---------|--------|
+   | greeting_hello | 你好 | Hello | こんにちは |
+   | greeting_goodbye | 再见 | Goodbye | さようなら |
+   | dialogue_intro_001 | 欢迎来到游戏 | Welcome to the game | ゲームへようこそ |
+   | choice_accept_quest | 接受任务 | Accept Quest | クエストを受ける |
+
+   **Critical Rules:**
+   - ⚠️ First row MUST be exactly: `ID,中文,English,日本語`
+   - ⚠️ Column A (ID): Use unique identifiers (lowercase, underscores, no spaces)
+   - ⚠️ Columns B/C/D: Your translations for each language
+   - 💡 Tip: Use consistent naming like `chapter1_scene2_line003`
+
+##### Step 2: Publish as CSV
+
+1. In your Google Sheets, click **File** → **Share** → **Publish to web**
+   
+2. In the dialog that appears:
+   - Stay on the **Link** tab
+   - **Sheet to publish**: Select your sheet name (or "Entire Document" if single sheet)
+   - **Format**: Select **Comma-separated values (.csv)**
+   - Click **Publish** button
+   
+3. **Copy the URL** that appears. It should look like:
+   ```
+   https://docs.google.com/spreadsheets/d/e/2PACX-1vR.../pub?output=csv
+   ```
+   
+4. ⚠️ **Important**: Make sure the URL ends with `?output=csv`
+
+##### Step 3: Load in Unity
+
+1. In Unity, open **Tools → Dialogue System → Manager Window**
+   
+2. At the **top of the window**, you'll see a text field labeled "Google Sheets CSV URL"
+   
+3. **Paste your CSV URL** into this field
+   
+4. Click the **Load** button next to it
+   
+5. Wait a moment - check the Console window for:
+   - ✅ Success: "Successfully loaded X localization entries"
+   - ❌ Error: Check the FAQ section below for troubleshooting
+
+6. Data is now cached in the editor (persists during session)
+
+##### Step 4: Use IDs in Dialogue Nodes
+
+Now when creating dialogue nodes:
+
+```csharp
+// In dialogue tree editor:
+node.useContentId = true;              // Enable Online Mode
+node.contentId = "dialogue_intro_001"; // Reference your Google Sheets ID
+
+// At runtime, the system automatically:
+// 1. Looks up this ID in the loaded data
+// 2. Gets the translation for current language
+// 3. Displays the correct text
+```
+
+##### Step 5: Updating Translations
+
+When you need to update text:
+
+1. **Edit your Google Sheets** - Change any translations
+2. **In Unity**: Manager Window → Click **Load** again to refresh
+3. **Re-export dialogue trees** if you made structural changes
+4. That's it! New translations are ready to use
+
+**Code Usage:**
+
+```csharp
+// In your game code, you can also access localization directly:
+
+// Get text by ID
+string text = DialogueLocalization.GetText("greeting_hello", Language.ChineseSimplified);
+
+// Check if ID exists (useful for validation)
+if (DialogueLocalization.HasId("greeting_hello")) {
+    Debug.Log("ID is valid!");
+}
+
+// Get all language versions of a text
+var allVersions = DialogueLocalization.GetAllLanguages("greeting_hello");
+// Returns: Dictionary<Language, string>
+```
+
+**Pros:**
+- ✅ Centralized translation management
+- ✅ Translators don't need Unity access
+- ✅ Easy to update text in bulk
+- ✅ Version control friendly (just change URL)
+- ✅ Perfect for team collaboration
+
+**Cons:**
+- ❌ Requires initial setup (5 minutes)
+- ❌ Need internet connection to load
+- ❌ Must remember to reload after sheet updates
+
+**Pro Tips:**
+- 📌 Use consistent ID naming conventions: `area_character_line_number`
+  - Example: `town_mayor_greeting_001`, `dungeon_boss_taunt_002`
+- 📌 Keep a backup copy of your spreadsheet
+- 📌 Document your ID conventions in a shared doc for your team
+- 📌 Load once at project start - data persists in editor session
+- 📌 Add a "Notes" column in your sheet for context (won't affect loading)
+
+---
+
+#### 🔄 Mixing Both Modes
+
+**You can use both modes in the same project!**
+
+Example workflow:
+- Use **Online Mode** for main story dialogues (hundreds of lines)
+- Use **Local Mode** for debug messages or temporary test content
+
+Each dialogue node independently chooses its mode with the `useContentId` flag:
+
+```csharp
+// Node 1: Uses Google Sheets
+node1.useContentId = true;
+node1.contentId = "main_story_001";
+
+// Node 2: Direct input
+node2.useContentId = false;
+node2.content.SetText("en", "Debug: Test node");
+```
+
+---
+
+#### 🛠️ LocalizedText Class Reference
+
+The core data structure used in both modes.
+
+**Creating Text:**
+
+```csharp
+// Method 1: Create empty, then set languages
 LocalizedText text = new LocalizedText();
 text.SetText("en", "Hello");
 text.SetText("zh", "你好");
 text.SetText("ja", "こんにちは");
 
-// Get text in current language
-string displayText = text.GetText(Settings.instance.currentLanguage);
-
-// Create from string (defaults to English)
+// Method 2: Create with default English
 LocalizedText simple = new LocalizedText("Hello World");
+// en = "Hello World", zh = "", ja = ""
+```
+
+**Getting Text:**
+
+```csharp
+// Get with automatic fallback (recommended)
+string displayText = text.GetText(Settings.instance.currentLanguage);
+string displayText = text.GetText("zh");  // Using language code
+
+// Get specific language only (no fallback)
+string exactText = text.GetTextDirect("ja");
+// Returns "" if Japanese translation doesn't exist
 ```
 
 **Fallback Mechanism:**
 
-If text is missing in current language, system tries in this order:
-1. Current language
-2. English
+The system is smart about missing translations. If text is missing in the current language, it automatically tries alternatives:
+
+1. Current language (e.g., Japanese)
+2. English (universal fallback)
 3. Chinese
 4. Japanese
 
-#### DialogueLocalization
+This ensures players **always see some text**, even if translations are incomplete.
 
-Load and manage localization data from Google Sheets.
+**Language Codes:**
 
-**CSV Format Requirements:**
-
-```csv
-ID,中文,English,日本語
-greeting_hello,你好,Hello,こんにちは
-greeting_goodbye,再见,Goodbye,さようなら
+```csharp
+// These are all equivalent:
+"en" / "english" / "English" → English
+"zh" / "chinese" / "Chinese" / "ChineseSimplified" → 中文
+"ja" / "japanese" / "Japanese" → 日本語
 ```
 
-**Usage Flow:**
+**Checking for Content:**
 
-1. **Prepare Google Sheets**
-   - Create new spreadsheet, fill in above format
-   - File → Share → Publish to web → Select CSV format
-   - Copy public URL
-
-2. **Load in Editor**
-   ```
-   Manager Window → Enter CSV URL → Click Load
-   ```
-
-3. **Use in Code**
-   ```csharp
-   // Get text by ID
-   string text = DialogueLocalization.GetText("greeting_hello", Language.ChineseSimplified);
-   
-   // Check if ID exists
-   if (DialogueLocalization.HasId("greeting_hello")) {
-       // ...
-   }
-   ```
-
-#### Hybrid Usage Mode
-
-System supports two text management approaches:
-
-**Method 1: ID Reference Mode** (Recommended for frequently updated content)
 ```csharp
-node.useContentId = true;
-node.contentId = "dialogue_intro_001";
-// Runtime fetches from DialogueLocalization
-```
-
-**Method 2: Direct Input Mode** (For one-time content or testing)
-```csharp
-node.useContentId = false;
-node.content.SetText("en", "Hello!");
-node.content.SetText("zh", "你好！");
+// Check if any language has text
+if (text.HasAnyText()) {
+    // At least one language is filled in
+}
 ```
 
 ---
@@ -561,7 +743,7 @@ public class DialogueEventCall {
 
 A: Check the following:
 1. Is Google Sheets published as CSV?
-2. Is URL correct (should include `/pub?output=csv`)
+2. Is URL correct (should include `/pub?output=csv`)?
 3. Is first row `ID,中文,English,日本語`?
 4. Is network connection working?
 
@@ -649,16 +831,16 @@ For issues or suggestions, please contact the project maintainer.
 
 ### 目录
 
-- [功能特性](#功能特性)
-- [快速开始](#快速开始)
-- [核心组件](#核心组件)
-- [本地化系统](#本地化系统)
-- [对话树编辑器](#对话树编辑器)
-- [高级功能](#高级功能)
-- [API 参考](#api-参考)
-- [最佳实践](#最佳实践)
-- [常见问题](#常见问题)
-- [技术栈](#技术栈)
+- [功能特性](#功能特性-1)
+- [快速开始](#快速开始-1)
+- [核心组件](#核心组件-1)
+- [本地化系统](#本地化系统-1)
+- [对话树编辑器](#对话树编辑器-1)
+- [高级功能](#高级功能-1)
+- [API 参考](#api-参考-1)
+- [最佳实践](#最佳实践-1)
+- [常见问题](#常见问题-1)
+- [技术栈](#技术栈-1)
 
 ---
 
@@ -677,7 +859,7 @@ For issues or suggestions, please contact the project maintainer.
 - 📊 **Google Sheets 集成** - 从云端表格导入翻译
 - 🔄 **自动 Fallback** - 缺失翻译时自动降级显示
 - 🎨 **字体切换** - 根据语言自动切换字体
-- 📝 **混合模式** - 支持 ID 引用和直接输入两种方式
+- 📝 **双模式** - 支持本地编辑和在线管理两种方式
 
 ---
 
@@ -689,12 +871,17 @@ For issues or suggestions, please contact the project maintainer.
 Unity 菜单栏 → Tools → Dialogue System → Manager Window
 ```
 
-#### 2. 设置本地化（可选）
+#### 2. 选择本地化模式
 
-在管理窗口顶部：
-1. 输入 Google Sheets 的 CSV 公开链接
-2. 点击 **Load** 加载本地化数据
-3. 系统会自动缓存数据供编辑器使用
+**方式A：本地模式（快速开始）**
+- 直接在编辑器中输入文本
+- 适合原型开发和小型项目
+- 无需额外设置
+
+**方式B：在线模式（团队协作）**
+- 使用 Google Sheets 管理翻译
+- 适合大型项目和翻译团队
+- 需要初始 Google Sheets 设置
 
 #### 3. 创建角色
 
@@ -771,85 +958,263 @@ public Color inactiveAvatarColor;  // 非激活状态头像颜色
 
 ### 本地化系统
 
-#### LocalizedText 类
+对话系统支持**两种文本管理模式**，以适应不同的工作流程需求：
 
-存储多语言文本的核心数据结构。
+#### 📝 模式总览
 
-**使用方式：**
+| 模式 | 适用场景 | 工作流程 | 更新方式 |
+|------|----------|----------|---------|
+| **本地模式** | 原型开发、小型项目、测试 | 直接在编辑器输入文本 | 在 Unity 编辑器中编辑 |
+| **在线模式** | 大型项目、团队协作、频繁翻译 | 使用 Google Sheets 配合 ID | 更新表格后重新加载 |
+
+**根据项目规模和团队结构选择合适的模式。**
+
+---
+
+#### 🔧 模式1：本地模式（直接输入）
+
+**适用场景：**
+- 快速原型开发和测试
+- 小型对话系统
+- 没有翻译团队
+- 内容很少改动
+
+**工作原理：**
+直接为每个对话节点在编辑器中输入各语言的翻译。
+
+**设置步骤：**
+
+1. 在对话树编辑器中，设置节点的 `useContentId = false`
+2. 直接输入各语言的文本：
 
 ```csharp
-// 创建本地化文本
+node.useContentId = false;
+node.content.SetText("en", "Hello, traveler!");
+node.content.SetText("zh", "你好，旅行者！");
+node.content.SetText("ja", "こんにちは、旅行者！");
+```
+
+**优点：**
+- ✅ 快速设置，无需外部工具
+- ✅ 立即查看翻译效果
+- ✅ 适合小型项目
+
+**缺点：**
+- ❌ 难以管理大量文本
+- ❌ 翻译人员需要 Unity 访问权限
+- ❌ 修改需要重新在编辑器中编辑
+
+---
+
+#### 🌐 模式2：在线模式（Google Sheets）
+
+**适用场景：**
+- 专业项目，对话量大
+- 团队协作，有翻译人员
+- 频繁更新文本
+- 需要集中管理翻译
+
+**工作原理：**
+将所有对话文本存储在 Google Sheets 表格中，每条文本有一个唯一 ID。编辑器从表格加载翻译数据，通过 ID 关联到对话节点。
+
+**完整设置指南：**
+
+##### 步骤1：创建 Google Sheets
+
+1. 访问 [Google Sheets](https://sheets.google.com) 并创建新表格
+2. 命名表格（例如："游戏对话翻译"）
+3. 按以下**精确格式**设置列：
+
+   | ID | 中文 | English | 日本語 |
+   |----|------|---------|--------|
+   | greeting_hello | 你好 | Hello | こんにちは |
+   | greeting_goodbye | 再见 | Goodbye | さようなら |
+   | dialogue_intro_001 | 欢迎来到游戏 | Welcome to the game | ゲームへようこそ |
+   | choice_accept_quest | 接受任务 | Accept Quest | クエストを受ける |
+
+   **关键规则：**
+   - ⚠️ 第一行必须精确为：`ID,中文,English,日本語`
+   - ⚠️ A列（ID）：使用唯一标识符（小写字母、下划线、不含空格）
+   - ⚠️ B/C/D列：各语言的翻译
+   - 💡 提示：使用一致的命名规则，如 `章节1_场景2_行003`
+
+##### 步骤2：发布为 CSV
+
+1. 在 Google Sheets 中，点击 **文件** → **共享** → **发布到网络**
+   
+2. 在弹出的对话框中：
+   - 保持在 **链接** 标签页
+   - **要发布的工作表**：选择你的工作表名称（或"整个文档"如果只有一个表）
+   - **格式**：选择 **逗号分隔值 (.csv)**
+   - 点击 **发布** 按钮
+   
+3. **复制生成的 URL**，它应该类似于：
+   ```
+   https://docs.google.com/spreadsheets/d/e/2PACX-1vR.../pub?output=csv
+   ```
+   
+4. ⚠️ **重要**：确保 URL 以 `?output=csv` 结尾
+
+##### 步骤3：在 Unity 中加载
+
+1. 在 Unity 中，打开 **Tools → Dialogue System → Manager Window**
+   
+2. 在窗口**顶部**，你会看到标有 "Google Sheets CSV URL" 的文本框
+   
+3. 将你的 **CSV URL 粘贴**到此文本框
+   
+4. 点击旁边的 **Load** 按钮
+   
+5. 稍等片刻 - 查看 Console 窗口：
+   - ✅ 成功："成功加载 X 条本地化数据"
+   - ❌ 错误：查看下方的常见问题部分进行排查
+
+6. 数据现已缓存在编辑器中（会话期间保持）
+
+##### 步骤4：在对话节点中使用 ID
+
+现在创建对话节点时：
+
+```csharp
+// 在对话树编辑器中：
+node.useContentId = true;              // 启用在线模式
+node.contentId = "dialogue_intro_001"; // 引用你的 Google Sheets ID
+
+// 运行时，系统会自动：
+// 1. 在加载的数据中查找此 ID
+// 2. 获取当前语言的翻译
+// 3. 显示正确的文本
+```
+
+##### 步骤5：更新翻译
+
+当需要更新文本时：
+
+1. **编辑你的 Google Sheets** - 修改任何翻译
+2. **在 Unity 中**：Manager Window → 再次点击 **Load** 刷新
+3. 如果做了结构性修改，**重新导出对话树**
+4. 完成！新翻译已准备就绪
+
+**代码使用：**
+
+```csharp
+// 在游戏代码中，你也可以直接访问本地化：
+
+// 根据 ID 获取文本
+string text = DialogueLocalization.GetText("greeting_hello", Language.ChineseSimplified);
+
+// 检查 ID 是否存在（用于验证）
+if (DialogueLocalization.HasId("greeting_hello")) {
+    Debug.Log("ID 有效！");
+}
+
+// 获取一条文本的所有语言版本
+var allVersions = DialogueLocalization.GetAllLanguages("greeting_hello");
+// 返回：Dictionary<Language, string>
+```
+
+**优点：**
+- ✅ 集中管理翻译
+- ✅ 翻译人员无需 Unity 访问权限
+- ✅ 易于批量更新文本
+- ✅ 版本控制友好（只需更改 URL）
+- ✅ 完美支持团队协作
+
+**缺点：**
+- ❌ 需要初始设置（5分钟）
+- ❌ 加载时需要网络连接
+- ❌ 表格更新后需要记得重新加载
+
+**专业技巧：**
+- 📌 使用一致的 ID 命名规则：`区域_角色_行号`
+  - 示例：`城镇_市长_问候_001`、`地牢_boss_嘲讽_002`
+- 📌 定期备份你的表格
+- 📌 在团队共享文档中记录 ID 命名规则
+- 📌 项目开始时加载一次 - 数据在编辑器会话期间保持
+- 📌 在表格中添加"备注"列用于上下文说明（不影响加载）
+
+---
+
+#### 🔄 混合使用两种模式
+
+**你可以在同一个项目中同时使用两种模式！**
+
+示例工作流程：
+- 对主要剧情对话使用**在线模式**（数百行对话）
+- 对调试信息或临时测试内容使用**本地模式**
+
+每个对话节点通过 `useContentId` 标志独立选择模式：
+
+```csharp
+// 节点1：使用 Google Sheets
+node1.useContentId = true;
+node1.contentId = "main_story_001";
+
+// 节点2：直接输入
+node2.useContentId = false;
+node2.content.SetText("en", "Debug: Test node");
+node2.content.SetText("zh", "调试：测试节点");
+```
+
+---
+
+#### 🛠️ LocalizedText 类参考
+
+两种模式都使用的核心数据结构。
+
+**创建文本：**
+
+```csharp
+// 方法1：创建空对象，然后设置语言
 LocalizedText text = new LocalizedText();
 text.SetText("en", "Hello");
 text.SetText("zh", "你好");
 text.SetText("ja", "こんにちは");
 
-// 获取当前语言的文本
-string displayText = text.GetText(Settings.instance.currentLanguage);
-
-// 直接从字符串创建（默认为英语）
+// 方法2：创建时指定默认英文
 LocalizedText simple = new LocalizedText("Hello World");
+// en = "Hello World", zh = "", ja = ""
+```
+
+**获取文本：**
+
+```csharp
+// 带自动降级获取（推荐）
+string displayText = text.GetText(Settings.instance.currentLanguage);
+string displayText = text.GetText("zh");  // 使用语言代码
+
+// 只获取特定语言（无降级）
+string exactText = text.GetTextDirect("ja");
+// 如果日语翻译不存在则返回 ""
 ```
 
 **Fallback 机制：**
 
-如果当前语言缺失文本，系统会按以下顺序尝试：
-1. 当前语言
-2. English
+系统对缺失翻译有智能处理。如果当前语言缺失文本，会自动尝试其他选项：
+
+1. 当前语言（例如：日语）
+2. English（通用降级）
 3. 中文
 4. 日本語
 
-#### DialogueLocalization
+这确保玩家**总能看到文本**，即使翻译不完整。
 
-从 Google Sheets 加载和管理本地化数据。
+**语言代码：**
 
-**CSV 格式要求：**
-
-```csv
-ID,中文,English,日本語
-greeting_hello,你好,Hello,こんにちは
-greeting_goodbye,再见,Goodbye,さようなら
+```csharp
+// 以下都是等效的：
+"en" / "english" / "English" → English
+"zh" / "chinese" / "Chinese" / "ChineseSimplified" → 中文
+"ja" / "japanese" / "Japanese" → 日本語
 ```
 
-**使用流程：**
+**检查内容：**
 
-1. **准备 Google Sheets**
-   - 创建新表格，按上述格式填写
-   - 文件 → 共享 → 发布到网络 → 选择CSV格式
-   - 复制公开链接
-
-2. **在编辑器中加载**
-   ```
-   Manager Window → 输入CSV URL → 点击 Load
-   ```
-
-3. **在代码中使用**
-   ```csharp
-   // 根据ID获取文本
-   string text = DialogueLocalization.GetText("greeting_hello", Language.ChineseSimplified);
-   
-   // 检查ID是否存在
-   if (DialogueLocalization.HasId("greeting_hello")) {
-       // ...
-   }
-   ```
-
-#### 混合使用模式
-
-系统支持两种文本管理方式：
-
-**方式1：ID引用模式**（推荐用于需要频繁翻译更新的内容）
 ```csharp
-node.useContentId = true;
-node.contentId = "dialogue_intro_001";
-// 运行时从 DialogueLocalization 获取文本
-```
-
-**方式2：直接输入模式**（适合一次性内容或测试）
-```csharp
-node.useContentId = false;
-node.content.SetText("en", "Hello!");
-node.content.SetText("zh", "你好！");
+// 检查是否有任何语言的文本
+if (text.HasAnyText()) {
+    // 至少有一种语言填写了内容
+}
 ```
 
 ---
@@ -1197,10 +1562,10 @@ public class DialogueEventCall {
 **Q: 为什么本地化加载失败？**
 
 A: 检查以下几点：
-1. Google Sheets 是否已发布为CSV
-2. URL 是否正确（应包含 `/pub?output=csv`）
-3. 表格第一行是否为 `ID,中文,English,日本語`
-4. 网络连接是否正常
+1. Google Sheets 是否已发布为CSV？
+2. URL 是否正确（应包含 `/pub?output=csv`）？
+3. 表格第一行是否为 `ID,中文,English,日本語`？
+4. 网络连接是否正常？
 
 **Q: 如何处理引号内包含逗号的文本？**
 
