@@ -66,14 +66,8 @@ public class CharacterListDrawer
             charactersExpanded = !charactersExpanded;
         }
 
-        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 140, rect.height);
+        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 30, rect.height);
         GUI.Label(labelRect, "All Characters", EditorStyles.boldLabel);
-
-        Rect newCharRect = new Rect(rect.xMax - 135, rect.y + 2, 130, 18);
-        if (GUI.Button(newCharRect, "+ New Character", EditorStyles.miniButton))
-        {
-            CreateNewCharacter();
-        }
 
         EditorGUILayout.EndVertical();
 
@@ -134,6 +128,10 @@ public class CharacterListDrawer
             if (defaultFolder != null)
             {
                 GenericMenu menu = new GenericMenu();
+                menu.AddItem(new GUIContent("+ New Character"), false, () =>
+                {
+                    CreateNewCharacter();
+                });
                 menu.AddItem(new GUIContent("New Folder"), false, () =>
                 {
                     CreateCharacterFolder(defaultFolder);
@@ -174,43 +172,8 @@ public class CharacterListDrawer
             characterFolderExpandedState[folder.id] = !isExpanded;
         }
 
-        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 200, rect.height);
+        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 30, rect.height);
         GUI.Label(labelRect, folder.name, EditorStyles.boldLabel);
-
-        if (folder.id != "default_character_folder")
-        {
-            Rect renameRect = new Rect(rect.xMax - 130, rect.y + 2, 60, 18);
-            if (GUI.Button(renameRect, "Rename", EditorStyles.miniButton))
-            {
-                RenameCharacterFolder(folder);
-            }
-
-            Rect deleteRect = new Rect(rect.xMax - 65, rect.y + 2, 60, 18);
-            GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
-            if (GUI.Button(deleteRect, "Del", EditorStyles.miniButton))
-            {
-                string folderName = folder.name;
-                EditorApplication.delayCall += () =>
-                {
-                    if (EditorUtility.DisplayDialog("Delete Folder",
-                        $"Delete folder '{folderName}'? All characters will move to 'All Characters' folder.",
-                        "Delete", "Cancel"))
-                    {
-                        DeleteCharacterFolder(folder, parentFolder);
-                    }
-                };
-            }
-            GUI.backgroundColor = Color.white;
-        }
-        else
-        {
-            // All Characters 文件夹的 New 按钮
-            Rect newCharRect = new Rect(rect.xMax - 135, rect.y + 2, 130, 18);
-            if (GUI.Button(newCharRect, "+ New Character", EditorStyles.miniButton))
-            {
-                CreateNewCharacter();
-            }
-        }
 
         EditorGUILayout.EndHorizontal();
 
@@ -270,7 +233,7 @@ public class CharacterListDrawer
 
         EditorGUILayout.EndVertical();
         HandleCharacterFolderDragAndDrop(rect, folder);
-        HandleCharacterFolderContextMenu(rect, folder);
+        HandleCharacterFolderContextMenu(rect, folder, parentFolder);
 
         bool isExpandedForChildren = characterFolderExpandedState.ContainsKey(folder.id) && characterFolderExpandedState[folder.id];
         if (isExpandedForChildren)
@@ -1004,7 +967,7 @@ public class CharacterListDrawer
         }
     }
 
-    private void HandleCharacterFolderContextMenu(Rect rect, CharacterFolder folder)
+    private void HandleCharacterFolderContextMenu(Rect rect, CharacterFolder folder, CharacterFolder parentFolder)
     {
         Event e = Event.current;
 
@@ -1012,6 +975,25 @@ public class CharacterListDrawer
         {
             GenericMenu menu = new GenericMenu();
             menu.AddItem(new GUIContent("New Folder"), false, () => CreateCharacterFolder(folder));
+            
+            if (folder.id != "default_character_folder")
+            {
+                menu.AddItem(new GUIContent("Rename"), false, () => RenameCharacterFolder(folder));
+                menu.AddItem(new GUIContent("Delete"), false, () =>
+                {
+                    string folderName = folder.name;
+                    EditorApplication.delayCall += () =>
+                    {
+                        if (EditorUtility.DisplayDialog("Delete Folder",
+                            $"Delete folder '{folderName}'? All characters will move to 'All Characters' folder.",
+                            "Delete", "Cancel"))
+                        {
+                            DeleteCharacterFolder(folder, parentFolder);
+                        }
+                    };
+                });
+            }
+            
             menu.ShowAsContext();
             e.Use();
         }

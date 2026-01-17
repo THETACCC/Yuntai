@@ -85,43 +85,8 @@ public class FolderTreeDrawer
             folderExpandedState[folder.id] = !isExpanded;
         }
 
-        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 200, rect.height);
+        Rect labelRect = new Rect(rect.x + 25, rect.y + 3, rect.width - 30, rect.height);
         GUI.Label(labelRect, folder.name, EditorStyles.boldLabel);
-
-        if (folder.id != "default_folder")
-        {
-            Rect renameRect = new Rect(rect.xMax - 130, rect.y + 2, 60, 18);
-            if (GUI.Button(renameRect, "Rename", EditorStyles.miniButton))
-            {
-                RenameFolder(folder);
-            }
-
-            Rect deleteRect = new Rect(rect.xMax - 65, rect.y + 2, 60, 18);
-            GUI.backgroundColor = new Color(1f, 0.7f, 0.7f);
-            if (GUI.Button(deleteRect, "Del", EditorStyles.miniButton))
-            {
-                string folderName = folder.name;
-                EditorApplication.delayCall += () =>
-                {
-                    if (EditorUtility.DisplayDialog("Delete Folder",
-                        $"Delete folder '{folderName}'? All files will move to 'All Dialogues' folder.",
-                        "Delete", "Cancel"))
-                    {
-                        DeleteVirtualFolder(folder, parentFolder);
-                    }
-                };
-            }
-            GUI.backgroundColor = Color.white;
-        }
-        else
-        {
-            // All Dialogues 文件夹的 New 按钮
-            Rect newFileRect = new Rect(rect.xMax - 135, rect.y + 2, 130, 18);
-            if (GUI.Button(newFileRect, "+ New Dialogue", EditorStyles.miniButton))
-            {
-                CreateNewDialogueFile(folder);
-            }
-        }
 
         EditorGUILayout.EndHorizontal();
 
@@ -182,7 +147,7 @@ public class FolderTreeDrawer
         EditorGUILayout.EndVertical();
         HandleFolderDragAndDrop(rect, folder);
         HandleFolderDragForReorder(rect, folder, parentFolder);
-        HandleFolderContextMenu(rect, folder);
+        HandleFolderContextMenu(rect, folder, parentFolder);
 
         bool isExpandedForChildren = folderExpandedState.ContainsKey(folder.id) && folderExpandedState[folder.id];
         if (isExpandedForChildren)
@@ -532,17 +497,45 @@ public class FolderTreeDrawer
 
     #region 文件夹操作
 
-    private void HandleFolderContextMenu(Rect rect, VirtualFolder folder)
+    private void HandleFolderContextMenu(Rect rect, VirtualFolder folder, VirtualFolder parentFolder)
     {
         Event e = Event.current;
 
         if (e.type == EventType.ContextClick && rect.Contains(e.mousePosition))
         {
             GenericMenu menu = new GenericMenu();
+            
+            if (folder.id == "default_folder")
+            {
+                menu.AddItem(new GUIContent("+ New Dialogue"), false, () =>
+                {
+                    CreateNewDialogueFile(folder);
+                });
+            }
+            
             menu.AddItem(new GUIContent("New Folder"), false, () =>
             {
                 CreateVirtualFolder(folder);
             });
+            
+            if (folder.id != "default_folder")
+            {
+                menu.AddItem(new GUIContent("Rename"), false, () => RenameFolder(folder));
+                menu.AddItem(new GUIContent("Delete"), false, () =>
+                {
+                    string folderName = folder.name;
+                    EditorApplication.delayCall += () =>
+                    {
+                        if (EditorUtility.DisplayDialog("Delete Folder",
+                            $"Delete folder '{folderName}'? All files will move to 'All Dialogues' folder.",
+                            "Delete", "Cancel"))
+                        {
+                            DeleteVirtualFolder(folder, parentFolder);
+                        }
+                    };
+                });
+            }
+            
             menu.ShowAsContext();
             e.Use();
         }
