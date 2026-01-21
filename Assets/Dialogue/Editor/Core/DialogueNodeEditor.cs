@@ -292,15 +292,8 @@ public partial class DialogueNodeEditor : Node
 
     private string GetCharacterLibraryPath()
     {
-        // 获取 DialogueProjectEditorWindow 脚本路径
-        var managerScript = AssetDatabase.FindAssets("t:Script DialogueProjectEditorWindow");
-        if (managerScript.Length > 0)
-        {
-            string scriptPath = AssetDatabase.GUIDToAssetPath(managerScript[0]);
-            string scriptFolder = Path.GetDirectoryName(scriptPath);
-            return Path.Combine(scriptFolder, "CharacterLibrary.json");
-        }
-        return "Assets/Editor/Dialogue/CharacterLibrary.json";
+        // 使用固定路径，与 CharacterLibraryManager 保持一致
+        return "Assets/Dialogue/Editor/Data/CharacterLibrary.json";
     }
 
     public void SetCharacterId(string characterId)
