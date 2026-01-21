@@ -547,25 +547,24 @@ public class DialogueGraphViewEditor : GraphView
 
     private CharacterLibraryData LoadCharacterLibrary()
     {
+        // 使用固定路径，与 CharacterLibraryManager 和 DialogueNodeEditor 保持一致
+        string libraryPath = "Assets/Dialogue/Editor/Data/CharacterLibrary.json";
+        
         try
         {
-            var managerScript = AssetDatabase.FindAssets("t:Script DialogueTreeManagerWindow");
-            if (managerScript.Length > 0)
+            if (File.Exists(libraryPath))
             {
-                string scriptPath = AssetDatabase.GUIDToAssetPath(managerScript[0]);
-                string scriptFolder = Path.GetDirectoryName(scriptPath);
-                string libraryPath = Path.Combine(scriptFolder, "CharacterLibrary.json");
-
-                if (File.Exists(libraryPath))
-                {
-                    string json = File.ReadAllText(libraryPath);
-                    return JsonUtility.FromJson<CharacterLibraryData>(json);
-                }
+                string json = File.ReadAllText(libraryPath);
+                return JsonUtility.FromJson<CharacterLibraryData>(json);
+            }
+            else
+            {
+                Debug.LogWarning($"Character library not found at: {libraryPath}");
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogWarning($"Failed to load character library: {e.Message}");
+            Debug.LogError($"Failed to load character library: {e.Message}");
         }
         return new CharacterLibraryData();
     }
