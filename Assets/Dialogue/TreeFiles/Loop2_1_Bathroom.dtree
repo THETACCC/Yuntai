@@ -12,7 +12,7 @@
                 "ja": ""
             },
             "positionX": -584.0,
-            "positionY": 240.66665649414063,
+            "positionY": 240.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,14 +28,14 @@
                 "zh": "我真的应该装作什么都没有发生吗？",
                 "ja": ""
             },
-            "positionX": -100.0,
-            "positionY": 240.66665649414063,
+            "positionX": -102.4000015258789,
+            "positionY": 240.8000030517578,
             "choices": [
                 {
                     "useTextId": false,
                     "textId": "Loop2_1_Bathroom_node_1_choice_0",
                     "text": {
-                        "en": "Go to the restroom.",
+                        "en": "Forget it.",
                         "zh": "前往洗手间。",
                         "ja": ""
                     },
@@ -46,7 +46,7 @@
                     "useTextId": false,
                     "textId": "Loop2_1_Bathroom_node_1_choice_1",
                     "text": {
-                        "en": "Forget it.",
+                        "en": "Go to the restroom.",
                         "zh": "还是算了。",
                         "ja": ""
                     },
@@ -68,8 +68,8 @@
                 "zh": "就这样吧......",
                 "ja": ""
             },
-            "positionX": 534.0,
-            "positionY": -7.333332061767578,
+            "positionX": 391.20001220703127,
+            "positionY": 586.3999633789063,
             "choices": [],
             "eventCalls": [
                 {
@@ -99,8 +99,8 @@
                 "zh": "还是去继续调查吧。",
                 "ja": ""
             },
-            "positionX": 534.0,
-            "positionY": 456.6666564941406,
+            "positionX": 392.0,
+            "positionY": 180.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -116,16 +116,16 @@
         },
         {
             "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
-            "inputNodeId": "27622f30-3575-42f6-a3ea-50e34e3cb092",
+            "inputNodeId": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
             "choiceIndex": 0,
-            "choiceText": "Go to the restroom.",
+            "choiceText": "Forget it.",
             "branchPriority": -2
         },
         {
             "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
-            "inputNodeId": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
+            "inputNodeId": "27622f30-3575-42f6-a3ea-50e34e3cb092",
             "choiceIndex": 1,
-            "choiceText": "Forget it.",
+            "choiceText": "Go to the restroom.",
             "branchPriority": -3
         }
     ]
