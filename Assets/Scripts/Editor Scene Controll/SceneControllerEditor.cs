@@ -164,8 +164,11 @@ public enum SceneTitle
     Level3_5 = 11,
     Level3_6 = 12,
     Level4_1City = 13,
-
-
+    Level4_2Festival = 14,
+    Level4_3Apartment1F = 15,
+    Level4_4Apartment2F = 16,
+    Level4_5Apartment3F = 17,
+    Level4_6NoemaHouse = 18,
     JasmineTest = 50
 }
 
