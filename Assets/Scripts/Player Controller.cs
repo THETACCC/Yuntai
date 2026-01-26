@@ -79,6 +79,10 @@ public class PlayerController : MonoBehaviour
             bool pressA = Input.GetKey(KeyCode.A);
             bool pressD = Input.GetKey(KeyCode.D);
 
+            //Sprint
+            bool pressShift = Input.GetKey(KeyCode.LeftShift);
+
+
             if (pressA && !pressD)
             {
                 horizontal = -1f;
@@ -96,7 +100,14 @@ public class PlayerController : MonoBehaviour
             }
 
             // 不要速度倒着变负
-            speed = Mathf.Clamp(speed, 0f, max_hspeed);
+            if(!pressShift)
+            {
+                speed = Mathf.Clamp(speed, 0f, max_hspeed);
+            }
+            else
+            {
+                speed = Mathf.Clamp(speed, 0f, max_hspeed*1.75f);
+            }
         }
         else
         {
