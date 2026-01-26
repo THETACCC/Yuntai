@@ -107,6 +107,17 @@ public static class GlobalLibrary
 
 
         }},
+        {SceneTitle.Level4_7Stage, new SceneSpecifics()
+        {
+
+
+        }},
+        {SceneTitle.Level4_8Temple, new SceneSpecifics()
+        {
+
+
+        }},
+
 
 
         {SceneTitle.JasmineTest, new SceneSpecifics()
@@ -125,7 +136,7 @@ public static class GlobalLibrary
     {
         {SceneCategory.Common, new SceneTitle[]{ SceneTitle.TitleScene, SceneTitle.GYM_Level, SceneTitle.InitialCG, SceneTitle.Level1_1, SceneTitle.Level1_2 , SceneTitle.Level2_1 , SceneTitle.Level2_2
             , SceneTitle.Level3_1, SceneTitle.Level3_2, SceneTitle.Level3_3, SceneTitle.Level3_4, SceneTitle.Level3_5, SceneTitle.Level3_6,
-            SceneTitle.Level4_1City,SceneTitle.Level4_2Festival,SceneTitle.Level4_3Apartment1F, SceneTitle.Level4_4Apartment2F,SceneTitle.Level4_5Apartment3F,SceneTitle.Level4_6NoemaHouse, SceneTitle.JasmineTest 
+            SceneTitle.Level4_1City,SceneTitle.Level4_2Festival,SceneTitle.Level4_3Apartment1F, SceneTitle.Level4_4Apartment2F,SceneTitle.Level4_5Apartment3F,SceneTitle.Level4_6NoemaHouse,SceneTitle.Level4_7Stage,SceneTitle.Level4_8Temple, SceneTitle.JasmineTest 
         
         } },
 
@@ -153,7 +164,8 @@ public static class GlobalLibrary
         {SceneTitle.Level4_4Apartment2F, "Level4-4Apartment2F" },
         {SceneTitle.Level4_5Apartment3F, "Level4-5Apartment3F" },
         {SceneTitle.Level4_6NoemaHouse, "Level4-6NoemaHouse" },
-
+        {SceneTitle.Level4_7Stage, "Level4-7Stage" },
+        {SceneTitle.Level4_8Temple, "Level4-8Temple" },
         {SceneTitle.JasmineTest, "JasmineTest" },
     };
 
