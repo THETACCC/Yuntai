@@ -202,4 +202,14 @@ public class TabManager : MonoBehaviour
         if (closeBtn != null)
             closeBtn.onClick.Invoke();
     }
+
+    public List<GameObject> GetUnlockedInfo()
+    {
+        return unlockedTabs;
+    }
+
+    public void WriteUnlockedInfo(List<GameObject> unlockedTabs)
+    {
+        this.unlockedTabs = unlockedTabs;
+    }
 }

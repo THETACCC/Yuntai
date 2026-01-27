@@ -23,6 +23,12 @@ public class NoteBookManager : MonoBehaviour
     // 数据是否已加载完成
     public bool IsDataReady { get; private set; } = false;
 
+    //tab reference
+    [Header("Tab Reference")]
+    public TabManager objectiveTab;
+    public TabManager characterTab;
+    public TabManager eventTab;
+
     //Visual Feedbacks
     [Header("Feedback Reference")]
     public MMFeedbacks NoteBookUpdate;

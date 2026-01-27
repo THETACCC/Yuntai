@@ -55,6 +55,14 @@ public class SaveManager : MonoBehaviour
         {
             hasGameSave = true;
         }
+        if (saveSlot == 0)
+        {
+            saveSlot = FindEmptySlot();
+        }
+        
+        // 确保 savePath 被正确初始化
+        savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
+        
         saveList[saveSlot - 1] = true;
 
         SaveData data = new SaveData();
@@ -64,6 +72,10 @@ public class SaveManager : MonoBehaviour
 
         // 存玩家位置
 
+        //存Notebook
+        data.objectiveUnlocked = NoteBookManager.instance.objectiveTab.GetUnlockedInfo();
+        data.characterUnlocked = NoteBookManager.instance.characterTab.GetUnlockedInfo();
+        data.eventUnlocked = NoteBookManager.instance.eventTab.GetUnlockedInfo();
 
         // 转换为 JSON
         string json = JsonUtility.ToJson(data, true);
@@ -84,7 +96,17 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(savePath);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
+        //load scene
         SceneController.instance.LoadSceneAndTeleport(data.sceneName, 0);
+
+        //load notebook
+        NoteBookManager.instance.objectiveTab.WriteUnlockedInfo(data.objectiveUnlocked);
+        NoteBookManager.instance.eventTab.WriteUnlockedInfo(data.eventUnlocked);
+        NoteBookManager.instance.characterTab.WriteUnlockedInfo(data.characterUnlocked);
+
+        NoteBookManager.instance.objectiveTab.RefreshUnlockedTabs();
+        NoteBookManager.instance.eventTab.RefreshUnlockedTabs();
+        NoteBookManager.instance.characterTab.RefreshUnlockedTabs();
     }
 
     public void SlotButtonHit(int slotNum)
@@ -151,5 +173,8 @@ public class SaveManager : MonoBehaviour
 public class SaveData
 {
     public string sceneName;
-    
+    //public int cameraSize;
+    public List<GameObject> objectiveUnlocked;
+    public List<GameObject> characterUnlocked;
+    public List<GameObject> eventUnlocked;
 }

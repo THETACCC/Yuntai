@@ -9,11 +9,13 @@ public class isThisUnlocked : MonoBehaviour
     public void UnlockThis()
     {
         isThisThingUnlocked = true;
+        SaveManager.instance.SaveGame();
     }
 
     public void LockThis()
     {
         isThisThingUnlocked = false;
+        SaveManager.instance.SaveGame();
     }
 
 }
