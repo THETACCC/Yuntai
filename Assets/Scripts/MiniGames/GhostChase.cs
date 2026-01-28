@@ -12,6 +12,7 @@ public class GhostChase : MonoBehaviour
 
     //Movement Controll
     public bool isAllowMove = false;
+    public ToNextLoop ToNextLoopRef;
 
     void Start()
     {
@@ -52,4 +53,16 @@ public class GhostChase : MonoBehaviour
 
 
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isAllowMove)
+        {
+            if(collision.gameObject.tag == "Player")
+            {
+                ToNextLoopRef.toNextLoop();
+            }
+        }
+    }
+
 }
