@@ -176,6 +176,7 @@ public enum SceneTitle
     Level4_6_3LoopDead = 23,
     Level4_6_4LoopStuck2 = 24,
     Level4_6_5LoopStuck3 = 25,
+    Level4_6_6FinalChase = 26,
     JasmineTest = 50
 }
 
