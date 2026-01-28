@@ -171,6 +171,7 @@ public enum SceneTitle
     Level4_6NoemaHouse = 18,
     Level4_7Stage = 19,
     Level4_8Temple = 20,
+    Level4_6_1Ghost3F = 21,
     JasmineTest = 50
 }
 
