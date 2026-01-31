@@ -156,4 +156,9 @@ public class Settings : MonoBehaviour
         currentLanguage = languageCode;
         //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage); //UI
     }
+
+    public void SlotButtonHit(int slotNum)
+    {
+        SaveManager.instance.SlotButtonHit(slotNum);
+    }
 }

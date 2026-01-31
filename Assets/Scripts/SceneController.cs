@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public static SceneController instance;
+    public bool loadingGame;
 
     [Header("Teleport Options")]
     [Tooltip("If true, zeroes out the player's Rigidbody2D velocity when teleporting.")]
@@ -154,6 +155,15 @@ public class SceneController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             transitionAnim.SetTrigger("Start");
+        }
+
+        // 10)保存存档
+        if (loadingGame)
+        {
+            loadingGame = false;
+        } else
+        {
+            SaveManager.instance.SaveGame();
         }
     }
 

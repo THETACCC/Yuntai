@@ -73,9 +73,9 @@ public class SaveManager : MonoBehaviour
         // 存玩家位置
 
         //存Notebook
-        data.objectiveUnlocked = NoteBookManager.instance.objectiveTab.GetUnlockedInfo();
-        data.characterUnlocked = NoteBookManager.instance.characterTab.GetUnlockedInfo();
-        data.eventUnlocked = NoteBookManager.instance.eventTab.GetUnlockedInfo();
+        data.objectiveUnlocked = NoteBookManager.instance.objectiveTab.GetUnlockedStatusArray();
+        data.characterUnlocked = NoteBookManager.instance.characterTab.GetUnlockedStatusArray();
+        data.eventUnlocked = NoteBookManager.instance.eventTab.GetUnlockedStatusArray();
 
         // 转换为 JSON
         string json = JsonUtility.ToJson(data, true);
@@ -97,13 +97,15 @@ public class SaveManager : MonoBehaviour
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         //load scene
+        SceneController.instance.loadingGame = true;
         SceneController.instance.LoadSceneAndTeleport(data.sceneName, 0);
 
-        //load notebook
-        NoteBookManager.instance.objectiveTab.WriteUnlockedInfo(data.objectiveUnlocked);
-        NoteBookManager.instance.eventTab.WriteUnlockedInfo(data.eventUnlocked);
-        NoteBookManager.instance.characterTab.WriteUnlockedInfo(data.characterUnlocked);
+        //load notebook - 使用新的数组方法
+        NoteBookManager.instance.objectiveTab.LoadUnlockedStatusArray(data.objectiveUnlocked);
+        NoteBookManager.instance.characterTab.LoadUnlockedStatusArray(data.characterUnlocked);
+        NoteBookManager.instance.eventTab.LoadUnlockedStatusArray(data.eventUnlocked);
 
+        // 刷新显示
         NoteBookManager.instance.objectiveTab.RefreshUnlockedTabs();
         NoteBookManager.instance.eventTab.RefreshUnlockedTabs();
         NoteBookManager.instance.characterTab.RefreshUnlockedTabs();
@@ -138,6 +140,10 @@ public class SaveManager : MonoBehaviour
         {
             if (!saveList[i])
             {
+                if (i+1 > saveList.Length)
+                {
+                    //Settings.instance.isInGame = false;
+                }
                 return i+1;
             }
         }
@@ -174,7 +180,9 @@ public class SaveData
 {
     public string sceneName;
     //public int cameraSize;
-    public List<GameObject> objectiveUnlocked;
-    public List<GameObject> characterUnlocked;
-    public List<GameObject> eventUnlocked;
+    
+    // 使用bool数组存储解锁状态，按照myTabs数组的索引顺序
+    public bool[] objectiveUnlocked;
+    public bool[] characterUnlocked;
+    public bool[] eventUnlocked;
 }

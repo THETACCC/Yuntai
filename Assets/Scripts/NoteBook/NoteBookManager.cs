@@ -7,7 +7,7 @@ public class NoteBookManager : MonoBehaviour
 {
     public static NoteBookManager instance;
 
-    public GameObject NoteBook_Canvas;
+    public CanvasGroup NoteBook_Canvas;
 
     public bool isOpen = false;
 
@@ -56,7 +56,7 @@ public class NoteBookManager : MonoBehaviour
 
     void Start()
     {
-        NoteBook_Canvas.SetActive(false);
+        NoteBook_Canvas.alpha = 0;
         isOpen = false;
 
         // 加载NoteBookData
@@ -100,13 +100,13 @@ public class NoteBookManager : MonoBehaviour
                 {
                     if (OpenNoteBook) OpenNoteBook.Play();
                     DisablePlayerMovement();
-                    NoteBook_Canvas.SetActive(true);
+                    NoteBook_Canvas.alpha = 1;
                     isOpen = true;
                 }
                 else
                 {
                     EnablePlayerMovement();
-                    NoteBook_Canvas.SetActive(false);
+                    NoteBook_Canvas.alpha = 0;
                     isOpen = false;
                 }
             }

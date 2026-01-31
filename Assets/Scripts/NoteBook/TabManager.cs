@@ -48,7 +48,7 @@ public class TabManager : MonoBehaviour
             }
             else
             {
-                // Locked �� hide
+                // Locked �� hide
                 tab.SetActive(false);
             }
         }
@@ -210,6 +210,53 @@ public class TabManager : MonoBehaviour
 
     public void WriteUnlockedInfo(List<GameObject> unlockedTabs)
     {
-        this.unlockedTabs = unlockedTabs;
+        foreach (GameObject tab in unlockedTabs)
+        {
+            if (tab == null) continue;
+
+            // Try to find the unlock script
+            var unlockScript = tab.GetComponent<isThisUnlocked>();
+            if (unlockScript != null)
+            {
+                unlockScript.isThisThingUnlocked = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 获取所有tabs的解锁状态数组，用于存档
+    /// </summary>
+    public bool[] GetUnlockedStatusArray()
+    {
+        bool[] statusArray = new bool[myTabs.Length];
+        for (int i = 0; i < myTabs.Length; i++)
+        {
+            if (myTabs[i] != null)
+            {
+                var unlockScript = myTabs[i].GetComponent<isThisUnlocked>();
+                statusArray[i] = unlockScript != null && unlockScript.isThisThingUnlocked;
+            }
+        }
+        return statusArray;
+    }
+
+    /// <summary>
+    /// 从状态数组加载解锁状态，用于读档
+    /// </summary>
+    public void LoadUnlockedStatusArray(bool[] statusArray)
+    {
+        if (statusArray == null) return;
+
+        for (int i = 0; i < Mathf.Min(myTabs.Length, statusArray.Length); i++)
+        {
+            if (myTabs[i] != null)
+            {
+                var unlockScript = myTabs[i].GetComponent<isThisUnlocked>();
+                if (unlockScript != null)
+                {
+                    unlockScript.isThisThingUnlocked = statusArray[i];
+                }
+            }
+        }
     }
 }
