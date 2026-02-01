@@ -18,352 +18,8 @@
             "conditionalBranches": []
         },
         {
-            "id": "ed8354bd-6e0e-44f2-b2fa-24c12f058470",
-            "index": 1,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_1_dialogue",
-            "content": {
-                "en": "Thank you so much!! Yum Yum.",
-                "zh": "谢谢你！",
-                "ja": ""
-            },
-            "positionX": 997.6000366210938,
-            "positionY": 256.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
-                    "targetObjectName": "ObjectiveTab",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "0fcd8632-260f-474f-9958-c89ed34195e9",
-                    "targetObjectName": "Objective2",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "LockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "6fcaefe6-d20a-4450-80d8-d5dd6b63c99f",
-                    "targetObjectName": "Objective3",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "006ce4c9-3551-4154-983c-9313469e4485",
-            "index": 2,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_2_dialogue",
-            "content": {
-                "en": "What do you wanna know?",
-                "zh": "你想知道什么？",
-                "ja": ""
-            },
-            "positionX": 1398.39990234375,
-            "positionY": 260.0,
-            "choices": [
-                {
-                    "useTextId": false,
-                    "textId": "Loop2_1_ZhouShu_node_2_choice_0",
-                    "text": {
-                        "en": "5",
-                        "zh": "5",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv5",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": false,
-                    "textId": "Loop2_1_ZhouShu_node_2_choice_1",
-                    "text": {
-                        "en": "6",
-                        "zh": "6",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv6",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": false,
-                    "textId": "Loop2_1_ZhouShu_node_2_choice_2",
-                    "text": {
-                        "en": "7",
-                        "zh": "7",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_Conv7",
-                            "comparison": 0,
-                            "compareValue": "False"
-                        }
-                    ],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": false,
-                    "textId": "Loop2_1_ZhouShu_node_2_choice_3",
-                    "text": {
-                        "en": "You know, I saw...",
-                        "zh": "",
-                        "ja": ""
-                    },
-                    "conditions": [
-                        {
-                            "targetObjectID": "",
-                            "targetObjectName": "LevelManager2_1",
-                            "componentTypeName": "LevelManager2_1",
-                            "variableName": "isZhouShu_AllConv",
-                            "comparison": 0,
-                            "compareValue": "True"
-                        }
-                    ],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9aff6605-0fe7-407d-b06e-787b82e17687",
-            "index": 3,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_3_dialogue",
-            "content": {
-                "en": "Info 5",
-                "zh": "信息5",
-                "ja": ""
-            },
-            "positionX": 1878.39990234375,
-            "positionY": -7.200000762939453,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoFiveTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv5",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
-            "index": 4,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_4_dialogue",
-            "content": {
-                "en": "Info 6",
-                "zh": "信息6",
-                "ja": ""
-            },
-            "positionX": 1880.0,
-            "positionY": 664.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoSixTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv6",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
-            "index": 5,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_5_dialogue",
-            "content": {
-                "en": "Info 7",
-                "zh": "信息7",
-                "ja": ""
-            },
-            "positionX": 1880.0,
-            "positionY": 1216.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetInfoSevenTrue",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "SetZhouShuConv7",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "651409d7-6eab-462b-bf5c-5e95516aea71",
-            "index": 6,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": false,
-            "contentId": "Loop2_1_ZhouShu_node_6_dialogue",
-            "content": {
-                "en": "What!!?",
-                "zh": "什么！！？",
-                "ja": ""
-            },
-            "positionX": 1880.0,
-            "positionY": 1748.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "BlinkThenDim",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "WorkerChangeAndOpenTrigger",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
-            "index": 7,
+            "index": 1,
             "characterId": "0adcbb68-66c3-4abb-81bd-cc3b7f15ebf5",
             "useContentId": true,
             "contentId": "ch1_2020",
@@ -380,12 +36,12 @@
         },
         {
             "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
-            "index": 8,
+            "index": 2,
             "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
             "useContentId": true,
             "contentId": "ch1_2016",
             "content": {
-                "en": "Mmm~~",
+                "en": "Mmm......",
                 "zh": "唔~~",
                 "ja": ""
             },
@@ -411,7 +67,7 @@
         },
         {
             "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
-            "index": 9,
+            "index": 3,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
             "contentId": "ch1_2017",
@@ -428,7 +84,7 @@
         },
         {
             "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
-            "index": 10,
+            "index": 4,
             "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
             "useContentId": true,
             "contentId": "ch1_2018",
@@ -445,7 +101,7 @@
         },
         {
             "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
-            "index": 11,
+            "index": 5,
             "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
             "useContentId": true,
             "contentId": "ch1_2019",
@@ -462,7 +118,7 @@
         },
         {
             "id": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
-            "index": 12,
+            "index": 6,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "useContentId": true,
             "contentId": "ch1_2022",
@@ -558,7 +214,7 @@
         },
         {
             "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
-            "index": 13,
+            "index": 7,
             "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
             "useContentId": true,
             "contentId": "ch1_2021",
@@ -575,55 +231,6 @@
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
-            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "inputNodeId": "9aff6605-0fe7-407d-b06e-787b82e17687",
-            "choiceIndex": 0,
-            "choiceText": "5",
-            "branchPriority": -2
-        },
-        {
-            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "inputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
-            "choiceIndex": 1,
-            "choiceText": "6",
-            "branchPriority": -3
-        },
-        {
-            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "inputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
-            "choiceIndex": 2,
-            "choiceText": "7",
-            "branchPriority": -4
-        },
-        {
-            "outputNodeId": "bf8c13d6-0da6-4a45-b767-4fb7ea82d069",
-            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "53b9c9c3-4026-46a9-b107-890ef8fff14f",
-            "inputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "006ce4c9-3551-4154-983c-9313469e4485",
-            "inputNodeId": "651409d7-6eab-462b-bf5c-5e95516aea71",
-            "choiceIndex": 3,
-            "choiceText": "You know, I saw...",
-            "branchPriority": -5
-        },
         {
             "outputNodeId": "165132e5-2ae5-459c-873b-0c99a4868cdb",
             "inputNodeId": "9b994c45-1f02-4bb4-826a-5875c01a4263",

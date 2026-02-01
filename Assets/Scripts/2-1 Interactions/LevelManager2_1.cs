@@ -123,7 +123,7 @@ public class LevelManager2_1 : MonoBehaviour
 
         // 初始化周叔为“坐着”
         if (ZhoushuStanding) ZhoushuStanding.SetActive(false);
-        if (ZhoushuSitting) ZhoushuSitting.SetActive(true);
+        if (ZhoushuSitting) ZhoushuSitting.SetActive(false);
     }
 
     // 全部 info 是否已收集
