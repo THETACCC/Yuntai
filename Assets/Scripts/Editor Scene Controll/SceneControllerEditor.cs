@@ -177,6 +177,9 @@ public enum SceneTitle
     Level4_6_4LoopStuck2 = 24,
     Level4_6_5LoopStuck3 = 25,
     Level4_6_6FinalChase = 26,
+    Level4_7FestivalNoema = 27,
+    Level4_8FestivalGhost = 28,
+    Level4_9FestivalDead = 29,
     JasmineTest = 50
 }
 
