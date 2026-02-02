@@ -169,7 +169,7 @@ public enum SceneTitle
     Level4_4Apartment2F = 16,
     Level4_5Apartment3F = 17,
     Level4_6NoemaHouse = 18,
-    Level4_7Stage = 19,
+    Level4_17Stage = 19,
     Level4_8Temple = 20,
     Level4_6_1Ghost3F = 21,
     Level4_6_2LoopStuck1 = 22,
@@ -180,6 +180,13 @@ public enum SceneTitle
     Level4_7FestivalNoema = 27,
     Level4_8FestivalGhost = 28,
     Level4_9FestivalDead = 29,
+    Level4_10FestivalNoemaHelp = 30,
+    Level4_11FestivalPuzzle1 = 31,
+    Level4_12FestivalPuzzle2 = 32,
+    Level4_13FestivalPuzzle3 = 33,
+    Level4_14FestivalPuzzle4 = 34,
+    Level4_15FestivalPuzzle5 = 35,
+    Level4_16FestivalKill = 36,
     JasmineTest = 50
 }
 
