@@ -235,8 +235,8 @@ MonoBehaviour:
   groupGapDense: 180
   denseDt: 0.12
   looseDt: 0.45
-  singleScale: 1.35
-  normalScale: 1
+  singleMultiplier: 1.12
+  normalMultiplier: 1
 --- !u!4 &320301165
 Transform:
   m_ObjectHideFlags: 0
@@ -245,12 +245,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320301163}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 50, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -910, y: -490, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 333526659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &333526655
 GameObject:
@@ -349,6 +349,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1697200501}
+  - {fileID: 320301165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -465,25 +466,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 333526660}
-  chords:
-  - time: 0
-    count: 0
-  - time: 0
-    count: 0
-  - time: 0
-    count: 0
-  - time: 0
-    count: 0
-  - time: 0
-    count: 0
-  noteParent: {fileID: 0}
-  notePrefab: {fileID: 0}
-  layout: {fileID: 0}
+  noteParent: {fileID: 1697200501}
+  notePrefab: {fileID: 5309136183926481970, guid: 707bd63d473f7664698b24704b5203c2, type: 3}
+  layout: {fileID: 320301164}
   preSpawnTime: 1.2
   hitWindow: 0.18
-  perfectWindow: 0.05
-  goodWindow: 0.1
-  chordTolerance: 0.02
+  maxMiss: 3
+  emptyPressCountsAsMiss: 1
 --- !u!1 &346456659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1977,4 +1966,3 @@ SceneRoots:
   - {fileID: 649480370}
   - {fileID: 1562479551}
   - {fileID: 333526659}
-  - {fileID: 320301165}

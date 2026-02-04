@@ -6,130 +6,192 @@ public class RhythmConductor : MonoBehaviour
     [Header("Audio")]
     public AudioSource music;
 
-    [Header("Chart")]
-    public Chord[] chords;
-
-    [Header("Refs")]
+    [Header("Refs (UI)")]
     public RectTransform noteParent;
     public NoteView notePrefab;
-    public ChordLayout layout;
 
     [Header("Timing")]
     public double preSpawnTime = 1.2;
-
-    [Header("Windows (seconds)")]
     public double hitWindow = 0.18;
-    public double perfectWindow = 0.05;
-    public double goodWindow = 0.10;
 
-    [Header("Same-beat grouping")]
-    public double chordTolerance = 0.02;
+    [Header("Fail")]
+    public int maxMiss = 10;
+    public bool emptyPressCountsAsMiss = true;
 
+    [Header("Lane Layout (6 lanes in one row)")]
+    public float y = 0f;
+    public float laneGap = 160f; // 调大/调小控制 6 个点的间距
+
+    // ss:ff => 1:26 = 1.26s
+    static readonly (string t, int lane)[] CHART = new[]
+    {
+        // 这六个：6 个独立 note，但在同一排的 6 个位置
+        ("1:26", 0),
+        ("2:06", 1),
+        ("2:16", 2),
+        ("2:26", 3),
+        ("3:06", 4),
+        ("3:16", 5),
+
+        // 两个一组（比如中间两格）
+        ("4:15", 2),
+        ("4:24", 3),
+
+        // 一个一组（居中）
+        ("5:22", 2),
+
+        // 一个一组（居中）
+        ("7:01", 2),
+
+        // 两个一组
+        ("8:09", 2),
+        ("8:18", 3),
+    };
+
+    List<NoteEvent> notes;
+    int spawnIndex;
+    int missCount;
+    bool isPlaying;
     double songDspStart;
-    int spawnIndex = 0;
 
-    readonly List<NoteView> activeNotes = new();
+    readonly List<NoteView> active = new();
+
+    void Awake()
+    {
+        notes = BuildNotes(CHART);
+        Debug.Log($"[Chart] notes={notes.Count}, first={notes[0].time:F2}s, last={notes[^1].time:F2}s");
+    }
 
     void Start()
     {
-        // 用 dspTime 预约播放，确保所有机器对齐稳定
-        songDspStart = AudioSettings.dspTime + 0.1;
-        music.PlayScheduled(songDspStart);
+        BeginGame();
+    }
+
+    void BeginGame()
+    {
         spawnIndex = 0;
+        missCount = 0;
+        isPlaying = true;
+
+        // 清理
+        for (int i = active.Count - 1; i >= 0; i--)
+            if (active[i] != null) Destroy(active[i].gameObject);
+        active.Clear();
+
+        // 播放
+        AudioListener.pause = false;
+        AudioListener.volume = 1f;
+
+        music.Stop();
+        music.time = 0f;
+        songDspStart = AudioSettings.dspTime + 0.05;
+        music.PlayScheduled(songDspStart);
     }
 
     void Update()
     {
+        if (!isPlaying) return;
+
         double now = AudioSettings.dspTime;
 
-        // 1) 生成 chord
-        while (spawnIndex < chords.Length)
+        // 生成 note
+        while (spawnIndex < notes.Count)
         {
-            double chordTime = songDspStart + chords[spawnIndex].time;
-            double spawnTime = chordTime - preSpawnTime;
+            double noteTime = songDspStart + notes[spawnIndex].time;
+            double spawnTime = noteTime - preSpawnTime;
 
             if (now >= spawnTime)
             {
-                SpawnChord(spawnIndex, chordTime, spawnTime);
+                SpawnOne(notes[spawnIndex], noteTime, spawnTime);
                 spawnIndex++;
             }
             else break;
         }
 
-        // 2) Space 判定
+        // 输入
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            JudgeOnSpace(now);
-        }
+            TryHit(now);
 
-        // 3) 清理无效引用
-        activeNotes.RemoveAll(n => n == null || n.IsJudged);
+        active.RemoveAll(n => n == null || n.IsJudged);
     }
 
-    void SpawnChord(int chordIndex, double chordTime, double spawnTime)
+    void SpawnOne(NoteEvent e, double noteTime, double spawnTime)
     {
-        int count = Mathf.Clamp(chords[chordIndex].count, 1, 6);
-        float neighborDt = GetNeighborDt(chordIndex);
+        var n = Instantiate(notePrefab, noteParent);
+        n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
 
-        layout.Compute(count, neighborDt, out Vector2[] pos, out float targetScale);
+        // lane 0..5 -> x 坐标（6 个点一排）
+        float center = 2.5f; // 6 lanes => index center at 2.5
+        float x = (e.lane - center) * laneGap;
+        n.SetAnchoredPosition(new Vector2(x, y));
 
-        for (int i = 0; i < count; i++)
-        {
-            var note = Instantiate(notePrefab, noteParent);
-            note.Init(chordTime, spawnTime, preSpawnTime, hitWindow);
-
-
-            note.SetAnchoredPosition(pos[i]);
-            activeNotes.Add(note);
-        }
+        n.OnMiss = HandleMiss;
+        active.Add(n);
     }
 
-    float GetNeighborDt(int i)
+    void TryHit(double now)
     {
-        float prev = float.MaxValue;
-        float next = float.MaxValue;
-
-        if (i > 0) prev = (float)(chords[i].time - chords[i - 1].time);
-        if (i < chords.Length - 1) next = (float)(chords[i + 1].time - chords[i].time);
-
-        float dt = Mathf.Min(prev, next);
-        if (dt == float.MaxValue) dt = 999f; // 只有一个 chord 的情况
-        return dt;
-    }
-
-    void JudgeOnSpace(double now)
-    {
-        activeNotes.RemoveAll(n => n == null || n.IsJudged);
-
-        // 找出 hitWindow 内候选，选最近的那一拍
+        // 找窗口内最近的 note（只命中一个）
+        NoteView best = null;
         double bestAbs = double.MaxValue;
-        double bestTime = 0;
 
-        for (int i = 0; i < activeNotes.Count; i++)
+        for (int i = 0; i < active.Count; i++)
         {
-            var n = activeNotes[i];
-            double delta = System.Math.Abs(now - n.NoteTime);
-            if (delta <= hitWindow && delta < bestAbs)
+            var n = active[i];
+            if (n == null || n.IsJudged) continue;
+
+            double d = System.Math.Abs(now - n.NoteTime);
+            if (d <= hitWindow && d < bestAbs)
             {
-                bestAbs = delta;
-                bestTime = n.NoteTime;
+                bestAbs = d;
+                best = n;
             }
         }
 
-        if (bestAbs == double.MaxValue)
+        if (best == null)
         {
-            // 空按：你可以选择扣分/断连击，先不做
+            if (emptyPressCountsAsMiss) HandleMiss(null);
             return;
         }
 
-        // 同一拍（同一 chord 里多个点）一起判定
-        for (int i = 0; i < activeNotes.Count; i++)
+        best.JudgeHit();
+    }
+
+    void HandleMiss(NoteView _)
+    {
+        missCount++;
+        Debug.Log($"MISS {missCount}/{maxMiss}");
+        if (missCount >= maxMiss) GameOver();
+    }
+
+    void GameOver()
+    {
+        isPlaying = false;
+        music.Stop();
+        Debug.Log("GAME OVER");
+    }
+
+    // -------- build --------
+    List<NoteEvent> BuildNotes((string t, int lane)[] chart)
+    {
+        var list = new List<NoteEvent>(chart.Length);
+        foreach (var item in chart)
         {
-            var n = activeNotes[i];
-            if (!n.IsJudged && System.Math.Abs(n.NoteTime - bestTime) <= chordTolerance)
+            list.Add(new NoteEvent
             {
-                n.Judge(now);
-            }
+                time = ParseSsFf(item.t),
+                lane = Mathf.Clamp(item.lane, 0, 5)
+            });
         }
+        list.Sort((a, b) => a.time.CompareTo(b.time));
+        return list;
+    }
+
+    double ParseSsFf(string s)
+    {
+        var parts = s.Trim().Split(':');
+        int sec = int.Parse(parts[0]);
+        int ff = int.Parse(parts[1]); // hundredths
+        return sec + ff / 100.0;
     }
 }
