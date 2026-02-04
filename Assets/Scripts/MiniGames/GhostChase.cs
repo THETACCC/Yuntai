@@ -54,6 +54,11 @@ public class GhostChase : MonoBehaviour
 
     }
 
+    public void EnableGhost()
+    {
+        isAllowMove = true;
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (isAllowMove)

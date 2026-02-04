@@ -1,0 +1,63 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "What is that?",
+        "zh": "",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Waaaaagh",
+        "zh": "",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b100b5a0-8146-496f-b120-527c612f9db8",
+          "targetObjectName": "Ghost_Pivot (1)",
+          "componentTypeName": "GhostChase",
+          "methodName": "EnableGhost",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "a1784fdc-ba9e-4a8f-90df-0c3642a794e0",
+          "targetObjectName": "GhostRelatedChase",
+          "componentTypeName": "GhostChaseManager",
+          "methodName": "disableWall",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

@@ -1,0 +1,74 @@
+{
+    "nodes": [
+        {
+            "id": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
+            "index": 0,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "What is that?",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": -84.80000305175781,
+            "positionY": 22.39999771118164,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4a6859d0-a0f6-4eff-8c20-e86713c4a662",
+            "index": 1,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "",
+            "content": {
+                "en": "Waaaaagh",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 315.20001220703127,
+            "positionY": 113.60000610351563,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "b100b5a0-8146-496f-b120-527c612f9db8",
+                    "targetObjectName": "Ghost_Pivot (1)",
+                    "targetSceneName": "Level4-6-1Ghost3F",
+                    "componentTypeName": "GhostChase",
+                    "methodName": "EnableGhost",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "a1784fdc-ba9e-4a8f-90df-0c3642a794e0",
+                    "targetObjectName": "GhostRelatedChase",
+                    "targetSceneName": "Level4-6-1Ghost3F",
+                    "componentTypeName": "GhostChaseManager",
+                    "methodName": "disableWall",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
+            "inputNodeId": "4a6859d0-a0f6-4eff-8c20-e86713c4a662",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

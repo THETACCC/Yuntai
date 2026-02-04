@@ -10,6 +10,8 @@ public class DialogueTrigger : MonoBehaviour
 
     [SerializeField] bool isDoor = false;
 
+    public bool isInstantTrigger = false;
+
     //public UnityEvent OnDialogueCompleted;
 
 
@@ -22,7 +24,7 @@ public class DialogueTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isReadyToTrigger)
+        if (isReadyToTrigger && !isInstantTrigger)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -64,6 +66,10 @@ public class DialogueTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isReadyToTrigger = true;
+            if(isInstantTrigger)
+            {
+                TriggerDialogue();
+            }
         }
     }
 
