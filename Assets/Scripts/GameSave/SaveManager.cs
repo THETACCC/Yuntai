@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,14 @@ public class SaveManager : MonoBehaviour
 
     public bool hasGameSave = false;
     public bool[] saveList;
+
+    [Header("References")]
+    public GameObject gameSavesUI;
+    public List<TextMeshProUGUI> slotsNames;
+    public List<TextMeshProUGUI> slotsTimes;
+    public GameObject warningWindow;
+    public TextMeshProUGUI warningText;
+
 
     public void Awake()
     {
@@ -28,7 +37,46 @@ public class SaveManager : MonoBehaviour
             Destroy(gameObject);
         }
         saveList = new bool[3];
+        
+    }
+
+    private void Start()
+    {
         CheckExistingSaves();
+        gameSavesUI.SetActive(false);
+        warningWindow.SetActive(false);
+    }
+
+    public void Return()
+    {
+        if (!Settings.instance.isInGame)
+        {
+            if (Title_Scene.instance != null)
+            {
+                Title_Scene.instance.defaultOptions.SetActive(true);
+                Title_Scene.instance.isCreatingGame = false;
+                Title_Scene.instance.isLoadingGame = false;
+            }
+        }
+        gameSavesUI.SetActive(false);
+    }
+
+    public void UpdateSlotInfo()
+    {
+        for (int i = 0; i < saveList.Length; i++)
+        {
+            if (saveList[i])
+            {
+                DateTime lastModified = File.GetLastWriteTime(Path.Combine(Application.persistentDataPath, $"GameSave{i + 1}.json"));
+                slotsNames[i].text = $"{i + 1}. Save #{i + 1}";
+                slotsTimes[i].text = "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            else
+            {
+                slotsNames[i].text = $"{i + 1}. Empty";
+                slotsTimes[i].text = "";
+            }
+        }
     }
 
     private void CheckExistingSaves()
@@ -113,17 +161,57 @@ public class SaveManager : MonoBehaviour
 
     public void SlotButtonHit(int slotNum)
     {
-        saveSlot = slotNum;
-        /*
-        if (!hasGameSave)
+        if (!Settings.instance.isInGame && Title_Scene.instance != null)
         {
-            hasGameSave = true;
+            if (Title_Scene.instance.isCreatingGame)
+            {
+                saveSlot = slotNum;
+                savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
+
+                if (saveList[saveSlot - 1])
+                {
+                    //ask for replace as a new game
+                    warningWindow.SetActive(true);
+                    warningText.text = "You are creating a new Game by replacing File " + slotNum;
+                } else
+                {
+                    //create a new game directly
+                    SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
+                    saveList[saveSlot - 1] = true;
+                    Settings.instance.isInGame = true;
+                    Title_Scene.instance.isCreatingGame = false;
+                    gameSavesUI.SetActive(false);
+                }
+                
+            }
+
+            if (Title_Scene.instance.isLoadingGame)
+            {
+                saveSlot = slotNum;
+                savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
+                if (saveList[saveSlot - 1])
+                {
+                    //load game
+                    Title_Scene.instance.isLoadingGame = false;
+                    gameSavesUI.SetActive(false);
+                    LoadGame();
+                    Settings.instance.isInGame = true;
+                } else
+                {
+                    //do nothing as this is loading game and slot is empty
+                }
+            }
         }
-        */
+
+
+        /*
+        saveSlot = slotNum;
+
         savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
 
         if (saveList[saveSlot - 1])
         {
+            gameSavesUI.SetActive(false);
             LoadGame();
         } else
         {
@@ -132,6 +220,21 @@ public class SaveManager : MonoBehaviour
         }
 
         Settings.instance.isInGame = true;
+        */
+    }
+
+    public void CancelReplace()
+    {
+        warningWindow.SetActive(false);
+    }
+
+    public void ConfirmReplace()
+    {
+        warningWindow.SetActive(false);
+        SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
+        Settings.instance.isInGame = true;
+        Title_Scene.instance.isCreatingGame = false;
+        gameSavesUI.SetActive(false);
     }
 
     public int FindEmptySlot()

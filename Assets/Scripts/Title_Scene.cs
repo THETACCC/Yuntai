@@ -1,4 +1,5 @@
 ﻿using Fungus;
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +10,20 @@ using UnityEngine.UI;
 
 public class Title_Scene : MonoBehaviour
 {
-    public GameObject savesSlots;
-    public List<TextMeshProUGUI> slotsNames;
-    public List<TextMeshProUGUI> slotsTimes;
+    public static Title_Scene instance;
     public GameObject defaultOptions;
     public GameObject loadGameBt;
+    public bool isCreatingGame = false;
+    public bool isLoadingGame = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
         defaultOptions.SetActive(true);
-        savesSlots.SetActive(false);
         if (SaveManager.instance != null )
         {
             loadGameBt.SetActive(SaveManager.instance.hasGameSave);
@@ -42,7 +47,13 @@ public class Title_Scene : MonoBehaviour
 
     public void NewGame()
     {
-        //call start function -- TODO
+        isCreatingGame = true;
+        //open save slots UI
+        defaultOptions.SetActive(false);
+        SaveManager.instance.gameSavesUI.SetActive(true);
+        SaveManager.instance.UpdateSlotInfo();
+
+        /*
         int slotNum = SaveManager.instance.FindEmptySlot();
         if (slotNum != 0)
         {
@@ -51,41 +62,21 @@ public class Title_Scene : MonoBehaviour
         {
             LoadGame();
         }
-        
+        */
     }
 
     public void LoadGame()
     {
+        isLoadingGame = true;
         //open save slots UI
         defaultOptions.SetActive(false);
-        savesSlots.SetActive(true);
-
-        UpdateSlotInfo();
+        SaveManager.instance.gameSavesUI.SetActive(true);
+        SaveManager.instance.UpdateSlotInfo();
     }
 
-    public void UpdateSlotInfo()
-    {
-        for (int i = 0; i < SaveManager.instance.saveList.Length; i++)
-        {
-            if (SaveManager.instance.saveList[i])
-            {
-                slotsNames[i].text = $"{i+1}. Save #{i+1}";
-                DateTime lastModified = File.GetLastWriteTime(Path.Combine(Application.persistentDataPath, $"GameSave{i + 1}.json"));
-                slotsTimes[i].text = "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss");
-            } else
-            {
-                slotsNames[i].text = $"{i + 1}. Empty";
-                slotsTimes[i].text = "";
-            }
-        }
-    }
 
-    public void Return()
-    {
-        defaultOptions.SetActive(true);
-        savesSlots.SetActive(false);
-        Settings.instance.CloseSettings();
-    }
+
+
 
     public void ExitGame()
     {
@@ -98,14 +89,4 @@ public class Title_Scene : MonoBehaviour
 #endif
     }
 
-    public void SlotButtonHit(int slotNum)
-    {
-        SaveManager.instance.SlotButtonHit(slotNum);
-    }
-
-    public void DeleteFileSave(int slotNum)
-    {
-        SaveManager.instance.DeleteFileSave(slotNum);
-        UpdateSlotInfo();
-    }
 }

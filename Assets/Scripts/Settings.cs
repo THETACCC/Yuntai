@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public bool canOpenSettings = true;
     public CanvasGroup canvasGroup;
+    public GameObject gameSavesUI;
+    public GameObject otherOptions;
+
 
     [Header("Localization Settings")]
     [SerializeField]
@@ -132,6 +136,21 @@ public class Settings : MonoBehaviour
         }
      }
 
+    public void OpenGameSaves()
+    {
+        gameObject.SetActive(true);
+        gameSavesUI.SetActive(true);
+    }
+
+    public void CloseGameSaves()
+    {
+        gameSavesUI.SetActive(false);
+        if (!isInGame)
+        {
+            otherOptions.SetActive(true);
+        }
+    }
+
     public void CloseSettings()
     {
         isSettingsOpen = false;
@@ -155,10 +174,5 @@ public class Settings : MonoBehaviour
     {
         currentLanguage = languageCode;
         //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage); //UI
-    }
-
-    public void SlotButtonHit(int slotNum)
-    {
-        SaveManager.instance.SlotButtonHit(slotNum);
     }
 }
