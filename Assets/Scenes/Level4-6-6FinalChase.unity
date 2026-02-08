@@ -26215,20 +26215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &4356524115117157098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8038144795412307229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractIndicator: {fileID: 3415938358111455852}
+  m_IsActive: 1
 --- !u!4 &6080290335270546803
 Transform:
   m_ObjectHideFlags: 0
@@ -26264,7 +26251,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8cfcefeb65edf744fa2050d89b781a52, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26308,7 +26295,6 @@ GameObject:
   - component: {fileID: 900734633245419261}
   - component: {fileID: 8038144795412307230}
   - component: {fileID: 2906829591291610005}
-  - component: {fileID: 4356524115117157098}
   m_Layer: 0
   m_Name: Interact_E
   m_TagString: Untagged
@@ -26331,6 +26317,7 @@ MonoBehaviour:
   isReadyToTrigger: 1
   myDoorBlock: {fileID: 1888751537}
   requiredPresses: 6
+  InteractIndicator: {fileID: 3415938358111455852}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
