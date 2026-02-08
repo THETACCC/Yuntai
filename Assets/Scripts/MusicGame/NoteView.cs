@@ -1,41 +1,54 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoteView : MonoBehaviour
 {
-    [Header("Drag these from prefab children")]
+    [Header("Prefab children (RectTransform)")]
     [SerializeField] private RectTransform targetCircle;
     [SerializeField] private RectTransform shrinkingRing;
+
+    [Header("Feedback Images")]
+    [SerializeField] private Image greenFeedback;
+    [SerializeField] private Image redFeedback;
+
+    [Header("Auto-added if missing")]
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Scales")]
-    [SerializeField] private float baseTargetScale = 1.48f; // 你说的 target scale
-    [SerializeField] private float startRingScale = 2.56f;  // 你说的 shrinking 开始 scale
+    [SerializeField] private float baseTargetScale = 1.48f;
+    [SerializeField] private float startRingScale = 2.56f;
 
-    [Header("Vanish")]
-    [SerializeField] private float vanishDuration = 0.12f;
-    [SerializeField] private float vanishScale = 0.85f;
+    [Header("Timing")]
+    [SerializeField] private double holdAfterNoteTime = 0.10;     // NoteTime 到达后停留
+    [SerializeField] private double fadeDuration = 0.20;          // 淡出时长
+    [SerializeField] private double feedbackHoldSeconds = 0.25;   // ★ 变红/绿后最少显示多久（保证看得见）
 
     public double NoteTime { get; private set; }
     public bool IsJudged { get; private set; }
-
     public Action<NoteView> OnMiss;
 
     private double spawnTime;
     private double preSpawnTime;
     private double hitWindow;
 
-    private float targetScaleMultiplier = 1.0f;
+    private bool pressedInWindow;
+    private bool resolved;
+
+    // 生命周期控制
+    private double despawnTime;        // 最终销毁时间
+    private double resolvedTimeDsp;    // 变红/绿那一刻
 
     void Awake()
     {
-        // 防止你忘了加/拖 CanvasGroup
         if (canvasGroup == null)
         {
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
+
+        if (greenFeedback) greenFeedback.raycastTarget = false;
+        if (redFeedback) redFeedback.raycastTarget = false;
     }
 
     public void Init(double noteTime, double spawnTime, double preSpawnTime, double hitWindow)
@@ -45,87 +58,124 @@ public class NoteView : MonoBehaviour
         this.preSpawnTime = preSpawnTime;
         this.hitWindow = hitWindow;
 
+        pressedInWindow = false;
+        resolved = false;
         IsJudged = false;
+
+        resolvedTimeDsp = double.NaN;
+
         canvasGroup.alpha = 1f;
+        HideFeedback();
 
-        ApplyScales();
-    }
+        if (targetCircle) targetCircle.localScale = Vector3.one * baseTargetScale;
+        if (shrinkingRing) shrinkingRing.localScale = Vector3.one * startRingScale;
 
-    public void SetTargetScaleMultiplier(float m)
-    {
-        targetScaleMultiplier = m;
-        ApplyScales();
-    }
-
-    void ApplyScales()
-    {
-        if (targetCircle == null || shrinkingRing == null) return;
-
-        float finalTargetScale = baseTargetScale * targetScaleMultiplier;
-        targetCircle.localScale = Vector3.one * finalTargetScale;
-        shrinkingRing.localScale = Vector3.one * startRingScale;
+        // 先按“正常固定生命周期”算一个初始销毁时间（后面 Resolve 后会再延长保证反馈可见）
+        despawnTime = NoteTime + holdAfterNoteTime + fadeDuration;
     }
 
     public void SetAnchoredPosition(Vector2 anchoredPos)
     {
-        // 你的 prefab 根必须是 RectTransform（UI）
         ((RectTransform)transform).anchoredPosition = anchoredPos;
+    }
+
+    public void RegisterHit(double nowDsp)
+    {
+        if (resolved) return;
+
+        double delta = Math.Abs(nowDsp - NoteTime);
+        if (delta <= hitWindow)
+        {
+            pressedInWindow = true;
+            if (nowDsp >= NoteTime) Resolve(true);
+        }
+    }
+
+    public void ForceMiss()
+    {
+        if (resolved) return;
+        Resolve(false);
     }
 
     void Update()
     {
-        if (IsJudged) return;
-
-        if (targetCircle == null || shrinkingRing == null) return; // 引用没拖会导致不缩
-
         double now = AudioSettings.dspTime;
 
-        // shrink progress 0..1
-        double t = (now - spawnTime) / preSpawnTime;
-        float k = Mathf.Clamp01((float)t);
-
-        float finalTargetScale = baseTargetScale * targetScaleMultiplier;
-        float ringScale = Mathf.Lerp(startRingScale, finalTargetScale, k);
-        shrinkingRing.localScale = Vector3.one * ringScale;
-
-        // timeout miss
-        if (now > NoteTime + hitWindow)
+        // shrink
+        if (shrinkingRing != null)
         {
-            Miss();
-        }
-    }
+            float targetScale = baseTargetScale;
 
-    public void JudgeHit()
-    {
-        if (IsJudged) return;
-        IsJudged = true;
-        StartCoroutine(VanishAndDestroy());
-    }
-
-    void Miss()
-    {
-        if (IsJudged) return;
-        IsJudged = true;
-        OnMiss?.Invoke(this);
-        StartCoroutine(VanishAndDestroy());
-    }
-
-    IEnumerator VanishAndDestroy()
-    {
-        float t = 0f;
-        float startAlpha = canvasGroup.alpha;
-        Vector3 startScale = transform.localScale;
-        Vector3 endScale = startScale * vanishScale;
-
-        while (t < vanishDuration)
-        {
-            t += Time.unscaledDeltaTime;
-            float k = Mathf.Clamp01(t / vanishDuration);
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, k);
-            transform.localScale = Vector3.Lerp(startScale, endScale, k);
-            yield return null;
+            if (now < NoteTime)
+            {
+                double t = (now - spawnTime) / preSpawnTime;
+                float k = Mathf.Clamp01((float)t);
+                float ringScale = Mathf.Lerp(startRingScale, targetScale, k);
+                shrinkingRing.localScale = Vector3.one * ringScale;
+            }
+            else
+            {
+                shrinkingRing.localScale = Vector3.one * targetScale;
+            }
         }
 
-        Destroy(gameObject);
+        // auto resolve miss after window
+        if (!resolved)
+        {
+            if (now >= NoteTime && pressedInWindow) Resolve(true);
+            else if (now > NoteTime + hitWindow) Resolve(false);
+        }
+
+        // fade starts at despawnTime - fadeDuration
+        double fadeStart = despawnTime - fadeDuration;
+        if (now >= fadeStart)
+        {
+            double k = (now - fadeStart) / fadeDuration;
+            canvasGroup.alpha = 1f - Mathf.Clamp01((float)k);
+        }
+
+        if (now >= despawnTime)
+            Destroy(gameObject);
+    }
+
+    void Resolve(bool hit)
+    {
+        resolved = true;
+        IsJudged = true;
+        resolvedTimeDsp = AudioSettings.dspTime;
+
+        if (hit) ShowGreen();
+        else
+        {
+            ShowRed();
+            OnMiss?.Invoke(this);
+        }
+
+        // ★ 保证反馈至少显示 feedbackHoldSeconds，再开始淡出
+        // 也就是：despawnTime >= resolvedTime + feedbackHold + fadeDuration
+        double minDespawn = resolvedTimeDsp + feedbackHoldSeconds + fadeDuration;
+        if (despawnTime < minDespawn) despawnTime = minDespawn;
+    }
+
+    void HideFeedback()
+    {
+        if (greenFeedback) greenFeedback.gameObject.SetActive(false);
+        if (redFeedback) redFeedback.gameObject.SetActive(false);
+    }
+
+    void ShowGreen()
+    {
+        if (greenFeedback == null) return;
+        greenFeedback.transform.SetAsLastSibling();
+        greenFeedback.gameObject.SetActive(true);
+        if (redFeedback) redFeedback.gameObject.SetActive(false);
+    }
+
+    void ShowRed()
+    {
+        if (redFeedback == null) return;
+        redFeedback.transform.SetAsLastSibling();
+        redFeedback.gameObject.SetActive(true);
+        if (greenFeedback) greenFeedback.gameObject.SetActive(false);
     }
 }
