@@ -137,30 +137,36 @@ public class RhythmConductor : MonoBehaviour
 
     void TryHit(double now)
     {
-        // 找窗口内最近的 note（只命中一个）
-        NoteView best = null;
-        double bestAbs = double.MaxValue;
+        // 只处理“当前应该打的那一个” = 时间最早的未判定 note
+        NoteView next = null;
+        double nextTime = double.MaxValue;
 
         for (int i = 0; i < active.Count; i++)
         {
             var n = active[i];
             if (n == null || n.IsJudged) continue;
 
-            double d = System.Math.Abs(now - n.NoteTime);
-            if (d <= hitWindow && d < bestAbs)
+            if (n.NoteTime < nextTime)
             {
-                bestAbs = d;
-                best = n;
+                nextTime = n.NoteTime;
+                next = n;
             }
         }
 
-        if (best == null)
-        {
-            if (emptyPressCountsAsMiss) HandleMiss(null);
-            return;
-        }
+        if (next == null) return;
 
-        best.JudgeHit();
+        double delta = System.Math.Abs(now - next.NoteTime);
+
+        if (delta <= hitWindow)
+        {
+            // 命中：绿
+            next.RegisterHit(now);
+        }
+        else
+        {
+            // 按错：立刻红（并计 miss）
+            next.ForceMiss();
+        }
     }
 
     void HandleMiss(NoteView _)
@@ -174,8 +180,16 @@ public class RhythmConductor : MonoBehaviour
     {
         isPlaying = false;
         if (music != null) music.Stop();
+
         Debug.Log("GAME OVER");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // 编辑器里停止运行
+#else
+    Application.Quit(); // 打包后退出程序
+#endif
     }
+
 
     // -------- build --------
     List<NoteEvent> BuildNotes((double t, int lane)[] chart)
