@@ -22,31 +22,21 @@ public class RhythmConductor : MonoBehaviour
     public float y = 0f;
     public float laneGap = 160f; // 调大/调小控制 6 个点的间距
 
-    // ss:ff => 1:26 = 1.26s
-    static readonly (string t, int lane)[] CHART = new[]
+    [Header("Timing Calibration")]
+    public double globalOffsetSeconds = 0.0; // 如果整体偏早/偏晚，用这个微调（秒）
+
+    // ===== Chart in absolute seconds (from Audacity) =====
+    // 这六个：6 个独立 note，但在同一排的 6 个位置
+    static readonly (double t, int lane)[] CHART = new[]
     {
-        // 这六个：6 个独立 note，但在同一排的 6 个位置
-        ("1:26", 0),
-        ("2:06", 1),
-        ("2:16", 2),
-        ("2:26", 3),
-        ("3:06", 4),
-        ("3:16", 5),
-
-        // 两个一组（比如中间两格）
-        ("4:15", 2),
-        ("4:24", 3),
-
-        // 一个一组（居中）
-        ("5:22", 2),
-
-        // 一个一组（居中）
-        ("7:01", 2),
-
-        // 两个一组
-        ("8:09", 2),
-        ("8:18", 3),
+        (1.857, 0),
+        (2.194, 1),
+        (2.523, 2),
+        (2.860, 3),
+        (3.214, 4),
+        (3.542, 5),
     };
+    // ================================================
 
     List<NoteEvent> notes;
     int spawnIndex;
@@ -59,7 +49,7 @@ public class RhythmConductor : MonoBehaviour
     void Awake()
     {
         notes = BuildNotes(CHART);
-        Debug.Log($"[Chart] notes={notes.Count}, first={notes[0].time:F2}s, last={notes[^1].time:F2}s");
+        Debug.Log($"[Chart] notes={notes.Count}, first={notes[0].time:F3}s, last={notes[^1].time:F3}s");
     }
 
     void Start()
@@ -78,14 +68,30 @@ public class RhythmConductor : MonoBehaviour
             if (active[i] != null) Destroy(active[i].gameObject);
         active.Clear();
 
-        // 播放
+        // 播放（防止全局静音/暂停）
         AudioListener.pause = false;
         AudioListener.volume = 1f;
 
-        music.Stop();
-        music.time = 0f;
-        songDspStart = AudioSettings.dspTime + 0.05;
-        music.PlayScheduled(songDspStart);
+        if (music != null)
+        {
+            music.mute = false;
+            music.volume = 1f;
+            music.outputAudioMixerGroup = null;
+            music.spatialBlend = 0f;
+
+            music.Stop();
+            music.time = 0f;
+
+            songDspStart = AudioSettings.dspTime + 0.05;
+            music.PlayScheduled(songDspStart);
+
+            Debug.Log($"[RhythmConductor] Scheduled music dsp={songDspStart:F3}, now={AudioSettings.dspTime:F3}, clip={(music.clip ? music.clip.name : "NULL")}");
+        }
+        else
+        {
+            Debug.LogError("[RhythmConductor] music AudioSource is NULL.");
+            isPlaying = false;
+        }
     }
 
     void Update()
@@ -97,7 +103,7 @@ public class RhythmConductor : MonoBehaviour
         // 生成 note
         while (spawnIndex < notes.Count)
         {
-            double noteTime = songDspStart + notes[spawnIndex].time;
+            double noteTime = songDspStart + (notes[spawnIndex].time + globalOffsetSeconds);
             double spawnTime = noteTime - preSpawnTime;
 
             if (now >= spawnTime)
@@ -167,31 +173,24 @@ public class RhythmConductor : MonoBehaviour
     void GameOver()
     {
         isPlaying = false;
-        music.Stop();
+        if (music != null) music.Stop();
         Debug.Log("GAME OVER");
     }
 
     // -------- build --------
-    List<NoteEvent> BuildNotes((string t, int lane)[] chart)
+    List<NoteEvent> BuildNotes((double t, int lane)[] chart)
     {
         var list = new List<NoteEvent>(chart.Length);
         foreach (var item in chart)
         {
             list.Add(new NoteEvent
             {
-                time = ParseSsFf(item.t),
+                time = item.t,
                 lane = Mathf.Clamp(item.lane, 0, 5)
             });
         }
+
         list.Sort((a, b) => a.time.CompareTo(b.time));
         return list;
-    }
-
-    double ParseSsFf(string s)
-    {
-        var parts = s.Trim().Split(':');
-        int sec = int.Parse(parts[0]);
-        int ff = int.Parse(parts[1]); // hundredths
-        return sec + ff / 100.0;
     }
 }
