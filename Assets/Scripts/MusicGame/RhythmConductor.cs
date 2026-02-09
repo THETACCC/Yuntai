@@ -20,25 +20,80 @@ public class RhythmConductor : MonoBehaviour
 
     [Header("Lane Layout (6 lanes in one row)")]
     public float y = 0f;
-    public float laneGap = 160f; // 调大/调小控制 6 个点的间距
+    public float laneGap = 160f;
 
     [Header("Timing Calibration")]
-    public double globalOffsetSeconds = 0.0; // 如果整体偏早/偏晚，用这个微调（秒）
+    public double globalOffsetSeconds = 0.0;
 
-    // ===== Chart in absolute seconds (from Audacity) =====
-    // 这六个：6 个独立 note，但在同一排的 6 个位置
-    static readonly (double t, int lane)[] CHART = new[]
+    [Header("Grouping (seconds)")]
+    public double groupTolerance = 0.08;
+
+    [Header("Manual cluster offset")]
+    public float clusterShiftX = 320f; // slot=-1 左移，slot=+1 右移
+
+    // ===== Chart: (timeSeconds, lane 0..5, slot -1/0/+1) =====
+    struct ChartRow
     {
-        (1.857, 0),
-        (2.194, 1),
-        (2.523, 2),
-        (2.860, 3),
-        (3.214, 4),
-        (3.542, 5),
-    };
-    // ================================================
+        public double t;
+        public int lane;
+        public int slot;
+        public ChartRow(double t, int lane, int slot)
+        {
+            this.t = t;
+            this.lane = lane;
+            this.slot = slot;
+        }
+    }
 
-    List<NoteEvent> notes;
+    // ===== Chart: (timeSeconds, lane 0..5, slot -1/0/+1) =====
+    // slot: 0=中间, -1=左, +1=右
+    static readonly ChartRow[] CHART = new[]
+    {
+    // 中（6个）
+    new ChartRow(1.857, 0, 0),
+    new ChartRow(2.194, 1, 0),
+    new ChartRow(2.523, 2, 0),
+    new ChartRow(2.860, 3, 0),
+    new ChartRow(3.214, 4, 0),
+    new ChartRow(3.542, 5, 0),
+
+    // 左（2个，放中间两格）
+    new ChartRow(4.405, 2, -1),
+    new ChartRow(4.762, 3, -1),
+
+    // 右（1个，居中格）
+    new ChartRow(5.654, 2, +1),
+
+    // 左（1个）
+    new ChartRow(7.002, 2, -1),
+
+    // 右（1个）
+    new ChartRow(8.252, 2, +1),
+
+    // 左（1个）
+    new ChartRow(9.567, 2, -1),
+
+   // 右（像第一段一样：横向扫过去）
+    new ChartRow(10.520, 0, +1),
+    new ChartRow(11.145, 1, +1),
+    new ChartRow(11.835, 2, +1),
+    new ChartRow(12.520, 3, +1),
+
+    // 左（横向扫过去，5 个）
+    new ChartRow(13.084, 0, -1),
+    new ChartRow(13.775, 1, -1),
+    new ChartRow(14.410, 2, -1),
+    new ChartRow(15.049, 3, -1),
+    new ChartRow(15.700, 4, -1),
+
+
+};
+
+
+    // 复用项目里已有的 NoteEvent（不要在这里定义 NoteEvent）
+    List<NoteEvent> notes = new();
+    List<int> slots = new(); // 与 notes 对齐
+
     int spawnIndex;
     int missCount;
     bool isPlaying;
@@ -48,7 +103,7 @@ public class RhythmConductor : MonoBehaviour
 
     void Awake()
     {
-        notes = BuildNotes(CHART);
+        BuildNotesAndSlots();
         Debug.Log($"[Chart] notes={notes.Count}, first={notes[0].time:F3}s, last={notes[^1].time:F3}s");
     }
 
@@ -63,12 +118,10 @@ public class RhythmConductor : MonoBehaviour
         missCount = 0;
         isPlaying = true;
 
-        // 清理
         for (int i = active.Count - 1; i >= 0; i--)
             if (active[i] != null) Destroy(active[i].gameObject);
         active.Clear();
 
-        // 播放（防止全局静音/暂停）
         AudioListener.pause = false;
         AudioListener.volume = 1f;
 
@@ -76,7 +129,6 @@ public class RhythmConductor : MonoBehaviour
         {
             music.mute = false;
             music.volume = 1f;
-            music.outputAudioMixerGroup = null;
             music.spatialBlend = 0f;
 
             music.Stop();
@@ -100,44 +152,62 @@ public class RhythmConductor : MonoBehaviour
 
         double now = AudioSettings.dspTime;
 
-        // 生成 note
+        // 按“组”生成：同组条件 = 时间接近 + slot 相同
         while (spawnIndex < notes.Count)
         {
-            double noteTime = songDspStart + (notes[spawnIndex].time + globalOffsetSeconds);
-            double spawnTime = noteTime - preSpawnTime;
+            int start = spawnIndex;
+            double t0 = notes[start].time;
+            int slot0 = slots[start];
 
-            if (now >= spawnTime)
+            int end = start + 1;
+            while (end < notes.Count &&
+                   (notes[end].time - t0) <= groupTolerance &&
+                   slots[end] == slot0)
             {
-                SpawnOne(notes[spawnIndex], noteTime, spawnTime);
-                spawnIndex++;
+                end++;
+            }
+
+            double noteTime0 = songDspStart + (notes[start].time + globalOffsetSeconds);
+            double spawnTime0 = noteTime0 - preSpawnTime;
+
+            if (now >= spawnTime0)
+            {
+                SpawnCluster(start, end, slot0);
+                spawnIndex = end;
             }
             else break;
         }
 
-        // 输入
         if (Input.GetKeyDown(KeyCode.Space))
             TryHit(now);
 
         active.RemoveAll(n => n == null || n.IsJudged);
     }
 
-    void SpawnOne(NoteEvent e, double noteTime, double spawnTime)
+    void SpawnCluster(int start, int end, int slot)
     {
-        var n = Instantiate(notePrefab, noteParent);
-        n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
+        float center = 2.5f;
+        float offsetX = slot * clusterShiftX;
 
-        // lane 0..5 -> x 坐标（6 个点一排）
-        float center = 2.5f; // 6 lanes => index center at 2.5
-        float x = (e.lane - center) * laneGap;
-        n.SetAnchoredPosition(new Vector2(x, y));
+        for (int i = start; i < end; i++)
+        {
+            double noteTime = songDspStart + (notes[i].time + globalOffsetSeconds);
+            double spawnTime = noteTime - preSpawnTime;
 
-        n.OnMiss = HandleMiss;
-        active.Add(n);
+            var n = Instantiate(notePrefab, noteParent);
+            n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
+
+            float x = (notes[i].lane - center) * laneGap + offsetX;
+            n.SetAnchoredPosition(new Vector2(x, y));
+
+            n.OnMiss = HandleMiss;
+            active.Add(n);
+        }
     }
 
     void TryHit(double now)
     {
-        // 只处理“当前应该打的那一个” = 时间最早的未判定 note
+        // 当前应该打的那一个：时间最早的未判定 note
         NoteView next = null;
         double nextTime = double.MaxValue;
 
@@ -159,12 +229,11 @@ public class RhythmConductor : MonoBehaviour
 
         if (delta <= hitWindow)
         {
-            // 命中：绿
             next.RegisterHit(now);
         }
         else
         {
-            // 按错：立刻红（并计 miss）
+            if (!emptyPressCountsAsMiss) return;
             next.ForceMiss();
         }
     }
@@ -184,27 +253,44 @@ public class RhythmConductor : MonoBehaviour
         Debug.Log("GAME OVER");
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // 编辑器里停止运行
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit(); // 打包后退出程序
+        Application.Quit();
 #endif
     }
 
-
-    // -------- build --------
-    List<NoteEvent> BuildNotes((double t, int lane)[] chart)
+    // ---- build (no out/ref; avoid lambda capturing out params) ----
+    void BuildNotesAndSlots()
     {
-        var list = new List<NoteEvent>(chart.Length);
-        foreach (var item in chart)
+        // 先建临时 list
+        var tmpNotes = new List<NoteEvent>(CHART.Length);
+        var tmpSlots = new List<int>(CHART.Length);
+
+        for (int i = 0; i < CHART.Length; i++)
         {
-            list.Add(new NoteEvent
+            var row = CHART[i];
+            tmpNotes.Add(new NoteEvent
             {
-                time = item.t,
-                lane = Mathf.Clamp(item.lane, 0, 5)
+                time = row.t,
+                lane = Mathf.Clamp(row.lane, 0, 5)
             });
+            tmpSlots.Add(Mathf.Clamp(row.slot, -1, 1));
         }
 
-        list.Sort((a, b) => a.time.CompareTo(b.time));
-        return list;
+        // 排序索引（不在 lambda 里引用 out/ref）
+        var idx = new List<int>(tmpNotes.Count);
+        for (int i = 0; i < tmpNotes.Count; i++) idx.Add(i);
+
+        idx.Sort((a, b) => tmpNotes[a].time.CompareTo(tmpNotes[b].time));
+
+        notes.Clear();
+        slots.Clear();
+
+        for (int k = 0; k < idx.Count; k++)
+        {
+            int i = idx[k];
+            notes.Add(tmpNotes[i]);
+            slots.Add(tmpSlots[i]);
+        }
     }
 }
