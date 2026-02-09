@@ -98,10 +98,10 @@ public class DoorBlock : MonoBehaviour
         while (isReadyToTrigger && isPlayerInTrigger)
         {
             SetIndicatorColor(Color.yellow);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.15f);
 
             SetIndicatorColor(Color.white);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.15f);
         }
     }
 
