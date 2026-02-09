@@ -24,7 +24,7 @@ public partial class DialogueNodeEditor : Node
     private DropdownField contentModeDropdown;  // 模式选择下拉框
     private VisualElement dialogueInputContainer;  // 输入区域容器
 
-    private bool useContentId = false;  // 是否使用ID模式（默认false=Direct Input）
+    private bool useContentId = true;  // 是否使用ID模式（默认true=Use ID）
     private string contentId = "";  // 内容ID（Use ID模式时使用）
     private VisualElement eventsContainer;
     private Button addEventButton;
