@@ -43,42 +43,61 @@ public class RhythmConductor : MonoBehaviour
 
     static readonly ChartRow[] CHART = new[]
     {
-        // 中
-        new ChartRow(1.857, 0, 0),
-        new ChartRow(2.194, 1, 0),
-        new ChartRow(2.523, 2, 0),
-        new ChartRow(2.860, 3, 0),
-        new ChartRow(3.214, 4, 0),
-        new ChartRow(3.542, 5, 0),
+    // 中
+    new ChartRow(1.857, 0, 0),
+    new ChartRow(2.194, 1, 0),
+    new ChartRow(2.523, 2, 0),
+    new ChartRow(2.860, 3, 0),
+    new ChartRow(3.214, 4, 0),
+    new ChartRow(3.542, 5, 0),
 
-        // 左
-        new ChartRow(4.405, 2, -1),
-        new ChartRow(4.762, 3, -1),
+    // 左
+    new ChartRow(4.405, 2, -1),
+    new ChartRow(4.762, 3, -1),
 
-        // 右
-        new ChartRow(5.654, 3, +1),
+    // 右
+    new ChartRow(5.654, 3, +1),
 
-        // 左
-        new ChartRow(7.002, 2, -1),
+    // 左
+    new ChartRow(7.002, 2, -1),
 
-        // 右
-        new ChartRow(8.252, 3, +1),
+    // 右
+    new ChartRow(8.252, 3, +1),
 
-        // 左
-        new ChartRow(9.567, 2, -1),
+    // 左
+    new ChartRow(9.567, 2, -1),
 
-        // 右（横向扫过去）
-        new ChartRow(10.520, 2, +1),
-        new ChartRow(11.145, 3, +1),
-        new ChartRow(11.835, 4, +1),
-        new ChartRow(12.520, 5, +1),
+    // 右（横向扫过去：2,3,4,5）
+    new ChartRow(10.520, 2, +1),
+    new ChartRow(11.145, 3, +1),
+    new ChartRow(11.835, 4, +1),
+    new ChartRow(12.520, 5, +1),
 
-        // 左（横向扫过去，5个）
-        new ChartRow(13.084, 1, -1),
-        new ChartRow(13.775, 2, -1),
-        new ChartRow(14.410, 3, -1),
-        new ChartRow(15.049, 4, -1),
-        new ChartRow(15.700, 5, -1),
+    // 中（横向扫过去：1,2,3,4,5）
+    new ChartRow(13.084, 1, 0),
+    new ChartRow(13.775, 2, 0),
+    new ChartRow(14.410, 3, 0),
+    new ChartRow(15.049, 4, 0),
+    new ChartRow(15.700, 5, 0),
+
+    // 中（横向扫过去：0,1,2,3,4）
+    new ChartRow(16.425, 0, 0),
+    new ChartRow(16.767, 1, 0),
+    new ChartRow(17.108, 2, 0),
+    new ChartRow(17.467, 3, 0),
+    new ChartRow(17.783, 4, 0),
+
+    // 左（2个）
+    new ChartRow(18.923, 2, -1),
+    new ChartRow(19.572, 3, -1),
+
+    // 右（3个）
+    new ChartRow(21.067, 2, +1),
+    new ChartRow(21.375, 3, +1),
+    new ChartRow(21.682, 4, +1),
+
+    // 中（1个）
+    new ChartRow(22.519, 0, 0),
     };
 
     // 复用项目里已有的 NoteEvent（不要在这里定义 NoteEvent）
