@@ -7,13 +7,14 @@ public class DoorBlockController : MonoBehaviour
 
     public GameObject myDoor;
     public GameObject myIndicator;
-
+    public GameObject myDoorClose;
 
     private bool isTrigger = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        myDoorClose.SetActive(true);
         myDoor.SetActive(false);
         myIndicator.SetActive(false);
     }
@@ -30,6 +31,7 @@ public class DoorBlockController : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                myDoorClose.SetActive(false);
                 myDoor.SetActive(true);
                 myIndicator.SetActive(true);
                 isTrigger = true;

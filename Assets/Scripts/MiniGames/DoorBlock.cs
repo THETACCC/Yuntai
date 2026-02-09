@@ -8,7 +8,7 @@ public class DoorBlock : MonoBehaviour
     [Header("Trigger Settings")]
     public bool isReadyToTrigger = true;
     public GameObject myDoorBlock;
-
+    public GameObject myDoorClose;
     [Header("Interaction Settings")]
     public int requiredPresses = 6;   // Can be changed in Inspector
     private int currentPressCount = 0;
@@ -120,7 +120,7 @@ public class DoorBlock : MonoBehaviour
 
         if (myDoorBlock)
             myDoorBlock.SetActive(false);
-
+        myDoorClose.SetActive(true);
         isReadyToTrigger = false;
     }
 }
