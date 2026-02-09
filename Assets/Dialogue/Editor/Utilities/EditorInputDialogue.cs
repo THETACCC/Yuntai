@@ -7,7 +7,7 @@ using DialogueSystem;
 using System;
 
 // 简单的输入对话框辅助类
-public class EditorInputDialog : EditorWindow
+public class EditorInputDialogue : EditorWindow
 {
     private string inputText = "";
     private string dialogTitle = "";
@@ -16,7 +16,7 @@ public class EditorInputDialog : EditorWindow
 
     public static void ShowAsync(string title, string message, string defaultValue, System.Action<string> onResult)
     {
-        var window = CreateInstance<EditorInputDialog>();
+        var window = CreateInstance<EditorInputDialogue>();
         window.titleContent = new GUIContent(title);
         window.dialogTitle = title;
         window.message = message;

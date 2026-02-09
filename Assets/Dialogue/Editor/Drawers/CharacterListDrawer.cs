@@ -1095,7 +1095,7 @@ public class CharacterListDrawer
     {
         EditorApplication.delayCall += () =>
         {
-            EditorInputDialog.ShowAsync("Rename Folder", "Enter new folder name:", folder.name, (newName) =>
+            EditorInputDialogue.ShowAsync("Rename Folder", "Enter new folder name:", folder.name, (newName) =>
             {
                 if (!string.IsNullOrWhiteSpace(newName))
                 {
@@ -1110,7 +1110,7 @@ public class CharacterListDrawer
     {
         EditorApplication.delayCall += () =>
         {
-            EditorInputDialog.ShowAsync("Edit Description", "Enter folder description:", folder.description, (newDesc) =>
+            EditorInputDialogue.ShowAsync("Edit Description", "Enter folder description:", folder.description, (newDesc) =>
             {
                 if (newDesc != null)
                 {
