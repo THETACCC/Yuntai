@@ -65,6 +65,7 @@ public class DialogueController : MonoBehaviour
             Settings.instance.OnLanguageChanged += UpdateDialogue;
         }
         UIGroup.alpha = 0;
+        UIGroup.blocksRaycasts = false;
     }
 
     private void Update()
@@ -562,6 +563,7 @@ public class DialogueController : MonoBehaviour
             t => UIGroup.alpha = 1 - t,
             () => {
                 UIGroup.alpha = 0;
+                UIGroup.blocksRaycasts = false;
                 Gamemanager.instance?.EndDialogue();
                 if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
                 isDialogueActive = false;
@@ -647,7 +649,16 @@ public class DialogueController : MonoBehaviour
 
 
         // show UI
-        StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
+        StartCoroutine(Tweening.StartTweening(
+            TweeningCurve.Linear, 
+            1f, 
+            t => UIGroup.alpha = t,
+            () =>
+            {
+                UIGroup.blocksRaycasts = true;
+            }
+            )
+        );
         UpdateDialogue(DialogueDisplaySettings.instance.currentLanguage);
     }
 
