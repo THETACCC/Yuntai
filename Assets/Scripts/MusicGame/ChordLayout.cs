@@ -37,11 +37,21 @@ public class ChordLayout : MonoBehaviour
         int leftSize = count / 2;          // 4->2 5->2 6->3
         int rightSize = count - leftSize;  // 4->2 5->3 6->3
 
-        float leftCenterX = -groupGap * 0.5f;
-        float rightCenterX = groupGap * 0.5f;
+        float leftWidth = (leftSize - 1) * innerGap;   // 左组占用宽度
+        float rightWidth = (rightSize - 1) * innerGap; // 右组占用宽度
+
+        // 整体包围盒宽度 = 左组宽 + 组间距 + 右组宽
+        float totalWidth = leftWidth + groupGap + rightWidth;
+
+        // 让整体包围盒中心对齐 0（先居中）
+        // 左组中心 = 包围盒左边缘 + leftWidth/2
+        float leftCenterX = -totalWidth * 0.5f + leftWidth * 0.5f;
+        // 右组中心 = 左组中心 + (leftWidth/2 + groupGap + rightWidth/2)
+        float rightCenterX = leftCenterX + leftWidth * 0.5f + groupGap + rightWidth * 0.5f;
 
         FillCluster(positions, 0, leftSize, leftCenterX, innerGap);
         FillCluster(positions, leftSize, rightSize, rightCenterX, innerGap);
+
     }
 
     void FillCluster(Vector2[] positions, int startIndex, int size, float centerX, float innerGap)
