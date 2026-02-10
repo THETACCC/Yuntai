@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "732006fb-7d19-4ecb-9575-c6aca27ae3ff",
+            "index": 0,
+            "characterId": "9ea5ff19-c72a-4ce6-9c6b-dfb86c599402",
+            "useContentId": true,
+            "contentId": "ch2_1050",
+            "content": {
+                "en": "",
+                "zh": "你是家主大人的朋友？真是有失远迎，但......",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b7b987fd-f7fd-411c-a863-33f8f7b73728",
+            "index": 1,
+            "characterId": "f469ee47-53a3-4da4-b089-6a4e306e38cd",
+            "useContentId": true,
+            "contentId": "ch2_1051",
+            "content": {
+                "en": "",
+                "zh": "抱歉！大会很快就要开始了，还差最后的准备。",
+                "ja": ""
+            },
+            "positionX": 440.6666564941406,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fb77bd09-b758-46b3-8af5-6bc5149caac9",
+            "index": 2,
+            "characterId": "f469ee47-53a3-4da4-b089-6a4e306e38cd",
+            "useContentId": true,
+            "contentId": "ch2_1052",
+            "content": {
+                "en": "",
+                "zh": "别多话了，快点把清单拿出来！",
+                "ja": ""
+            },
+            "positionX": 774.0,
+            "positionY": 108.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8db3e6f0-cd87-4d5f-b9de-2872a53bbf52",
+            "index": 3,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_1053",
+            "content": {
+                "en": "",
+                "zh": "（他们工作似乎很忙，还是先别打扰了。）",
+                "ja": ""
+            },
+            "positionX": 1112.0,
+            "positionY": 114.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "732006fb-7d19-4ecb-9575-c6aca27ae3ff",
+            "inputNodeId": "b7b987fd-f7fd-411c-a863-33f8f7b73728",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b7b987fd-f7fd-411c-a863-33f8f7b73728",
+            "inputNodeId": "fb77bd09-b758-46b3-8af5-6bc5149caac9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fb77bd09-b758-46b3-8af5-6bc5149caac9",
+            "inputNodeId": "8db3e6f0-cd87-4d5f-b9de-2872a53bbf52",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

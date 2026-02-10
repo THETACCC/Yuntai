@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "b8c7ed1f-1c8d-49a8-8240-c33af455f4fe",
+            "index": 0,
+            "characterId": "e3614b9a-4789-4305-ac57-4a6bac607584",
+            "useContentId": true,
+            "contentId": "ch2_1047",
+            "content": {
+                "en": "",
+                "zh": "抱歉啊以真。我现在恐怕走不开了。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "94590825-04c4-4547-b374-082be6892bf2",
+            "index": 1,
+            "characterId": "5c2350da-c9c0-447f-8406-60bff21a53f5",
+            "useContentId": true,
+            "contentId": "ch2_1048",
+            "content": {
+                "en": "",
+                "zh": "你可以先去拿我给你留的礼物。",
+                "ja": ""
+            },
+            "positionX": 440.6666564941406,
+            "positionY": 105.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2fe0830e-6b5d-4151-8ba3-41fd4626267d",
+            "index": 2,
+            "characterId": "7324b771-f6f5-4d90-b605-0ae0697e44d9",
+            "useContentId": true,
+            "contentId": "ch2_1049",
+            "content": {
+                "en": "",
+                "zh": "沿着左侧街道走可以到公寓楼，我家在301。",
+                "ja": ""
+            },
+            "positionX": 777.3333740234375,
+            "positionY": 106.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "b8c7ed1f-1c8d-49a8-8240-c33af455f4fe",
+            "inputNodeId": "94590825-04c4-4547-b374-082be6892bf2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "94590825-04c4-4547-b374-082be6892bf2",
+            "inputNodeId": "2fe0830e-6b5d-4151-8ba3-41fd4626267d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "177044fb-f58b-4836-9b83-1700dda3af67",
+            "index": 0,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1007",
+            "content": {
+                "en": "",
+                "zh": "等等......小姑娘，做什么的？",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f1ecc0a4-eca4-4412-b21d-be7bb0e95f7d",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1008",
+            "content": {
+                "en": "",
+                "zh": "您好，随便转转。",
+                "ja": ""
+            },
+            "positionX": 476.0,
+            "positionY": 105.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "40a4407d-6605-4e73-bac1-3bd58adf46d8",
+            "index": 2,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1009",
+            "content": {
+                "en": "",
+                "zh": "唉，这破楼有什么好转的。赶紧去大会里玩吧。",
+                "ja": ""
+            },
+            "positionX": 862.6666870117188,
+            "positionY": 110.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1f1a8b82-35a1-41c1-a592-a61a5767bf6f",
+            "index": 3,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1010",
+            "content": {
+                "en": "",
+                "zh": "注意安全啊。",
+                "ja": ""
+            },
+            "positionX": 1270.6666259765625,
+            "positionY": 112.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "177044fb-f58b-4836-9b83-1700dda3af67",
+            "inputNodeId": "f1ecc0a4-eca4-4412-b21d-be7bb0e95f7d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f1ecc0a4-eca4-4412-b21d-be7bb0e95f7d",
+            "inputNodeId": "40a4407d-6605-4e73-bac1-3bd58adf46d8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "40a4407d-6605-4e73-bac1-3bd58adf46d8",
+            "inputNodeId": "1f1a8b82-35a1-41c1-a592-a61a5767bf6f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

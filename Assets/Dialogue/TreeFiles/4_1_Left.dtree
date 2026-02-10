@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "990f681c-5ee6-4a83-a406-de7714a25edb",
+            "index": 0,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_1005",
+            "content": {
+                "en": "",
+                "zh": "大会会场不在这边。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5d63d028-1adb-4427-baed-44471fce9599",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1006",
+            "content": {
+                "en": "",
+                "zh": "向右走吧。",
+                "ja": ""
+            },
+            "positionX": 471.33331298828127,
+            "positionY": 102.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "990f681c-5ee6-4a83-a406-de7714a25edb",
+            "inputNodeId": "5d63d028-1adb-4427-baed-44471fce9599",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
