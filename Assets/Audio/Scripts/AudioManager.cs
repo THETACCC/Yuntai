@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
@@ -12,6 +13,9 @@ public class AudioManager : MonoBehaviour
 
     [Header("Mixer")]
     public AudioMixer mainMixer;
+
+    private static Dictionary<string, AudioClip> audioClipDict = new Dictionary<string, AudioClip>();
+    private static Dictionary<string, AudioSource> audioSourceDict = new Dictionary<string, AudioSource>();
 
     void Awake()
     {
@@ -32,6 +36,88 @@ public class AudioManager : MonoBehaviour
         AssignAllAudioSources();
     }
 
+    /// <summary>
+    /// Play a clip for one time
+    /// </summary>
+    /// <param name="clipName"></param>
+    public static void Play(string clipName)
+    {
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" +clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+        }
+        audioSource = audioSourceDict[clipName];
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+        clip = audioClipDict[clipName];
+
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    public static void Stop(string clipName)
+    {
+        if (CheckClipExistence(clipName))
+        {
+            AudioSource audioSource = audioSourceDict[clipName];
+            audioSource.Stop();
+        }
+    }
+
+    public static void SetVolume(string clipName, float volume)
+    {
+        if (CheckClipExistence(clipName))
+        {
+            AudioSource audioSource = audioSourceDict[clipName];
+            audioSource.volume = volume;
+        }
+    }
+
+    private static bool CheckClipExistence(string clipName)
+    {
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            Debug.LogError("AudioSource GameObject <Audio_" + clipName + "> cannot be found in current scene");
+            return false;
+        }
+        audioSource = audioSourceDict[clipName];
+
+        //check if clip has been loaded
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            Debug.LogError("AudioClip <" + clipName + "> has not been loaded.");
+            return false;
+        }
+
+        if (audioSource.clip.name != clipName)
+        {
+            Debug.LogError("AudioClip <" + clipName + "> cannot be found in AudioSource GameObject < Audio_" + clipName + " >");
+            return false;
+        }
+
+        return true;
+    }
+
+
+    #region OldAudioManager
     // 在场景加载后调用
     void OnEnable()
     {
@@ -111,4 +197,6 @@ public class AudioManager : MonoBehaviour
         mainMixer.SetFloat("SFXVolume", dbValue);
         //mainMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
     }
+
+    #endregion
 }
