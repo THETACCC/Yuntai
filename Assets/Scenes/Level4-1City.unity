@@ -3635,8 +3635,8 @@ Transform:
   m_GameObject: {fileID: 707402828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.8537, y: 24.4465, z: -5.76}
-  m_LocalScale: {x: 31.267477, y: 84.27861, z: 1}
+  m_LocalPosition: {x: 71.8537, y: 24.3, z: -5.76}
+  m_LocalScale: {x: 31.267477, y: 84.573586, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 877117144}
@@ -5026,7 +5026,7 @@ Transform:
   m_GameObject: {fileID: 967249799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 25.8, y: 17.6467, z: -5.89}
+  m_LocalPosition: {x: 26.4, y: 17.6467, z: -5.89}
   m_LocalScale: {x: 4.6000957, y: 1.5364001, z: 0.3046}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5626,7 +5626,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000031abee328131045e53cf9d70
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -7133,6 +7133,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1319620915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1319620917}
+  - component: {fileID: 1319620916}
+  m_Layer: 0
+  m_Name: StartDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1319620916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319620915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: 9337614f74adb8d4aaf89f3d7370158c, type: 3}
+  postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+  isInstantTrigger: 0
+  usePostDialogue: 0
+  delay: 0
+--- !u!4 &1319620917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319620915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.70767, y: 0.8990648, z: 0.017114857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323889654
 GameObject:
   m_ObjectHideFlags: 0
@@ -12511,6 +12563,7 @@ SceneRoots:
   - {fileID: 1803819324}
   - {fileID: 1279740581}
   - {fileID: 358486921}
+  - {fileID: 1319620917}
   - {fileID: 515232536}
   - {fileID: 244652514}
   - {fileID: 1736771212}
