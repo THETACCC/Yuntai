@@ -7657,9 +7657,9 @@ GameObject:
   m_Component:
   - component: {fileID: 643970230}
   - component: {fileID: 643970229}
+  - component: {fileID: 643970231}
   - component: {fileID: 643970228}
   - component: {fileID: 643970227}
-  - component: {fileID: 643970226}
   m_Layer: 0
   m_Name: "\u5DE8\u54CD"
   m_TagString: Untagged
@@ -7667,33 +7667,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &643970226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643970225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94b9a4356544927478189b062cdc8f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vcam: {fileID: 0}
-  noiseProfile: {fileID: 0}
-  defaultAmplitude: 2
-  defaultFrequency: 6
-  defaultDuration: 0.25
-  offsetScreenScale: 0.02
-  shakeOnPlayerTrigger: 1
-  playerTag: Player
-  physicsMode: 0
-  duplicateTriggerWindow: 0.05
-  ensureFollowPlayerDuringShake: 1
-  freezePlayerDuringShake: 0
-  playerBehavioursToDisable: []
-  playerTransformOverride: {fileID: 0}
-  verboseLog: 0
 --- !u!82 &643970227
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7872,6 +7845,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3785236060891885138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643970231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643970225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dae20085009bf745b5709edab867254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 0}
+  noiseProfile: {fileID: 0}
+  defaultAmplitude: 2
+  defaultFrequency: 0
+  defaultDuration: 0.2
+  offsetScreenScale: 0.02
+  shakeOnPlayerTrigger: 1
+  playerTag: Player
+  physicsMode: 0
+  duplicateTriggerWindow: 0.05
+  ensureFollowPlayerDuringShake: 1
+  freezePlayerDuringShake: 0
+  playerBehavioursToDisable: []
+  playerTransformOverride: {fileID: 0}
+  verboseLog: 0
 --- !u!1 &655554448
 GameObject:
   m_ObjectHideFlags: 0
@@ -8295,6 +8295,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &674985356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674985358}
+  - component: {fileID: 674985357}
+  m_Layer: 0
+  m_Name: CameraShakeManager
+  m_TagString: CameraShake
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674985357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674985356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b9a4356544927478189b062cdc8f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 0}
+  noiseProfile: {fileID: 0}
+  defaultAmplitude: 1
+  defaultFrequency: 0
+  defaultDuration: 0.15
+  offsetScreenScale: 0.02
+  shakeOnPlayerTrigger: 0
+  playerTag: Player
+  physicsMode: 0
+  duplicateTriggerWindow: 0.05
+  ensureFollowPlayerDuringShake: 1
+  freezePlayerDuringShake: 0
+  playerBehavioursToDisable: []
+  playerTransformOverride: {fileID: 0}
+  verboseLog: 0
+--- !u!4 &674985358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674985356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.164442, y: 2.870875, z: -0.5927164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678416490
 GameObject:
   m_ObjectHideFlags: 0
@@ -11628,8 +11687,10 @@ MonoBehaviour:
   isReadyToTrigger: 1
   myDoorBlock: {fileID: 478190844}
   myDoorClose: {fileID: 0}
+  myDoorShake: {fileID: 0}
   requiredPresses: 6
   InteractIndicator: {fileID: 830706782}
+  myCameraShake: {fileID: 0}
 --- !u!212 &897888678
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14308,8 +14369,10 @@ MonoBehaviour:
   isReadyToTrigger: 1
   myDoorBlock: {fileID: 1368906988}
   myDoorClose: {fileID: 0}
+  myDoorShake: {fileID: 0}
   requiredPresses: 6
   InteractIndicator: {fileID: 1812081615}
+  myCameraShake: {fileID: 0}
 --- !u!212 &1091462871
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27684,8 +27747,10 @@ MonoBehaviour:
   isReadyToTrigger: 1
   myDoorBlock: {fileID: 3677153835973237865}
   myDoorClose: {fileID: 3172045638347274810}
+  myDoorShake: {fileID: 643970225}
   requiredPresses: 6
   InteractIndicator: {fileID: 1578666356584325770}
+  myCameraShake: {fileID: 0}
 --- !u!4 &7301739757400263845
 Transform:
   m_ObjectHideFlags: 0
@@ -27746,3 +27811,4 @@ SceneRoots:
   - {fileID: 1223564272}
   - {fileID: 539077598}
   - {fileID: 1130435822}
+  - {fileID: 674985358}

@@ -9,6 +9,9 @@ public class DoorBlock : MonoBehaviour
     public bool isReadyToTrigger = true;
     public GameObject myDoorBlock;
     public GameObject myDoorClose;
+
+    public GameObject myDoorShake;
+
     [Header("Interaction Settings")]
     public int requiredPresses = 6;   // Can be changed in Inspector
     private int currentPressCount = 0;
@@ -22,6 +25,19 @@ public class DoorBlock : MonoBehaviour
     // Cached renderers (supports both UI and Sprite)
     private Image indicatorImage;
     private SpriteRenderer indicatorSprite;
+
+
+    //Sound and Screenshake
+    public CameraShake myCameraShake;
+
+    public void Start()
+    {
+        GameObject myCameraShakeOBJ = GameObject.FindGameObjectWithTag("CameraShake");
+        if(myCameraShakeOBJ != null )
+        {
+            myCameraShake = myCameraShakeOBJ.GetComponent<CameraShake>();   
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -59,6 +75,9 @@ public class DoorBlock : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentPressCount++;
+
+            myCameraShake.Shake();
+
 
             if (currentPressCount >= requiredPresses)
             {
@@ -120,6 +139,8 @@ public class DoorBlock : MonoBehaviour
 
         if (myDoorBlock)
             myDoorBlock.SetActive(false);
+
+        myDoorShake.SetActive(false);   
         myDoorClose.SetActive(true);
         isReadyToTrigger = false;
     }
