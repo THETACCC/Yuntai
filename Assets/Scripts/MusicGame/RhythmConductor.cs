@@ -10,6 +10,9 @@ public class RhythmConductor : MonoBehaviour
     public RectTransform noteParent;
     public NoteView notePrefab;
 
+    [Header("Lane Anchors (size must be 6)")]
+    public RectTransform[] laneAnchors; // index 0..5
+
     [Header("Timing")]
     public double preSpawnTime = 1.2;
     public double hitWindow = 0.18;
@@ -18,107 +21,73 @@ public class RhythmConductor : MonoBehaviour
     public int maxMiss = 10;
     public bool emptyPressCountsAsMiss = true;
 
-    [Header("Lane Layout (6 lanes in one row)")]
-    public float y = 0f;
-    public float laneGap = 160f;
-
     [Header("Timing Calibration")]
     public double globalOffsetSeconds = 0.0;
 
-    [Header("Grouping (seconds)")]
-    public double groupTolerance = 0.08;
-
-    [Header("Manual offset (simple + safe)")]
-    public float desiredShiftX = 420f;  // slot=-1 左移，slot=+1 右移（建议 160~280）
-    public float maxAbsShiftX = 520f;   // 偏移最大绝对值：防止跑太远出屏（建议 220~320）
-
-    // ===== Chart: (timeSeconds, lane 0..5, slot -1/0/+1) =====
-    struct ChartRow
+    static readonly NoteEvent[] CHART = new[]
     {
-        public double t;
-        public int lane;
-        public int slot;
-        public ChartRow(double t, int lane, int slot) { this.t = t; this.lane = lane; this.slot = slot; }
-    }
+        new NoteEvent { time = 1.857, lane = 0 },
+        new NoteEvent { time = 2.194, lane = 1 },
+        new NoteEvent { time = 2.523, lane = 2 },
+        new NoteEvent { time = 2.860, lane = 3 },
+        new NoteEvent { time = 3.214, lane = 4 },
+        new NoteEvent { time = 3.542, lane = 5 },
 
-    static readonly ChartRow[] CHART = new[]
-    {
-    // 中
-    new ChartRow(1.857, 0, 0),
-    new ChartRow(2.194, 1, 0),
-    new ChartRow(2.523, 2, 0),
-    new ChartRow(2.860, 3, 0),
-    new ChartRow(3.214, 4, 0),
-    new ChartRow(3.542, 5, 0),
+        new NoteEvent { time = 4.405, lane = 1 },
+        new NoteEvent { time = 4.762, lane = 2 },
 
-    // 左
-    new ChartRow(4.405, 2, -1),
-    new ChartRow(4.762, 3, -1),
+        new NoteEvent { time = 5.654, lane = 4 },
 
-    // 右
-    new ChartRow(5.654, 3, +1),
+        new NoteEvent { time = 7.002, lane = 1 },
 
-    // 左
-    new ChartRow(7.002, 2, -1),
+        new NoteEvent { time = 8.252, lane = 4 },
 
-    // 右
-    new ChartRow(8.252, 3, +1),
+        new NoteEvent { time = 9.567, lane = 1 },
 
-    // 左
-    new ChartRow(9.567, 2, -1),
+        new NoteEvent { time = 10.520, lane = 2 },
+        new NoteEvent { time = 11.145, lane = 3 },
+        new NoteEvent { time = 11.835, lane = 4 },
+        new NoteEvent { time = 12.520, lane = 5 },
 
-    // 右（横向扫过去：2,3,4,5）
-    new ChartRow(10.520, 2, +1),
-    new ChartRow(11.145, 3, +1),
-    new ChartRow(11.835, 4, +1),
-    new ChartRow(12.520, 5, +1),
+        new NoteEvent { time = 13.084, lane = 0 },
+        new NoteEvent { time = 13.775, lane = 1 },
+        new NoteEvent { time = 14.410, lane = 2 },
+        new NoteEvent { time = 15.049, lane = 3 },
+        new NoteEvent { time = 15.700, lane = 4 },
 
-    // 中（横向扫过去：1,2,3,4,5）
-    new ChartRow(13.084, 1, 0),
-    new ChartRow(13.775, 2, 0),
-    new ChartRow(14.410, 3, 0),
-    new ChartRow(15.049, 4, 0),
-    new ChartRow(15.700, 5, 0),
+        new NoteEvent { time = 16.425, lane = 1 },
+        new NoteEvent { time = 16.767, lane = 2 },
+        new NoteEvent { time = 17.108, lane = 3 },
+        new NoteEvent { time = 17.467, lane = 4 },
+        new NoteEvent { time = 17.783, lane = 5 },
 
-    // 中（横向扫过去：0,1,2,3,4）
-    new ChartRow(16.425, 0, 0),
-    new ChartRow(16.767, 1, 0),
-    new ChartRow(17.108, 2, 0),
-    new ChartRow(17.467, 3, 0),
-    new ChartRow(17.783, 4, 0),
+        new NoteEvent { time = 18.923, lane = 1 },
+        new NoteEvent { time = 19.572, lane = 2 },
 
-    // 左（2个）
-    new ChartRow(18.923, 2, -1),
-    new ChartRow(19.572, 3, -1),
+        new NoteEvent { time = 21.067, lane = 3 },
+        new NoteEvent { time = 21.375, lane = 4 },
+        new NoteEvent { time = 21.682, lane = 5 },
 
-    // 右（3个）
-    new ChartRow(21.067, 2, +1),
-    new ChartRow(21.375, 3, +1),
-    new ChartRow(21.682, 4, +1),
-
-    // 中（1个）
-    new ChartRow(22.519, 0, 0),
+        new NoteEvent { time = 22.519, lane = 1 },
     };
 
-    // 复用项目里已有的 NoteEvent（不要在这里定义 NoteEvent）
-    List<NoteEvent> notes = new();
-    List<int> slots = new();
+    readonly List<NoteEvent> notes = new();
+    readonly List<NoteView> active = new();
 
     int spawnIndex;
     int missCount;
     bool isPlaying;
     double songDspStart;
 
-    readonly List<NoteView> active = new();
-
     void Awake()
     {
-        BuildNotesAndSlots();
-        if (notes.Count > 0)
-            Debug.Log($"[Chart] notes={notes.Count}, first={notes[0].time:F3}s, last={notes[^1].time:F3}s");
+        BuildNotes();
     }
 
-    void Start() => BeginGame();
+    void Start()
+    {
+        BeginGame();
+    }
 
     void BeginGame()
     {
@@ -130,22 +99,25 @@ public class RhythmConductor : MonoBehaviour
             if (active[i] != null) Destroy(active[i].gameObject);
         active.Clear();
 
-        AudioListener.pause = false;
-        AudioListener.volume = 1f;
+        if (music == null)
+        {
+            Debug.LogError("[RhythmConductor] music is NULL.");
+            isPlaying = false;
+            return;
+        }
 
-        if (music == null) { Debug.LogError("[RhythmConductor] music AudioSource is NULL."); isPlaying = false; return; }
-
-        music.mute = false;
-        music.volume = 1f;
-        music.spatialBlend = 0f;
+        if (laneAnchors == null || laneAnchors.Length != 6)
+        {
+            Debug.LogError("[RhythmConductor] laneAnchors must have 6 elements (0..5).");
+            isPlaying = false;
+            return;
+        }
 
         music.Stop();
         music.time = 0f;
 
         songDspStart = AudioSettings.dspTime + 0.05;
         music.PlayScheduled(songDspStart);
-
-        Debug.Log($"[RhythmConductor] Scheduled music dsp={songDspStart:F3}, now={AudioSettings.dspTime:F3}, clip={(music.clip ? music.clip.name : "NULL")}");
     }
 
     void Update()
@@ -156,23 +128,15 @@ public class RhythmConductor : MonoBehaviour
 
         while (spawnIndex < notes.Count)
         {
-            int start = spawnIndex;
-            double t0 = notes[start].time;
-            int slot0 = slots[start];
+            var e = notes[spawnIndex];
 
-            int end = start + 1;
-            while (end < notes.Count &&
-                   (notes[end].time - t0) <= groupTolerance &&
-                   slots[end] == slot0)
-                end++;
+            double noteTime = songDspStart + (e.time + globalOffsetSeconds);
+            double spawnTime = noteTime - preSpawnTime;
 
-            double noteTime0 = songDspStart + (notes[start].time + globalOffsetSeconds);
-            double spawnTime0 = noteTime0 - preSpawnTime;
-
-            if (now >= spawnTime0)
+            if (now >= spawnTime)
             {
-                SpawnCluster(start, end, slot0);
-                spawnIndex = end;
+                SpawnOne(e, noteTime, spawnTime);
+                spawnIndex++;
             }
             else break;
         }
@@ -183,53 +147,19 @@ public class RhythmConductor : MonoBehaviour
         active.RemoveAll(n => n == null || n.IsJudged);
     }
 
-    void SpawnCluster(int start, int end, int slot)
+    void SpawnOne(NoteEvent e, double noteTime, double spawnTime)
     {
-        float laneCenter = 2.5f;
+        int lane = Mathf.Clamp(e.lane, 0, 5);
+        var anchor = laneAnchors[lane];
+        if (anchor == null) return;
 
-        // 1) 先计算这组的 minX/maxX（基于 lane）
-        float minX = float.MaxValue;
-        float maxX = float.MinValue;
+        var n = Instantiate(notePrefab, noteParent);
+        n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
 
-        for (int i = start; i < end; i++)
-        {
-            float baseX = (notes[i].lane - laneCenter) * laneGap;
-            minX = Mathf.Min(minX, baseX);
-            maxX = Mathf.Max(maxX, baseX);
-        }
+        n.SetAnchoredPosition(laneAnchors[lane].anchoredPosition);
 
-        int count = end - start;
-
-        // 2) 只对“多点组”做 recenter；单点不 recenter（否则 lane 信息会被抹掉）
-        float recenterOffset = 0f;
-        if (count >= 2)
-        {
-            float clusterCenterX = (minX + maxX) * 0.5f;
-            recenterOffset = -clusterCenterX;
-        }
-
-        // 3) 左右 slot 偏移（对称）
-        float sideOffset = slot * desiredShiftX;
-        sideOffset = Mathf.Clamp(sideOffset, -maxAbsShiftX, maxAbsShiftX);
-
-        float finalOffsetX = recenterOffset + sideOffset;
-
-        // 4) 生成
-        for (int i = start; i < end; i++)
-        {
-            double noteTime = songDspStart + (notes[i].time + globalOffsetSeconds);
-            double spawnTime = noteTime - preSpawnTime;
-
-            var n = Instantiate(notePrefab, noteParent);
-            n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
-
-            float baseX = (notes[i].lane - laneCenter) * laneGap;
-            float x = baseX + finalOffsetX;
-
-            n.SetAnchoredPosition(new Vector2(x, y));
-            n.OnMiss = HandleMiss;
-            active.Add(n);
-        }
+        n.OnMiss = HandleMiss;
+        active.Add(n);
     }
 
     void TryHit(double now)
@@ -241,7 +171,11 @@ public class RhythmConductor : MonoBehaviour
         {
             var n = active[i];
             if (n == null || n.IsJudged) continue;
-            if (n.NoteTime < nextTime) { nextTime = n.NoteTime; next = n; }
+            if (n.NoteTime < nextTime)
+            {
+                nextTime = n.NoteTime;
+                next = n;
+            }
         }
 
         if (next == null) return;
@@ -277,29 +211,10 @@ public class RhythmConductor : MonoBehaviour
 #endif
     }
 
-    void BuildNotesAndSlots()
+    void BuildNotes()
     {
-        var tmpNotes = new List<NoteEvent>(CHART.Length);
-        var tmpSlots = new List<int>(CHART.Length);
-
-        for (int i = 0; i < CHART.Length; i++)
-        {
-            var row = CHART[i];
-            tmpNotes.Add(new NoteEvent { time = row.t, lane = Mathf.Clamp(row.lane, 0, 5) });
-            tmpSlots.Add(Mathf.Clamp(row.slot, -1, 1));
-        }
-
-        var idx = new List<int>(tmpNotes.Count);
-        for (int i = 0; i < tmpNotes.Count; i++) idx.Add(i);
-        idx.Sort((a, b) => tmpNotes[a].time.CompareTo(tmpNotes[b].time));
-
         notes.Clear();
-        slots.Clear();
-        for (int k = 0; k < idx.Count; k++)
-        {
-            int i = idx[k];
-            notes.Add(tmpNotes[i]);
-            slots.Add(tmpSlots[i]);
-        }
+        notes.AddRange(CHART);
+        notes.Sort((a, b) => a.time.CompareTo(b.time));
     }
 }

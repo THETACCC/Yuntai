@@ -15,14 +15,14 @@ public class NoteView : MonoBehaviour
     [Header("Auto-added if missing")]
     [SerializeField] private CanvasGroup canvasGroup;
 
-    [Header("Scales")]
-    [SerializeField] private float baseTargetScale = 1.48f;
-    [SerializeField] private float startRingScale = 2.56f;
+    [Header("Scales (multipliers)")]
+    [SerializeField] private float baseTargetScale = 1.0f; // 建议先从 1 开始
+    [SerializeField] private float startRingScale = 1.0f;  // 建议先从 1 开始，再调大一点比如 1.3
 
     [Header("Timing")]
-    [SerializeField] private double holdAfterNoteTime = 0.10;     // NoteTime 到达后停留
-    [SerializeField] private double fadeDuration = 0.20;          // 淡出时长
-    [SerializeField] private double feedbackHoldSeconds = 0.25;   // ★ 变红/绿后最少显示多久（保证看得见）
+    [SerializeField] private double holdAfterNoteTime = 0.10;
+    [SerializeField] private double fadeDuration = 0.20;
+    [SerializeField] private double feedbackHoldSeconds = 0.25;
 
     public double NoteTime { get; private set; }
     public bool IsJudged { get; private set; }
@@ -35,9 +35,12 @@ public class NoteView : MonoBehaviour
     private bool pressedInWindow;
     private bool resolved;
 
-    // 生命周期控制
-    private double despawnTime;        // 最终销毁时间
-    private double resolvedTimeDsp;    // 变红/绿那一刻
+    private double despawnTime;
+    private double resolvedTimeDsp;
+
+    // ✅ prefab 初始 scale（关键）
+    private Vector3 targetBaseScale;
+    private Vector3 ringBaseScale;
 
     void Awake()
     {
@@ -49,6 +52,9 @@ public class NoteView : MonoBehaviour
 
         if (greenFeedback) greenFeedback.raycastTarget = false;
         if (redFeedback) redFeedback.raycastTarget = false;
+
+        if (targetCircle) targetBaseScale = targetCircle.localScale;
+        if (shrinkingRing) ringBaseScale = shrinkingRing.localScale;
     }
 
     public void Init(double noteTime, double spawnTime, double preSpawnTime, double hitWindow)
@@ -67,10 +73,10 @@ public class NoteView : MonoBehaviour
         canvasGroup.alpha = 1f;
         HideFeedback();
 
-        if (targetCircle) targetCircle.localScale = Vector3.one * baseTargetScale;
-        if (shrinkingRing) shrinkingRing.localScale = Vector3.one * startRingScale;
+        // ✅ 用“初始 scale × 倍率”，不覆盖 prefab 的基准大小
+        if (targetCircle) targetCircle.localScale = targetBaseScale * baseTargetScale;
+        if (shrinkingRing) shrinkingRing.localScale = ringBaseScale * startRingScale;
 
-        // 先按“正常固定生命周期”算一个初始销毁时间（后面 Resolve 后会再延长保证反馈可见）
         despawnTime = NoteTime + holdAfterNoteTime + fadeDuration;
     }
 
@@ -101,32 +107,30 @@ public class NoteView : MonoBehaviour
     {
         double now = AudioSettings.dspTime;
 
-        // shrink
         if (shrinkingRing != null)
         {
-            float targetScale = baseTargetScale;
+            float targetMul = baseTargetScale;
 
             if (now < NoteTime)
             {
                 double t = (now - spawnTime) / preSpawnTime;
                 float k = Mathf.Clamp01((float)t);
-                float ringScale = Mathf.Lerp(startRingScale, targetScale, k);
-                shrinkingRing.localScale = Vector3.one * ringScale;
+                float ringMul = Mathf.Lerp(startRingScale, targetMul, k);
+
+                shrinkingRing.localScale = ringBaseScale * ringMul;  // ✅
             }
             else
             {
-                shrinkingRing.localScale = Vector3.one * targetScale;
+                shrinkingRing.localScale = ringBaseScale * targetMul; // ✅
             }
         }
 
-        // auto resolve miss after window
         if (!resolved)
         {
             if (now >= NoteTime && pressedInWindow) Resolve(true);
             else if (now > NoteTime + hitWindow) Resolve(false);
         }
 
-        // fade starts at despawnTime - fadeDuration
         double fadeStart = despawnTime - fadeDuration;
         if (now >= fadeStart)
         {
@@ -151,8 +155,6 @@ public class NoteView : MonoBehaviour
             OnMiss?.Invoke(this);
         }
 
-        // ★ 保证反馈至少显示 feedbackHoldSeconds，再开始淡出
-        // 也就是：despawnTime >= resolvedTime + feedbackHold + fadeDuration
         double minDespawn = resolvedTimeDsp + feedbackHoldSeconds + fadeDuration;
         if (despawnTime < minDespawn) despawnTime = minDespawn;
     }
