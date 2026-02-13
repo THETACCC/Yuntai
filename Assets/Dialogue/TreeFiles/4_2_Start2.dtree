@@ -1,0 +1,109 @@
+{
+    "nodes": [
+        {
+            "id": "941b1edf-8a75-4a7c-88a6-53e93c007e46",
+            "index": 0,
+            "characterId": "62ab0290-d6b7-46d4-b4dc-e22998c5ee88",
+            "useContentId": true,
+            "contentId": "ch2_1033",
+            "content": {
+                "en": "",
+                "zh": "家主！",
+                "ja": ""
+            },
+            "positionX": 5608.66650390625,
+            "positionY": 194.6666717529297,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5baa8080-1ccd-4221-b85b-83adffd4001d",
+            "index": 1,
+            "characterId": "f469ee47-53a3-4da4-b089-6a4e306e38cd",
+            "useContentId": true,
+            "contentId": "ch2_1034",
+            "content": {
+                "en": "",
+                "zh": "很抱歉打扰您，但是游行那边——",
+                "ja": ""
+            },
+            "positionX": 5952.66650390625,
+            "positionY": 195.3333282470703,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f3ed6a9c-2ac9-4e19-8fe8-4d94846b36ec",
+            "index": 2,
+            "characterId": "9ea5ff19-c72a-4ce6-9c6b-dfb86c599402",
+            "useContentId": true,
+            "contentId": "ch2_1035",
+            "content": {
+                "en": "",
+                "zh": "请您先确认一下清单吧，游行那边我们会尽快搞定的。",
+                "ja": ""
+            },
+            "positionX": 6288.66650390625,
+            "positionY": 198.6666717529297,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f345f36a-d177-43a4-8494-86d879d17dbd",
+            "index": 3,
+            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
+            "useContentId": true,
+            "contentId": "ch2_1036",
+            "content": {
+                "en": "",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 6636.66650390625,
+            "positionY": 202.66665649414063,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "95d5d1ca-ea7f-4956-bdc3-d21b1346a895",
+                    "targetObjectName": "LevelManager4_2_Festival",
+                    "targetSceneName": "Level4-2Festival",
+                    "componentTypeName": "LevelManager4_2",
+                    "methodName": "OnStart2_End_ResetCameraAndGoStart3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "941b1edf-8a75-4a7c-88a6-53e93c007e46",
+            "inputNodeId": "5baa8080-1ccd-4221-b85b-83adffd4001d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5baa8080-1ccd-4221-b85b-83adffd4001d",
+            "inputNodeId": "f3ed6a9c-2ac9-4e19-8fe8-4d94846b36ec",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f3ed6a9c-2ac9-4e19-8fe8-4d94846b36ec",
+            "inputNodeId": "f345f36a-d177-43a4-8494-86d879d17dbd",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

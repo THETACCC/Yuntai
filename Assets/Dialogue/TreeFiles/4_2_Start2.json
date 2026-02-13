@@ -1,0 +1,83 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Anxious Guy",
+        "zh": "焦急的男人",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "家主！",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Anxious Lady",
+        "zh": "焦急的女人",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "很抱歉打扰您，但是游行那边——",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Short Guy",
+        "zh": "矮个的男人",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "请您先确认一下清单吧，游行那边我们会尽快搞定的。",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Noema",
+        "zh": "沈梦之",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/沈梦之_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "95d5d1ca-ea7f-4956-bdc3-d21b1346a895",
+          "targetObjectName": "LevelManager4_2_Festival",
+          "componentTypeName": "LevelManager4_2",
+          "methodName": "OnStart2_End_ResetCameraAndGoStart3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}
