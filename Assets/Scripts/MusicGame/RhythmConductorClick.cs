@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class RhythmConductor : MonoBehaviour
+public class RhythmConductorClick : MonoBehaviour
 {
     [Header("Audio")]
     public AudioSource music;
 
     [Header("Refs (UI)")]
     public RectTransform noteParent;
-    public NoteView notePrefab;
+    public NoteViewClick notePrefab;
 
     [Header("Lane Anchors (size must be 6)")]
     public RectTransform[] laneAnchors; // index 0..5
@@ -19,7 +19,7 @@ public class RhythmConductor : MonoBehaviour
 
     [Header("Fail")]
     public int maxMiss = 10;
-    public bool emptyPressCountsAsMiss = true;
+    public bool wrongClickCountsAsMiss = true; // 点击但不在窗口内：是否算 miss
 
     [Header("Timing Calibration")]
     public double globalOffsetSeconds = 0.0;
@@ -32,47 +32,36 @@ public class RhythmConductor : MonoBehaviour
         new NoteEvent { time = 2.860, lane = 3 },
         new NoteEvent { time = 3.214, lane = 4 },
         new NoteEvent { time = 3.542, lane = 5 },
-
-        new NoteEvent { time = 4.405, lane = 1 },
-        new NoteEvent { time = 4.762, lane = 2 },
-
-        new NoteEvent { time = 5.654, lane = 4 },
-
-        new NoteEvent { time = 7.002, lane = 1 },
-
-        new NoteEvent { time = 8.252, lane = 4 },
-
-        new NoteEvent { time = 9.567, lane = 1 },
-
+        new NoteEvent { time = 4.405, lane = 2 },
+        new NoteEvent { time = 4.762, lane = 3 },
+        new NoteEvent { time = 5.654, lane = 3 },
+        new NoteEvent { time = 7.002, lane = 2 },
+        new NoteEvent { time = 8.252, lane = 3 },
+        new NoteEvent { time = 9.567, lane = 2 },
         new NoteEvent { time = 10.520, lane = 2 },
         new NoteEvent { time = 11.145, lane = 3 },
         new NoteEvent { time = 11.835, lane = 4 },
         new NoteEvent { time = 12.520, lane = 5 },
-
-        new NoteEvent { time = 13.084, lane = 0 },
-        new NoteEvent { time = 13.775, lane = 1 },
-        new NoteEvent { time = 14.410, lane = 2 },
-        new NoteEvent { time = 15.049, lane = 3 },
-        new NoteEvent { time = 15.700, lane = 4 },
-
+        new NoteEvent { time = 13.084, lane = 1 },
+        new NoteEvent { time = 13.775, lane = 2 },
+        new NoteEvent { time = 14.410, lane = 3 },
+        new NoteEvent { time = 15.049, lane = 4 },
+        new NoteEvent { time = 15.700, lane = 5 },
         new NoteEvent { time = 16.425, lane = 0 },
         new NoteEvent { time = 16.767, lane = 1 },
         new NoteEvent { time = 17.108, lane = 2 },
         new NoteEvent { time = 17.467, lane = 3 },
         new NoteEvent { time = 17.783, lane = 4 },
-
-        new NoteEvent { time = 18.923, lane = 0 },
-        new NoteEvent { time = 19.572, lane = 1 },
-
-        new NoteEvent { time = 21.067, lane = 3 },
-        new NoteEvent { time = 21.375, lane = 4 },
-        new NoteEvent { time = 21.682, lane = 5 },
-
-        new NoteEvent { time = 22.519, lane = 1 },
+        new NoteEvent { time = 18.923, lane = 2 },
+        new NoteEvent { time = 19.572, lane = 3 },
+        new NoteEvent { time = 21.067, lane = 2 },
+        new NoteEvent { time = 21.375, lane = 3 },
+        new NoteEvent { time = 21.682, lane = 4 },
+        new NoteEvent { time = 22.519, lane = 0 },
     };
 
     readonly List<NoteEvent> notes = new();
-    readonly List<NoteView> active = new();
+    readonly List<NoteViewClick> active = new();
 
     int spawnIndex;
     int missCount;
@@ -101,14 +90,14 @@ public class RhythmConductor : MonoBehaviour
 
         if (music == null)
         {
-            Debug.LogError("[RhythmConductor] music is NULL.");
+            Debug.LogError("[RhythmConductorClick] music is NULL.");
             isPlaying = false;
             return;
         }
 
         if (laneAnchors == null || laneAnchors.Length != 6)
         {
-            Debug.LogError("[RhythmConductor] laneAnchors must have 6 elements (0..5).");
+            Debug.LogError("[RhythmConductorClick] laneAnchors must have 6 elements (0..5).");
             isPlaying = false;
             return;
         }
@@ -133,6 +122,12 @@ public class RhythmConductor : MonoBehaviour
             double noteTime = songDspStart + (e.time + globalOffsetSeconds);
             double spawnTime = noteTime - preSpawnTime;
 
+            if (now > noteTime + hitWindow)
+            {
+                spawnIndex++;
+                continue;
+            }
+
             if (now >= spawnTime)
             {
                 SpawnOne(e, noteTime, spawnTime);
@@ -141,8 +136,6 @@ public class RhythmConductor : MonoBehaviour
             else break;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            TryHit(now);
 
         active.RemoveAll(n => n == null || n.IsJudged);
     }
@@ -156,41 +149,30 @@ public class RhythmConductor : MonoBehaviour
         var n = Instantiate(notePrefab, noteParent);
         n.Init(noteTime, spawnTime, preSpawnTime, hitWindow);
 
-        n.SetAnchoredPosition(laneAnchors[lane].anchoredPosition);
+        // ✅ 完全重合：用世界坐标对齐
+        ((RectTransform)n.transform).position = anchor.position;
 
         n.OnMiss = HandleMiss;
+        n.OnClicked = HandleClick;
         active.Add(n);
     }
 
-    void TryHit(double now)
+    void HandleClick(NoteViewClick n, double nowDsp)
     {
-        NoteView next = null;
-        double nextTime = double.MaxValue;
+        if (n == null || n.IsJudged) return;
 
-        for (int i = 0; i < active.Count; i++)
+        double delta = System.Math.Abs(nowDsp - n.NoteTime);
+        if (delta <= hitWindow)
         {
-            var n = active[i];
-            if (n == null || n.IsJudged) continue;
-            if (n.NoteTime < nextTime)
-            {
-                nextTime = n.NoteTime;
-                next = n;
-            }
+            n.RegisterHit(nowDsp);
         }
-
-        if (next == null) return;
-
-        double delta = System.Math.Abs(now - next.NoteTime);
-
-        if (delta <= hitWindow) next.RegisterHit(now);
         else
         {
-            if (!emptyPressCountsAsMiss) return;
-            next.ForceMiss();
+            if (wrongClickCountsAsMiss) n.ForceExpireAsMiss();
         }
     }
 
-    void HandleMiss(NoteView _)
+    void HandleMiss(NoteViewClick _)
     {
         missCount++;
         Debug.Log($"MISS {missCount}/{maxMiss}");
