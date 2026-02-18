@@ -697,15 +697,17 @@ public class CharacterListDrawer
             }
             else
             {
+                string savedCharacterId = character.id;
                 manager.SaveCharacterLibraryInternal();
                 Debug.Log($"✓ Saved character: {character.character}");
                 editingCharacterId = "";
                 tempSelectedSprites.Remove(character.id);
 
-                // 刷新打开的编辑器窗口
+                // 刷新打开的编辑器窗口，并重新生成受影响的运行时 JSON
                 EditorApplication.delayCall += () =>
                 {
                     DialogueTreeEditor.RefreshAllOpenEditors();
+                    DialogueProjectEditorWindow.OnCharacterSaved(savedCharacterId);
                 };
             }
         }

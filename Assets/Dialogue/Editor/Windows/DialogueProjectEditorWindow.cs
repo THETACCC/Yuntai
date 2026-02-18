@@ -386,7 +386,11 @@ public class DialogueProjectEditorWindow : EditorWindow
                     System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
                     File.WriteAllText(dtreePath, updatedJson, utf8WithoutBom);
 
-                    Debug.Log($"[Localization] 已更新文件: {fileName}");
+                    // 同时重新生成运行时 .json 文件
+                    string runtimeJsonPath = Path.ChangeExtension(dtreePath, ".json");
+                    SaveRuntimeJson(runtimeJsonPath, data);
+
+                    Debug.Log($"[Localization] 已同时更新 .dtree 和 .json 文件: {fileName}");
                     savedCount++;
                 }
                 else
@@ -422,5 +426,305 @@ public class DialogueProjectEditorWindow : EditorWindow
                 }
             }
         }
+    }
+
+    // ===== Character 修改后重新生成受影响的运行时 JSON =====
+
+    /// <summary>
+    /// 静态入口：Character 保存后调用，找到当前窗口实例并触发重新生成
+    /// </summary>
+    public static void OnCharacterSaved(string modifiedCharacterId)
+    {
+        var window = Resources.FindObjectsOfTypeAll<DialogueProjectEditorWindow>().FirstOrDefault();
+        if (window != null)
+        {
+            window.RegenerateAffectedRuntimeJSON(modifiedCharacterId);
+        }
+        else
+        {
+            Debug.LogWarning("[Character] DialogueProjectEditorWindow not open, skipping runtime JSON regeneration.");
+        }
+    }
+
+    private void RegenerateAffectedRuntimeJSON(string modifiedCharacterId)
+    {
+        int regeneratedCount = 0;
+        List<string> affectedFiles = new List<string>();
+
+        foreach (var kvp in folderManager.GuidToPath)
+        {
+            string dtreePath = kvp.Value;
+
+            try
+            {
+                string dtreeJson = File.ReadAllText(dtreePath);
+                DialogueTreeData treeData = JsonUtility.FromJson<DialogueTreeData>(dtreeJson);
+
+                if (treeData != null && treeData.nodes != null)
+                {
+                    bool usesCharacter = treeData.nodes.Any(node =>
+                        !string.IsNullOrEmpty(node.characterId) && node.characterId == modifiedCharacterId);
+
+                    if (usesCharacter)
+                    {
+                        string jsonPath = Path.ChangeExtension(dtreePath, ".json");
+
+                        if (File.Exists(jsonPath))
+                        {
+                            SaveRuntimeJson(jsonPath, treeData);
+                            affectedFiles.Add(Path.GetFileName(dtreePath));
+                            regeneratedCount++;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Character] Failed to check/regenerate {Path.GetFileName(dtreePath)}: {e.Message}");
+            }
+        }
+
+        if (regeneratedCount > 0)
+        {
+            AssetDatabase.Refresh();
+            Debug.Log($"[Character] Auto-regenerated {regeneratedCount} affected runtime JSON file(s)");
+
+            string fileList = string.Join("\n• ", affectedFiles);
+            EditorUtility.DisplayDialog("Character Updated",
+                $"Character saved!\n\nAuto-regenerated {regeneratedCount} file(s):\n\n• {fileList}",
+                "OK");
+        }
+    }
+
+    // ===== 运行时 JSON 序列化工具 =====
+
+    private void SaveRuntimeJson(string path, DialogueTreeData data)
+    {
+        var runtime = ConvertToRuntime(data);
+        var idxMap = new Dictionary<string, int>();
+        foreach (var n in data.nodes) idxMap[n.id] = n.index;
+
+        var sb = new System.Text.StringBuilder();
+        sb.Append("{\n  \"conversations\": [\n");
+
+        for (int i = 0; i < runtime.Count; i++)
+        {
+            var item = runtime[i];
+            sb.Append("    {\n");
+            sb.Append($"      \"index\": {item.index},\n");
+            sb.Append($"      \"name\": {SerializeLocalizedText(item.name, 3)},\n");
+            sb.Append($"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n");
+            sb.Append($"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n");
+            sb.Append($"      \"content\": {SerializeLocalizedText(item.content, 3)}");
+
+            if (item.conditionalBranches?.Count > 0)
+            {
+                sb.Append(",\n      \"conditionalBranches\": [");
+                for (int j = 0; j < item.conditionalBranches.Count; j++)
+                {
+                    var br = item.conditionalBranches[j];
+                    sb.Append($"\n        {{\"targetIndex\": {br.targetIndex}, \"priority\": {br.priority}");
+                    if (br.priority > 0 && br.conditions?.Count > 0)
+                    {
+                        sb.Append(", \"conditions\": [");
+                        for (int k = 0; k < br.conditions.Count; k++)
+                        {
+                            var c = br.conditions[k];
+                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
+                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
+                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
+                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
+                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}} ");
+                            if (k < br.conditions.Count - 1) sb.Append(",");
+                        }
+                        sb.Append($"], \"conditionLogic\": \"{br.conditionLogic}\"");
+                    }
+                    sb.Append("}");
+                    if (j < item.conditionalBranches.Count - 1) sb.Append(",");
+                }
+                sb.Append("\n      ]");
+            }
+            else
+            {
+                int next = -1;
+                if (!string.IsNullOrEmpty(item.nextNodeId) && idxMap.ContainsKey(item.nextNodeId))
+                    next = idxMap[item.nextNodeId];
+                sb.Append($",\n      \"nextIndex\": {next}");
+            }
+
+            if (item.choices?.Count > 0)
+            {
+                sb.Append(",\n      \"choices\": [");
+                for (int j = 0; j < item.choices.Count; j++)
+                {
+                    var ch = item.choices[j];
+                    int tgt = -1;
+                    if (!string.IsNullOrEmpty(ch.nextNodeId) && idxMap.ContainsKey(ch.nextNodeId))
+                        tgt = idxMap[ch.nextNodeId];
+                    sb.Append($"\n        {{\"text\": {SerializeLocalizedText(ch.text, 5)}, \"targetIndex\": {tgt}");
+                    if (ch.conditions?.Count > 0)
+                    {
+                        sb.Append(", \"conditions\": [");
+                        for (int k = 0; k < ch.conditions.Count; k++)
+                        {
+                            var c = ch.conditions[k];
+                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
+                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
+                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
+                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
+                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}} ");
+                            if (k < ch.conditions.Count - 1) sb.Append(",");
+                        }
+                        sb.Append($"], \"conditionLogic\": \"{ch.conditionLogic}\"");
+                    }
+                    sb.Append("}");
+                    if (j < item.choices.Count - 1) sb.Append(",");
+                }
+                sb.Append("\n      ]");
+            }
+            else
+            {
+                sb.Append(",\n      \"choices\": []");
+            }
+
+            if (item.eventCalls?.Count > 0)
+            {
+                sb.Append(",\n      \"eventCalls\": [");
+                for (int j = 0; j < item.eventCalls.Count; j++)
+                {
+                    var ev = item.eventCalls[j];
+                    sb.Append($"\n        {{\"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\", ");
+                    sb.Append($"\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
+                    sb.Append($"\"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\", ");
+                    sb.Append($"\"methodName\": \"{EscapeJsonString(ev.methodName)}\", ");
+                    sb.Append($"\"parameterType\": \"{ev.parameterType}\", ");
+                    sb.Append($"\"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\", ");
+                    sb.Append($"\"intParameter\": {ev.intParameter}, ");
+                    sb.Append($"\"floatParameter\": {ev.floatParameter}, ");
+                    sb.Append($"\"boolParameter\": {ev.boolParameter.ToString().ToLower()}, ");
+                    sb.Append($"\"triggerTiming\": {(int)ev.triggerTiming}}}");
+                    if (j < item.eventCalls.Count - 1) sb.Append(",");
+                }
+                sb.Append("\n      ]");
+            }
+            else
+            {
+                sb.Append(",\n      \"eventCalls\": []");
+            }
+
+            sb.Append("\n    }");
+            if (i < runtime.Count - 1) sb.Append(",");
+            sb.Append("\n");
+        }
+        sb.Append("  ],\n  \"currentIndex\": 0\n}");
+
+        string result = sb.ToString().Replace("\r\n", "\n");
+        System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+        File.WriteAllText(path, result, utf8WithoutBom);
+    }
+
+    private List<RuntimeDialogueData> ConvertToRuntime(DialogueTreeData data)
+    {
+        var result = new List<RuntimeDialogueData>();
+        var idxMap = new Dictionary<string, int>();
+        var nodes = data.nodes.OrderBy(n => n.index).ToList();
+        foreach (var n in nodes) idxMap[n.id] = n.index;
+
+        var charLib = characterManager.CharacterLibrary;
+
+        foreach (var node in nodes)
+        {
+            var rt = new RuntimeDialogueData
+            {
+                index = node.index,
+                content = node.content ?? new LocalizedText(),
+                eventCalls = new List<DialogueEventCall>(node.eventCalls ?? new List<DialogueEventCall>())
+            };
+
+            if (!string.IsNullOrEmpty(node.characterId) && charLib?.characters != null)
+            {
+                var ch = Array.Find(charLib.characters, c => c.id == node.characterId);
+                if (ch != null)
+                {
+                    rt.name = ch.characterName ?? new LocalizedText();
+                    rt.avatarAddr = ConvertResourcePath(ch.avatarAssetPath ?? "");
+                    rt.isPlayer = ch.isPlayer;
+                }
+                else { rt.name = new LocalizedText(); rt.avatarAddr = ""; rt.isPlayer = false; }
+            }
+            else { rt.name = new LocalizedText(); rt.avatarAddr = ""; rt.isPlayer = false; }
+
+            rt.choices = new List<RuntimeChoice>();
+            if (node.choices?.Count > 0)
+            {
+                foreach (var choice in node.choices)
+                {
+                    var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.choiceIndex == node.choices.IndexOf(choice));
+                    rt.choices.Add(new RuntimeChoice
+                    {
+                        text = choice.text ?? new LocalizedText(),
+                        nextNodeId = conn?.inputNodeId ?? "",
+                        conditions = new List<ChoiceCondition>(choice.conditions ?? new List<ChoiceCondition>()),
+                        conditionLogic = choice.conditionLogic
+                    });
+                }
+            }
+            else
+            {
+                var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.choiceIndex == -1);
+                rt.nextNodeId = conn?.inputNodeId ?? "";
+            }
+
+            rt.conditionalBranches = new List<RuntimeConditionalBranch>();
+            if (node.conditionalBranches?.Count > 0)
+            {
+                foreach (var br in node.conditionalBranches)
+                {
+                    var conn = data.connections.FirstOrDefault(c => c.outputNodeId == node.id && c.branchPriority == br.priority);
+                    if (conn != null && idxMap.ContainsKey(conn.inputNodeId))
+                    {
+                        rt.conditionalBranches.Add(new RuntimeConditionalBranch
+                        {
+                            targetIndex = idxMap[conn.inputNodeId],
+                            priority = br.priority,
+                            conditions = new List<ChoiceCondition>(br.conditions ?? new List<ChoiceCondition>()),
+                            conditionLogic = br.conditionLogic
+                        });
+                    }
+                }
+            }
+
+            result.Add(rt);
+        }
+        return result;
+    }
+
+    private string ConvertResourcePath(string path)
+    {
+        if (string.IsNullOrEmpty(path)) return "";
+        int idx = path.IndexOf("Resources/");
+        if (idx >= 0)
+        {
+            string sub = path.Substring(idx + 10);
+            return Path.ChangeExtension(sub, null);
+        }
+        return Path.GetFileNameWithoutExtension(path);
+    }
+
+    private string SerializeLocalizedText(LocalizedText text, int indentLevel = 2)
+    {
+        if (text == null) text = new LocalizedText();
+        string indent = new string(' ', indentLevel * 2);
+        return "{\n" +
+               $"{indent}  \"en\": \"{EscapeJsonString(text.en)}\",\n" +
+               $"{indent}  \"zh\": \"{EscapeJsonString(text.zh)}\",\n" +
+               $"{indent}  \"ja\": \"{EscapeJsonString(text.ja)}\"\n" +
+               $"{indent}}}";
+    }
+
+    private string EscapeJsonString(string str)
+    {
+        if (string.IsNullOrEmpty(str)) return "";
+        return str.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
     }
 }
