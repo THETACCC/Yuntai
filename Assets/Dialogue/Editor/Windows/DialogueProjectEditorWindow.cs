@@ -84,20 +84,125 @@ public class DialogueProjectEditorWindow : EditorWindow
     {
         EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
 
+        if (GUILayout.Button("Refresh", EditorStyles.toolbarButton, GUILayout.Width(70)))
+        {
+            RefreshAll();
+        }
+
+        if (GUILayout.Button("Save All", EditorStyles.toolbarButton, GUILayout.Width(70)))
+        {
+            SaveAllDialogueTrees();
+        }
+
+        GUILayout.FlexibleSpace();
+
         if (GUILayout.Button("Scan Dialogue Trees", EditorStyles.toolbarButton, GUILayout.Width(150)))
         {
             folderManager.ScanAllDialogueTrees();
             Repaint();
         }
 
-        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+    }
 
-        if (GUILayout.Button("Refresh", EditorStyles.toolbarButton, GUILayout.Width(60)))
+    private void SaveAllDialogueTrees()
+    {
+        if (folderManager.GuidToPath == null || folderManager.GuidToPath.Count == 0)
         {
-            RefreshAll();
+            EditorUtility.DisplayDialog("Save All", "No files found.", "OK");
+            return;
         }
 
-        EditorGUILayout.EndHorizontal();
+        if (!EditorUtility.DisplayDialog("Save All",
+            $"Save {folderManager.GuidToPath.Count} file(s)?\n\n这将强制重新保存所有文件", "Yes", "Cancel"))
+            return;
+
+        int saved = 0, failed = 0;
+        List<string> errors = new List<string>();
+
+        try
+        {
+            int idx = 0;
+            foreach (var kvp in folderManager.GuidToPath)
+            {
+                idx++;
+                string dtreePath = kvp.Value;
+                string name = Path.GetFileName(dtreePath);
+                EditorUtility.DisplayProgressBar("Save All", $"{idx}/{folderManager.GuidToPath.Count}: {name}",
+                    (float)idx / folderManager.GuidToPath.Count);
+
+                try
+                {
+                    if (!File.Exists(dtreePath)) { failed++; errors.Add(name + " (not found)"); continue; }
+
+                    string json = File.ReadAllText(dtreePath);
+                    DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(json);
+                    if (data == null || data.nodes == null) { failed++; errors.Add(name + " (invalid)"); continue; }
+
+                    // 更新 Use ID 模式的本地化内容
+                    if (DialogueLocalization.IsLoaded)
+                    {
+                        foreach (var node in data.nodes)
+                        {
+                            if (node.useContentId && !string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                            {
+                                var locData = DialogueLocalization.GetAllLanguages(node.contentId);
+                                if (locData != null)
+                                {
+                                    if (node.content == null) node.content = new LocalizedText();
+                                    node.content.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                    node.content.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                    node.content.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                                }
+                            }
+
+                            if (node.choices != null)
+                            {
+                                foreach (var choice in node.choices)
+                                {
+                                    if (choice.useTextId && !string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                                    {
+                                        var locData = DialogueLocalization.GetAllLanguages(choice.textId);
+                                        if (locData != null)
+                                        {
+                                            if (choice.text == null) choice.text = new LocalizedText();
+                                            choice.text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                            choice.text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                            choice.text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 保存 .dtree
+                    string updatedDtree = JsonUtility.ToJson(data, true).Trim().Replace("\r\n", "\n");
+                    System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                    File.WriteAllText(dtreePath, updatedDtree, utf8WithoutBom);
+
+                    // 保存运行时 .json
+                    string runtimePath = Path.ChangeExtension(dtreePath, ".json");
+                    SaveRuntimeJson(runtimePath, data);
+
+                    saved++;
+                }
+                catch (Exception e) { failed++; errors.Add(name + $" ({e.Message})"); }
+            }
+        }
+        finally { EditorUtility.ClearProgressBar(); }
+
+        AssetDatabase.Refresh();
+
+        string msg = $"Saved: {saved} files (.dtree + .json)";
+        if (failed > 0)
+        {
+            msg += $"\nFailed: {failed}\n";
+            foreach (var e in errors) msg += $"• {e}\n";
+        }
+        EditorUtility.DisplayDialog("Done", msg, "OK");
+
+        RefreshAllOpenEditorWindows();
     }
 
     private void RefreshAll()
