@@ -85,7 +85,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3839306130367435148}
   - component: {fileID: 6268473684823142539}
-  - component: {fileID: 5309136183926481970}
   - component: {fileID: 1945004276971603548}
   m_Layer: 5
   m_Name: MusicNoteClick
@@ -129,28 +128,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5309136183926481970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5980821518726967964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f4b0d61549e19429df5ec3a5d0408c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCircle: {fileID: 8025852636076239162}
-  shrinkingRing: {fileID: 1363351013549298461}
-  greenFeedback: {fileID: 5065386941386169853}
-  redFeedback: {fileID: 6840869962447301747}
-  canvasGroup: {fileID: 6268473684823142539}
-  baseTargetScale: 1.48
-  startRingScale: 2.56
-  holdAfterNoteTime: 0.1
-  fadeDuration: 0.2
-  feedbackHoldSeconds: 0.25
 --- !u!114 &1945004276971603548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +144,6 @@ MonoBehaviour:
   shrinkingRing: {fileID: 1363351013549298461}
   greenFeedback: {fileID: 5065386941386169853}
   redFeedback: {fileID: 6840869962447301747}
-  clickCatcher: {fileID: 0}
   canvasGroup: {fileID: 6268473684823142539}
   baseTargetScale: 1.48
   startRingScale: 2.56

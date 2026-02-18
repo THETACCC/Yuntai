@@ -32,32 +32,43 @@ public class RhythmConductorClick : MonoBehaviour
         new NoteEvent { time = 2.860, lane = 3 },
         new NoteEvent { time = 3.214, lane = 4 },
         new NoteEvent { time = 3.542, lane = 5 },
-        new NoteEvent { time = 4.405, lane = 2 },
-        new NoteEvent { time = 4.762, lane = 3 },
-        new NoteEvent { time = 5.654, lane = 3 },
-        new NoteEvent { time = 7.002, lane = 2 },
-        new NoteEvent { time = 8.252, lane = 3 },
-        new NoteEvent { time = 9.567, lane = 2 },
+
+        new NoteEvent { time = 4.405, lane = 1 },
+        new NoteEvent { time = 4.762, lane = 2 },
+
+        new NoteEvent { time = 5.654, lane = 4 },
+
+        new NoteEvent { time = 7.002, lane = 1 },
+
+        new NoteEvent { time = 8.252, lane = 4 },
+
+        new NoteEvent { time = 9.567, lane = 1 },
+
         new NoteEvent { time = 10.520, lane = 2 },
         new NoteEvent { time = 11.145, lane = 3 },
         new NoteEvent { time = 11.835, lane = 4 },
         new NoteEvent { time = 12.520, lane = 5 },
-        new NoteEvent { time = 13.084, lane = 1 },
-        new NoteEvent { time = 13.775, lane = 2 },
-        new NoteEvent { time = 14.410, lane = 3 },
-        new NoteEvent { time = 15.049, lane = 4 },
-        new NoteEvent { time = 15.700, lane = 5 },
+
+        new NoteEvent { time = 13.084, lane = 0 },
+        new NoteEvent { time = 13.775, lane = 1 },
+        new NoteEvent { time = 14.410, lane = 2 },
+        new NoteEvent { time = 15.049, lane = 3 },
+        new NoteEvent { time = 15.700, lane = 4 },
+
         new NoteEvent { time = 16.425, lane = 0 },
         new NoteEvent { time = 16.767, lane = 1 },
         new NoteEvent { time = 17.108, lane = 2 },
         new NoteEvent { time = 17.467, lane = 3 },
         new NoteEvent { time = 17.783, lane = 4 },
-        new NoteEvent { time = 18.923, lane = 2 },
-        new NoteEvent { time = 19.572, lane = 3 },
-        new NoteEvent { time = 21.067, lane = 2 },
-        new NoteEvent { time = 21.375, lane = 3 },
-        new NoteEvent { time = 21.682, lane = 4 },
-        new NoteEvent { time = 22.519, lane = 0 },
+
+        new NoteEvent { time = 18.923, lane = 0 },
+        new NoteEvent { time = 19.572, lane = 1 },
+
+        new NoteEvent { time = 21.067, lane = 3 },
+        new NoteEvent { time = 21.375, lane = 4 },
+        new NoteEvent { time = 21.682, lane = 5 },
+
+        new NoteEvent { time = 22.519, lane = 1 },
     };
 
     readonly List<NoteEvent> notes = new();
