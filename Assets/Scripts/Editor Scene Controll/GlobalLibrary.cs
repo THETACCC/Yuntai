@@ -82,6 +82,11 @@ public static class GlobalLibrary
 
 
         }},
+        {SceneTitle.Level4_2City, new SceneSpecifics()
+        {
+
+
+        }},
         {SceneTitle.Level4_2Festival, new SceneSpecifics()
         {
 
@@ -218,7 +223,7 @@ public static class GlobalLibrary
     {
         {SceneCategory.Common, new SceneTitle[]{ SceneTitle.TitleScene, SceneTitle.GYM_Level, SceneTitle.InitialCG, SceneTitle.Level1_1, SceneTitle.Level1_2 , SceneTitle.Level2_1 , SceneTitle.Level2_2
             , SceneTitle.Level3_1, SceneTitle.Level3_2, SceneTitle.Level3_3, SceneTitle.Level3_4, SceneTitle.Level3_5, SceneTitle.Level3_6,
-            SceneTitle.Level4_1City,SceneTitle.Level4_2Festival,SceneTitle.Level4_3Apartment1F, SceneTitle.Level4_4Apartment2F,SceneTitle.Level4_5Apartment3F,SceneTitle.Level4_6NoemaHouse,SceneTitle.Level4_17Stage,SceneTitle.Level4_8Temple,
+            SceneTitle.Level4_1City,SceneTitle.Level4_2City,SceneTitle.Level4_2Festival,SceneTitle.Level4_3Apartment1F, SceneTitle.Level4_4Apartment2F,SceneTitle.Level4_5Apartment3F,SceneTitle.Level4_6NoemaHouse,SceneTitle.Level4_17Stage,SceneTitle.Level4_8Temple,
             SceneTitle.Level4_6_1Ghost3F, SceneTitle.Level4_6_2LoopStuck1, SceneTitle.Level4_6_3LoopDead, SceneTitle.Level4_6_4LoopStuck2, SceneTitle.Level4_6_5LoopStuck3,SceneTitle.Level4_6_6FinalChase,
             SceneTitle.Level4_7FestivalNoema,  SceneTitle.Level4_8FestivalGhost, SceneTitle.Level4_81FestivalWrong,SceneTitle.Level4_9FestivalDead,SceneTitle.Level4_10FestivalNoemaHelp,
             SceneTitle.Level4_11FestivalPuzzle1, SceneTitle.Level4_12FestivalPuzzle2, SceneTitle.Level4_13FestivalPuzzle3, SceneTitle.Level4_14FestivalPuzzle4,SceneTitle.Level4_15FestivalPuzzle5,SceneTitle.Level4_16FestivalKill,
@@ -245,6 +250,7 @@ public static class GlobalLibrary
         {SceneTitle.Level3_5, "Level3-5" },
         {SceneTitle.Level3_6, "Level3-6" },
         {SceneTitle.Level4_1City, "Level4-1City" },
+        {SceneTitle.Level4_2City, "Level4-2City" },
         {SceneTitle.Level4_2Festival, "Level4-2Festival" },
         {SceneTitle.Level4_3Apartment1F, "Level4-3Apartment1F" },
         {SceneTitle.Level4_4Apartment2F, "Level4-4Apartment2F" },
