@@ -4,6 +4,9 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Mixer")]
+    private static AudioMixer mainMixer;
+
     [Header("Audio Mixer Groups")]
     private static AudioMixerGroup masterGroup; // for all
     private static AudioMixerGroup musicGroup;
@@ -17,11 +20,9 @@ public class AudioManager : MonoBehaviour
         UI
     }
 
-    [Header("Mixer")]
-    private static AudioMixer mainMixer;
-
     private static Dictionary<string, AudioClip> audioClipDict = new Dictionary<string, AudioClip>();
     private static Dictionary<string, AudioSource> audioSourceDict = new Dictionary<string, AudioSource>();
+    private GameObject audioParent;
 
     void Awake()
     {
@@ -248,6 +249,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set Volume for one clip
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="volume"></param>
     public static void SetVolume(string clipName, float volume)
     {
         if (ClipExist(clipName))
@@ -255,6 +261,31 @@ public class AudioManager : MonoBehaviour
             AudioSource audioSource = audioSourceDict[clipName];
             audioSource.volume = volume;
         }
+    }
+
+    // change AudioGroup volume
+    public static void SetMasterVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("MasterVolume", dbValue);
+    }
+
+    public static void SetMusicVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("MusicVolume", dbValue);
+    }
+
+    public static void SetSFXVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("SFXVolume", dbValue);
     }
 
     public static AudioSource GetAudioSource(string clipName)
@@ -299,7 +330,7 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
-    #region OldAudioManager
+    #region OldAudioManager(Don't Use!!!!!!!!!!)
     // 在场景加载后调用
     void OnEnable()
     {
@@ -347,38 +378,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // change AudioGroup volume
-    public static void SetMasterVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
 
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("MasterVolume", dbValue);
-    }
-
-    public static void SetMusicVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
-
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("MusicVolume", dbValue);
-        //mainMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
-    }
-
-    public static void SetSFXVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
-
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("SFXVolume", dbValue);
-        //mainMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
-    }
 
     #endregion
 }
