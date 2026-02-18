@@ -201,9 +201,47 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(clip);
     }
 
+    /// <summary>
+    /// play music, assign AudioGroup as music
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="loop"></param>
+    public static void PlayMusic(string clipName, bool loop)
+    {
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+        }
+        audioSource = audioSourceDict[clipName];
+        audioSource.outputAudioMixerGroup = musicGroup;
+        audioSource.loop = loop;
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+        clip = audioClipDict[clipName];
+
+        audioSource.clip = clip;
+        //audioSource.outputAudioMixerGroup = mainMixer.outputAudioMixerGroup;
+        audioSource.Play();
+    }
+
     public static void Stop(string clipName)
     {
-        if (CheckClipExistence(clipName))
+        if (ClipExist(clipName))
         {
             AudioSource audioSource = audioSourceDict[clipName];
             audioSource.Stop();
@@ -212,16 +250,27 @@ public class AudioManager : MonoBehaviour
 
     public static void SetVolume(string clipName, float volume)
     {
-        if (CheckClipExistence(clipName))
+        if (ClipExist(clipName))
         {
             AudioSource audioSource = audioSourceDict[clipName];
             audioSource.volume = volume;
         }
     }
+
+    public static AudioSource GetAudioSource(string clipName)
+    {
+        if (ClipExist(clipName))
+        {
+            return audioSourceDict[clipName];
+        } else
+        {
+            return null;
+        }
+    }
     #endregion
 
     #region PrivateFunctions
-    private static bool CheckClipExistence(string clipName)
+    private static bool ClipExist(string clipName)
     {
         //check if there is a audio source object
         AudioSource audioSource;
