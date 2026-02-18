@@ -52,10 +52,12 @@ public class AmbientSound : MonoBehaviour
             FadeTo(startVolume, fadeInSeconds);
         }
 
+        /*
         if (AudioManager.instance != null && AudioManager.instance.musicGroup != null)
         {
             source.outputAudioMixerGroup = AudioManager.instance.musicGroup;
         }
+        */
     }
 
     private void OnValidate()
