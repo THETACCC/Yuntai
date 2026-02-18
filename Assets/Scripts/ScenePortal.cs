@@ -13,17 +13,18 @@ public class ScenePortal : MonoBehaviour
 
     //
     public bool isInstant = false;
-
+    public Gamemanager myGamemanager;
 
 
     private void Start()
     {
+        myGamemanager = Gamemanager.instance;
         InteractIndicator.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && (myGamemanager.phase == GamePhase.Moving))
         {
             if(!isInstant)
             {
