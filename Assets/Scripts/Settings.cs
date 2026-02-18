@@ -102,7 +102,7 @@ public class Settings : MonoBehaviour
         if (isSettingsOpen)
         {
             mainVolumeText.text = volumeLocalization.contentDictionary[currentLanguage] + " " + mainVolumeSlider.value.ToString("F0");
-            AudioManager.instance.SetMasterVolume(mainVolumeSlider.value);
+            AudioManager.SetMasterVolume(mainVolumeSlider.value);
         }
         
     }

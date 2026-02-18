@@ -79,7 +79,11 @@ public class SceneController : MonoBehaviour
     {
         if (verboseLog)
             Debug.Log($"[SceneController] LoadSceneAndTeleport -> scene='{sceneName}', spawnId={spawnId}");
-
+        var gm = Gamemanager.instance;
+        if(gm != null)
+        {
+            gm.phase = GamePhase.Eventing;
+        }
         // 1) 黑屏
         if (transitionAnim != null)
         {
@@ -154,7 +158,12 @@ public class SceneController : MonoBehaviour
         if (transitionAnim != null)
         {
             yield return new WaitForSeconds(0.5f);
+
             transitionAnim.SetTrigger("Start");
+            if (gm != null)
+            {
+                gm.phase = GamePhase.Moving;
+            }
         }
 
         // 10)保存存档

@@ -4,30 +4,32 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance { get; private set; }
-
     [Header("Audio Mixer Groups")]
-    public AudioMixerGroup musicGroup;
-    public AudioMixerGroup sfxGroup;
-    public AudioMixerGroup uiGroup;
+    private static AudioMixerGroup masterGroup; // for all
+    private static AudioMixerGroup musicGroup;
+    private static AudioMixerGroup sfxGroup;
+    private static AudioMixerGroup uiGroup;
+
+    public enum AudioGroup
+    {
+        Music,
+        SFX,
+        UI
+    }
 
     [Header("Mixer")]
-    public AudioMixer mainMixer;
+    private static AudioMixer mainMixer;
 
     private static Dictionary<string, AudioClip> audioClipDict = new Dictionary<string, AudioClip>();
     private static Dictionary<string, AudioSource> audioSourceDict = new Dictionary<string, AudioSource>();
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        mainMixer = Resources.Load<AudioMixer>("MainAudioMixer");
+        musicGroup = mainMixer.FindMatchingGroups("Music")[0];
+        sfxGroup = mainMixer.FindMatchingGroups("SFX")[0];
+        uiGroup = mainMixer.FindMatchingGroups("UI")[0];
+        masterGroup = mainMixer.FindMatchingGroups("Master")[0];
     }
 
     void Start()
@@ -36,8 +38,9 @@ public class AudioManager : MonoBehaviour
         AssignAllAudioSources();
     }
 
+    #region PubicFunctions
     /// <summary>
-    /// Play a clip for one time
+    /// Play a clip, with default master AudioGroup or with previous used AudioGroup
     /// </summary>
     /// <param name="clipName"></param>
     public static void Play(string clipName)
@@ -49,6 +52,7 @@ public class AudioManager : MonoBehaviour
         {
             audioSource = new GameObject("Audio_" +clipName).AddComponent<AudioSource>();
             audioSourceDict.Add(clipName, audioSource);
+            audioSource.outputAudioMixerGroup = masterGroup;
         }
         audioSource = audioSourceDict[clipName];
 
@@ -67,7 +71,134 @@ public class AudioManager : MonoBehaviour
         clip = audioClipDict[clipName];
 
         audioSource.clip = clip;
+        //audioSource.outputAudioMixerGroup = mainMixer.outputAudioMixerGroup;
         audioSource.Play();
+    }
+
+    /// <summary>
+    /// Play a clip, with specific AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="audioGroup"></param>
+    public static void Play(string clipName, AudioGroup audioGroup)
+    {
+        //Get targe AudioMixerGroup
+        AudioMixerGroup targeAudioGroup = audioGroup switch
+        {
+            AudioGroup.Music => musicGroup,
+            AudioGroup.SFX => sfxGroup,
+            AudioGroup.UI => uiGroup,
+            _ => masterGroup
+        };
+
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+        }
+        audioSource = audioSourceDict[clipName];
+        audioSource.outputAudioMixerGroup = targeAudioGroup;
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+
+        clip = audioClipDict[clipName];
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    /// <summary>
+    /// Play a clip for one time, with default master AudioGroup or with previous used AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    public static void PlayOneShot(string clipName)
+    {
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+            audioSource.outputAudioMixerGroup = masterGroup;
+        }
+        audioSource = audioSourceDict[clipName];
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+        clip = audioClipDict[clipName];
+
+        audioSource.clip = clip;
+        //audioSource.outputAudioMixerGroup = mainMixer.outputAudioMixerGroup;
+        audioSource.PlayOneShot(clip);
+    }
+
+    /// <summary>
+    /// Play a clip for one time, with specific AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="audioGroup"></param>
+    public static void PlayOneShot(string clipName, AudioGroup audioGroup)
+    {
+        //Get targe AudioMixerGroup
+        AudioMixerGroup targeAudioGroup = audioGroup switch
+        {
+            AudioGroup.Music => musicGroup,
+            AudioGroup.SFX => sfxGroup,
+            AudioGroup.UI => uiGroup,
+            _ => masterGroup
+        };
+
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+        }
+        audioSource = audioSourceDict[clipName];
+        audioSource.outputAudioMixerGroup = targeAudioGroup;
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+
+        clip = audioClipDict[clipName];
+        audioSource.clip = clip;
+        audioSource.PlayOneShot(clip);
     }
 
     public static void Stop(string clipName)
@@ -87,7 +218,9 @@ public class AudioManager : MonoBehaviour
             audioSource.volume = volume;
         }
     }
+    #endregion
 
+    #region PrivateFunctions
     private static bool CheckClipExistence(string clipName)
     {
         //check if there is a audio source object
@@ -115,7 +248,7 @@ public class AudioManager : MonoBehaviour
 
         return true;
     }
-
+    #endregion
 
     #region OldAudioManager
     // 在场景加载后调用
@@ -165,8 +298,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 调整音量的便捷方法
-    public void SetMasterVolume(float volume)
+    // change AudioGroup volume
+    public static void SetMasterVolume(float volume)
     {
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
@@ -176,7 +309,7 @@ public class AudioManager : MonoBehaviour
         mainMixer.SetFloat("MasterVolume", dbValue);
     }
 
-    public void SetMusicVolume(float volume)
+    public static void SetMusicVolume(float volume)
     {
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
@@ -187,7 +320,7 @@ public class AudioManager : MonoBehaviour
         //mainMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
     }
 
-    public void SetSFXVolume(float volume)
+    public static void SetSFXVolume(float volume)
     {
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
