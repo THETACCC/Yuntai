@@ -10,24 +10,14 @@
       "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "Mmm——",
+        "en": "Mmm....",
         "zh": "唔——",
         "ja": ""
       },
       "nextIndex": 1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "b595db33-8c3a-439f-abba-0c0f4c1efa1f",
-          "targetObjectName": "snd_Hungry",
-          "componentTypeName": "AudioSource",
-          "methodName": "Play",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "b595db33-8c3a-439f-abba-0c0f4c1efa1f", "targetObjectName": "snd_Hungry", "componentTypeName": "AudioSource", "methodName": "Play", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0}
       ]
     },
     {
@@ -40,11 +30,13 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "(Weird outfit. She looks around my age… but definitely upset.)",
+        "en": "(Quirky outfit. She looks around my age… and definitely upset.)",
         "zh": "（穿着奇特的女生，看上去和我年纪差不多，似乎在烦恼什么。）",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -56,11 +48,13 @@
       "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "Ughhhh—",
+        "en": "Ughhhh......",
         "zh": "呃呃——",
         "ja": ""
       },
-      "nextIndex": 3
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 3,
@@ -76,7 +70,9 @@
         "zh": "（还是别打扰她了。）",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0

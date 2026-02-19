@@ -26,7 +26,8 @@
             "zh": "打扰了，我这就走",
             "ja": ""
           }, "targetIndex": 8}
-      ]
+      ],
+      "eventCalls": []
     },
     {
       "index": 3,
@@ -38,24 +39,14 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "You’ve been standing here for quite a while... may I ask—",
+        "en": "You’ve been standing here for quite a while... may I ask...",
         "zh": "您似乎已经在这里站了好一阵了，请问——",
         "ja": ""
       },
       "nextIndex": 15,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "SetInfoFourTrue",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoFourTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0}
       ]
     },
     {
@@ -68,11 +59,13 @@
       "avatarAddr": "DialogueImages/何以真_惊恐",
       "isPlayer": true,
       "content": {
-        "en": "(That’s terrifying!)",
+        "en": "(Terrifying!)",
         "zh": "（好可怕！）",
         "ja": ""
       },
-      "nextIndex": 5
+      "nextIndex": 5,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 5,
@@ -84,11 +77,13 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to stand here on standby. I’m not allowed to leave until she gets back to me.",
+        "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to be here on standby. I’m not allowed to leave until she gets back to me.",
         "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
         "ja": ""
       },
-      "nextIndex": 6
+      "nextIndex": 6,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 6,
@@ -104,7 +99,9 @@
         "zh": "（她在咬着牙说话......）",
         "ja": ""
       },
-      "nextIndex": 7
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 7,
@@ -120,7 +117,9 @@
         "zh": "（还是结束这个话题吧。）",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 8,
@@ -136,7 +135,9 @@
         "zh": "打扰您了，我这就离开。",
         "ja": ""
       },
-      "nextIndex": 9
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 9,
@@ -152,7 +153,9 @@
         "zh": "…...",
         "ja": ""
       },
-      "nextIndex": 10
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 10,
@@ -168,7 +171,9 @@
         "zh": "（快走快走。）",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 11,
@@ -184,7 +189,9 @@
         "zh": "哎呀女士，不可以去打扰前面的客人。",
         "ja": ""
       },
-      "nextIndex": 12
+      "nextIndex": 12,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 12,
@@ -196,11 +203,13 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "The restroom for economy is waaay down at the other end, dear.",
+        "en": "The restroom for economy class is waaay down at the other end, dear.",
         "zh": "经济舱的洗手间，在另一边最远处哦。",
         "ja": ""
       },
-      "nextIndex": 13
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 13,
@@ -216,7 +225,9 @@
         "zh": "（她看起来一如既往的刻薄。之前灯光暗下来的时候到底发生了什么，她为什么会变成那副样子？）",
         "ja": ""
       },
-      "nextIndex": 14
+      "nextIndex": 14,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 14,
@@ -232,7 +243,9 @@
         "zh": "女士？要发呆的话，请到不那么挡路的地方去好吗？",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 15,
@@ -248,7 +261,9 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 4
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
