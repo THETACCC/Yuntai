@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "9a1fe8a9-bf9f-4adf-aeb7-0ba949c16933",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_2006",
+            "content": {
+                "en": "",
+                "zh": "有人在楼道里晾衣服。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cb4ade69-28f1-4ed4-a058-d392523e3aa9",
+            "index": 1,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_2007",
+            "content": {
+                "en": "",
+                "zh": "总感觉这一层似乎更潮湿，是因为这样吗？",
+                "ja": ""
+            },
+            "positionX": 443.33331298828127,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "9a1fe8a9-bf9f-4adf-aeb7-0ba949c16933",
+            "inputNodeId": "cb4ade69-28f1-4ed4-a058-d392523e3aa9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

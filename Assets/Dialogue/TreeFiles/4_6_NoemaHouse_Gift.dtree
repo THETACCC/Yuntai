@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "875ba8c0-b1ef-4411-910b-941f249cec57",
+            "index": 0,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_2011",
+            "content": {
+                "en": "",
+                "zh": "这就是梦之说的礼物吗？",
+                "ja": ""
+            },
+            "positionX": 52.0,
+            "positionY": 120.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d49049ab-10a4-41af-8eea-91dc9c291c49",
+            "index": 1,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_2012",
+            "content": {
+                "en": "",
+                "zh": "唔......看不出来是什么，但是很漂亮。",
+                "ja": ""
+            },
+            "positionX": 405.33331298828127,
+            "positionY": 128.6666717529297,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cd73b075-df81-47b8-b975-163f9e7a36a8",
+            "index": 2,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_2013",
+            "content": {
+                "en": "",
+                "zh": "总感觉拿上之后脑子变得更清楚了些，是我的错觉吗？",
+                "ja": ""
+            },
+            "positionX": 752.0,
+            "positionY": 131.3333282470703,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0e0a4551-3f40-4a95-b13e-1c706b2e5829",
+            "index": 3,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2014",
+            "content": {
+                "en": "",
+                "zh": "不管怎样，还是先回会场，找梦之汇合吧！",
+                "ja": ""
+            },
+            "positionX": 1094.0,
+            "positionY": 133.3333282470703,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "875ba8c0-b1ef-4411-910b-941f249cec57",
+            "inputNodeId": "d49049ab-10a4-41af-8eea-91dc9c291c49",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d49049ab-10a4-41af-8eea-91dc9c291c49",
+            "inputNodeId": "cd73b075-df81-47b8-b975-163f9e7a36a8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cd73b075-df81-47b8-b975-163f9e7a36a8",
+            "inputNodeId": "0e0a4551-3f40-4a95-b13e-1c706b2e5829",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
