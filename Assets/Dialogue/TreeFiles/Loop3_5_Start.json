@@ -14,7 +14,9 @@
         "zh": "到了！",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -30,7 +32,9 @@
         "zh": "人偶！在前面！",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -42,24 +46,14 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "Take that—",
+        "en": "Take that!!",
         "zh": "走你！",
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "95d5d1ca-ea7f-4956-bdc3-d21b1346a895",
-          "targetObjectName": "LevelManager3_5",
-          "componentTypeName": "LevelManager3_5",
-          "methodName": "StartGC",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 2
-        }
+        {"targetObjectID": "95d5d1ca-ea7f-4956-bdc3-d21b1346a895", "targetObjectName": "LevelManager3_5", "componentTypeName": "LevelManager3_5", "methodName": "StartGC", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2}
       ]
     }
   ],

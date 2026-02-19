@@ -15,55 +15,12 @@
         "ja": ""
       },
       "nextIndex": 1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
-          "targetObjectName": "ObjectiveTab",
-          "componentTypeName": "TabManager",
-          "methodName": "RefreshUnlockedTabs",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
-          "targetObjectName": "Objective4",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "UnlockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        },
-        {
-          "targetObjectID": "6fcaefe6-d20a-4450-80d8-d5dd6b63c99f",
-          "targetObjectName": "Objective3",
-          "componentTypeName": "isThisUnlocked",
-          "methodName": "LockThis",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 0
-        }
+        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
+        {"targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
+        {"targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6", "targetObjectName": "Objective4", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
+        {"targetObjectID": "6fcaefe6-d20a-4450-80d8-d5dd6b63c99f", "targetObjectName": "Objective3", "componentTypeName": "isThisUnlocked", "methodName": "LockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0}
       ]
     },
     {
@@ -80,7 +37,9 @@
         "zh": "呃，我也不认得，但应该是在乞巧大会会场附近吧。",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -96,7 +55,9 @@
         "zh": "那个......刚才我脑子有点乱，谢谢你告诉我飞机上的事。",
         "ja": ""
       },
-      "nextIndex": 3
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 3,
@@ -112,7 +73,9 @@
         "zh": "我也是，谢谢你带我离开那里。",
         "ja": ""
       },
-      "nextIndex": 4
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 4,
@@ -128,7 +91,9 @@
         "zh": "嗯，但我不能放着飞机上的人不管，我们就在这里分别吧。",
         "ja": ""
       },
-      "nextIndex": 5
+      "nextIndex": 5,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 5,
@@ -144,7 +109,9 @@
         "zh": "你还要回那架飞机上去？",
         "ja": ""
       },
-      "nextIndex": 6
+      "nextIndex": 6,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 6,
@@ -156,11 +123,13 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "I’ll return to the temple first and see if I can bring back reinforcements, but I definitely can’t just leave those people to die.",
+        "en": "I’ll return to the temple first and see if I can bring reinforcements, but I definitely can’t just leave all those people to die.",
         "zh": "我会先回道观看看能不能搬到救兵，但总归不能放着那些人等死。",
         "ja": ""
       },
-      "nextIndex": 7
+      "nextIndex": 7,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 7,
@@ -178,23 +147,18 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "Maybe I can help.",
             "zh": "或许我能帮上忙。",
             "ja": ""
-          },
-          "targetIndex": 15
-        },
-        {
-          "text": {
+          }, "targetIndex": 15},
+        {"text": {
             "en": "Then take care. I’ll go now.",
             "zh": "那你保重，我先走了。",
             "ja": ""
-          },
-          "targetIndex": 8
-        }
-      ]
+          }, "targetIndex": 8}
+      ],
+      "eventCalls": []
     },
     {
       "index": 8,
@@ -210,7 +174,9 @@
         "zh": "那你多多保重，千万别像之前一样重伤了。",
         "ja": ""
       },
-      "nextIndex": 9
+      "nextIndex": 9,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 9,
@@ -226,7 +192,9 @@
         "zh": "哈哈，我会注意点的，呃，应该会有办法吧。",
         "ja": ""
       },
-      "nextIndex": 10
+      "nextIndex": 10,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 10,
@@ -242,7 +210,9 @@
         "zh": "嗯，我还有事，先走一步了。",
         "ja": ""
       },
-      "nextIndex": 11
+      "nextIndex": 11,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 11,
@@ -258,7 +228,9 @@
         "zh": "好嘞，但愿我们乞巧大会时还能见到。",
         "ja": ""
       },
-      "nextIndex": 12
+      "nextIndex": 12,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 12,
@@ -274,7 +246,9 @@
         "zh": "对了，还没问过你的名字来着。",
         "ja": ""
       },
-      "nextIndex": 13
+      "nextIndex": 13,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 13,
@@ -290,7 +264,9 @@
         "zh": "我叫何以真。",
         "ja": ""
       },
-      "nextIndex": 14
+      "nextIndex": 14,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 14,
@@ -307,19 +283,9 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
-          "targetObjectName": "LevelManager3_2",
-          "componentTypeName": "LevelManager3_2",
-          "methodName": "ZhouShuLeave",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "3609a95a-021c-4c82-a718-276109a13088", "targetObjectName": "LevelManager3_2", "componentTypeName": "LevelManager3_2", "methodName": "ZhouShuLeave", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1}
       ]
     },
     {
@@ -336,7 +302,9 @@
         "zh": "等等，或许我能帮上你的忙。",
         "ja": ""
       },
-      "nextIndex": 16
+      "nextIndex": 16,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 16,
@@ -352,7 +320,9 @@
         "zh": "啊？",
         "ja": ""
       },
-      "nextIndex": 17
+      "nextIndex": 17,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 17,
@@ -368,7 +338,9 @@
         "zh": "我通过前两个循环收集了一些信息，这里不是芸台大会附近吗？",
         "ja": ""
       },
-      "nextIndex": 18
+      "nextIndex": 18,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 18,
@@ -380,11 +352,13 @@
       "avatarAddr": "DialogueImages/何以真_思考",
       "isPlayer": true,
       "content": {
-        "en": "Maybe I can ask around here, see if I can find a way to break this situation.",
+        "en": "Maybe I can ask around here and see if I can figure a way out of this situation.",
         "zh": "或许我可以在这里打听一下，看看能不能找到破局的方法。",
         "ja": ""
       },
-      "nextIndex": 19
+      "nextIndex": 19,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 19,
@@ -400,7 +374,9 @@
         "zh": "天呐！你真是太好了！我最不擅长需要动脑子的事情了！",
         "ja": ""
       },
-      "nextIndex": 20
+      "nextIndex": 20,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 20,
@@ -412,11 +388,13 @@
       "avatarAddr": "DialogueImages/何以真_思考",
       "isPlayer": true,
       "content": {
-        "en": "(Uh… but isn’t your name Page?)",
+        "en": "(Uh… but isn’t your name Page, like, from a book?)",
         "zh": "（呃，但你的名字不是叫周书吗？）",
         "ja": ""
       },
-      "nextIndex": 21
+      "nextIndex": 21,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 21,
@@ -432,7 +410,9 @@
         "zh": "你是不是在想为啥我叫周书？",
         "ja": ""
       },
-      "nextIndex": 22
+      "nextIndex": 22,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 22,
@@ -444,11 +424,13 @@
       "avatarAddr": "DialogueImages/周书_大笑",
       "isPlayer": false,
       "content": {
-        "en": "Haha, it’s because my Shifu thinks I’m slow, so she purposely gave me that name!",
+        "en": "Haha, it’s because my Shifu thinks I don't read, so she gave me an intellectual name to counteract it!",
         "zh": "哈哈，就是因为我师父嫌我脑袋瓜不灵光，特意给我起的！",
         "ja": ""
       },
-      "nextIndex": 23
+      "nextIndex": 23,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 23,
@@ -460,11 +442,13 @@
       "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "She’s always hoped I’d have a breakthrough someday, but I doubt it.",
+        "en": "She always hoped I’d have a breakthrough someday, but I doubt it.",
         "zh": "她一直希望我哪天能开窍，但我觉得够呛了。",
         "ja": ""
       },
-      "nextIndex": 24
+      "nextIndex": 24,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 24,
@@ -480,7 +464,9 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 25
+      "nextIndex": 25,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 25,
@@ -496,7 +482,9 @@
         "zh": "啊对！得抓紧时间！",
         "ja": ""
       },
-      "nextIndex": 26
+      "nextIndex": 26,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 26,
@@ -512,7 +500,9 @@
         "zh": "我先回一趟道观，待会咱们还在这儿集合？",
         "ja": ""
       },
-      "nextIndex": 27
+      "nextIndex": 27,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 27,
@@ -528,7 +518,9 @@
         "zh": "好，一路顺风。",
         "ja": ""
       },
-      "nextIndex": 28
+      "nextIndex": 28,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 28,
@@ -540,24 +532,14 @@
       "avatarAddr": "DialogueImages/周书_日常",
       "isPlayer": false,
       "content": {
-        "en": "(All right. Gather as much information as possible and find a way to solve what’s happening on the plane!)",
+        "en": "(All right. Gather as much information as possible and find a way to prevent what’s happening on the plane!)",
         "zh": "（好，尽可能多收集信息，找到解决飞机上事件的办法！）",
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
-          "targetObjectName": "LevelManager3_2",
-          "componentTypeName": "LevelManager3_2",
-          "methodName": "ZhouShuLeave",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "3609a95a-021c-4c82-a718-276109a13088", "targetObjectName": "LevelManager3_2", "componentTypeName": "LevelManager3_2", "methodName": "ZhouShuLeave", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1}
       ]
     }
   ],

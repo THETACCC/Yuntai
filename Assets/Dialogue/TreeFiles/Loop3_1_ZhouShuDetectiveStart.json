@@ -14,7 +14,9 @@
         "zh": "周书！",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -26,11 +28,13 @@
       "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "Mmm——",
+        "en": "Mmm...",
         "zh": "唔——",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -46,7 +50,9 @@
         "zh": "等等，我们认识吗？",
         "ja": ""
       },
-      "nextIndex": 3
+      "nextIndex": 3,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 3,
@@ -62,7 +68,9 @@
         "zh": "没时间了，你听我说！",
         "ja": ""
       },
-      "nextIndex": 4
+      "nextIndex": 4,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 4,
@@ -79,31 +87,10 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
-          "targetObjectName": "DetectiveSystem",
-          "componentTypeName": "DetectiveManager",
-          "methodName": "StartDetectiveGame",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 2
-        },
-        {
-          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
-          "targetObjectName": "DetectiveSystem",
-          "componentTypeName": "DetectiveManager",
-          "methodName": "StopPlayerMovement",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
+        {"targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b", "targetObjectName": "DetectiveSystem", "componentTypeName": "DetectiveManager", "methodName": "StartDetectiveGame", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2},
+        {"targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b", "targetObjectName": "DetectiveSystem", "componentTypeName": "DetectiveManager", "methodName": "StopPlayerMovement", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1}
       ]
     }
   ],

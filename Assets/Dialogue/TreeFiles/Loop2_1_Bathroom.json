@@ -14,7 +14,9 @@
         "zh": "…",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 1,
+      "choices": [],
+      "eventCalls": []
     },
     {
       "index": 1,
@@ -32,23 +34,18 @@
       },
       "nextIndex": -1,
       "choices": [
-        {
-          "text": {
+        {"text": {
             "en": "Forget it.",
             "zh": "前往洗手间。",
             "ja": ""
-          },
-          "targetIndex": 3
-        },
-        {
-          "text": {
+          }, "targetIndex": 3},
+        {"text": {
             "en": "Go to the restroom.",
             "zh": "还是算了。",
             "ja": ""
-          },
-          "targetIndex": 2
-        }
-      ]
+          }, "targetIndex": 2}
+      ],
+      "eventCalls": []
     },
     {
       "index": 2,
@@ -65,19 +62,9 @@
         "ja": ""
       },
       "nextIndex": -1,
+      "choices": [],
       "eventCalls": [
-        {
-          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-          "targetObjectName": "LevelManager2_1",
-          "componentTypeName": "LevelManager2_1",
-          "methodName": "Goto_NotEscaped_ViaNextLoop",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 2
-        }
+        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "Goto_NotEscaped_ViaNextLoop", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2}
       ]
     },
     {
@@ -94,7 +81,9 @@
         "zh": "还是去继续调查吧。",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "choices": [],
+      "eventCalls": []
     }
   ],
   "currentIndex": 0
