@@ -4,6 +4,9 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Mixer")]
+    private static AudioMixer mainMixer;
+
     [Header("Audio Mixer Groups")]
     private static AudioMixerGroup masterGroup; // for all
     private static AudioMixerGroup musicGroup;
@@ -17,11 +20,9 @@ public class AudioManager : MonoBehaviour
         UI
     }
 
-    [Header("Mixer")]
-    private static AudioMixer mainMixer;
-
     private static Dictionary<string, AudioClip> audioClipDict = new Dictionary<string, AudioClip>();
     private static Dictionary<string, AudioSource> audioSourceDict = new Dictionary<string, AudioSource>();
+    private GameObject audioParent;
 
     void Awake()
     {
@@ -201,27 +202,106 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(clip);
     }
 
+    /// <summary>
+    /// play music, assign AudioGroup as music
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="loop"></param>
+    public static void PlayMusic(string clipName, bool loop)
+    {
+        //check if there is a audio source object
+        AudioSource audioSource;
+
+        if (!audioSourceDict.ContainsKey(clipName))
+        {
+            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
+            audioSourceDict.Add(clipName, audioSource);
+        }
+        audioSource = audioSourceDict[clipName];
+        audioSource.outputAudioMixerGroup = musicGroup;
+        audioSource.loop = loop;
+
+        //check if clip has been loaded
+        AudioClip clip;
+
+        if (!audioClipDict.ContainsKey(clipName))
+        {
+            clip = Resources.Load<AudioClip>(clipName);
+            if (clip == null)
+            {
+                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
+            }
+            audioClipDict.Add(clipName, clip);
+        }
+        clip = audioClipDict[clipName];
+
+        audioSource.clip = clip;
+        //audioSource.outputAudioMixerGroup = mainMixer.outputAudioMixerGroup;
+        audioSource.Play();
+    }
+
     public static void Stop(string clipName)
     {
-        if (CheckClipExistence(clipName))
+        if (ClipExist(clipName))
         {
             AudioSource audioSource = audioSourceDict[clipName];
             audioSource.Stop();
         }
     }
 
+    /// <summary>
+    /// Set Volume for one clip
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="volume"></param>
     public static void SetVolume(string clipName, float volume)
     {
-        if (CheckClipExistence(clipName))
+        if (ClipExist(clipName))
         {
             AudioSource audioSource = audioSourceDict[clipName];
             audioSource.volume = volume;
         }
     }
+
+    // change AudioGroup volume
+    public static void SetMasterVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("MasterVolume", dbValue);
+    }
+
+    public static void SetMusicVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("MusicVolume", dbValue);
+    }
+
+    public static void SetSFXVolume(float volume)
+    {
+        // 如果slider是0-100，先转换成0-1
+        float normalizedVolume = volume / 100f;
+        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
+        mainMixer.SetFloat("SFXVolume", dbValue);
+    }
+
+    public static AudioSource GetAudioSource(string clipName)
+    {
+        if (ClipExist(clipName))
+        {
+            return audioSourceDict[clipName];
+        } else
+        {
+            return null;
+        }
+    }
     #endregion
 
     #region PrivateFunctions
-    private static bool CheckClipExistence(string clipName)
+    private static bool ClipExist(string clipName)
     {
         //check if there is a audio source object
         AudioSource audioSource;
@@ -250,7 +330,7 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
-    #region OldAudioManager
+    #region OldAudioManager(Don't Use!!!!!!!!!!)
     // 在场景加载后调用
     void OnEnable()
     {
@@ -298,38 +378,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // change AudioGroup volume
-    public static void SetMasterVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
 
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("MasterVolume", dbValue);
-    }
-
-    public static void SetMusicVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
-
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("MusicVolume", dbValue);
-        //mainMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
-    }
-
-    public static void SetSFXVolume(float volume)
-    {
-        // 如果slider是0-100，先转换成0-1
-        float normalizedVolume = volume / 100f;
-
-        // 防止log10(0)错误，设置最小值
-        float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
-        mainMixer.SetFloat("SFXVolume", dbValue);
-        //mainMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
-    }
 
     #endregion
 }
