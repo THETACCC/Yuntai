@@ -364,109 +364,6 @@ PolygonCollider2D:
       - {x: 64.7003, y: -10.058167}
       - {x: 64.61051, y: 24.753323}
   m_UseDelaunayMesh: 0
---- !u!1 &358486918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 358486921}
-  - component: {fileID: 358486920}
-  - component: {fileID: 358486919}
-  m_Layer: 0
-  m_Name: DialogueFinishLitsener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &358486919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f190de6d47850ef45ad28e014eaae7e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowedJsonFiles:
-  - {fileID: 4900000, guid: d684f0ea000231542b6eb4b81adbbfec, type: 3}
-  fireOnLastClick: 0
-  fireWhenFullyClosed: 1
-  onLastClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onFullyClosed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelManager2_2, Assembly-CSharp
-        m_MethodName: OnStart2FullyClosed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  verboseLog: 0
---- !u!114 &358486920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f190de6d47850ef45ad28e014eaae7e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowedJsonFiles:
-  - {fileID: 4900000, guid: b3b2d38ec7f90ac4b8966ce18f7f9c1b, type: 3}
-  fireOnLastClick: 0
-  fireWhenFullyClosed: 1
-  onLastClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onFullyClosed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelManager2_2, Assembly-CSharp
-        m_MethodName: OnStart1FullyClosed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  verboseLog: 0
---- !u!4 &358486921
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.204839, y: 1.1725898, z: -0.63510275}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515232535
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +394,58 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1171284212}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &571727510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 571727512}
+  - component: {fileID: 571727511}
+  m_Layer: 0
+  m_Name: StartDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &571727511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571727510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: 31cd16b039654144d84b70d405dd9853, type: 3}
+  postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+  isInstantTrigger: 0
+  usePostDialogue: 0
+  delay: 0
+--- !u!4 &571727512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571727510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.70767, y: 0.8990648, z: 0.017114857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621417085
@@ -2061,7 +2010,6 @@ SceneRoots:
   - {fileID: 621417086}
   - {fileID: 1803819324}
   - {fileID: 1279740581}
-  - {fileID: 358486921}
   - {fileID: 515232536}
   - {fileID: 244652514}
   - {fileID: 1736771212}
@@ -2069,3 +2017,4 @@ SceneRoots:
   - {fileID: 156788317}
   - {fileID: 1930152564}
   - {fileID: 1205291699}
+  - {fileID: 571727512}
