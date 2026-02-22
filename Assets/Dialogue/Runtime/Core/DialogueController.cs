@@ -288,7 +288,7 @@ public class DialogueController : MonoBehaviour
         {
             contentText.maxVisibleCharacters = i; // 逐渐显示字符
             //Audio
-            AudioManager.Play("Sound Effects/Henk/sndType2", AudioGroup.SFX);
+            AudioManager.Play("Sound Effects/Henk/sndType2", AudioGroup.SFX, this.gameObject.transform);
             // 获取当前显示的最后一个字符来判断是否需要标点停顿
             if (i > 0 && i <= totalVisibleCharacters)
             {

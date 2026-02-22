@@ -34,6 +34,7 @@ public class ScenePortal : MonoBehaviour
             }
             else
             {
+                AudioManager.PlayOneShot("Sound Effects/Henk/sndSceneTransition", AudioGroup.SFX);
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
 
@@ -58,7 +59,7 @@ public class ScenePortal : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                //AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
+                AudioManager.PlayOneShot("Sound Effects/Henk/sndSceneTransition", AudioGroup.SFX);
 
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
