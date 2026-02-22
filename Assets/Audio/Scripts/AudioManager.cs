@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    private static bool isInitialized = false;
+
     [Header("Mixer")]
     private static AudioMixer mainMixer;
 
@@ -22,21 +26,21 @@ public class AudioManager : MonoBehaviour
 
     private static Dictionary<string, AudioClip> audioClipDict = new Dictionary<string, AudioClip>();
     private static Dictionary<string, AudioSource> audioSourceDict = new Dictionary<string, AudioSource>();
-    private GameObject audioParent;
+    private static GameObject audioParent;
 
-    void Awake()
+    private static void Initialize()
     {
+        if (isInitialized) return;
+
         mainMixer = Resources.Load<AudioMixer>("MainAudioMixer");
         musicGroup = mainMixer.FindMatchingGroups("Music")[0];
         sfxGroup = mainMixer.FindMatchingGroups("SFX")[0];
         uiGroup = mainMixer.FindMatchingGroups("UI")[0];
         masterGroup = mainMixer.FindMatchingGroups("Master")[0];
-    }
 
-    void Start()
-    {
-        // 启动时自动分配所有现有的AudioSource
-        AssignAllAudioSources();
+        SceneManager.sceneLoaded += (scene, mode) => audioSourceDict.Clear();
+
+        isInitialized = true;
     }
 
     #region PubicFunctions
@@ -46,6 +50,8 @@ public class AudioManager : MonoBehaviour
     /// <param name="clipName"></param>
     public static void Play(string clipName)
     {
+        Initialize(); //make sure AudioManager is initialized
+
         //check if there is a audio source object
         AudioSource audioSource;
 
@@ -56,6 +62,13 @@ public class AudioManager : MonoBehaviour
             audioSource.outputAudioMixerGroup = masterGroup;
         }
         audioSource = audioSourceDict[clipName];
+
+        //create a audioParent if hasn't had one
+        if (audioParent == null)
+        {
+            audioParent = new GameObject("Default AudioParent");
+        }
+        audioSource.transform.parent = audioParent.transform;
 
         //check if clip has been loaded
         AudioClip clip;
@@ -77,6 +90,17 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Play a clip under a parent GameObject, with default master AudioGroup or with previous used AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="parent"></param>
+    public static void Play(string clipName, Transform parent)
+    {
+        Play(clipName);
+        GetAudioSource(clipName).transform.parent = parent;
+    }
+
+    /// <summary>
     /// Play a clip, with specific AudioGroup
     /// </summary>
     /// <param name="clipName"></param>
@@ -92,33 +116,20 @@ public class AudioManager : MonoBehaviour
             _ => masterGroup
         };
 
-        //check if there is a audio source object
-        AudioSource audioSource;
+        Play(clipName);
+        GetAudioSource(clipName).outputAudioMixerGroup = targeAudioGroup;
+    }
 
-        if (!audioSourceDict.ContainsKey(clipName))
-        {
-            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
-            audioSourceDict.Add(clipName, audioSource);
-        }
-        audioSource = audioSourceDict[clipName];
-        audioSource.outputAudioMixerGroup = targeAudioGroup;
-
-        //check if clip has been loaded
-        AudioClip clip;
-
-        if (!audioClipDict.ContainsKey(clipName))
-        {
-            clip = Resources.Load<AudioClip>(clipName);
-            if (clip == null)
-            {
-                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
-            }
-            audioClipDict.Add(clipName, clip);
-        }
-
-        clip = audioClipDict[clipName];
-        audioSource.clip = clip;
-        audioSource.Play();
+    /// <summary>
+    /// Play a clip under a parent GameObject, with specific AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="audioGroup"></param>
+    /// <param name="parent"></param>
+    public static void Play(string clipName, AudioGroup audioGroup, Transform parent)
+    {
+        Play(clipName, audioGroup);
+        GetAudioSource(clipName).transform.parent = parent;
     }
 
     /// <summary>
@@ -127,6 +138,8 @@ public class AudioManager : MonoBehaviour
     /// <param name="clipName"></param>
     public static void PlayOneShot(string clipName)
     {
+        Initialize(); //make sure AudioManager is initialized
+
         //check if there is a audio source object
         AudioSource audioSource;
 
@@ -137,6 +150,13 @@ public class AudioManager : MonoBehaviour
             audioSource.outputAudioMixerGroup = masterGroup;
         }
         audioSource = audioSourceDict[clipName];
+
+        //create a audioParent if hasn't had one
+        if (audioParent == null)
+        {
+            audioParent = new GameObject("Default AudioParent");
+        }
+        audioSource.transform.parent = audioParent.transform;
 
         //check if clip has been loaded
         AudioClip clip;
@@ -173,33 +193,30 @@ public class AudioManager : MonoBehaviour
             _ => masterGroup
         };
 
-        //check if there is a audio source object
-        AudioSource audioSource;
+        PlayOneShot(clipName);
+        GetAudioSource(clipName).outputAudioMixerGroup = targeAudioGroup;
+    }
 
-        if (!audioSourceDict.ContainsKey(clipName))
-        {
-            audioSource = new GameObject("Audio_" + clipName).AddComponent<AudioSource>();
-            audioSourceDict.Add(clipName, audioSource);
-        }
-        audioSource = audioSourceDict[clipName];
-        audioSource.outputAudioMixerGroup = targeAudioGroup;
+    /// <summary>
+    /// Play a clip for one time under a parent GameObject, with default master AudioGroup or with previous used AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="parent"></param>
+    public static void PlayOneShot(string clipName, Transform parent)
+    {
+        PlayOneShot(clipName);
+        GetAudioSource(clipName).transform.parent = parent;
+    }
 
-        //check if clip has been loaded
-        AudioClip clip;
-
-        if (!audioClipDict.ContainsKey(clipName))
-        {
-            clip = Resources.Load<AudioClip>(clipName);
-            if (clip == null)
-            {
-                Debug.LogError("Clip <" + clipName + "> cannot be found in Resources folder");
-            }
-            audioClipDict.Add(clipName, clip);
-        }
-
-        clip = audioClipDict[clipName];
-        audioSource.clip = clip;
-        audioSource.PlayOneShot(clip);
+    /// <summary>
+    /// Play a clip for one time under a parent GameObject, with specific AudioGroup
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="audioGroup"></param>
+    public static void PlayOneShot(string clipName, AudioGroup audioGroup, Transform parent)
+    {
+        PlayOneShot(clipName, audioGroup);
+        GetAudioSource(clipName).transform.parent = parent;
     }
 
     /// <summary>
@@ -209,6 +226,8 @@ public class AudioManager : MonoBehaviour
     /// <param name="loop"></param>
     public static void PlayMusic(string clipName, bool loop)
     {
+        Initialize(); //make sure AudioManager is initialized
+
         //check if there is a audio source object
         AudioSource audioSource;
 
@@ -220,6 +239,13 @@ public class AudioManager : MonoBehaviour
         audioSource = audioSourceDict[clipName];
         audioSource.outputAudioMixerGroup = musicGroup;
         audioSource.loop = loop;
+
+        //create a audioParent if hasn't had one
+        if (audioParent == null)
+        {
+            audioParent = new GameObject("Default AudioParent");
+        }
+        audioSource.transform.parent = audioParent.transform;
 
         //check if clip has been loaded
         AudioClip clip;
@@ -238,6 +264,18 @@ public class AudioManager : MonoBehaviour
         audioSource.clip = clip;
         //audioSource.outputAudioMixerGroup = mainMixer.outputAudioMixerGroup;
         audioSource.Play();
+    }
+
+    /// <summary>
+    /// play music under a parent GameObject, assign AudioGroup as music
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="loop"></param>
+    /// <param name="parent"></param>
+    public static void PlayMusic(string clipName, bool loop, Transform parent)
+    {
+        PlayMusic(clipName, loop);
+        GetAudioSource(clipName).transform.parent = parent;
     }
 
     public static void Stop(string clipName)
@@ -264,24 +302,27 @@ public class AudioManager : MonoBehaviour
     }
 
     // change AudioGroup volume
-    public static void SetMasterVolume(float volume)
+    public static void SetMasterGroupVolume(float volume)
     {
+        Initialize(); //make sure AudioManager is initialized
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
         float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
         mainMixer.SetFloat("MasterVolume", dbValue);
     }
 
-    public static void SetMusicVolume(float volume)
+    public static void SetMusicGroupVolume(float volume)
     {
+        Initialize(); //make sure AudioManager is initialized
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
         float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
         mainMixer.SetFloat("MusicVolume", dbValue);
     }
 
-    public static void SetSFXVolume(float volume)
+    public static void SetSFXGroupVolume(float volume)
     {
+        Initialize(); //make sure AudioManager is initialized
         // 如果slider是0-100，先转换成0-1
         float normalizedVolume = volume / 100f;
         float dbValue = normalizedVolume > 0.0001f ? Mathf.Log10(normalizedVolume) * 20 : -80f;
@@ -331,6 +372,12 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region OldAudioManager(Don't Use!!!!!!!!!!)
+
+    void Start()
+    {
+        // 启动时自动分配所有现有的AudioSource
+        AssignAllAudioSources();
+    }
     // 在场景加载后调用
     void OnEnable()
     {
