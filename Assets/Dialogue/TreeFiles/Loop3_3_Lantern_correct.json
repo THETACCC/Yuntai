@@ -14,9 +14,7 @@
         "zh": "花灯都挂好了！位置也都没有问题！真是太感谢你了！",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 1,
@@ -32,9 +30,7 @@
         "zh": "不客气，我在这附近正好有事要做，或许一会还得来找你帮忙也说不定。",
         "ja": ""
       },
-      "nextIndex": 2,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 2
     },
     {
       "index": 2,
@@ -50,9 +46,7 @@
         "zh": "当然没问题！互帮互助嘛！",
         "ja": ""
       },
-      "nextIndex": 3,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 3
     },
     {
       "index": 3,
@@ -68,9 +62,7 @@
         "zh": "啊，这些花灯远远望去真是太漂亮了，不愧是我这几个月来的心血！",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -87,13 +79,67 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {"targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026", "targetObjectName": "LevelManager3_3", "componentTypeName": "LevelManager3_3", "methodName": "lanternBlockColliderDisappear", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1},
-        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
-        {"targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
-        {"targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49", "targetObjectName": "Objective4_1", "componentTypeName": "isThisUnlocked", "methodName": "LockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0},
-        {"targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6", "targetObjectName": "Objective4", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0}
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "lanternBlockColliderDisappear",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+          "targetObjectName": "Objective4_1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+          "targetObjectName": "Objective4",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
       ]
     }
   ],
