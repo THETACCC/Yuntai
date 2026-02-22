@@ -361,7 +361,8 @@ public class AudioManager : MonoBehaviour
             return false;
         }
 
-        if (audioSource.clip.name != clipName)
+        string clipFileName = System.IO.Path.GetFileName(clipName);
+        if (audioSource.clip.name != clipFileName)
         {
             Debug.LogError("AudioClip <" + clipName + "> cannot be found in AudioSource GameObject < Audio_" + clipName + " >");
             return false;
