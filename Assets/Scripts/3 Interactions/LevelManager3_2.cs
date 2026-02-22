@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
 public class LevelManager3_2 : BaseLevelManager
@@ -67,6 +68,7 @@ public class LevelManager3_2 : BaseLevelManager
 
     private IEnumerator CoZhouShuLeave()
     {
+        AudioManager.Play("Sound Effects/Henk/sndZhouShuMirror", AudioGroup.SFX);
         if (verboseLog) Debug.Log("[3-2] ZhouShuLeave start");
 
         // 1) 灯从无到有

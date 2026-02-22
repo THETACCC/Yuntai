@@ -34,7 +34,7 @@ public class ScenePortal : MonoBehaviour
             }
             else
             {
-                AudioManager.PlayOneShot("Sound Effects/Henk/sndSceneTransition", AudioGroup.SFX);
+                AudioManager.PlayOneShot("Sound Effects/Henk/sndNextScene", AudioGroup.SFX);
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
+using static AudioManager;
 
 public class LevelManager3_1 : BaseLevelManager
 {
@@ -109,6 +110,7 @@ public class LevelManager3_1 : BaseLevelManager
 
     private IEnumerator CoZhouShuEscape()
     {
+        AudioManager.Play("Sound Effects/Henk/sndZhouShuMirror", AudioGroup.SFX);
         if (verboseLog) Debug.Log("[3-1] ZhouShuEscape start");
 
         // 0) 锁住玩家：不能再乱走
@@ -121,6 +123,7 @@ public class LevelManager3_1 : BaseLevelManager
 
         // 切换坐->站
         SwitchZhoushuToStanding();
+        //Mirror AUdio
 
         // 1) 灯从无到有
         InitDeathLight();
