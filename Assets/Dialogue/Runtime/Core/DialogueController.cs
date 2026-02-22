@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 using DialogueSystem;
 using Fungus;
 using MoreMountains.Tools;
+using static AudioManager;
 
 //原Dialogue Manager，已改名
 public class DialogueController : MonoBehaviour
@@ -286,7 +287,8 @@ public class DialogueController : MonoBehaviour
         for (int i = 0; i <= totalVisibleCharacters; i++)
         {
             contentText.maxVisibleCharacters = i; // 逐渐显示字符
-
+            //Audio
+            AudioManager.Play("Sound Effects/Henk/sndType2", AudioGroup.SFX);
             // 获取当前显示的最后一个字符来判断是否需要标点停顿
             if (i > 0 && i <= totalVisibleCharacters)
             {

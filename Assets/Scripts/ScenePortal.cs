@@ -58,7 +58,7 @@ public class ScenePortal : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
+                //AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
 
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }

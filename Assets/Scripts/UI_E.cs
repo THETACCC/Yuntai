@@ -31,11 +31,11 @@ public class UI_E : MonoBehaviour
         // This disables the E when player presses
         if (collision.CompareTag("Player"))
         {
-            if (Input.GetKey(KeyCode.E) || (Input.GetKey(KeyCode.W)))
+            if (Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.W)))
             {
                 SetIndicator(false);
                 //PlayAudio
-                AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
+                AudioManager.Play("Sound Effects/Henk/sndSpeak", AudioGroup.SFX);
             }
 
         }
