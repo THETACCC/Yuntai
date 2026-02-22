@@ -236,12 +236,12 @@ public class PlayerController : MonoBehaviour
     public void PlayFootStepSounds()
     {
         AudioManager.Play("Sound Effects/Henk/sndPlayerFootStep", AudioGroup.SFX);
-        AudioManager.SetVolume("Sound Effects/Henk/sndPlayerFootStep", 0.1f);
+        AudioManager.SetVolume("Sound Effects/Henk/sndPlayerFootStep", 0.4f);
     }
 
     public void PlayFootStepSoundsType2()
     {
         AudioManager.Play("Sound Effects/Henk/sndPlayerFootStep2", AudioGroup.SFX);
-        AudioManager.SetVolume("Sound Effects/Henk/sndPlayerFootStep2", 0.1f);
+        AudioManager.SetVolume("Sound Effects/Henk/sndPlayerFootStep2", 0.4f);
     }
 }

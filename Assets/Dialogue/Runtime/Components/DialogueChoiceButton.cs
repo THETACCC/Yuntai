@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static AudioManager;
 
 public class DialogueChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
@@ -25,6 +26,9 @@ public class DialogueChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void GoToChoiceIndex()
     {
+        //Audio
+        AudioManager.Play("Sound Effects/Henk/sndChoice", AudioGroup.SFX);
+
         SetDialogueIndex();
         UpdateDialogue();
     }
