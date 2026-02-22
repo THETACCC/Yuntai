@@ -46,15 +46,15 @@ public class VirtualFolderManager
         try
         {
             string savePath = GetFolderStructurePath();
-            string json = JsonUtility.ToJson(folderData, true).Trim();
+            string json = JsonUtility.ToJson(folderData, true).Trim().Replace("\r\n", "\n");
 
             string folder = Path.GetDirectoryName(savePath);
             if (!Directory.Exists(folder))
-            {
                 Directory.CreateDirectory(folder);
-            }
 
-            json = json.Replace("\r\n", "\n");
+            if (File.Exists(savePath) && File.ReadAllText(savePath) == json)
+                return;
+
             System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
             File.WriteAllText(savePath, json, utf8WithoutBom);
         }

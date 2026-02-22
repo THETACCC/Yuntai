@@ -179,7 +179,8 @@ public class DialogueProjectEditorWindow : EditorWindow
                     // 保存 .dtree
                     string updatedDtree = JsonUtility.ToJson(data, true).Trim().Replace("\r\n", "\n");
                     System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
-                    File.WriteAllText(dtreePath, updatedDtree, utf8WithoutBom);
+                    if (!File.Exists(dtreePath) || File.ReadAllText(dtreePath) != updatedDtree)
+                        File.WriteAllText(dtreePath, updatedDtree, utf8WithoutBom);
 
                     // 保存运行时 .json
                     string runtimePath = Path.ChangeExtension(dtreePath, ".json");
@@ -486,10 +487,10 @@ public class DialogueProjectEditorWindow : EditorWindow
                 if (hasUpdates)
                 {
                     // 保存更新后的.dtree文件
-                    string updatedJson = JsonUtility.ToJson(data, true).Trim();
-                    updatedJson = updatedJson.Replace("\r\n", "\n");
+                    string updatedJson = JsonUtility.ToJson(data, true).Trim().Replace("\r\n", "\n");
                     System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
-                    File.WriteAllText(dtreePath, updatedJson, utf8WithoutBom);
+                    if (!File.Exists(dtreePath) || File.ReadAllText(dtreePath) != updatedJson)
+                        File.WriteAllText(dtreePath, updatedJson, utf8WithoutBom);
 
                     // 同时重新生成运行时 .json 文件
                     string runtimeJsonPath = Path.ChangeExtension(dtreePath, ".json");
@@ -609,123 +610,144 @@ public class DialogueProjectEditorWindow : EditorWindow
         var idxMap = new Dictionary<string, int>();
         foreach (var n in data.nodes) idxMap[n.id] = n.index;
 
-        var sb = new System.Text.StringBuilder();
-        sb.Append("{\n  \"conversations\": [\n");
+        string formattedJson = "{\n  \"conversations\": [\n";
 
         for (int i = 0; i < runtime.Count; i++)
         {
             var item = runtime[i];
-            sb.Append("    {\n");
-            sb.Append($"      \"index\": {item.index},\n");
-            sb.Append($"      \"name\": {SerializeLocalizedText(item.name, 3)},\n");
-            sb.Append($"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n");
-            sb.Append($"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n");
-            sb.Append($"      \"content\": {SerializeLocalizedText(item.content, 3)}");
+            formattedJson += "    {\n";
+            formattedJson += $"      \"index\": {item.index},\n";
+            formattedJson += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
+            formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            formattedJson += $"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n";
+            formattedJson += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
 
+            // Conditional Branches
             if (item.conditionalBranches?.Count > 0)
             {
-                sb.Append(",\n      \"conditionalBranches\": [");
+                formattedJson += ",\n      \"conditionalBranches\": [\n";
                 for (int j = 0; j < item.conditionalBranches.Count; j++)
                 {
-                    var br = item.conditionalBranches[j];
-                    sb.Append($"\n        {{\"targetIndex\": {br.targetIndex}, \"priority\": {br.priority}");
-                    if (br.priority > 0 && br.conditions?.Count > 0)
+                    var branch = item.conditionalBranches[j];
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"targetIndex\": {branch.targetIndex},\n";
+                    formattedJson += $"          \"priority\": {branch.priority}";
+                    if (branch.priority > 0 && branch.conditions?.Count > 0)
                     {
-                        sb.Append(", \"conditions\": [");
-                        for (int k = 0; k < br.conditions.Count; k++)
+                        formattedJson += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < branch.conditions.Count; k++)
                         {
-                            var c = br.conditions[k];
-                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
-                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
-                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
-                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
-                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}} ");
-                            if (k < br.conditions.Count - 1) sb.Append(",");
+                            var cond = branch.conditions[k];
+                            formattedJson += "            {\n";
+                            formattedJson += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            formattedJson += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            formattedJson += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            formattedJson += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            formattedJson += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            formattedJson += "            }";
+                            if (k < branch.conditions.Count - 1) formattedJson += ",";
+                            formattedJson += "\n";
                         }
-                        sb.Append($"], \"conditionLogic\": \"{br.conditionLogic}\"");
+                        formattedJson += "          ],\n";
+                        formattedJson += $"          \"conditionLogic\": \"{branch.conditionLogic}\"\n";
                     }
-                    sb.Append("}");
-                    if (j < item.conditionalBranches.Count - 1) sb.Append(",");
+                    else
+                    {
+                        formattedJson += "\n";
+                    }
+                    formattedJson += "        }";
+                    if (j < item.conditionalBranches.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
                 }
-                sb.Append("\n      ]");
+                formattedJson += "      ]";
             }
             else
             {
                 int next = -1;
                 if (!string.IsNullOrEmpty(item.nextNodeId) && idxMap.ContainsKey(item.nextNodeId))
                     next = idxMap[item.nextNodeId];
-                sb.Append($",\n      \"nextIndex\": {next}");
+                formattedJson += $",\n      \"nextIndex\": {next}";
             }
 
+            // Choices
             if (item.choices?.Count > 0)
             {
-                sb.Append(",\n      \"choices\": [");
+                formattedJson += ",\n      \"choices\": [\n";
                 for (int j = 0; j < item.choices.Count; j++)
                 {
                     var ch = item.choices[j];
                     int tgt = -1;
                     if (!string.IsNullOrEmpty(ch.nextNodeId) && idxMap.ContainsKey(ch.nextNodeId))
                         tgt = idxMap[ch.nextNodeId];
-                    sb.Append($"\n        {{\"text\": {SerializeLocalizedText(ch.text, 5)}, \"targetIndex\": {tgt}");
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"text\": {SerializeLocalizedText(ch.text, 5)},\n";
+                    formattedJson += $"          \"targetIndex\": {tgt}";
                     if (ch.conditions?.Count > 0)
                     {
-                        sb.Append(", \"conditions\": [");
+                        formattedJson += ",\n          \"conditions\": [\n";
                         for (int k = 0; k < ch.conditions.Count; k++)
                         {
-                            var c = ch.conditions[k];
-                            sb.Append($"\n            {{\"targetObjectName\": \"{EscapeJsonString(c.targetObjectName)}\", ");
-                            sb.Append($"\"componentTypeName\": \"{EscapeJsonString(c.componentTypeName)}\", ");
-                            sb.Append($"\"variableName\": \"{EscapeJsonString(c.variableName)}\", ");
-                            sb.Append($"\"comparison\": \"{c.comparison}\", ");
-                            sb.Append($"\"compareValue\": \"{EscapeJsonString(c.compareValue)}\"}} ");
-                            if (k < ch.conditions.Count - 1) sb.Append(",");
+                            var cond = ch.conditions[k];
+                            formattedJson += "            {\n";
+                            formattedJson += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            formattedJson += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            formattedJson += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            formattedJson += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            formattedJson += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            formattedJson += "            }";
+                            if (k < ch.conditions.Count - 1) formattedJson += ",";
+                            formattedJson += "\n";
                         }
-                        sb.Append($"], \"conditionLogic\": \"{ch.conditionLogic}\"");
+                        formattedJson += "          ],\n";
+                        formattedJson += $"          \"conditionLogic\": \"{ch.conditionLogic}\"\n";
                     }
-                    sb.Append("}");
-                    if (j < item.choices.Count - 1) sb.Append(",");
+                    else
+                    {
+                        formattedJson += "\n";
+                    }
+                    formattedJson += "        }";
+                    if (j < item.choices.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
                 }
-                sb.Append("\n      ]");
-            }
-            else
-            {
-                sb.Append(",\n      \"choices\": []");
+                formattedJson += "      ]";
             }
 
+            // Event Calls
             if (item.eventCalls?.Count > 0)
             {
-                sb.Append(",\n      \"eventCalls\": [");
+                formattedJson += ",\n      \"eventCalls\": [\n";
                 for (int j = 0; j < item.eventCalls.Count; j++)
                 {
                     var ev = item.eventCalls[j];
-                    sb.Append($"\n        {{\"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\", ");
-                    sb.Append($"\"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\", ");
-                    sb.Append($"\"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\", ");
-                    sb.Append($"\"methodName\": \"{EscapeJsonString(ev.methodName)}\", ");
-                    sb.Append($"\"parameterType\": \"{ev.parameterType}\", ");
-                    sb.Append($"\"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\", ");
-                    sb.Append($"\"intParameter\": {ev.intParameter}, ");
-                    sb.Append($"\"floatParameter\": {ev.floatParameter}, ");
-                    sb.Append($"\"boolParameter\": {ev.boolParameter.ToString().ToLower()}, ");
-                    sb.Append($"\"triggerTiming\": {(int)ev.triggerTiming}}}");
-                    if (j < item.eventCalls.Count - 1) sb.Append(",");
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\",\n";
+                    formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\",\n";
+                    formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\",\n";
+                    formattedJson += $"          \"methodName\": \"{EscapeJsonString(ev.methodName)}\",\n";
+                    formattedJson += $"          \"parameterType\": \"{ev.parameterType}\",\n";
+                    formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\",\n";
+                    formattedJson += $"          \"intParameter\": {ev.intParameter},\n";
+                    formattedJson += $"          \"floatParameter\": {ev.floatParameter},\n";
+                    formattedJson += $"          \"boolParameter\": {ev.boolParameter.ToString().ToLower()},\n";
+                    formattedJson += $"          \"triggerTiming\": {(int)ev.triggerTiming}\n";
+                    formattedJson += "        }";
+                    if (j < item.eventCalls.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
                 }
-                sb.Append("\n      ]");
-            }
-            else
-            {
-                sb.Append(",\n      \"eventCalls\": []");
+                formattedJson += "      ]";
             }
 
-            sb.Append("\n    }");
-            if (i < runtime.Count - 1) sb.Append(",");
-            sb.Append("\n");
+            formattedJson += "\n    }";
+            if (i < runtime.Count - 1) formattedJson += ",";
+            formattedJson += "\n";
         }
-        sb.Append("  ],\n  \"currentIndex\": 0\n}");
+        formattedJson += "  ],\n  \"currentIndex\": 0\n}";
 
-        string result = sb.ToString().Replace("\r\n", "\n");
+        formattedJson = formattedJson.Replace("\r\n", "\n");
+        if (File.Exists(path) && File.ReadAllText(path) == formattedJson)
+            return;
         System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
-        File.WriteAllText(path, result, utf8WithoutBom);
+        File.WriteAllText(path, formattedJson, utf8WithoutBom);
     }
 
     private List<RuntimeDialogueData> ConvertToRuntime(DialogueTreeData data)

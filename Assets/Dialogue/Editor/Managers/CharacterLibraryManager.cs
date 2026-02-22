@@ -90,15 +90,15 @@ public class CharacterLibraryManager
         try
         {
             string savePath = GetCharacterLibraryPath();
-            string json = JsonUtility.ToJson(characterLibrary, true).Trim();
+            string json = JsonUtility.ToJson(characterLibrary, true).Trim().Replace("\r\n", "\n");
 
             string folder = Path.GetDirectoryName(savePath);
             if (!Directory.Exists(folder))
-            {
                 Directory.CreateDirectory(folder);
-            }
 
-            json = json.Replace("\r\n", "\n");
+            if (File.Exists(savePath) && File.ReadAllText(savePath) == json)
+                return;
+
             System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
             File.WriteAllText(savePath, json, utf8WithoutBom);
         }
@@ -113,15 +113,15 @@ public class CharacterLibraryManager
         try
         {
             string savePath = GetCharacterFolderStructurePath();
-            string json = JsonUtility.ToJson(characterFolderData, true).Trim();
+            string json = JsonUtility.ToJson(characterFolderData, true).Trim().Replace("\r\n", "\n");
 
             string folder = Path.GetDirectoryName(savePath);
             if (!Directory.Exists(folder))
-            {
                 Directory.CreateDirectory(folder);
-            }
 
-            json = json.Replace("\r\n", "\n");
+            if (File.Exists(savePath) && File.ReadAllText(savePath) == json)
+                return;
+
             System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
             File.WriteAllText(savePath, json, utf8WithoutBom);
         }

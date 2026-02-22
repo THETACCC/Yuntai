@@ -14,9 +14,7 @@
         "zh": "（之前没能和这个人对话，而灯暗下来后她就消失了。）",
         "ja": ""
       },
-      "nextIndex": 2,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 2
     },
     {
       "index": 1,
@@ -32,9 +30,7 @@
         "zh": "饿...我好饿...饿...",
         "ja": ""
       },
-      "nextIndex": 7,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 7
     },
     {
       "index": 2,
@@ -51,9 +47,19 @@
         "ja": ""
       },
       "nextIndex": 3,
-      "choices": [],
       "eventCalls": [
-        {"targetObjectID": "951e7e29-713d-4e58-8375-bb044e697851", "targetObjectName": "snd_hungry", "componentTypeName": "AudioSource", "methodName": "Play", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 0}
+        {
+          "targetObjectID": "951e7e29-713d-4e58-8375-bb044e697851",
+          "targetObjectName": "snd_hungry",
+          "componentTypeName": "AudioSource",
+          "methodName": "Play",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
       ]
     },
     {
@@ -70,9 +76,7 @@
         "zh": "您好，请问——",
         "ja": ""
       },
-      "nextIndex": 4,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 4
     },
     {
       "index": 4,
@@ -88,9 +92,7 @@
         "zh": "呃——",
         "ja": ""
       },
-      "nextIndex": 5,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 5
     },
     {
       "index": 5,
@@ -106,9 +108,7 @@
         "zh": "您说什么？我没有听清。",
         "ja": ""
       },
-      "nextIndex": 1,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 1
     },
     {
       "index": 6,
@@ -125,14 +125,79 @@
         "ja": ""
       },
       "nextIndex": -1,
-      "choices": [],
       "eventCalls": [
-        {"targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45", "targetObjectName": "NoteBook", "componentTypeName": "NoteBookManager", "methodName": "UnlockEventFeedBack", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1},
-        {"targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069", "targetObjectName": "ObjectiveTab", "componentTypeName": "TabManager", "methodName": "RefreshUnlockedTabs", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 1},
-        {"targetObjectID": "0fcd8632-260f-474f-9958-c89ed34195e9", "targetObjectName": "Objective2", "componentTypeName": "isThisUnlocked", "methodName": "UnlockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2},
-        {"targetObjectID": "304ec2b0-4449-41a8-a2ba-b67fe4d5cb06", "targetObjectName": "Objective1", "componentTypeName": "isThisUnlocked", "methodName": "LockThis", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2},
-        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetInfoThreeTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2},
-        {"targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da", "targetObjectName": "LevelManager2_1", "componentTypeName": "LevelManager2_1", "methodName": "SetgetFoodTrue", "parameterType": "None", "stringParameter": "", "intParameter": 0, "floatParameter": 0, "boolParameter": false, "triggerTiming": 2}
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "0fcd8632-260f-474f-9958-c89ed34195e9",
+          "targetObjectName": "Objective2",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "304ec2b0-4449-41a8-a2ba-b67fe4d5cb06",
+          "targetObjectName": "Objective1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoThreeTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetgetFoodTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
       ]
     },
     {
@@ -149,9 +214,7 @@
         "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
         "ja": ""
       },
-      "nextIndex": 6,
-      "choices": [],
-      "eventCalls": []
+      "nextIndex": 6
     }
   ],
   "currentIndex": 0
