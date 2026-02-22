@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 
 public class PlayerController : MonoBehaviour
 {
@@ -85,11 +86,15 @@ public class PlayerController : MonoBehaviour
 
             if (pressA && !pressD)
             {
+
+                //AudioManager.Play("Sound Effects/sndFootSteps/sndFootStep_06", AudioGroup.SFX);
                 horizontal = -1f;
                 speed += velocity * acceleration * Time.deltaTime;
             }
             else if (pressD && !pressA)
             {
+
+                //AudioManager.Play("Sound Effects/sndFootSteps/sndFootStep_06", AudioGroup.SFX);
                 horizontal = 1f;
                 speed += velocity * acceleration * Time.deltaTime;
             }
@@ -108,6 +113,16 @@ public class PlayerController : MonoBehaviour
             {
                 speed = Mathf.Clamp(speed, 0f, max_hspeed*1.75f);
             }
+
+
+            //Sound Related
+            if((horizontal != 0) && (!pressShift))
+            {
+
+            }
+
+
+
         }
         else
         {
@@ -214,5 +229,13 @@ public class PlayerController : MonoBehaviour
             Vector2 closestPoint = boundingArea.ClosestPoint(playerPosition);
             transform.position = closestPoint;
         }
+    }
+
+
+    //Audio Related
+    public void PlayFootStepSounds()
+    {
+        AudioManager.Play("Sound Effects/sndFootSteps/sndFootStep_06", AudioGroup.SFX);
+        AudioManager.SetVolume("Sound Effects/sndFootSteps/sndFootStep_06", 0.5f);
     }
 }

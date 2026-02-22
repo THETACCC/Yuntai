@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 
 public class UI_E : MonoBehaviour
 {
@@ -31,7 +32,12 @@ public class UI_E : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             if (Input.GetKey(KeyCode.E) || (Input.GetKey(KeyCode.W)))
+            {
                 SetIndicator(false);
+                //PlayAudio
+                AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
+            }
+
         }
     }
 

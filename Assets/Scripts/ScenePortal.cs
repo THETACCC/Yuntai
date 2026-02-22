@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static AudioManager;
 
 public class ScenePortal : MonoBehaviour
 {
@@ -57,6 +58,8 @@ public class ScenePortal : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
+                AudioManager.PlayOneShot("Sound Effects/sndToiletFlush", AudioGroup.SFX);
+
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
         }
