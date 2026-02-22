@@ -484,9 +484,6 @@ public class DialogueTreeEditor : EditorWindow
                 Debug.LogError($"[DialogueTreeEditor] ERROR: DTREE file not found at {dtreePath}");
             }
 
-            System.IO.File.SetLastWriteTime(path, System.DateTime.Now);
-            System.IO.File.SetLastWriteTime(dtreePath, System.DateTime.Now);
-
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
             EditorApplication.delayCall += () =>
@@ -675,9 +672,12 @@ public class DialogueTreeEditor : EditorWindow
         }
         formattedJson += "  ],\n  \"currentIndex\": 0\n}";
 
+        formattedJson = formattedJson.Replace("\r\n", "\n");
         Debug.Log($"[DialogueTreeEditor] Writing Runtime JSON to: {path}");
         Debug.Log($"[DialogueTreeEditor] JSON length: {formattedJson.Length} characters");
-        File.WriteAllText(path, formattedJson);
+        System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+        if (!File.Exists(path) || File.ReadAllText(path) != formattedJson)
+            File.WriteAllText(path, formattedJson, utf8WithoutBom);
         Debug.Log($"[DialogueTreeEditor] Runtime JSON write completed");
     }
 
@@ -686,10 +686,12 @@ public class DialogueTreeEditor : EditorWindow
         Debug.Log($"[DialogueTreeEditor] Serializing dialogue tree for editor format");
         DialogueTreeData treeData = graphView.SerializeDialogueTree();
         Debug.Log($"[DialogueTreeEditor] Serialized {treeData.nodes.Count} nodes, {treeData.connections.Count} connections");
-        string json = JsonUtility.ToJson(treeData, true);
+        string json = JsonUtility.ToJson(treeData, true).Trim().Replace("\r\n", "\n");
         Debug.Log($"[DialogueTreeEditor] Writing Editor DTREE to: {path}");
         Debug.Log($"[DialogueTreeEditor] DTREE JSON length: {json.Length} characters");
-        File.WriteAllText(path, json);
+        System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+        if (!File.Exists(path) || File.ReadAllText(path) != json)
+            File.WriteAllText(path, json, utf8WithoutBom);
         Debug.Log($"[DialogueTreeEditor] Editor DTREE write completed");
     }
 
