@@ -207,6 +207,11 @@ public static class GlobalLibrary
 
 
         }},
+        {SceneTitle.Level4_151FestivalPuzzle6, new SceneSpecifics()
+        {
+
+
+        }},
         {SceneTitle.Level4_16FestivalKill, new SceneSpecifics()
         {
 
@@ -231,7 +236,7 @@ public static class GlobalLibrary
             SceneTitle.Level4_1City,SceneTitle.Level4_2City,SceneTitle.Level4_2Festival,SceneTitle.Level4_3Apartment1F, SceneTitle.Level4_4Apartment2F,SceneTitle.Level4_5Apartment3F,SceneTitle.Level4_6NoemaHouse,SceneTitle.Level4_17Stage,SceneTitle.Level4_8Temple,
             SceneTitle.Level4_6_1Ghost3F, SceneTitle.Level4_6_2LoopStuck1, SceneTitle.Level4_6_3LoopDead, SceneTitle.Level4_6_4LoopStuck2, SceneTitle.Level4_6_5LoopStuck3,SceneTitle.Level4_6_6FinalChase,SceneTitle.Level4_6_7City,
             SceneTitle.Level4_7FestivalNoema,  SceneTitle.Level4_8FestivalGhost, SceneTitle.Level4_81FestivalWrong,SceneTitle.Level4_9FestivalDead,SceneTitle.Level4_10FestivalNoemaHelp,
-            SceneTitle.Level4_11FestivalPuzzle1, SceneTitle.Level4_12FestivalPuzzle2, SceneTitle.Level4_13FestivalPuzzle3, SceneTitle.Level4_14FestivalPuzzle4,SceneTitle.Level4_15FestivalPuzzle5,SceneTitle.Level4_16FestivalKill,
+            SceneTitle.Level4_11FestivalPuzzle1, SceneTitle.Level4_12FestivalPuzzle2, SceneTitle.Level4_13FestivalPuzzle3, SceneTitle.Level4_14FestivalPuzzle4,SceneTitle.Level4_15FestivalPuzzle5,SceneTitle.Level4_151FestivalPuzzle6,SceneTitle.Level4_16FestivalKill,
             SceneTitle.JasmineTest 
         
         } },
@@ -281,6 +286,7 @@ public static class GlobalLibrary
         {SceneTitle.Level4_13FestivalPuzzle3, "Level4-13FestivalPuzzle3" },
         {SceneTitle.Level4_14FestivalPuzzle4, "Level4-14FestivalPuzzle4" },
         {SceneTitle.Level4_15FestivalPuzzle5, "Level4-15FestivalPuzzle5" },
+        {SceneTitle.Level4_151FestivalPuzzle6, "Level4-151FestivalPuzzle6" },
         {SceneTitle.Level4_16FestivalKill, "Level4-16FestivalKill" },
 
 

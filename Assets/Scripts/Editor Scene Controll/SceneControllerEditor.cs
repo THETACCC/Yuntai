@@ -190,7 +190,7 @@ public enum SceneTitle
     Level4_15FestivalPuzzle5 = 36,
     Level4_16FestivalKill = 37,
     Level4_81FestivalWrong = 38,
-    
+    Level4_151FestivalPuzzle6 = 39,
 
     JasmineTest = 50
 }
