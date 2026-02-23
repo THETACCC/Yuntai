@@ -3,12 +3,12 @@
         {
             "id": "3ccb5e9e-6983-4790-97ac-ec2533e412c2",
             "index": 0,
-            "characterId": "",
-            "useContentId": false,
-            "contentId": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_2014i",
             "content": {
-                "en": "Start dialogue here...",
-                "zh": "",
+                "en": "",
+                "zh": "一台老电视。",
                 "ja": ""
             },
             "positionX": 100.0,
@@ -16,7 +16,32 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
+        },
+        {
+            "id": "c2d7eedf-40ed-4d9a-a0e0-d0c0b8e2a355",
+            "index": 1,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_2014j",
+            "content": {
+                "en": "",
+                "zh": "上面积了灰，似乎已经很久没被打开过了。",
+                "ja": ""
+            },
+            "positionX": 450.0,
+            "positionY": 102.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "3ccb5e9e-6983-4790-97ac-ec2533e412c2",
+            "inputNodeId": "c2d7eedf-40ed-4d9a-a0e0-d0c0b8e2a355",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
