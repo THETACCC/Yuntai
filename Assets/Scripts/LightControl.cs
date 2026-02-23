@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
 public static class LightControl
@@ -63,6 +64,21 @@ public static class LightControl
         while (light)
         {
             light.intensity = maxI;
+            //Audio
+            int myRandomNum = UnityEngine.Random.Range(0, 3);
+            if (myRandomNum == 0)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight1", AudioGroup.SFX);
+            }
+            else if (myRandomNum == 1)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight2", AudioGroup.SFX);
+            }
+            else if (myRandomNum == 2)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight3", AudioGroup.SFX);
+            }
+
             if (onTime > 0f) yield return new WaitForSeconds(onTime);
             light.intensity = minI;
             float off = Mathf.Max(0f, cycle - onTime);
