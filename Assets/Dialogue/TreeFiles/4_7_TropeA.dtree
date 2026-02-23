@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "54c6f786-8a09-46a0-b8de-e68caced2d23",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3058",
+            "content": {
+                "en": "",
+                "zh": "这位小姐，你要往哪里去？",
+                "ja": ""
+            },
+            "positionX": 9071.2001953125,
+            "positionY": 348.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ffb385df-e392-42bf-b96b-948de405d8fa",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3059",
+            "content": {
+                "en": "",
+                "zh": "......（老实说，我不太想和这群家伙打交道，但还是先顺着它的话说吧。）",
+                "ja": ""
+            },
+            "positionX": 9389.6005859375,
+            "positionY": 348.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fce09ac9-26f2-474b-a862-a87e20690fe1",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3060",
+            "content": {
+                "en": "",
+                "zh": "我去戏台那边看表演。",
+                "ja": ""
+            },
+            "positionX": 9708.0,
+            "positionY": 348.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "dda7a075-1714-464f-9db7-86686b150a38",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3061",
+            "content": {
+                "en": "",
+                "zh": "那你来的太晚了，我们戏团的表演都已经结束了。",
+                "ja": ""
+            },
+            "positionX": 10036.7998046875,
+            "positionY": 349.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9caa0b81-4d19-4677-8f90-f0e6d9807eb8",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3062",
+            "content": {
+                "en": "",
+                "zh": "你真该去看看的，那场面，可是相当......呵呵呵。",
+                "ja": ""
+            },
+            "positionX": 10354.400390625,
+            "positionY": 349.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "53d67877-42aa-4871-97a5-47f52b035bd2",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3063",
+            "content": {
+                "en": "",
+                "zh": "（快走吧。）",
+                "ja": ""
+            },
+            "positionX": 10672.7998046875,
+            "positionY": 349.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "54c6f786-8a09-46a0-b8de-e68caced2d23",
+            "inputNodeId": "ffb385df-e392-42bf-b96b-948de405d8fa",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ffb385df-e392-42bf-b96b-948de405d8fa",
+            "inputNodeId": "fce09ac9-26f2-474b-a862-a87e20690fe1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fce09ac9-26f2-474b-a862-a87e20690fe1",
+            "inputNodeId": "dda7a075-1714-464f-9db7-86686b150a38",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "dda7a075-1714-464f-9db7-86686b150a38",
+            "inputNodeId": "9caa0b81-4d19-4677-8f90-f0e6d9807eb8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9caa0b81-4d19-4677-8f90-f0e6d9807eb8",
+            "inputNodeId": "53d67877-42aa-4871-97a5-47f52b035bd2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
