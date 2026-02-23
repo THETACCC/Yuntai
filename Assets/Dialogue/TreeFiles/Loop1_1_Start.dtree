@@ -11,8 +11,8 @@
                 "zh": "！！！！",
                 "ja": ""
             },
-            "positionX": 686.6666870117188,
-            "positionY": 716.6666870117188,
+            "positionX": 687.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -43,7 +43,7 @@
                 "ja": ""
             },
             "positionX": 1118.0,
-            "positionY": 716.6666870117188,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -60,7 +60,7 @@
                 "ja": ""
             },
             "positionX": 1488.0,
-            "positionY": 716.6666870117188,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -76,8 +76,8 @@
                 "zh": "明明毕业时说好要经常联系的，上了大学之后却一条消息都没给我发过，也不回复我发的消息。",
                 "ja": ""
             },
-            "positionX": 1837.333251953125,
-            "positionY": 716.6666870117188,
+            "positionX": 1837.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -93,8 +93,8 @@
                 "zh": "她为什么会突然邀请我过来......算了，想这么多也没用，等之后当面问吧。",
                 "ja": ""
             },
-            "positionX": 2185.33349609375,
-            "positionY": 716.6666870117188,
+            "positionX": 2185.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -110,10 +110,24 @@
                 "zh": "我最好起来活动一下，顺便<color=orange>去趟洗手间</color>。",
                 "ja": ""
             },
-            "positionX": 2541.33349609375,
-            "positionY": 716.6666870117188,
+            "positionX": 2541.0,
+            "positionY": 717.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "757f007d-1692-472a-92ca-dbf36652f2f4",
+                    "targetObjectName": "LevelManager1_1",
+                    "targetSceneName": "Level1-1",
+                    "componentTypeName": "LevelManager1_1",
+                    "methodName": "PlayStandUpSound",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         }
     ],

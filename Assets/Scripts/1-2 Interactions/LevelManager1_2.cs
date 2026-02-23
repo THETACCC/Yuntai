@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
+using static AudioManager;
 
 public class LevelManager1_2 : BaseLevelManager
 {
@@ -163,6 +164,7 @@ public class LevelManager1_2 : BaseLevelManager
             : new BlinkStep { cycle = 1.0f, onTime = 0.20f, minIntensity = 0.25f, maxIntensity = 0.9f };
 
         LightControl.StartBlink(lightToBlinkAndDim, step.cycle, step.onTime, step.minIntensity, step.maxIntensity);
+
         yield return new WaitForSeconds(Random.Range(4f, 5f));
         LightControl.StopBlink(lightToBlinkAndDim);
 
@@ -170,6 +172,9 @@ public class LevelManager1_2 : BaseLevelManager
         LightControl.Dim(lightToBlinkAndDim, dimTargetIntensity, dimDuration);
         yield return new WaitForSeconds(dimDuration);
 
+
+        //Audio
+        AudioManager.Play("Sound Effects/Chapter1/sndElectricLightLong", AudioGroup.SFX);
         yield return new WaitForSeconds(1.3f);
 
         // 3) 红光亮
@@ -455,6 +460,24 @@ public class LevelManager1_2 : BaseLevelManager
             yield return new WaitForSeconds(flickerOffTime);
 
             for (int i = 0; i < lights.Count; i++) if (lights[i]) lights[i].intensity = original[i];
+
+            //Audio
+            //Audio
+            int myRandomNum = Random.Range(0, 3);
+            if (myRandomNum == 0)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight1", AudioGroup.SFX);
+            }
+            else if (myRandomNum == 1)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight2", AudioGroup.SFX);
+            }
+            else if (myRandomNum == 2)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight3", AudioGroup.SFX);
+            }
+
+
             yield return new WaitForSeconds(flickerOnTime);
         }
 
@@ -492,6 +515,22 @@ public class LevelManager1_2 : BaseLevelManager
             // 亮（保证最小亮度）
             for (int i = 0; i < lights.Count; i++)
                 if (lights[i]) lights[i].intensity = Mathf.Max(original[i], s_MinOnIntensityOverride);
+
+            //Audio
+            int myRandomNum = Random.Range(0, 3);
+            if(myRandomNum == 0)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight1", AudioGroup.SFX);
+            }
+            else if(myRandomNum == 1)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight2", AudioGroup.SFX);
+            }
+            else if (myRandomNum == 2)
+            {
+                AudioManager.Play("Sound Effects/Chapter1/sndElectricLight3", AudioGroup.SFX);
+            }
+
 
             // 保持亮
             if (onTime > 0f) yield return new WaitForSeconds(onTime);
