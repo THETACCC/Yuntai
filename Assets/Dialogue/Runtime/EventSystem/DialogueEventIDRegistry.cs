@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +15,9 @@ namespace DialogueSystem
     public class DialogueEventIDRegistry : ScriptableObject
     {
         private static DialogueEventIDRegistry instance;
+
+        // 注册表固定路径，所有组员共用同一个文件
+        private const string RegistryAssetPath = "Assets/Dialogue/Editor/Data/DialogueDialogueEventIDRegistry.asset";
 
         [System.Serializable]
         public class IDRecord
@@ -48,31 +51,48 @@ namespace DialogueSystem
                 if (instance == null)
                 {
 #if UNITY_EDITOR
-                    // 尝试加载已存在的注册表
-                    instance = AssetDatabase.FindAssets("t:DialogueEventIDRegistry")
-                        .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                        .Select(path => AssetDatabase.LoadAssetAtPath<DialogueEventIDRegistry>(path))
-                        .FirstOrDefault();
+                    // 【修复】优先用固定路径直接加载。
+                    // 原来用 FindAssets 在 domain reload 初期 AssetDatabase 未完全就绪时会返回空，
+                    // 导致错误地创建新空注册表并覆盖磁盘上由队友 push 的完整 registry 文件。
+                    instance = AssetDatabase.LoadAssetAtPath<DialogueEventIDRegistry>(RegistryAssetPath);
 
-                    // 如果不存在，创建新的
+                    // 固定路径找不到时，用 FindAssets 兜底（兼容文件被移动/重命名的极端情况）
                     if (instance == null)
                     {
+                        instance = AssetDatabase.FindAssets("t:DialogueEventIDRegistry")
+                            .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                            .Select(path => AssetDatabase.LoadAssetAtPath<DialogueEventIDRegistry>(path))
+                            .FirstOrDefault();
+                    }
+
+                    // 只有在磁盘上真的不存在文件时才创建新的，防止覆盖已有数据
+                    if (instance == null)
+                    {
+                        string fullPath = System.IO.Path.Combine(
+                            System.IO.Path.GetDirectoryName(Application.dataPath),
+                            RegistryAssetPath.Replace('/', System.IO.Path.DirectorySeparatorChar));
+
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            // 文件在磁盘存在但 AssetDatabase 还没导入（domain reload 极早期）
+                            // 此时直接返回 null，等 AssetDatabase 就绪后下次访问再加载，避免覆盖
+                            Debug.LogWarning("[DialogueEventIDRegistry] 注册表文件存在但 AssetDatabase 尚未就绪，跳过本次访问。");
+                            return null;
+                        }
+
+                        // 文件真的不存在，创建新的
                         instance = CreateInstance<DialogueEventIDRegistry>();
 
-                        // 保存到Dialogue/Editor/Data目录
-                        string path = "Assets/Dialogue/Editor/Data/DialogueDialogueEventIDRegistry.asset";
-                        
-                        // 确保目录存在
-                        string directory = System.IO.Path.GetDirectoryName(path);
+                        string directory = System.IO.Path.GetDirectoryName(RegistryAssetPath);
                         if (!AssetDatabase.IsValidFolder(directory))
                         {
                             Debug.LogError($"[DialogueEventIDRegistry] 目录不存在: {directory}");
                         }
-                        
-                        AssetDatabase.CreateAsset(instance, path);
+
+                        AssetDatabase.CreateAsset(instance, RegistryAssetPath);
                         AssetDatabase.SaveAssets();
 
-                        Debug.Log($"[DialogueEventIDRegistry] 创建新的ID注册表: {path}");
+                        Debug.Log($"[DialogueEventIDRegistry] 创建新的ID注册表: {RegistryAssetPath}");
                     }
 #else
                     Debug.LogError("[DialogueEventIDRegistry] Cannot create DialogueEventIDRegistry at runtime!");
@@ -127,24 +147,26 @@ namespace DialogueSystem
 
             if (idLookup.Contains(id))
             {
-                // ID已存在，更新记录
+                // ID已存在，只在数据真的不同时才更新，避免无意义的 dirty
                 var existing = records.FirstOrDefault(r => r.id == id);
-                if (existing != null)
+                if (existing != null &&
+                    (existing.scenePath != scenePath || existing.objectName != objectName))
                 {
                     existing.scenePath = scenePath;
                     existing.objectName = objectName;
+                    SortRecords();
+                    MarkDirty();
                 }
+                // 数据完全一样，什么都不做，不触发 dirty
             }
             else
             {
                 // 新ID，添加记录
                 records.Add(new IDRecord(id, scenePath, objectName));
                 idLookup.Add(id);
+                SortRecords();
+                MarkDirty();
             }
-
-            // 排序以保证顺序固定，避免Git产生无意义的diff
-            SortRecords();
-            MarkDirty();
         }
 
         /// <summary>
@@ -350,6 +372,7 @@ namespace DialogueSystem
                 EditorUtility.DisplayDialog("错误", $"重建失败:\n{e.Message}", "确定");
             }
         }
+
         /// <summary>
         /// 检查Registry中的ID冲突（无需打开场景）
         /// </summary>

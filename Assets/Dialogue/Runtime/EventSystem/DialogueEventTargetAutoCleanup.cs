@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 
 #if UNITY_EDITOR
@@ -46,7 +46,15 @@ public static class DialogueEventTargetAutoCleanup
     /// </summary>
     private static void CleanupSceneIDs(UnityEngine.SceneManagement.Scene scene, string scenePath)
     {
+        // 【修复】Instance 在 domain reload 极早期可能返回 null（AssetDatabase 尚未就绪）
+        // 此时跳过清理，避免用空注册表覆盖磁盘上队友 push 的完整 registry
         var registry = DialogueSystem.DialogueEventIDRegistry.Instance;
+        if (registry == null)
+        {
+            Debug.LogWarning("[DialogueEventTargetAutoCleanup] Registry 尚未就绪，跳过本次 cleanup。");
+            return;
+        }
+
         var records = registry.GetAllRecords();
 
         // 找出注册表中属于这个场景的所有ID
