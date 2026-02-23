@@ -29,7 +29,7 @@
                 "ja": ""
             },
             "positionX": 460.0,
-            "positionY": 105.33332824707031,
+            "positionY": 105.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,8 +45,8 @@
                 "zh": "得小心它的反扑。",
                 "ja": ""
             },
-            "positionX": 821.3333740234375,
-            "positionY": 107.33332824707031,
+            "positionX": 821.0,
+            "positionY": 107.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -62,10 +62,24 @@
                 "zh": "反复敲击“E”以挣脱束缚。",
                 "ja": ""
             },
-            "positionX": 1187.333251953125,
+            "positionX": 1187.0,
             "positionY": 106.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "34fb001d-325b-4d93-8daf-815c71965831",
+                    "targetObjectName": "EnableGhostAfterDelay",
+                    "targetSceneName": "Level4-6-6FinalChase",
+                    "componentTypeName": "EnableAfterDelay",
+                    "methodName": "EnableGhost",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         }
     ],

@@ -8,18 +8,25 @@ public class EnableAfterDelay : MonoBehaviour
     public GameObject targetObject;
 
     [Tooltip("Time in seconds before enabling")]
-    public float delay = 5f;
+    public float delay = 2f;
 
     void Start()
     {
-        if (targetObject != null)
-        {
-            StartCoroutine(EnableObjectAfterDelay());
-        }
-        else
-        {
-            Debug.LogWarning("Target Object is not assigned.");
-        }
+
+    }
+
+
+    public void EnableGhost()
+    {
+            if (targetObject != null)
+            {
+                StartCoroutine(EnableObjectAfterDelay());
+            }
+            else
+            {
+                Debug.LogWarning("Target Object is not assigned.");
+            }
+        
     }
 
     IEnumerator EnableObjectAfterDelay()
