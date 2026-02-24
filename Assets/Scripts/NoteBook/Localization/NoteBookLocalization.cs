@@ -130,7 +130,7 @@ public class NoteBookLocalization : MonoBehaviour
             return string.Empty;
 
         if (localizationDict.TryGetValue(stringID, out string text))
-            return text;
+            return text.Replace("\\n", "\n");
 
         Debug.LogWarning($"[NoteBookLocalization] StringID '{stringID}' not found in localization table!");
         return $"[MISSING:{stringID}]";
