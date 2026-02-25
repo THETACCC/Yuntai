@@ -176,6 +176,15 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public void setBlackScreenTrigger()
+    {
+        // 1) 黑屏
+        if (transitionAnim != null)
+        {
+            transitionAnim.SetTrigger("End");
+        }
+    }
+
     /// <summary>
     /// Fallback simple load without teleport.
     /// </summary>

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 using static AudioManager;
+using MoreMountains.Tools;
 
 public class LevelManager2_2 : BaseLevelManager
 {
@@ -404,6 +405,10 @@ public class LevelManager2_2 : BaseLevelManager
     // 直接跳到 Loop3：Level3-1，出生点=1（经由 ToNextLoop 播完死亡动画再跳）
     public void ToLoop3()
     {
+        //Audio Goes Here
+
+
+
         // 如果 DeathActing 协程还在跑，先停掉，避免后面再动 camera / light
         if (_deathRoutine != null)
         {
@@ -424,6 +429,28 @@ public class LevelManager2_2 : BaseLevelManager
             _camMoveTarget.position = _camOriginalPos;
         }
 
+        StartCoroutine( AudioDeath());
+
+
+
+
+
+    }
+
+    private IEnumerator AudioDeath()
+    {
+        //Audio
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisHit", AudioGroup.SFX);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisDown", AudioGroup.SFX);
+        SceneController.instance.setBlackScreenTrigger();
+        // Properly wait for 0.5 seconds
+        yield return new WaitForSeconds(1f);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisDead", AudioGroup.SFX);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisBoneBreak", AudioGroup.SFX);
+        yield return new WaitForSeconds(1f);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisReallyDead", AudioGroup.SFX);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisCrushed", AudioGroup.SFX);
+        yield return new WaitForSeconds(2f);
         // ③ 通过 ToNextLoop 播放统一的死亡动画 + 黑屏，再切到 3-1
         if (nextLoop != null)
         {
@@ -444,5 +471,7 @@ public class LevelManager2_2 : BaseLevelManager
                 Debug.LogError("[LevelManager2_2] SceneController.instance 为 null，无法传送到 Level3-1(1)。");
             }
         }
+
     }
+
 }
