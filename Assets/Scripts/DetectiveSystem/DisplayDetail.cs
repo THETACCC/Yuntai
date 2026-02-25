@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static AudioManager;
 
 public class DisplayDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -16,6 +17,9 @@ public class DisplayDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+        //Audio
+        AudioManager.PlayOneShot("Sound Effects/Chapter1/sndPuzzleHover", AudioGroup.SFX);
         if (myDetail != null)
             myDetail.SetActive(true);
     }
@@ -25,4 +29,10 @@ public class DisplayDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (myDetail != null)
             myDetail.SetActive(false);
     }
+
+    public void playSelectSound()
+    {
+        AudioManager.PlayOneShot("Sound Effects/Henk/sndChoice", AudioGroup.SFX);
+    }
+
 }
