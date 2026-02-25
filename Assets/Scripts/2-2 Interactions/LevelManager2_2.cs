@@ -285,7 +285,7 @@ public class LevelManager2_2 : BaseLevelManager
         //Audio
         AudioManager.Play("Sound Effects/Henk/snd2_2Tension", AudioGroup.SFX);
         AudioManager.Play("Sound Effects/Henk/sndZhouShuMirror", AudioGroup.SFX);
-
+        AudioManager.Play("Sound Effects/Chapter1/sndZhouShuTeleport", AudioGroup.SFX);
         // 2.5) 到位后等待 1 秒（可配）
         if (waitAfterCameraSeconds > 0f) yield return WaitSeconds(waitAfterCameraSeconds);
 

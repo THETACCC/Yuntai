@@ -111,6 +111,7 @@ public class LevelManager3_1 : BaseLevelManager
     private IEnumerator CoZhouShuEscape()
     {
         AudioManager.Play("Sound Effects/Henk/sndZhouShuMirror", AudioGroup.SFX);
+        AudioManager.Play("Sound Effects/Chapter1/sndZhouShuTeleport", AudioGroup.SFX);
         if (verboseLog) Debug.Log("[3-1] ZhouShuEscape start");
 
         // 0) 锁住玩家：不能再乱走
