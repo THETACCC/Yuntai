@@ -181,7 +181,7 @@ public class SceneController : MonoBehaviour
         // 1) 黑屏
         if (transitionAnim != null)
         {
-            transitionAnim.SetTrigger("End");
+        //    transitionAnim.SetTrigger("End");
         }
     }
 
