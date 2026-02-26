@@ -76,6 +76,10 @@ public class LevelManager2_2 : BaseLevelManager
     [Header("Death Acting - ToNextLoop（2-2 → 3-1 用）")]
     [SerializeField] private ToNextLoop nextLoop;   // 在 Inspector 里拖 ToNextLoop
 
+    //Back Scren Effect
+    public BlackScreenEffect myBlackScreen;
+
+
     // --- runtime ---
     private readonly List<Collider2D> _playerCols = new(); // 不禁用，只缓存
 
@@ -439,10 +443,11 @@ public class LevelManager2_2 : BaseLevelManager
 
     private IEnumerator AudioDeath()
     {
+        myBlackScreen.setBlackScreenTrigger();
         //Audio
         AudioManager.Play("Sound Effects/Chapter1/sndVerisHit", AudioGroup.SFX);
         AudioManager.Play("Sound Effects/Chapter1/sndVerisDown", AudioGroup.SFX);
-        SceneController.instance.setBlackScreenTrigger();
+       
         // Properly wait for 0.5 seconds
         yield return new WaitForSeconds(1f);
         AudioManager.Play("Sound Effects/Chapter1/sndVerisDead", AudioGroup.SFX);
