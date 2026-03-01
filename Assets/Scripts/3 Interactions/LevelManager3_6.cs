@@ -2,6 +2,7 @@
 using UnityEngine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 using DialogueSystem;
+using UnityEngine.SceneManagement;
 
 public class LevelManager3_6 : BaseLevelManager
 {
@@ -18,6 +19,17 @@ public class LevelManager3_6 : BaseLevelManager
 
     [Header("周叔离场后要触发的对话（3-6 start2）")]
     [SerializeField] private DialogueTrigger zhoushuStart2Trigger;
+
+    // scene跳转
+    [Header("Next Loop 跳转")]
+    [Tooltip("下一回合的场景名（若用 Scene Controller 也请填）")]
+    [SerializeField] private string nextSceneName;
+
+    [Tooltip("若使用 SceneController，则指定出生点编号")]
+    [SerializeField] private int nextSpawnPointLocation = 0;
+
+    [Tooltip("使用 SceneController.instance.LoadSceneAndTeleport() 跳转")]
+    [SerializeField] private bool useSceneControllerTeleport = true;
 
     [Header("Debug")]
     [SerializeField] private bool verboseLog = false;
@@ -121,6 +133,26 @@ public class LevelManager3_6 : BaseLevelManager
 
         if (verboseLog) Debug.Log("[3-6] ZhouShuLeave_3_6 end");
         _leaveRoutine = null;
+    }
+    // ========== scene跳转 ==========
+
+    public void GotoNextLoop()
+    {
+        if (useSceneControllerTeleport && SceneController.instance != null)
+        {
+            if (!string.IsNullOrEmpty(nextSceneName))
+                SceneController.instance.LoadSceneAndTeleport(nextSceneName, nextSpawnPointLocation);
+            else
+                Debug.LogWarning("[LevelManager3_6] 未配置 nextSceneName，无法通过 SceneController 跳转。");
+        }
+        else if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("[LevelManager3_6] 未配置下一回合跳转：请填 nextSceneName 或开启 useSceneControllerTeleport。");
+        }
     }
 
     // ========== 工具：初始化 / 淡出 Spot Light ==========

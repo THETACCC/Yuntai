@@ -11,8 +11,8 @@
                 "zh": "从纹秋到芸台，这一路上可比我想象的曲折多了。",
                 "ja": ""
             },
-            "positionX": 2986.39990234375,
-            "positionY": 525.5999755859375,
+            "positionX": 2986.0,
+            "positionY": 525.3333129882813,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "沈梦之......梦之......",
                 "ja": ""
             },
-            "positionX": 3318.39990234375,
-            "positionY": 526.3999633789063,
+            "positionX": 3318.0,
+            "positionY": 526.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,8 +45,8 @@
                 "zh": "城里最近似乎一直骚动不断，希望你一切平安。",
                 "ja": ""
             },
-            "positionX": 3648.800048828125,
-            "positionY": 526.3999633789063,
+            "positionX": 3648.666748046875,
+            "positionY": 526.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -63,7 +63,7 @@
                 "ja": ""
             },
             "positionX": 3972.0,
-            "positionY": 529.5999755859375,
+            "positionY": 529.3333129882813,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -79,44 +79,24 @@
                 "zh": "希望之后，能一切顺利。",
                 "ja": ""
             },
-            "positionX": 4306.400390625,
-            "positionY": 529.5999755859375,
+            "positionX": 4306.0,
+            "positionY": 529.3333129882813,
             "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "cf3f4d9b-bdef-4d1e-b08b-2b4c9016798d",
-            "index": 5,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch1_3275",
-            "content": {
-                "en": "--- Chapter 1 END ---",
-                "zh": "《第一章》到此结束！",
-                "ja": ""
-            },
-            "positionX": 4638.400390625,
-            "positionY": 529.5999755859375,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "11b898da-5b96-49b9-9b97-2a72da7c1a93",
-            "index": 6,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch1_3276",
-            "content": {
-                "en": "Thanks for playtesting our Game!",
-                "zh": "感谢您的试玩~",
-                "ja": ""
-            },
-            "positionX": 4974.400390625,
-            "positionY": 532.7999877929688,
-            "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "08027330-0e0e-452f-83bb-9b9885d7bfa9",
+                    "targetObjectName": "LevelManager3_6",
+                    "targetSceneName": "Level3-6",
+                    "componentTypeName": "LevelManager3_6",
+                    "methodName": "GotoNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],
@@ -145,20 +125,6 @@
         {
             "outputNodeId": "23dd573b-0f84-4d41-b239-3ca0addaf68e",
             "inputNodeId": "f7deb65e-66b3-4ce8-a5ee-03151f0f8c2c",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "f7deb65e-66b3-4ce8-a5ee-03151f0f8c2c",
-            "inputNodeId": "cf3f4d9b-bdef-4d1e-b08b-2b4c9016798d",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "cf3f4d9b-bdef-4d1e-b08b-2b4c9016798d",
-            "inputNodeId": "11b898da-5b96-49b9-9b97-2a72da7c1a93",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

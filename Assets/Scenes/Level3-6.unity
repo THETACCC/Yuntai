@@ -5192,6 +5192,9 @@ MonoBehaviour:
   spotQuickFadeDuration: 0.25
   zhoushuObject: {fileID: 2093182417}
   zhoushuStart2Trigger: {fileID: 1279740584}
+  nextSceneName: Level4-1City
+  nextSpawnPointLocation: 0
+  useSceneControllerTeleport: 1
   verboseLog: 0
 --- !u!114 &1279740586
 MonoBehaviour:
@@ -8457,6 +8460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScenePortal
       objectReference: {fileID: 0}
+    - target: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.08
@@ -8535,7 +8542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7367271266033095690, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: scenename
-      value: Level3-3
+      value: Level4-1City
       objectReference: {fileID: 0}
     - target: {fileID: 7367271266033095690, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: SpawnPointLocation
@@ -10332,6 +10339,10 @@ PrefabInstance:
     - target: {fileID: 1960568603695807363, guid: 3529ba5f0423ac541ab8098d5ccd1276, type: 3}
       propertyPath: m_Name
       value: CameraEffector
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960568603695807363, guid: 3529ba5f0423ac541ab8098d5ccd1276, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3286208609904119042, guid: 3529ba5f0423ac541ab8098d5ccd1276, type: 3}
       propertyPath: m_Enabled

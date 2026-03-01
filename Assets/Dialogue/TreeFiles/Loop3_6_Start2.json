@@ -78,39 +78,21 @@
         "zh": "希望之后，能一切顺利。",
         "ja": ""
       },
-      "nextIndex": 5
-    },
-    {
-      "index": 5,
-      "name": {
-        "en": "",
-        "zh": "",
-        "ja": ""
-      },
-      "avatarAddr": "",
-      "isPlayer": false,
-      "content": {
-        "en": "--- Chapter 1 END ---",
-        "zh": "《第一章》到此结束！",
-        "ja": ""
-      },
-      "nextIndex": 6
-    },
-    {
-      "index": 6,
-      "name": {
-        "en": "",
-        "zh": "",
-        "ja": ""
-      },
-      "avatarAddr": "",
-      "isPlayer": false,
-      "content": {
-        "en": "Thanks for playtesting our Game!",
-        "zh": "感谢您的试玩~",
-        "ja": ""
-      },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "08027330-0e0e-452f-83bb-9b9885d7bfa9",
+          "targetObjectName": "LevelManager3_6",
+          "componentTypeName": "LevelManager3_6",
+          "methodName": "GotoNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
     }
   ],
   "currentIndex": 0
