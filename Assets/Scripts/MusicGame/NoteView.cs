@@ -9,15 +9,21 @@ public class NoteView : MonoBehaviour
     [SerializeField] private RectTransform shrinkingRing;
 
     [Header("Feedback Images")]
+    [Tooltip("Used for Good (and also Perfect fallback if perfectFeedback is not assigned).")]
     [SerializeField] private Image greenFeedback;
+
+    [Tooltip("Optional. If assigned, used for Perfect.")]
+    [SerializeField] private Image perfectFeedback;
+
+    [Tooltip("Used for Miss.")]
     [SerializeField] private Image redFeedback;
 
     [Header("Auto-added if missing")]
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Scales (multipliers)")]
-    [SerializeField] private float baseTargetScale = 1.0f; // 建议先从 1 开始
-    [SerializeField] private float startRingScale = 1.0f;  // 建议先从 1 开始，再调大一点比如 1.3
+    [SerializeField] private float baseTargetScale = 1.0f;
+    [SerializeField] private float startRingScale = 1.0f;
 
     [Header("Timing")]
     [SerializeField] private double holdAfterNoteTime = 0.10;
@@ -26,7 +32,9 @@ public class NoteView : MonoBehaviour
 
     public double NoteTime { get; private set; }
     public bool IsJudged { get; private set; }
+
     public Action<NoteView> OnMiss;
+    public Action<NoteView, HitJudgement> OnJudged;
 
     private double spawnTime;
     private double preSpawnTime;
@@ -35,10 +43,11 @@ public class NoteView : MonoBehaviour
     private bool pressedInWindow;
     private bool resolved;
 
+    private HitJudgement pendingJudgement = HitJudgement.Good;
+
     private double despawnTime;
     private double resolvedTimeDsp;
 
-    // ✅ prefab 初始 scale（关键）
     private Vector3 targetBaseScale;
     private Vector3 ringBaseScale;
 
@@ -50,7 +59,9 @@ public class NoteView : MonoBehaviour
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
 
+        // 这些反馈图片不要挡 raycast
         if (greenFeedback) greenFeedback.raycastTarget = false;
+        if (perfectFeedback) perfectFeedback.raycastTarget = false;
         if (redFeedback) redFeedback.raycastTarget = false;
 
         if (targetCircle) targetBaseScale = targetCircle.localScale;
@@ -68,12 +79,12 @@ public class NoteView : MonoBehaviour
         resolved = false;
         IsJudged = false;
 
+        pendingJudgement = HitJudgement.Good;
         resolvedTimeDsp = double.NaN;
 
         canvasGroup.alpha = 1f;
         HideFeedback();
 
-        // ✅ 用“初始 scale × 倍率”，不覆盖 prefab 的基准大小
         if (targetCircle) targetCircle.localScale = targetBaseScale * baseTargetScale;
         if (shrinkingRing) shrinkingRing.localScale = ringBaseScale * startRingScale;
 
@@ -85,22 +96,25 @@ public class NoteView : MonoBehaviour
         ((RectTransform)transform).anchoredPosition = anchoredPos;
     }
 
-    public void RegisterHit(double nowDsp)
+    public void RegisterHit(double nowDsp, HitJudgement judgement)
     {
         if (resolved) return;
 
+        // 安全检查：必须在 Good window 里
         double delta = Math.Abs(nowDsp - NoteTime);
-        if (delta <= hitWindow)
-        {
-            pressedInWindow = true;
-            if (nowDsp >= NoteTime) Resolve(true);
-        }
+        if (delta > hitWindow) return;
+
+        pressedInWindow = true;
+        pendingJudgement = judgement;
+
+        // 如果已经到/过拍点，立刻结算；否则等 Update 到 NoteTime 再结算
+        if (nowDsp >= NoteTime) Resolve(judgement);
     }
 
     public void ForceMiss()
     {
         if (resolved) return;
-        Resolve(false);
+        Resolve(HitJudgement.Miss);
     }
 
     void Update()
@@ -117,18 +131,18 @@ public class NoteView : MonoBehaviour
                 float k = Mathf.Clamp01((float)t);
                 float ringMul = Mathf.Lerp(startRingScale, targetMul, k);
 
-                shrinkingRing.localScale = ringBaseScale * ringMul;  // ✅
+                shrinkingRing.localScale = ringBaseScale * ringMul;
             }
             else
             {
-                shrinkingRing.localScale = ringBaseScale * targetMul; // ✅
+                shrinkingRing.localScale = ringBaseScale * targetMul;
             }
         }
 
         if (!resolved)
         {
-            if (now >= NoteTime && pressedInWindow) Resolve(true);
-            else if (now > NoteTime + hitWindow) Resolve(false);
+            if (now >= NoteTime && pressedInWindow) Resolve(pendingJudgement);
+            else if (now > NoteTime + hitWindow) Resolve(HitJudgement.Miss);
         }
 
         double fadeStart = despawnTime - fadeDuration;
@@ -142,18 +156,29 @@ public class NoteView : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Resolve(bool hit)
+    void Resolve(HitJudgement judgement)
     {
         resolved = true;
         IsJudged = true;
         resolvedTimeDsp = AudioSettings.dspTime;
 
-        if (hit) ShowGreen();
+        HideFeedback();
+
+        if (judgement == HitJudgement.Perfect)
+        {
+            ShowPerfect();
+        }
+        else if (judgement == HitJudgement.Good)
+        {
+            ShowGood();
+        }
         else
         {
-            ShowRed();
+            ShowMiss();
             OnMiss?.Invoke(this);
         }
+
+        OnJudged?.Invoke(this, judgement);
 
         double minDespawn = resolvedTimeDsp + feedbackHoldSeconds + fadeDuration;
         if (despawnTime < minDespawn) despawnTime = minDespawn;
@@ -162,22 +187,35 @@ public class NoteView : MonoBehaviour
     void HideFeedback()
     {
         if (greenFeedback) greenFeedback.gameObject.SetActive(false);
+        if (perfectFeedback) perfectFeedback.gameObject.SetActive(false);
         if (redFeedback) redFeedback.gameObject.SetActive(false);
     }
 
-    void ShowGreen()
+    void ShowPerfect()
+    {
+        // 如果没配 perfectFeedback，就用 greenFeedback 顶一下（只是视觉上不区分，但逻辑上区分）
+        if (perfectFeedback != null)
+        {
+            perfectFeedback.transform.SetAsLastSibling();
+            perfectFeedback.gameObject.SetActive(true);
+        }
+        else
+        {
+            ShowGood();
+        }
+    }
+
+    void ShowGood()
     {
         if (greenFeedback == null) return;
         greenFeedback.transform.SetAsLastSibling();
         greenFeedback.gameObject.SetActive(true);
-        if (redFeedback) redFeedback.gameObject.SetActive(false);
     }
 
-    void ShowRed()
+    void ShowMiss()
     {
         if (redFeedback == null) return;
         redFeedback.transform.SetAsLastSibling();
         redFeedback.gameObject.SetActive(true);
-        if (greenFeedback) greenFeedback.gameObject.SetActive(false);
     }
 }

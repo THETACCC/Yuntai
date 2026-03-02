@@ -15,7 +15,12 @@ public class RhythmConductor : MonoBehaviour
 
     [Header("Timing")]
     public double preSpawnTime = 1.2;
+
+    [Tooltip("Good window (seconds). If delta <= hitWindow => at least Good.")]
     public double hitWindow = 0.18;
+
+    [Tooltip("Perfect window (seconds). If delta <= perfectWindow => Perfect. Must be <= hitWindow.")]
+    public double perfectWindow = 0.06;
 
     [Header("Fail")]
     public int maxMiss = 10;
@@ -76,6 +81,9 @@ public class RhythmConductor : MonoBehaviour
 
     int spawnIndex;
     int missCount;
+    int perfectCount;
+    int goodCount;
+
     bool isPlaying;
     double songDspStart;
 
@@ -93,6 +101,9 @@ public class RhythmConductor : MonoBehaviour
     {
         spawnIndex = 0;
         missCount = 0;
+        perfectCount = 0;
+        goodCount = 0;
+
         isPlaying = true;
 
         for (int i = active.Count - 1; i >= 0; i--)
@@ -112,6 +123,9 @@ public class RhythmConductor : MonoBehaviour
             isPlaying = false;
             return;
         }
+
+        // 安全：确保 perfectWindow <= hitWindow
+        if (perfectWindow > hitWindow) perfectWindow = hitWindow;
 
         music.Stop();
         music.time = 0f;
@@ -159,11 +173,14 @@ public class RhythmConductor : MonoBehaviour
         n.SetAnchoredPosition(laneAnchors[lane].anchoredPosition);
 
         n.OnMiss = HandleMiss;
+        n.OnJudged = HandleJudged;
+
         active.Add(n);
     }
 
     void TryHit(double now)
     {
+        // 找到时间最早、还没判定的 note
         NoteView next = null;
         double nextTime = double.MaxValue;
 
@@ -178,16 +195,50 @@ public class RhythmConductor : MonoBehaviour
             }
         }
 
-        if (next == null) return;
+        // 没有任何 note：按空了
+        if (next == null)
+        {
+            HandleEmptyPress();
+            return;
+        }
 
         double delta = System.Math.Abs(now - next.NoteTime);
 
-        if (delta <= hitWindow) next.RegisterHit(now);
+        // 命中 Good 窗口内：Perfect or Good
+        if (delta <= hitWindow)
+        {
+            var judge = (delta <= perfectWindow) ? HitJudgement.Perfect : HitJudgement.Good;
+            next.RegisterHit(now, judge);
+        }
         else
         {
-            if (!emptyPressCountsAsMiss) return;
-            next.ForceMiss();
+            // 不在任何判定窗口：按空了（不强制把 note 判 miss）
+            HandleEmptyPress();
         }
+    }
+
+    void HandleJudged(NoteView _, HitJudgement j)
+    {
+        if (j == HitJudgement.Perfect)
+        {
+            perfectCount++;
+            Debug.Log($"PERFECT  (P:{perfectCount} G:{goodCount} M:{missCount}/{maxMiss})");
+        }
+        else if (j == HitJudgement.Good)
+        {
+            goodCount++;
+            Debug.Log($"GOOD     (P:{perfectCount} G:{goodCount} M:{missCount}/{maxMiss})");
+        }
+        // Miss 在 HandleMiss 里处理扣命/失败
+    }
+
+    void HandleEmptyPress()
+    {
+        if (!emptyPressCountsAsMiss) return;
+
+        missCount++;
+        Debug.Log($"EMPTY -> MISS {missCount}/{maxMiss}");
+        if (missCount >= maxMiss) GameOver();
     }
 
     void HandleMiss(NoteView _)
