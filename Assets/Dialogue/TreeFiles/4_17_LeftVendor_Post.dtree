@@ -4,10 +4,10 @@
             "id": "08f586d4-eba9-45df-ad6c-c6d5d7058c4b",
             "index": 0,
             "characterId": "779fc004-2448-4634-9021-02c63e148789",
-            "useContentId": false,
-            "contentId": "",
+            "useContentId": true,
+            "contentId": "ch2_3087",
             "content": {
-                "en": "what do you want",
+                "en": "",
                 "zh": "",
                 "ja": ""
             },
@@ -16,7 +16,32 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
+        },
+        {
+            "id": "14b09322-8ec0-4951-af4f-acafacf5d061",
+            "index": 1,
+            "characterId": "779fc004-2448-4634-9021-02c63e148789",
+            "useContentId": true,
+            "contentId": "ch2_3088",
+            "content": {
+                "en": "",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 466.6666564941406,
+            "positionY": 106.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "08f586d4-eba9-45df-ad6c-c6d5d7058c4b",
+            "inputNodeId": "14b09322-8ec0-4951-af4f-acafacf5d061",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
