@@ -85,20 +85,16 @@ public class VirtualFolderManager
         CleanupDeletedFiles();
         EnsureDefaultFolder();
 
-        // 将未分类的文件添加到default文件夹
+        // 将未分类的文件添加到default文件夹（新文件按GUID排序追加，保持确定性）
         VirtualFolder defaultFolder = GetDefaultFolder();
         if (defaultFolder != null)
         {
-            foreach (var guid in guidToPath.Keys)
-            {
-                if (!IsFileInAnyFolder(guid))
-                {
-                    if (!defaultFolder.fileGuids.Contains(guid))
-                    {
-                        defaultFolder.fileGuids.Add(guid);
-                    }
-                }
-            }
+            var newGuids = guidToPath.Keys
+                .Where(guid => !IsFileInAnyFolder(guid))
+                .OrderBy(guid => guid)
+                .ToList();
+            foreach (var guid in newGuids)
+                defaultFolder.fileGuids.Add(guid);
         }
 
         SaveVirtualFolderStructure();
@@ -281,6 +277,22 @@ public class VirtualFolderManager
         }
 
         return null;
+    }
+
+    private void SortAllFileGuids()
+    {
+        folderData.rootFileGuids?.Sort();
+        SortFolderGuidsRecursive(folderData.rootFolders);
+    }
+
+    private void SortFolderGuidsRecursive(List<VirtualFolder> folders)
+    {
+        if (folders == null) return;
+        foreach (var folder in folders)
+        {
+            folder.fileGuids?.Sort();
+            SortFolderGuidsRecursive(folder.subfolders);
+        }
     }
 
     private void RemoveFileFromAllFolders(string fileGuid)
