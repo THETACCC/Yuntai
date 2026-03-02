@@ -10,11 +10,12 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
 
-    private int saveSlot;
+    public int saveSlot;
     public string savePath;
 
     public bool hasGameSave = false;
     public bool[] saveList;
+    //public bool isSaving = false;
 
     [Header("References")]
     public GameObject gameSavesUI;
@@ -30,13 +31,14 @@ public class SaveManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            saveList = new bool[3];
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        saveList = new bool[3];
+        
         
     }
 
@@ -99,6 +101,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
+        SaveManager.instance.UpdateSlotInfo();
         if (!hasGameSave)
         {
             hasGameSave = true;
@@ -106,6 +109,12 @@ public class SaveManager : MonoBehaviour
         if (saveSlot == 0)
         {
             saveSlot = FindEmptySlot();
+            //没有空存档
+            if (saveSlot == 0)
+            {
+                Settings.instance.OpenGameSaves();
+                return;
+            }
         }
         
         // 确保 savePath 被正确初始化
@@ -161,6 +170,7 @@ public class SaveManager : MonoBehaviour
 
     public void SlotButtonHit(int slotNum)
     {
+        //titlescene
         if (!Settings.instance.isInGame && Title_Scene.instance != null)
         {
             if (Title_Scene.instance.isCreatingGame)
@@ -202,25 +212,27 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
+        
 
-
-        /*
-        saveSlot = slotNum;
-
-        savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
-
-        if (saveList[saveSlot - 1])
+        //in game
+        if (Settings.instance.isInGame)
         {
-            gameSavesUI.SetActive(false);
-            LoadGame();
-        } else
-        {
-            SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
-            saveList[saveSlot - 1] = true;
+            saveSlot = slotNum;
+            savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
+
+            if (saveList[saveSlot - 1])
+            {
+                //ask for replace
+                warningWindow.SetActive(true);
+                warningText.text = "You are saving the progress by replacing File " + slotNum;
+            }
+            else
+            {
+                //save game directly
+                SaveGame();
+                gameSavesUI.SetActive(false);
+            }
         }
-
-        Settings.instance.isInGame = true;
-        */
     }
 
     public void CancelReplace()
@@ -231,9 +243,16 @@ public class SaveManager : MonoBehaviour
     public void ConfirmReplace()
     {
         warningWindow.SetActive(false);
-        SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
-        Settings.instance.isInGame = true;
-        Title_Scene.instance.isCreatingGame = false;
+        if (!Settings.instance.isInGame && Title_Scene.instance.isCreatingGame)
+        {
+            SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
+            Settings.instance.isInGame = true;
+            Title_Scene.instance.isCreatingGame = false;
+        }
+        if (Settings.instance.isInGame)
+        {
+            SaveGame();
+        }
         gameSavesUI.SetActive(false);
     }
 
@@ -243,14 +262,10 @@ public class SaveManager : MonoBehaviour
         {
             if (!saveList[i])
             {
-                if (i+1 > saveList.Length)
-                {
-                    //Settings.instance.isInGame = false;
-                }
                 return i+1;
             }
         }
-
+        
         return 0;
     }
 

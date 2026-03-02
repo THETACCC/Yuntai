@@ -138,7 +138,7 @@ public class Settings : MonoBehaviour
 
     public void OpenGameSaves()
     {
-        gameObject.SetActive(true);
+        CloseSettings();
         gameSavesUI.SetActive(true);
     }
 
