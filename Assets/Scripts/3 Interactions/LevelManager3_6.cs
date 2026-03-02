@@ -3,6 +3,8 @@ using UnityEngine;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 using DialogueSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using MoreMountains.Tools;
 
 public class LevelManager3_6 : BaseLevelManager
 {
@@ -21,6 +23,7 @@ public class LevelManager3_6 : BaseLevelManager
     [SerializeField] private DialogueTrigger zhoushuStart2Trigger;
 
     // scene跳转
+    public Image chapterSwitch;
     [Header("Next Loop 跳转")]
     [Tooltip("下一回合的场景名（若用 Scene Controller 也请填）")]
     [SerializeField] private string nextSceneName;
@@ -141,7 +144,44 @@ public class LevelManager3_6 : BaseLevelManager
         if (useSceneControllerTeleport && SceneController.instance != null)
         {
             if (!string.IsNullOrEmpty(nextSceneName))
-                SceneController.instance.LoadSceneAndTeleport(nextSceneName, nextSpawnPointLocation);
+                //如果有章节切换，先显示章节切换然后再换场景
+                if (chapterSwitch == null)
+                {
+                    SceneController.instance.LoadSceneAndTeleport(nextSceneName, nextSpawnPointLocation);
+                }
+                else
+                {
+                    StartCoroutine(Tweening.StartTweening(
+                        TweeningCurve.Linear,
+                        2f,
+                        t => chapterSwitch.color = new Color(chapterSwitch.color.r, chapterSwitch.color.g, chapterSwitch.color.b, t),
+                        () =>
+                        {
+                            chapterSwitch.color = new Color(chapterSwitch.color.r, chapterSwitch.color.g, chapterSwitch.color.b, 1);
+                            Image content = chapterSwitch.transform.GetChild(0).GetComponent<Image>();
+                            StartCoroutine(Tweening.StartTweening(
+                                TweeningCurve.Linear,
+                                3f,
+                                t => content.color = new Color(content.color.r, content.color.g, content.color.b, t),
+                                () =>
+                                {
+                                    content.color = new Color(content.color.r, content.color.g, content.color.b, 1);
+                                    StartCoroutine(Tweening.StartTweening(
+                                        TweeningCurve.Linear,
+                                        2f,
+                                        t => content.color = new Color(content.color.r, content.color.g, content.color.b, 1 - t),
+                                        () =>
+                                        {
+                                            content.color = new Color(content.color.r, content.color.g, content.color.b, 0);
+                                            SceneController.instance.LoadSceneAndTeleport(nextSceneName, nextSpawnPointLocation);
+                                        }
+                                    ));
+                                }
+                            ));
+                        }
+                    ));
+                    
+                }
             else
                 Debug.LogWarning("[LevelManager3_6] 未配置 nextSceneName，无法通过 SceneController 跳转。");
         }
