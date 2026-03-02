@@ -24,7 +24,7 @@ public class RhythmConductor : MonoBehaviour
 
     [Header("Fail")]
     public int maxMiss = 10;
-    public bool emptyPressCountsAsMiss = true;
+    public bool emptyPressCountsAsMiss = false;
 
     [Header("Timing Calibration")]
     public double globalOffsetSeconds = 0.0;
