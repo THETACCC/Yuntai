@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -43,6 +44,11 @@ public class Gamemanager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SceneController.instance.LoadSceneAndTeleport("Level4-1City", 0);
+        }
+
         // Detect unexpected direct changes
         if (phase != lastPhase)
         {
