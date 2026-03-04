@@ -758,35 +758,52 @@ public class CharacterListDrawer
         var nameStyle = new GUIStyle(EditorStyles.miniLabel);
         nameStyle.normal.textColor = new Color(0.8f, 0.8f, 0.8f);
 
-        bool hasAnyName = !string.IsNullOrEmpty(character.characterName?.en) ||
-                         !string.IsNullOrEmpty(character.characterName?.zh) ||
-                         !string.IsNullOrEmpty(character.characterName?.ja);
+        // 如果是 useNameId 模式，从本地化表实时读取显示
+        LocalizedText displayName = character.characterName;
+        if (character.useNameId && !string.IsNullOrEmpty(character.nameId) &&
+            DialogueLocalization.IsLoaded && DialogueLocalization.HasId(character.nameId))
+        {
+            var locData = DialogueLocalization.GetAllLanguages(character.nameId);
+            if (locData != null)
+            {
+                displayName = new LocalizedText
+                {
+                    en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                    zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                    ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                };
+            }
+        }
+
+        bool hasAnyName = !string.IsNullOrEmpty(displayName?.en) ||
+                         !string.IsNullOrEmpty(displayName?.zh) ||
+                         !string.IsNullOrEmpty(displayName?.ja);
 
         if (hasAnyName)
         {
             EditorGUILayout.LabelField("Name:", nameTitleStyle);
 
-            if (!string.IsNullOrEmpty(character.characterName?.en))
+            if (!string.IsNullOrEmpty(displayName?.en))
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(10);
-                EditorGUILayout.LabelField($"EN: {character.characterName.en}", nameStyle);
+                EditorGUILayout.LabelField($"EN: {displayName.en}", nameStyle);
                 EditorGUILayout.EndHorizontal();
             }
 
-            if (!string.IsNullOrEmpty(character.characterName?.zh))
+            if (!string.IsNullOrEmpty(displayName?.zh))
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(10);
-                EditorGUILayout.LabelField($"中文: {character.characterName.zh}", nameStyle);
+                EditorGUILayout.LabelField($"中文: {displayName.zh}", nameStyle);
                 EditorGUILayout.EndHorizontal();
             }
 
-            if (!string.IsNullOrEmpty(character.characterName?.ja))
+            if (!string.IsNullOrEmpty(displayName?.ja))
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(10);
-                EditorGUILayout.LabelField($"日本語: {character.characterName.ja}", nameStyle);
+                EditorGUILayout.LabelField($"日本語: {displayName.ja}", nameStyle);
                 EditorGUILayout.EndHorizontal();
             }
         }
