@@ -18,7 +18,7 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public bool canOpenSettings = true;
     public CanvasGroup canvasGroup;
-    public GameObject gameSavesUI;
+    //public GameObject gameSavesUI;
     public GameObject otherOptions;
 
 
@@ -139,12 +139,12 @@ public class Settings : MonoBehaviour
     public void OpenGameSaves()
     {
         CloseSettings();
-        gameSavesUI.SetActive(true);
+        SaveManager.instance.gameSavesUI.SetActive(true);
     }
 
     public void CloseGameSaves()
     {
-        gameSavesUI.SetActive(false);
+        SaveManager.instance.gameSavesUI.SetActive(false);
         if (!isInGame)
         {
             otherOptions.SetActive(true);
@@ -161,8 +161,11 @@ public class Settings : MonoBehaviour
     public void ReturnToMain()
     {
         SaveManager.instance.SaveGame();
-        SceneController.instance.LoadScene("TitleScene");
-        CloseSettings();
+        if (SaveManager.instance.saveSlot != 0)
+        {
+            SceneController.instance.LoadScene("TitleScene");
+            CloseSettings();
+        }
     }
 
     public void Save()
