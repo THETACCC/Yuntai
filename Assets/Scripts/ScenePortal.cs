@@ -55,7 +55,7 @@ public class ScenePortal : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(isPlayerInTrigger)
+        if(isPlayerInTrigger && (myGamemanager.phase == GamePhase.Moving))
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
