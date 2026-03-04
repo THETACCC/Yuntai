@@ -13,7 +13,9 @@ public class SceneDialogueStarter : DialogueTrigger
         yield return null;
 
         if (delay > 0f) yield return new WaitForSeconds(delay);
+        Debug.Log("Changing pHASE");
 
+        Gamemanager.instance.StartDialogue();
         TriggerDialogue();
     }
 

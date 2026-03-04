@@ -43,7 +43,7 @@ public class ToNextLoop : MonoBehaviour
 
     public void toNextLoop()
     {
-        myGamemanager.phase = GamePhase.Eventing;
+        myGamemanager.phase = GamePhase.Talking;
         if (DeathAnimationSound) DeathAnimationSound.Play();
         //DeathAnimationSoundOneShot.Play();
         if (_runCo != null) return;
