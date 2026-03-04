@@ -12,10 +12,13 @@ public class GhostChase : MonoBehaviour
 
     //Movement Controll
     public bool isAllowMove = false;
+    private bool isAllowMoveDoubleCheck = false;
     public ToNextLoop ToNextLoopRef;
+    public Gamemanager myGamemanager;
 
     void Start()
     {
+        myGamemanager = Gamemanager.instance;
         rb = GetComponent<Rigidbody2D>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -32,10 +35,22 @@ public class GhostChase : MonoBehaviour
     void FixedUpdate()
     {
         if (player == null) return;
+        if (myGamemanager.phase == GamePhase.Moving)
+        {
+            isAllowMoveDoubleCheck = true;
+        }
+        else
+        {
+            isAllowMoveDoubleCheck = false;
+        }
+
+
+
+
 
         float directionX = player.position.x - transform.position.x;
 
-        if(isAllowMove)
+        if(isAllowMove && isAllowMoveDoubleCheck)
         {
             // Move only horizontally
             rb.velocity = new Vector2(Mathf.Sign(directionX) * moveSpeed, rb.velocity.y);
@@ -61,7 +76,7 @@ public class GhostChase : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isAllowMove)
+        if (isAllowMove && isAllowMoveDoubleCheck)
         {
             if(collision.gameObject.tag == "Player")
             {

@@ -33,9 +33,18 @@ public class ToNextLoop : MonoBehaviour
 
     private Coroutine _runCo;
 
+    public Gamemanager myGamemanager;
+
+    public void Start()
+    {
+        myGamemanager = Gamemanager.instance;
+    }
+
+
     public void toNextLoop()
     {
-        if(DeathAnimationSound) DeathAnimationSound.Play();
+        myGamemanager.phase = GamePhase.Eventing;
+        if (DeathAnimationSound) DeathAnimationSound.Play();
         //DeathAnimationSoundOneShot.Play();
         if (_runCo != null) return;
         _runCo = StartCoroutine(WaitForAnimationAndLoad());
