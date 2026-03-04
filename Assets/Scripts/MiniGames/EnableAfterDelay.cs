@@ -10,9 +10,15 @@ public class EnableAfterDelay : MonoBehaviour
     [Tooltip("Time in seconds before enabling")]
     public float delay = 2f;
 
+    public bool isStartEnable = true;
+
     void Start()
     {
-        EnableGhost();
+        if(isStartEnable)
+        {
+            EnableGhost();
+        }
+
     }
 
 
