@@ -12,7 +12,7 @@ public class EnableAfterDelay : MonoBehaviour
 
     void Start()
     {
-
+        EnableGhost();
     }
 
 
@@ -32,6 +32,7 @@ public class EnableAfterDelay : MonoBehaviour
     IEnumerator EnableObjectAfterDelay()
     {
         yield return new WaitForSeconds(delay);
+        Debug.Log("Enable Ghost!");
         targetObject.SetActive(true);
     }
 }
