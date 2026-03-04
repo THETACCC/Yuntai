@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
-    //objects don;t destroy
+
+    // objects that don't destroy
     public GameObject virtualplayer;
     public GameObject playermanager;
     public GameObject avatarplayer;
     public GameObject m_camera;
 
     public GamePhase phase;
+
+    private GamePhase lastPhase;
+
     private void Awake()
     {
         if (instance == null)
@@ -24,6 +29,7 @@ public class Gamemanager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(virtualplayer);
         DontDestroyOnLoad(avatarplayer);
         DontDestroyOnLoad(m_camera);
@@ -32,36 +38,57 @@ public class Gamemanager : MonoBehaviour
 
     private void Start()
     {
-        phase = GamePhase.Moving;
-
+        SetPhase(GamePhase.Moving);
     }
 
-    public void Update()
+    private void Update()
     {
-        //Debug.Log(phase);
+        // Detect unexpected direct changes
+        if (phase != lastPhase)
+        {
+            Debug.LogWarning($"[GamePhase Changed Directly] {lastPhase} -> {phase}");
+            lastPhase = phase;
+        }
+    }
+
+    public void SetPhase(
+        GamePhase newPhase,
+        [CallerMemberName] string caller = "",
+        [CallerFilePath] string file = "",
+        [CallerLineNumber] int line = 0)
+    {
+        if (phase == newPhase) return;
+
+        Debug.Log(
+            $"[GamePhase Change] {phase} -> {newPhase}\n" +
+            $"Called from: {caller}\n" +
+            $"File: {file}\n" +
+            $"Line: {line}"
+        );
+
+        phase = newPhase;
+        lastPhase = newPhase;
     }
 
     public void StartDialogue()
     {
-        phase = GamePhase.Talking;
+        SetPhase(GamePhase.Talking);
     }
 
     public void EndDialogue()
     {
-        phase = GamePhase.Moving;
+        SetPhase(GamePhase.Moving);
     }
 
     public void StartMiniGame()
     {
-        phase = GamePhase.Eventing;
+        SetPhase(GamePhase.Eventing);
     }
 
     public void EndMiniGame()
     {
-        phase = GamePhase.Moving;
+        SetPhase(GamePhase.Moving);
     }
-
-
 }
 
 public enum GamePhase
