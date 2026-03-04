@@ -398,12 +398,20 @@ PrefabInstance:
       value: 6.2200785
       objectReference: {fileID: 0}
     - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Offset.x
       value: -0.2796688
       objectReference: {fileID: 0}
     - target: {fileID: 2906829590570753546, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_Offset.y
       value: -0.37755883
+      objectReference: {fileID: 0}
+    - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
@@ -415,6 +423,10 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 0460f64d8619e5246bafeac2c2983c5f, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356524115837630325, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
@@ -563,6 +575,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57915fe9f069cc469b07b8005a4727e, type: 3}
+--- !u!1 &840655160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840655162}
+  - component: {fileID: 840655161}
+  m_Layer: 0
+  m_Name: StartDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &840655161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840655160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: d4c6114e679a3aa4891c69b85b2d79e7, type: 3}
+  postDialogueJsonFile: {fileID: 0}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+  isInstantTrigger: 0
+  usePostDialogue: 0
+  delay: 0
+--- !u!4 &840655162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840655160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.70767, y: 0.8990648, z: 0.017114857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &893375890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,3 +1640,4 @@ SceneRoots:
   - {fileID: 2026646693}
   - {fileID: 816120368}
   - {fileID: 436350417}
+  - {fileID: 840655162}
