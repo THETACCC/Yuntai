@@ -1146,19 +1146,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The first slider from left to right must have the highest value.
+  m_text: 'The first and the last slider must set to value 5.
 
-    There
-    must be exactly two sliders with the same value.
+    The sum of the
+    values of the three middle sliders must equal 6.
 
-    The sum of the values of
-    the three middle sliders must equal six.
+    The difference between
+    the fourth and fifth sliders (from left to right) must be the largest among all
+    sliders.
 
-    The difference between the fourth
-    and fifth sliders (from left to right) must be the largest among all sliders.
-
-    The
-    second and third sliders (from left to right) must differ by one.'
+    The second and third sliders (from left to right) must differ by
+    one.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
   m_sharedMaterial: {fileID: -7644465964554899042, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
@@ -2653,6 +2651,9 @@ MonoBehaviour:
   isReadyToTrigger: 1
   myMiniGame: {fileID: 5390168485119583212}
   myUI_E: {fileID: 3878489217769761909}
+  scenePortal2: {fileID: 0}
+  gameInComplete: {fileID: 0}
+  gameComplete: {fileID: 0}
 --- !u!114 &4181095935850610237
 MonoBehaviour:
   m_ObjectHideFlags: 0
