@@ -326,12 +326,24 @@ public class DialogueProjectEditorWindow : EditorWindow
         List<string> affectedFiles = new List<string>();
 
         // 移除 "(新增)" 和 "(已删除)" 后缀
-        var pureIds = changedIds.Select(id =>
+        var pureIds = new HashSet<string>(changedIds.Select(id =>
         {
             if (id.EndsWith(" (新增)")) return id.Substring(0, id.Length - 5);
             if (id.EndsWith(" (已删除)")) return id.Substring(0, id.Length - 6);
             return id;
-        }).ToList();
+        }));
+
+        // 找出 nameId 在 changedIds 里的角色，收集其 characterId（GUID）
+        var affectedCharacterIds = new HashSet<string>();
+        var charLib = characterManager.CharacterLibrary;
+        if (charLib?.characters != null)
+        {
+            foreach (var ch in charLib.characters)
+            {
+                if (ch.useNameId && !string.IsNullOrEmpty(ch.nameId) && pureIds.Contains(ch.nameId))
+                    affectedCharacterIds.Add(ch.id);
+            }
+        }
 
         foreach (var kvp in folderManager.GuidToPath)
         {
@@ -342,20 +354,15 @@ public class DialogueProjectEditorWindow : EditorWindow
             {
                 string jsonContent = File.ReadAllText(path);
 
-                bool hasAffectedId = false;
-                foreach (var id in pureIds)
-                {
-                    if (jsonContent.Contains($"\"{id}\""))
-                    {
-                        hasAffectedId = true;
-                        break;
-                    }
-                }
+                // 检查 content/choice ID
+                bool affected = pureIds.Any(id => jsonContent.Contains($"\"{id}\""));
 
-                if (hasAffectedId)
-                {
+                // 检查角色 nameId 变化（.dtree 里存的是 characterId GUID）
+                if (!affected && affectedCharacterIds.Count > 0)
+                    affected = affectedCharacterIds.Any(cid => jsonContent.Contains($"\"{cid}\""));
+
+                if (affected)
                     affectedFiles.Add(Path.GetFileName(path));
-                }
             }
             catch (Exception e)
             {
@@ -773,7 +780,21 @@ public class DialogueProjectEditorWindow : EditorWindow
                 var ch = Array.Find(charLib.characters, c => c.id == node.characterId);
                 if (ch != null)
                 {
-                    rt.name = ch.characterName ?? new LocalizedText();
+                    // 支持 useNameId 模式：从本地化表读取角色名
+                    if (ch.useNameId && !string.IsNullOrEmpty(ch.nameId) && DialogueLocalization.IsLoaded && DialogueLocalization.HasId(ch.nameId))
+                    {
+                        var locData = DialogueLocalization.GetAllLanguages(ch.nameId);
+                        rt.name = new LocalizedText
+                        {
+                            en = locData.ContainsKey(Language.English) ? locData[Language.English] : "",
+                            zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "",
+                            ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : ""
+                        };
+                    }
+                    else
+                    {
+                        rt.name = ch.characterName ?? new LocalizedText();
+                    }
                     rt.avatarAddr = ConvertResourcePath(ch.avatarAssetPath ?? "");
                     rt.isPlayer = ch.isPlayer;
                 }
