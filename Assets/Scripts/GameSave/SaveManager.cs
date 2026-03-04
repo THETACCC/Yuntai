@@ -99,7 +99,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveGame()
+    public void SaveGame(bool isAutoSave = false)
     {
         SaveManager.instance.UpdateSlotInfo();
         if (!hasGameSave)
@@ -112,8 +112,16 @@ public class SaveManager : MonoBehaviour
             //没有空存档
             if (saveSlot == 0)
             {
-                Settings.instance.OpenGameSaves();
-                return;
+                if (isAutoSave)
+                {
+                    Debug.Log("AutoSave skipped: no slot selected and all slots full.");
+                    return;
+                }
+                else
+                {
+                    Settings.instance.OpenGameSaves();
+                    return;
+                }
             }
         }
         

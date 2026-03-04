@@ -172,7 +172,7 @@ public class SceneController : MonoBehaviour
             loadingGame = false;
         } else
         {
-            SaveManager.instance.SaveGame();
+            SaveManager.instance.SaveGame(isAutoSave: true);
         }
     }
 
