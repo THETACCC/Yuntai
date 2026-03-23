@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "f95c5b51-1a5f-4ef0-87ab-2094be9f3723",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3116",
+            "content": {
+                "en": "Is it over?",
+                "zh": "结束了吗？",
+                "ja": ""
+            },
+            "positionX": 1030.39990234375,
+            "positionY": 216.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "956e2529-5545-498e-8376-a2bec39ce5fa",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3117",
+            "content": {
+                "en": "That girl’s drumming was pretty good!",
+                "zh": "那姑娘敲得还不错嘛！",
+                "ja": ""
+            },
+            "positionX": 1356.0,
+            "positionY": 221.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3118",
+            "content": {
+                "en": "Right?!",
+                "zh": "就是说啊！",
+                "ja": ""
+            },
+            "positionX": 1674.39990234375,
+            "positionY": 221.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3119",
+            "content": {
+                "en": "Curtain call, curtain call—let’s go. We should head to Jinlan Temple for the awards soon.",
+                "zh": "谢幕了谢幕了，走走，一会儿去金兰观看颁奖去。",
+                "ja": ""
+            },
+            "positionX": 2010.39990234375,
+            "positionY": 223.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3120",
+            "content": {
+                "en": "Hey, don’t block the way! Can’t you see that girl’s trying to go to the right?",
+                "zh": "哎呀！都别堵着道，没看那小姑娘要往右边走吗？",
+                "ja": ""
+            },
+            "positionX": 2346.39990234375,
+            "positionY": 222.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3121",
+            "content": {
+                "en": "(They’ve cleared a path. I should head right while I can.)",
+                "zh": "（大家把路让开了，趁现在往右边去看看吧。 ）",
+                "ja": ""
+            },
+            "positionX": 2673.599853515625,
+            "positionY": 223.1999969482422,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "f95c5b51-1a5f-4ef0-87ab-2094be9f3723",
+            "inputNodeId": "956e2529-5545-498e-8376-a2bec39ce5fa",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "956e2529-5545-498e-8376-a2bec39ce5fa",
+            "inputNodeId": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
+            "inputNodeId": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
+            "inputNodeId": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
+            "inputNodeId": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
