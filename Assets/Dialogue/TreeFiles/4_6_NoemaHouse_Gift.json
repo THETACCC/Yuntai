@@ -11,7 +11,7 @@
       "isPlayer": true,
       "content": {
         "en": "Is this the gift Noema mentioned?",
-        "zh": "这就是梦之说的礼物吗？",
+        "zh": "",
         "ja": ""
       },
       "nextIndex": 1
@@ -62,7 +62,21 @@
         "zh": "不管怎样，还是先回会场，找梦之汇合吧！",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "67413223-53ff-4018-8577-e52bc8ad3a5b",
+          "targetObjectName": "LevelManager4_6",
+          "componentTypeName": "LevelManager4_6",
+          "methodName": "SetOpenDoorOpen",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
     }
   ],
   "currentIndex": 0
