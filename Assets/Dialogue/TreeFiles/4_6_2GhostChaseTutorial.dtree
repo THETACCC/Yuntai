@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "5c3ab6d6-8b13-4907-b273-539c7fba6057",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_2027",
+            "content": {
+                "en": "How did I end up on the fourth floor?",
+                "zh": "我怎么来到了四楼？",
+                "ja": ""
+            },
+            "positionX": 54.400001525878909,
+            "positionY": 272.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "900a23f7-e9eb-4b46-8675-e3e08cce92c3",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_2028",
+            "content": {
+                "en": "Stay calm. I must be trapped in a ghost loop.",
+                "zh": "冷静，我应该是遇到了鬼打墙。",
+                "ja": ""
+            },
+            "positionX": 404.8000183105469,
+            "positionY": 282.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4fc756da-fffc-45ce-b37d-cd8cefbf65dc",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_2029",
+            "content": {
+                "en": "The space around me keeps changing. It looks like I’ll have to choose a path that seems safe.",
+                "zh": "周围的空间都有变化，看起来我得选择一条看着安全的路。",
+                "ja": ""
+            },
+            "positionX": 764.7999877929688,
+            "positionY": 309.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "5c3ab6d6-8b13-4907-b273-539c7fba6057",
+            "inputNodeId": "900a23f7-e9eb-4b46-8675-e3e08cce92c3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "900a23f7-e9eb-4b46-8675-e3e08cce92c3",
+            "inputNodeId": "4fc756da-fffc-45ce-b37d-cd8cefbf65dc",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
