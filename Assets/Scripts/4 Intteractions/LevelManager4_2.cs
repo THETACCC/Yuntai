@@ -185,11 +185,16 @@ public class LevelManager4_2 : BaseLevelManager
         }
 
         yield return null;
+
+
+        EnablePlayerMovement();
+        //if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Moving;
+        //yield return new WaitForSeconds(0.1f);
         if (start3Trigger != null) start3Trigger.TriggerDialogue();
         else Debug.LogWarning("[LevelManager4_2] start3Trigger 未设置。");
 
-        EnablePlayerMovement();
-        if (Gamemanager.instance) Gamemanager.instance.phase = GamePhase.Moving;
+
+
 
         _sequenceRoutine = null;
     }
