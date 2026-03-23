@@ -4,19 +4,44 @@
             "id": "7d210627-2aa7-4c85-81e5-c2297e7c97d3",
             "index": 0,
             "characterId": "765fbd25-15fe-472e-8630-e60bd0f92b46",
-            "useContentId": false,
-            "contentId": "",
+            "useContentId": true,
+            "contentId": "ch2_3100",
             "content": {
-                "en": "play the drum",
-                "zh": "",
+                "en": "",
+                "zh": "姐姐快去吧！我会给你加油的！",
                 "ja": ""
             },
             "positionX": 100.0,
-            "positionY": 100.0,
+            "positionY": 99.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7110939a-707e-40a1-a7bd-2b291d9212c4",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3101",
+            "content": {
+                "en": "",
+                "zh": "好啦，不要吵到姐姐了。",
+                "ja": ""
+            },
+            "positionX": 432.0,
+            "positionY": 99.19999694824219,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "7d210627-2aa7-4c85-81e5-c2297e7c97d3",
+            "inputNodeId": "7110939a-707e-40a1-a7bd-2b291d9212c4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }

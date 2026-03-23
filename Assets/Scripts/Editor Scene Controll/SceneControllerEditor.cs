@@ -191,8 +191,7 @@ public enum SceneTitle
     Level4_16FestivalKill = 37,
     Level4_81FestivalWrong = 38,
     Level4_151FestivalPuzzle6 = 39,
-
-    JasmineTest = 50
+    Level4_18MusicGame = 40,
 }
 
 public enum SceneCategory

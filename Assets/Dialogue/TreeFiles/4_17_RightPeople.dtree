@@ -4,11 +4,11 @@
             "id": "45ec99e9-f275-4348-9cb3-82ebb280843c",
             "index": 0,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": false,
-            "contentId": "",
+            "useContentId": true,
+            "contentId": "ch2_3102",
             "content": {
-                "en": "blocking",
-                "zh": "",
+                "en": "",
+                "zh": "前面围了好多人，走不过去。",
                 "ja": ""
             },
             "positionX": 100.0,
@@ -16,7 +16,56 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
+        },
+        {
+            "id": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3103",
+            "content": {
+                "en": "",
+                "zh": "他们都盯着戏台，表演结束之前恐怕都不会散掉。",
+                "ja": ""
+            },
+            "positionX": 418.4000244140625,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "746ee5dd-490a-473d-a8f2-77e8d2cbe5b4",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3104",
+            "content": {
+                "en": "",
+                "zh": "或许我该去戏台那里看看。",
+                "ja": ""
+            },
+            "positionX": 736.7999877929688,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "45ec99e9-f275-4348-9cb3-82ebb280843c",
+            "inputNodeId": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "inputNodeId": "746ee5dd-490a-473d-a8f2-77e8d2cbe5b4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
