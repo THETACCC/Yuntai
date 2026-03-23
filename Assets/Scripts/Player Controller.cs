@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
         if (canMove)
         {
+            Debug.Log("Player Can Move");
+
             // 只读 A / D
             horizontal = 0f;
             bool pressA = Input.GetKey(KeyCode.A);

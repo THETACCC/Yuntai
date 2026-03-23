@@ -5,7 +5,7 @@ public class SceneDialogueStarter : DialogueTrigger
 {
     [Header("Start options")]
     public bool usePostDialogue = false;   // play post instead of main
-    public float delay = 0f;               // optional delay before starting
+    public float delay = 0.2f;               // optional delay before starting
 
     private IEnumerator Start()
     {
