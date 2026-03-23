@@ -4,11 +4,11 @@
             "id": "166be075-c829-4c88-bb2a-61b1d0163770",
             "index": 0,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": false,
-            "contentId": "",
+            "useContentId": true,
+            "contentId": "ch2_3105",
             "content": {
-                "en": "Not going back",
-                "zh": "",
+                "en": "",
+                "zh": "好不容易出来，还是先别回那条古怪的街道了。",
                 "ja": ""
             },
             "positionX": 100.0,
@@ -16,7 +16,32 @@
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
+        },
+        {
+            "id": "89482713-dc90-420f-8f6f-8a0e4fb27071",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3106",
+            "content": {
+                "en": "",
+                "zh": "戏台似乎就在右边，过去吧。",
+                "ja": ""
+            },
+            "positionX": 436.8000183105469,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "166be075-c829-4c88-bb2a-61b1d0163770",
+            "inputNodeId": "89482713-dc90-420f-8f6f-8a0e4fb27071",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
