@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "5aef0147-6eb5-4d56-8d17-b8ea07177710",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3122",
+            "content": {
+                "en": "Is it over?",
+                "zh": "结束了吗？",
+                "ja": ""
+            },
+            "positionX": 2564.0,
+            "positionY": 228.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "51d2bf0a-9e1e-42ba-a261-2b3822d03e33",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3123",
+            "content": {
+                "en": "Whoa! That was incredible! Miss, have you trained in this?",
+                "zh": "嚯！这也太厉害了！姑娘，你是学过这个么？",
+                "ja": ""
+            },
+            "positionX": 2891.199951171875,
+            "positionY": 228.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d2f7944b-c663-462f-8bc8-36a76e462d6f",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3124",
+            "content": {
+                "en": "Exactly! Thanks to you, we got to see such a great performance!",
+                "zh": "就是说啊！托你的福，看了场好戏啊！",
+                "ja": ""
+            },
+            "positionX": 3220.0,
+            "positionY": 229.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "341bcb4e-f2f9-4533-9abc-18c593eb82f2",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3125",
+            "content": {
+                "en": "Curtain call, curtain call—let’s go. We should head to Jinlan Temple for the awards soon.",
+                "zh": "谢幕了谢幕了，走走，一会儿去金兰观看颁奖去。",
+                "ja": ""
+            },
+            "positionX": 3537.599853515625,
+            "positionY": 228.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d2707835-aca3-411a-a154-714d4a1b83da",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3126",
+            "content": {
+                "en": "Hey, don’t block the way! Can’t you see that girl’s trying to go to the right?",
+                "zh": "哎呀！都别堵着道，没看那小姑娘要往右边走吗？",
+                "ja": ""
+            },
+            "positionX": 3868.800048828125,
+            "positionY": 229.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e32757d1-66d0-4a34-8eff-ca418f0c90c4",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3127",
+            "content": {
+                "en": "(They’ve cleared a path. I should head right while I can.)",
+                "zh": "（大家把路让开了，趁现在往右边去看看吧。 ）",
+                "ja": ""
+            },
+            "positionX": 4199.2001953125,
+            "positionY": 229.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "5aef0147-6eb5-4d56-8d17-b8ea07177710",
+            "inputNodeId": "51d2bf0a-9e1e-42ba-a261-2b3822d03e33",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "51d2bf0a-9e1e-42ba-a261-2b3822d03e33",
+            "inputNodeId": "d2f7944b-c663-462f-8bc8-36a76e462d6f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d2f7944b-c663-462f-8bc8-36a76e462d6f",
+            "inputNodeId": "341bcb4e-f2f9-4533-9abc-18c593eb82f2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "341bcb4e-f2f9-4533-9abc-18c593eb82f2",
+            "inputNodeId": "d2707835-aca3-411a-a154-714d4a1b83da",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d2707835-aca3-411a-a154-714d4a1b83da",
+            "inputNodeId": "e32757d1-66d0-4a34-8eff-ca418f0c90c4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
