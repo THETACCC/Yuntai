@@ -192,6 +192,8 @@ public enum SceneTitle
     Level4_81FestivalWrong = 38,
     Level4_151FestivalPuzzle6 = 39,
     Level4_18MusicGame = 40,
+    Level4_19StageFail = 41,
+    Level4_20StageSuccess = 42,
 }
 
 public enum SceneCategory
