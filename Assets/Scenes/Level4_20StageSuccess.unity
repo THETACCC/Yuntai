@@ -981,16 +981,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: isInstantTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 87bef7682fa6c51439626200d6e8b0f9, type: 3}
+      objectReference: {fileID: 4900000, guid: e729ba41b2ac1034eacc0fb8d2875554, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 87bef7682fa6c51439626200d6e8b0f9, type: 3}
+      objectReference: {fileID: 4900000, guid: 673c0e735561ab54f912fd54c2d4d062, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -998,7 +998,7 @@ PrefabInstance:
     - target: {fileID: 4356524115837630325, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: InteractIndicator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1124268794}
     - target: {fileID: 6080290335691190508, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.4
@@ -1015,6 +1015,11 @@ PrefabInstance:
 --- !u!4 &1124268793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+  m_PrefabInstance: {fileID: 1124268792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1124268794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 1124268792}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1171284211
@@ -1422,6 +1427,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 2782958368597528721, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782958368597528721, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 38.66
+      objectReference: {fileID: 0}
     - target: {fileID: 3125780153185451610, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1465,6 +1478,14 @@ PrefabInstance:
     - target: {fileID: 3671637323640706066, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944839052322202970, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.71439
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944839052322202970, guid: 6e7a9ed1300c14747966780e6994ff57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 48.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
