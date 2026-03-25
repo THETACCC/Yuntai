@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "52892297-a463-4c94-9aed-135b60bd7e51",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31156",
+            "content": {
+                "en": "Didn’t I just walk through here?",
+                "zh": "我是不是刚从这里走过",
+                "ja": ""
+            },
+            "positionX": -145.60000610351563,
+            "positionY": 48.79999923706055,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "51f2bf1c-1e9f-4566-b8e7-aa866bc57c70",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31157",
+            "content": {
+                "en": "…I must have been mistaken.",
+                "zh": "...应该是看走眼了吧,,",
+                "ja": ""
+            },
+            "positionX": 210.39999389648438,
+            "positionY": 48.79999923706055,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "52892297-a463-4c94-9aed-135b60bd7e51",
+            "inputNodeId": "51f2bf1c-1e9f-4566-b8e7-aa866bc57c70",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
