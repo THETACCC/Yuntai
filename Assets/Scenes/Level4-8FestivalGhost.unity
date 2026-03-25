@@ -1082,6 +1082,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxCamera: {fileID: 0}
+--- !u!1001 &1605207865
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -40.70767
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8990648
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.017114857
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328798025523235666, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824938919987471190, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: m_Name
+      value: StartDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334535660012230374, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 484c2c792558635489279c289a96e231, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4604fd465c74b40448391d5901bd69b4, type: 3}
 --- !u!1 &1632300541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,13 +1445,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: TheFestivalVisualsLoop
       objectReference: {fileID: 0}
+    - target: {fileID: 1829921432283699352, guid: 88f339b56a9bed6408eb2558a8a4ec5b, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: a5256c00290ec5749bf69c7de9009302, type: 3}
+    - target: {fileID: 1829921432283699352, guid: 88f339b56a9bed6408eb2558a8a4ec5b, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: a5256c00290ec5749bf69c7de9009302, type: 3}
     - target: {fileID: 8901849491843046845, guid: 88f339b56a9bed6408eb2558a8a4ec5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 100.1564
       objectReference: {fileID: 0}
     - target: {fileID: 8901849491843046845, guid: 88f339b56a9bed6408eb2558a8a4ec5b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.0325027
+      value: 5.45
       objectReference: {fileID: 0}
     - target: {fileID: 8901849491843046845, guid: 88f339b56a9bed6408eb2558a8a4ec5b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1453,3 +1522,4 @@ SceneRoots:
   - {fileID: 1915059856359585288}
   - {fileID: 935246647}
   - {fileID: 1127156163}
+  - {fileID: 1605207865}
