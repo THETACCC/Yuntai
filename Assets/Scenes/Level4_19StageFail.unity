@@ -211,16 +211,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6704970}
   m_SourcePrefab: {fileID: 100100000, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
 --- !u!4 &6704968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 82935524454280155, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
   m_PrefabInstance: {fileID: 6704967}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6704969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8038144794689732738, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
+  m_PrefabInstance: {fileID: 6704967}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6704970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6704969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e47d221a2aff924aa88120d7a92ab88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenename: Level4_18MusicGame
+  SpawnPointLocation: 0
+  InteractIndicator: {fileID: 0}
+  isInstant: 0
+  myGamemanager: {fileID: 0}
+  isPlayerActed: 0
+  scenename_Escaped: 
+  SpawnPointLocation_Escaped: 0
 --- !u!1 &168774191
 GameObject:
   m_ObjectHideFlags: 1
@@ -1190,7 +1219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66753c37b3d2ebd4aaf0013d89036018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainDialogueJsonFile: {fileID: 4900000, guid: ef909f150cbe3c7499438cbdc3519cfd, type: 3}
+  mainDialogueJsonFile: {fileID: 4900000, guid: 9f673489f0934ac409cb1b0705dee4c4, type: 3}
   postDialogueJsonFile: {fileID: 0}
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
