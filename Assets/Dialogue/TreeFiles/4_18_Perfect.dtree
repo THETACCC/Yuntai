@@ -12,7 +12,7 @@
                 "ja": ""
             },
             "positionX": 2564.0,
-            "positionY": 228.66665649414063,
+            "positionY": 228.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "嚯！这也太厉害了！姑娘，你是学过这个么？",
                 "ja": ""
             },
-            "positionX": 2890.666748046875,
-            "positionY": 228.66665649414063,
+            "positionX": 2891.199951171875,
+            "positionY": 228.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -46,7 +46,7 @@
                 "ja": ""
             },
             "positionX": 3220.0,
-            "positionY": 229.33334350585938,
+            "positionY": 228.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -62,8 +62,8 @@
                 "zh": "谢幕了谢幕了，走走，一会儿去金兰观看颁奖去。",
                 "ja": ""
             },
-            "positionX": 3537.33349609375,
-            "positionY": 228.66665649414063,
+            "positionX": 3537.599853515625,
+            "positionY": 228.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -79,8 +79,8 @@
                 "zh": "哎呀！都别堵着道，没看那小姑娘要往右边走吗？",
                 "ja": ""
             },
-            "positionX": 3868.666748046875,
-            "positionY": 229.33334350585938,
+            "positionX": 3868.800048828125,
+            "positionY": 228.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -96,10 +96,24 @@
                 "zh": "（大家把路让开了，趁现在往右边去看看吧。 ）",
                 "ja": ""
             },
-            "positionX": 4198.66650390625,
-            "positionY": 229.33334350585938,
+            "positionX": 4199.2001953125,
+            "positionY": 228.8000030517578,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "9d7184ea-45dc-4ad9-8ab8-3b088fbe9769",
+                    "targetObjectName": "ToNextLoop_success",
+                    "targetSceneName": "Level4_18MusicGame",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         }
     ],
