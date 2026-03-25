@@ -12,7 +12,7 @@
                 "ja": ""
             },
             "positionX": 608.0,
-            "positionY": 244.0,
+            "positionY": 244.00001525878907,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "（她好像叹了一口气？）",
                 "ja": ""
             },
-            "positionX": 937.3333740234375,
-            "positionY": 244.0,
+            "positionX": 937.6000366210938,
+            "positionY": 244.00001525878907,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -46,9 +46,23 @@
                 "ja": ""
             },
             "positionX": 1256.0,
-            "positionY": 244.0,
+            "positionY": 244.00001525878907,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "3e5e7b84-b2b0-467b-a240-3cfb3c4654ac",
+                    "targetObjectName": "ToNextLoop",
+                    "targetSceneName": "Level4_18MusicGame",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         }
     ],
