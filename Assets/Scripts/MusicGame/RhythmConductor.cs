@@ -29,6 +29,13 @@ public class RhythmConductor : MonoBehaviour
     [Header("Timing Calibration")]
     public double globalOffsetSeconds = 0.0;
 
+    [Header("Result Dialogue")]
+    [SerializeField] private DialogueTrigger resultDialogueTrigger;
+    [SerializeField] private TextAsset lostDialogueFile;
+    [SerializeField] private TextAsset normalDialogueFile;
+    [SerializeField] private TextAsset perfectDialogueFile;
+    [SerializeField] private float resultDelayAfterLastNote = 1f;
+
     static readonly NoteEvent[] CHART = new[]
     {
         new NoteEvent { time = 1.857, lane = 0 },
@@ -85,6 +92,10 @@ public class RhythmConductor : MonoBehaviour
     int goodCount;
 
     bool isPlaying;
+    bool hasEnded;
+    bool resultCountdownStarted;
+
+    float resultCountdownTimer;
     double songDspStart;
 
     void Awake()
@@ -92,19 +103,17 @@ public class RhythmConductor : MonoBehaviour
         BuildNotes();
     }
 
-    void Start()
-    {
-        BeginGame();
-    }
-
-    void BeginGame()
+    public void BeginGame()
     {
         spawnIndex = 0;
         missCount = 0;
         perfectCount = 0;
         goodCount = 0;
 
+        hasEnded = false;
         isPlaying = true;
+        resultCountdownStarted = false;
+        resultCountdownTimer = 0f;
 
         for (int i = active.Count - 1; i >= 0; i--)
             if (active[i] != null) Destroy(active[i].gameObject);
@@ -124,7 +133,6 @@ public class RhythmConductor : MonoBehaviour
             return;
         }
 
-        // 安全：确保 perfectWindow <= hitWindow
         if (perfectWindow > hitWindow) perfectWindow = hitWindow;
 
         music.Stop();
@@ -136,7 +144,7 @@ public class RhythmConductor : MonoBehaviour
 
     void Update()
     {
-        if (!isPlaying) return;
+        if (!isPlaying || hasEnded) return;
 
         double now = AudioSettings.dspTime;
 
@@ -159,6 +167,8 @@ public class RhythmConductor : MonoBehaviour
             TryHit(now);
 
         active.RemoveAll(n => n == null || n.IsJudged);
+
+        CheckResultCountdown();
     }
 
     void SpawnOne(NoteEvent e, double noteTime, double spawnTime)
@@ -180,7 +190,6 @@ public class RhythmConductor : MonoBehaviour
 
     void TryHit(double now)
     {
-        // 找到时间最早、还没判定的 note
         NoteView next = null;
         double nextTime = double.MaxValue;
 
@@ -195,7 +204,6 @@ public class RhythmConductor : MonoBehaviour
             }
         }
 
-        // 没有任何 note：按空了
         if (next == null)
         {
             HandleEmptyPress();
@@ -204,7 +212,6 @@ public class RhythmConductor : MonoBehaviour
 
         double delta = System.Math.Abs(now - next.NoteTime);
 
-        // 命中 Good 窗口内：Perfect or Good
         if (delta <= hitWindow)
         {
             var judge = (delta <= perfectWindow) ? HitJudgement.Perfect : HitJudgement.Good;
@@ -212,7 +219,6 @@ public class RhythmConductor : MonoBehaviour
         }
         else
         {
-            // 不在任何判定窗口：按空了（不强制把 note 判 miss）
             HandleEmptyPress();
         }
     }
@@ -229,7 +235,6 @@ public class RhythmConductor : MonoBehaviour
             goodCount++;
             Debug.Log($"GOOD     (P:{perfectCount} G:{goodCount} M:{missCount}/{maxMiss})");
         }
-        // Miss 在 HandleMiss 里处理扣命/失败
     }
 
     void HandleEmptyPress()
@@ -250,16 +255,85 @@ public class RhythmConductor : MonoBehaviour
 
     void GameOver()
     {
+        if (hasEnded) return;
+
+        hasEnded = true;
         isPlaying = false;
+        resultCountdownStarted = false;
+
         if (music != null) music.Stop();
 
         Debug.Log("GAME OVER");
+        PlayResultDialogue(lostDialogueFile);
+    }
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+    void CheckResultCountdown()
+    {
+        if (hasEnded) return;
+
+        bool allSpawned = spawnIndex >= notes.Count;
+
+        bool noActiveNotes = true;
+        for (int i = 0; i < active.Count; i++)
+        {
+            if (active[i] != null && !active[i].IsJudged)
+            {
+                noActiveNotes = false;
+                break;
+            }
+        }
+
+        if (allSpawned && noActiveNotes)
+        {
+            if (!resultCountdownStarted)
+            {
+                resultCountdownStarted = true;
+                resultCountdownTimer = Mathf.Max(0f, resultDelayAfterLastNote);
+            }
+
+            resultCountdownTimer -= Time.deltaTime;
+            if (resultCountdownTimer <= 0f)
+            {
+                hasEnded = true;
+                isPlaying = false;
+
+                if (music != null) music.Stop();
+
+                if (missCount == 0)
+                {
+                    Debug.Log("SONG CLEAR -> PERFECT");
+                    PlayResultDialogue(perfectDialogueFile);
+                }
+                else
+                {
+                    Debug.Log("SONG CLEAR -> NORMAL");
+                    PlayResultDialogue(normalDialogueFile);
+                }
+            }
+        }
+        else
+        {
+            resultCountdownStarted = false;
+        }
+    }
+
+    void PlayResultDialogue(TextAsset file)
+    {
+        if (resultDialogueTrigger == null)
+        {
+            Debug.LogError("[RhythmConductor] resultDialogueTrigger is not assigned.");
+            return;
+        }
+
+        if (file == null)
+        {
+            Debug.LogError("[RhythmConductor] result dialogue file is null.");
+            return;
+        }
+
+        resultDialogueTrigger.mainDialogueJsonFile = file;
+        resultDialogueTrigger.isMainDialogueFinished = false;
+        resultDialogueTrigger.TriggerDialogue();
     }
 
     void BuildNotes()
