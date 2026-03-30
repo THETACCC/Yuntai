@@ -5728,14 +5728,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenename: Level2-1
   SpawnPointLocation: 1
-  DeathAnimationPlayer: {fileID: 872985870}
-  deathAnimator: {fileID: 872985871}
-  targetStateName: Dead
+  DeathVideoPlayerObject: {fileID: 872985870}
+  deathVideoPlayer: {fileID: 872985871}
   hardTimeoutSeconds: 8
   allowSkipWithAnyKey: 0
   DeathAnimationSound: {fileID: 97006848}
   DeathAnimationSoundOneShot: {fileID: 1886112887}
   verboseLog: 0
+  myGamemanager: {fileID: 0}
 --- !u!1001 &872985868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5832,6 +5832,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8725150830164616988, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5847,9 +5851,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 166935070911253048, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
   m_PrefabInstance: {fileID: 872985868}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &872985871 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8554004343733583668, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
+--- !u!328 &872985871 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 8864277151904774011, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
   m_PrefabInstance: {fileID: 872985868}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &912445700
