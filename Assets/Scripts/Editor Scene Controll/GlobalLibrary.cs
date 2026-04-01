@@ -232,6 +232,11 @@ public static class GlobalLibrary
 
 
         }},
+        {SceneTitle.Level5_1Zhoushu, new SceneSpecifics()
+        {
+
+
+        }},
     };
 
 
@@ -247,7 +252,7 @@ public static class GlobalLibrary
             SceneTitle.Level4_6_1Ghost3F, SceneTitle.Level4_6_2LoopStuck1, SceneTitle.Level4_6_3LoopDead, SceneTitle.Level4_6_4LoopStuck2, SceneTitle.Level4_6_5LoopStuck3,SceneTitle.Level4_6_6FinalChase,SceneTitle.Level4_6_7City,
             SceneTitle.Level4_7FestivalNoema,  SceneTitle.Level4_8FestivalGhost, SceneTitle.Level4_81FestivalWrong,SceneTitle.Level4_9FestivalDead,SceneTitle.Level4_10FestivalNoemaHelp,
             SceneTitle.Level4_11FestivalPuzzle1, SceneTitle.Level4_12FestivalPuzzle2, SceneTitle.Level4_13FestivalPuzzle3, SceneTitle.Level4_14FestivalPuzzle4,SceneTitle.Level4_15FestivalPuzzle5,SceneTitle.Level4_151FestivalPuzzle6,SceneTitle.Level4_16FestivalKill,
-            SceneTitle.Level4_18MusicGame,SceneTitle.Level4_19StageFail,SceneTitle.Level4_20StageSuccess,
+            SceneTitle.Level4_18MusicGame,SceneTitle.Level4_19StageFail,SceneTitle.Level4_20StageSuccess, SceneTitle.Level5_1Zhoushu,
 
 
         } },
@@ -302,6 +307,7 @@ public static class GlobalLibrary
         {SceneTitle.Level4_18MusicGame, "Level4_18MusicGame" },
         {SceneTitle.Level4_19StageFail, "Level4_19StageFail" },
         {SceneTitle.Level4_20StageSuccess, "Level4_20StageSuccess" },
+        {SceneTitle.Level5_1Zhoushu, "Level5_1Zhoushu" },
     };
 
     public static readonly Dictionary<int, SceneTitle> G_SCENE_INDEX = new Dictionary<int, SceneTitle>()
