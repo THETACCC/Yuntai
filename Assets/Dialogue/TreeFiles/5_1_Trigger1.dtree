@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "057a52d9-a53a-4595-bad3-46e846fc4f48",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3180",
+            "content": {
+                "en": "It’s only been a day since I arrived in Yuntai, but it feels like so much has happened.",
+                "zh": "来到芸台不过短短一天，总感觉经历了好多事啊。",
+                "ja": ""
+            },
+            "positionX": 2716.800048828125,
+            "positionY": 196.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a372b3ce-5068-4af2-b294-0f2fd5a2b7a0",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3181",
+            "content": {
+                "en": "The incident on the plane, the monster in the apartment building, and that endless walkway...",
+                "zh": "飞机上的事件，公寓楼里的怪物，还有那条走不出的步道......",
+                "ja": ""
+            },
+            "positionX": 3034.39990234375,
+            "positionY": 196.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "16ad4489-a9fb-4ac5-81c7-bce22628696b",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3182",
+            "content": {
+                "en": "In this city... something is happening. Threads of it all point toward Troupe Elysium, but it feels like there’s more to it than that.",
+                "zh": "这座城市里......有什么阴谋正在发生，千丝万缕都指向了那个戏团，但又似乎不止如此。",
+                "ja": ""
+            },
+            "positionX": 3352.800048828125,
+            "positionY": 196.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "057a52d9-a53a-4595-bad3-46e846fc4f48",
+            "inputNodeId": "a372b3ce-5068-4af2-b294-0f2fd5a2b7a0",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a372b3ce-5068-4af2-b294-0f2fd5a2b7a0",
+            "inputNodeId": "16ad4489-a9fb-4ac5-81c7-bce22628696b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
