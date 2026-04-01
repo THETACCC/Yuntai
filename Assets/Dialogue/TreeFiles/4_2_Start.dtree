@@ -28,8 +28,8 @@
                 "zh": "！",
                 "ja": ""
             },
-            "positionX": 807.3333740234375,
-            "positionY": 122.0,
+            "positionX": 807.2000122070313,
+            "positionY": 121.60000610351563,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -46,7 +46,7 @@
                 "ja": ""
             },
             "positionX": 1144.0,
-            "positionY": 128.6666717529297,
+            "positionY": 128.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -63,7 +63,7 @@
                 "ja": ""
             },
             "positionX": 1484.0,
-            "positionY": 132.6666717529297,
+            "positionY": 132.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -79,8 +79,8 @@
                 "zh": "不......没有的事，见到你我很开心。",
                 "ja": ""
             },
-            "positionX": 1828.6666259765625,
-            "positionY": 132.6666717529297,
+            "positionX": 1828.7999267578125,
+            "positionY": 132.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -96,8 +96,8 @@
                 "zh": "啊，对了。你昨天刚到吧？休息的怎么样。",
                 "ja": ""
             },
-            "positionX": 2166.666748046875,
-            "positionY": 134.6666717529297,
+            "positionX": 2167.199951171875,
+            "positionY": 134.40000915527345,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -113,8 +113,8 @@
                 "zh": "（我该怎么跟她提起飞机上的事呢？）",
                 "ja": ""
             },
-            "positionX": 2506.0,
-            "positionY": 134.0,
+            "positionX": 2506.39990234375,
+            "positionY": 133.60000610351563,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -130,8 +130,8 @@
                 "zh": "（算了，之后再说吧。）",
                 "ja": ""
             },
-            "positionX": 2840.666748046875,
-            "positionY": 131.3333282470703,
+            "positionX": 2840.800048828125,
+            "positionY": 131.1999969482422,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -147,8 +147,8 @@
                 "zh": "我休息的挺好的，你在芸台过得怎么样？我听说这里近来不太平。",
                 "ja": ""
             },
-            "positionX": 3188.666748046875,
-            "positionY": 130.0,
+            "positionX": 3188.800048828125,
+            "positionY": 129.60000610351563,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -164,8 +164,8 @@
                 "zh": "哈哈，还好。芸台其实一直都不算多安稳。",
                 "ja": ""
             },
-            "positionX": 3529.33349609375,
-            "positionY": 133.3333282470703,
+            "positionX": 3529.599853515625,
+            "positionY": 132.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -181,8 +181,8 @@
                 "zh": "真想念当时和你一起在纹秋的日子啊。",
                 "ja": ""
             },
-            "positionX": 3876.666748046875,
-            "positionY": 138.6666717529297,
+            "positionX": 3876.800048828125,
+            "positionY": 138.40000915527345,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -216,7 +216,7 @@
                 "ja": ""
             },
             "positionX": 4552.0,
-            "positionY": 143.3333282470703,
+            "positionY": 143.1999969482422,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -233,7 +233,7 @@
                 "ja": ""
             },
             "positionX": 4892.0,
-            "positionY": 142.0,
+            "positionY": 141.60000610351563,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -249,8 +249,8 @@
                 "zh": "好。对了，我......",
                 "ja": ""
             },
-            "positionX": 5226.66650390625,
-            "positionY": 144.0,
+            "positionX": 5230.400390625,
+            "positionY": 141.60000610351563,
             "choices": [],
             "eventCalls": [
                 {
@@ -265,6 +265,58 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "7f8cb4f2-ad32-4cec-ac79-148d4dcc0240",
+                    "targetObjectName": "Objective4_2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+                    "targetObjectName": "Objective4_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
                 }
             ],
             "conditionalBranches": []

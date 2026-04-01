@@ -28,8 +28,8 @@
                 "zh": "你可以先去拿我给你留的礼物。",
                 "ja": ""
             },
-            "positionX": 440.6666564941406,
-            "positionY": 105.33332824707031,
+            "positionX": 440.8000183105469,
+            "positionY": 104.80000305175781,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,10 +45,63 @@
                 "zh": "沿着左侧街道走可以到公寓楼，我家在301。",
                 "ja": ""
             },
-            "positionX": 777.3333740234375,
-            "positionY": 106.66667175292969,
+            "positionX": 777.6000366210938,
+            "positionY": 106.40000915527344,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "57032057-eee9-4feb-9885-094e95fd8bb4",
+                    "targetObjectName": "ObjectiveCH2_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "77d9f7bd-8419-488c-b3de-d8f73852eb29",
+                    "targetObjectName": "ObjectiveCH2_2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         }
     ],
