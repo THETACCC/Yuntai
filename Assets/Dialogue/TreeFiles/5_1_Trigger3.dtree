@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "c2cb2d5c-1eb1-4616-af8b-e6fa8c77e253",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3185",
+            "content": {
+                "en": "Up ahead... that’s Jinlan Temple.",
+                "zh": "前面......就是金兰观了。",
+                "ja": ""
+            },
+            "positionX": 3377.599853515625,
+            "positionY": 149.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6108a312-e6fd-4953-a112-a7999d580aa2",
+            "index": 1,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_3186",
+            "content": {
+                "en": "I feel like... I’ve seen this scene before... in some dream.",
+                "zh": "我似乎......曾经在某个梦里......见过这样的情景。",
+                "ja": ""
+            },
+            "positionX": 3695.199951171875,
+            "positionY": 149.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "469ece45-391e-4b50-8efe-a1d9d15dcc81",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_3187",
+            "content": {
+                "en": "...",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 4013.599853515625,
+            "positionY": 149.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "44ea8c1e-2f60-4e90-aa4a-6d147885814a",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3188",
+            "content": {
+                "en": "I hope... it was just a dream.",
+                "zh": "希望，那终归只是梦吧。",
+                "ja": ""
+            },
+            "positionX": 4332.0,
+            "positionY": 149.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "c2cb2d5c-1eb1-4616-af8b-e6fa8c77e253",
+            "inputNodeId": "6108a312-e6fd-4953-a112-a7999d580aa2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6108a312-e6fd-4953-a112-a7999d580aa2",
+            "inputNodeId": "469ece45-391e-4b50-8efe-a1d9d15dcc81",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "469ece45-391e-4b50-8efe-a1d9d15dcc81",
+            "inputNodeId": "44ea8c1e-2f60-4e90-aa4a-6d147885814a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

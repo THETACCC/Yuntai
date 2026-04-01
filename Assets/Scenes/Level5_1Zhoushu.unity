@@ -123,6 +123,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &130235018
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 796018091}
+    m_Modifications:
+    - target: {fileID: 229691526406320690, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: OnTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -48.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698891035312827683, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_Name
+      value: Left Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466929389528158359, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+    - {fileID: 229691526406320690, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+--- !u!4 &130235019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1992326079681684873, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+  m_PrefabInstance: {fileID: 130235018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &168774191
 GameObject:
   m_ObjectHideFlags: 1
@@ -251,6 +323,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trigger2
       objectReference: {fileID: 0}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 0f8aca0b15094c04a8e5901e9d07df98, type: 3}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 0f8aca0b15094c04a8e5901e9d07df98, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -646,6 +726,7 @@ Transform:
   m_Children:
   - {fileID: 1728226482}
   - {fileID: 645986761}
+  - {fileID: 130235019}
   - {fileID: 82935526296836435}
   - {fileID: 305954076}
   - {fileID: 2122269694}
@@ -993,11 +1074,11 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 173303bb0825a254f803e0dd105271e7, type: 3}
+      objectReference: {fileID: 4900000, guid: ac61646e5547ec842a5a6ba5254cff45, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 173303bb0825a254f803e0dd105271e7, type: 3}
+      objectReference: {fileID: 4900000, guid: ac61646e5547ec842a5a6ba5254cff45, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1662,6 +1743,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trigger3
       objectReference: {fileID: 0}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 34a07fa8fa1c3ab4fb493ebfce39cfb8, type: 3}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 34a07fa8fa1c3ab4fb493ebfce39cfb8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1729,6 +1818,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trigger1
       objectReference: {fileID: 0}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: mainDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: fac0a3c46f29d224ba1e4836013401e6, type: 3}
+    - target: {fileID: 8896937621450914905, guid: 4b890e02382d9a74eb361fa7ec118d13, type: 3}
+      propertyPath: postDialogueJsonFile
+      value: 
+      objectReference: {fileID: 4900000, guid: fac0a3c46f29d224ba1e4836013401e6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
