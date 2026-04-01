@@ -14,6 +14,9 @@ public class DirectionalEnterTrigger : MonoBehaviour
     public string playerTag = "Player";
     public TriggerMode mode = TriggerMode.EnterLeftToRight;
 
+    [Tooltip("If true, this trigger can only fire once. Default is false.")]
+    [SerializeField] private bool oneShot = false;
+
     [Tooltip("Minimum |x-velocity| to accept as directional movement. If the player has no Rigidbody2D, this is ignored.")]
     public float dirSpeedThreshold = 0.05f;
 
@@ -24,6 +27,7 @@ public class DirectionalEnterTrigger : MonoBehaviour
     public UnityEvent OnTriggered;   // Drag any target object here, choose a public no-arg method
 
     private BoxCollider2D _zone;
+    private bool _hasTriggered = false;
 
     private void Awake()
     {
@@ -34,6 +38,12 @@ public class DirectionalEnterTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
+
+        if (oneShot && _hasTriggered)
+        {
+            if (debugLogs) Debug.Log("[DirectionalEnterTrigger] Ignored because oneShot already fired.");
+            return;
+        }
 
         // Where did the player cross relative to the zone center?
         float playerX = other.bounds.center.x;
@@ -64,6 +74,8 @@ public class DirectionalEnterTrigger : MonoBehaviour
         if (fire)
         {
             if (debugLogs) Debug.Log($"[DirectionalEnterTrigger] Fired: {mode}");
+
+            _hasTriggered = true;
             OnTriggered?.Invoke();
         }
         else
