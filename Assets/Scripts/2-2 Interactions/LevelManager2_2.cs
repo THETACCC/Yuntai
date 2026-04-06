@@ -79,6 +79,9 @@ public class LevelManager2_2 : BaseLevelManager
     //Back Scren Effect
     public BlackScreenEffect myBlackScreen;
 
+    [Header("Head")]
+    [SerializeField] private Rigidbody2D headRb;
+
 
     // --- runtime ---
     private readonly List<Collider2D> _playerCols = new(); // 不禁用，只缓存
@@ -435,10 +438,17 @@ public class LevelManager2_2 : BaseLevelManager
 
         StartCoroutine( AudioDeath());
 
+    }
 
+    public void headDown()
+    {
+        if (headRb == null) return;
 
-
-
+        headRb.bodyType = RigidbodyType2D.Dynamic;
+        headRb.simulated = true;
+        headRb.velocity = Vector2.zero;
+        headRb.angularVelocity = 0f;
+        headRb.gravityScale = 0.7f;
     }
 
     private IEnumerator AudioDeath()

@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     // ★★★ 统一控制锁：演出 / 死亡动画时，锁住它 ★★★
     private bool controlLocked = false;
 
+    private float maxUpwardKickVelocity = 0f;
+
     // ----------------- Unity Lifecycle ----------------- //
 
     private void Awake()
@@ -166,7 +168,13 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (rb == null) return;
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+        float y = rb.velocity.y;
+
+        if (y > maxUpwardKickVelocity)
+            y = maxUpwardKickVelocity;
+
+        rb.velocity = new Vector2(horizontal * speed, y);
     }
 
     // ----------------- 公共接口：统一给 Manager / ToNextLoop 调用 ----------------- //

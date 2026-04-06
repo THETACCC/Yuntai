@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static AudioManager;
 
 public class UI_E : MonoBehaviour
 {
     [Header("Interaction UI")]
     [SerializeField] protected GameObject InteractIndicator;
+
+    [Header("E Press Trigger")]
+    [SerializeField] private bool triggerManagerFunctionOnE = false;
+    [SerializeField] private BaseLevelManager targetLevelManager;
+    [SerializeField] private UnityEvent onEPressed;
 
     // child classes can read this
     protected bool isPlayerInTrigger = false;
@@ -25,19 +31,28 @@ public class UI_E : MonoBehaviour
         }
     }
 
-    // <-- CHANGED: now protected virtual (was private), so children can call/override
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        // This disables the E when player presses
         if (collision.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.W)))
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.W))
             {
                 SetIndicator(false);
-                //PlayAudio
-                AudioManager.Play("Sound Effects/Henk/sndSpeak", AudioGroup.SFX);
-            }
 
+                AudioManager.Play("Sound Effects/Henk/sndSpeak", AudioGroup.SFX);
+
+                if (triggerManagerFunctionOnE)
+                {
+                    if (targetLevelManager != null)
+                    {
+                        onEPressed?.Invoke();
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"{name}: triggerManagerFunctionOnE is checked, but targetLevelManager is not assigned.");
+                    }
+                }
+            }
         }
     }
 
@@ -55,7 +70,6 @@ public class UI_E : MonoBehaviour
         if (InteractIndicator) InteractIndicator.SetActive(on);
     }
 
-    // Quality-of-life: auto-find an indicator if you forgot to assign one
     private void Reset()
     {
         if (InteractIndicator == null)
