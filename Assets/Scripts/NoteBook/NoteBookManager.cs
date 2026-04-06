@@ -102,12 +102,16 @@ public class NoteBookManager : MonoBehaviour
                     if (OpenNoteBook) OpenNoteBook.Play();
                     DisablePlayerMovement();
                     NoteBook_Canvas.alpha = 1;
+                    NoteBook_Canvas.blocksRaycasts = true;
+                    NoteBook_Canvas.interactable = true;
                     isOpen = true;
                 }
                 else
                 {
                     EnablePlayerMovement();
                     NoteBook_Canvas.alpha = 0;
+                    NoteBook_Canvas.blocksRaycasts = false;
+                    NoteBook_Canvas.interactable = false;
                     isOpen = false;
                 }
             }

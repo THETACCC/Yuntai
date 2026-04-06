@@ -391,6 +391,10 @@ public class LevelManager1_2 : BaseLevelManager
                 if (lights2[i]) lights2[i].intensity = 0f;
         }
 
+        //Add Death Sounds Here
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisDead", AudioGroup.SFX);
+        AudioManager.Play("Sound Effects/Chapter1/sndVerisBoneBreak", AudioGroup.SFX);
+
         if (snd_breakBones3)
         {
             snd_breakBones3.Play();
