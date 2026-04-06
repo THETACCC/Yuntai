@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,12 @@ public class NoteView : MonoBehaviour
     [SerializeField] private double fadeDuration = 0.20;
     [SerializeField] private double feedbackHoldSeconds = 0.25;
 
+    [Header("Feedback Pop Animation")]
+    [SerializeField] private float feedbackStartScale = 1.0f;
+    [SerializeField] private float feedbackPeakScale = 1.18f;
+    [SerializeField] private float feedbackEndScale = 1.0f;
+    [SerializeField] private float feedbackPopDuration = 0.12f;
+
     public double NoteTime { get; private set; }
     public bool IsJudged { get; private set; }
 
@@ -51,6 +58,8 @@ public class NoteView : MonoBehaviour
     private Vector3 targetBaseScale;
     private Vector3 ringBaseScale;
 
+    private Coroutine feedbackAnimCoroutine;
+
     void Awake()
     {
         if (canvasGroup == null)
@@ -59,7 +68,6 @@ public class NoteView : MonoBehaviour
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
 
-        // 这些反馈图片不要挡 raycast
         if (greenFeedback) greenFeedback.raycastTarget = false;
         if (perfectFeedback) perfectFeedback.raycastTarget = false;
         if (redFeedback) redFeedback.raycastTarget = false;
@@ -85,8 +93,21 @@ public class NoteView : MonoBehaviour
         canvasGroup.alpha = 1f;
         HideFeedback();
 
-        if (targetCircle) targetCircle.localScale = targetBaseScale * baseTargetScale;
-        if (shrinkingRing) shrinkingRing.localScale = ringBaseScale * startRingScale;
+        if (targetCircle)
+        {
+            targetCircle.gameObject.SetActive(true);
+            targetCircle.localScale = targetBaseScale * baseTargetScale;
+        }
+
+        if (shrinkingRing)
+        {
+            shrinkingRing.gameObject.SetActive(true);
+            shrinkingRing.localScale = ringBaseScale * startRingScale;
+        }
+
+        ResetFeedbackVisual(greenFeedback);
+        ResetFeedbackVisual(perfectFeedback);
+        ResetFeedbackVisual(redFeedback);
 
         despawnTime = NoteTime + holdAfterNoteTime + fadeDuration;
     }
@@ -100,14 +121,12 @@ public class NoteView : MonoBehaviour
     {
         if (resolved) return;
 
-        // 安全检查：必须在 Good window 里
         double delta = Math.Abs(nowDsp - NoteTime);
         if (delta > hitWindow) return;
 
         pressedInWindow = true;
         pendingJudgement = judgement;
 
-        // 如果已经到/过拍点，立刻结算；否则等 Update 到 NoteTime 再结算
         if (nowDsp >= NoteTime) Resolve(judgement);
     }
 
@@ -121,7 +140,7 @@ public class NoteView : MonoBehaviour
     {
         double now = AudioSettings.dspTime;
 
-        if (shrinkingRing != null)
+        if (!resolved && shrinkingRing != null)
         {
             float targetMul = baseTargetScale;
 
@@ -130,7 +149,6 @@ public class NoteView : MonoBehaviour
                 double t = (now - spawnTime) / preSpawnTime;
                 float k = Mathf.Clamp01((float)t);
                 float ringMul = Mathf.Lerp(startRingScale, targetMul, k);
-
                 shrinkingRing.localScale = ringBaseScale * ringMul;
             }
             else
@@ -162,6 +180,7 @@ public class NoteView : MonoBehaviour
         IsJudged = true;
         resolvedTimeDsp = AudioSettings.dspTime;
 
+        HideNoteVisuals();
         HideFeedback();
 
         if (judgement == HitJudgement.Perfect)
@@ -184,6 +203,12 @@ public class NoteView : MonoBehaviour
         if (despawnTime < minDespawn) despawnTime = minDespawn;
     }
 
+    void HideNoteVisuals()
+    {
+        if (targetCircle) targetCircle.gameObject.SetActive(false);
+        if (shrinkingRing) shrinkingRing.gameObject.SetActive(false);
+    }
+
     void HideFeedback()
     {
         if (greenFeedback) greenFeedback.gameObject.SetActive(false);
@@ -191,13 +216,23 @@ public class NoteView : MonoBehaviour
         if (redFeedback) redFeedback.gameObject.SetActive(false);
     }
 
+    void ResetFeedbackVisual(Image img)
+    {
+        if (img == null) return;
+
+        img.gameObject.SetActive(false);
+        img.transform.localScale = Vector3.one * feedbackStartScale;
+
+        Color c = img.color;
+        c.a = 1f;
+        img.color = c;
+    }
+
     void ShowPerfect()
     {
-        // 如果没配 perfectFeedback，就用 greenFeedback 顶一下（只是视觉上不区分，但逻辑上区分）
         if (perfectFeedback != null)
         {
-            perfectFeedback.transform.SetAsLastSibling();
-            perfectFeedback.gameObject.SetActive(true);
+            ShowFeedbackWithPop(perfectFeedback);
         }
         else
         {
@@ -208,14 +243,67 @@ public class NoteView : MonoBehaviour
     void ShowGood()
     {
         if (greenFeedback == null) return;
-        greenFeedback.transform.SetAsLastSibling();
-        greenFeedback.gameObject.SetActive(true);
+        ShowFeedbackWithPop(greenFeedback);
     }
 
     void ShowMiss()
     {
         if (redFeedback == null) return;
-        redFeedback.transform.SetAsLastSibling();
-        redFeedback.gameObject.SetActive(true);
+        ShowFeedbackWithPop(redFeedback);
+    }
+
+    void ShowFeedbackWithPop(Image img)
+    {
+        if (img == null) return;
+
+        img.transform.SetAsLastSibling();
+        img.gameObject.SetActive(true);
+
+        Color c = img.color;
+        c.a = 1f; // 确保100%不透明
+        img.color = c;
+
+        img.transform.localScale = Vector3.one * feedbackStartScale;
+
+        if (feedbackAnimCoroutine != null)
+            StopCoroutine(feedbackAnimCoroutine);
+
+        feedbackAnimCoroutine = StartCoroutine(PlayFeedbackPop(img.transform));
+    }
+
+    IEnumerator PlayFeedbackPop(Transform target)
+    {
+        if (target == null) yield break;
+
+        float half = feedbackPopDuration * 0.5f;
+        float timer = 0f;
+
+        while (timer < half)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(timer / half);
+            target.localScale = Vector3.Lerp(
+                Vector3.one * feedbackStartScale,
+                Vector3.one * feedbackPeakScale,
+                t
+            );
+            yield return null;
+        }
+
+        timer = 0f;
+        while (timer < half)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(timer / half);
+            target.localScale = Vector3.Lerp(
+                Vector3.one * feedbackPeakScale,
+                Vector3.one * feedbackEndScale,
+                t
+            );
+            yield return null;
+        }
+
+        target.localScale = Vector3.one * feedbackEndScale;
+        feedbackAnimCoroutine = null;
     }
 }
