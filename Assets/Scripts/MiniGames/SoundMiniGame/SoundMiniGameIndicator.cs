@@ -10,6 +10,10 @@ public class SoundMiniGameIndicator : MonoBehaviour
 
     public GameObject myUI_E;
 
+    [SerializeField] GameObject scenePortal2;
+    [SerializeField] private DialogueTrigger gameInComplete;
+    [SerializeField] private DialogueTrigger gameComplete;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,8 @@ public class SoundMiniGameIndicator : MonoBehaviour
     {
         Gamemanager.instance?.EndDialogue();
         myMiniGame.SetActive(false);
+
+        gameInComplete.TriggerDialogue();
     }
 
     public void SolvedMiniGame()
@@ -49,6 +55,9 @@ public class SoundMiniGameIndicator : MonoBehaviour
         isReadyToTrigger = false;
         isSolved = true;
 
+        scenePortal2.SetActive(true);
+        if (gameComplete) gameComplete.TriggerDialogue();
+        print("mini game win!");
     }
 
     public void OpenMiniGame()

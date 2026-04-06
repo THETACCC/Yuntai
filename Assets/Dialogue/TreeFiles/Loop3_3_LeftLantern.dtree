@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "508fc01f-35e2-4d67-94d7-1b811b229980",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3063",
+            "content": {
+                "en": "The mood here is festive.",
+                "zh": "很有节日氛围。",
+                "ja": ""
+            },
+            "positionX": 564.0,
+            "positionY": 218.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "53bd084c-e5db-4c5e-9748-0a9e3917bece",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3062",
+            "content": {
+                "en": "Decorative lanterns hang from the eaves.",
+                "zh": "屋檐上挂着许多装饰性的灯笼。",
+                "ja": ""
+            },
+            "positionX": 226.0,
+            "positionY": 218.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "53bd084c-e5db-4c5e-9748-0a9e3917bece",
+            "inputNodeId": "508fc01f-35e2-4d67-94d7-1b811b229980",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

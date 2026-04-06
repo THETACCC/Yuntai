@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "7b857b91-0a39-421e-ac62-133ddb0db864",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2070",
+            "content": {
+                "en": "Weird… but I guess this version of the notebook is a lot more convenient.",
+                "zh": "真是怪事一件。不过，笔记本变成这样确实方便了不少。",
+                "ja": ""
+            },
+            "positionX": 956.6666870117188,
+            "positionY": 419.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c9fbedc7-8e8c-4fba-8a0a-2a1acf275877",
+            "index": 1,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2071",
+            "content": {
+                "en": "Huh?",
+                "zh": "咦？",
+                "ja": ""
+            },
+            "positionX": 1336.6666259765625,
+            "positionY": 421.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "39ef0e0b-2849-454a-861c-ddde43e7c2b5",
+            "index": 2,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2072",
+            "content": {
+                "en": "Was that always on the back cover?",
+                "zh": "笔记本的封皮背面，之前有这个东西吗？",
+                "ja": ""
+            },
+            "positionX": 1697.333251953125,
+            "positionY": 423.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fa06eeea-aa4a-4d74-8332-6b02dc8488ca",
+            "index": 3,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_2073",
+            "content": {
+                "en": "I feel like I’ve seen that pattern somewhere before... but I can’t place it right now. I should focus on the issues at hand.",
+                "zh": "我总感觉在哪里见过这种样式的图案。不过一时间也想不起来，还是先专注在当下的任务上吧。",
+                "ja": ""
+            },
+            "positionX": 2080.666748046875,
+            "positionY": 422.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "7b857b91-0a39-421e-ac62-133ddb0db864",
+            "inputNodeId": "c9fbedc7-8e8c-4fba-8a0a-2a1acf275877",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c9fbedc7-8e8c-4fba-8a0a-2a1acf275877",
+            "inputNodeId": "39ef0e0b-2849-454a-861c-ddde43e7c2b5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "39ef0e0b-2849-454a-861c-ddde43e7c2b5",
+            "inputNodeId": "fa06eeea-aa4a-4d74-8332-6b02dc8488ca",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

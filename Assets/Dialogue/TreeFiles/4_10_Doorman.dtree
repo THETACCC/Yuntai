@@ -1,0 +1,246 @@
+{
+    "nodes": [
+        {
+            "id": "439559e0-b410-4658-aad5-4310d362365b",
+            "index": 0,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch2_3160",
+            "content": {
+                "en": "Little girl.",
+                "zh": "小姑娘。",
+                "ja": ""
+            },
+            "positionX": 198.39999389648438,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "94a3c911-0ec6-4fd5-aea2-6dd26f1c6fb5",
+            "index": 1,
+            "characterId": "e3614b9a-4789-4305-ac57-4a6bac607584",
+            "useContentId": true,
+            "contentId": "ch2_3161",
+            "content": {
+                "en": "That was… what was that…? Ah! Were you calling me?",
+                "zh": "那是......怎么回事......啊！您在叫我吗？",
+                "ja": ""
+            },
+            "positionX": 539.2000122070313,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f3029f26-dcc0-4121-a475-1790464bd636",
+            "index": 2,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch2_3162",
+            "content": {
+                "en": "Little girl, go take a look at the notice board.",
+                "zh": "小姑娘，去看看告示牌吧。",
+                "ja": ""
+            },
+            "positionX": 874.4000244140625,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f74577e4-b5dc-4431-98e8-46c2c7888896",
+            "index": 3,
+            "characterId": "7324b771-f6f5-4d90-b605-0ae0697e44d9",
+            "useContentId": true,
+            "contentId": "ch2_3163",
+            "content": {
+                "en": "What?",
+                "zh": "什么？",
+                "ja": ""
+            },
+            "positionX": 1210.39990234375,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "92bdafe7-6105-4f0f-96a5-db7fc9c0a241",
+            "index": 4,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_3164",
+            "content": {
+                "en": "The stretch of road up ahead isn’t very stable. People from Jinlan Pavilion posted a notice over there to help passersby.",
+                "zh": "前面的路段不太安稳。金兰观的人有在那边贴过告示帮助行人。",
+                "ja": ""
+            },
+            "positionX": 1540.0,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "751f40b9-8122-4bec-b975-8da3b5a3528d",
+            "index": 5,
+            "characterId": "5c2350da-c9c0-447f-8406-60bff21a53f5",
+            "useContentId": true,
+            "contentId": "ch2_3165",
+            "content": {
+                "en": "…I understand. Thank you.",
+                "zh": "......我知道了，谢谢您。",
+                "ja": ""
+            },
+            "positionX": 1872.0,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cb4a7ae2-c242-45e9-8170-249ad91aeb7a",
+            "index": 6,
+            "characterId": "7324b771-f6f5-4d90-b605-0ae0697e44d9",
+            "useContentId": true,
+            "contentId": "ch2_3166",
+            "content": {
+                "en": "Be careful on the way.",
+                "zh": "路上小心。",
+                "ja": ""
+            },
+            "positionX": 2203.199951171875,
+            "positionY": 98.40000915527344,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "8e52c3d5-00f6-4b55-a1ed-84cd05e40193",
+                    "targetObjectName": "Event12_Board",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "057c0d84-3636-4b7e-b067-39901ee9cfc6",
+                    "targetObjectName": "ObjectiveCH2_4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "1aa98e57-4f8a-43ac-813a-e96be33d01bf",
+                    "targetObjectName": "ObjectiveCH2_5",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "439559e0-b410-4658-aad5-4310d362365b",
+            "inputNodeId": "94a3c911-0ec6-4fd5-aea2-6dd26f1c6fb5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "94a3c911-0ec6-4fd5-aea2-6dd26f1c6fb5",
+            "inputNodeId": "f3029f26-dcc0-4121-a475-1790464bd636",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f3029f26-dcc0-4121-a475-1790464bd636",
+            "inputNodeId": "f74577e4-b5dc-4431-98e8-46c2c7888896",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f74577e4-b5dc-4431-98e8-46c2c7888896",
+            "inputNodeId": "92bdafe7-6105-4f0f-96a5-db7fc9c0a241",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "92bdafe7-6105-4f0f-96a5-db7fc9c0a241",
+            "inputNodeId": "751f40b9-8122-4bec-b975-8da3b5a3528d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "751f40b9-8122-4bec-b975-8da3b5a3528d",
+            "inputNodeId": "cb4a7ae2-c242-45e9-8170-249ad91aeb7a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

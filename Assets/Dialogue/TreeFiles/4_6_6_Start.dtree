@@ -1,0 +1,109 @@
+{
+    "nodes": [
+        {
+            "id": "17ed0d17-ed1e-45e2-8b83-d7c0fae7d61f",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2019",
+            "content": {
+                "en": "The exit is right ahead!",
+                "zh": "出口就在前面！",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "51bdf3fb-9cc7-498f-81e5-abd5cc188f8b",
+            "index": 1,
+            "characterId": "032e23aa-1c44-460f-8151-ed6d83b5348c",
+            "useContentId": true,
+            "contentId": "ch2_2020",
+            "content": {
+                "en": "But I have a feeling that thing won’t let me leave so easily.",
+                "zh": "总感觉那东西不会让我轻易离开。",
+                "ja": ""
+            },
+            "positionX": 460.0,
+            "positionY": 105.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "59cc8726-c4b5-40e0-a16c-a9118e1ff6eb",
+            "index": 2,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch2_2021",
+            "content": {
+                "en": "I need to watch out for its counterattack.",
+                "zh": "得小心它的反扑。",
+                "ja": ""
+            },
+            "positionX": 821.0,
+            "positionY": 107.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b57a4728-8bba-4138-b826-1b2f59642fda",
+            "index": 3,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_2022",
+            "content": {
+                "en": "Press E repeatedly to break free.",
+                "zh": "反复敲击“E”以挣脱束缚。",
+                "ja": ""
+            },
+            "positionX": 1187.0,
+            "positionY": 106.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "34fb001d-325b-4d93-8daf-815c71965831",
+                    "targetObjectName": "EnableGhostAfterDelay",
+                    "targetSceneName": "Level4-6-6FinalChase",
+                    "componentTypeName": "EnableAfterDelay",
+                    "methodName": "EnableGhost",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "17ed0d17-ed1e-45e2-8b83-d7c0fae7d61f",
+            "inputNodeId": "51bdf3fb-9cc7-498f-81e5-abd5cc188f8b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "51bdf3fb-9cc7-498f-81e5-abd5cc188f8b",
+            "inputNodeId": "59cc8726-c4b5-40e0-a16c-a9118e1ff6eb",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "59cc8726-c4b5-40e0-a16c-a9118e1ff6eb",
+            "inputNodeId": "b57a4728-8bba-4138-b826-1b2f59642fda",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

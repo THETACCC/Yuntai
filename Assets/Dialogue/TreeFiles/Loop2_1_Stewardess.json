@@ -1,0 +1,261 @@
+{
+  "conversations": [
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "(...She's so harsh.)",
+        "zh": "（......她真的好刻薄。）",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Why are you standing here this whole time?",
+            "zh": "您为什么一直站在这里呢？",
+            "ja": ""
+          },
+          "targetIndex": 3
+        },
+        {
+          "text": {
+            "en": "Sorry, I’ll be going now.",
+            "zh": "打扰了，我这就走",
+            "ja": ""
+          },
+          "targetIndex": 8
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "You’ve been standing here for quite a while... may I ask...",
+        "zh": "您似乎已经在这里站了好一阵了，请问——",
+        "ja": ""
+      },
+      "nextIndex": 15,
+      "eventCalls": [
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "SetInfoFourTrue",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "(Terrifying!)",
+        "zh": "（好可怕！）",
+        "ja": ""
+      },
+      "nextIndex": 5
+    },
+    {
+      "index": 5,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to be here on standby. I’m not allowed to leave until she gets back to me.",
+        "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
+        "ja": ""
+      },
+      "nextIndex": 6
+    },
+    {
+      "index": 6,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "(She’s speaking through clenched teeth...)",
+        "zh": "（她在咬着牙说话......）",
+        "ja": ""
+      },
+      "nextIndex": 7
+    },
+    {
+      "index": 7,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "(Better drop the subject.)",
+        "zh": "（还是结束这个话题吧。）",
+        "ja": ""
+      },
+      "nextIndex": -1
+    },
+    {
+      "index": 8,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Sorry to bother you. I’ll be on my way.",
+        "zh": "打扰您了，我这就离开。",
+        "ja": ""
+      },
+      "nextIndex": 9
+    },
+    {
+      "index": 9,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "......",
+        "zh": "…...",
+        "ja": ""
+      },
+      "nextIndex": 10
+    },
+    {
+      "index": 10,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "(Let's go, let's just go.)",
+        "zh": "（快走快走。）",
+        "ja": ""
+      },
+      "nextIndex": -1
+    },
+    {
+      "index": 11,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "Oh no, miss. I'm afraid you’re not allowed to bother the passengers up front.",
+        "zh": "哎呀女士，不可以去打扰前面的客人。",
+        "ja": ""
+      },
+      "nextIndex": 12
+    },
+    {
+      "index": 12,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "The restroom for economy class is waaay down at the other end, dear.",
+        "zh": "经济舱的洗手间，在另一边最远处哦。",
+        "ja": ""
+      },
+      "nextIndex": 13
+    },
+    {
+      "index": 13,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "(What exactly happened when the lights dimmed earlier? How did she end up like that?)",
+        "zh": "（她看起来一如既往的刻薄。之前灯光暗下来的时候到底发生了什么，她为什么会变成那副样子？）",
+        "ja": ""
+      },
+      "nextIndex": 14
+    },
+    {
+      "index": 14,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "Ma’am? If you’re going to zone out, could you please move somewhere that’s not in the way?",
+        "zh": "女士？要发呆的话，请到不那么挡路的地方去好吗？",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 15,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "......",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": 4
+    }
+  ],
+  "currentIndex": 0
+}

@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "24414a9d-89f8-4fb9-99f5-5b35c414983f",
+            "index": 0,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_3043",
+            "content": {
+                "en": "Hello! Thank you for lending me the fire extinguisher last night!",
+                "zh": "您好！谢谢您昨晚借我灭火器！",
+                "ja": ""
+            },
+            "positionX": 6820.80029296875,
+            "positionY": 296.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "63ce1b86-ad77-47f7-b9c0-254a4089cfdf",
+            "index": 1,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch2_3044",
+            "content": {
+                "en": "No problem. You helped me hang the lanterns earlier, didn’t you? Helping each other out—that’s only right!",
+                "zh": "别客气，你不是先前帮我挂好了花灯嘛。互帮互助，应该的！",
+                "ja": ""
+            },
+            "positionX": 7152.0,
+            "positionY": 296.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "95a638e9-0667-4204-adbe-9cce2e377bb5",
+            "index": 2,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch2_3045",
+            "content": {
+                "en": "Thanks to you, my stall’s been doing great today. I’ve already sold this many lanterns just this morning~",
+                "zh": "托你的福，今天我这摊子的生意可好了。上午就卖出了这么多花灯呢~",
+                "ja": ""
+            },
+            "positionX": 7490.400390625,
+            "positionY": 296.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0e02f547-44dc-4c26-8662-e3f6e24dfaac",
+            "index": 3,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_3046",
+            "content": {
+                "en": "That’s wonderful. If you still have some left this afternoon, my friend and I might come take a look.",
+                "zh": "那真是太好了。要是下午还有剩的，我可能也会和朋友过来看看。",
+                "ja": ""
+            },
+            "positionX": 7823.2001953125,
+            "positionY": 296.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3f460811-2305-4d84-8153-20338590326a",
+            "index": 4,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch2_3047",
+            "content": {
+                "en": "Sure! I’ll save one for you. It’s really fun to stroll around the festival at night with a lantern in hand.",
+                "zh": "好啊！我会帮你们留一个的，晚上在大会上打着花灯逛街可有趣了。",
+                "ja": ""
+            },
+            "positionX": 8155.2001953125,
+            "positionY": 300.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "042da6a5-d86f-47ac-ad17-c1a5286f1368",
+            "index": 5,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_3048",
+            "content": {
+                "en": "Great, thank you.",
+                "zh": "好，谢谢您。",
+                "ja": ""
+            },
+            "positionX": 8486.400390625,
+            "positionY": 300.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24414a9d-89f8-4fb9-99f5-5b35c414983f",
+            "inputNodeId": "63ce1b86-ad77-47f7-b9c0-254a4089cfdf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "63ce1b86-ad77-47f7-b9c0-254a4089cfdf",
+            "inputNodeId": "95a638e9-0667-4204-adbe-9cce2e377bb5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "95a638e9-0667-4204-adbe-9cce2e377bb5",
+            "inputNodeId": "0e02f547-44dc-4c26-8662-e3f6e24dfaac",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0e02f547-44dc-4c26-8662-e3f6e24dfaac",
+            "inputNodeId": "3f460811-2305-4d84-8153-20338590326a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3f460811-2305-4d84-8153-20338590326a",
+            "inputNodeId": "042da6a5-d86f-47ac-ad17-c1a5286f1368",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

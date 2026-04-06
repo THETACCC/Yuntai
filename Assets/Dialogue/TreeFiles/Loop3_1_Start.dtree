@@ -1,0 +1,244 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_3001",
+            "content": {
+                "en": "No!!",
+                "zh": "不！",
+                "ja": ""
+            },
+            "positionX": 687.0,
+            "positionY": 721.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "index": 1,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_3002",
+            "content": {
+                "en": "What? I'm... back here again?",
+                "zh": "什么？我又......回到了这里？",
+                "ja": ""
+            },
+            "positionX": 1026.0,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "index": 2,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_3003",
+            "content": {
+                "en": "The lights are on, and everyone else seems normal.",
+                "zh": "灯光亮着，其他人看上去也很正常。",
+                "ja": ""
+            },
+            "positionX": 1379.0,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "index": 3,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_3004",
+            "content": {
+                "en": "Just like the last two times. <color=orange>So every time I die... I return to this moment?</color>",
+                "zh": "和前两次一样。<color=orange>只要我死去......就会回到这个时间点？</color>",
+                "ja": ""
+            },
+            "positionX": 1739.0,
+            "positionY": 722.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "index": 4,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_3005",
+            "content": {
+                "en": "Calm down. There must be a way off this plane.",
+                "zh": "冷静下来，一定有办法能离开这趟飞机。",
+                "ja": ""
+            },
+            "positionX": 2120.0,
+            "positionY": 728.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "index": 5,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3006",
+            "content": {
+                "en": "Before Page disappeared, that mirror in her hand gave off a white light.",
+                "zh": "周书消失之前，她手里的那面镜子发出了白光。",
+                "ja": ""
+            },
+            "positionX": 2497.0,
+            "positionY": 726.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "05cb228a-5abe-4a40-ad63-fb5eb66709a8",
+            "index": 6,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3008",
+            "content": {
+                "en": "Either way, Page is my only hope now. I have to hurry!",
+                "zh": "无论如何，现在我只能指望周书了。得抓紧时间！",
+                "ja": ""
+            },
+            "positionX": 3233.0,
+            "positionY": 729.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "6fcaefe6-d20a-4450-80d8-d5dd6b63c99f",
+                    "targetObjectName": "Objective3",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "0fcd8632-260f-474f-9958-c89ed34195e9",
+                    "targetObjectName": "Objective2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "36ecf552-b402-4778-9c05-7f5847d4f59b",
+            "index": 7,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_3007",
+            "content": {
+                "en": "Maybe at the end of the last loop, she managed to escape.",
+                "zh": "或许上一次循环的最后，她成功逃出去了。",
+                "ja": ""
+            },
+            "positionX": 2859.0,
+            "positionY": 730.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "inputNodeId": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2ab92309-2bfc-4f88-a564-e2b0f3c7f789",
+            "inputNodeId": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6b724af7-8bf3-463e-8446-6d79cc6a90a9",
+            "inputNodeId": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7ffd9d99-d58a-4f45-8d87-220ac531757e",
+            "inputNodeId": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "584519ca-ca54-450d-8832-8c9043de17b5",
+            "inputNodeId": "36ecf552-b402-4778-9c05-7f5847d4f59b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "36ecf552-b402-4778-9c05-7f5847d4f59b",
+            "inputNodeId": "05cb228a-5abe-4a40-ad63-fb5eb66709a8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

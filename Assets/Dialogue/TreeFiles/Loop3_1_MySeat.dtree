@@ -1,0 +1,133 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3157",
+            "content": {
+                "en": "Huh..",
+                "zh": "呃..",
+                "ja": ""
+            },
+            "positionX": 267.0,
+            "positionY": 725.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "55d5abcc-a59c-45c2-8494-73c46e8241b5",
+                    "targetObjectName": "LevelManager3_1",
+                    "targetSceneName": "Level3-1",
+                    "componentTypeName": "LevelManager3_1",
+                    "methodName": "PlayerSit",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3158",
+            "content": {
+                "en": "I guess I failed to convince Page…",
+                "zh": "刚刚我没能说服周书……",
+                "ja": ""
+            },
+            "positionX": 648.0,
+            "positionY": 727.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "3e5e7b84-b2b0-467b-a240-3cfb3c4654ac",
+                    "targetObjectName": "ToNextLoop",
+                    "targetSceneName": "Level3-1",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e0c2f65a-d854-41e8-a7b9-34c7610116e2",
+            "index": 3,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch1_3160",
+            "content": {
+                "en": "Another <color=orange>loop</color>?",
+                "zh": "又是<color=orange>轮回</color>？",
+                "ja": ""
+            },
+            "positionX": 1424.0,
+            "positionY": 725.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e457b27e-4b86-4e51-9561-0743fefdc8aa",
+            "index": 4,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3161",
+            "content": {
+                "en": "I’ll go try again.",
+                "zh": "让我再去试试。",
+                "ja": ""
+            },
+            "positionX": 1798.0,
+            "positionY": 729.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4ab3466c-2aa0-489e-9144-26df497d1430",
+            "index": 2,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3159",
+            "content": {
+                "en": "!!",
+                "zh": "！！",
+                "ja": ""
+            },
+            "positionX": 1041.0,
+            "positionY": 728.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e0c2f65a-d854-41e8-a7b9-34c7610116e2",
+            "inputNodeId": "e457b27e-4b86-4e51-9561-0743fefdc8aa",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -85,8 +85,8 @@ public class DetectiveManager : MonoBehaviour
         EndDetectiveGame();
         DisableAllContent();
 
-        DialogueManager.instance.LoadDialogueFromFile(CorrectDialogueJsonFile);
-        DialogueManager.instance.StartDialogue();
+        DialogueController.instance.LoadDialogueFromFile(CorrectDialogueJsonFile);
+        DialogueController.instance.StartDialogue();
         Gamemanager.instance?.StartDialogue();
     }
 
@@ -97,8 +97,8 @@ public class DetectiveManager : MonoBehaviour
             EndDetectiveGame();
             DisableAllContent();
 
-            DialogueManager.instance.LoadDialogueFromFile(FirstWrongDialogueJsonFile);
-            DialogueManager.instance.StartDialogue();
+            DialogueController.instance.LoadDialogueFromFile(FirstWrongDialogueJsonFile);
+            DialogueController.instance.StartDialogue();
             Gamemanager.instance?.StartDialogue();
             WrongTimes += 1;
         }
@@ -107,8 +107,8 @@ public class DetectiveManager : MonoBehaviour
             EndDetectiveGame();
             DisableAllContent();
 
-            DialogueManager.instance.LoadDialogueFromFile(SecondWrongDialogueJsonFile);
-            DialogueManager.instance.StartDialogue();
+            DialogueController.instance.LoadDialogueFromFile(SecondWrongDialogueJsonFile);
+            DialogueController.instance.StartDialogue();
             Gamemanager.instance?.StartDialogue();
             WrongTimes += 1;
         }
@@ -117,8 +117,8 @@ public class DetectiveManager : MonoBehaviour
             EndDetectiveGame();
             DisableAllContent();
 
-            DialogueManager.instance.LoadDialogueFromFile(FailDialogueJsonFile);
-            DialogueManager.instance.StartDialogue();
+            DialogueController.instance.LoadDialogueFromFile(FailDialogueJsonFile);
+            DialogueController.instance.StartDialogue();
             Gamemanager.instance?.StartDialogue();
             //This disables the conversation, can add other effects such as death
             myAffectedTrigger.enabled = false;

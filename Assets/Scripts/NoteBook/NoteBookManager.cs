@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 
 public class NoteBookManager : MonoBehaviour
 {
     public static NoteBookManager instance;
 
-    public GameObject NoteBook_Canvas;
+    public CanvasGroup NoteBook_Canvas;
 
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     [Header("Data Source")]
     [Tooltip("NoteBook数据表CSV文件（如果使用本地文件）")]
@@ -23,6 +24,12 @@ public class NoteBookManager : MonoBehaviour
     // 数据是否已加载完成
     public bool IsDataReady { get; private set; } = false;
 
+    //tab reference
+    [Header("Tab Reference")]
+    public TabManager objectiveTab;
+    public TabManager characterTab;
+    public TabManager eventTab;
+
     //Visual Feedbacks
     [Header("Feedback Reference")]
     public MMFeedbacks NoteBookUpdate;
@@ -30,6 +37,9 @@ public class NoteBookManager : MonoBehaviour
     //Audio
     public AudioSource OpenNoteBook;
 
+    //
+    [Header("NoteBook Master Controll")]
+    public bool allowOpen = false;
 
     private void Awake()
     {
@@ -47,7 +57,7 @@ public class NoteBookManager : MonoBehaviour
 
     void Start()
     {
-        NoteBook_Canvas.SetActive(false);
+        NoteBook_Canvas.alpha = 0;
         isOpen = false;
 
         // 加载NoteBookData
@@ -83,23 +93,77 @@ public class NoteBookManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
+        if(allowOpen)
         {
-            if (!isOpen)
+            if ((Input.GetKeyDown(KeyCode.Tab)) && (Gamemanager.instance.phase != GamePhase.Talking))
             {
-                if(OpenNoteBook) OpenNoteBook.Play();
-                DisablePlayerMovement();
-                NoteBook_Canvas.SetActive(true);
-                isOpen = true;
-            }
-            else
-            {
-                EnablePlayerMovement();
-                NoteBook_Canvas.SetActive(false);
-                isOpen = false;
+                if (!isOpen)
+                {
+                    if (OpenNoteBook) OpenNoteBook.Play();
+                    DisablePlayerMovement();
+                    NoteBook_Canvas.alpha = 1;
+                    NoteBook_Canvas.blocksRaycasts = true;
+                    NoteBook_Canvas.interactable = true;
+                    isOpen = true;
+                }
+                else
+                {
+                    EnablePlayerMovement();
+                    NoteBook_Canvas.alpha = 0;
+                    NoteBook_Canvas.blocksRaycasts = false;
+                    NoteBook_Canvas.interactable = false;
+                    isOpen = false;
+                }
             }
         }
+
     }
+
+    public void enableNoteBook()
+    {
+        allowOpen = true;
+    }
+
+    public void disableNoteBook()
+    {
+        allowOpen = false;
+    }
+
+    public void closeNoteBook()
+    {
+        isOpen = false;
+    }
+
+    //Audio Related
+    public void NoteBookInteraction()
+    {
+        int myRandomNum = Random.Range(0, 5);
+        if (myRandomNum == 0)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook1", AudioGroup.SFX);
+        }
+        else if (myRandomNum == 1)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook2", AudioGroup.SFX);
+        }
+        else if (myRandomNum == 2)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook3", AudioGroup.SFX);
+        }
+        else if (myRandomNum == 3)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook4", AudioGroup.SFX);
+        }
+        else if (myRandomNum == 4)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook5", AudioGroup.SFX);
+        }
+        else if (myRandomNum == 5)
+        {
+            AudioManager.Play("Sound Effects/Chapter1/sndNoteBook6", AudioGroup.SFX);
+        }
+    }
+
 
     /// <summary>
     /// 获取NoteBookData的CSV文本

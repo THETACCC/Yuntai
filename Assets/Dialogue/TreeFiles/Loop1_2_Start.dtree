@@ -1,0 +1,75 @@
+{
+    "nodes": [
+        {
+            "id": "8424205e-5f4e-465a-b3c5-a5d13e1e9dc5",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": false,
+            "contentId": "Loop1_2_Start_node_0_dialogue",
+            "content": {
+                "en": "Wait... when did the lights go dim?",
+                "zh": "灯什么时候暗下去了？",
+                "ja": ""
+            },
+            "positionX": 0.0,
+            "positionY": 0.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "disableNoteBook",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "39e239b8-c32f-41e9-97d5-3cda4f1be413",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_1028",
+            "content": {
+                "en": "I should head back to my seat.",
+                "zh": "先回到座位上去吧。",
+                "ja": ""
+            },
+            "positionX": 360.8000183105469,
+            "positionY": 0.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "07aa3362-cc99-448e-a571-27a10fd5428e",
+                    "targetObjectName": "LevelManager1_2",
+                    "targetSceneName": "Level1-2",
+                    "componentTypeName": "LevelManager1_2",
+                    "methodName": "ShowPlayerAndAllowMove1_2",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "8424205e-5f4e-465a-b3c5-a5d13e1e9dc5",
+            "inputNodeId": "39e239b8-c32f-41e9-97d5-3cda4f1be413",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

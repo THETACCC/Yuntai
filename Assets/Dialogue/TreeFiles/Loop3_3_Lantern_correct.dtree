@@ -1,0 +1,185 @@
+{
+    "nodes": [
+        {
+            "id": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "index": 0,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3116",
+            "content": {
+                "en": "All the lanterns are up, and they’re all in the right positions! Thank you so much!",
+                "zh": "花灯都挂好了！位置也都没有问题！真是太感谢你了！",
+                "ja": ""
+            },
+            "positionX": -71.0,
+            "positionY": -327.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "515ae1d1-6985-417c-9f3d-a3b01e931658",
+            "index": 1,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch1_3117",
+            "content": {
+                "en": "You’re welcome. I actually have things to do around here, so I might need your help again later.",
+                "zh": "不客气，我在这附近正好有事要做，或许一会还得来找你帮忙也说不定。",
+                "ja": ""
+            },
+            "positionX": 267.0,
+            "positionY": -327.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "index": 2,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3118",
+            "content": {
+                "en": "Of course, no problem! Happy to help each other out!",
+                "zh": "当然没问题！互帮互助嘛！",
+                "ja": ""
+            },
+            "positionX": 633.0,
+            "positionY": -322.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "index": 3,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3119",
+            "content": {
+                "en": "Ah, those lanterns look gorgeous from a distance. Months of hard work paid off!",
+                "zh": "啊，这些花灯远远望去真是太漂亮了，不愧是我这几个月来的心血！",
+                "ja": ""
+            },
+            "positionX": 1001.0,
+            "positionY": -317.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7a366852-bce3-4201-8e08-caad24caf8f3",
+            "index": 4,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3120",
+            "content": {
+                "en": "(The vendor seems really happy. I can move on now.)",
+                "zh": "（摊贩似乎非常高兴，我也可以继续前进了。）",
+                "ja": ""
+            },
+            "positionX": 1358.0,
+            "positionY": -303.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "lanternBlockColliderDisappear",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+                    "targetObjectName": "Objective4_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+                    "targetObjectName": "Objective4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "inputNodeId": "515ae1d1-6985-417c-9f3d-a3b01e931658",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "515ae1d1-6985-417c-9f3d-a3b01e931658",
+            "inputNodeId": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "88882584-10be-4b3f-aa03-06529fad1a06",
+            "inputNodeId": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d932c619-625b-45ee-bbbb-a222e1e80f0c",
+            "inputNodeId": "7a366852-bce3-4201-8e08-caad24caf8f3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

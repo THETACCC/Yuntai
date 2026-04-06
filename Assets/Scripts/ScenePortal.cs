@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static AudioManager;
 
 public class ScenePortal : MonoBehaviour
 {
@@ -13,17 +14,18 @@ public class ScenePortal : MonoBehaviour
 
     //
     public bool isInstant = false;
-
+    public Gamemanager myGamemanager;
 
 
     private void Start()
     {
+        myGamemanager = Gamemanager.instance;
         InteractIndicator.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && (myGamemanager.phase == GamePhase.Moving))
         {
             if(!isInstant)
             {
@@ -32,6 +34,7 @@ public class ScenePortal : MonoBehaviour
             }
             else
             {
+                AudioManager.PlayOneShot("Sound Effects/Henk/sndNextScene", AudioGroup.SFX);
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
 
@@ -52,10 +55,12 @@ public class ScenePortal : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(isPlayerInTrigger)
+        if(isPlayerInTrigger && (myGamemanager.phase == GamePhase.Moving))
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
+                AudioManager.PlayOneShot("Sound Effects/Henk/sndSceneTransition", AudioGroup.SFX);
+
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
         }

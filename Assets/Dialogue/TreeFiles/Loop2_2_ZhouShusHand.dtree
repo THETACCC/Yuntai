@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2194",
+            "content": {
+                "en": "This color of fabric… and the sleeve…",
+                "zh": "这个颜色的布料，还有袖口的样式......",
+                "ja": ""
+            },
+            "positionX": 686.6666870117188,
+            "positionY": 721.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "07ad8917-76df-4341-b191-537ec5fc9833",
+            "index": 1,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2195",
+            "content": {
+                "en": "Page, did she…",
+                "zh": "周书她......",
+                "ja": ""
+            },
+            "positionX": 1026.6666259765625,
+            "positionY": 721.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "42f02037-43ac-4532-b6e1-89defd194781",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2196",
+            "content": {
+                "en": "No, I can’t jump to conclusions. I have to see it with my own eyes. Just like… just like last time.",
+                "zh": "不行，还不能下结论，我必须亲眼看到最后，就像......上一次一样。",
+                "ja": ""
+            },
+            "positionX": 1372.0,
+            "positionY": 720.6666870117188,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "07ad8917-76df-4341-b191-537ec5fc9833",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "07ad8917-76df-4341-b191-537ec5fc9833",
+            "inputNodeId": "42f02037-43ac-4532-b6e1-89defd194781",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,85 @@
+{
+    "nodes": [
+        {
+            "id": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "index": 0,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": false,
+            "contentId": "Loop2_1_Bathroom_node_0_dialogue",
+            "content": {
+                "en": "...",
+                "zh": "…",
+                "ja": ""
+            },
+            "positionX": -247.1999969482422,
+            "positionY": 232.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "index": 2,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "useContentId": false,
+            "contentId": "Loop3_1_ZhouShuDetectiveFail_node_2_dialogue",
+            "content": {
+                "en": "I don't even know you!",
+                "zh": "我甚至都不知道你是谁！",
+                "ja": ""
+            },
+            "positionX": 624.0,
+            "positionY": 198.40000915527345,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "55d5abcc-a59c-45c2-8494-73c46e8241b5",
+                    "targetObjectName": "LevelManager3_1",
+                    "targetSceneName": "Level3-1",
+                    "componentTypeName": "LevelManager3_1",
+                    "methodName": "ZhouShuFailed",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "index": 1,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "useContentId": false,
+            "contentId": "Loop3_1_ZhouShuDetectiveFail_node_1_dialogue",
+            "content": {
+                "en": "Can you stop bothering me?",
+                "zh": "你能别再打扰我了吗？",
+                "ja": ""
+            },
+            "positionX": 205.59999084472657,
+            "positionY": 244.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "b0029e15-2ab4-459c-abc2-ba9ffe00ce76",
+            "inputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "482903db-5953-4cee-a9e5-2cd326fda492",
+            "inputNodeId": "da75d0fc-59bd-4d84-9fab-13e1b5dca3b8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,133 @@
+{
+    "nodes": [
+        {
+            "id": "4f690308-519e-423f-94ba-20c34964b485",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_1029",
+            "content": {
+                "en": "Excuse me, ma'am?",
+                "zh": "乘务员女士？",
+                "ja": ""
+            },
+            "positionX": 796.0,
+            "positionY": 613.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "index": 1,
+            "characterId": "62f660a0-c643-47dc-948e-86be194a1ae3",
+            "useContentId": true,
+            "contentId": "ch1_1030",
+            "content": {
+                "en": "",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 1181.333251953125,
+            "positionY": 613.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "14a0aeed-c6c6-42be-ae26-4470ae1aadf5",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_1031",
+            "content": {
+                "en": "Why are you standing by my seat? Is something wrong?",
+                "zh": "您为什么要站在我的座位旁边？出什么事了吗？",
+                "ja": ""
+            },
+            "positionX": 1533.333251953125,
+            "positionY": 613.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4701f686-bfaa-4e30-a59d-749b8e32d79a",
+            "index": 3,
+            "characterId": "62f660a0-c643-47dc-948e-86be194a1ae3",
+            "useContentId": true,
+            "contentId": "ch1_1032",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 2134.0,
+            "positionY": 613.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "369e1d61-ccd0-490d-bc75-708d7b50c59e",
+            "index": 4,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_1033",
+            "content": {
+                "en": "Ma'am? Is everything okay?",
+                "zh": "女士？",
+                "ja": ""
+            },
+            "positionX": 2553.33349609375,
+            "positionY": 613.3333129882813,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "07aa3362-cc99-448e-a571-27a10fd5428e",
+                    "targetObjectName": "LevelManager1_2",
+                    "targetSceneName": "Level1-2",
+                    "componentTypeName": "LevelManager1_2",
+                    "methodName": "DoSequence5B",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "4f690308-519e-423f-94ba-20c34964b485",
+            "inputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "430d113b-89fd-483b-bc3c-a741adb19420",
+            "inputNodeId": "14a0aeed-c6c6-42be-ae26-4470ae1aadf5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "14a0aeed-c6c6-42be-ae26-4470ae1aadf5",
+            "inputNodeId": "4701f686-bfaa-4e30-a59d-749b8e32d79a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "4701f686-bfaa-4e30-a59d-749b8e32d79a",
+            "inputNodeId": "369e1d61-ccd0-490d-bc75-708d7b50c59e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

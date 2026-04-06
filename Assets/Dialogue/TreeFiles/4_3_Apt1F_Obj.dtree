@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "2c539e06-d661-4b40-a1d8-1fd6ea4ae870",
+            "index": 0,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_2004",
+            "content": {
+                "en": "This place seems to have a lot of flowers and plants.",
+                "zh": "这家似乎种了不少花草。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fdf6be69-6359-44a4-bc21-e0811656e365",
+            "index": 1,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2005",
+            "content": {
+                "en": "Some of them seem to have withered…",
+                "zh": "有些似乎枯死了......",
+                "ja": ""
+            },
+            "positionX": 442.0,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "2c539e06-d661-4b40-a1d8-1fd6ea4ae870",
+            "inputNodeId": "fdf6be69-6359-44a4-bc21-e0811656e365",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

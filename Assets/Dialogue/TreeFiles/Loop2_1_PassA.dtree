@@ -1,0 +1,1293 @@
+{
+    "nodes": [
+        {
+            "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2023",
+            "content": {
+                "en": "(It’s that family of three I saw earlier...)",
+                "zh": "（是之前见过的一家三口...）",
+                "ja": ""
+            },
+            "positionX": -498.3999938964844,
+            "positionY": 360.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2024",
+            "content": {
+                "en": "(They seem to be locals returning from a trip. They probably know a bit about what’s going on in Yuntai. I could use this opportunity to ask about the city.)",
+                "zh": "（他们似乎是旅游回来的本地居民，对芸台市的近况较为了解。 我可以趁机打听一些当地的事。）",
+                "ja": ""
+            },
+            "positionX": 4105.60009765625,
+            "positionY": 356.79998779296877,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2025",
+                    "text": {
+                        "en": "About this \"<color=orange>Troupe Elysium</color>\"...",
+                        "zh": "关于这个“<color=orange>极乐戏团</color>”...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2026",
+                    "text": {
+                        "en": "What does the <color=orange>festival</color> refer to?",
+                        "zh": "您提到的<color=orange>大会</color>是指？",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2027",
+                    "text": {
+                        "en": "Thank you for telling me all this.",
+                        "zh": "非常感谢您告诉我这些事。（结束对话）",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
+            "index": 2,
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "useContentId": true,
+            "contentId": "ch1_2028",
+            "content": {
+                "en": "Dad! Look! I can bend its arm all the way back! So cool!",
+                "zh": "爸爸！你看这个可以从后面弯过去，好厉害啊！",
+                "ja": ""
+            },
+            "positionX": -160.0,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0eec9ba1-b565-4e17-819d-949bd8480165",
+            "index": 3,
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
+            "useContentId": true,
+            "contentId": "ch1_2029",
+            "content": {
+                "en": "(That’s exactly what he said in the dream… and that<color=orange> puppet</color> in his hand... eerily reminds me of what he turned into.)",
+                "zh": "（和之前梦里一模一样的对话，还有男孩手里的<color=orange>木偶</color>......让我想起了他之前变成的那个样子。）",
+                "ja": ""
+            },
+            "positionX": 227.1999969482422,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2f978e8e-7505-4b79-b2e1-405342ea22ca",
+            "index": 4,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2030",
+            "content": {
+                "en": "(No point in overthinking. Let’s try talking to them.)",
+                "zh": "（胡思乱想也没有用，试着搭一下话吧。）",
+                "ja": ""
+            },
+            "positionX": 603.2000122070313,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0e6cd887-5e6b-4094-a8eb-3df7424ccb9d",
+            "index": 5,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2031",
+            "content": {
+                "en": "I’ve never seen a puppet like that before. May I ask where you got it from?",
+                "zh": "我从来没有见过这种样式的木偶呢？请问你们是在哪里买到的呢？",
+                "ja": ""
+            },
+            "positionX": 951.2000122070313,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9d8e9aa0-93c7-47e4-84ee-403380b91ade",
+            "index": 6,
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "useContentId": true,
+            "contentId": "ch1_2032",
+            "content": {
+                "en": "Someone gave it to me as a present! I brought it with me before we left for the trip!",
+                "zh": "这是别人送给我的！出去玩之前我就带在身上了！",
+                "ja": ""
+            },
+            "positionX": 1335.199951171875,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6077de95-3faf-40c1-8263-bfda71bacda2",
+            "index": 7,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "useContentId": true,
+            "contentId": "ch1_2033",
+            "content": {
+                "en": "Make sure you keep it safe this time. Don’t leave it at the hotel again.",
+                "zh": "喜欢的话就要收好哦，不要像之前一样忘在酒店里了。",
+                "ja": ""
+            },
+            "positionX": 1685.5999755859375,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0511f7d5-4333-4cf8-8256-d26983c47fe3",
+            "index": 8,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2034",
+            "content": {
+                "en": "Sigh… I really didn’t want him to accept that puppet. Those <color=orange>people in cloaks</color> were very off.",
+                "zh": "唉，我其实不希望他收下那个木偶的，那些<color=orange>穿着斗篷的人</color>实在太奇怪了。",
+                "ja": ""
+            },
+            "positionX": 2015.199951171875,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c7a4d7ad-5d3c-41ef-af79-688a912ca11d",
+            "index": 9,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2035",
+            "content": {
+                "en": "People in cloaks?",
+                "zh": "穿着斗篷的人？",
+                "ja": ""
+            },
+            "positionX": 2359.199951171875,
+            "positionY": 360.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b7c454c2-47b6-4b6a-8c62-226554c05cc6",
+            "index": 10,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2036",
+            "content": {
+                "en": "I refused, but he just kept begging for it, and now he won’t go anywhere without it.",
+                "zh": "我实在拗不过这孩子才同意让他收下的，没想到他喜欢到出来旅行都要带着。",
+                "ja": ""
+            },
+            "positionX": 3774.39990234375,
+            "positionY": 356.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "44c2f83c-0f01-4892-8bef-a420936a4867",
+            "index": 12,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2037",
+            "content": {
+                "en": "About this \"<color=orange>Troupe Elysium</color>.\" Would you mind sharing what you know about them?",
+                "zh": "关于这个“<color=orange>极乐戏团</color>”，您方便告诉我一些关于他们的事吗？",
+                "ja": ""
+            },
+            "positionX": 4541.60009765625,
+            "positionY": 114.40000915527344,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoPass1True",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2eaa9554-ed28-4983-85ee-e36b153ad33e",
+            "index": 13,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2038",
+            "content": {
+                "en": "Sorry to bother you, but may I ask what<color=orange> festival</color> you were talking about earlier?",
+                "zh": "不好意思，请问您之前提到的<color=orange>大会</color>是指什么呢？",
+                "ja": ""
+            },
+            "positionX": 4541.60009765625,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoPass2True",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "03a08ebb-ba38-46ff-855a-3d7cd0a64754",
+            "index": 14,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2039",
+            "content": {
+                "en": "Don’t worry about it, sweetie. You’re not from Yuntai, are you?",
+                "zh": "别客气，小姑娘你不是芸台本地人吧？",
+                "ja": ""
+            },
+            "positionX": 4541.60009765625,
+            "positionY": 1112.800048828125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoPass3True",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0df8024f-669c-4680-ba93-aa00b27a9f01",
+            "index": 17,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2040",
+            "content": {
+                "en": "Oh dear, kids your age really do love mysterious groups like that, huh?",
+                "zh": "哎呀，你们这个年纪的孩子果然会对这种神秘团体感兴趣呢~",
+                "ja": ""
+            },
+            "positionX": 4906.400390625,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "44cc4260-e22a-452c-b56b-aba37f3b6505",
+            "index": 18,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2041",
+            "content": {
+                "en": "Haha~ I used to be into that kind of thing back in college too. I even joined a local folklore club. Ended up meeting my husband thanks to that. Kinda romantic, right?",
+                "zh": "呵呵呵~阿姨我大学的时候也很喜欢研究这种事，还加入了研究本地民俗的社团，拜此所赐遇见了这孩子的父亲，很青春吧？",
+                "ja": ""
+            },
+            "positionX": 5302.400390625,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f97cba86-77b1-4bd3-a5d5-8cc7fbd14b68",
+            "index": 19,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "useContentId": true,
+            "contentId": "ch1_2042",
+            "content": {
+                "en": "...... (blushing)",
+                "zh": "......（脸红）。",
+                "ja": ""
+            },
+            "positionX": 5680.0,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e9820597-868d-4bad-b788-9c961a85adba",
+            "index": 20,
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "useContentId": true,
+            "contentId": "ch1_2043",
+            "content": {
+                "en": "Hahaha! Dad's embarrassed again!",
+                "zh": "哈哈哈哈爸爸又不好意思了！",
+                "ja": ""
+            },
+            "positionX": 6042.400390625,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b724b8a5-9dd1-4cc1-bef3-549fd2949676",
+            "index": 21,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2044",
+            "content": {
+                "en": "(What a lively family.)",
+                "zh": "（真是个有活力的家庭啊。）",
+                "ja": ""
+            },
+            "positionX": 6444.0,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5f76f23e-bf86-4296-bb56-543c1dcde82d",
+            "index": 22,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2045",
+            "content": {
+                "en": "But honestly, I don’t know that much about the troupe itself.",
+                "zh": "不过我确实不是很了解这个戏团的事。",
+                "ja": ""
+            },
+            "positionX": 6789.60009765625,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ea70856c-866b-4cf5-8a56-f568728b5e65",
+            "index": 23,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2047",
+            "content": {
+                "en": "They looked very suspicious. If their flyers hadn’t said they were performing at this year’s <color=orange>Qiqiao Festival</color>, I’d honestly have thought they were some weird cult sneaking into the city.",
+                "zh": "那些人看起来实在太可疑了，要不是他们的宣传单写着要在今年<color=orange>乞巧大会</color>上表演，我都担心是有什么奇怪的异教团体混进了芸台。",
+                "ja": ""
+            },
+            "positionX": 7440.0,
+            "positionY": 392.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "32eeb0a5-1562-4a06-9f87-73c14a16c9da",
+            "index": 24,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2049",
+            "content": {
+                "en": "You don’t know? It’s the <color=orange>Qiqiao Festival</color> held in Yuntai every two years! It’s one of our city’s biggest celebrations.",
+                "zh": "你不知道吗？芸台每两年一届的<color=orange>乞巧大会</color>啊！那可是芸台特有的，城市级别的盛会。",
+                "ja": ""
+            },
+            "positionX": 4891.2001953125,
+            "positionY": 744.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "888cb919-4346-47f1-a31f-dcdb03f55726",
+            "index": 25,
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "useContentId": true,
+            "contentId": "ch1_2050",
+            "content": {
+                "en": "It’s super fun! We’re getting back just in time. The opening ceremony is tomorrow!",
+                "zh": "真的特别好玩！我们今天回去，正好能赶上明天大会正式开幕呢！",
+                "ja": ""
+            },
+            "positionX": 5580.0,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fda8e819-fa1f-4e87-968a-bdfeaef6f61b",
+            "index": 26,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2051",
+            "content": {
+                "en": "Right, I think this flight’s supposed to land around 8 p.m. Still about an hour to go.",
+                "zh": "嗯，我们这班飞机好像预计是晚上八点落地吧，还有一个多小时。",
+                "ja": ""
+            },
+            "positionX": 5956.0,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87470ae2-27fc-4efd-bb8e-c1c12a88d50f",
+            "index": 27,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2052",
+            "content": {
+                "en": "(<color=orange>Qiqiao</color>… I think I’ve heard of it. Isn’t it an astrology-related festival? We don’t celebrate it where I’m from.)",
+                "zh": "（<color=orange>乞巧</color>？我记得好像是和星象相关的节日？我们那里没有过这个节的习惯。）",
+                "ja": ""
+            },
+            "positionX": 6318.400390625,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f5430c64-1bf8-489c-92f5-58669836ae91",
+            "index": 28,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2053",
+            "content": {
+                "en": "I think I’ve heard of <color=orange>Qiqiao</color> before. Is there a tradition of star worship here in Yuntai?",
+                "zh": "<color=orange>乞巧节</color>我似乎有印象，芸台是有拜双星的传统吗？",
+                "ja": ""
+            },
+            "positionX": 6720.0,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "702a9086-23cb-4748-9ec9-a8bd92b04ec2",
+            "index": 29,
+            "characterId": "3d45c290-c43f-4868-8131-241d597b548c",
+            "useContentId": true,
+            "contentId": "ch1_2054",
+            "content": {
+                "en": "Star worship?",
+                "zh": "双星？",
+                "ja": ""
+            },
+            "positionX": 7097.60009765625,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "02a131c3-27c7-4640-a6b7-967b2bf90aeb",
+            "index": 30,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2055",
+            "content": {
+                "en": "Oh, that part’s not really practiced anymore! But there are still a lot of people who worship <color=orange>Xi Mu</color>.",
+                "zh": "啊，芸台现在的乞巧大会已经没有拜星环节啦~不过拜<color=orange>喜母</color>的人似乎还是有很多的。",
+                "ja": ""
+            },
+            "positionX": 7440.0,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "60fdcb60-2edb-462f-b15c-3f1380831fe7",
+            "index": 31,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "useContentId": true,
+            "contentId": "ch1_2057",
+            "content": {
+                "en": "Most of the outside groups that compete in the festival don’t cause any trouble, historically speaking.",
+                "zh": "不过历年来参与斗巧的外地团体其实很少，一般不会起什么事端。",
+                "ja": ""
+            },
+            "positionX": 8162.400390625,
+            "positionY": 736.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8c50eeb8-f34e-4405-9fd3-f2707016a461",
+            "index": 32,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2058",
+            "content": {
+                "en": "(<color=orange>Xi Mu? Craft duels?</color> I want to ask more, but I’ve already kept them long enough. Better leave it here for now.)",
+                "zh": "（<color=orange>喜母？斗巧？</color>虽然很想再了解一些内容，但已经打扰他们太久了，就先到这里吧。）",
+                "ja": ""
+            },
+            "positionX": 8527.2001953125,
+            "positionY": 736.7999877929688,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "c4ed4bb1-f7a3-4648-957f-d3d4ccd47243",
+                    "targetObjectName": "Event3_Qiqiao",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "71013a6b-1785-4c5a-ac34-32742c7ec746",
+            "index": 33,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "useContentId": true,
+            "contentId": "ch1_2048",
+            "content": {
+                "en": "If that were the case, I’m sure the authorities would’ve stepped in by now.",
+                "zh": "不过要真是这样，官方机关肯定会介入的。",
+                "ja": ""
+            },
+            "positionX": 7787.2001953125,
+            "positionY": 20.799999237060548,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "c6675a35-4562-4720-aeb9-2d2dc6f85ca3",
+                    "targetObjectName": "Event2_SusGroup",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9897c0a9-3125-4905-a90f-680ae0c03e51",
+            "index": 34,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2059",
+            "content": {
+                "en": "No, ma’am. My friend invited me to visit. I didn’t even know the festival was happening.",
+                "zh": "是的阿姨，我是受朋友邀请而来的，事先都不知道有乞巧大会的事。",
+                "ja": ""
+            },
+            "positionX": 4933.60009765625,
+            "positionY": 1112.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b73e8965-0d73-4282-be53-d49d8195c098",
+            "index": 35,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2060",
+            "content": {
+                "en": "Oh, then you’re in luck! It’s the perfect time to visit. Hope you have a great time here!",
+                "zh": "哎呀，这样正好赶上才叫幸运呢！在芸台玩的开心哦！",
+                "ja": ""
+            },
+            "positionX": 5302.400390625,
+            "positionY": 1112.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d7b8d099-0365-49d4-9c94-be6796c03037",
+            "index": 36,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2062",
+            "content": {
+                "en": "What?",
+                "zh": "欸？",
+                "ja": ""
+            },
+            "positionX": 5968.0,
+            "positionY": 1112.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "087aa2a6-2844-41a5-aca8-f1483c82c166",
+            "index": 37,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2063",
+            "content": {
+                "en": "They didn’t? Then make sure you stay close to your friend, okay?",
+                "zh": "没有吗，那记得平常都跟朋友呆在一起。",
+                "ja": ""
+            },
+            "positionX": 6330.400390625,
+            "positionY": 1112.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fc57413e-7bc8-4007-aa76-5b3ca6ed9740",
+            "index": 38,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2065",
+            "content": {
+                "en": "Thank you. I will.",
+                "zh": "谢谢您，我会小心的。",
+                "ja": ""
+            },
+            "positionX": 7103.2001953125,
+            "positionY": 1120.800048828125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "3f001509-962d-4ff0-ba56-84f65a8a30ab",
+                    "targetObjectName": "Event4_CityLock",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a11f855e-87e6-4c47-badf-3bcfd8ba12cf",
+            "index": 40,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2066",
+            "content": {
+                "en": "Yeah, maybe starting about half a month ago, there were folks showing up in Yuntai calling themselves the \"Troupe Elysium.\"",
+                "zh": "从大概半个月前开始吧，芸台市里开始出现一些自称为“极乐戏团”成员的人",
+                "ja": ""
+            },
+            "positionX": 2702.39990234375,
+            "positionY": 360.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1d0d0961-82d0-4e36-b01f-3fa69aba6fa0",
+            "index": 41,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2067",
+            "content": {
+                "en": "They said they were performing at this year’s festival, and started promoting themselves all over the city.",
+                "zh": "他们好像是要参与今年的大会进行表演吧，一直在市区各种地方进行宣传。",
+                "ja": ""
+            },
+            "positionX": 3029.599853515625,
+            "positionY": 362.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cbd7a84b-da17-458d-902b-405ab958e7c4",
+            "index": 42,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2068",
+            "content": {
+                "en": "One day after school, we ran into them handing out free merch on the street. He really liked one of the puppets.",
+                "zh": "我带这孩子放学回家的时候，正好碰上他们在路边发放免费的周边，这孩子特别喜欢其中的木偶。",
+                "ja": ""
+            },
+            "positionX": 3396.0,
+            "positionY": 360.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7c8aee80-238b-4016-917b-54ab5390b1cd",
+            "index": 43,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2046",
+            "content": {
+                "en": "I’ve seen them around, handing out merch and giving talks on the street, but all the members I’ve come across were <color=orange>wearing masks and those long robes with hoods</color>.",
+                "zh": "虽然经常能见到他们的成员在路边发放周边和进行宣讲活动，但是我见过的所有成员都<color=orange>带着面具，穿着带有兜帽的长袍</color>。",
+                "ja": ""
+            },
+            "positionX": 7116.0,
+            "positionY": 388.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5585f0d2-50b7-43bc-a8ee-07ff6063aa38",
+            "index": 44,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2049a",
+            "content": {
+                "en": "There are all sorts of fun events and tons of traditional performances.",
+                "zh": "大会上有各种各样有趣的活动，还会有很多本地特色的表演节目哦！",
+                "ja": ""
+            },
+            "positionX": 5235.2001953125,
+            "positionY": 744.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0a910f2e-4e62-4a54-8a11-c308a19aa67f",
+            "index": 45,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2056",
+            "content": {
+                "en": "The festival still keeps the old \"<color=orange>craft competitions</color>,\" which is probably how strange groups like <color=orange>Troupe Elysium</color> get a chance to perform.",
+                "zh": "大会也保留着<color=orange>斗巧</color>的传统，这也是为什么像<color=orange>极乐戏团</color>这种不知来路的奇怪团体也能参与大会进行表演。",
+                "ja": ""
+            },
+            "positionX": 7787.2001953125,
+            "positionY": 740.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c2dede75-e955-4826-b87d-e4a6610303ce",
+            "index": 46,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2061",
+            "content": {
+                "en": "Just so you know, Yuntai always goes into lockdown for the three days of the festival. Did your friend mention that to you?",
+                "zh": "不过每次大会即将召开之际，芸台都会暂时<color=orange>封城</color>直到三日后大会结束，这点你的朋友有告诉过你吗？",
+                "ja": ""
+            },
+            "positionX": 5637.60009765625,
+            "positionY": 1108.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f9674299-a8bd-4a6a-a439-02a4ba67f2ba",
+            "index": 47,
+            "characterId": "327ce24b-ea8e-4a5a-8219-89a8de213288",
+            "useContentId": true,
+            "contentId": "ch1_2064",
+            "content": {
+                "en": "There’s been some unrest during past festivals, and things have felt especially tense these past few years. Please be careful.",
+                "zh": "往届乞巧大会期间，市内偶尔有些骚动，近几年局势似乎有些紧张，一定要注意安全哦。",
+                "ja": ""
+            },
+            "positionX": 6709.60009765625,
+            "positionY": 1116.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "inputNodeId": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
+            "inputNodeId": "0eec9ba1-b565-4e17-819d-949bd8480165",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0eec9ba1-b565-4e17-819d-949bd8480165",
+            "inputNodeId": "2f978e8e-7505-4b79-b2e1-405342ea22ca",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2f978e8e-7505-4b79-b2e1-405342ea22ca",
+            "inputNodeId": "0e6cd887-5e6b-4094-a8eb-3df7424ccb9d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0e6cd887-5e6b-4094-a8eb-3df7424ccb9d",
+            "inputNodeId": "9d8e9aa0-93c7-47e4-84ee-403380b91ade",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9d8e9aa0-93c7-47e4-84ee-403380b91ade",
+            "inputNodeId": "6077de95-3faf-40c1-8263-bfda71bacda2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6077de95-3faf-40c1-8263-bfda71bacda2",
+            "inputNodeId": "0511f7d5-4333-4cf8-8256-d26983c47fe3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0511f7d5-4333-4cf8-8256-d26983c47fe3",
+            "inputNodeId": "c7a4d7ad-5d3c-41ef-af79-688a912ca11d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "44c2f83c-0f01-4892-8bef-a420936a4867",
+            "inputNodeId": "0df8024f-669c-4680-ba93-aa00b27a9f01",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0df8024f-669c-4680-ba93-aa00b27a9f01",
+            "inputNodeId": "44cc4260-e22a-452c-b56b-aba37f3b6505",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "44cc4260-e22a-452c-b56b-aba37f3b6505",
+            "inputNodeId": "f97cba86-77b1-4bd3-a5d5-8cc7fbd14b68",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f97cba86-77b1-4bd3-a5d5-8cc7fbd14b68",
+            "inputNodeId": "e9820597-868d-4bad-b788-9c961a85adba",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e9820597-868d-4bad-b788-9c961a85adba",
+            "inputNodeId": "b724b8a5-9dd1-4cc1-bef3-549fd2949676",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b724b8a5-9dd1-4cc1-bef3-549fd2949676",
+            "inputNodeId": "5f76f23e-bf86-4296-bb56-543c1dcde82d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5f76f23e-bf86-4296-bb56-543c1dcde82d",
+            "inputNodeId": "ea70856c-866b-4cf5-8a56-f568728b5e65",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2eaa9554-ed28-4983-85ee-e36b153ad33e",
+            "inputNodeId": "32eeb0a5-1562-4a06-9f87-73c14a16c9da",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "888cb919-4346-47f1-a31f-dcdb03f55726",
+            "inputNodeId": "fda8e819-fa1f-4e87-968a-bdfeaef6f61b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fda8e819-fa1f-4e87-968a-bdfeaef6f61b",
+            "inputNodeId": "87470ae2-27fc-4efd-bb8e-c1c12a88d50f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "87470ae2-27fc-4efd-bb8e-c1c12a88d50f",
+            "inputNodeId": "f5430c64-1bf8-489c-92f5-58669836ae91",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f5430c64-1bf8-489c-92f5-58669836ae91",
+            "inputNodeId": "702a9086-23cb-4748-9ec9-a8bd92b04ec2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "702a9086-23cb-4748-9ec9-a8bd92b04ec2",
+            "inputNodeId": "02a131c3-27c7-4640-a6b7-967b2bf90aeb",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "60fdcb60-2edb-462f-b15c-3f1380831fe7",
+            "inputNodeId": "8c50eeb8-f34e-4405-9fd3-f2707016a461",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ea70856c-866b-4cf5-8a56-f568728b5e65",
+            "inputNodeId": "71013a6b-1785-4c5a-ac34-32742c7ec746",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d7b8d099-0365-49d4-9c94-be6796c03037",
+            "inputNodeId": "087aa2a6-2844-41a5-aca8-f1483c82c166",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9897c0a9-3125-4905-a90f-680ae0c03e51",
+            "inputNodeId": "b73e8965-0d73-4282-be53-d49d8195c098",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "03a08ebb-ba38-46ff-855a-3d7cd0a64754",
+            "inputNodeId": "9897c0a9-3125-4905-a90f-680ae0c03e51",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a11f855e-87e6-4c47-badf-3bcfd8ba12cf",
+            "inputNodeId": "1d0d0961-82d0-4e36-b01f-3fa69aba6fa0",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8c50eeb8-f34e-4405-9fd3-f2707016a461",
+            "inputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "71013a6b-1785-4c5a-ac34-32742c7ec746",
+            "inputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c7a4d7ad-5d3c-41ef-af79-688a912ca11d",
+            "inputNodeId": "a11f855e-87e6-4c47-badf-3bcfd8ba12cf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b7c454c2-47b6-4b6a-8c62-226554c05cc6",
+            "inputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1d0d0961-82d0-4e36-b01f-3fa69aba6fa0",
+            "inputNodeId": "cbd7a84b-da17-458d-902b-405ab958e7c4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cbd7a84b-da17-458d-902b-405ab958e7c4",
+            "inputNodeId": "b7c454c2-47b6-4b6a-8c62-226554c05cc6",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "32eeb0a5-1562-4a06-9f87-73c14a16c9da",
+            "inputNodeId": "5585f0d2-50b7-43bc-a8ee-07ff6063aa38",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5585f0d2-50b7-43bc-a8ee-07ff6063aa38",
+            "inputNodeId": "888cb919-4346-47f1-a31f-dcdb03f55726",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "02a131c3-27c7-4640-a6b7-967b2bf90aeb",
+            "inputNodeId": "0a910f2e-4e62-4a54-8a11-c308a19aa67f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0a910f2e-4e62-4a54-8a11-c308a19aa67f",
+            "inputNodeId": "60fdcb60-2edb-462f-b15c-3f1380831fe7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b73e8965-0d73-4282-be53-d49d8195c098",
+            "inputNodeId": "c2dede75-e955-4826-b87d-e4a6610303ce",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c2dede75-e955-4826-b87d-e4a6610303ce",
+            "inputNodeId": "d7b8d099-0365-49d4-9c94-be6796c03037",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "087aa2a6-2844-41a5-aca8-f1483c82c166",
+            "inputNodeId": "f9674299-a8bd-4a6a-a439-02a4ba67f2ba",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f9674299-a8bd-4a6a-a439-02a4ba67f2ba",
+            "inputNodeId": "fc57413e-7bc8-4007-aa76-5b3ca6ed9740",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "inputNodeId": "44c2f83c-0f01-4892-8bef-a420936a4867",
+            "choiceIndex": 0,
+            "choiceText": "About this \"<color=orange>Troupe Elysium</color>\"...",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "inputNodeId": "2eaa9554-ed28-4983-85ee-e36b153ad33e",
+            "choiceIndex": 1,
+            "choiceText": "What is the <color=orange>festival</color>?",
+            "branchPriority": -3
+        },
+        {
+            "outputNodeId": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
+            "inputNodeId": "03a08ebb-ba38-46ff-855a-3d7cd0a64754",
+            "choiceIndex": 2,
+            "choiceText": "Thank you for telling me all this.",
+            "branchPriority": -4
+        }
+    ]
+}

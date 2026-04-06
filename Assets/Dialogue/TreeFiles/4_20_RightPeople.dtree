@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "e8abec94-90d8-40ad-9750-d0b98e283b26",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3152",
+            "content": {
+                "en": "It’s the girl who was drumming! Haha, great job out there!",
+                "zh": "是敲鼓的小姑娘！哈哈，辛苦了啊！",
+                "ja": ""
+            },
+            "positionX": 9520.7998046875,
+            "positionY": 270.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f9039b05-fc52-4703-9729-1b758c7ebd39",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3153",
+            "content": {
+                "en": "(Ah, so many people are crowding around.)",
+                "zh": "（啊，好多人凑过来了。）",
+                "ja": ""
+            },
+            "positionX": 9848.0,
+            "positionY": 270.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fbbfdc1c-6312-461d-921c-b768b3914700",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3154",
+            "content": {
+                "en": "You played the drums really well! It’s been a long time since I’ve seen a young person so actively participate in the festival—this makes me so happy!",
+                "zh": "小姑娘鼓敲的很好嘛！好久没看到这么积极参与大会的年轻人了！真让人高兴！",
+                "ja": ""
+            },
+            "positionX": 10166.400390625,
+            "positionY": 269.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7fa30981-38f2-4c7a-9fac-92cff8703839",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3155",
+            "content": {
+                "en": "Where are you heading now? If you go right, that’s Jinlan Temple. The awards probably haven’t started yet, but the scenery over there is beautiful!",
+                "zh": "你这会儿是要去哪里玩呀？往右边走是金兰观，颁奖应该还没开始，不过那边的风景很好哦！",
+                "ja": ""
+            },
+            "positionX": 10484.7998046875,
+            "positionY": 269.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cab73d8b-964c-4a56-bf6a-923442048b00",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3156",
+            "content": {
+                "en": "Hey now! Don’t scare the kid—",
+                "zh": "嗨呀！你们别吓着这孩子了——",
+                "ja": ""
+            },
+            "positionX": 10803.2001953125,
+            "positionY": 269.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9930da2c-1131-4e5e-9f6d-5d242a00e994",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3157",
+            "content": {
+                "en": "(Everyone’s a bit too enthusiastic... I should slip away while I can.)",
+                "zh": "（大家有点太热情了，我还是趁机溜走吧。）",
+                "ja": ""
+            },
+            "positionX": 11121.6005859375,
+            "positionY": 269.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "e8abec94-90d8-40ad-9750-d0b98e283b26",
+            "inputNodeId": "f9039b05-fc52-4703-9729-1b758c7ebd39",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f9039b05-fc52-4703-9729-1b758c7ebd39",
+            "inputNodeId": "fbbfdc1c-6312-461d-921c-b768b3914700",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fbbfdc1c-6312-461d-921c-b768b3914700",
+            "inputNodeId": "7fa30981-38f2-4c7a-9fac-92cff8703839",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7fa30981-38f2-4c7a-9fac-92cff8703839",
+            "inputNodeId": "cab73d8b-964c-4a56-bf6a-923442048b00",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cab73d8b-964c-4a56-bf6a-923442048b00",
+            "inputNodeId": "9930da2c-1131-4e5e-9f6d-5d242a00e994",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

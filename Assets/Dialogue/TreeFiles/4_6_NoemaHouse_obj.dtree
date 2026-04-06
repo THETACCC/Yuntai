@@ -1,0 +1,191 @@
+{
+    "nodes": [
+        {
+            "id": "6ab0527d-0616-4441-806f-868ef68f3c04",
+            "index": 0,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_2014a",
+            "content": {
+                "en": "Wait… is this Noema’s diary?",
+                "zh": "这个是......梦之的日记本？",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4ef33289-8d04-41e6-961d-d083c4b335cf",
+            "index": 1,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_2014b",
+            "content": {
+                "en": "Hmm… I shouldn’t snoop, but I really want to see…",
+                "zh": "唔，不能乱翻，可是好想看......",
+                "ja": ""
+            },
+            "positionX": 456.0,
+            "positionY": 103.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "719ccdcb-2183-42cf-b1dc-5075b8998977",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2014c",
+            "content": {
+                "en": "Just a quick glance.",
+                "zh": "就瞥一眼。",
+                "ja": ""
+            },
+            "positionX": 798.4000244140625,
+            "positionY": 107.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c50b8fc7-2f53-4e01-b004-4241315b4bdc",
+            "index": 3,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2014d",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 1139.199951171875,
+            "positionY": 108.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3ea973a7-0659-45b7-88f5-7c1bb2cb6817",
+            "index": 4,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_2014e",
+            "content": {
+                "en": "It’s all work-related stuff. She really is busy.",
+                "zh": "似乎全部都是和工作有关的事情，她果然很忙啊。",
+                "ja": ""
+            },
+            "positionX": 1484.0,
+            "positionY": 109.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "254146d4-f6bd-4c94-b320-02a2c5303f06",
+            "index": 5,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_2014f",
+            "content": {
+                "en": "Ah—there’s a tiny line of text at the bottom.",
+                "zh": "啊，最底下有一行小字。",
+                "ja": ""
+            },
+            "positionX": 1828.0,
+            "positionY": 111.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bc851efd-1a3c-4e82-85fe-439483af3063",
+            "index": 6,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2014g",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 2169.599853515625,
+            "positionY": 116.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a30adce8-6747-4e0a-9d65-ceccda6c2ccd",
+            "index": 7,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_2014h",
+            "content": {
+                "en": "She said she’s really looking forward to seeing me again…",
+                "zh": "她说很期待再见到我......",
+                "ja": ""
+            },
+            "positionX": 2511.199951171875,
+            "positionY": 121.60000610351563,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "6ab0527d-0616-4441-806f-868ef68f3c04",
+            "inputNodeId": "4ef33289-8d04-41e6-961d-d083c4b335cf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "4ef33289-8d04-41e6-961d-d083c4b335cf",
+            "inputNodeId": "719ccdcb-2183-42cf-b1dc-5075b8998977",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c50b8fc7-2f53-4e01-b004-4241315b4bdc",
+            "inputNodeId": "3ea973a7-0659-45b7-88f5-7c1bb2cb6817",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3ea973a7-0659-45b7-88f5-7c1bb2cb6817",
+            "inputNodeId": "254146d4-f6bd-4c94-b320-02a2c5303f06",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "254146d4-f6bd-4c94-b320-02a2c5303f06",
+            "inputNodeId": "bc851efd-1a3c-4e82-85fe-439483af3063",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bc851efd-1a3c-4e82-85fe-439483af3063",
+            "inputNodeId": "a30adce8-6747-4e0a-9d65-ceccda6c2ccd",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "719ccdcb-2183-42cf-b1dc-5075b8998977",
+            "inputNodeId": "c50b8fc7-2f53-4e01-b004-4241315b4bdc",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

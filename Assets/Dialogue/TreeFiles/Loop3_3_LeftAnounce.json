@@ -1,0 +1,81 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "(There’s a notice posted on the fence here.)",
+        "zh": "（这里的围栏上贴了一张告示。）",
+        "ja": ""
+      },
+      "nextIndex": 1,
+      "eventCalls": [
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomIn_3_3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "After finishing stall setup, please exit to the left and re-enter at 7:00 a.m. the following day.",
+        "zh": "“请在完成摊位准备后向左离开，并于次日上午7：00重新入场。”",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Looks like I’ve arrived at the venue right in the middle of preparations. It’s not time to leave yet. I'll <color=orange>check out the right side first</color>.",
+        "zh": "看来我是正巧来到会场中了，现在还不是离开的时候，先<color=orange>往右边调查</color>吧。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomOut_3_3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

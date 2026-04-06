@@ -1,0 +1,67 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "......",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "(Did she just sigh?)",
+        "zh": "（她好像叹了一口气？）",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊讶",
+      "isPlayer": true,
+      "content": {
+        "en": "Wait... (My throat hurts so much—why—)",
+        "zh": "等等......（嗓子好痛，为什么——）",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "3e5e7b84-b2b0-467b-a240-3cfb3c4654ac",
+          "targetObjectName": "ToNextLoop",
+          "componentTypeName": "ToNextLoop",
+          "methodName": "toNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

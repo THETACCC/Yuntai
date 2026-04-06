@@ -1,0 +1,61 @@
+{
+    "nodes": [
+        {
+            "id": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "index": 0,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3110",
+            "content": {
+                "en": "Uh… the lanterns don’t seem to be in the right spots.",
+                "zh": "呃，花灯的位置似乎不太对。",
+                "ja": ""
+            },
+            "positionX": -103.33333587646485,
+            "positionY": -486.6666564941406,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "MarkNeedToPlayLanternAnim",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a430b5bc-92b2-4d74-adb5-59e681972b9e",
+            "index": 1,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3111",
+            "content": {
+                "en": "It’s okay. Please take another look at the diagram and try again!",
+                "zh": "没关系的，请阅读一下示意图再尝试吧！",
+                "ja": ""
+            },
+            "positionX": 258.6666564941406,
+            "positionY": -484.6666564941406,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "inputNodeId": "a430b5bc-92b2-4d74-adb5-59e681972b9e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

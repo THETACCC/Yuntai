@@ -1,0 +1,133 @@
+{
+    "nodes": [
+        {
+            "id": "a067c954-0e4b-4f6c-bf60-79760eba7ed1",
+            "index": 0,
+            "characterId": "6e9df393-cba1-4830-b667-a87bc8d36c89",
+            "useContentId": true,
+            "contentId": "ch2_3016",
+            "content": {
+                "en": "Hey! You’re the Sect Master’s friend, right? Going to find her?",
+                "zh": "嘿！你是家主的朋友对吧？是要去找家主吗？",
+                "ja": ""
+            },
+            "positionX": 32.66666793823242,
+            "positionY": 142.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "404bbbb4-7d4d-40fb-a9f8-257e882f6ac4",
+                    "targetObjectName": "LevelManager4_7",
+                    "targetSceneName": "Level4-7FestivalNoema",
+                    "componentTypeName": "LevelManager4_7",
+                    "methodName": "DisableNPCTrigger",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e7e52a50-6a4d-43fa-bcae-99a7a929d5a7",
+            "index": 1,
+            "characterId": "1d2aea18-f3ba-4fba-a170-1610e9634968",
+            "useContentId": true,
+            "contentId": "ch2_3017",
+            "content": {
+                "en": "The Sect Master has been waiting for you for ages. She just left not long ago—she should be getting ready to go on stage now.",
+                "zh": "家主大人等了你很久，刚走不久，这会儿应该准备上台表演了。",
+                "ja": ""
+            },
+            "positionX": 364.0,
+            "positionY": 142.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "50007f81-2b3e-4d65-a9f5-318c5cc3651c",
+            "index": 2,
+            "characterId": "1d2aea18-f3ba-4fba-a170-1610e9634968",
+            "useContentId": true,
+            "contentId": "ch2_3018",
+            "content": {
+                "en": "Just keep walking to the right along the street.",
+                "zh": "你一直沿着街道向右走就好。",
+                "ja": ""
+            },
+            "positionX": 696.0,
+            "positionY": 140.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8e6c289e-8b99-4945-ae4c-6f5287afc309",
+            "index": 3,
+            "characterId": "9ea5ff19-c72a-4ce6-9c6b-dfb86c599402",
+            "useContentId": true,
+            "contentId": "ch2_3019",
+            "content": {
+                "en": "Cheer for the Sect Master for us! We’ll come over once we finish up here.",
+                "zh": "替我们给家主大人加油啊！我们处理完这边的事就会过去了。",
+                "ja": ""
+            },
+            "positionX": 1038.6666259765625,
+            "positionY": 140.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d8aa4752-4af8-4692-88e2-a6979f6dbbb8",
+            "index": 4,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3020",
+            "content": {
+                "en": "Okay. Thanks for telling me.",
+                "zh": "好，谢谢你们告诉我。",
+                "ja": ""
+            },
+            "positionX": 1388.6666259765625,
+            "positionY": 146.6666717529297,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "a067c954-0e4b-4f6c-bf60-79760eba7ed1",
+            "inputNodeId": "e7e52a50-6a4d-43fa-bcae-99a7a929d5a7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e7e52a50-6a4d-43fa-bcae-99a7a929d5a7",
+            "inputNodeId": "50007f81-2b3e-4d65-a9f5-318c5cc3651c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "50007f81-2b3e-4d65-a9f5-318c5cc3651c",
+            "inputNodeId": "8e6c289e-8b99-4945-ae4c-6f5287afc309",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8e6c289e-8b99-4945-ae4c-6f5287afc309",
+            "inputNodeId": "d8aa4752-4af8-4692-88e2-a6979f6dbbb8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "a06f7b0e-81a7-4102-833a-b4450049d499",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2000",
+            "content": {
+                "en": "Inside the apartment building… there’s a damp smell.",
+                "zh": "公寓楼里面......有股潮湿的味道。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9a0bd795-2cd1-41f2-956a-60ca25e6cd6a",
+            "index": 1,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_2001",
+            "content": {
+                "en": "I remember Noema said her apartment was 301.",
+                "zh": "我记得梦之说过，她的公寓在301来着。",
+                "ja": ""
+            },
+            "positionX": 444.0,
+            "positionY": 104.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c8e8e422-fc8a-4b03-b404-0156168fcdc2",
+            "index": 2,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_2002",
+            "content": {
+                "en": "After all this time, what could she have prepared for me?",
+                "zh": "时隔这么久，她会准备些什么呢？",
+                "ja": ""
+            },
+            "positionX": 796.0,
+            "positionY": 106.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8da52c76-1c8f-4d59-b39b-9fe51f495a9f",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_2003",
+            "content": {
+                "en": "I should hurry up and take a look.",
+                "zh": "快些去拿上看看吧。",
+                "ja": ""
+            },
+            "positionX": 1127.333251953125,
+            "positionY": 108.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "a06f7b0e-81a7-4102-833a-b4450049d499",
+            "inputNodeId": "9a0bd795-2cd1-41f2-956a-60ca25e6cd6a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9a0bd795-2cd1-41f2-956a-60ca25e6cd6a",
+            "inputNodeId": "c8e8e422-fc8a-4b03-b404-0156168fcdc2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c8e8e422-fc8a-4b03-b404-0156168fcdc2",
+            "inputNodeId": "8da52c76-1c8f-4d59-b39b-9fe51f495a9f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

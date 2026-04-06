@@ -1,0 +1,149 @@
+{
+    "nodes": [
+        {
+            "id": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "index": 0,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2197",
+            "content": {
+                "en": "A fleeting illusory mirror… I see.",
+                "zh": "镜花水月，原来如此。",
+                "ja": ""
+            },
+            "positionX": 1093.333251953125,
+            "positionY": 772.6666870117188,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "b1c861f3-78a9-4636-a5f0-261a1ebec77f",
+                    "targetObjectName": "Event7_Mirror",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "index": 1,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2199",
+            "content": {
+                "en": "(This person... did they do something to Page?)",
+                "zh": "（这个人，难道是它把周书——）",
+                "ja": ""
+            },
+            "positionX": 1786.0,
+            "positionY": 772.6666870117188,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
+            "index": 2,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2200",
+            "content": {
+                "en": "Die.",
+                "zh": "死吧。",
+                "ja": ""
+            },
+            "positionX": 2142.0,
+            "positionY": 772.6666870117188,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c440b1ef-249d-47f4-bbe7-6a3e36fa5629",
+                    "targetObjectName": "LevelManager2_2",
+                    "targetSceneName": "Level2-2",
+                    "componentTypeName": "LevelManager2_2",
+                    "methodName": "ToLoop3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "index": 3,
+            "characterId": "c21d94ad-1664-44eb-a2d7-958f027a990e",
+            "useContentId": true,
+            "contentId": "ch1_2198",
+            "content": {
+                "en": "Still, it’s pointless.",
+                "zh": "不过，仍是徒劳。",
+                "ja": ""
+            },
+            "positionX": 1450.6666259765625,
+            "positionY": 772.6666870117188,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "inputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cf4e8e86-1b09-4edb-8e8c-173ad761a92a",
+            "inputNodeId": "f2c2896d-a9a6-4151-a6e7-42d6ee1b39a7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8c8625e5-8fcc-493c-bc03-9ca981dd9b6c",
+            "inputNodeId": "b98bb28b-80dc-4ea6-8308-6e1bf6da32b9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1601,109 +1601,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &358486918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 358486921}
-  - component: {fileID: 358486920}
-  - component: {fileID: 358486919}
-  m_Layer: 0
-  m_Name: DialogueFinishLitsener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &358486919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f190de6d47850ef45ad28e014eaae7e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowedJsonFiles:
-  - {fileID: 4900000, guid: d684f0ea000231542b6eb4b81adbbfec, type: 3}
-  fireOnLastClick: 0
-  fireWhenFullyClosed: 1
-  onLastClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onFullyClosed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelManager2_2, Assembly-CSharp
-        m_MethodName: OnStart2FullyClosed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  verboseLog: 0
---- !u!114 &358486920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f190de6d47850ef45ad28e014eaae7e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowedJsonFiles:
-  - {fileID: 4900000, guid: b3b2d38ec7f90ac4b8966ce18f7f9c1b, type: 3}
-  fireOnLastClick: 0
-  fireWhenFullyClosed: 1
-  onLastClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onFullyClosed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelManager2_2, Assembly-CSharp
-        m_MethodName: OnStart1FullyClosed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  verboseLog: 0
---- !u!4 &358486921
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358486918}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.204839, y: 1.1725898, z: -0.63510275}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &396047530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5026,9 +4923,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279740581}
-  - component: {fileID: 1279740583}
   - component: {fileID: 1279740584}
   - component: {fileID: 1279740585}
+  - component: {fileID: 1279740586}
   m_Layer: 0
   m_Name: LevelManager3_4
   m_TagString: Untagged
@@ -5051,19 +4948,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1279740583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279740580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 1de23f33-f038-4a83-bfac-69e628a83834
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5079,6 +4963,7 @@ MonoBehaviour:
   hidePlayerOnSceneStart: 0
   lockPlayerOnSceneStart: 0
   mainVCam: {fileID: 0}
+  zoomInOrthoSize: 6
   zoomDuration: 0.5
   globalLight: {fileID: 1171284213}
   fadeOutDuration: 0.5
@@ -5114,6 +4999,20 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
+  isInstantTrigger: 0
+--- !u!114 &1279740586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 19c011a4-1a3a-4949-8d45-25a8f982fc29
 --- !u!1 &1293080901
 GameObject:
   m_ObjectHideFlags: 0
@@ -7723,7 +7622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3226782936490935484, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7822667411873779507, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8097,6 +7996,7 @@ MonoBehaviour:
   isReadyToTrigger: 1
   isMainDialogueFinished: 0
   isDoor: 0
+  isInstantTrigger: 0
   usePostDialogue: 0
   delay: 0
 --- !u!4 &1821517825
@@ -10279,7 +10179,6 @@ SceneRoots:
   - {fileID: 621417086}
   - {fileID: 1803819324}
   - {fileID: 1279740581}
-  - {fileID: 358486921}
   - {fileID: 515232536}
   - {fileID: 244652514}
   - {fileID: 1736771212}

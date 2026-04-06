@@ -1,0 +1,99 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "That thing—it's very similar to the person I saw on the plane earlier.",
+        "zh": "那个东西！和之前在飞机上看到的人很相似。",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "This place is dangerous. I need to get out of here, fast!",
+        "zh": "这里很危险，得赶紧离开才行！",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b100b5a0-8146-496f-b120-527c612f9db8",
+          "targetObjectName": "Ghost_Pivot (1)",
+          "componentTypeName": "GhostChase",
+          "methodName": "EnableGhost",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "a1784fdc-ba9e-4a8f-90df-0c3642a794e0",
+          "targetObjectName": "GhostRelatedChase",
+          "componentTypeName": "GhostChaseManager",
+          "methodName": "disableWall",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+          "targetObjectName": "EventTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "0b9d98e7-cb29-45e1-a2c9-50072df48f13",
+          "targetObjectName": "Event11_TheThing",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

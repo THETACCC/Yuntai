@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "ba381167-3bdb-4f6f-9342-eed8f0cefbe7",
+            "index": 0,
+            "characterId": "a574d8c1-b22f-414c-a0c4-cbcaece98de6",
+            "useContentId": true,
+            "contentId": "ch2_3039",
+            "content": {
+                "en": "Oh! It’s you! How’s the festival been? Having fun?",
+                "zh": "哎呀！是你啊！在大会上玩得怎么样？开心吗？",
+                "ja": ""
+            },
+            "positionX": 5909.60009765625,
+            "positionY": 233.59999084472657,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f827ffb5-b12f-4c41-a86e-fe3f6fc798b3",
+            "index": 1,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_3040",
+            "content": {
+                "en": "Hello! Thank you again for telling me so much about puppets last night.",
+                "zh": "您好！昨晚谢谢您告诉我那么多关于木偶的事。",
+                "ja": ""
+            },
+            "positionX": 6240.0,
+            "positionY": 234.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "aa1432a7-253b-4a81-b0a9-899d45f198d3",
+            "index": 2,
+            "characterId": "a574d8c1-b22f-414c-a0c4-cbcaece98de6",
+            "useContentId": true,
+            "contentId": "ch2_3041",
+            "content": {
+                "en": "Hahahaha! Don’t mention it! Not many young people like you are into puppets these days.",
+                "zh": "哈哈哈哈！别客气！像你这么喜欢木偶的年轻人现在可不多见。",
+                "ja": ""
+            },
+            "positionX": 6572.0,
+            "positionY": 234.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7f2e518e-2c67-4eed-ad8e-e81fbb03e2d3",
+            "index": 3,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_3042",
+            "content": {
+                "en": "(Honestly, I only asked because I wanted to break the puppets… I feel a little guilty.)",
+                "zh": "（其实我是为了破坏戏偶才问的......总感觉有点愧疚。）",
+                "ja": ""
+            },
+            "positionX": 6908.0,
+            "positionY": 234.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "ba381167-3bdb-4f6f-9342-eed8f0cefbe7",
+            "inputNodeId": "f827ffb5-b12f-4c41-a86e-fe3f6fc798b3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f827ffb5-b12f-4c41-a86e-fe3f6fc798b3",
+            "inputNodeId": "aa1432a7-253b-4a81-b0a9-899d45f198d3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "aa1432a7-253b-4a81-b0a9-899d45f198d3",
+            "inputNodeId": "7f2e518e-2c67-4eed-ad8e-e81fbb03e2d3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

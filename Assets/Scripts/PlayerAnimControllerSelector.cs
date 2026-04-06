@@ -17,22 +17,21 @@ public class PlayerAnimControllerSelector : MonoBehaviour
     [Header("需要Dark控制器的【场景名前缀】")]
     [SerializeField] private List<string> darkPrefixes = new() { "Level1", "Level2" };
 
-    // 可选：紧急覆盖（比如临时强制Dark）
     [Header("可选：强制覆盖")]
     public bool forceDark = false;
+
+    // ✅ 给外部读：当前是否 Dark
+    public bool IsDarkActive { get; private set; } = false;
 
     private void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
-        // 确保这个选择器在切场景时不会被销毁（跟随你的 Player）
         DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
     {
-        // 订阅场景切换
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
-        // 进入当前场景时先应用一次
         ApplyForScene(SceneManager.GetActiveScene().name);
     }
 
@@ -51,6 +50,8 @@ public class PlayerAnimControllerSelector : MonoBehaviour
         if (animator == null) return;
 
         bool useDark = ShouldUseDark(sceneName);
+        IsDarkActive = useDark; // ✅ 关键：记录状态
+
         var target = useDark ? darkController : normalController;
 
         if (target != null && animator.runtimeAnimatorController != target)
@@ -63,14 +64,12 @@ public class PlayerAnimControllerSelector : MonoBehaviour
     {
         if (forceDark) return true;
 
-        // 精确匹配
         for (int i = 0; i < darkExactNames.Count; i++)
         {
             if (!string.IsNullOrEmpty(darkExactNames[i]) && sceneName == darkExactNames[i])
                 return true;
         }
 
-        // 前缀匹配
         for (int i = 0; i < darkPrefixes.Count; i++)
         {
             var p = darkPrefixes[i];

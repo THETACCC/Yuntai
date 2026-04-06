@@ -1,0 +1,115 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "Is it over?",
+        "zh": "结束了吗？",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Audience1",
+        "zh": "观众1",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Whoa! That was incredible! Miss, have you trained in this?",
+        "zh": "嚯！这也太厉害了！姑娘，你是学过这个么？",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Audience2",
+        "zh": "观众2",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Exactly! Thanks to you, we got to see such a great performance!",
+        "zh": "就是说啊！托你的福，看了场好戏啊！",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Audience3",
+        "zh": "观众3",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Curtain call, curtain call—let’s go. We should head to Jinlan Temple for the awards soon.",
+        "zh": "谢幕了谢幕了，走走，一会儿去金兰观看颁奖去。",
+        "ja": ""
+      },
+      "nextIndex": 4
+    },
+    {
+      "index": 4,
+      "name": {
+        "en": "Audience1",
+        "zh": "观众1",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Hey, don’t block the way! Can’t you see that girl’s trying to go to the right?",
+        "zh": "哎呀！都别堵着道，没看那小姑娘要往右边走吗？",
+        "ja": ""
+      },
+      "nextIndex": 5
+    },
+    {
+      "index": 5,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(They’ve cleared a path. I should head right while I can.)",
+        "zh": "（大家把路让开了，趁现在往右边去看看吧。 ）",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "9d7184ea-45dc-4ad9-8ab8-3b088fbe9769",
+          "targetObjectName": "ToNextLoop_success",
+          "componentTypeName": "ToNextLoop",
+          "methodName": "toNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

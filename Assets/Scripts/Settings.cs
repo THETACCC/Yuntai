@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class Settings : MonoBehaviour
     public bool isInGame = false;
     public bool canOpenSettings = true;
     public CanvasGroup canvasGroup;
+    //public GameObject gameSavesUI;
+    public GameObject otherOptions;
+
 
     [Header("Localization Settings")]
     [SerializeField]
@@ -98,7 +102,7 @@ public class Settings : MonoBehaviour
         if (isSettingsOpen)
         {
             mainVolumeText.text = volumeLocalization.contentDictionary[currentLanguage] + " " + mainVolumeSlider.value.ToString("F0");
-            AudioManager.instance.SetMasterVolume(mainVolumeSlider.value);
+            AudioManager.SetMasterGroupVolume(mainVolumeSlider.value);
         }
         
     }
@@ -132,6 +136,21 @@ public class Settings : MonoBehaviour
         }
      }
 
+    public void OpenGameSaves()
+    {
+        CloseSettings();
+        SaveManager.instance.gameSavesUI.SetActive(true);
+    }
+
+    public void CloseGameSaves()
+    {
+        SaveManager.instance.gameSavesUI.SetActive(false);
+        if (!isInGame)
+        {
+            otherOptions.SetActive(true);
+        }
+    }
+
     public void CloseSettings()
     {
         isSettingsOpen = false;
@@ -142,8 +161,11 @@ public class Settings : MonoBehaviour
     public void ReturnToMain()
     {
         SaveManager.instance.SaveGame();
-        SceneController.instance.LoadScene("TitleScene");
-        CloseSettings();
+        if (SaveManager.instance.saveSlot != 0)
+        {
+            SceneController.instance.LoadScene("TitleScene");
+            CloseSettings();
+        }
     }
 
     public void Save()

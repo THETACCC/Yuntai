@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "8d0545e6-9739-47e8-9131-f66f40f4d902",
+            "index": 0,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": true,
+            "contentId": "ch1_2004",
+            "content": {
+                "en": "Hungry... I’m so hungry...",
+                "zh": "饿...我好饿...饿...",
+                "ja": ""
+            },
+            "positionX": -94.0,
+            "positionY": 257.3333435058594,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "327f505a-d600-402e-9794-eb2403b244d5",
+            "index": 1,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2005",
+            "content": {
+                "en": "(She’s in no state to talk... Maybe I should <color=orange>ask the flight attendant for a meal</color>.)",
+                "zh": "（感觉没法和这种状态下的她交流啊，<color=orange>去问问看乘务员小姐能不能给我一盒飞机餐吧。</color>）",
+                "ja": ""
+            },
+            "positionX": 278.6666564941406,
+            "positionY": 240.66665649414063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "8d0545e6-9739-47e8-9131-f66f40f4d902",
+            "inputNodeId": "327f505a-d600-402e-9794-eb2403b244d5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

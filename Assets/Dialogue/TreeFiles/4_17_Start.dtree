@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "e28d0fe7-f0fe-4dbb-ac0f-ed98f909c5fc",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_3076",
+            "content": {
+                "en": "Looks like... I made it out.",
+                "zh": "好像......逃出来了。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "aff2274b-3921-4a61-8e03-c4a21f58896f",
+            "index": 1,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_3077",
+            "content": {
+                "en": "That should be the stage ahead. There are so many people.",
+                "zh": "前面似乎就是戏台，有好多人。",
+                "ja": ""
+            },
+            "positionX": 465.33331298828127,
+            "positionY": 105.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4f75442e-4627-4cd6-814e-f8f8837d58e0",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3078",
+            "content": {
+                "en": "...Let’s go. Noema’s performance should be starting soon.",
+                "zh": "......走吧，梦之的表演应该快开始了。",
+                "ja": ""
+            },
+            "positionX": 822.6666870117188,
+            "positionY": 110.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "e28d0fe7-f0fe-4dbb-ac0f-ed98f909c5fc",
+            "inputNodeId": "aff2274b-3921-4a61-8e03-c4a21f58896f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "aff2274b-3921-4a61-8e03-c4a21f58896f",
+            "inputNodeId": "4f75442e-4627-4cd6-814e-f8f8837d58e0",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

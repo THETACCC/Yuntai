@@ -1,0 +1,67 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "isPlayer": false,
+      "content": {
+        "en": "....",
+        "zh": "....",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "Huh?",
+        "zh": "呃？",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "....",
+        "zh": "....",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

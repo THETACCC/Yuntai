@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_3145",
+            "content": {
+                "en": "Oh no, miss. I'm afraid you’re not allowed to bother the passengers up front.",
+                "zh": "哎呀女士，不可以去打扰前面的客人。",
+                "ja": ""
+            },
+            "positionX": 686.6666870117188,
+            "positionY": 720.6666870117188,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "index": 1,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_3146",
+            "content": {
+                "en": "The restroom for economy class is waaay down at the other end, dear.",
+                "zh": "经济舱的洗手间，在另一边最远处哦。",
+                "ja": ""
+            },
+            "positionX": 1026.0,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,124 @@
+{
+    "nodes": [
+        {
+            "id": "56918700-c376-44ae-989d-5ace85203802",
+            "index": 0,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch2_2023",
+            "content": {
+                "en": "I’m out…",
+                "zh": "出来了......",
+                "ja": ""
+            },
+            "positionX": 303.20001220703127,
+            "positionY": -3.200000762939453,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "179a9a2a-0ceb-412c-a223-d5e09036ad10",
+            "index": 1,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_2024",
+            "content": {
+                "en": "That elderly doorman from earlier… he’s gone?",
+                "zh": "之前那位门卫老先生......不见了？",
+                "ja": ""
+            },
+            "positionX": 642.4000244140625,
+            "positionY": -3.200000762939453,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e3a15aeb-6f4d-4282-a715-e0fbe6c93f9e",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2025",
+            "content": {
+                "en": "Whatever that thing was inside the building, it’s dangerous. I can’t stay here.",
+                "zh": "公寓楼里那个东西很危险，我不能在这里逗留。",
+                "ja": ""
+            },
+            "positionX": 979.2000122070313,
+            "positionY": -3.200000762939453,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "057c0d84-3636-4b7e-b067-39901ee9cfc6",
+                    "targetObjectName": "ObjectiveCH2_4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "559432f1-ebbe-4365-b632-eff2ad0cd0a0",
+                    "targetObjectName": "ObjectiveCH2_3",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "56918700-c376-44ae-989d-5ace85203802",
+            "inputNodeId": "179a9a2a-0ceb-412c-a223-d5e09036ad10",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "179a9a2a-0ceb-412c-a223-d5e09036ad10",
+            "inputNodeId": "e3a15aeb-6f4d-4282-a715-e0fbe6c93f9e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

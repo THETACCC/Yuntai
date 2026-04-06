@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": false,
+            "contentId": "Loop2_2_Start_node_0_dialogue",
+            "content": {
+                "en": "It’s already been a while...",
+                "zh": "已经过去好一阵子了......",
+                "ja": ""
+            },
+            "positionX": 687.2000122070313,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "index": 1,
+            "characterId": "",
+            "useContentId": false,
+            "contentId": "Loop3_2_Tree_node_1_dialogue",
+            "content": {
+                "en": "A very big tree.",
+                "zh": "",
+                "ja": ""
+            },
+            "positionX": 1026.39990234375,
+            "positionY": 724.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "24780d77-067e-4524-ae90-87dde0265d8f",
+            "inputNodeId": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

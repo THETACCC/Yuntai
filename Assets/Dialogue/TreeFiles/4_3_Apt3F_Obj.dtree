@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "c1693791-2184-49d7-9594-86a4b5cd7079",
+            "index": 0,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_2008",
+            "content": {
+                "en": "Ah, an old-style electric meter.",
+                "zh": "啊，是老式的电表。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "579f5011-36dc-433e-a35a-6dda17a79be5",
+            "index": 1,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_2009",
+            "content": {
+                "en": "Mom used to teach me how to read these.",
+                "zh": "妈妈以前有教过我看这个。",
+                "ja": ""
+            },
+            "positionX": 448.0,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a9f286d0-caf2-4aa4-8f96-7ebc9836b3fa",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_2010",
+            "content": {
+                "en": "But the meters here look different from the ones in Wenqiu.",
+                "zh": "不过这里的电表样式和纹秋市的不一样呢。",
+                "ja": ""
+            },
+            "positionX": 790.0,
+            "positionY": 106.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "c1693791-2184-49d7-9594-86a4b5cd7079",
+            "inputNodeId": "579f5011-36dc-433e-a35a-6dda17a79be5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "579f5011-36dc-433e-a35a-6dda17a79be5",
+            "inputNodeId": "a9f286d0-caf2-4aa4-8f96-7ebc9836b3fa",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

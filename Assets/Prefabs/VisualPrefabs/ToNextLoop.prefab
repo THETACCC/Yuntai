@@ -291,12 +291,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenename: Level2-1
   SpawnPointLocation: 1
-  DeathAnimationPlayer: {fileID: 1932808481969827907}
-  deathAnimator: {fileID: 7941614311363265871}
-  targetStateName: Dead
+  DeathVideoPlayerObject: {fileID: 1932808481969827907}
+  deathVideoPlayer: {fileID: 7171868710841421056}
   hardTimeoutSeconds: 8
   allowSkipWithAnyKey: 0
+  DeathAnimationSound: {fileID: 0}
+  DeathAnimationSoundOneShot: {fileID: 0}
   verboseLog: 0
+  myGamemanager: {fileID: 0}
 --- !u!1001 &1766437460525726331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -408,8 +410,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 166935070911253048, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
   m_PrefabInstance: {fileID: 1766437460525726331}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &7941614311363265871 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8554004343733583668, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
+--- !u!328 &7171868710841421056 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 8864277151904774011, guid: 2141fc86412aebe4a8eb1dbb1c23299d, type: 3}
   m_PrefabInstance: {fileID: 1766437460525726331}
   m_PrefabAsset: {fileID: 0}

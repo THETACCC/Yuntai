@@ -1,0 +1,67 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "isPlayer": false,
+      "content": {
+        "en": "...",
+        "zh": "…",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "Can you stop bothering me?",
+        "zh": "你能别再打扰我了吗？",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "I don't even know you!",
+        "zh": "我甚至都不知道你是谁！",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "55d5abcc-a59c-45c2-8494-73c46e8241b5",
+          "targetObjectName": "LevelManager3_1",
+          "componentTypeName": "LevelManager3_1",
+          "methodName": "ZhouShuFailed",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

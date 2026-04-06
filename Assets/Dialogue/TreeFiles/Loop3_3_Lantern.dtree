@@ -1,0 +1,367 @@
+{
+    "nodes": [
+        {
+            "id": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3096",
+            "content": {
+                "en": "Excuse me, I see quite a few <color=orange>lanterns</color> piled up next to your stall?",
+                "zh": "您好，我看到摊位旁边似乎堆着不少<color=orange>花灯</color>？",
+                "ja": ""
+            },
+            "positionX": -70.0,
+            "positionY": -326.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
+            "index": 1,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3105",
+            "content": {
+                "en": "Ah! Really? That’s such perfect timing!",
+                "zh": "啊！可以吗！这可真是太及时了！",
+                "ja": ""
+            },
+            "positionX": 3254.0,
+            "positionY": -303.0,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_3106",
+                    "text": {
+                        "en": "My pleasure. Where do they need to be hung?",
+                        "zh": "没事的，请问需要挂到哪里呢？",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
+            "index": 2,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3107",
+            "content": {
+                "en": "Ah! There’s a <color=orange>diagram</color> here. Just follow it and <color=orange>hang them under the eaves over on the left</color>.",
+                "zh": "啊！这里有张<color=orange>示意图</color>，照着这个去<color=orange>左边那里的屋檐处挂上</color>就好。",
+                "ja": ""
+            },
+            "positionX": 3636.0,
+            "positionY": 19.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "LanternPileDisappear",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+                    "targetObjectName": "Objective4_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+                    "targetObjectName": "Objective4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "dbd1346d-1417-496e-b97b-98dea0ceb7fa",
+                    "targetObjectName": "Event6_Lanterns",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "278623af-895c-4da0-83fa-41f5684c1fd3",
+            "index": 3,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3097",
+            "content": {
+                "en": "Ah, are they blocking your way? I’m so sorry!",
+                "zh": "啊，挡着您路了吗？真不好意思！",
+                "ja": ""
+            },
+            "positionX": 293.0,
+            "positionY": -323.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "867f8c1f-8ec9-44b3-a373-4b1b7ad850bc",
+            "index": 4,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3098",
+            "content": {
+                "en": "I want to get them all hung up as soon as possible, but as you can see…",
+                "zh": "我也想尽快挂好这些花灯的，可是您瞧......",
+                "ja": ""
+            },
+            "positionX": 670.0,
+            "positionY": -322.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b7f32d01-389d-4597-9ee2-e3e7d8237a82",
+            "index": 5,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3099",
+            "content": {
+                "en": "(The stall owner is leaning on a crutch, and one leg is in a cast.)",
+                "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
+                "ja": ""
+            },
+            "positionX": 1022.0,
+            "positionY": -319.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6d150be3-4fd9-4e8a-9f34-4d4b1ea77abf",
+            "index": 6,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3100",
+            "content": {
+                "en": "I twisted my ankle in an accident a couple of days ago, and my family is busy preparing our other shops, so no one has time to help me.",
+                "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
+                "ja": ""
+            },
+            "positionX": 1390.0,
+            "positionY": -316.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0d527db1-5952-4aeb-9045-d68f3cb7694c",
+            "index": 7,
+            "characterId": "779d6973-0d9e-4e35-907e-61399def5193",
+            "useContentId": true,
+            "contentId": "ch1_3101",
+            "content": {
+                "en": "I’ve had to set up the stall slowly by myself. Thankfully, the neighboring vendors have helped a lot; it’s just these lanterns left.",
+                "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
+                "ja": ""
+            },
+            "positionX": 1751.0,
+            "positionY": -315.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "edfd6cf9-4fc2-4609-9813-21d3134daf11",
+            "index": 8,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3102",
+            "content": {
+                "en": "(I can’t just keep waiting like this. According to the info I had, the troupe should also have a stall at the fair.)",
+                "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
+                "ja": ""
+            },
+            "positionX": 2116.0,
+            "positionY": -311.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a1c6a496-0523-4864-985a-3929d2046522",
+            "index": 9,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_3103",
+            "content": {
+                "en": "(I want to find their stall as soon as possible and see if I can gather some important information.)",
+                "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
+                "ja": ""
+            },
+            "positionX": 2515.0,
+            "positionY": -307.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bf10b53e-2e01-4687-b6f7-31c3f059c444",
+            "index": 10,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch1_3104",
+            "content": {
+                "en": "Well, how about I help you hang the lanterns?",
+                "zh": "嗯，不如由我来帮您把花灯挂上吧。",
+                "ja": ""
+            },
+            "positionX": 2887.0,
+            "positionY": -305.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "1a0cbf7e-1efd-45cc-8ae1-e1d1a7c2164a",
+            "inputNodeId": "278623af-895c-4da0-83fa-41f5684c1fd3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "278623af-895c-4da0-83fa-41f5684c1fd3",
+            "inputNodeId": "867f8c1f-8ec9-44b3-a373-4b1b7ad850bc",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "867f8c1f-8ec9-44b3-a373-4b1b7ad850bc",
+            "inputNodeId": "b7f32d01-389d-4597-9ee2-e3e7d8237a82",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b7f32d01-389d-4597-9ee2-e3e7d8237a82",
+            "inputNodeId": "6d150be3-4fd9-4e8a-9f34-4d4b1ea77abf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6d150be3-4fd9-4e8a-9f34-4d4b1ea77abf",
+            "inputNodeId": "0d527db1-5952-4aeb-9045-d68f3cb7694c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0d527db1-5952-4aeb-9045-d68f3cb7694c",
+            "inputNodeId": "edfd6cf9-4fc2-4609-9813-21d3134daf11",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "edfd6cf9-4fc2-4609-9813-21d3134daf11",
+            "inputNodeId": "a1c6a496-0523-4864-985a-3929d2046522",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a1c6a496-0523-4864-985a-3929d2046522",
+            "inputNodeId": "bf10b53e-2e01-4687-b6f7-31c3f059c444",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bf10b53e-2e01-4687-b6f7-31c3f059c444",
+            "inputNodeId": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fd04a56a-68f6-41f2-bb8a-fc4430dd30e3",
+            "inputNodeId": "ab42b28b-a63a-48b4-9621-9bd9ebeb9108",
+            "choiceIndex": 0,
+            "choiceText": "It’s no problem. Where do they need to be hung?",
+            "branchPriority": -2
+        }
+    ]
+}

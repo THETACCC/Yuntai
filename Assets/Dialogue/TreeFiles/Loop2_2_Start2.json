@@ -1,0 +1,51 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "I can’t just stay here like this. Besides, I have a really bad feeling.",
+        "zh": "这样下去也不是办法，而且我总有种不祥的预感。",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "I should go check how Page is doing up front.",
+        "zh": "还是去前面看看周书那边的情况吧。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "c440b1ef-249d-47f4-bbe7-6a3e36fa5629",
+          "targetObjectName": "LevelManager2_2",
+          "componentTypeName": "LevelManager2_2",
+          "methodName": "OnStart2FullyClosed",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

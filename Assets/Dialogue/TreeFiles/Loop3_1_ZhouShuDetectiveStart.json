@@ -1,0 +1,111 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Page!",
+        "zh": "周书！",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_闭眼",
+      "isPlayer": false,
+      "content": {
+        "en": "Mmm...",
+        "zh": "唔——",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "Wait, do we know each other?",
+        "zh": "等等，我们认识吗？",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "No time, listen to me!",
+        "zh": "没时间了，你听我说！",
+        "ja": ""
+      },
+      "nextIndex": 4
+    },
+    {
+      "index": 4,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_惊讶",
+      "isPlayer": false,
+      "content": {
+        "en": "Huh? What happened?",
+        "zh": "啊？发生什么事了？",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StopPlayerMovement",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

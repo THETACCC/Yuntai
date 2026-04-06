@@ -1,0 +1,51 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Page",
+        "zh": "周书",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/周书_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "I’ll handle the puppeteer up ahead. Wait for me here, okay?",
+        "zh": "前面的偶师我来处理就好，你在外面等我一下哦。",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Alright. Be careful.",
+        "zh": "好，小心点。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "95d5d1ca-ea7f-4956-bdc3-d21b1346a895",
+          "targetObjectName": "LevelManager3_5",
+          "componentTypeName": "LevelManager3_5",
+          "methodName": "StartBlackoutThenZhouShu2",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

@@ -1,0 +1,36 @@
+{
+    "nodes": [
+        {
+            "id": "26ec3b53-9051-41a5-a899-3c02ef19deb0",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31153",
+            "content": {
+                "en": "Follow the rhythm and press the [SPACE] bar on the beat!",
+                "zh": "跟随节奏，在节拍到来时按下【空格键】！",
+                "ja": ""
+            },
+            "positionX": 177.59999084472657,
+            "positionY": 76.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "27dea722-4fbc-4dad-967b-f127bc50835d",
+                    "targetObjectName": "MusicGame_Canvas",
+                    "targetSceneName": "Level4_18MusicGame",
+                    "componentTypeName": "RhythmConductor",
+                    "methodName": "BeginGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": []
+}

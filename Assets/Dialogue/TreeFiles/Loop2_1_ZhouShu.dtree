@@ -1,0 +1,284 @@
+{
+    "nodes": [
+        {
+            "id": "684ffcb0-903c-4f3b-8b24-29c48616a361",
+            "index": 0,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_2015",
+            "content": {
+                "en": "(I didn’t get a chance to talk to her before. She disappeared after the lights went out.)",
+                "zh": "（之前没能和这个人对话，而灯暗下来后她就消失了。）",
+                "ja": ""
+            },
+            "positionX": -1933.60009765625,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "index": 1,
+            "characterId": "0adcbb68-66c3-4abb-81bd-cc3b7f15ebf5",
+            "useContentId": true,
+            "contentId": "ch1_2020",
+            "content": {
+                "en": "Hungry... I’m so hungry...",
+                "zh": "饿...我好饿...饿...",
+                "ja": ""
+            },
+            "positionX": -197.60000610351563,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "index": 2,
+            "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
+            "useContentId": true,
+            "contentId": "ch1_2016",
+            "content": {
+                "en": "Mmm......",
+                "zh": "唔~~",
+                "ja": ""
+            },
+            "positionX": -1550.4000244140625,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "951e7e29-713d-4e58-8375-bb044e697851",
+                    "targetObjectName": "snd_hungry",
+                    "targetSceneName": "",
+                    "componentTypeName": "AudioSource",
+                    "methodName": "Play",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2017",
+            "content": {
+                "en": "Excuse me, may I—",
+                "zh": "您好，请问——",
+                "ja": ""
+            },
+            "positionX": -1194.4000244140625,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "index": 4,
+            "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
+            "useContentId": true,
+            "contentId": "ch1_2018",
+            "content": {
+                "en": "“Uhh...",
+                "zh": "呃——",
+                "ja": ""
+            },
+            "positionX": -841.5999755859375,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "index": 5,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2019",
+            "content": {
+                "en": "I’m sorry, what did you say?",
+                "zh": "您说什么？我没有听清。",
+                "ja": ""
+            },
+            "positionX": -514.3999633789063,
+            "positionY": 260.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
+            "index": 6,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2022",
+            "content": {
+                "en": "(Doesn't seem like I can get through to her in that state... maybe I can <color=orange>ask the flight attendant for a meal box</color> instead.)",
+                "zh": "（感觉没法和这种状态下的她交流啊，<color=orange>去问问看乘务员小姐能不能给我一盒飞机餐吧。</color>）",
+                "ja": ""
+            },
+            "positionX": 484.0,
+            "positionY": 260.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "0fcd8632-260f-474f-9958-c89ed34195e9",
+                    "targetObjectName": "Objective2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "304ec2b0-4449-41a8-a2ba-b67fe4d5cb06",
+                    "targetObjectName": "Objective1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoThreeTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "index": 7,
+            "characterId": "c8705e03-4669-481b-946e-aa7eda913fb6",
+            "useContentId": true,
+            "contentId": "ch1_2021",
+            "content": {
+                "en": "The flight attendant handing out the meals... she still hasn’t come... I’m really... so hungry...",
+                "zh": "发饭的乘务员小姐...一直没有来...我真的...好饿......",
+                "ja": ""
+            },
+            "positionX": 122.39999389648438,
+            "positionY": 260.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "inputNodeId": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9b994c45-1f02-4bb4-826a-5875c01a4263",
+            "inputNodeId": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "87f11e49-a1f9-4c47-a815-a1493fadb18e",
+            "inputNodeId": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cfad4726-cae9-4fc3-9a6c-191502c7fc46",
+            "inputNodeId": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "283415d5-dbcf-448d-91a8-79360c5c1ea8",
+            "inputNodeId": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "684ffcb0-903c-4f3b-8b24-29c48616a361",
+            "inputNodeId": "165132e5-2ae5-459c-873b-0c99a4868cdb",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "93582fc2-38ff-4c9a-b326-7102ccc080f8",
+            "inputNodeId": "5adaa6b5-8607-40ca-9617-3b671a3a6212",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,133 @@
+{
+    "nodes": [
+        {
+            "id": "9479d462-6008-448f-9502-e7f1e51d428b",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3262",
+            "content": {
+                "en": "From Wenqiu to Yuntai… this journey has been more tortuous than I imagined.",
+                "zh": "从纹秋到芸台，这一路上可比我想象的曲折多了。",
+                "ja": ""
+            },
+            "positionX": 2986.0,
+            "positionY": 525.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fce4d987-96ae-4521-88a7-2c195b07c423",
+            "index": 1,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_3263",
+            "content": {
+                "en": "Noema…",
+                "zh": "沈梦之......梦之......",
+                "ja": ""
+            },
+            "positionX": 3318.0,
+            "positionY": 526.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4e46ab1a-6287-4f5b-b2e4-9db271c4c5f3",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3264",
+            "content": {
+                "en": "There’s been a lot of unrest in the city lately. I hope you’re safe.",
+                "zh": "城里最近似乎一直骚动不断，希望你一切平安。",
+                "ja": ""
+            },
+            "positionX": 3648.666748046875,
+            "positionY": 526.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "23dd573b-0f84-4d41-b239-3ca0addaf68e",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3265",
+            "content": {
+                "en": "Alright, time to go. I promised to meet Noema tomorrow.",
+                "zh": "好了，该走了。明还天约好了和梦之碰头来着。",
+                "ja": ""
+            },
+            "positionX": 3972.0,
+            "positionY": 529.3333129882813,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f7deb65e-66b3-4ce8-a5ee-03151f0f8c2c",
+            "index": 4,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_3266",
+            "content": {
+                "en": "Hoping everything goes smoothly from here on.",
+                "zh": "希望之后，能一切顺利。",
+                "ja": ""
+            },
+            "positionX": 4306.0,
+            "positionY": 529.3333129882813,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "08027330-0e0e-452f-83bb-9b9885d7bfa9",
+                    "targetObjectName": "LevelManager3_6",
+                    "targetSceneName": "Level3-6",
+                    "componentTypeName": "LevelManager3_6",
+                    "methodName": "GotoNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "9479d462-6008-448f-9502-e7f1e51d428b",
+            "inputNodeId": "fce4d987-96ae-4521-88a7-2c195b07c423",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fce4d987-96ae-4521-88a7-2c195b07c423",
+            "inputNodeId": "4e46ab1a-6287-4f5b-b2e4-9db271c4c5f3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "4e46ab1a-6287-4f5b-b2e4-9db271c4c5f3",
+            "inputNodeId": "23dd573b-0f84-4d41-b239-3ca0addaf68e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "23dd573b-0f84-4d41-b239-3ca0addaf68e",
+            "inputNodeId": "f7deb65e-66b3-4ce8-a5ee-03151f0f8c2c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "bfff4546-7e09-48c9-b12d-fa5d02215c07",
+            "index": 0,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_3167",
+            "content": {
+                "en": "Go check the notice board. It’ll help you.",
+                "zh": "去看看告示牌吧，对你会有帮助的。",
+                "ja": ""
+            },
+            "positionX": 2540.0,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7259caf3-7ff3-4ccb-8bbc-0a250ada9191",
+            "index": 1,
+            "characterId": "5c2350da-c9c0-447f-8406-60bff21a53f5",
+            "useContentId": true,
+            "contentId": "ch2_3168",
+            "content": {
+                "en": "…Alright. Thank you.",
+                "zh": "......好的，谢谢您。",
+                "ja": ""
+            },
+            "positionX": 2878.39990234375,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "66aaed21-a9a7-4bfa-972d-0d2e8331c4dc",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3169",
+            "content": {
+                "en": "(This old man always gives me the feeling he’s unfathomable. Does he know something?)",
+                "zh": "（这位老大爷，总给人一种深不可测的感觉，他是不是知道什么？）",
+                "ja": ""
+            },
+            "positionX": 3206.39990234375,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e33a5220-fd89-49fe-9813-7b55e01e630b",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3170",
+            "content": {
+                "en": "(I should go check the notice board over there first.)",
+                "zh": "（先去那边的告示牌看看吧。）",
+                "ja": ""
+            },
+            "positionX": 3541.599853515625,
+            "positionY": 108.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "bfff4546-7e09-48c9-b12d-fa5d02215c07",
+            "inputNodeId": "7259caf3-7ff3-4ccb-8bbc-0a250ada9191",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7259caf3-7ff3-4ccb-8bbc-0a250ada9191",
+            "inputNodeId": "66aaed21-a9a7-4bfa-972d-0d2e8331c4dc",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "66aaed21-a9a7-4bfa-972d-0d2e8331c4dc",
+            "inputNodeId": "e33a5220-fd89-49fe-9813-7b55e01e630b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

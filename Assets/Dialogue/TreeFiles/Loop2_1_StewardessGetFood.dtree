@@ -1,0 +1,1685 @@
+{
+    "nodes": [
+        {
+            "id": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2096",
+            "content": {
+                "en": "Um, excuse me?",
+                "zh": "那个，乘务员小姐？",
+                "ja": ""
+            },
+            "positionX": -3637.60009765625,
+            "positionY": 778.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c0b44395-30f3-42e1-9ec9-e5feecf42109",
+            "index": 1,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2097",
+            "content": {
+                "en": "Hm? What else, miss?",
+                "zh": "嗯？又有什么事吗女士？（微笑）",
+                "ja": ""
+            },
+            "positionX": -3281.60009765625,
+            "positionY": 778.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9ef15120-cecc-4c8c-a65c-19aee6d15b81",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2098",
+            "content": {
+                "en": "There’s a girl back there who looks really hungry. Would it be possible for me to take a meal to her?",
+                "zh": "后面有一个女生似乎饿得很厉害，请问我可以先从这里拿一盒飞机餐给她吗？",
+                "ja": ""
+            },
+            "positionX": -2921.60009765625,
+            "positionY": 778.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3fe03181-a422-4610-bd36-dc1429ee9849",
+            "index": 3,
+            "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
+            "useContentId": true,
+            "contentId": "ch1_2099",
+            "content": {
+                "en": "Oh my, I’m afraid not~ All in-flight meals are distributed according to the schedule. I kindly ask you to be patient~",
+                "zh": "哎呀，那可不成~飞机上的所有餐饮都是统一发放的，还请您耐~心~等待吧。",
+                "ja": ""
+            },
+            "positionX": -2556.0,
+            "positionY": 778.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "98f02357-4b8f-4d1d-bb9f-67c60b469bf4",
+            "index": 4,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2100",
+            "content": {
+                "en": "But...",
+                "zh": "可是——",
+                "ja": ""
+            },
+            "positionX": -2197.60009765625,
+            "positionY": 778.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "03defe51-2a0f-4854-8488-c67f54909078",
+            "index": 5,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2101",
+            "content": {
+                "en": "Rules are rules, you know~",
+                "zh": "规矩就是规矩哦~",
+                "ja": ""
+            },
+            "positionX": -1860.800048828125,
+            "positionY": 776.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fae2df1c-9fdb-435f-8241-3a4f4df576b7",
+            "index": 6,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2103",
+            "content": {
+                "en": "(Maybe if I just <color=orange>keep bothering her</color>, she’ll lose patience and hand one over.)",
+                "zh": "（也许就这样<color=orange>不断找她聊天</color>的话，她耐心耗尽就会把飞机餐给我了。）",
+                "ja": ""
+            },
+            "positionX": -1432.800048828125,
+            "positionY": 780.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f745db80-440f-483a-ae36-109106a78ea4",
+            "index": 7,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2104",
+            "content": {
+                "en": "(Alright, the topics we can talk about now are...)",
+                "zh": "（好，现在可以聊的话题是...）",
+                "ja": ""
+            },
+            "positionX": -1081.60009765625,
+            "positionY": 870.3999633789063,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2105",
+                    "text": {
+                        "en": "Why are you standing here this whole time?",
+                        "zh": "您为什么一直站在这里呢？",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoFour",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2106",
+                    "text": {
+                        "en": "You mentioned your supervisor earlier...",
+                        "zh": "之前提到的乘务长...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoFour",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv4",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2107",
+                    "text": {
+                        "en": "The strange groups in the city...",
+                        "zh": "城里奇怪的团体...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_1",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv1",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2108",
+                    "text": {
+                        "en": "The Qiqiao Festival is starting soon...",
+                        "zh": "乞巧大会就要开始了...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_2",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv2",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2109",
+                    "text": {
+                        "en": "About Yuntai going into lockdown...",
+                        "zh": "关于芸台封城的事...",
+                        "ja": ""
+                    },
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "infoPassA_3",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_Conv3",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_2110",
+                    "text": {
+                        "en": "Sorry to bother you. I’ll be going now.",
+                        "zh": "打扰您了，我这就走。（结束对话）",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
+            "index": 8,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2111",
+            "content": {
+                "en": "You seem to have been standing here for quite some time. May I ask...",
+                "zh": "您似乎已经在这里站了好一阵了，请问——",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 450.3999938964844,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetInfoFourTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "30546341-f63c-425f-a4c4-585eeb63f542",
+            "index": 9,
+            "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
+            "useContentId": true,
+            "contentId": "ch1_2112",
+            "content": {
+                "en": "...... (smile)",
+                "zh": "......（微笑）",
+                "ja": ""
+            },
+            "positionX": -352.79998779296877,
+            "positionY": 450.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1d5dd79c-602b-43b7-8278-f9b1b2f300ab",
+            "index": 10,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2113",
+            "content": {
+                "en": "(Terrifying!)",
+                "zh": "（好可怕！）",
+                "ja": ""
+            },
+            "positionX": -16.799999237060548,
+            "positionY": 450.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f938e56a-0167-4491-bf79-416839b3aeb6",
+            "index": 11,
+            "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
+            "useContentId": true,
+            "contentId": "ch1_2114",
+            "content": {
+                "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to be here on standby. I’m not allowed to leave until she gets back to me.",
+                "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
+                "ja": ""
+            },
+            "positionX": 331.20001220703127,
+            "positionY": 450.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2b1af18f-376c-4025-ad3e-5840e1e559ef",
+            "index": 12,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2115",
+            "content": {
+                "en": "(She’s literally grinding her teeth...)",
+                "zh": "（她在咬着牙说话......）",
+                "ja": ""
+            },
+            "positionX": 694.4000244140625,
+            "positionY": -123.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "36b07a7d-c524-4877-8796-484297ef0a93",
+            "index": 13,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2116",
+            "content": {
+                "en": "(Better not push this any further.)",
+                "zh": "（还是结束这个话题吧。）",
+                "ja": ""
+            },
+            "positionX": 1050.39990234375,
+            "positionY": 450.3999938964844,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
+            "index": 14,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2117",
+            "content": {
+                "en": "The chief attendant you mentioned earlier. Do you know where she is now?",
+                "zh": "您之前提到过的那位乘务长，她现在在哪里呢？",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 1036.800048828125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv4",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fb3c677e-2b4c-4ebc-ab21-4d9e50b54f93",
+            "index": 15,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2118",
+            "content": {
+                "en": "Probably up in the front cabin somewhere. I don’t know the details.",
+                "zh": "大概就在前面的机舱里吧，具体我也不清楚呢。",
+                "ja": ""
+            },
+            "positionX": -352.79998779296877,
+            "positionY": 1036.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d4bc759d-d58c-41e2-9a6f-4d4ebd4eed4b",
+            "index": 16,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_2119",
+            "content": {
+                "en": "Are you two close?",
+                "zh": "您和她很熟吗？",
+                "ja": ""
+            },
+            "positionX": -16.799999237060548,
+            "positionY": 1036.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "484e884c-c707-4e36-bc53-db16868f157b",
+            "index": 17,
+            "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
+            "useContentId": true,
+            "contentId": "ch1_2120",
+            "content": {
+                "en": "Do I look like someone who’s close with her?",
+                "zh": "我看着像和她很熟的样子吗？",
+                "ja": ""
+            },
+            "positionX": 331.20001220703127,
+            "positionY": 1036.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "index": 18,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2121",
+            "content": {
+                "en": "(Yeah… this conversation’s going nowhere.)",
+                "zh": "（感觉这个话题已经聊不下去了。）",
+                "ja": ""
+            },
+            "positionX": 694.4000244140625,
+            "positionY": 300.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "5deaeca4-2232-4485-b7ed-8afd7136b9f9",
+                    "targetObjectName": "Event5_Orders",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "30701851-5e95-4c92-8001-564c7badc365",
+            "index": 19,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2122",
+            "content": {
+                "en": "I heard there’ve been strange groups active in Yuntai recently.",
+                "zh": "我听说最近有奇怪的团体在芸台市内活动。",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 1656.800048828125,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv1",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1e772e23-9319-4ffa-8038-f78854b50d7b",
+            "index": 20,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2129",
+            "content": {
+                "en": "I heard Yuntai holds a festival every two years—the Qiqiao Festival. Have you heard of it?",
+                "zh": "芸台似乎会每两年举行乞巧大会，您有听说过吗？",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 2150.400146484375,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv2",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
+            "index": 21,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2134",
+            "content": {
+                "en": "Isn’t Yuntai going into <color=orange>lockdown</color> soon? Does that mean you’ll be stuck here until it ends?",
+                "zh": "芸台好像之后就要<color=orange>封城</color>了，您是不是要在这里待到封城结束呢？",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 2648.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetStewardessConv3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "64d61528-01cb-450a-8b3b-64861c066aae",
+            "index": 22,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2123",
+            "content": {
+                "en": "Miss, I’m not from Yuntai. I don’t really know anything about that. I just work on the plane.",
+                "zh": "女士，我不是芸台人，也并不了解这些事。我只是在飞机上工作而已。",
+                "ja": ""
+            },
+            "positionX": -352.79998779296877,
+            "positionY": 1656.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "215f9d44-9703-43c9-834a-0a79f96750ae",
+            "index": 23,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2124",
+            "content": {
+                "en": "Have you seen anyone suspicious onboard lately?",
+                "zh": "您近来有在飞机上见过类似的可疑人士吗？",
+                "ja": ""
+            },
+            "positionX": -16.799999237060548,
+            "positionY": 1656.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "e779a903-abf5-4623-907a-962c97ea6f06",
+            "index": 24,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2125",
+            "content": {
+                "en": "Of course. That weird girl in the back wearing a Taoist robe looks pretty suspicious, doesn’t she?",
+                "zh": "当然有了，后面机舱那位穿着奇怪道袍的小姐不就很可疑吗？",
+                "ja": ""
+            },
+            "positionX": 322.4000244140625,
+            "positionY": 1656.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "88eba7eb-7208-4753-94a6-17ac2da061a3",
+            "index": 25,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_2126",
+            "content": {
+                "en": "(She does look kind of suspicious...)",
+                "zh": "（她看起来确实挺可疑的。）",
+                "ja": ""
+            },
+            "positionX": 694.4000244140625,
+            "positionY": 1648.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d088ebd4-f369-4e71-8a9e-51d3001aaa44",
+            "index": 26,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2127",
+            "content": {
+                "en": "But as long as they don’t cause trouble, it’s not our place to intervene. We’re service workers, not judges.",
+                "zh": "但只要没有造成危害就没有介入的需要，我们毕竟是服务人员，不能以貌取人。",
+                "ja": ""
+            },
+            "positionX": 1034.39990234375,
+            "positionY": 1648.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "index": 27,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2128",
+            "content": {
+                "en": "(So she’s actually quite professional…)",
+                "zh": "（乘务员小姐原来是个很有职业精神的人啊。）",
+                "ja": ""
+            },
+            "positionX": 1406.39990234375,
+            "positionY": 1656.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "f5c3516d-43af-4f7b-b254-40035d51e641",
+            "index": 28,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2130",
+            "content": {
+                "en": "Hmm… I think it’s pretty well-known. We usually get passengers coming for it around this time of year.",
+                "zh": "唔，这个大会似乎还挺有名气的，往年也常有乘客在这个时段慕名而来。",
+                "ja": ""
+            },
+            "positionX": -329.5999755859375,
+            "positionY": 2150.400146484375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3ebfba84-127f-4b1f-92bc-c80dd614b8c1",
+            "index": 29,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2131",
+            "content": {
+                "en": "Are you planning to check it out after landing?",
+                "zh": "您降落之后会去大会看看吗？",
+                "ja": ""
+            },
+            "positionX": 12.0,
+            "positionY": 2150.400146484375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0c6fcd1e-0560-4c87-a879-f6717f8b8863",
+            "index": 30,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2132",
+            "content": {
+                "en": "That’s a personal matter, miss. But I don’t like crowds, especially the noisy kind, with people like you.",
+                "zh": "这就是私人安排了，女士。不过我一向不喜欢人多的地方，尤其是如您这样聒噪的人聚集的地方。",
+                "ja": ""
+            },
+            "positionX": 378.4000244140625,
+            "positionY": 2150.400146484375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "index": 31,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2133",
+            "content": {
+                "en": "(I think she just insulted me.)",
+                "zh": "（好像被嫌弃了。）",
+                "ja": ""
+            },
+            "positionX": 734.4000244140625,
+            "positionY": 2148.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "2cf4be47-c2b7-4589-a76b-a4b88b096c51",
+            "index": 32,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2135",
+            "content": {
+                "en": "Ugh, same thing every year. Last year, my assigned crew flew out before the lockdown.",
+                "zh": "唉~每年都会这样，我去年待的机组在封城前返回了。",
+                "ja": ""
+            },
+            "positionX": -349.5999755859375,
+            "positionY": 2648.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "index": 33,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2137",
+            "content": {
+                "en": "(I’m out of things to talk about...)",
+                "zh": "（糟了，已经想不出其他的话题了...）",
+                "ja": ""
+            },
+            "positionX": 311.20001220703127,
+            "positionY": 2652.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [
+                {
+                    "priority": 2,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "False"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 1,
+                    "conditions": [
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardess_AllConv",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        },
+                        {
+                            "targetObjectID": "",
+                            "targetObjectName": "LevelManager2_1",
+                            "componentTypeName": "LevelManager2_1",
+                            "variableName": "isStewardessSet",
+                            "comparison": 0,
+                            "compareValue": "True"
+                        }
+                    ],
+                    "conditionLogic": 0
+                },
+                {
+                    "priority": 0,
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ]
+        },
+        {
+            "id": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "index": 34,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2201",
+            "content": {
+                "en": "Sorry to bother you. I’ll be on my way.",
+                "zh": "打扰您了，我这就离开。",
+                "ja": ""
+            },
+            "positionX": -681.5999755859375,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "index": 35,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2137",
+            "content": {
+                "en": "(I’m out of things to talk about...)",
+                "zh": "（糟了，已经想不出其他的话题了...）",
+                "ja": ""
+            },
+            "positionX": 1934.39990234375,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "SetgetFoodTrue",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "ChangeStewardessAndZhouShuToGotFood",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "078a1373-4042-4603-ac64-b545cc28c383",
+            "index": 36,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2138",
+            "content": {
+                "en": "Alright, miss. I know what you're after. You’ve been standing here chatting with me all this time just to get an in-flight meal, right?",
+                "zh": "行了女士，我也不是有意为难你，你站在这里跟我说了这么久，就是为了拿一份飞机餐吧。",
+                "ja": ""
+            },
+            "positionX": 2404.0,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "index": 37,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2139",
+            "content": {
+                "en": "(Oh no, she saw right through me.)",
+                "zh": "（糟糕，策略好像被识破了）",
+                "ja": ""
+            },
+            "positionX": 2756.0,
+            "positionY": 1840.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "index": 38,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2140",
+            "content": {
+                "en": "Here. Take this and go. Don’t let the other passengers know, alright? If everyone rushes over, it’ll be a huge hassle.",
+                "zh": "给，拿了这个赶快走吧。不要告诉别的乘客哦，如果所有人都一窝蜂过来的话我会很困扰的。",
+                "ja": ""
+            },
+            "positionX": 3106.39990234375,
+            "positionY": 1840.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "index": 39,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2141",
+            "content": {
+                "en": "Got it! Thank you so much!",
+                "zh": "好的！非常感谢您！",
+                "ja": ""
+            },
+            "positionX": 3478.39990234375,
+            "positionY": 1840.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "index": 40,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2142",
+            "content": {
+                "en": "Yeah, yeah, just go already...",
+                "zh": "行了行了快走吧......",
+                "ja": ""
+            },
+            "positionX": 3846.39990234375,
+            "positionY": 1840.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3afc1297-8c86-455e-b11d-c70d7b2aaf12",
+            "index": 41,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_2143",
+            "content": {
+                "en": "(Even though she saw through me, I guess the strategy still worked.)",
+                "zh": "（虽然被识破，但策略本身好像还是奏效了。）",
+                "ja": ""
+            },
+            "positionX": 4236.0,
+            "positionY": 1840.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "index": 42,
+            "characterId": "3b78db21-bf34-49b0-b3ed-7ae7c9b63453",
+            "useContentId": true,
+            "contentId": "ch1_2202",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": -301.5999755859375,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "14c26af8-98d5-4738-a835-13facfc57a31",
+            "index": 43,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_2203",
+            "content": {
+                "en": "(Let's go, let's just go.)",
+                "zh": "（快走快走。）",
+                "ja": ""
+            },
+            "positionX": 72.0,
+            "positionY": 3684.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "index": 44,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": false,
+            "contentId": "Loop2_1_StewardessGetFood_node_44_dialogue",
+            "content": {
+                "en": "I have no more topics to talk to her.",
+                "zh": "没有其他话题可以聊了",
+                "ja": ""
+            },
+            "positionX": 2016.0,
+            "positionY": 1146.4000244140625,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "48237641-47eb-4de6-9e07-6f63ecd0d021",
+            "index": 45,
+            "characterId": "fe717acf-a852-4395-beb4-8cbc7dc92d14",
+            "useContentId": true,
+            "contentId": "ch1_2136",
+            "content": {
+                "en": "(She says that, but her smile looks more real than ever. She must be happy to get some time off.)",
+                "zh": "（她虽然这么说，但脸上的笑容却前所未有的真诚，她应该很高兴能休假吧。）",
+                "ja": ""
+            },
+            "positionX": -28.0,
+            "positionY": 2648.800048828125,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7abfbfd8-a2ba-4945-9ad9-ce55a1e8b3de",
+            "index": 46,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch1_2102",
+            "content": {
+                "en": "(She really doesn’t want to talk to me.)",
+                "zh": "（她似乎完全不想跟我说话）",
+                "ja": ""
+            },
+            "positionX": -1597.60009765625,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "39a1a2ec-7535-4267-81a3-8988693e3af2",
+            "inputNodeId": "c0b44395-30f3-42e1-9ec9-e5feecf42109",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c0b44395-30f3-42e1-9ec9-e5feecf42109",
+            "inputNodeId": "9ef15120-cecc-4c8c-a65c-19aee6d15b81",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9ef15120-cecc-4c8c-a65c-19aee6d15b81",
+            "inputNodeId": "3fe03181-a422-4610-bd36-dc1429ee9849",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3fe03181-a422-4610-bd36-dc1429ee9849",
+            "inputNodeId": "98f02357-4b8f-4d1d-bb9f-67c60b469bf4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "98f02357-4b8f-4d1d-bb9f-67c60b469bf4",
+            "inputNodeId": "03defe51-2a0f-4854-8488-c67f54909078",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fae2df1c-9fdb-435f-8241-3a4f4df576b7",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2b1af18f-376c-4025-ad3e-5840e1e559ef",
+            "inputNodeId": "36b07a7d-c524-4877-8796-484297ef0a93",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f938e56a-0167-4491-bf79-416839b3aeb6",
+            "inputNodeId": "2b1af18f-376c-4025-ad3e-5840e1e559ef",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1d5dd79c-602b-43b7-8278-f9b1b2f300ab",
+            "inputNodeId": "f938e56a-0167-4491-bf79-416839b3aeb6",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "30546341-f63c-425f-a4c4-585eeb63f542",
+            "inputNodeId": "1d5dd79c-602b-43b7-8278-f9b1b2f300ab",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
+            "inputNodeId": "30546341-f63c-425f-a4c4-585eeb63f542",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "484e884c-c707-4e36-bc53-db16868f157b",
+            "inputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d4bc759d-d58c-41e2-9a6f-4d4ebd4eed4b",
+            "inputNodeId": "484e884c-c707-4e36-bc53-db16868f157b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fb3c677e-2b4c-4ebc-ab21-4d9e50b54f93",
+            "inputNodeId": "d4bc759d-d58c-41e2-9a6f-4d4ebd4eed4b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
+            "inputNodeId": "fb3c677e-2b4c-4ebc-ab21-4d9e50b54f93",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "30701851-5e95-4c92-8001-564c7badc365",
+            "inputNodeId": "64d61528-01cb-450a-8b3b-64861c066aae",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d088ebd4-f369-4e71-8a9e-51d3001aaa44",
+            "inputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "64d61528-01cb-450a-8b3b-64861c066aae",
+            "inputNodeId": "215f9d44-9703-43c9-834a-0a79f96750ae",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "215f9d44-9703-43c9-834a-0a79f96750ae",
+            "inputNodeId": "e779a903-abf5-4623-907a-962c97ea6f06",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "e779a903-abf5-4623-907a-962c97ea6f06",
+            "inputNodeId": "88eba7eb-7208-4753-94a6-17ac2da061a3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "88eba7eb-7208-4753-94a6-17ac2da061a3",
+            "inputNodeId": "d088ebd4-f369-4e71-8a9e-51d3001aaa44",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1e772e23-9319-4ffa-8038-f78854b50d7b",
+            "inputNodeId": "f5c3516d-43af-4f7b-b254-40035d51e641",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f5c3516d-43af-4f7b-b254-40035d51e641",
+            "inputNodeId": "3ebfba84-127f-4b1f-92bc-c80dd614b8c1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3ebfba84-127f-4b1f-92bc-c80dd614b8c1",
+            "inputNodeId": "0c6fcd1e-0560-4c87-a879-f6717f8b8863",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0c6fcd1e-0560-4c87-a879-f6717f8b8863",
+            "inputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
+            "inputNodeId": "2cf4be47-c2b7-4589-a76b-a4b88b096c51",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "inputNodeId": "3afc1297-8c86-455e-b11d-c70d7b2aaf12",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "inputNodeId": "7600bc5e-61d3-4227-8fee-49560b88b527",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "inputNodeId": "324dd233-0844-4e94-a5a8-d8bf2e620e8b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "inputNodeId": "26b8ca05-b47e-4af9-960f-8b39555220ef",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "inputNodeId": "078a1373-4042-4603-ac64-b545cc28c383",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "078a1373-4042-4603-ac64-b545cc28c383",
+            "inputNodeId": "fcb30d9d-9acd-4d56-b4bf-2be51080e4d3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "36b07a7d-c524-4877-8796-484297ef0a93",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 0
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "d5ae2755-5706-4046-87b2-6d92e8646b2b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 1
+        },
+        {
+            "outputNodeId": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "inputNodeId": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2f536e50-c6db-40a5-8db9-2c260ffe7c6c",
+            "inputNodeId": "14c26af8-98d5-4738-a835-13facfc57a31",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0f840cd6-eff3-46a6-b39a-6dcc21987adf",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "870607a5-5bd4-4c18-8cba-d96511c2431a",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "7da62a19-9955-4d8b-92fd-72db1941755f",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "inputNodeId": "a4b7b5fc-261c-4f2d-a38a-fdae3e500535",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": 2
+        },
+        {
+            "outputNodeId": "2cf4be47-c2b7-4589-a76b-a4b88b096c51",
+            "inputNodeId": "48237641-47eb-4de6-9e07-6f63ecd0d021",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "48237641-47eb-4de6-9e07-6f63ecd0d021",
+            "inputNodeId": "526a3c5b-170e-4783-982d-c441f0a332fa",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "03defe51-2a0f-4854-8488-c67f54909078",
+            "inputNodeId": "7abfbfd8-a2ba-4945-9ad9-ce55a1e8b3de",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7abfbfd8-a2ba-4945-9ad9-ce55a1e8b3de",
+            "inputNodeId": "fae2df1c-9fdb-435f-8241-3a4f4df576b7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "6b07d1fe-e557-4dd4-b7ac-2b3617ce0df0",
+            "choiceIndex": 0,
+            "choiceText": "Why standing here this whole time?",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "92ad4eec-9878-4d4e-8d1f-e077521a74eb",
+            "choiceIndex": 1,
+            "choiceText": "You mentioned your supervisor earlier...",
+            "branchPriority": -3
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "30701851-5e95-4c92-8001-564c7badc365",
+            "choiceIndex": 2,
+            "choiceText": "The strange groups in the city...",
+            "branchPriority": -4
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "1e772e23-9319-4ffa-8038-f78854b50d7b",
+            "choiceIndex": 3,
+            "choiceText": "The Qiqiao Festival is starting soon...",
+            "branchPriority": -5
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "2d3e4902-7e11-416a-b713-85ebf3a758ff",
+            "choiceIndex": 4,
+            "choiceText": "About Yuntai going into lockdown...",
+            "branchPriority": -6
+        },
+        {
+            "outputNodeId": "f745db80-440f-483a-ae36-109106a78ea4",
+            "inputNodeId": "3c00808d-de0d-4288-b896-2f2d277b87e2",
+            "choiceIndex": 5,
+            "choiceText": "Sorry to bother you. I’ll be going now.",
+            "branchPriority": -7
+        }
+    ]
+}

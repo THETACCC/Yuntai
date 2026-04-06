@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "45ec99e9-f275-4348-9cb3-82ebb280843c",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_3102",
+            "content": {
+                "en": "There are too many people ahead. I can’t get through.",
+                "zh": "前面围了好多人，走不过去。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "index": 1,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_3103",
+            "content": {
+                "en": "They’re all focused on the stage. They probably won’t leave until the performance ends.",
+                "zh": "他们都盯着戏台，表演结束之前恐怕都不会散掉。",
+                "ja": ""
+            },
+            "positionX": 418.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "746ee5dd-490a-473d-a8f2-77e8d2cbe5b4",
+            "index": 2,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_3104",
+            "content": {
+                "en": "Maybe I should head over to the stage.",
+                "zh": "或许我该去戏台那里看看。",
+                "ja": ""
+            },
+            "positionX": 736.6666870117188,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "45ec99e9-f275-4348-9cb3-82ebb280843c",
+            "inputNodeId": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "d6c84f70-b660-469e-8528-8ad0a4b257e7",
+            "inputNodeId": "746ee5dd-490a-473d-a8f2-77e8d2cbe5b4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+{
+    "nodes": [
+        {
+            "id": "c9893522-7040-4e88-85c0-5fee9c30681b",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31154",
+            "content": {
+                "en": "The stage should be near.",
+                "zh": "穿过这片区域应该就到了",
+                "ja": ""
+            },
+            "positionX": -267.1999816894531,
+            "positionY": 74.39999389648438,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "d53a0a8b-c74d-4916-b27a-1768dbcb1bb1",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31155",
+            "content": {
+                "en": "I should hurry up.",
+                "zh": "赶紧过去吧",
+                "ja": ""
+            },
+            "positionX": 101.5999984741211,
+            "positionY": 75.19999694824219,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "c9893522-7040-4e88-85c0-5fee9c30681b",
+            "inputNodeId": "d53a0a8b-c74d-4916-b27a-1768dbcb1bb1",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

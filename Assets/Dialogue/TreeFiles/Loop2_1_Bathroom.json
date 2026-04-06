@@ -1,0 +1,101 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "...",
+        "zh": "…",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Am I really supposed to pretend nothing happened?",
+        "zh": "我真的应该装作什么都没有发生吗？",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Forget it.",
+            "zh": "前往洗手间。",
+            "ja": ""
+          },
+          "targetIndex": 3
+        },
+        {
+          "text": {
+            "en": "Go to the restroom.",
+            "zh": "还是算了。",
+            "ja": ""
+          },
+          "targetIndex": 2
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "Fine, whatever…",
+        "zh": "就这样吧......",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "Goto_NotEscaped_ViaNextLoop",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "I should keep investigating.",
+        "zh": "还是去继续调查吧。",
+        "ja": ""
+      },
+      "nextIndex": -1
+    }
+  ],
+  "currentIndex": 0
+}

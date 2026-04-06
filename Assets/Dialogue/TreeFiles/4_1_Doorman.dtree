@@ -1,0 +1,95 @@
+{
+    "nodes": [
+        {
+            "id": "792e1829-b83b-4573-a96d-c820f695b2cb",
+            "index": 0,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_1012",
+            "content": {
+                "en": "Aren’t you going to the Qiqiao Festival?",
+                "zh": "您不去乞巧大会么？",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2655a910-7c71-4db2-b0d2-34614e2ce63b",
+            "index": 1,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1013",
+            "content": {
+                "en": "Of course I want to! But I still have to stand guard.",
+                "zh": "想去啊！但我还得看门呢。",
+                "ja": ""
+            },
+            "positionX": 472.6666564941406,
+            "positionY": 104.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "58fe27ae-ed5e-4081-bba4-a71f902b48b5",
+            "index": 2,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1014",
+            "content": {
+                "en": "Go on ahead, little girl. I’ll take a stroll around the festival grounds later.",
+                "zh": "趁早去吧，小姑娘，我会晚点上会场转转的。",
+                "ja": ""
+            },
+            "positionX": 865.3333740234375,
+            "positionY": 107.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3a6eabcc-370f-4a62-8746-e6f89c149ad5",
+            "index": 3,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_1015",
+            "content": {
+                "en": "This is when the festival’s the liveliest—an old tradition, too. The young folks love it. It’s a good thing.",
+                "zh": "这会儿就属大会热闹，也算是老传统了。年轻人也喜欢，真好啊。",
+                "ja": ""
+            },
+            "positionX": 1250.0,
+            "positionY": 112.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "792e1829-b83b-4573-a96d-c820f695b2cb",
+            "inputNodeId": "2655a910-7c71-4db2-b0d2-34614e2ce63b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "2655a910-7c71-4db2-b0d2-34614e2ce63b",
+            "inputNodeId": "58fe27ae-ed5e-4081-bba4-a71f902b48b5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "58fe27ae-ed5e-4081-bba4-a71f902b48b5",
+            "inputNodeId": "3a6eabcc-370f-4a62-8746-e6f89c149ad5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

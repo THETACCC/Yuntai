@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public static SceneController instance;
+    public bool loadingGame;
 
     [Header("Teleport Options")]
     [Tooltip("If true, zeroes out the player's Rigidbody2D velocity when teleporting.")]
@@ -78,7 +79,11 @@ public class SceneController : MonoBehaviour
     {
         if (verboseLog)
             Debug.Log($"[SceneController] LoadSceneAndTeleport -> scene='{sceneName}', spawnId={spawnId}");
-
+        var gm = Gamemanager.instance;
+        if(gm != null)
+        {
+            gm.phase = GamePhase.Eventing;
+        }
         // 1) 黑屏
         if (transitionAnim != null)
         {
@@ -153,7 +158,30 @@ public class SceneController : MonoBehaviour
         if (transitionAnim != null)
         {
             yield return new WaitForSeconds(0.5f);
+
             transitionAnim.SetTrigger("Start");
+            if (gm != null)
+            {
+                gm.phase = GamePhase.Moving;
+            }
+        }
+
+        // 10)保存存档
+        if (loadingGame)
+        {
+            loadingGame = false;
+        } else
+        {
+            SaveManager.instance.SaveGame(isAutoSave: true);
+        }
+    }
+
+    public void setBlackScreenTrigger()
+    {
+        // 1) 黑屏
+        if (transitionAnim != null)
+        {
+        //    transitionAnim.SetTrigger("End");
         }
     }
 

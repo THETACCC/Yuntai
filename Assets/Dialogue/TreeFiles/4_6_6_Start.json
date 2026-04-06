@@ -1,0 +1,83 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "The exit is right ahead!",
+        "zh": "出口就在前面！",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_恐惧",
+      "isPlayer": true,
+      "content": {
+        "en": "But I have a feeling that thing won’t let me leave so easily.",
+        "zh": "总感觉那东西不会让我轻易离开。",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "I need to watch out for its counterattack.",
+        "zh": "得小心它的反扑。",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Press E repeatedly to break free.",
+        "zh": "反复敲击“E”以挣脱束缚。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "34fb001d-325b-4d93-8daf-815c71965831",
+          "targetObjectName": "EnableGhostAfterDelay",
+          "componentTypeName": "EnableAfterDelay",
+          "methodName": "EnableGhost",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

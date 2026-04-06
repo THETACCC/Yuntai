@@ -1,0 +1,99 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Excuse me, ma'am?",
+        "zh": "乘务员女士？",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Why are you standing by my seat? Is something wrong?",
+        "zh": "您为什么要站在我的座位旁边？出什么事了吗？",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "......",
+        "zh": "......",
+        "ja": ""
+      },
+      "nextIndex": 4
+    },
+    {
+      "index": 4,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Ma'am? Is everything okay?",
+        "zh": "女士？",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "07aa3362-cc99-448e-a571-27a10fd5428e",
+          "targetObjectName": "LevelManager1_2",
+          "componentTypeName": "LevelManager1_2",
+          "methodName": "DoSequence5B",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

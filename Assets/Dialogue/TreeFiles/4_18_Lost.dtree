@@ -1,0 +1,85 @@
+{
+    "nodes": [
+        {
+            "id": "d39d40b6-6bc0-4842-bc68-0872b67371f5",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_3113",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 608.0,
+            "positionY": 244.00001525878907,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "5f58906f-c688-41a0-b7bb-55f71bfdd8f2",
+            "index": 1,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch2_3114",
+            "content": {
+                "en": "(Did she just sigh?)",
+                "zh": "（她好像叹了一口气？）",
+                "ja": ""
+            },
+            "positionX": 937.6000366210938,
+            "positionY": 244.00001525878907,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cf0cbf27-8007-426a-a102-ca41babb520a",
+            "index": 2,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch2_3115",
+            "content": {
+                "en": "Wait... (My throat hurts so much—why—)",
+                "zh": "等等......（嗓子好痛，为什么——）",
+                "ja": ""
+            },
+            "positionX": 1256.0,
+            "positionY": 244.00001525878907,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "3e5e7b84-b2b0-467b-a240-3cfb3c4654ac",
+                    "targetObjectName": "ToNextLoop",
+                    "targetSceneName": "Level4_18MusicGame",
+                    "componentTypeName": "ToNextLoop",
+                    "methodName": "toNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "d39d40b6-6bc0-4842-bc68-0872b67371f5",
+            "inputNodeId": "5f58906f-c688-41a0-b7bb-55f71bfdd8f2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5f58906f-c688-41a0-b7bb-55f71bfdd8f2",
+            "inputNodeId": "cf0cbf27-8007-426a-a102-ca41babb520a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

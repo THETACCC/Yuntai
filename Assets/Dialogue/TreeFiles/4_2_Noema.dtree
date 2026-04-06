@@ -1,0 +1,124 @@
+{
+    "nodes": [
+        {
+            "id": "b8c7ed1f-1c8d-49a8-8240-c33af455f4fe",
+            "index": 0,
+            "characterId": "e3614b9a-4789-4305-ac57-4a6bac607584",
+            "useContentId": true,
+            "contentId": "ch2_1047",
+            "content": {
+                "en": "Sorry, Veris. I’m afraid I can’t get away right now.",
+                "zh": "抱歉啊以真。我现在恐怕走不开了。",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 100.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "94590825-04c4-4547-b374-082be6892bf2",
+            "index": 1,
+            "characterId": "5c2350da-c9c0-447f-8406-60bff21a53f5",
+            "useContentId": true,
+            "contentId": "ch2_1048",
+            "content": {
+                "en": "You can go pick up the gift I left you first.",
+                "zh": "你可以先去拿我给你留的礼物。",
+                "ja": ""
+            },
+            "positionX": 440.8000183105469,
+            "positionY": 104.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "2fe0830e-6b5d-4151-8ba3-41fd4626267d",
+            "index": 2,
+            "characterId": "7324b771-f6f5-4d90-b605-0ae0697e44d9",
+            "useContentId": true,
+            "contentId": "ch2_1049",
+            "content": {
+                "en": "Follow the street on the left to the apartment building. My place is 301.",
+                "zh": "沿着左侧街道走可以到公寓楼，我家在301。",
+                "ja": ""
+            },
+            "positionX": 777.6000366210938,
+            "positionY": 106.40000915527344,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "57032057-eee9-4feb-9885-094e95fd8bb4",
+                    "targetObjectName": "ObjectiveCH2_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "77d9f7bd-8419-488c-b3de-d8f73852eb29",
+                    "targetObjectName": "ObjectiveCH2_2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "b8c7ed1f-1c8d-49a8-8240-c33af455f4fe",
+            "inputNodeId": "94590825-04c4-4547-b374-082be6892bf2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "94590825-04c4-4547-b374-082be6892bf2",
+            "inputNodeId": "2fe0830e-6b5d-4151-8ba3-41fd4626267d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
