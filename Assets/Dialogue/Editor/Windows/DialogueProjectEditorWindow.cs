@@ -113,97 +113,414 @@ public class DialogueProjectEditorWindow : EditorWindow
             return;
         }
 
-        if (!EditorUtility.DisplayDialog("Save All",
-            $"Save {folderManager.GuidToPath.Count} file(s)?\n\n这将强制重新保存所有文件", "Yes", "Cancel"))
-            return;
+        // 第一步：检测所有文件的变化
+        Debug.Log("[Save All] 开始检测文件变化...");
+        List<FileChangeInfo> changedFiles = DetectAllFileChanges();
 
+        if (changedFiles.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Save All", "所有文件都已是最新状态，无需保存。", "确定");
+            return;
+        }
+
+        // 第二步：显示变化列表并让用户确认
+        if (!ShowSaveAllConfirmationDialog(changedFiles))
+        {
+            return; // 用户取消
+        }
+
+        // 第三步：执行保存
+        ExecuteSaveAll(changedFiles);
+    }
+
+    private List<FileChangeInfo> DetectAllFileChanges()
+    {
+        List<FileChangeInfo> changedFiles = new List<FileChangeInfo>();
+        int idx = 0;
+
+        foreach (var kvp in folderManager.GuidToPath)
+        {
+            idx++;
+            string dtreePath = kvp.Value;
+            string name = Path.GetFileName(dtreePath);
+            EditorUtility.DisplayProgressBar("检测变化", $"{idx}/{folderManager.GuidToPath.Count}: {name}",
+                (float)idx / folderManager.GuidToPath.Count);
+
+            try
+            {
+                if (!File.Exists(dtreePath))
+                {
+                    changedFiles.Add(new FileChangeInfo
+                    {
+                        fileName = name,
+                        changeType = "文件不存在",
+                        hasError = true
+                    });
+                    continue;
+                }
+
+                string currentDtreeContent = File.ReadAllText(dtreePath);
+                DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(currentDtreeContent);
+
+                if (data == null || data.nodes == null)
+                {
+                    changedFiles.Add(new FileChangeInfo
+                    {
+                        fileName = name,
+                        changeType = "文件格式错误",
+                        hasError = true
+                    });
+                    continue;
+                }
+
+                // 生成更新后的内容
+                DialogueTreeData updatedData = ApplyLocalizationUpdates(data);
+                string newDtreeContent = JsonUtility.ToJson(updatedData, true).Trim().Replace("\r\n", "\n");
+
+                // 规范化当前文件内容的换行符，以便准确对比
+                string normalizedCurrentDtreeContent = currentDtreeContent.Replace("\r\n", "\n").TrimEnd();
+                string normalizedNewDtreeContent = newDtreeContent.TrimEnd();
+
+                // 检查 .dtree 是否有变化
+                bool dtreeChanged = normalizedCurrentDtreeContent != normalizedNewDtreeContent;
+
+                // 检查 .json 是否有变化
+                string runtimePath = Path.ChangeExtension(dtreePath, ".json");
+                bool jsonChanged = false;
+                if (File.Exists(runtimePath))
+                {
+                    string currentJsonContent = File.ReadAllText(runtimePath);
+                    string newJsonContent = GenerateRuntimeJsonContent(updatedData);
+                    
+                    // 规范化换行符进行对比
+                    string normalizedCurrentJson = currentJsonContent.Replace("\r\n", "\n").TrimEnd();
+                    string normalizedNewJson = newJsonContent.TrimEnd();
+                    
+                    jsonChanged = normalizedCurrentJson != normalizedNewJson;
+                }
+                else
+                {
+                    jsonChanged = true; // .json文件不存在，需要生成
+                }
+
+                if (dtreeChanged || jsonChanged)
+                {
+                    List<string> changes = new List<string>();
+                    if (dtreeChanged) changes.Add(".dtree");
+                    if (jsonChanged) changes.Add(".json");
+
+                    changedFiles.Add(new FileChangeInfo
+                    {
+                        fileName = name,
+                        changeType = string.Join(" + ", changes) + " 需要更新",
+                        hasError = false,
+                        data = updatedData
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                changedFiles.Add(new FileChangeInfo
+                {
+                    fileName = name,
+                    changeType = $"检测出错: {e.Message}",
+                    hasError = true
+                });
+            }
+        }
+
+        EditorUtility.ClearProgressBar();
+        return changedFiles;
+    }
+
+    private DialogueTreeData ApplyLocalizationUpdates(DialogueTreeData data)
+    {
+        // 创建副本以避免修改原始数据
+        DialogueTreeData updatedData = JsonUtility.FromJson<DialogueTreeData>(JsonUtility.ToJson(data));
+
+        if (DialogueLocalization.IsLoaded)
+        {
+            foreach (var node in updatedData.nodes)
+            {
+                if (node.useContentId && !string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
+                {
+                    var locData = DialogueLocalization.GetAllLanguages(node.contentId);
+                    if (locData != null)
+                    {
+                        if (node.content == null) node.content = new LocalizedText();
+                        node.content.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                        node.content.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                        node.content.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                    }
+                }
+
+                if (node.choices != null)
+                {
+                    foreach (var choice in node.choices)
+                    {
+                        if (choice.useTextId && !string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
+                        {
+                            var locData = DialogueLocalization.GetAllLanguages(choice.textId);
+                            if (locData != null)
+                            {
+                                if (choice.text == null) choice.text = new LocalizedText();
+                                choice.text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
+                                choice.text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
+                                choice.text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return updatedData;
+    }
+
+    private string GenerateRuntimeJsonContent(DialogueTreeData data)
+    {
+        var runtime = ConvertToRuntime(data);
+        var idxMap = new Dictionary<string, int>();
+        foreach (var n in data.nodes) idxMap[n.id] = n.index;
+
+        string formattedJson = "{\n  \"conversations\": [\n";
+
+        for (int i = 0; i < runtime.Count; i++)
+        {
+            var item = runtime[i];
+            formattedJson += "    {\n";
+            formattedJson += $"      \"index\": {item.index},\n";
+            formattedJson += $"      \"name\": {SerializeLocalizedText(item.name, 3)},\n";
+            formattedJson += $"      \"avatarAddr\": \"{EscapeJsonString(item.avatarAddr)}\",\n";
+            formattedJson += $"      \"isPlayer\": {item.isPlayer.ToString().ToLower()},\n";
+            formattedJson += $"      \"content\": {SerializeLocalizedText(item.content, 3)}";
+
+            if (item.conditionalBranches?.Count > 0)
+            {
+                formattedJson += ",\n      \"conditionalBranches\": [\n";
+                for (int j = 0; j < item.conditionalBranches.Count; j++)
+                {
+                    var branch = item.conditionalBranches[j];
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"targetIndex\": {branch.targetIndex},\n";
+                    formattedJson += $"          \"priority\": {branch.priority}";
+                    if (branch.priority > 0 && branch.conditions?.Count > 0)
+                    {
+                        formattedJson += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < branch.conditions.Count; k++)
+                        {
+                            var cond = branch.conditions[k];
+                            formattedJson += "            {\n";
+                            formattedJson += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            formattedJson += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            formattedJson += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            formattedJson += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            formattedJson += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            formattedJson += "            }";
+                            if (k < branch.conditions.Count - 1) formattedJson += ",";
+                            formattedJson += "\n";
+                        }
+                        formattedJson += "          ],\n";
+                        formattedJson += $"          \"conditionLogic\": \"{branch.conditionLogic}\"\n";
+                    }
+                    else
+                    {
+                        formattedJson += "\n";
+                    }
+                    formattedJson += "        }";
+                    if (j < item.conditionalBranches.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
+                }
+                formattedJson += "      ]";
+            }
+            else
+            {
+                int next = -1;
+                if (!string.IsNullOrEmpty(item.nextNodeId) && idxMap.ContainsKey(item.nextNodeId))
+                    next = idxMap[item.nextNodeId];
+                formattedJson += $",\n      \"nextIndex\": {next}";
+            }
+
+            if (item.choices?.Count > 0)
+            {
+                formattedJson += ",\n      \"choices\": [\n";
+                for (int j = 0; j < item.choices.Count; j++)
+                {
+                    var ch = item.choices[j];
+                    int tgt = -1;
+                    if (!string.IsNullOrEmpty(ch.nextNodeId) && idxMap.ContainsKey(ch.nextNodeId))
+                        tgt = idxMap[ch.nextNodeId];
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"text\": {SerializeLocalizedText(ch.text, 5)},\n";
+                    formattedJson += $"          \"targetIndex\": {tgt}";
+                    if (ch.conditions?.Count > 0)
+                    {
+                        formattedJson += ",\n          \"conditions\": [\n";
+                        for (int k = 0; k < ch.conditions.Count; k++)
+                        {
+                            var cond = ch.conditions[k];
+                            formattedJson += "            {\n";
+                            formattedJson += $"              \"targetObjectName\": \"{EscapeJsonString(cond.targetObjectName)}\",\n";
+                            formattedJson += $"              \"componentTypeName\": \"{EscapeJsonString(cond.componentTypeName)}\",\n";
+                            formattedJson += $"              \"variableName\": \"{EscapeJsonString(cond.variableName)}\",\n";
+                            formattedJson += $"              \"comparison\": \"{cond.comparison}\",\n";
+                            formattedJson += $"              \"compareValue\": \"{EscapeJsonString(cond.compareValue)}\"\n";
+                            formattedJson += "            }";
+                            if (k < ch.conditions.Count - 1) formattedJson += ",";
+                            formattedJson += "\n";
+                        }
+                        formattedJson += "          ],\n";
+                        formattedJson += $"          \"conditionLogic\": \"{ch.conditionLogic}\"\n";
+                    }
+                    else
+                    {
+                        formattedJson += "\n";
+                    }
+                    formattedJson += "        }";
+                    if (j < item.choices.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
+                }
+                formattedJson += "      ]";
+            }
+
+            if (item.eventCalls?.Count > 0)
+            {
+                formattedJson += ",\n      \"eventCalls\": [\n";
+                for (int j = 0; j < item.eventCalls.Count; j++)
+                {
+                    var ev = item.eventCalls[j];
+                    formattedJson += "        {\n";
+                    formattedJson += $"          \"targetObjectID\": \"{EscapeJsonString(ev.targetObjectID)}\",\n";
+                    formattedJson += $"          \"targetObjectName\": \"{EscapeJsonString(ev.targetObjectName)}\",\n";
+                    formattedJson += $"          \"componentTypeName\": \"{EscapeJsonString(ev.componentTypeName)}\",\n";
+                    formattedJson += $"          \"methodName\": \"{EscapeJsonString(ev.methodName)}\",\n";
+                    formattedJson += $"          \"parameterType\": \"{ev.parameterType}\",\n";
+                    formattedJson += $"          \"stringParameter\": \"{EscapeJsonString(ev.stringParameter)}\",\n";
+                    formattedJson += $"          \"intParameter\": {ev.intParameter},\n";
+                    formattedJson += $"          \"floatParameter\": {ev.floatParameter},\n";
+                    formattedJson += $"          \"boolParameter\": {ev.boolParameter.ToString().ToLower()},\n";
+                    formattedJson += $"          \"triggerTiming\": {(int)ev.triggerTiming}\n";
+                    formattedJson += "        }";
+                    if (j < item.eventCalls.Count - 1) formattedJson += ",";
+                    formattedJson += "\n";
+                }
+                formattedJson += "      ]";
+            }
+
+            formattedJson += "\n    }";
+            if (i < runtime.Count - 1) formattedJson += ",";
+            formattedJson += "\n";
+        }
+        formattedJson += "  ],\n  \"currentIndex\": 0\n}";
+
+        return formattedJson.Replace("\r\n", "\n");
+    }
+
+    private bool ShowSaveAllConfirmationDialog(List<FileChangeInfo> changedFiles)
+    {
+        string message = $"检测到 {changedFiles.Count} 个文件需要更新:\n\n";
+
+        int displayCount = Mathf.Min(changedFiles.Count, 15);
+        for (int i = 0; i < displayCount; i++)
+        {
+            var info = changedFiles[i];
+            string status = info.hasError ? "❌" : "✓";
+            message += $"{status} {info.fileName}\n    {info.changeType}\n";
+        }
+
+        if (changedFiles.Count > 15)
+        {
+            message += $"\n... 还有 {changedFiles.Count - 15} 个文件\n";
+        }
+
+        int errorCount = changedFiles.Count(f => f.hasError);
+        int validCount = changedFiles.Count - errorCount;
+
+        message += $"\n总计: {validCount} 个可更新, {errorCount} 个有错误";
+        message += "\n\n是否继续保存？";
+
+        return EditorUtility.DisplayDialog("Save All - 确认更新", message, "保存", "取消");
+    }
+
+    private void ExecuteSaveAll(List<FileChangeInfo> changedFiles)
+    {
         int saved = 0, failed = 0;
         List<string> errors = new List<string>();
 
         try
         {
             int idx = 0;
-            foreach (var kvp in folderManager.GuidToPath)
+            foreach (var fileInfo in changedFiles)
             {
                 idx++;
-                string dtreePath = kvp.Value;
-                string name = Path.GetFileName(dtreePath);
-                EditorUtility.DisplayProgressBar("Save All", $"{idx}/{folderManager.GuidToPath.Count}: {name}",
-                    (float)idx / folderManager.GuidToPath.Count);
+                EditorUtility.DisplayProgressBar("保存文件", $"{idx}/{changedFiles.Count}: {fileInfo.fileName}",
+                    (float)idx / changedFiles.Count);
+
+                if (fileInfo.hasError)
+                {
+                    failed++;
+                    errors.Add(fileInfo.fileName + $" ({fileInfo.changeType})");
+                    continue;
+                }
 
                 try
                 {
-                    if (!File.Exists(dtreePath)) { failed++; errors.Add(name + " (not found)"); continue; }
-
-                    string json = File.ReadAllText(dtreePath);
-                    DialogueTreeData data = JsonUtility.FromJson<DialogueTreeData>(json);
-                    if (data == null || data.nodes == null) { failed++; errors.Add(name + " (invalid)"); continue; }
-
-                    // 更新 Use ID 模式的本地化内容
-                    if (DialogueLocalization.IsLoaded)
+                    var kvp = folderManager.GuidToPath.FirstOrDefault(x => Path.GetFileName(x.Value) == fileInfo.fileName);
+                    if (kvp.Value == null)
                     {
-                        foreach (var node in data.nodes)
-                        {
-                            if (node.useContentId && !string.IsNullOrEmpty(node.contentId) && DialogueLocalization.HasId(node.contentId))
-                            {
-                                var locData = DialogueLocalization.GetAllLanguages(node.contentId);
-                                if (locData != null)
-                                {
-                                    if (node.content == null) node.content = new LocalizedText();
-                                    node.content.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
-                                    node.content.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
-                                    node.content.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
-                                }
-                            }
-
-                            if (node.choices != null)
-                            {
-                                foreach (var choice in node.choices)
-                                {
-                                    if (choice.useTextId && !string.IsNullOrEmpty(choice.textId) && DialogueLocalization.HasId(choice.textId))
-                                    {
-                                        var locData = DialogueLocalization.GetAllLanguages(choice.textId);
-                                        if (locData != null)
-                                        {
-                                            if (choice.text == null) choice.text = new LocalizedText();
-                                            choice.text.en = locData.ContainsKey(Language.English) ? locData[Language.English] : "";
-                                            choice.text.zh = locData.ContainsKey(Language.ChineseSimplified) ? locData[Language.ChineseSimplified] : "";
-                                            choice.text.ja = locData.ContainsKey(Language.Japanese) ? locData[Language.Japanese] : "";
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        failed++;
+                        errors.Add(fileInfo.fileName + " (路径未找到)");
+                        continue;
                     }
 
+                    string dtreePath = kvp.Value;
+
                     // 保存 .dtree
-                    string updatedDtree = JsonUtility.ToJson(data, true).Trim().Replace("\r\n", "\n");
+                    string updatedDtree = JsonUtility.ToJson(fileInfo.data, true).Trim().Replace("\r\n", "\n");
                     System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
-                    if (!File.Exists(dtreePath) || File.ReadAllText(dtreePath) != updatedDtree)
-                        File.WriteAllText(dtreePath, updatedDtree, utf8WithoutBom);
+                    File.WriteAllText(dtreePath, updatedDtree, utf8WithoutBom);
 
                     // 保存运行时 .json
                     string runtimePath = Path.ChangeExtension(dtreePath, ".json");
-                    SaveRuntimeJson(runtimePath, data);
+                    SaveRuntimeJson(runtimePath, fileInfo.data);
 
                     saved++;
                 }
-                catch (Exception e) { failed++; errors.Add(name + $" ({e.Message})"); }
+                catch (Exception e)
+                {
+                    failed++;
+                    errors.Add(fileInfo.fileName + $" ({e.Message})");
+                }
             }
         }
-        finally { EditorUtility.ClearProgressBar(); }
+        finally
+        {
+            EditorUtility.ClearProgressBar();
+        }
 
         AssetDatabase.Refresh();
 
-        string msg = $"Saved: {saved} files (.dtree + .json)";
+        string msg = $"成功保存: {saved} 个文件 (.dtree + .json)";
         if (failed > 0)
         {
-            msg += $"\nFailed: {failed}\n";
-            foreach (var e in errors) msg += $"• {e}\n";
+            msg += $"\n失败: {failed} 个\n\n详细信息:\n";
+            foreach (var e in errors)
+            {
+                msg += $"• {e}\n";
+            }
         }
-        EditorUtility.DisplayDialog("Done", msg, "OK");
+        EditorUtility.DisplayDialog("保存完成", msg, "确定");
 
         RefreshAllOpenEditorWindows();
+    }
+
+    // 文件变化信息类
+    private class FileChangeInfo
+    {
+        public string fileName;
+        public string changeType;
+        public bool hasError;
+        public DialogueTreeData data;
     }
 
     private void RefreshAll()
