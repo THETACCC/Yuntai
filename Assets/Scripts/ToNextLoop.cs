@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 using Fungus;    // 为了 StopAllBlocks / SayDialog
-
+using static AudioManager;
 public class ToNextLoop : MonoBehaviour
 {
     [Header("Scenes")]
@@ -99,6 +99,11 @@ public class ToNextLoop : MonoBehaviour
         deathVideoPlayer.frame = 0;
         deathVideoPlayer.Play();
 
+        //Audio 
+        AudioManager.PlayOneShot("Sound Effects/Chapter1/sndLoopSound", AudioGroup.SFX);
+        AudioManager.PlayOneShot("Sound Effects/Chapter1/sndLoopSoundLayer2", AudioGroup.SFX);
+        AudioManager.PlayOneShot("Sound Effects/Chapter1/sndLoopSoundLayer3", AudioGroup.SFX);
+        AudioManager.PlayOneShot("Sound Effects/Chapter1/sndLoopSoundLayer4", AudioGroup.SFX);
         float t = 0f;
 
         while (true)
