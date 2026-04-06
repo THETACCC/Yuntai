@@ -19,6 +19,9 @@ public class Gamemanager : MonoBehaviour
 
     private GamePhase lastPhase;
 
+    public bool isChapter1 = false;
+    public GameObject myChapter1Music;
+
     private void Awake()
     {
         if (instance == null)
@@ -56,6 +59,13 @@ public class Gamemanager : MonoBehaviour
             lastPhase = phase;
         }
     }
+
+
+    public void enableChapter1()
+    {
+        myChapter1Music.SetActive(true);
+    }
+
 
     public void SetPhase(
         GamePhase newPhase,
