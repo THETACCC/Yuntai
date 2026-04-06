@@ -1397,6 +1397,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 149014558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &149014560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+  m_PrefabInstance: {fileID: 149014558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &154611540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5305,10 +5310,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 440264934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: bd904c66-3226-4d88-b23b-583abd625686
+  uniqueID: 09c50557-3829-4a13-b1e6-eed633b320c3
 --- !u!1001 &441822775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8199,6 +8204,52 @@ Transform:
   - {fileID: 892880996}
   m_Father: {fileID: 1203927952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &682509750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 682509753}
+  - component: {fileID: 682509754}
+  m_Layer: 0
+  m_Name: Shader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &682509753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682509750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.293543, y: 13.337076, z: -3.3497436}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682509754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682509750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7bd20fd7fa1b5e4a9dbdf8ca9869ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bwMaterial: {fileID: 2100000, guid: 1330ce31e39ad3740836741f18d99872, type: 2}
+  defaultIntensity: 0
 --- !u!1001 &692248936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15201,7 +15252,7 @@ MonoBehaviour:
   spiderWebMaterial: {fileID: 2100000, guid: be4e2d6f79120af478f0ffb845a9f083, type: 2}
   buildDuration: 3
   buildFeather: 0.03
-  playOnStart: 1
+  playOnStart: 0
 --- !u!4 &1182711120
 Transform:
   m_ObjectHideFlags: 0
@@ -16681,6 +16732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
+  - component: {fileID: 1279740583}
   - component: {fileID: 1279740584}
   - component: {fileID: 1279740585}
   m_Layer: 0
@@ -16720,7 +16772,6 @@ MonoBehaviour:
   hidePlayerOnSceneStart: 0
   lockPlayerOnSceneStart: 0
   mainVCam: {fileID: 0}
-  zoomInOrthoSize: 6
   zoomDuration: 0.5
   LanternStall: {fileID: 575548756}
   LanternStall_wait: {fileID: 347563439}
@@ -16731,7 +16782,7 @@ MonoBehaviour:
   puzzleLanternManager: {fileID: 1283386929}
   puzzleLanternCollider: {fileID: 769601383}
   puzzleLanternColliderChild: {fileID: 1739576176}
-  NeedToPlayLanternAnim: 0
+  NeedToPlayLanternAnim: 1
   beastShadow: {fileID: 0}
   greenBlinkCount: 3
   greenOnTime: 0.25
@@ -16742,7 +16793,55 @@ MonoBehaviour:
   horrorAudioSource: {fileID: 0}
   horrorRoarClip: {fileID: 0}
   MC_scaredDialogue: {fileID: 1279740584}
-  door: {fileID: 0}
+  door1: {fileID: 149014560}
+  door2: {fileID: 2041698050}
+  playerSoulEcho: {fileID: 0}
+  blackWhiteFlicker: {fileID: 0}
+  horrorVCam: {fileID: 0}
+  soulZoomSize: 8
+  soulZoomTime: 0.6
+  soulTiltAngle: -8
+  soulZoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  wipeSmearMaterial: {fileID: 2100000, guid: 56303c1d489afe844af2f68353429db3, type: 2}
+  wipeSmearDuration: 1.2
+  spiderWebAnimator: {fileID: 1182711119}
+  spiderWebExtraHold: 0.3
+--- !u!114 &1279740583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 01caa6ed-12f3-46b0-9378-847380577f0d
 --- !u!114 &1279740584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16769,10 +16868,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279740580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Script: {fileID: 11500000, guid: e7bd20fd7fa1b5e4a9dbdf8ca9869ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: b92713b7-a657-4ca4-af2a-ef7218fb4df8
+  bwMaterial: {fileID: 2100000, guid: 1330ce31e39ad3740836741f18d99872, type: 2}
+  defaultIntensity: 0
 --- !u!1 &1283386927
 GameObject:
   m_ObjectHideFlags: 0
@@ -20461,8 +20561,8 @@ GameObject:
   - component: {fileID: 1627561068}
   - component: {fileID: 1627561067}
   - component: {fileID: 1627561069}
+  - component: {fileID: 1627561070}
   - component: {fileID: 1627561071}
-  - component: {fileID: 1627561072}
   m_Layer: 0
   m_Name: LanternHorrorTrigger
   m_TagString: Untagged
@@ -20524,7 +20624,7 @@ Transform:
   m_GameObject: {fileID: 1627561066}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.13, y: 4.3942003, z: -3.5227687}
+  m_LocalPosition: {x: 11.91, y: 4.3942003, z: -3.5227687}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20543,6 +20643,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
+--- !u!114 &1627561070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627561066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b18f5a9a75f9644936f61542eb504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: acbd209d-d7bb-4deb-8230-d861994fa907
 --- !u!114 &1627561071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20570,19 +20683,6 @@ MonoBehaviour:
   playerBehavioursToDisable: []
   playerTransformOverride: {fileID: 0}
   verboseLog: 0
---- !u!114 &1627561072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627561066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueID: 3e4ca14d-573d-4d4d-ba78-8ffa52f89e0b
 --- !u!1 &1629179175
 GameObject:
   m_ObjectHideFlags: 0
@@ -25194,6 +25294,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 2041698048}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2041698050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+  m_PrefabInstance: {fileID: 2041698048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2042799450
 GameObject:
   m_ObjectHideFlags: 0
@@ -26270,5 +26375,6 @@ SceneRoots:
   - {fileID: 301910737}
   - {fileID: 1627561068}
   - {fileID: 1880142178}
-  - {fileID: 1182711120}
   - {fileID: 1037051378}
+  - {fileID: 682509753}
+  - {fileID: 1182711120}

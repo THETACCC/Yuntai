@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// Drives the _BuildProgress parameter on the SpiderWeb material, so the web "grows" from the center outward.
+// Drives the _BuildProgress parameter on the SpiderWeb material, so the web "grows" from the center outward.
 public class SpiderWebAnimator : MonoBehaviour
 {
     public Material spiderWebMaterial;
@@ -11,7 +11,7 @@ public class SpiderWebAnimator : MonoBehaviour
     [Range(0.0f, 0.25f)]
     public float buildFeather = 0.03f;
 
-    public bool playOnStart = true;
+    public bool playOnStart = false;
 
     private float elapsed = 0f;
     private bool isPlaying = false;
@@ -31,7 +31,7 @@ public class SpiderWebAnimator : MonoBehaviour
             Play();
     }
 
-    /// start building the web
+    // start building the web
     public void Play()
     {
         if (spiderWebMaterial == null)
