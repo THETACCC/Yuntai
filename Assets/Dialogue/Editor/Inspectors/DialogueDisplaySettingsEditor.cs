@@ -28,9 +28,12 @@ public class DialogueDisplaySettingsEditor : Editor
         }
 
         EditorGUILayout.Space();
+        settings.showDialogueHistory = EditorGUILayout.Toggle("Show Dialogue History", settings.showDialogueHistory);
+
+
 
         // ✅ 智能显示引用字段逻辑
-        ShowReferenceIfNull("Dialogue Manager", ref settings.dialogueManager);
+        ShowReferenceIfNull("Dialogue Manager", ref settings.dialogueController);
         //ShowReferenceIfNull("Avatar Prefab", ref settings.avatarPrefab);
         //ShowReferenceIfNull("Name Prefab", ref settings.namePrefab);
 

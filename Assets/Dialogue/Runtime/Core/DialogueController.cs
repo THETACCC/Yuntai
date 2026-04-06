@@ -44,6 +44,10 @@ public class DialogueController : MonoBehaviour
     [Header("Components")]
     public Image NPCAvatar;
     public TextMeshProUGUI NPCName;
+  
+    public GameObject historyButton;
+    public GameObject historyContentUI;
+    public TextMeshProUGUI historyContentText;
 
     private void Awake()
     {
@@ -124,7 +128,9 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
-            //update information
+            //****************************update information***************************************
+            
+
 
             // stop previous typing if still running
             if (textAnimationCoroutine != null)
@@ -132,6 +138,12 @@ public class DialogueController : MonoBehaviour
             // start new typing animation
             textAnimationCoroutine = StartCoroutine(TextAnimation(currentConversation.content.GetText(languageCode)));
             string speakerName = currentConversation.name.GetText(languageCode);
+
+            //add text history
+            // 说话人加粗+颜色，分隔线更清晰
+            historyContentText.text += $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
+                                      $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
+                                      $"<color=#DDDDDD>―――――――――――――</color>\n";
 
             //check if separate
             if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
@@ -270,8 +282,6 @@ public class DialogueController : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private IEnumerator TextAnimation(string text)
@@ -751,6 +761,14 @@ public class DialogueController : MonoBehaviour
 
         Debug.LogError($"[DialogueController] Conversation with index {index} not found");
         return null;
+    }
+
+    public void OpenCloseHistory()
+    {
+        if (historyContentUI != null)
+        {
+            historyContentUI.SetActive(!historyContentUI.activeInHierarchy);
+        }
     }
 }
 

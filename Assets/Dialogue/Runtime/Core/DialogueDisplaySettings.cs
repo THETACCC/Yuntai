@@ -16,7 +16,7 @@ public class DialogueDisplaySettings : MonoBehaviour
 {
     public static DialogueDisplaySettings instance;
 
-    public DialogueController dialogueManager;
+    public DialogueController dialogueController;
 
     public string currentLanguage = "en";
     public List<DialogueLanguage> DialogueLanguages;
@@ -26,10 +26,12 @@ public class DialogueDisplaySettings : MonoBehaviour
     public bool separatePlayerAndNPC;
     public Color inactiveAvatarColor;
 
+    public bool showDialogueHistory;
+
     private void Awake()
     {
         instance = this;
-        dialogueManager = GetComponent<DialogueController>();
+        dialogueController = GetComponent<DialogueController>();
 
         if (Settings.instance != null && (DialogueLanguages == null || DialogueLanguages.Count == 0))
         {
@@ -88,16 +90,21 @@ public class DialogueDisplaySettings : MonoBehaviour
         if (Application.isPlaying) return;
 
         // 添加空引用检查，避免编辑器模式下报错
-        if (dialogueManager == null) return;
+        if (dialogueController == null) return;
 
-        if (dialogueManager.NPCAvatar != null)
+        if (dialogueController.NPCAvatar != null)
         {
-            dialogueManager.NPCAvatar.gameObject.SetActive(separatePlayerAndNPC);
+            dialogueController.NPCAvatar.gameObject.SetActive(separatePlayerAndNPC);
         }
 
-        if (dialogueManager.NPCName != null && dialogueManager.NPCName.transform.parent != null)
+        if (dialogueController.NPCName != null && dialogueController.NPCName.transform.parent != null)
         {
-            dialogueManager.NPCName.transform.parent.gameObject.SetActive(separatePlayerAndNPC);
+            dialogueController.NPCName.transform.parent.gameObject.SetActive(separatePlayerAndNPC);
+        }
+
+        if (dialogueController.historyButton != null)
+        {
+            dialogueController.historyButton.SetActive(showDialogueHistory);
         }
     }
 
