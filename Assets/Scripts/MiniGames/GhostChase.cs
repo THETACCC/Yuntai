@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
 
 public class GhostChase : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class GhostChase : MonoBehaviour
     public void EnableGhost()
     {
         isAllowMove = true;
+        AudioManager.Play("Sound Effects/sndMonsterRoar", AudioGroup.SFX);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
