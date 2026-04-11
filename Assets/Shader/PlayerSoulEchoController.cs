@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerSoulEchoController : MonoBehaviour
 {
     [Header("Source (animated) SpriteRenderer")]
-    [Tooltip("Usually the SpriteRenderer that is playing the walking/idle animation.")]
+    [Tooltip("If left empty, this script will try to use the parent SpriteRenderer first, then its own.")]
     public SpriteRenderer sourceRenderer;
 
     [Header("Soul Material (Chromatic Aberration)")]
@@ -28,10 +28,10 @@ public class PlayerSoulEchoController : MonoBehaviour
     public Vector2 knockDirection = new Vector2(1f, 0.2f);
 
     [Header("Timing")]
-    [Tooltip("Time for echoes to fly outward (used by LevelManager3_3).")]
+    [Tooltip("Time for echoes to fly outward.")]
     public float knockDuration = 0.6f;
 
-    [Tooltip("Time for echoes to come back and fade out (used by LevelManager3_3).")]
+    [Tooltip("Time for echoes to come back and fade out.")]
     public float returnDuration = 0.6f;
 
     [Tooltip("Position curve for knock-out (0→1).")]
@@ -46,13 +46,12 @@ public class PlayerSoulEchoController : MonoBehaviour
     [Tooltip("SortingOrder offset relative to the source sprite.")]
     public int sortingOrderOffset = 1;
 
-    // internal echo info
     private class Echo
     {
         public Transform tf;
         public SpriteRenderer sr;
-        public float sideSign;  // +1 or -1
-        public int index;       // 1..echoesPerSide
+        public float sideSign;
+        public int index;
     }
 
     private readonly List<Echo> _echoes = new List<Echo>();
@@ -64,31 +63,41 @@ public class PlayerSoulEchoController : MonoBehaviour
 
     private void Reset()
     {
-        // Auto-assign sourceRenderer if possible
-        if (sourceRenderer == null)
-            sourceRenderer = GetComponent<SpriteRenderer>();
+        AutoResolveSourceRenderer();
     }
 
     private void Awake()
     {
-        if (sourceRenderer == null)
-            sourceRenderer = GetComponent<SpriteRenderer>();
+        AutoResolveSourceRenderer();
     }
 
-    /// Called by LevelManager3_3 before green flicker.
-    /// Spawns echoes and animates them flying outward.
+    private void AutoResolveSourceRenderer()
+    {
+        if (sourceRenderer != null) return;
+
+        // Prefer parent's SpriteRenderer first
+        if (transform.parent != null)
+        {
+            sourceRenderer = transform.parent.GetComponent<SpriteRenderer>();
+            if (sourceRenderer != null) return;
+        }
+
+        // Fallback to self
+        sourceRenderer = GetComponent<SpriteRenderer>();
+    }
+
     public void StartKnockOut()
     {
+        AutoResolveSourceRenderer();
+
         if (sourceRenderer == null)
         {
             Debug.LogWarning("[PlayerSoulEchoController] StartKnockOut: sourceRenderer is null.", this);
             return;
         }
 
-        // Stop any old coroutines & clean up previous echoes
         ClearEchoes();
 
-        // Capture current frame & base data
         Sprite sprite = sourceRenderer.sprite;
         if (sprite == null)
         {
@@ -103,27 +112,16 @@ public class PlayerSoulEchoController : MonoBehaviour
         int baseOrder = sourceRenderer.sortingOrder;
         Transform srcTf = sourceRenderer.transform;
 
-        // Prepare a base material to clone for each echo
-        Material baseMat;
-        if (soulMaterial != null)
-        {
-            baseMat = soulMaterial;
-        }
-        else
-        {
-            // Fallback: use current shared material
-            baseMat = sourceRenderer.sharedMaterial;
-        }
+        Material baseMat = soulMaterial != null ? soulMaterial : sourceRenderer.sharedMaterial;
 
-        // Spawn echoes on both sides: sideSign = +1 and -1
         for (int side = -1; side <= 1; side += 2)
         {
-            float sideSign = (float)side;
+            float sideSign = side;
 
             for (int i = 1; i <= echoesPerSide; i++)
             {
                 GameObject echoGO = new GameObject($"SoulEcho_{sideSign}_{i}");
-                echoGO.transform.position = _basePosition;    // start at player position
+                echoGO.transform.position = _basePosition;
                 echoGO.transform.rotation = srcTf.rotation;
                 echoGO.transform.localScale = srcTf.lossyScale;
 
@@ -134,37 +132,30 @@ public class PlayerSoulEchoController : MonoBehaviour
                 sr.sortingLayerID = baseLayer;
                 sr.sortingOrder = baseOrder + sortingOrderOffset;
 
-                // Clone material per echo so we can drive _Phase independently if we want
                 if (baseMat != null)
                     sr.material = new Material(baseMat);
 
-                // Optional: start fully visible
                 var c = sr.color;
                 c.a = 1f;
                 sr.color = c;
 
-                // Ensure _Phase starts at 0
                 if (sr.material != null && sr.material.HasProperty(PhaseID))
                     sr.material.SetFloat(PhaseID, 0f);
 
-                var echo = new Echo
+                _echoes.Add(new Echo
                 {
                     tf = echoGO.transform,
                     sr = sr,
                     sideSign = sideSign,
                     index = i
-                };
-                _echoes.Add(echo);
+                });
             }
         }
 
-        // Start knock-out motion coroutine
         if (_knockCo != null) StopCoroutine(_knockCo);
         _knockCo = StartCoroutine(CoKnockOut());
     }
 
-    // Called by LevelManager3_3 after green flicker.
-    // Animates echoes coming back toward the player and fading out.
     public void StartReturn()
     {
         if (_echoes.Count == 0)
@@ -195,14 +186,10 @@ public class PlayerSoulEchoController : MonoBehaviour
 
             foreach (var e in _echoes)
             {
-                // Distance for this echo = spacing * index
                 float dist = echoSpacing * e.index;
-
-                // sideSign = +1 or -1 → front/back
                 Vector3 offset = (Vector3)(dir * dist * e.sideSign * k);
                 e.tf.position = _basePosition + offset;
 
-                // Drive _Phase from 0→1 (more “separated”)
                 if (e.sr != null && e.sr.material != null && e.sr.material.HasProperty(PhaseID))
                     e.sr.material.SetFloat(PhaseID, k);
             }
@@ -211,7 +198,6 @@ public class PlayerSoulEchoController : MonoBehaviour
             yield return null;
         }
 
-        // Ensure final outward position & full phase
         foreach (var e in _echoes)
         {
             if (e.tf == null) continue;
@@ -246,8 +232,8 @@ public class PlayerSoulEchoController : MonoBehaviour
                 ? returnCurve.Evaluate(Mathf.Clamp01(t / returnDuration))
                 : Mathf.Clamp01(t / returnDuration);
 
-            float backFactor = 1f - k;   // 1→0：far → near
-            float alpha = backFactor;    // also fade out
+            float backFactor = 1f - k;
+            float alpha = backFactor;
 
             foreach (var e in _echoes)
             {
@@ -257,12 +243,10 @@ public class PlayerSoulEchoController : MonoBehaviour
                 Vector3 offset = (Vector3)(dir * dist * e.sideSign * backFactor);
                 e.tf.position = _basePosition + offset;
 
-                // fade alpha
                 var c = e.sr.color;
                 c.a = alpha;
                 e.sr.color = c;
 
-                // _Phase from 1→0 (merge back)
                 if (e.sr.material != null && e.sr.material.HasProperty(PhaseID))
                     e.sr.material.SetFloat(PhaseID, backFactor);
             }
@@ -284,5 +268,4 @@ public class PlayerSoulEchoController : MonoBehaviour
         }
         _echoes.Clear();
     }
-
 }
