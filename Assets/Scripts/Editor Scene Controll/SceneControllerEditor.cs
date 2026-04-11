@@ -195,6 +195,8 @@ public enum SceneTitle
     Level4_19StageFail = 41,
     Level4_20StageSuccess = 42,
     Level5_1Zhoushu = 43,
+
+    JasmineTest = 100,
 }
 
 public enum SceneCategory

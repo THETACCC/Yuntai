@@ -237,6 +237,12 @@ public static class GlobalLibrary
 
 
         }},
+
+        {SceneTitle.JasmineTest, new SceneSpecifics()
+        {
+
+
+        }},
     };
 
 
@@ -254,7 +260,7 @@ public static class GlobalLibrary
             SceneTitle.Level4_11FestivalPuzzle1, SceneTitle.Level4_12FestivalPuzzle2, SceneTitle.Level4_13FestivalPuzzle3, SceneTitle.Level4_14FestivalPuzzle4,SceneTitle.Level4_15FestivalPuzzle5,SceneTitle.Level4_151FestivalPuzzle6,SceneTitle.Level4_16FestivalKill,
             SceneTitle.Level4_18MusicGame,SceneTitle.Level4_19StageFail,SceneTitle.Level4_20StageSuccess, SceneTitle.Level5_1Zhoushu,
 
-
+            SceneTitle.JasmineTest,
         } },
                             
     };
@@ -308,6 +314,8 @@ public static class GlobalLibrary
         {SceneTitle.Level4_19StageFail, "Level4_19StageFail" },
         {SceneTitle.Level4_20StageSuccess, "Level4_20StageSuccess" },
         {SceneTitle.Level5_1Zhoushu, "Level5_1Zhoushu" },
+
+        {SceneTitle.JasmineTest, "JasmineTest" },
     };
 
     public static readonly Dictionary<int, SceneTitle> G_SCENE_INDEX = new Dictionary<int, SceneTitle>()
