@@ -154,7 +154,7 @@ public class NoteBookReader : MonoBehaviour
             nameText.text = NoteBookLocalization.instance.GetText(data.NameID);
 
         if (descriptionText != null)
-            descriptionText.text = NoteBookLocalization.instance.GetText(data.Body0ID);
+            descriptionText.text = NoteBookLocalization.instance.GetText(data.InfoID);
 
         if (titleText != null)
             titleText.text = NoteBookLocalization.instance.GetText(data.TitleID);

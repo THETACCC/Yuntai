@@ -1163,11 +1163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractIndicator: {fileID: 226171905}
-  triggerManagerFunctionOnE: 0
-  targetLevelManager: {fileID: 0}
-  onEPressed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &226171909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5697,8 +5692,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenename: Level2-2
   SpawnPointLocation: 0
-  DeathVideoPlayerObject: {fileID: 0}
-  deathVideoPlayer: {fileID: 0}
+  DeathAnimationPlayer: {fileID: 0}
+  deathAnimator: {fileID: 0}
+  targetStateName: Dead
   hardTimeoutSeconds: 12
   allowSkipWithAnyKey: 0
   DeathAnimationSound: {fileID: 0}
@@ -9790,11 +9786,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractIndicator: {fileID: 1996144624}
-  triggerManagerFunctionOnE: 0
-  targetLevelManager: {fileID: 0}
-  onEPressed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2011998475
 GameObject:
   m_ObjectHideFlags: 0
