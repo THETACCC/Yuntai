@@ -11,15 +11,30 @@ public class UI_E : MonoBehaviour
 
     [Header("E Press Trigger")]
     [SerializeField] private bool triggerManagerFunctionOnE = false;
-    [SerializeField] private BaseLevelManager targetLevelManager;
     [SerializeField] private UnityEvent onEPressed;
 
-    // child classes can read this
     protected bool isPlayerInTrigger = false;
 
     protected virtual void Start()
     {
         if (InteractIndicator) InteractIndicator.SetActive(false);
+    }
+
+    protected virtual void Update()
+    {
+        if (!isPlayerInTrigger) return;
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.W))
+        {
+            SetIndicator(false);
+
+            AudioManager.Play("Sound Effects/Henk/sndSpeak", AudioGroup.SFX);
+
+            if (triggerManagerFunctionOnE)
+            {
+                onEPressed?.Invoke();
+            }
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
@@ -28,31 +43,6 @@ public class UI_E : MonoBehaviour
         {
             isPlayerInTrigger = true;
             SetIndicator(true);
-        }
-    }
-
-    protected virtual void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.W))
-            {
-                SetIndicator(false);
-
-                AudioManager.Play("Sound Effects/Henk/sndSpeak", AudioGroup.SFX);
-
-                if (triggerManagerFunctionOnE)
-                {
-                    if (targetLevelManager != null)
-                    {
-                        onEPressed?.Invoke();
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"{name}: triggerManagerFunctionOnE is checked, but targetLevelManager is not assigned.");
-                    }
-                }
-            }
         }
     }
 

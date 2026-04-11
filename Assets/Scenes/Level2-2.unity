@@ -3126,10 +3126,11 @@ MonoBehaviour:
   defaultFrequency: 4
   defaultDuration: 0.5
   offsetScreenScale: 0.02
-  shakeOnPlayerTrigger: 1
+  shakeOnPlayerTrigger: 0
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 0
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []
@@ -6963,6 +6964,7 @@ MonoBehaviour:
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 1
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []
@@ -9348,6 +9350,7 @@ MonoBehaviour:
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 1
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []
@@ -11452,7 +11455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractIndicator: {fileID: 1847265378}
   triggerManagerFunctionOnE: 0
-  targetLevelManager: {fileID: 0}
   onEPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -12630,6 +12632,7 @@ MonoBehaviour:
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 1
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []

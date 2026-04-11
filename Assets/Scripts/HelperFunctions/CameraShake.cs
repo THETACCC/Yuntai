@@ -34,6 +34,9 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private PhysicsMode physicsMode = PhysicsMode.Auto;
     [SerializeField] private float duplicateTriggerWindow = 0.05f;
 
+    [SerializeField] private bool triggerOnlyOnce = true;   // 默认只触发一次
+    private bool hasTriggered = false;                      // 记录是否已经触发过
+
     [Header("Follow & Player Freeze（可选）")]
     [Tooltip("若 VCam.Follow 为空，则在抖动期间临时绑定到玩家，结束后还原。")]
     [SerializeField] private bool ensureFollowPlayerDuringShake = true;
@@ -80,7 +83,6 @@ public class CameraShake : MonoBehaviour
             return;
         }
 
-        // Perlin 组件
         perlin = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         if (!perlin) perlin = vcam.AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         if (perlin.m_NoiseProfile == null && noiseProfile != null)
@@ -88,12 +90,10 @@ public class CameraShake : MonoBehaviour
         baseAmp = perlin.m_AmplitudeGain;
         baseFreq = perlin.m_FrequencyGain;
 
-        // CameraOffset 组件（用于兜底抖动）
         camOffset = vcam.GetComponent<CinemachineCameraOffset>();
         if (!camOffset) camOffset = vcam.gameObject.AddComponent<CinemachineCameraOffset>();
         baseOffset = camOffset.m_Offset;
 
-        // 如果需要冻结玩家，尽量提前找到玩家刚体
         var playerTf = GetPlayerTransform();
         if (playerTf)
         {
@@ -102,12 +102,8 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    // ===== Public API =====
     public void Shake() => Shake(defaultAmplitude, defaultFrequency, defaultDuration);
 
-    /// <summary>
-    /// 触发抖动（自动选择 Perlin 或 CameraOffset 兜底方式）。
-    /// </summary>
     public void Shake(float amplitude, float frequency, float duration)
     {
         if (running != null) StopCoroutine(running);
@@ -124,26 +120,26 @@ public class CameraShake : MonoBehaviour
         running = null;
     }
 
-    // ===== Core =====
+    public void ResetTriggerShake()
+    {
+        hasTriggered = false;
+    }
+
     private IEnumerator CoShake(float amp, float freq, float dur)
     {
-        // 1) 可选：确保 VCam 跟着玩家
         MaybeBindFollowToPlayer();
 
-        // 2) 可选：冻结玩家
         if (freezePlayerDuringShake) FreezePlayer();
 
-        // 3) 选择抖动路径（Perlin 优先，否则 Offset 抖动）
         bool usePerlin = (perlin != null && perlin.m_NoiseProfile != null);
 
         if (usePerlin)
         {
             if (verboseLog) Debug.Log("[CameraShake] Using PERLIN shake.");
-            // 记录当前值
+
             baseAmp = perlin.m_AmplitudeGain;
             baseFreq = perlin.m_FrequencyGain;
 
-            // 应用抖动
             perlin.m_AmplitudeGain = amp;
             perlin.m_FrequencyGain = freq;
 
@@ -179,7 +175,6 @@ public class CameraShake : MonoBehaviour
             RestoreOffset();
         }
 
-        // 4) 还原 Follow & 解冻玩家
         RestoreFollow();
         UnfreezePlayer();
 
@@ -201,7 +196,6 @@ public class CameraShake : MonoBehaviour
             camOffset.m_Offset = baseOffset;
     }
 
-    // ===== Follow 处理 =====
     private Transform GetPlayerTransform()
     {
         if (playerTransformOverride) return playerTransformOverride;
@@ -217,8 +211,8 @@ public class CameraShake : MonoBehaviour
         var playerTf = GetPlayerTransform();
         if (!playerTf) return;
 
-        savedFollow = null;           // 之前是 null，用完还原成 null
-        vcam.Follow = playerTf;       // 临时绑定
+        savedFollow = null;
+        vcam.Follow = playerTf;
         if (verboseLog) Debug.Log("[CameraShake] Temporarily bound VCam.Follow to player.");
     }
 
@@ -228,7 +222,6 @@ public class CameraShake : MonoBehaviour
 
         if (savedFollow == null && vcam && vcam.Follow != null && vcam.Follow == GetPlayerTransform())
         {
-            // 之前没有 Follow，现在改回 null
             vcam.Follow = null;
             if (verboseLog) Debug.Log("[CameraShake] Restored VCam.Follow (set back to null).");
         }
@@ -240,7 +233,6 @@ public class CameraShake : MonoBehaviour
         savedFollow = null;
     }
 
-    // ===== 冻结玩家 =====
     private void FreezePlayer()
     {
         disabledComps.Clear();
@@ -259,7 +251,7 @@ public class CameraShake : MonoBehaviour
             rb2dWasVelocity = rb2d.velocity;
 
             rb2d.velocity = Vector2.zero;
-            rb2d.isKinematic = true;       // 硬冻结
+            rb2d.isKinematic = true;
             rb2d.gravityScale = 0f;
         }
         else if (rb3d)
@@ -274,14 +266,12 @@ public class CameraShake : MonoBehaviour
 
     private void UnfreezePlayer()
     {
-        // 还原脚本
         foreach (var (comp, wasEnabled) in disabledComps)
         {
             if (comp) comp.enabled = wasEnabled;
         }
         disabledComps.Clear();
 
-        // 还原刚体
         if (rb2d)
         {
             rb2d.isKinematic = rb2dWasKinematic;
@@ -295,24 +285,37 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    // ===== Trigger hooks =====
-    private void OnTriggerEnter(Collider other)          // 3D
+    private bool CanTriggerShake()
     {
-        if (!shakeOnPlayerTrigger) return;
+        if (!shakeOnPlayerTrigger) return false;
+        if (triggerOnlyOnce && hasTriggered) return false;
+        if (Time.time - lastTriggerTime < duplicateTriggerWindow) return false;
+        return true;
+    }
+
+    private void MarkTriggered()
+    {
+        lastTriggerTime = Time.time;
+        hasTriggered = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (physicsMode == PhysicsMode.Only2D) return;
         if (!other.CompareTag(playerTag)) return;
-        if (Time.time - lastTriggerTime < duplicateTriggerWindow) return;
-        lastTriggerTime = Time.time;
+        if (!CanTriggerShake()) return;
+
+        MarkTriggered();
         Shake();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)      // 2D
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!shakeOnPlayerTrigger) return;
         if (physicsMode == PhysicsMode.Only3D) return;
         if (!other.CompareTag(playerTag)) return;
-        if (Time.time - lastTriggerTime < duplicateTriggerWindow) return;
-        lastTriggerTime = Time.time;
+        if (!CanTriggerShake()) return;
+
+        MarkTriggered();
         Shake();
     }
 }
