@@ -1397,11 +1397,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 149014558}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &149014560 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
-  m_PrefabInstance: {fileID: 149014558}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &154611540
 GameObject:
   m_ObjectHideFlags: 0
@@ -16772,6 +16767,7 @@ MonoBehaviour:
   hidePlayerOnSceneStart: 0
   lockPlayerOnSceneStart: 0
   mainVCam: {fileID: 0}
+  zoomInOrthoSize: 6
   zoomDuration: 0.5
   LanternStall: {fileID: 575548756}
   LanternStall_wait: {fileID: 347563439}
@@ -16793,8 +16789,7 @@ MonoBehaviour:
   horrorAudioSource: {fileID: 0}
   horrorRoarClip: {fileID: 0}
   MC_scaredDialogue: {fileID: 1279740584}
-  door1: {fileID: 149014560}
-  door2: {fileID: 2041698050}
+  door: {fileID: 0}
   playerSoulEcho: {fileID: 0}
   blackWhiteFlicker: {fileID: 0}
   horrorVCam: {fileID: 0}
@@ -16859,6 +16854,7 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
+  isInstantTrigger: 0
 --- !u!114 &1279740585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20678,6 +20674,7 @@ MonoBehaviour:
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 1
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []
@@ -25292,11 +25289,6 @@ PrefabInstance:
 --- !u!4 &2041698049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
-  m_PrefabInstance: {fileID: 2041698048}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2041698050 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
   m_PrefabInstance: {fileID: 2041698048}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2042799450
