@@ -1,0 +1,79 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Huh? Little girl, why are you back again?",
+        "zh": "咦？小姑娘，怎么又回来了？",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Hello.I need to fetch something inside the aparment",
+        "zh": "您好。我需要进一下公寓楼",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Fetch something?",
+        "zh": "什么？",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StopPlayerMovement",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

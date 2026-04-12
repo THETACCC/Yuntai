@@ -1,0 +1,98 @@
+{
+    "nodes": [
+        {
+            "id": "c9369997-68a4-4be6-bacc-e020f3bdb50f",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31160",
+            "content": {
+                "en": "Huh? Little girl, why are you back again?",
+                "zh": "咦？小姑娘，怎么又回来了？",
+                "ja": ""
+            },
+            "positionX": 173.0,
+            "positionY": 148.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "518a1375-ad01-422b-8d06-2b37992c9d94",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31161",
+            "content": {
+                "en": "Hello.I need to fetch something inside the aparment",
+                "zh": "您好。我需要进一下公寓楼",
+                "ja": ""
+            },
+            "positionX": 544.0,
+            "positionY": 157.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "48f185f5-f05d-45a7-9868-6ab319608204",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31162",
+            "content": {
+                "en": "Fetch something?",
+                "zh": "什么？",
+                "ja": ""
+            },
+            "positionX": 911.0,
+            "positionY": 157.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+                    "targetObjectName": "DetectiveSystem",
+                    "targetSceneName": "Level4-2City",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StopPlayerMovement",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+                    "targetObjectName": "DetectiveSystem",
+                    "targetSceneName": "Level4-2City",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StartDetectiveGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "c9369997-68a4-4be6-bacc-e020f3bdb50f",
+            "inputNodeId": "518a1375-ad01-422b-8d06-2b37992c9d94",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "518a1375-ad01-422b-8d06-2b37992c9d94",
+            "inputNodeId": "48f185f5-f05d-45a7-9868-6ab319608204",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

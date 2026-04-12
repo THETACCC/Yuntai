@@ -11,7 +11,7 @@ public class DetectiveManager : MonoBehaviour
     public TextAsset SecondWrongDialogueJsonFile;
     public TextAsset FailDialogueJsonFile;
 
-    private int WrongTimes = 0;
+    public int WrongTimes = 0;
 
     public GameObject[] myCluesContent;
 

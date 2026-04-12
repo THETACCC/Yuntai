@@ -1,0 +1,85 @@
+{
+    "nodes": [
+        {
+            "id": "5e5f0635-a2c1-4e1e-917e-4f76aca8db97",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31163",
+            "content": {
+                "en": "Noema…",
+                "zh": "小沈啊.....",
+                "ja": ""
+            },
+            "positionX": 415.0,
+            "positionY": 368.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
+                    "targetObjectName": "LevelManager_4_2_City",
+                    "targetSceneName": "Level4-2City",
+                    "componentTypeName": "LevelManager4_2_City",
+                    "methodName": "SetOpenDoorOpen",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31164",
+            "content": {
+                "en": "Go on in, then. Be careful inside.",
+                "zh": "进去吧。在里面小心点儿。",
+                "ja": ""
+            },
+            "positionX": 789.0,
+            "positionY": 368.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31165",
+            "content": {
+                "en": "Huh?",
+                "zh": "嗯？",
+                "ja": ""
+            },
+            "positionX": 1143.0,
+            "positionY": 368.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "5e5f0635-a2c1-4e1e-917e-4f76aca8db97",
+            "inputNodeId": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
+            "inputNodeId": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
