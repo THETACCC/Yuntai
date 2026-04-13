@@ -58,6 +58,8 @@ public class NoteBookManager : MonoBehaviour
     void Start()
     {
         NoteBook_Canvas.alpha = 0;
+        NoteBook_Canvas.blocksRaycasts = false;
+        NoteBook_Canvas.interactable = false;
         isOpen = false;
 
         // 加载NoteBookData
