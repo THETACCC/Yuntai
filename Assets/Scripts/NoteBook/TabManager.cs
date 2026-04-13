@@ -11,7 +11,7 @@ public class TabManager : MonoBehaviour
     [Header("Optional: tag to auto-fill")]
     public string myTab_Tag;
 
-    private const int PageSize = 6;
+    private const int PageSize = 4;
     private int currentPage = 0;
     private int currentOpenTabIndex = -1; // -1 = no tab open
 
