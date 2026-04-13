@@ -18,6 +18,9 @@ public class CG_Manager : MonoBehaviour
     [Header("Video Settings")]
     [Tooltip("Assign your Video Player component here.")]
     public VideoPlayer videoPlayer;
+    public VideoClip clip_zh;
+    public VideoClip clip_en;
+    public VideoClip clip_ja;
 
     [Header("Skip Settings")]
     [Tooltip("Max delay (seconds) between two Space presses to count as double-tap.")]
@@ -28,6 +31,21 @@ public class CG_Manager : MonoBehaviour
 
     private void Start()
     {
+        if (Settings.instance != null)
+        {
+            switch (Settings.instance.currentLanguage) 
+            {
+                case "zh":
+                    videoPlayer.clip = clip_zh;
+                    break;
+                case "en":
+                    videoPlayer.clip = clip_en;
+                    break;
+                case "ja":
+                    videoPlayer.clip = clip_ja;
+                    break;
+            }
+        }
         if (videoPlayer == null)
         {
             Debug.LogError("[CG_Manager] VideoPlayer not assigned in the Inspector.", this);
