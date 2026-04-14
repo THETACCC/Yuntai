@@ -26,7 +26,7 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "",
+        "en": "......",
         "zh": "......",
         "ja": ""
       },
@@ -39,11 +39,11 @@
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_日常",
+      "avatarAddr": "DialogueImages/何以真_疑惑",
       "isPlayer": true,
       "content": {
         "en": "Why are you standing by my seat? Is something wrong?",
-        "zh": "您为什么要站在我的座位旁边？出什么事了吗？",
+        "zh": "您为什么站在我的座位旁边？出什么事了吗？",
         "ja": ""
       },
       "nextIndex": 3
@@ -71,20 +71,36 @@
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_日常",
+      "avatarAddr": "DialogueImages/何以真_闭眼",
       "isPlayer": true,
       "content": {
-        "en": "Ma'am? Is everything okay?",
-        "zh": "女士？",
+        "en": "(The way her body is bent looks unnaturally stiff. Something feels very wrong.)",
+        "zh": "（她身体弯曲的样子非常僵硬，我总感觉有哪里不太对劲。）",
+        "ja": ""
+      },
+      "nextIndex": 5
+    },
+    {
+      "index": 5,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "Ma’am? Are you alright?",
+        "zh": "女士？一切还好吗？",
         "ja": ""
       },
       "nextIndex": -1,
       "eventCalls": [
         {
-          "targetObjectID": "07aa3362-cc99-448e-a571-27a10fd5428e",
-          "targetObjectName": "LevelManager1_2",
-          "componentTypeName": "LevelManager1_2",
-          "methodName": "DoSequence5B",
+          "targetObjectID": "",
+          "targetObjectName": "",
+          "componentTypeName": "",
+          "methodName": "",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,

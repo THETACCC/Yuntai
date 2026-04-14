@@ -3,20 +3,45 @@
         {
             "id": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
             "useContentId": true,
-            "contentId": "ch1_1003",
+            "contentId": "ch1_10019",
             "content": {
-                "en": "(No reason to bother them now, let's just head to the <color=orange>restroom.</color>)",
-                "zh": "（现在没有必要搭话，先去<color=orange>洗手间</color>吧。）",
+                "en": "Dad! This smells amazing! It’s the best airplane meal I’ve ever had!",
+                "zh": "爸爸！这个菜好香啊！这是我吃过的最好吃的飞机餐！",
                 "ja": ""
             },
-            "positionX": 569.6000366210938,
-            "positionY": 610.3999633789063,
+            "positionX": 569.3333740234375,
+            "positionY": 610.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3ce7a71c-66f8-4417-b62c-7ff6575b891f",
+            "index": 1,
+            "characterId": "318c68cb-5927-41a5-91bd-bf8aa614ee91",
+            "useContentId": true,
+            "contentId": "ch1_10020",
+            "content": {
+                "en": "If you like it, have some more! Here, let’s ask the stewardess for another serving.",
+                "zh": "儿子喜欢多吃点，来，我们找空姐再要一份。",
+                "ja": ""
+            },
+            "positionX": 948.0,
+            "positionY": 610.6666870117188,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "3631f6a2-3ea8-417d-80ec-c45b55d9b429",
+            "inputNodeId": "3ce7a71c-66f8-4417-b62c-7ff6575b891f",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
