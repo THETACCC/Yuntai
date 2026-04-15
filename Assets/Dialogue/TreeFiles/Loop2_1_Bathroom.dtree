@@ -12,7 +12,7 @@
                 "ja": ""
             },
             "positionX": -584.0,
-            "positionY": 240.66665649414063,
+            "positionY": 240.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "我真的应该装作什么都没有发生吗？",
                 "ja": ""
             },
-            "positionX": -102.66667175292969,
-            "positionY": 240.66665649414063,
+            "positionX": -102.4000015258789,
+            "positionY": 240.8000030517578,
             "choices": [
                 {
                     "useTextId": true,
@@ -68,24 +68,10 @@
                 "zh": "还是去继续调查吧。",
                 "ja": ""
             },
-            "positionX": 390.6666564941406,
-            "positionY": 586.0,
+            "positionX": 391.20001220703127,
+            "positionY": 585.5999755859375,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
-                    "targetObjectName": "LevelManager2_1",
-                    "targetSceneName": "Level2-1",
-                    "componentTypeName": "LevelManager2_1",
-                    "methodName": "Goto_NotEscaped_ViaNextLoop",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 2
-                }
-            ],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -102,7 +88,21 @@
             "positionX": 392.0,
             "positionY": 180.0,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "Goto_NotEscaped_ViaNextLoop",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
             "conditionalBranches": []
         }
     ],

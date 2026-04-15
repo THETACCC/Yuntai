@@ -4,11 +4,11 @@
             "id": "ee1fe83b-3832-4f65-a964-ddaee6fa7300",
             "index": 0,
             "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
-            "useContentId": false,
-            "contentId": "Loop2_1_StewardessGetFoodPost_node_0_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_10015",
             "content": {
-                "en": "WHAT ELSE DO YOU WANT?",
-                "zh": "你还需要什么！？",
+                "en": "Ma’am, is there anything else you need?",
+                "zh": "女士，还有什么事吗？",
                 "ja": ""
             },
             "positionX": 339.20001220703127,
@@ -18,17 +18,17 @@
             "conditionalBranches": []
         },
         {
-            "id": "345f1128-1ee6-4651-9026-ab5409d1fc4c",
+            "id": "7c08a4cf-0367-4db8-8554-1b463bba2f17",
             "index": 1,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": false,
-            "contentId": "Loop2_1_StewardessGetFoodPost_node_1_dialogue",
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_10035",
             "content": {
-                "en": "(I need to give my food to Page.)",
-                "zh": "（我需要把食物拿给周书。）",
+                "en": "(I should hurry and bring the in-flight meal to Page.)",
+                "zh": "（我应该赶紧把飞机餐拿给周书。）",
                 "ja": ""
             },
-            "positionX": 707.2000122070313,
+            "positionX": 680.0,
             "positionY": 368.79998779296877,
             "choices": [],
             "eventCalls": [],
@@ -38,7 +38,7 @@
     "connections": [
         {
             "outputNodeId": "ee1fe83b-3832-4f65-a964-ddaee6fa7300",
-            "inputNodeId": "345f1128-1ee6-4651-9026-ab5409d1fc4c",
+            "inputNodeId": "7c08a4cf-0367-4db8-8554-1b463bba2f17",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
