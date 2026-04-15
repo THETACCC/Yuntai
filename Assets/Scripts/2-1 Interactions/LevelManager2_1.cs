@@ -89,6 +89,13 @@ public class LevelManager2_1 : MonoBehaviour
     [SerializeField, Min(0f)] private float uniformOnTime = 0.56f; // 每次点亮时长
     [SerializeField, Range(0f, 1f)] private float offIntensity = 0f; // 熄灭到的强度（0=全黑）
 
+    [Header("Family Boy Animation")]
+    [SerializeField] private GameObject family;
+    [SerializeField] private GameObject family_after;
+    [SerializeField] private Sprite familyPicB;
+    [SerializeField] private GameObject boy;
+
+
     // —— 控制器快照，用于“禁-恢复” —— 
     private struct CtrlSnap
     {
@@ -375,5 +382,18 @@ public class LevelManager2_1 : MonoBehaviour
         RightBlock.SetActive(true);
         Bathroom_Old.SetActive(false);
         Bathroom_Escaped.SetActive(true);
+    }
+
+    public void LittleBoyStandingUp()
+    {
+        family.GetComponent<SpriteRenderer>().sprite = familyPicB;
+        boy.gameObject.SetActive(true);
+    }
+
+    public void LittleBoyGoingBack()
+    {
+        family.gameObject.SetActive(false);
+        family_after.gameObject.SetActive(true);
+        boy.gameObject.SetActive(false);
     }
 }
