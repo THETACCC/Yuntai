@@ -26,7 +26,7 @@ public class DialogueDisplaySettings : MonoBehaviour
     public bool separatePlayerAndNPC;
     public Color inactiveAvatarColor;
 
-    public bool showDialogueHistory;
+    //public bool showDialogueHistory;
 
     private void Awake()
     {
@@ -102,10 +102,12 @@ public class DialogueDisplaySettings : MonoBehaviour
             dialogueController.NPCName.transform.parent.gameObject.SetActive(separatePlayerAndNPC);
         }
 
+        /**
         if (dialogueController.historyButton != null)
         {
             dialogueController.historyButton.SetActive(showDialogueHistory);
         }
+        **/
     }
 
     private void InitializeFontDictionary()

@@ -44,10 +44,10 @@ public class DialogueController : MonoBehaviour
     [Header("Components")]
     public Image NPCAvatar;
     public TextMeshProUGUI NPCName;
-  
-    public GameObject historyButton;
-    public GameObject historyContentUI;
-    public TextMeshProUGUI historyContentText;
+
+    //public GameObject historyButton;
+    //public GameObject historyContentUI;
+    //public TextMeshProUGUI historyContentText;
 
     private void Awake()
     {
@@ -141,7 +141,7 @@ public class DialogueController : MonoBehaviour
 
             //add text history
             // 说话人加粗+颜色，分隔线更清晰
-            historyContentText.text += $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
+            NoteBookManager.instance.historyContentText.text += $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
                                       $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
                                       $"<color=#DDDDDD>―――――――――――――</color>\n";
 
@@ -763,6 +763,7 @@ public class DialogueController : MonoBehaviour
         return null;
     }
 
+    /**
     public void OpenCloseHistory()
     {
         if (historyContentUI != null)
@@ -770,6 +771,7 @@ public class DialogueController : MonoBehaviour
             historyContentUI.SetActive(!historyContentUI.activeInHierarchy);
         }
     }
+    **/
 }
 
 

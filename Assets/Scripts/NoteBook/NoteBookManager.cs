@@ -1,6 +1,7 @@
 ﻿using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static AudioManager;
 
@@ -29,6 +30,11 @@ public class NoteBookManager : MonoBehaviour
     public TabManager objectiveTab;
     public TabManager characterTab;
     public TabManager eventTab;
+
+    //Dialogue History
+    public GameObject historyButton;
+    //public GameObject historyContentUI;
+    public TextMeshProUGUI historyContentText;
 
     //Visual Feedbacks
     [Header("Feedback Reference")]
@@ -259,8 +265,4 @@ public class NoteBookManager : MonoBehaviour
 
 
     #endregion
-
-
-
-
 }
