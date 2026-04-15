@@ -1,6 +1,37 @@
 {
     "nodes": [
         {
+            "id": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
+            "index": 0,
+            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "useContentId": true,
+            "contentId": "ch1_2028",
+            "content": {
+                "en": "Haha, pretty big sis! Look at my little guy— he's so cool!",
+                "zh": "嘿嘿，这位漂亮姐姐！看看我的小人，它多厉害啊！",
+                "ja": ""
+            },
+            "positionX": 124.0,
+            "positionY": 364.79998779296877,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "LittleBoyStandingUp",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "bcc7dab2-cd71-447a-b620-6da54d672ec7",
             "index": 1,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -11,8 +42,8 @@
                 "zh": "（他们似乎是旅游回来的本地居民，对芸台市的近况较为了解。 我可以趁机打听一些当地的事。）",
                 "ja": ""
             },
-            "positionX": 4105.3330078125,
-            "positionY": 356.6666564941406,
+            "positionX": 4105.60009765625,
+            "positionY": 356.79998779296877,
             "choices": [
                 {
                     "useTextId": true,
@@ -89,16 +120,16 @@
         {
             "id": "0eec9ba1-b565-4e17-819d-949bd8480165",
             "index": 2,
-            "characterId": "0d2edd26-5554-47f2-b61f-99a5a0caf64b",
+            "characterId": "",
             "useContentId": true,
             "contentId": "ch1_2029",
             "content": {
-                "en": "Dad, look! This one can bend backward like this. That's so cool!",
-                "zh": "爸爸！你看这个可以从后面弯过去，好厉害啊！",
+                "en": "A cheerful family of three. The meal service hasn’t reached their row yet.",
+                "zh": "其乐融融的一家三口，飞机餐还没有发到他们这里。",
                 "ja": ""
             },
-            "positionX": 510.6666564941406,
-            "positionY": 364.6666564941406,
+            "positionX": 511.20001220703127,
+            "positionY": 364.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -106,16 +137,16 @@
         {
             "id": "2f978e8e-7505-4b79-b2e1-405342ea22ca",
             "index": 3,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "characterId": "",
             "useContentId": true,
             "contentId": "ch1_2030",
             "content": {
-                "en": "(The boy is playing with a strange puppet that looks quite similar to what he turned into earlier.)",
-                "zh": "（男孩玩弄着诡异的木偶，跟他刚才变成的样子颇有相似。）",
+                "en": "The boy is playing with a strange puppet that looks quite similar to what he turned into earlier.",
+                "zh": "男孩玩弄着诡异的木偶，跟他刚才变成的样子颇有相似。",
                 "ja": ""
             },
-            "positionX": 886.6666870117188,
-            "positionY": 364.6666564941406,
+            "positionX": 887.2000122070313,
+            "positionY": 364.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -131,8 +162,8 @@
                 "zh": "我从来没有见过这种样式的木偶呢？请问你们是在哪里买到的呢？",
                 "ja": ""
             },
-            "positionX": 1234.6666259765625,
-            "positionY": 364.6666564941406,
+            "positionX": 1235.199951171875,
+            "positionY": 364.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -148,8 +179,8 @@
                 "zh": "这是别人送给我的！出去玩之前我就带在身上了！",
                 "ja": ""
             },
-            "positionX": 1618.6666259765625,
-            "positionY": 364.6666564941406,
+            "positionX": 1619.199951171875,
+            "positionY": 364.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -165,8 +196,8 @@
                 "zh": "唉，我其实不希望他收下那个木偶的，那些穿着斗篷的人实在太奇怪了。",
                 "ja": ""
             },
-            "positionX": 2014.6666259765625,
-            "positionY": 364.6666564941406,
+            "positionX": 2015.199951171875,
+            "positionY": 364.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -182,8 +213,8 @@
                 "zh": "穿着斗篷的人？",
                 "ja": ""
             },
-            "positionX": 2358.666748046875,
-            "positionY": 360.6666564941406,
+            "positionX": 2359.199951171875,
+            "positionY": 360.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -199,8 +230,8 @@
                 "zh": "关于这个“<color=orange>极乐戏团</color>”，您方便告诉我一些关于他们的事吗？",
                 "ja": ""
             },
-            "positionX": 4551.3330078125,
-            "positionY": 217.33334350585938,
+            "positionX": 4551.2001953125,
+            "positionY": 216.8000030517578,
             "choices": [],
             "eventCalls": [
                 {
@@ -230,8 +261,8 @@
                 "zh": "不好意思，请问您之前提到的<color=orange>大会</color>是指什么呢？",
                 "ja": ""
             },
-            "positionX": 4541.3330078125,
-            "positionY": 740.6666870117188,
+            "positionX": 4541.60009765625,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [
                 {
@@ -262,7 +293,7 @@
                 "ja": ""
             },
             "positionX": 4528.0,
-            "positionY": 1296.6666259765625,
+            "positionY": 1296.800048828125,
             "choices": [],
             "eventCalls": [
                 {
@@ -292,8 +323,8 @@
                 "zh": "哎呀，你们这个年纪的孩子果然会对这种神秘团体感兴趣呢~",
                 "ja": ""
             },
-            "positionX": 4896.66650390625,
-            "positionY": 242.0,
+            "positionX": 4896.80029296875,
+            "positionY": 241.59999084472657,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -309,8 +340,8 @@
                 "zh": "那些人看起来实在太可疑了，要不是他们的<color=orange>祭祀</color>是市里远闻名的<color=orange>沈梦之</color>，我绝对不会让这孩子收下他们的礼物的。",
                 "ja": ""
             },
-            "positionX": 5698.0,
-            "positionY": 233.33334350585938,
+            "positionX": 5698.400390625,
+            "positionY": 232.8000030517578,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -326,7 +357,7 @@
                 "zh": "你不知道吗？芸台每两年一届的<color=orange>乞巧大会</color>啊！那可是芸台特有的，城市级别的盛会。",
                 "ja": ""
             },
-            "positionX": 4890.66650390625,
+            "positionX": 4891.2001953125,
             "positionY": 744.0,
             "choices": [],
             "eventCalls": [],
@@ -344,7 +375,7 @@
                 "ja": ""
             },
             "positionX": 5580.0,
-            "positionY": 740.6666870117188,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -361,7 +392,7 @@
                 "ja": ""
             },
             "positionX": 5956.0,
-            "positionY": 740.6666870117188,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -377,8 +408,8 @@
                 "zh": "能让上面那些老人都点头，可不简单。",
                 "ja": ""
             },
-            "positionX": 6318.0,
-            "positionY": 740.6666870117188,
+            "positionX": 6318.400390625,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -395,7 +426,7 @@
                 "ja": ""
             },
             "positionX": 6720.0,
-            "positionY": 740.6666870117188,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -411,8 +442,8 @@
                 "zh": "（<color=orange>沈梦之……新祭司？还是大会的起草人？</color>）",
                 "ja": ""
             },
-            "positionX": 7097.3330078125,
-            "positionY": 740.6666870117188,
+            "positionX": 7097.60009765625,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -429,7 +460,7 @@
                 "ja": ""
             },
             "positionX": 7440.0,
-            "positionY": 740.6666870117188,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -445,8 +476,8 @@
                 "zh": "啊，芸台现在的乞巧大会已经没有拜星环节啦~不过拜<color=orange>喜母</color>的人似乎还是有很多的。",
                 "ja": ""
             },
-            "positionX": 8133.3330078125,
-            "positionY": 740.6666870117188,
+            "positionX": 8133.60009765625,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -462,8 +493,8 @@
                 "zh": "（喜母？斗巧？沈梦之？虽然很想再了解一些内容，但已经打扰他们太久了，就先到这里吧。）",
                 "ja": ""
             },
-            "positionX": 8814.0,
-            "positionY": 742.6666870117188,
+            "positionX": 8814.400390625,
+            "positionY": 742.3999633789063,
             "choices": [],
             "eventCalls": [
                 {
@@ -519,8 +550,8 @@
                 "zh": "（沈梦之...没想到现在已经如此出人头地了啊。）",
                 "ja": ""
             },
-            "positionX": 6618.66650390625,
-            "positionY": -62.66666793823242,
+            "positionX": 6619.2001953125,
+            "positionY": -63.20000076293945,
             "choices": [],
             "eventCalls": [
                 {
@@ -577,7 +608,7 @@
                 "ja": ""
             },
             "positionX": 4920.0,
-            "positionY": 1296.6666259765625,
+            "positionY": 1296.800048828125,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -593,7 +624,7 @@
                 "zh": "哎呀，这样正好赶上才叫幸运呢！回来玩的开心哦！",
                 "ja": ""
             },
-            "positionX": 5288.66650390625,
+            "positionX": 5288.80029296875,
             "positionY": 1296.0,
             "choices": [],
             "eventCalls": [],
@@ -610,7 +641,7 @@
                 "zh": "欸？",
                 "ja": ""
             },
-            "positionX": 5954.66650390625,
+            "positionX": 5955.2001953125,
             "positionY": 1296.0,
             "choices": [],
             "eventCalls": [],
@@ -627,8 +658,8 @@
                 "zh": "没有吗，那这几天一定要注意安全哦。",
                 "ja": ""
             },
-            "positionX": 6316.66650390625,
-            "positionY": 1296.6666259765625,
+            "positionX": 6316.80029296875,
+            "positionY": 1296.800048828125,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -644,8 +675,8 @@
                 "zh": "谢谢您，我会小心的。",
                 "ja": ""
             },
-            "positionX": 6705.3330078125,
-            "positionY": 1300.6666259765625,
+            "positionX": 6705.60009765625,
+            "positionY": 1300.800048828125,
             "choices": [],
             "eventCalls": [
                 {
@@ -686,6 +717,19 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+                    "targetObjectName": "LevelManager2_1",
+                    "targetSceneName": "Level2-1",
+                    "componentTypeName": "LevelManager2_1",
+                    "methodName": "LittleBoyGoingBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
             "conditionalBranches": []
@@ -701,8 +745,8 @@
                 "zh": "从大概半个月前开始吧，芸台市里“极乐戏团”成员的人一直在市区各种地方进行宣传。",
                 "ja": ""
             },
-            "positionX": 2702.0,
-            "positionY": 360.6666564941406,
+            "positionX": 2702.39990234375,
+            "positionY": 360.79998779296877,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -718,7 +762,7 @@
                 "zh": "我带这孩子放学回家的时候，正好碰上他们在路边发放免费的周边，这孩子特别喜欢其中的木偶。",
                 "ja": ""
             },
-            "positionX": 3164.666748046875,
+            "positionX": 3164.800048828125,
             "positionY": 356.0,
             "choices": [],
             "eventCalls": [],
@@ -736,7 +780,7 @@
                 "ja": ""
             },
             "positionX": 5308.0,
-            "positionY": 238.0,
+            "positionY": 237.59999084472657,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -752,8 +796,8 @@
                 "zh": "而且听说这一届和往年很不一样，新增了好多流程和展区，阵仗比以前都大。",
                 "ja": ""
             },
-            "positionX": 5234.66650390625,
-            "positionY": 744.6666870117188,
+            "positionX": 5235.2001953125,
+            "positionY": 744.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -769,8 +813,8 @@
                 "zh": "双星？",
                 "ja": ""
             },
-            "positionX": 7786.66650390625,
-            "positionY": 740.6666870117188,
+            "positionX": 7787.2001953125,
+            "positionY": 740.7999877929688,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -787,7 +831,7 @@
                 "ja": ""
             },
             "positionX": 5624.0,
-            "positionY": 1292.6666259765625,
+            "positionY": 1292.800048828125,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -803,25 +847,8 @@
                 "zh": "大会也保留着<color=orange>斗巧</color>的传统，这也是为什么极乐戏团如此大肆宣传。",
                 "ja": ""
             },
-            "positionX": 8474.0,
-            "positionY": 739.3333129882813,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "8c52c5bd-4fa7-4d19-b6c2-154985fbc15d",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch1_2028",
-            "content": {
-                "en": "A cheerful family of three. The meal service hasn’t reached their row yet.",
-                "zh": "其乐融融的一家三口，飞机餐还没有发到他们这里。",
-                "ja": ""
-            },
-            "positionX": 124.0,
-            "positionY": 364.6666564941406,
+            "positionX": 8474.400390625,
+            "positionY": 739.2000122070313,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []

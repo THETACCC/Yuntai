@@ -3,18 +3,32 @@
     {
       "index": 0,
       "name": {
-        "en": "",
-        "zh": "",
+        "en": "The Boy",
+        "zh": "小男孩",
         "ja": ""
       },
-      "avatarAddr": "",
+      "avatarAddr": "DialogueImages/小男孩",
       "isPlayer": false,
       "content": {
-        "en": "A cheerful family of three. The meal service hasn’t reached their row yet.",
-        "zh": "其乐融融的一家三口，飞机餐还没有发到他们这里。",
+        "en": "Haha, pretty big sis! Look at my little guy— he's so cool!",
+        "zh": "嘿嘿，这位漂亮姐姐！看看我的小人，它多厉害啊！",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "eventCalls": [
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "LittleBoyStandingUp",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 1,
@@ -98,15 +112,15 @@
     {
       "index": 2,
       "name": {
-        "en": "The Boy",
-        "zh": "小男孩",
+        "en": "",
+        "zh": "",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/小男孩",
+      "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "Dad, look! This one can bend backward like this. That's so cool!",
-        "zh": "爸爸！你看这个可以从后面弯过去，好厉害啊！",
+        "en": "A cheerful family of three. The meal service hasn’t reached their row yet.",
+        "zh": "其乐融融的一家三口，飞机餐还没有发到他们这里。",
         "ja": ""
       },
       "nextIndex": 3
@@ -114,15 +128,15 @@
     {
       "index": 3,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "",
+        "zh": "",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_闭眼",
-      "isPlayer": true,
+      "avatarAddr": "",
+      "isPlayer": false,
       "content": {
-        "en": "(The boy is playing with a strange puppet that looks quite similar to what he turned into earlier.)",
-        "zh": "（男孩玩弄着诡异的木偶，跟他刚才变成的样子颇有相似。）",
+        "en": "The boy is playing with a strange puppet that looks quite similar to what he turned into earlier.",
+        "zh": "男孩玩弄着诡异的木偶，跟他刚才变成的样子颇有相似。",
         "ja": ""
       },
       "nextIndex": 4
@@ -664,6 +678,18 @@
           "floatParameter": 0,
           "boolParameter": false,
           "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
+          "targetObjectName": "LevelManager2_1",
+          "componentTypeName": "LevelManager2_1",
+          "methodName": "LittleBoyGoingBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
         }
       ]
     },
