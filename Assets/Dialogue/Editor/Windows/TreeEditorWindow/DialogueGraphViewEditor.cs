@@ -15,6 +15,7 @@ public class DialogueGraphViewEditor : GraphView
 {
     private DialogueTreeEditor editorWindow;
     private int nextNodeIndex = 0;
+    private string startNodeId = "";  // 起始节点的ID
 
     public DialogueGraphViewEditor()
     {
@@ -236,6 +237,23 @@ public class DialogueGraphViewEditor : GraphView
         if (selectedNodes.Count > 0)
         {
             evt.menu.AppendSeparator();
+            
+            // 添加"设置为起始节点"选项
+            if (selectedNodes.Count == 1)
+            {
+                var selectedNode = selectedNodes[0];
+                bool isCurrentStart = selectedNode.GetId() == startNodeId;
+                
+                evt.menu.AppendAction(
+                    isCurrentStart ? "✓ Start Node" : "Set as Start Node",
+                    action => {
+                        SetStartNode(selectedNode);
+                        if (editorWindow != null) editorWindow.MarkAsChanged();
+                    },
+                    isCurrentStart ? DropdownMenuAction.Status.Disabled : DropdownMenuAction.Status.Normal
+                );
+            }
+            
             evt.menu.AppendAction("Delete Selected", action => {
                 DeleteSelection();
                 if (editorWindow != null) editorWindow.MarkAsChanged();
@@ -308,6 +326,14 @@ public class DialogueGraphViewEditor : GraphView
         dialogueNode.SetPosition(new Rect(position, Vector2.zero));
         dialogueNode.OnNodeChanged += () => editorWindow?.MarkAsChanged();
         AddElement(dialogueNode);
+        
+        // 如果是第一个节点，自动设为起始节点
+        if (nextNodeIndex == 1) // 刚创建的是index 0
+        {
+            SetStartNode(dialogueNode);
+            Debug.Log($"[CreateDialogueNode] Auto-set first node as start node");
+        }
+        
         return dialogueNode;
     }
 
@@ -542,7 +568,84 @@ public class DialogueGraphViewEditor : GraphView
             }
         }
 
-        return exportDict.Values.OrderBy(d => d.index).ToList();
+        // 根据起始节点重新分配index
+        var resultList = exportDict.Values.OrderBy(d => d.index).ToList();
+        
+        if (!string.IsNullOrEmpty(startNodeId))
+        {
+            // 找到起始节点
+            var startNodeData = exportDict.ContainsKey(startNodeId) ? exportDict[startNodeId] : null;
+            
+            if (startNodeData != null)
+            {
+                // 从列表中移除起始节点
+                resultList.Remove(startNodeData);
+                
+                // 重新分配index：起始节点=0，其他节点从1开始
+                startNodeData.index = 0;
+                for (int i = 0; i < resultList.Count; i++)
+                {
+                    resultList[i].index = i + 1;
+                }
+                
+                // 重新构建node ID到index的映射
+                nodeIdToIndex.Clear();
+                nodeIdToIndex[startNodeId] = 0;
+                for (int i = 0; i < resultList.Count; i++)
+                {
+                    var nodeId = exportDict.FirstOrDefault(x => x.Value == resultList[i]).Key;
+                    if (!string.IsNullOrEmpty(nodeId))
+                    {
+                        nodeIdToIndex[nodeId] = i + 1;
+                    }
+                }
+                
+                // 更新所有引用（conditional branches）
+                foreach (var data in exportDict.Values)
+                {
+                    foreach (var branch in data.conditionalBranches)
+                    {
+                        var node = nodes.FirstOrDefault(n => n.GetId() == exportDict.FirstOrDefault(x => x.Value == data).Key);
+                        if (node != null)
+                        {
+                            var connection = edges.FirstOrDefault(e =>
+                            {
+                                if (e.output?.node != node) return false;
+                                var conditionalEdge = e as ConditionalEdgeEditor;
+                                if (conditionalEdge != null)
+                                {
+                                    return conditionalEdge.branchPriority == branch.priority;
+                                }
+                                else
+                                {
+                                    return node.GetBranchPriorityForPort(e.output) == branch.priority;
+                                }
+                            });
+
+                            if (connection?.input?.node is DialogueNodeEditor targetNode)
+                            {
+                                string targetNodeId = targetNode.GetId();
+                                if (nodeIdToIndex.ContainsKey(targetNodeId))
+                                {
+                                    branch.targetIndex = nodeIdToIndex[targetNodeId];
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // 将起始节点放在最前面
+                resultList.Insert(0, startNodeData);
+                
+                Debug.Log($"[GetDialogueSequence] Start node set to index 0: {startNodeId}");
+            }
+            else
+            {
+                Debug.LogWarning($"[GetDialogueSequence] Start node ID not found: {startNodeId}");
+            }
+        }
+        
+        return resultList;
     }
 
     private CharacterLibraryData LoadCharacterLibrary()
@@ -590,6 +693,9 @@ public class DialogueGraphViewEditor : GraphView
 
     public DialogueTreeData SerializeDialogueTree()
     {
+        // 保存前先更新节点index，确保起始节点为index 0
+        UpdateNodeIndicesBasedOnStartNode();
+        
         var treeData = new DialogueTreeData();
 
         try
@@ -820,6 +926,15 @@ public class DialogueGraphViewEditor : GraphView
             }
         }
 
+        // 自动识别并标记起始节点（index 0）
+        var startNode = nodes.Cast<DialogueNodeEditor>()
+            .FirstOrDefault(n => n.NodeIndex == 0);
+        if (startNode != null)
+        {
+            SetStartNode(startNode);
+            Debug.Log($"[LoadDialogueTree] Auto-set start node: {startNode.GetId()}");
+        }
+
         Debug.Log($"[LoadDialogueTree] Loaded {nodeDict.Count} nodes and {treeData.connections.Count} connections");
     }
 
@@ -1037,6 +1152,71 @@ public class DialogueGraphViewEditor : GraphView
         {
             node.RefreshLanguageDisplay();
         }
+    }
+
+    /// <summary>
+    /// 设置起始节点
+    /// </summary>
+    public void SetStartNode(DialogueNodeEditor node)
+    {
+        if (node == null) return;
+        
+        // 清除之前的起始节点标记
+        var oldStartNode = nodes.Cast<DialogueNodeEditor>()
+            .FirstOrDefault(n => n.GetId() == startNodeId);
+        if (oldStartNode != null)
+        {
+            oldStartNode.SetAsStartNode(false);
+        }
+        
+        // 设置新的起始节点
+        startNodeId = node.GetId();
+        node.SetAsStartNode(true);
+        
+        Debug.Log($"[DialogueGraphViewEditor] Start node set to: {node.GetId()}");
+    }
+
+    /// <summary>
+    /// 获取起始节点ID
+    /// </summary>
+    public string GetStartNodeId()
+    {
+        return startNodeId;
+    }
+
+    /// <summary>
+    /// 根据起始节点更新所有节点的index
+    /// </summary>
+    private void UpdateNodeIndicesBasedOnStartNode()
+    {
+        if (string.IsNullOrEmpty(startNodeId))
+        {
+            return; // 没有设置起始节点，保持原有index
+        }
+
+        var allNodes = nodes.Cast<DialogueNodeEditor>().ToList();
+        var startNode = allNodes.FirstOrDefault(n => n.GetId() == startNodeId);
+        
+        if (startNode == null)
+        {
+            Debug.LogWarning($"[UpdateNodeIndicesBasedOnStartNode] Start node not found: {startNodeId}");
+            return;
+        }
+
+        // 从节点列表中移除起始节点
+        allNodes.Remove(startNode);
+        
+        // 按原有index排序其他节点
+        allNodes = allNodes.OrderBy(n => n.NodeIndex).ToList();
+        
+        // 重新分配index：起始节点=0，其他节点从1开始
+        startNode.SetNodeIndex(0);
+        for (int i = 0; i < allNodes.Count; i++)
+        {
+            allNodes[i].SetNodeIndex(i + 1);
+        }
+        
+        Debug.Log($"[UpdateNodeIndicesBasedOnStartNode] Updated indices, start node: {startNodeId}");
     }
 
 }

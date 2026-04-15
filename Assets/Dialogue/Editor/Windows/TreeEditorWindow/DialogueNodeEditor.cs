@@ -41,6 +41,7 @@ public partial class DialogueNodeEditor : Node
 
     private string nodeId;
     private int nodeIndex;
+    private bool isStartNode = false;  // 是否为起始节点
     private bool isConditionalMode = false;
     private int nextBranchPriority = 1;
 
@@ -82,7 +83,14 @@ public partial class DialogueNodeEditor : Node
     #region Basic Setup
     private void UpdateTitle()
     {
-        title = $"Node [{nodeIndex}]";
+        if (isStartNode)
+        {
+            title = $"START";
+        }
+        else
+        {
+            title = $"Node";
+        }
     }
 
     public void SetNodeIndex(int index)
@@ -2998,6 +3006,34 @@ public partial class DialogueNodeEditor : Node
         }
     }
     #endregion
+    #endregion
 
+    #region Start Node Management
+    /// <summary>
+    /// 设置/取消起始节点标记
+    /// </summary>
+    public void SetAsStartNode(bool isStart)
+    {
+        isStartNode = isStart;
+        UpdateTitle();
+        
+        // 更新节点颜色（起始节点显示为绿色）
+        if (isStart)
+        {
+            titleContainer.style.backgroundColor = new StyleColor(new Color(0.2f, 0.6f, 0.3f, 0.8f));
+        }
+        else
+        {
+            titleContainer.style.backgroundColor = new StyleColor(new Color(0.24f, 0.24f, 0.24f, 0.8f));
+        }
+    }
+    
+    /// <summary>
+    /// 是否为起始节点
+    /// </summary>
+    public bool IsStartNode()
+    {
+        return isStartNode;
+    }
     #endregion
 }
