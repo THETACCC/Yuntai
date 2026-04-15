@@ -277,10 +277,6 @@ public class DialogueGraphViewEditor : GraphView
         }
 
         var result = base.DeleteSelection();
-
-        // 删除后重新排序所有节点的 index
-        ReorderNodeIndices();
-
         return result;
     }
 
@@ -310,12 +306,6 @@ public class DialogueGraphViewEditor : GraphView
         }
 
         base.DeleteElements(elementsList);
-
-        // 删除后重新排序所有节点的 index
-        if (nodesToDelete.Count > 0)
-        {
-            ReorderNodeIndices();
-        }
     }
 
     public DialogueNodeEditor CreateDialogueNode(string characterName, Sprite avatarSprite,
@@ -961,41 +951,6 @@ public class DialogueGraphViewEditor : GraphView
             endPort.direction != startPort.direction &&
             endPort.node != startPort.node &&
             endPort.portType == startPort.portType).ToList();
-    }
-
-    /// <summary>
-    /// 重新排序所有节点的 index，使其从 0 开始连续递增
-    /// 删除节点后调用，保证 index 连续性
-    /// </summary>
-    private void ReorderNodeIndices()
-    {
-        var allNodes = nodes.Cast<DialogueNodeEditor>().ToList();
-
-        if (allNodes.Count == 0)
-        {
-            nextNodeIndex = 0;
-            return;
-        }
-
-        // 按当前 index 排序
-        allNodes = allNodes.OrderBy(n => n.NodeIndex).ToList();
-
-        // 重新分配 index，从 0 开始
-        for (int i = 0; i < allNodes.Count; i++)
-        {
-            allNodes[i].SetNodeIndex(i);
-        }
-
-        // 更新 nextNodeIndex
-        nextNodeIndex = allNodes.Count;
-
-        //Debug.Log($"[DialogueGraphViewEditor] Reordered node indices: {allNodes.Count} nodes, nextIndex = {nextNodeIndex}");
-
-        // 标记为已修改
-        if (editorWindow != null)
-        {
-            editorWindow.MarkAsChanged();
-        }
     }
 
     #region Copy/Paste Support
