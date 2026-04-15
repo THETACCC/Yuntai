@@ -1163,6 +1163,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractIndicator: {fileID: 226171905}
+  triggerManagerFunctionOnE: 0
+  onEPressed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &226171909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5692,9 +5696,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenename: Level2-2
   SpawnPointLocation: 0
-  DeathAnimationPlayer: {fileID: 0}
-  deathAnimator: {fileID: 0}
-  targetStateName: Dead
+  DeathVideoPlayerObject: {fileID: 0}
+  deathVideoPlayer: {fileID: 0}
   hardTimeoutSeconds: 12
   allowSkipWithAnyKey: 0
   DeathAnimationSound: {fileID: 0}
@@ -6074,7 +6077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1377456066
 Transform:
   m_ObjectHideFlags: 0
@@ -8243,6 +8246,7 @@ GameObject:
   - component: {fileID: 1677128407}
   - component: {fileID: 1677128406}
   - component: {fileID: 1677128405}
+  - component: {fileID: 1677128408}
   m_Layer: 0
   m_Name: 10Trigger
   m_TagString: Untagged
@@ -8328,6 +8332,24 @@ Transform:
   - {fileID: 1377456066}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1677128408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677128404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45de6e0559534c4a902c06c9880ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDialogueJsonFile: {fileID: 4900000, guid: 7d15bcabe3ba46346b36c1f6e47ad05d, type: 3}
+  postDialogueJsonFile: {fileID: 4900000, guid: 7d15bcabe3ba46346b36c1f6e47ad05d, type: 3}
+  isReadyToTrigger: 0
+  isMainDialogueFinished: 0
+  isDoor: 0
+  isInstantTrigger: 1
 --- !u!1 &1689144146
 GameObject:
   m_ObjectHideFlags: 0
@@ -9786,6 +9808,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractIndicator: {fileID: 1996144624}
+  triggerManagerFunctionOnE: 0
+  onEPressed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2011998475
 GameObject:
   m_ObjectHideFlags: 0
