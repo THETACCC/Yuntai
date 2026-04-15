@@ -39,7 +39,7 @@
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_惊醒",
+      "avatarAddr": "DialogueImages/何以真_闭眼",
       "isPlayer": true,
       "content": {
         "en": "(The lights are on, and everything around me looks normal.)",
@@ -71,14 +71,14 @@
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_惊醒",
+      "avatarAddr": "DialogueImages/何以真_闭眼",
       "isPlayer": true,
       "content": {
         "en": "(But those faces, and that pain... it all felt so real. I still can't forget it. Was all of that really just a dream?)",
         "zh": "（可那些人的脸，还有那种疼痛……太真实了，我现在都还忘不掉。这难道全部都是梦吗？）",
         "ja": ""
       },
-      "nextIndex": 5
+      "nextIndex": 9
     },
     {
       "index": 5,
@@ -90,11 +90,11 @@
       "avatarAddr": "DialogueImages/何以真_闭眼",
       "isPlayer": true,
       "content": {
-        "en": "Calm down. I need to gather information about the current situation first.",
-        "zh": "冷静点，必须得先收集关于现状的信息才行。",
+        "en": "I should talk to the people around me first. Right, and before that... I should write down what I remember in my notebook.",
+        "zh": "先去跟周围的人聊聊吧，对了，把刚才……把记得的事先写在笔记本上吧。",
         "ja": ""
       },
-      "nextIndex": 7,
+      "nextIndex": 15,
       "eventCalls": [
         {
           "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
@@ -212,11 +212,123 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "Press B to open the notebook. Press B again to close it.",
-        "zh": "按下B开启笔记本，再次按下B以关闭笔记本。",
+        "en": "<color=orange>Press B to open the notebook</color>. Press B again to close it.\n- Click the <color=orange>Quest tab</color> to view the current objective.\n- Click the <color=orange>Event tab</color> to view current event details.",
+        "zh": "<color=orange>按下B开启笔记本</color>，再次按下B以关闭笔记本。\n - 点击<color=orange>任务书</color>签查看当前任务条目。\n - 点击<color=orange>事件书</color>签查看当前事件信息。",
         "ja": ""
       },
       "nextIndex": -1
+    },
+    {
+      "index": 9,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(And in that brief moment just now, I thought I saw some kind of pattern again.)",
+        "zh": "（而且，刚才那一瞬间，我好像又看见了什么图案。）",
+        "ja": ""
+      },
+      "nextIndex": 10
+    },
+    {
+      "index": 10,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(It looked like some sort of ritual marking, or maybe... neatly arranged limbs.)",
+        "zh": "（像是某种祭祀用的纹样，又像……被摆放整齐的肢体。）",
+        "ja": ""
+      },
+      "nextIndex": 11
+    },
+    {
+      "index": 11,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(No, that's not right. The figure at the center of that pattern... why did it look so much like me?)",
+        "zh": "（不，不对。那图案中央的人影……为什么那么像我？）",
+        "ja": ""
+      },
+      "nextIndex": 12
+    },
+    {
+      "index": 12,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(Did the braided bracelet on my wrist just light up for a second?)",
+        "zh": "（手上的编织手环，刚才是不是亮了一下？）",
+        "ja": ""
+      },
+      "nextIndex": 13
+    },
+    {
+      "index": 13,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "(Could it be that the charm Mengzhi gave me is actually doing something...?)",
+        "zh": "（难道是梦之送我的护身符在起作用……？）",
+        "ja": ""
+      },
+      "nextIndex": 14
+    },
+    {
+      "index": 14,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_思考",
+      "isPlayer": true,
+      "content": {
+        "en": "Calm down. I need to gather information about the current situation first.",
+        "zh": "冷静点，必须得先收集关于现状的信息才行。",
+        "ja": ""
+      },
+      "nextIndex": 5
+    },
+    {
+      "index": 15,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "(...Huh?)",
+        "zh": "（……嗯？）",
+        "ja": ""
+      },
+      "nextIndex": 7
     }
   ],
   "currentIndex": 0

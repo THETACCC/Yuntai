@@ -4,15 +4,15 @@
             "id": "bf1385fb-ceb7-4518-9aee-2666f794268a",
             "index": 0,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": false,
-            "contentId": "Loop2_1_Bathroom_node_0_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2074",
             "content": {
                 "en": "...",
-                "zh": "…",
+                "zh": "……",
                 "ja": ""
             },
             "positionX": -584.0,
-            "positionY": 240.8000030517578,
+            "positionY": 240.66665649414063,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -21,21 +21,21 @@
             "id": "5c433517-db8a-4143-95c6-78512ad5e8e0",
             "index": 1,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": false,
-            "contentId": "Loop2_1_Bathroom_node_1_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2075",
             "content": {
-                "en": "Am I really supposed to pretend nothing happened?",
+                "en": "Should I really just pretend nothing happened?",
                 "zh": "我真的应该装作什么都没有发生吗？",
                 "ja": ""
             },
-            "positionX": -102.4000015258789,
-            "positionY": 240.8000030517578,
+            "positionX": -102.66667175292969,
+            "positionY": 240.66665649414063,
             "choices": [
                 {
-                    "useTextId": false,
-                    "textId": "Loop2_1_Bathroom_node_1_choice_0",
+                    "useTextId": true,
+                    "textId": "ch1_2076",
                     "text": {
-                        "en": "Forget it.",
+                        "en": "Head to the restroom.",
                         "zh": "前往洗手间。",
                         "ja": ""
                     },
@@ -43,10 +43,10 @@
                     "conditionLogic": 0
                 },
                 {
-                    "useTextId": false,
-                    "textId": "Loop2_1_Bathroom_node_1_choice_1",
+                    "useTextId": true,
+                    "textId": "ch1_2077",
                     "text": {
-                        "en": "Go to the restroom.",
+                        "en": "Maybe not.",
                         "zh": "还是算了。",
                         "ja": ""
                     },
@@ -61,15 +61,15 @@
             "id": "27622f30-3575-42f6-a3ea-50e34e3cb092",
             "index": 2,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": false,
-            "contentId": "Loop2_1_Bathroom_node_2_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2079",
             "content": {
-                "en": "Fine, whatever…",
-                "zh": "就这样吧......",
+                "en": "I should keep investigating.",
+                "zh": "还是去继续调查吧。",
                 "ja": ""
             },
-            "positionX": 391.20001220703127,
-            "positionY": 586.3999633789063,
+            "positionX": 390.6666564941406,
+            "positionY": 586.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -92,11 +92,11 @@
             "id": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
             "index": 3,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": false,
-            "contentId": "Loop2_1_Bathroom_node_3_dialogue",
+            "useContentId": true,
+            "contentId": "ch1_2078",
             "content": {
-                "en": "I should keep investigating.",
-                "zh": "还是去继续调查吧。",
+                "en": "That's enough...",
+                "zh": "就这样吧……",
                 "ja": ""
             },
             "positionX": 392.0,
@@ -118,14 +118,14 @@
             "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
             "inputNodeId": "697c5a25-3527-45b6-9d8d-7877ec38b5aa",
             "choiceIndex": 0,
-            "choiceText": "Forget it.",
+            "choiceText": "Head to the restroom.",
             "branchPriority": -2
         },
         {
             "outputNodeId": "5c433517-db8a-4143-95c6-78512ad5e8e0",
             "inputNodeId": "27622f30-3575-42f6-a3ea-50e34e3cb092",
             "choiceIndex": 1,
-            "choiceText": "Go to the restroom.",
+            "choiceText": "Maybe not.",
             "branchPriority": -3
         }
     ]

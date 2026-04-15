@@ -1,7 +1,7 @@
 {
   "conversations": [
     {
-      "index": 1,
+      "index": 0,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -22,20 +22,20 @@
             "zh": "您为什么一直站在这里呢？",
             "ja": ""
           },
-          "targetIndex": 3
+          "targetIndex": 1
         },
         {
           "text": {
-            "en": "Sorry, I’ll be going now.",
-            "zh": "打扰了，我这就走",
+            "en": "Sorry, I’ll be going now. (End)",
+            "zh": "打扰您了，我这就走。（结束对话）",
             "ja": ""
           },
-          "targetIndex": 8
+          "targetIndex": 4
         }
       ]
     },
     {
-      "index": 3,
+      "index": 1,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -48,7 +48,7 @@
         "zh": "您似乎已经在这里站了好一阵了，请问——",
         "ja": ""
       },
-      "nextIndex": 15,
+      "nextIndex": 11,
       "eventCalls": [
         {
           "targetObjectID": "c53927c3-c77c-4e2f-8953-f20a86ed29da",
@@ -65,17 +65,49 @@
       ]
     },
     {
+      "index": 2,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "The stewardess shot Veris a vicious glare, then suddenly broke into a strange smile.",
+        "zh": "乘务员狠狠地瞪了一眼何以真，却又露出了诡异的微笑！",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to be here on standby. I’m not allowed to leave until she gets back to me.",
+        "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
+        "ja": ""
+      },
+      "nextIndex": -1
+    },
+    {
       "index": 4,
       "name": {
         "en": "Veris",
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "(Terrifying!)",
-        "zh": "（好可怕！）",
+        "en": "Sorry to bother you. I’ll be on my way.",
+        "zh": "打扰您了，我这就离开。",
         "ja": ""
       },
       "nextIndex": 5
@@ -90,8 +122,8 @@
       "avatarAddr": "DialogueImages/空姐_日常",
       "isPlayer": false,
       "content": {
-        "en": "Oh, I don’t know, ma’am. It’s just that our glorious <color=orange>chief attendant</color> suddenly ordered me to be here on standby. I’m not allowed to leave until she gets back to me.",
-        "zh": "我也不知道呢这位女士。只是我们尊敬的<color=orange>乘务长</color>大人，忽然莫名奇妙的要求我站在这里待命，在她回复我之前绝对不能离开岗位而已呢。",
+        "en": "......",
+        "zh": "…...",
         "ja": ""
       },
       "nextIndex": 6
@@ -99,117 +131,53 @@
     {
       "index": 6,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "",
+        "zh": "",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_惊恐",
-      "isPlayer": true,
+      "avatarAddr": "",
+      "isPlayer": false,
       "content": {
-        "en": "(She’s speaking through clenched teeth...)",
-        "zh": "（她在咬着牙说话......）",
-        "ja": ""
-      },
-      "nextIndex": 7
-    },
-    {
-      "index": 7,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "isPlayer": true,
-      "content": {
-        "en": "(Better drop the subject.)",
-        "zh": "（还是结束这个话题吧。）",
+        "en": "The stewardess’s eyes were filled with disgust, as if Veris were nothing more than prey to her.",
+        "zh": "乘务员的眼神充斥着厌恶，也许在她眼里何以真不过是猎物。",
         "ja": ""
       },
       "nextIndex": -1
     },
     {
-      "index": 8,
+      "index": 7,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "Stewardess",
+        "zh": "乘务员",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "isPlayer": true,
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
       "content": {
-        "en": "Sorry to bother you. I’ll be on my way.",
-        "zh": "打扰您了，我这就离开。",
+        "en": "Ma’am, please don’t bother the passengers up front.",
+        "zh": "哎呀女士，不可以去打扰前面的客人。",
+        "ja": ""
+      },
+      "nextIndex": 8
+    },
+    {
+      "index": 8,
+      "name": {
+        "en": "Stewardess",
+        "zh": "乘务员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/空姐_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "The restroom for economy class is all the way at the other end.",
+        "zh": "经济舱的洗手间，在另一边最远处哦。",
         "ja": ""
       },
       "nextIndex": 9
     },
     {
       "index": 9,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "......",
-        "zh": "…...",
-        "ja": ""
-      },
-      "nextIndex": 10
-    },
-    {
-      "index": 10,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_惊恐",
-      "isPlayer": true,
-      "content": {
-        "en": "(Let's go, let's just go.)",
-        "zh": "（快走快走。）",
-        "ja": ""
-      },
-      "nextIndex": -1
-    },
-    {
-      "index": 11,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "Oh no, miss. I'm afraid you’re not allowed to bother the passengers up front.",
-        "zh": "哎呀女士，不可以去打扰前面的客人。",
-        "ja": ""
-      },
-      "nextIndex": 12
-    },
-    {
-      "index": 12,
-      "name": {
-        "en": "Stewardess",
-        "zh": "乘务员",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/空姐_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "The restroom for economy class is waaay down at the other end, dear.",
-        "zh": "经济舱的洗手间，在另一边最远处哦。",
-        "ja": ""
-      },
-      "nextIndex": 13
-    },
-    {
-      "index": 13,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -218,14 +186,14 @@
       "avatarAddr": "DialogueImages/何以真_疑惑",
       "isPlayer": true,
       "content": {
-        "en": "(What exactly happened when the lights dimmed earlier? How did she end up like that?)",
-        "zh": "（她看起来一如既往的刻薄。之前灯光暗下来的时候到底发生了什么，她为什么会变成那副样子？）",
+        "en": "(The stewardess' eyes couldn’t hide her spite, as if she were about to lash out at any second.)",
+        "zh": "（乘务员的眼神藏不住她的刻薄，仿佛下一秒她就要破口大骂。）",
         "ja": ""
       },
-      "nextIndex": 14
+      "nextIndex": 10
     },
     {
-      "index": 14,
+      "index": 10,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -238,10 +206,10 @@
         "zh": "女士？要发呆的话，请到不那么挡路的地方去好吗？",
         "ja": ""
       },
-      "nextIndex": 1
+      "nextIndex": 0
     },
     {
-      "index": 15,
+      "index": 11,
       "name": {
         "en": "Stewardess",
         "zh": "乘务员",
@@ -254,7 +222,7 @@
         "zh": "......",
         "ja": ""
       },
-      "nextIndex": 4
+      "nextIndex": 2
     }
   ],
   "currentIndex": 0
