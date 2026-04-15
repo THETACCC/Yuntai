@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using static Unity.Burst.Intrinsics.X86.Avx;
+using static AudioManager;
 
 public class CG_Manager : MonoBehaviour
 {
@@ -114,7 +115,8 @@ public class CG_Manager : MonoBehaviour
             SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
         }
         else
-        {
+        {   
+            AudioManager.PlayOneShot("Sound Effects/sndOpeningGong", AudioGroup.SFX);
             StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear,
             3f,
