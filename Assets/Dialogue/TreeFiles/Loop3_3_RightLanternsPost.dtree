@@ -1,22 +1,119 @@
 {
     "nodes": [
         {
+            "id": "5fdeae78-61a0-4799-973b-5920e3a302c9",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_4018",
+            "content": {
+                "en": "Ah—my apologies.",
+                "zh": "啊，实在不好意思。",
+                "ja": ""
+            },
+            "positionX": 1001.0,
+            "positionY": -68.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
             "id": "672ab9c8-654d-41cf-ba68-93e8c0af20b9",
             "index": 0,
             "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
             "useContentId": true,
-            "contentId": "ch1_3071",
+            "contentId": "ch1_4016",
             "content": {
-                "en": "A pile of lanterns is blocking the way.",
+                "en": "Piles of lanterns are blocking the way.",
                 "zh": "堆积的花灯挡住了去路。",
                 "ja": ""
             },
             "positionX": 266.0,
-            "positionY": -83.33333587646485,
+            "positionY": -84.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "a88d11f5-c03c-4090-932f-55a51c57ccaf",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_4017",
+            "content": {
+                "en": "(The lanterns emit a faint, warm glow… yet something about them feels deeply ominous.)",
+                "zh": "(花灯散发出弱弱的暖光，但却散发出一阵不祥的气息）",
+                "ja": ""
+            },
+            "positionX": 639.0,
+            "positionY": -68.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8fa1c051-7993-4163-8de2-cb4257a136dd",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_4019",
+            "content": {
+                "en": "(The vendor leans on a cane, his leg is injured.)",
+                "zh": "摊主拄着拐杖，似乎是伤了腿。",
+                "ja": ""
+            },
+            "positionX": 1361.0,
+            "positionY": -68.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cbacbcd5-ca94-4ccf-8ebc-d77fe850a4a4",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch1_4020",
+            "content": {
+                "en": "It will probably take him a long time to hang all of these lanterns.",
+                "zh": "这种情况下，估计要花上很久才能挂好所有花灯吧。",
+                "ja": ""
+            },
+            "positionX": 1709.0,
+            "positionY": -68.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "672ab9c8-654d-41cf-ba68-93e8c0af20b9",
+            "inputNodeId": "a88d11f5-c03c-4090-932f-55a51c57ccaf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a88d11f5-c03c-4090-932f-55a51c57ccaf",
+            "inputNodeId": "5fdeae78-61a0-4799-973b-5920e3a302c9",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "5fdeae78-61a0-4799-973b-5920e3a302c9",
+            "inputNodeId": "8fa1c051-7993-4163-8de2-cb4257a136dd",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "8fa1c051-7993-4163-8de2-cb4257a136dd",
+            "inputNodeId": "cbacbcd5-ca94-4ccf-8ebc-d77fe850a4a4",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
