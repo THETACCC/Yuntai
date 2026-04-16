@@ -196,6 +196,7 @@ public enum SceneTitle
     Level4_20StageSuccess = 42,
     Level5_1Zhoushu = 43,
     Level4_21CityDead = 44,
+    Level3_7Hotel = 45,
     JasmineTest = 100,
 }
 
