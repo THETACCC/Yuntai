@@ -11,8 +11,8 @@
                 "zh": "女士？请问您还好吗？",
                 "ja": ""
             },
-            "positionX": 686.6666870117188,
-            "positionY": 716.6666870117188,
+            "positionX": 687.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -20,7 +20,7 @@
                     "targetObjectName": "NoteBook",
                     "targetSceneName": "Initiate",
                     "componentTypeName": "NoteBookManager",
-                    "methodName": "disableNoteBook",
+                    "methodName": "enableNoteBook",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -42,8 +42,8 @@
                 "zh": "！哦没事，我没事。",
                 "ja": ""
             },
-            "positionX": 1062.6666259765625,
-            "positionY": 716.6666870117188,
+            "positionX": 1063.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -60,24 +60,7 @@
                 "ja": ""
             },
             "positionX": 1488.0,
-            "positionY": 716.6666870117188,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "c012602e-2343-4a4d-af84-fdeff6b7f197",
-            "index": 3,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch1_10004",
-            "content": {
-                "en": "Veris opens her <color=orange>Notebook</color> and starts joggling fragments of the nightmare.",
-                "zh": "何以真翻开珍藏的<color=orange>日记本</color>，记录下了片刻间噩梦的内容",
-                "ja": ""
-            },
-            "positionX": 1836.6666259765625,
-            "positionY": 716.6666870117188,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -93,8 +76,8 @@
                 "zh": "女士？",
                 "ja": ""
             },
-            "positionX": 2184.666748046875,
-            "positionY": 716.6666870117188,
+            "positionX": 2185.0,
+            "positionY": 717.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -110,7 +93,7 @@
                 "zh": "把这些都记录下来...将来也都会是我创作的灵感..",
                 "ja": ""
             },
-            "positionX": 2547.33349609375,
+            "positionX": 2547.0,
             "positionY": 718.0,
             "choices": [],
             "eventCalls": [],
@@ -127,8 +110,8 @@
                 "zh": "女士，请问您要用餐吗？",
                 "ja": ""
             },
-            "positionX": 2916.666748046875,
-            "positionY": 718.6666870117188,
+            "positionX": 2917.0,
+            "positionY": 719.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -144,8 +127,8 @@
                 "zh": "不好意思！刚才没注意到您。",
                 "ja": ""
             },
-            "positionX": 3297.33349609375,
-            "positionY": 720.6666870117188,
+            "positionX": 3297.0,
+            "positionY": 721.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -162,7 +145,7 @@
                 "ja": ""
             },
             "positionX": 3654.0,
-            "positionY": 721.3333129882813,
+            "positionY": 721.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -178,8 +161,8 @@
                 "zh": "额，我不用了，麻烦借过一下，我要去一趟洗手间。",
                 "ja": ""
             },
-            "positionX": 4016.666748046875,
-            "positionY": 723.3333129882813,
+            "positionX": 4017.0,
+            "positionY": 723.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -196,7 +179,7 @@
                 "ja": ""
             },
             "positionX": 4380.0,
-            "positionY": 726.6666870117188,
+            "positionY": 727.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -211,6 +194,63 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c012602e-2343-4a4d-af84-fdeff6b7f197",
+            "index": 3,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_10004",
+            "content": {
+                "en": "Veris opens her <color=orange>Notebook</color> and starts joggling fragments of the nightmare.",
+                "zh": "何以真翻开珍藏的<color=orange>日记本</color>，记录下了片刻间噩梦的内容",
+                "ja": ""
+            },
+            "positionX": 1837.0,
+            "positionY": 717.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "f38ca6ae-751d-409c-9c47-d5e1ec158daf",
+                    "targetObjectName": "Event0_Nightmare",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
