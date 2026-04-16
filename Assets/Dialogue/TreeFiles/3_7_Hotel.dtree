@@ -1,0 +1,85 @@
+{
+    "nodes": [
+        {
+            "id": "7d75568c-c891-42c0-84ed-1a416bf2763f",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_4046",
+            "content": {
+                "en": "Golden Gate Hotel… this should be the place.",
+                "zh": "金门酒店... 应该就是这里了。",
+                "ja": ""
+            },
+            "positionX": -207.0,
+            "positionY": -432.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "bdf7da57-2bdf-4f59-9ab1-c3fc75d07346",
+            "index": 1,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_4047",
+            "content": {
+                "en": "(The hotel’s neon sign flickers and buzzes. The building looks old—well past its prime.",
+                "zh": "酒店的霓虹灯吱吱作响，这个酒店看起来有些年头了",
+                "ja": ""
+            },
+            "positionX": 138.0,
+            "positionY": -432.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "cca86a0f-bb5e-451a-9b53-c1620a2fa13d",
+            "index": 2,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_4048",
+            "content": {
+                "en": "Finally… I can get some rest.",
+                "zh": "总算可以休息了...",
+                "ja": ""
+            },
+            "positionX": 496.0,
+            "positionY": -432.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "dfe83859-9e12-41f7-8710-dc54b00fb3f5",
+                    "targetObjectName": "LevelManager_3_7",
+                    "targetSceneName": "Level3-7Hotel",
+                    "componentTypeName": "LevelManager3_7",
+                    "methodName": "toNextScene",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "7d75568c-c891-42c0-84ed-1a416bf2763f",
+            "inputNodeId": "bdf7da57-2bdf-4f59-9ab1-c3fc75d07346",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bdf7da57-2bdf-4f59-9ab1-c3fc75d07346",
+            "inputNodeId": "cca86a0f-bb5e-451a-9b53-c1620a2fa13d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}

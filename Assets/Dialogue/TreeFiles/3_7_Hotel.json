@@ -1,0 +1,67 @@
+{
+  "conversations": [
+    {
+      "index": 0,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "Golden Gate Hotel… this should be the place.",
+        "zh": "金门酒店... 应该就是这里了。",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "(The hotel’s neon sign flickers and buzzes. The building looks old—well past its prime.",
+        "zh": "酒店的霓虹灯吱吱作响，这个酒店看起来有些年头了",
+        "ja": ""
+      },
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "Finally… I can get some rest.",
+        "zh": "总算可以休息了...",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "dfe83859-9e12-41f7-8710-dc54b00fb3f5",
+          "targetObjectName": "LevelManager_3_7",
+          "componentTypeName": "LevelManager3_7",
+          "methodName": "toNextScene",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
+    }
+  ],
+  "currentIndex": 0
+}

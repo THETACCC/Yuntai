@@ -288,7 +288,45 @@
         "zh": "我是芸台<color=orange>金兰观的周书</color>，非常感谢你的搭救！可以请教你的姓名吗？",
         "ja": ""
       },
-      "nextIndex": 36
+      "nextIndex": 36,
+      "eventCalls": [
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "b806a729-04c1-432e-8215-b699854a1ecd",
+          "targetObjectName": "CharacterTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "0ce8d757-b566-4edc-b4c5-340338ef6896",
+          "targetObjectName": "Character2_Page",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
     },
     {
       "index": 7,
@@ -316,7 +354,7 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "Page impatiently opened the lid of the in-flight meal, only for his face to immediately darken.",
+        "en": "Page opened the lid, but it seems like something went wrong..",
         "zh": "周书迫不及待地掀开飞机餐的盖子，但立刻露出了不妙的神情。",
         "ja": ""
       },
@@ -914,7 +952,7 @@
         "zh": "我是何以真，不用客气！",
         "ja": ""
       },
-      "nextIndex": 39
+      "nextIndex": 40
     },
     {
       "index": 37,
@@ -958,8 +996,8 @@
       "avatarAddr": "",
       "isPlayer": false,
       "content": {
-        "en": "Page impatiently opened the lid of the in-flight meal, only for his face to immediately darken.",
-        "zh": "周书迫不及待地掀开飞机餐的盖子，但立刻露出了不妙的神情。",
+        "en": "This meal...",
+        "zh": "这份饭...",
         "ja": ""
       },
       "nextIndex": -1,
@@ -977,6 +1015,22 @@
           "triggerTiming": 2
         }
       ]
+    },
+    {
+      "index": 40,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "Page opened the lid, but it seems like something went wrong..",
+        "zh": "周书迫不及待地掀开飞机餐的盖子，但立刻露出了不妙的神情。",
+        "ja": ""
+      },
+      "nextIndex": 39
     }
   ],
   "currentIndex": 0

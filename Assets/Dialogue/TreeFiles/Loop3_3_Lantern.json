@@ -10,8 +10,8 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Excuse me, I see quite a few <color=orange>lanterns</color> piled up next to your stall?",
-        "zh": "您好，我看到摊位旁边似乎堆着不少<color=orange>花灯</color>？",
+        "en": "Hello, I noticed there seems to be quite a pile of lanterns beside your stall?",
+        "zh": "您好，我看到摊位旁边似乎堆着不少花灯？",
         "ja": ""
       },
       "nextIndex": 3
@@ -154,8 +154,8 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "Ah, are they blocking your way? I’m so sorry!",
-        "zh": "啊，挡着您路了吗？真不好意思！",
+        "en": "Are they blocking your way?",
+        "zh": "啊，挡着您路了吗？",
         "ja": ""
       },
       "nextIndex": 4
@@ -170,8 +170,8 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "I want to get them all hung up as soon as possible, but as you can see…",
-        "zh": "我也想尽快挂好这些花灯的，可是您瞧......",
+        "en": "(The vendor leans on a cane, one foot still in a cast.)",
+        "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
         "ja": ""
       },
       "nextIndex": 5
@@ -179,15 +179,15 @@
     {
       "index": 5,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_思考",
-      "isPlayer": true,
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
       "content": {
-        "en": "(The stall owner is leaning on a crutch, and one leg is in a cast.)",
-        "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
+        "en": "I twisted my ankle in an accident a couple of days ago. My family’s been busy preparing other stalls, so they haven’t had time to come help.",
+        "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
         "ja": ""
       },
       "nextIndex": 6
@@ -202,24 +202,42 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "I twisted my ankle in an accident a couple of days ago, and my family is busy preparing our other shops, so no one has time to help me.",
-        "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
+        "en": "So I’ve had to set things up on my own, bit by bit.",
+        "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
         "ja": ""
       },
-      "nextIndex": 7
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Maybe I could help…",
+            "zh": "也许我可以帮忙...",
+            "ja": ""
+          },
+          "targetIndex": 10
+        },
+        {
+          "text": {
+            "en": "Could you move these out of the way?",
+            "zh": "您能把这些挪开吗",
+            "ja": ""
+          },
+          "targetIndex": 15
+        }
+      ]
     },
     {
       "index": 7,
       "name": {
-        "en": "Lantern Vendor",
-        "zh": "花灯摊主",
+        "en": "Veris",
+        "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/男孩父亲 1",
-      "isPlayer": false,
+      "avatarAddr": "DialogueImages/何以真_思考",
+      "isPlayer": true,
       "content": {
-        "en": "I’ve had to set up the stall slowly by myself. Thankfully, the neighboring vendors have helped a lot; it’s just these lanterns left.",
-        "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
+        "en": "(I can’t just keep waiting like this. According to the info I had, the troupe should also have a stall at the fair.)",
+        "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
         "ja": ""
       },
       "nextIndex": 8
@@ -234,30 +252,14 @@
       "avatarAddr": "DialogueImages/何以真_思考",
       "isPlayer": true,
       "content": {
-        "en": "(I can’t just keep waiting like this. According to the info I had, the troupe should also have a stall at the fair.)",
-        "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
+        "en": "(I want to find their stall as soon as possible and see if I can gather some important information.)",
+        "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
         "ja": ""
       },
       "nextIndex": 9
     },
     {
       "index": 9,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_思考",
-      "isPlayer": true,
-      "content": {
-        "en": "(I want to find their stall as soon as possible and see if I can gather some important information.)",
-        "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
-        "ja": ""
-      },
-      "nextIndex": 10
-    },
-    {
-      "index": 10,
       "name": {
         "en": "Veris",
         "zh": "何以真",
@@ -271,6 +273,310 @@
         "ja": ""
       },
       "nextIndex": 1
+    },
+    {
+      "index": 10,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "Then let me help you hang the lanterns.",
+        "zh": "那我来帮您把花灯挂上吧。",
+        "ja": ""
+      },
+      "nextIndex": 11
+    },
+    {
+      "index": 11,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "That’s exactly what I was waiting for!",
+        "zh": "不错，就等着你这句呢！",
+        "ja": ""
+      },
+      "nextIndex": 12
+    },
+    {
+      "index": 12,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "(The vendor beams, getting up as he rummages around for something.)",
+        "zh": "（摊主喜笑颜开，起身翻找着什么）",
+        "ja": ""
+      },
+      "nextIndex": 13
+    },
+    {
+      "index": 13,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "No problem. Where should they be hung?",
+        "zh": "没事的，请问需要挂到哪里呢？",
+        "ja": ""
+      },
+      "nextIndex": 14
+    },
+    {
+      "index": 14,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "There’s a diagram here. Just follow it and hang them along the eaves over to the left.",
+        "zh": "这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+          "targetObjectName": "EventTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "dbd1346d-1417-496e-b97b-98dea0ceb7fa",
+          "targetObjectName": "Event6_Lanterns",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "LanternPileDisappear",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Young people these days have no manners! Can’t you see my leg is injured?",
+        "zh": "现在的年轻人真是不知礼节！你看不到我腿脚不便吗？",
+        "ja": ""
+      },
+      "nextIndex": 16
+    },
+    {
+      "index": 16,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "(The vendor shoots you a look of anger and disdain.)",
+        "zh": "（摊主投来了愤怒与不屑的目光）",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Maybe I could help…",
+            "zh": "也许我可以帮忙...",
+            "ja": ""
+          },
+          "targetIndex": 10
+        },
+        {
+          "text": {
+            "en": "May I move these aside?",
+            "zh": "我可以把这些挪走吗？",
+            "ja": ""
+          },
+          "targetIndex": 17
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "This is outrageous! You can’t just touch other people’s things whenever you like!",
+        "zh": "真是无法无天了，别人的东西可不是你说动就动的！",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Maybe I could help…",
+            "zh": "也许我可以帮忙...",
+            "ja": ""
+          },
+          "targetIndex": 18
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "Then let me help you hang the lanterns.",
+        "zh": "那我来帮您把花灯挂上吧。",
+        "ja": ""
+      },
+      "nextIndex": 19
+    },
+    {
+      "index": 19,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Hmph. That’s more like it.",
+        "zh": "哼，这还差不多！",
+        "ja": ""
+      },
+      "nextIndex": 20
+    },
+    {
+      "index": 20,
+      "name": {
+        "en": "Lantern Vendor",
+        "zh": "花灯摊主",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "There’s a diagram here. Just follow it and hang them along the eaves over to the left.",
+        "zh": "这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+          "targetObjectName": "EventTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "dbd1346d-1417-496e-b97b-98dea0ceb7fa",
+          "targetObjectName": "Event6_Lanterns",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "LanternPileDisappear",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
     }
   ],
   "currentIndex": 0
