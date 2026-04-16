@@ -3,20 +3,69 @@
         {
             "id": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
             "useContentId": true,
-            "contentId": "ch1_10025",
+            "contentId": "ch1_10022",
             "content": {
-                "en": "(No reason to bother them now, let's just head to the <color=orange>restroom.</color>)",
-                "zh": "（现在没有必要搭话，先去<color=orange>洗手间</color>吧。）",
+                "en": "The chattering stopped. Replaced by the sounds of chewing and swallowing.",
+                "zh": "一家三口不再对话，取而代之的是逐渐响亮的咀嚼声与吞咽声。",
                 "ja": ""
             },
-            "positionX": 1681.333251953125,
-            "positionY": 612.0,
+            "positionX": 1682.0,
+            "positionY": 613.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9e88b99a-60a3-46db-85f6-d2446965f0f5",
+            "index": 2,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_10024",
+            "content": {
+                "en": "…",
+                "zh": "...",
+                "ja": ""
+            },
+            "positionX": 2421.0,
+            "positionY": 644.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b066aa1f-b688-4a75-94ef-4870a96110d5",
+            "index": 1,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_10023",
+            "content": {
+                "en": "The boy grabs his tray tightly, licking it as if he were to swallow every last drop.",
+                "zh": "小男孩死死抓着餐盘舔舐着，仿佛要把最后一滴汁水都全部吞下。",
+                "ja": ""
+            },
+            "positionX": 2054.0,
+            "positionY": 630.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "580e470a-aa78-49ca-a3c6-535ba114ebf5",
+            "inputNodeId": "b066aa1f-b688-4a75-94ef-4870a96110d5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b066aa1f-b688-4a75-94ef-4870a96110d5",
+            "inputNodeId": "9e88b99a-60a3-46db-85f6-d2446965f0f5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }

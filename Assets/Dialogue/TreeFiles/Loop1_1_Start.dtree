@@ -66,6 +66,63 @@
             "conditionalBranches": []
         },
         {
+            "id": "c012602e-2343-4a4d-af84-fdeff6b7f197",
+            "index": 3,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_10004",
+            "content": {
+                "en": "Veris opens her <color=orange>Notebook</color> and starts joggling fragments of the nightmare.",
+                "zh": "何以真翻开珍藏的<color=orange>日记本</color>，记录下了片刻间噩梦的内容",
+                "ja": ""
+            },
+            "positionX": 1837.0,
+            "positionY": 717.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "f38ca6ae-751d-409c-9c47-d5e1ec158daf",
+                    "targetObjectName": "Event0_Nightmare",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "2aec9db7-74c2-4a06-808e-824baf9d7aed",
             "index": 4,
             "characterId": "8e0b2383-21fb-426e-bb74-fdbc40a2b884",
@@ -136,7 +193,7 @@
         {
             "id": "6db2e03c-dd45-4315-996f-c416006f7cc8",
             "index": 8,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
             "useContentId": true,
             "contentId": "ch1_10009",
             "content": {
@@ -194,63 +251,6 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 2
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "c012602e-2343-4a4d-af84-fdeff6b7f197",
-            "index": 3,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch1_10004",
-            "content": {
-                "en": "Veris opens her <color=orange>Notebook</color> and starts joggling fragments of the nightmare.",
-                "zh": "何以真翻开珍藏的<color=orange>日记本</color>，记录下了片刻间噩梦的内容",
-                "ja": ""
-            },
-            "positionX": 1837.0,
-            "positionY": 717.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-                    "targetObjectName": "EventTab",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                },
-                {
-                    "targetObjectID": "f38ca6ae-751d-409c-9c47-d5e1ec158daf",
-                    "targetObjectName": "Event0_Nightmare",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
                 }
             ],
             "conditionalBranches": []
