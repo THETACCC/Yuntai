@@ -1,0 +1,71 @@
+{
+    "nodes": [
+        {
+            "id": "4ba50f42-7adf-41bb-8d7a-e2d8230019bc",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_4012",
+            "content": {
+                "en": "(Looking around, this seems to be the courtyard of a residence.)",
+                "zh": "（环顾四周，这里似乎是一家住户的庭院内）",
+                "ja": ""
+            },
+            "positionX": 127.0,
+            "positionY": 238.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ba046771-a1a0-4dcd-9bf8-c8aca2c845c3",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_4013",
+            "content": {
+                "en": "I should get out of here… as soon as possible.",
+                "zh": "还是赶紧离开这里吧...",
+                "ja": ""
+            },
+            "positionX": 473.0,
+            "positionY": 238.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7512c16c-bdf6-4cef-bc2c-8303f3e5565a",
+            "index": 2,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_4014",
+            "content": {
+                "en": "I’d better head to the hotel I booked. At least it’ll be safer there.",
+                "zh": "我最好现在就去定好的酒店，起码安全一点。",
+                "ja": ""
+            },
+            "positionX": 822.0,
+            "positionY": 238.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "4ba50f42-7adf-41bb-8d7a-e2d8230019bc",
+            "inputNodeId": "ba046771-a1a0-4dcd-9bf8-c8aca2c845c3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "ba046771-a1a0-4dcd-9bf8-c8aca2c845c3",
+            "inputNodeId": "7512c16c-bdf6-4cef-bc2c-8303f3e5565a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
