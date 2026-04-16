@@ -77,7 +77,7 @@ public static class GlobalLibrary
 
 
         }},
-        {SceneTitle.Level3_7, new SceneSpecifics()
+        {SceneTitle.Level3_7Hotel, new SceneSpecifics()
         {
 
 
