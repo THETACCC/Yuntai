@@ -197,6 +197,7 @@ public enum SceneTitle
     Level5_1Zhoushu = 43,
     Level4_21CityDead = 44,
     Level3_7Hotel = 45,
+    AirplaneCG = 46,
     JasmineTest = 100,
 }
 
