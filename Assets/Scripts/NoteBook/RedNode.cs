@@ -9,6 +9,7 @@ public class RedNode : MonoBehaviour
     public List<RedNode> children = new List<RedNode>();
     public bool enable = false;
     [SerializeField]NodeType nodeType;
+    private bool isDisabling = false; // 防止循环调用
 
     Image image;
     enum NodeType
@@ -70,8 +71,16 @@ public class RedNode : MonoBehaviour
 
     public void Disable()
     {
+        // 防止循环调用
+        if (isDisabling)
+        {
+            return;
+        }
+        
+        isDisabling = true;
         enable = false;
         Refresh();
+        
         if (parent != null)
         {
             if (parent.children.Count > 0)
@@ -90,6 +99,7 @@ public class RedNode : MonoBehaviour
                 }
             }
         }
+        
         if (nodeType == NodeType.TaskTab)
         {
             for (int i = 0; i < children.Count; i++)
@@ -97,5 +107,7 @@ public class RedNode : MonoBehaviour
                 children[i].Disable();
             }
         }
+        
+        isDisabling = false;
     }
 }

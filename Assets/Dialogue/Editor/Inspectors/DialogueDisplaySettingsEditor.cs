@@ -28,7 +28,7 @@ public class DialogueDisplaySettingsEditor : Editor
         }
 
         EditorGUILayout.Space();
-        settings.showDialogueHistory = EditorGUILayout.Toggle("Show Dialogue History", settings.showDialogueHistory);
+        //settings.showDialogueHistory = EditorGUILayout.Toggle("Show Dialogue History", settings.showDialogueHistory);
 
 
 
