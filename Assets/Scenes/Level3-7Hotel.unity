@@ -3460,8 +3460,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
+  - component: {fileID: 1279740583}
+  - component: {fileID: 1279740584}
   m_Layer: 0
-  m_Name: LevelManager_4_1
+  m_Name: LevelManager_3_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3494,6 +3496,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b0654aad64a024aab15490a0d075a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1279740583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a2993e36f661247b0cfbe2544d017e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenename: AirplaneCG
+  SpawnPointLocation: 0
+--- !u!114 &1279740584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: dfe83859-9e12-41f7-8710-dc54b00fb3f5
 --- !u!1001 &1333638842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5037,7 +5066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -81.53
+      value: -84.1
       objectReference: {fileID: 0}
     - target: {fileID: 1430933432509025407, guid: 306363f08061241468b76fd999968abd, type: 3}
       propertyPath: m_LocalPosition.y
