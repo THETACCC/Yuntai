@@ -3,12 +3,12 @@
         {
             "id": "f95c5b51-1a5f-4ef0-87ab-2094be9f3723",
             "index": 0,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
             "useContentId": true,
-            "contentId": "ch2_3116",
+            "contentId": "ch2_4021",
             "content": {
-                "en": "Is it over?",
-                "zh": "结束了吗？",
+                "en": "",
+                "zh": "何、以、真！！醒过来！！",
                 "ja": ""
             },
             "positionX": 1030.39990234375,
@@ -20,12 +20,12 @@
         {
             "id": "956e2529-5545-498e-8376-a2bec39ce5fa",
             "index": 1,
-            "characterId": "a486168d-2037-4080-925f-353bb36f4c7b",
+            "characterId": "03fbd1fc-0e37-4fb2-abea-a8bb2982cffb",
             "useContentId": true,
-            "contentId": "ch2_3117",
+            "contentId": "ch2_4022",
             "content": {
-                "en": "That girl’s drumming was pretty good!",
-                "zh": "那姑娘敲得还不错嘛！",
+                "en": "",
+                "zh": "！！？",
                 "ja": ""
             },
             "positionX": 1356.0,
@@ -37,12 +37,12 @@
         {
             "id": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
             "index": 2,
-            "characterId": "b8726988-3091-4b58-b6c0-00c06406dd37",
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
             "useContentId": true,
-            "contentId": "ch2_3118",
+            "contentId": "ch2_4023",
             "content": {
-                "en": "Right?!",
-                "zh": "就是说啊！",
+                "en": "",
+                "zh": "周书...？太好了，你还活着！",
                 "ja": ""
             },
             "positionX": 1674.39990234375,
@@ -54,12 +54,12 @@
         {
             "id": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
             "index": 3,
-            "characterId": "181a9a73-0e81-4234-b219-349408b225bb",
+            "characterId": "304b16b6-57c2-4fa3-80f8-7ee82eeb3533",
             "useContentId": true,
-            "contentId": "ch2_3119",
+            "contentId": "ch2_4024",
             "content": {
-                "en": "Curtain call, curtain call—let’s go. We should head to Jinlan Temple for the awards soon.",
-                "zh": "谢幕了谢幕了，走走，一会儿去金兰观看颁奖去。",
+                "en": "",
+                "zh": "什么情况！可恶，仪式竟然被打断了、都给我捉住她！！",
                 "ja": ""
             },
             "positionX": 2010.39990234375,
@@ -69,34 +69,17 @@
             "conditionalBranches": []
         },
         {
-            "id": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
-            "index": 4,
-            "characterId": "a486168d-2037-4080-925f-353bb36f4c7b",
-            "useContentId": true,
-            "contentId": "ch2_3120",
-            "content": {
-                "en": "Hey, don’t block the way! Can’t you see that girl’s trying to go to the right?",
-                "zh": "哎呀！都别堵着道，没看那小姑娘要往右边走吗？",
-                "ja": ""
-            },
-            "positionX": 2346.39990234375,
-            "positionY": 221.59999084472657,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
-            "index": 5,
+            "index": 4,
             "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "useContentId": true,
-            "contentId": "ch2_3121",
+            "contentId": "ch2_4026",
             "content": {
-                "en": "(They’ve cleared a path. I should head right while I can.)",
-                "zh": "（大家把路让开了，趁现在往右边去看看吧。 ）",
+                "en": "",
+                "zh": "好！你千万小心！",
                 "ja": ""
             },
-            "positionX": 2673.599853515625,
+            "positionX": 2676.0,
             "positionY": 222.40000915527345,
             "choices": [],
             "eventCalls": [
@@ -114,6 +97,23 @@
                     "triggerTiming": 2
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ff884f25-63c9-46d2-8476-253d256b10ec",
+            "index": 5,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": true,
+            "contentId": "ch2_4025",
+            "content": {
+                "en": "",
+                "zh": "来不及了，快跑去金兰观！！我来拦住他们！",
+                "ja": ""
+            },
+            "positionX": 2347.199951171875,
+            "positionY": 220.8000030517578,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
@@ -141,13 +141,13 @@
         },
         {
             "outputNodeId": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
-            "inputNodeId": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
+            "inputNodeId": "ff884f25-63c9-46d2-8476-253d256b10ec",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
         },
         {
-            "outputNodeId": "a15849ef-c479-49cb-b4c5-053a820e7eb6",
+            "outputNodeId": "ff884f25-63c9-46d2-8476-253d256b10ec",
             "inputNodeId": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
             "choiceIndex": -1,
             "choiceText": "",

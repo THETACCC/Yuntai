@@ -34,54 +34,111 @@ public class RhythmConductor : MonoBehaviour
     [SerializeField] private TextAsset lostDialogueFile;
     [SerializeField] private TextAsset normalDialogueFile;
     [SerializeField] private TextAsset perfectDialogueFile;
-    [SerializeField] private float resultDelayAfterLastNote = 1f;
+    private float resultDelayAfterLastNote = 6.617f;
 
     static readonly NoteEvent[] CHART = new[]
-    {
-        new NoteEvent { time = 1.857, lane = 0 },
-        new NoteEvent { time = 2.194, lane = 1 },
-        new NoteEvent { time = 2.523, lane = 2 },
-        new NoteEvent { time = 2.860, lane = 3 },
-        new NoteEvent { time = 3.214, lane = 4 },
-        new NoteEvent { time = 3.542, lane = 5 },
+{
+    new NoteEvent { time = 11.018, lane = 1 },
+    new NoteEvent { time = 11.859, lane = 2 },
+    new NoteEvent { time = 12.735, lane = 3 },
+    new NoteEvent { time = 13.631, lane = 4 },
+    new NoteEvent { time = 14.416, lane = 5 },
 
-        new NoteEvent { time = 4.405, lane = 1 },
-        new NoteEvent { time = 4.762, lane = 2 },
+    new NoteEvent { time = 16.042, lane = 2 },
+    new NoteEvent { time = 17.778, lane = 3 },
+    new NoteEvent { time = 19.350, lane = 4 },
 
-        new NoteEvent { time = 5.654, lane = 4 },
+    new NoteEvent { time = 21.140, lane = 1 },
+    new NoteEvent { time = 21.743, lane = 3 },
+    new NoteEvent { time = 22.035, lane = 4 },
 
-        new NoteEvent { time = 7.002, lane = 1 },
+    new NoteEvent { time = 23.479, lane = 3 },
+    new NoteEvent { time = 23.698, lane = 4 },
 
-        new NoteEvent { time = 8.252, lane = 4 },
+    new NoteEvent { time = 24.502, lane = 1 },
+    new NoteEvent { time = 25.160, lane = 3 },
+    new NoteEvent { time = 25.397, lane = 4 },
 
-        new NoteEvent { time = 9.567, lane = 1 },
+    new NoteEvent { time = 26.220, lane = 1 },
+    new NoteEvent { time = 26.877, lane = 3 },
+    new NoteEvent { time = 27.078, lane = 4 },
 
-        new NoteEvent { time = 10.520, lane = 2 },
-        new NoteEvent { time = 11.145, lane = 3 },
-        new NoteEvent { time = 11.835, lane = 4 },
-        new NoteEvent { time = 12.520, lane = 5 },
+    new NoteEvent { time = 31.244, lane = 0 },
+    new NoteEvent { time = 32.121, lane = 1 },
+    new NoteEvent { time = 32.980, lane = 2 },
+    new NoteEvent { time = 33.784, lane = 3 },
+    new NoteEvent { time = 34.625, lane = 4 },
+    new NoteEvent { time = 35.483, lane = 5 },
 
-        new NoteEvent { time = 13.084, lane = 0 },
-        new NoteEvent { time = 13.775, lane = 1 },
-        new NoteEvent { time = 14.410, lane = 2 },
-        new NoteEvent { time = 15.049, lane = 3 },
-        new NoteEvent { time = 15.700, lane = 4 },
+    new NoteEvent { time = 36.306, lane = 0 },
+    new NoteEvent { time = 37.125, lane = 1 },
+    new NoteEvent { time = 37.987, lane = 2 },
+    new NoteEvent { time = 38.864, lane = 3 },
+    new NoteEvent { time = 39.704, lane = 4 },
+    new NoteEvent { time = 40.563, lane = 5 },
 
-        new NoteEvent { time = 16.425, lane = 0 },
-        new NoteEvent { time = 16.767, lane = 1 },
-        new NoteEvent { time = 17.108, lane = 2 },
-        new NoteEvent { time = 17.467, lane = 3 },
-        new NoteEvent { time = 17.783, lane = 4 },
+    new NoteEvent { time = 46.501, lane = 1 },
+    new NoteEvent { time = 47.049, lane = 3 },
+    new NoteEvent { time = 47.305, lane = 4 },
+    new NoteEvent { time = 47.488, lane = 5 },
 
-        new NoteEvent { time = 18.923, lane = 0 },
-        new NoteEvent { time = 19.572, lane = 1 },
+    new NoteEvent { time = 48.145, lane = 1 },
+    new NoteEvent { time = 48.748, lane = 3 },
+    new NoteEvent { time = 49.077, lane = 4 },
+    new NoteEvent { time = 49.242, lane = 5 },
 
-        new NoteEvent { time = 21.067, lane = 3 },
-        new NoteEvent { time = 21.375, lane = 4 },
-        new NoteEvent { time = 21.682, lane = 5 },
+    new NoteEvent { time = 49.735, lane = 1 },
+    new NoteEvent { time = 50.567, lane = 3 },
+    new NoteEvent { time = 50.740, lane = 4 },
+    new NoteEvent { time = 50.886, lane = 5 },
 
-        new NoteEvent { time = 22.519, lane = 1 },
-    };
+    new NoteEvent { time = 51.544, lane = 1 },
+    new NoteEvent { time = 52.384, lane = 3 },
+    new NoteEvent { time = 52.585, lane = 4 },
+    new NoteEvent { time = 52.823, lane = 5 },
+
+    new NoteEvent { time = 53.261, lane = 1 },
+    new NoteEvent { time = 53.846, lane = 3 },
+    new NoteEvent { time = 54.084, lane = 4 },
+    new NoteEvent { time = 54.321, lane = 5 },
+
+    new NoteEvent { time = 54.942, lane = 1 },
+    new NoteEvent { time = 55.564, lane = 3 },
+    new NoteEvent { time = 55.763, lane = 4 },
+    new NoteEvent { time = 56.039, lane = 5 },
+
+    new NoteEvent { time = 56.587, lane = 1 },
+    new NoteEvent { time = 57.172, lane = 3 },
+    new NoteEvent { time = 57.446, lane = 4 },
+    new NoteEvent { time = 57.720, lane = 5 },
+
+    new NoteEvent { time = 58.286, lane = 1 },
+    new NoteEvent { time = 58.926, lane = 3 },
+    new NoteEvent { time = 59.163, lane = 4 },
+    new NoteEvent { time = 59.437, lane = 5 },
+
+    new NoteEvent { time = 60.004, lane = 1 },
+
+    new NoteEvent { time = 66.719, lane = 1 },
+    new NoteEvent { time = 67.053, lane = 2 },
+    new NoteEvent { time = 67.553, lane = 4 },
+    new NoteEvent { time = 67.971, lane = 5 },
+
+    new NoteEvent { time = 68.360, lane = 1 },
+    new NoteEvent { time = 68.860, lane = 2 },
+    new NoteEvent { time = 69.277, lane = 4 },
+    new NoteEvent { time = 69.639, lane = 5 },
+
+    new NoteEvent { time = 70.084, lane = 1 },
+    new NoteEvent { time = 70.528, lane = 2 },
+    new NoteEvent { time = 70.973, lane = 4 },
+    new NoteEvent { time = 71.418, lane = 5 },
+
+    new NoteEvent { time = 71.807, lane = 1 },
+    new NoteEvent { time = 72.196, lane = 2 },
+    new NoteEvent { time = 72.641, lane = 4 },
+    new NoteEvent { time = 73.058, lane = 5 },
+};
 
     readonly List<NoteEvent> notes = new();
     readonly List<NoteView> active = new();
