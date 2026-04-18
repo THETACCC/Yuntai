@@ -5,15 +5,38 @@
             "index": 0,
             "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
             "useContentId": true,
-            "contentId": "ch1_3121",
+            "contentId": "ch1_4049",
             "content": {
-                "en": "Ugh, I’m not a hardware person… How am I supposed to fix this?",
-                "zh": "嘶，我不是搞硬件的啊，这个该怎么弄呢?",
+                "en": "Hey, young lady, come give us a hand.",
+                "zh": "哎小姑娘，过来搭把手！",
                 "ja": ""
             },
-            "positionX": 186.0,
-            "positionY": 122.0,
-            "choices": [],
+            "positionX": 110.0,
+            "positionY": 708.0,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_4050",
+                    "text": {
+                        "en": "Um... okay.",
+                        "zh": "嗯...好",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_4051",
+                    "text": {
+                        "en": "(Pretend to ignore them.)",
+                        "zh": "（假装无视）",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
             "eventCalls": [
                 {
                     "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
@@ -232,16 +255,207 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "2875c3b3-670c-483b-a788-054951d6a4a1",
+            "index": 9,
+            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
+            "useContentId": true,
+            "contentId": "ch1_4055",
+            "content": {
+                "en": "Simply put, these people want to loop a sound effect beside their stall. I was only asked to come over and set up the program for them.",
+                "zh": "简单来说，这些人想要用印象在摊位旁边循环播放一个音效，我本来只是过来帮他们设定好程序的。",
+                "ja": ""
+            },
+            "positionX": 606.0,
+            "positionY": 1068.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f3f348b1-35b5-4be5-beb7-4cb556d1915a",
+            "index": 10,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_4056",
+            "content": {
+                "en": "Then what do you need me to do?",
+                "zh": "那需要我做什么？",
+                "ja": ""
+            },
+            "positionX": 1015.0,
+            "positionY": 1080.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "13d69090-c35b-4151-9cf0-0e311569f250",
+            "index": 11,
+            "characterId": "175d32ab-deb4-4be5-8f1d-b4b4c2e0fa60",
+            "useContentId": true,
+            "contentId": "ch1_4057",
+            "content": {
+                "en": "I need you to troubleshoot this speaker. There’s also a note attached to it—it might be useful.",
+                "zh": "我需要你来调试一下这个音响，这上面还有张纸条，也许有点用。",
+                "ja": ""
+            },
+            "positionX": 1413.0,
+            "positionY": 1080.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "80a88fa5-9bb6-476f-a1c2-35e74379dfd8",
+            "index": 12,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_4058",
+            "content": {
+                "en": "Alright..",
+                "zh": "好..好..",
+                "ja": ""
+            },
+            "positionX": 1856.0,
+            "positionY": 1094.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "df8c648d-2f74-4761-91aa-fbdc7c97e287",
+                    "targetObjectName": "SoundMiniGame",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "SoundMiniGameIndicator",
+                    "methodName": "OpenMiniGame",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+                    "targetObjectName": "ObjectiveTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+                    "targetObjectName": "Objective4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+                    "targetObjectName": "Objective4_1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "LockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "7f8cb4f2-ad32-4cec-ac79-148d4dcc0240",
+                    "targetObjectName": "Objective4_2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "ba60995e-8b7b-4237-bbc3-ea8ecf1134e0",
+            "index": 13,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_4052",
+            "content": {
+                "en": "(Just as Veris quickens her pace to walk past, two burly men in black cloaks block her path.)",
+                "zh": "（就在何以真准备快步经过时，两个黑衣斗篷的壮汉拦住了她的去路）",
+                "ja": ""
+            },
+            "positionX": 553.0,
+            "positionY": 1553.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0f450aba-f3ce-40be-b4d2-c7695d8a14f7",
+            "index": 14,
+            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
+            "useContentId": true,
+            "contentId": "ch1_4053",
+            "content": {
+                "en": "If we tell you to help, then help. Why make it difficult?",
+                "zh": "叫你搭把手就搭把手，哪那么多事情！",
+                "ja": ""
+            },
+            "positionX": 914.0,
+            "positionY": 1553.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "89effe4f-7090-4f6b-add7-b73a66ea583e",
+            "index": 15,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch1_4054",
+            "content": {
+                "en": "O-Okay...",
+                "zh": "好...",
+                "ja": ""
+            },
+            "positionX": 1282.0,
+            "positionY": 1553.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "f3af1f14-a919-4481-a206-c3c27d7d0ee2",
-            "inputNodeId": "46c1bd5a-eb3d-45c1-8f69-d43519001ee5",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "46c1bd5a-eb3d-45c1-8f69-d43519001ee5",
             "inputNodeId": "ccc3d082-fa3e-4480-9b6a-74f0d8259f3e",
@@ -287,6 +501,62 @@
         {
             "outputNodeId": "c4ee8103-eaa5-4b5f-84eb-9bd45f98ed39",
             "inputNodeId": "4e1b485e-a040-444e-b150-91dd312ba801",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f3af1f14-a919-4481-a206-c3c27d7d0ee2",
+            "inputNodeId": "2875c3b3-670c-483b-a788-054951d6a4a1",
+            "choiceIndex": 0,
+            "choiceText": "Um... okay.",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "2875c3b3-670c-483b-a788-054951d6a4a1",
+            "inputNodeId": "f3f348b1-35b5-4be5-beb7-4cb556d1915a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "13d69090-c35b-4151-9cf0-0e311569f250",
+            "inputNodeId": "80a88fa5-9bb6-476f-a1c2-35e74379dfd8",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f3f348b1-35b5-4be5-beb7-4cb556d1915a",
+            "inputNodeId": "13d69090-c35b-4151-9cf0-0e311569f250",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f3af1f14-a919-4481-a206-c3c27d7d0ee2",
+            "inputNodeId": "ba60995e-8b7b-4237-bbc3-ea8ecf1134e0",
+            "choiceIndex": 1,
+            "choiceText": "(Pretend to ignore them.)",
+            "branchPriority": -3
+        },
+        {
+            "outputNodeId": "ba60995e-8b7b-4237-bbc3-ea8ecf1134e0",
+            "inputNodeId": "0f450aba-f3ce-40be-b4d2-c7695d8a14f7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0f450aba-f3ce-40be-b4d2-c7695d8a14f7",
+            "inputNodeId": "89effe4f-7090-4f6b-add7-b73a66ea583e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "89effe4f-7090-4f6b-add7-b73a66ea583e",
+            "inputNodeId": "2875c3b3-670c-483b-a788-054951d6a4a1",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

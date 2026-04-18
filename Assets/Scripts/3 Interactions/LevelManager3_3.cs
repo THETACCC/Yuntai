@@ -98,6 +98,9 @@ public class LevelManager3_3 : BaseLevelManager
     private static readonly int PropWipeProgress = Shader.PropertyToID("_WipeProgress");
     private static readonly int PropWebBuildProgress = Shader.PropertyToID("_BuildProgress");
 
+    public GameObject myDrumCollider;
+    public GameObject myLanternCollider;
+
     protected override void Awake()
     {
         base.Awake();
@@ -635,5 +638,14 @@ public class LevelManager3_3 : BaseLevelManager
     public void CameraZoomOut_3_3()
     {
         CameraZoomOut();
+    }
+
+    public void DisableDrumCollider()
+    {
+        myDrumCollider.SetActive(false);
+    }
+    public void DisableLanternCollider()
+    {
+        myLanternCollider.SetActive(false);
     }
 }

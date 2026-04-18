@@ -1,37 +1,6 @@
 {
     "nodes": [
         {
-            "id": "10ea8f9d-e0ed-4bb6-b5a5-c15372f8fe1b",
-            "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3138",
-            "content": {
-                "en": "Excuse me?",
-                "zh": "不好意思？",
-                "ja": ""
-            },
-            "positionX": 4140.66650390625,
-            "positionY": 193.3333282470703,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
-                    "targetObjectName": "LevelManager3_3",
-                    "targetSceneName": "Level3-3",
-                    "componentTypeName": "LevelManager3_3",
-                    "methodName": "CameraZoomIn_3_3",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "7fd4f637-4619-41a7-96e6-9012ec31b970",
             "index": 1,
             "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
@@ -76,8 +45,8 @@
                 "zh": "我现在很忙，没空理会无关人员。",
                 "ja": ""
             },
-            "positionX": 5160.66650390625,
-            "positionY": 194.6666717529297,
+            "positionX": 5161.0,
+            "positionY": 195.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -94,7 +63,7 @@
                 "ja": ""
             },
             "positionX": 5502.0,
-            "positionY": 194.6666717529297,
+            "positionY": 195.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -110,8 +79,8 @@
                 "zh": "......",
                 "ja": ""
             },
-            "positionX": 5833.3330078125,
-            "positionY": 194.6666717529297,
+            "positionX": 5833.0,
+            "positionY": 195.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -128,7 +97,7 @@
                 "ja": ""
             },
             "positionX": 6168.0,
-            "positionY": 194.6666717529297,
+            "positionY": 195.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -146,16 +115,57 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "10ea8f9d-e0ed-4bb6-b5a5-c15372f8fe1b",
+            "index": 0,
+            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
+            "useContentId": true,
+            "contentId": "ch1_4066",
+            "content": {
+                "en": "...",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 4033.0,
+            "positionY": 304.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomIn_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "72575c57-0164-41c2-863e-a6ac7b77ffcb",
+            "index": 7,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_4067",
+            "content": {
+                "en": "The two masked man silently stared at He Yizhen. There was no way to tell what expressions lay hidden beneath their masks.",
+                "zh": "两个蒙面人静静地看着何以真，也不知在他们的面具之下是什么表情。",
+                "ja": ""
+            },
+            "positionX": 4531.0,
+            "positionY": 620.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "10ea8f9d-e0ed-4bb6-b5a5-c15372f8fe1b",
-            "inputNodeId": "7fd4f637-4619-41a7-96e6-9012ec31b970",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "7fd4f637-4619-41a7-96e6-9012ec31b970",
             "inputNodeId": "4ae8958b-7ba1-480f-9c89-0529ae6c6d14",
@@ -187,6 +197,13 @@
         {
             "outputNodeId": "5681d006-e171-45c2-87d6-ccb1bd918b87",
             "inputNodeId": "05516644-8658-4f9c-a671-9f8deb0843f3",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "10ea8f9d-e0ed-4bb6-b5a5-c15372f8fe1b",
+            "inputNodeId": "72575c57-0164-41c2-863e-a6ac7b77ffcb",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

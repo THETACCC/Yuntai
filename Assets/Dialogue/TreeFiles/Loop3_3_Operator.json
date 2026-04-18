@@ -10,11 +10,29 @@
       "avatarAddr": "DialogueImages/男孩父亲 1",
       "isPlayer": false,
       "content": {
-        "en": "Ugh, I’m not a hardware person… How am I supposed to fix this?",
-        "zh": "嘶，我不是搞硬件的啊，这个该怎么弄呢?",
+        "en": "Hey, young lady, come give us a hand.",
+        "zh": "哎小姑娘，过来搭把手！",
         "ja": ""
       },
-      "nextIndex": 1,
+      "nextIndex": -1,
+      "choices": [
+        {
+          "text": {
+            "en": "Um... okay.",
+            "zh": "嗯...好",
+            "ja": ""
+          },
+          "targetIndex": 9
+        },
+        {
+          "text": {
+            "en": "(Pretend to ignore them.)",
+            "zh": "（假装无视）",
+            "ja": ""
+          },
+          "targetIndex": 13
+        }
+      ],
       "eventCalls": [
         {
           "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
@@ -219,6 +237,192 @@
           "triggerTiming": 0
         }
       ]
+    },
+    {
+      "index": 9,
+      "name": {
+        "en": "Event Staff",
+        "zh": "工作人员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "Simply put, these people want to loop a sound effect beside their stall. I was only asked to come over and set up the program for them.",
+        "zh": "简单来说，这些人想要用印象在摊位旁边循环播放一个音效，我本来只是过来帮他们设定好程序的。",
+        "ja": ""
+      },
+      "nextIndex": 10
+    },
+    {
+      "index": 10,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_疑惑",
+      "isPlayer": true,
+      "content": {
+        "en": "Then what do you need me to do?",
+        "zh": "那需要我做什么？",
+        "ja": ""
+      },
+      "nextIndex": 11
+    },
+    {
+      "index": 11,
+      "name": {
+        "en": "Event Staff",
+        "zh": "工作人员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "I need you to troubleshoot this speaker. There’s also a note attached to it—it might be useful.",
+        "zh": "我需要你来调试一下这个音响，这上面还有张纸条，也许有点用。",
+        "ja": ""
+      },
+      "nextIndex": 12
+    },
+    {
+      "index": 12,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "Alright..",
+        "zh": "好..好..",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "df8c648d-2f74-4761-91aa-fbdc7c97e287",
+          "targetObjectName": "SoundMiniGame",
+          "componentTypeName": "SoundMiniGameIndicator",
+          "methodName": "OpenMiniGame",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+          "targetObjectName": "NoteBook",
+          "componentTypeName": "NoteBookManager",
+          "methodName": "UnlockEventFeedBack",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "46b7a3ee-3f83-47b5-9551-4430a3bd7dd6",
+          "targetObjectName": "Objective4",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+          "targetObjectName": "Objective4_1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        },
+        {
+          "targetObjectID": "7f8cb4f2-ad32-4cec-ac79-148d4dcc0240",
+          "targetObjectName": "Objective4_2",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "UnlockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": {
+        "en": "",
+        "zh": "",
+        "ja": ""
+      },
+      "avatarAddr": "",
+      "isPlayer": false,
+      "content": {
+        "en": "(Just as Veris quickens her pace to walk past, two burly men in black cloaks block her path.)",
+        "zh": "（就在何以真准备快步经过时，两个黑衣斗篷的壮汉拦住了她的去路）",
+        "ja": ""
+      },
+      "nextIndex": 14
+    },
+    {
+      "index": 14,
+      "name": {
+        "en": "Troupe Member",
+        "zh": "戏团成员",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
+      "content": {
+        "en": "If we tell you to help, then help. Why make it difficult?",
+        "zh": "叫你搭把手就搭把手，哪那么多事情！",
+        "ja": ""
+      },
+      "nextIndex": 15
+    },
+    {
+      "index": 15,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_惊恐",
+      "isPlayer": true,
+      "content": {
+        "en": "O-Okay...",
+        "zh": "好...",
+        "ja": ""
+      },
+      "nextIndex": 9
     }
   ],
   "currentIndex": 0
