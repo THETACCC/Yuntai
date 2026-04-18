@@ -33,7 +33,6 @@ public class RhythmConductor : MonoBehaviour
     [SerializeField] private DialogueTrigger resultDialogueTrigger;
     [SerializeField] private TextAsset lostDialogueFile;
     [SerializeField] private TextAsset normalDialogueFile;
-    [SerializeField] private TextAsset perfectDialogueFile;
     private float resultDelayAfterLastNote = 6.617f;
 
     static readonly NoteEvent[] CHART = new[]
@@ -356,16 +355,8 @@ public class RhythmConductor : MonoBehaviour
 
                 if (music != null) music.Stop();
 
-                if (missCount == 0)
-                {
-                    Debug.Log("SONG CLEAR -> PERFECT");
-                    PlayResultDialogue(perfectDialogueFile);
-                }
-                else
-                {
-                    Debug.Log("SONG CLEAR -> NORMAL");
-                    PlayResultDialogue(normalDialogueFile);
-                }
+                Debug.Log("SONG CLEAR -> NORMAL");
+                PlayResultDialogue(normalDialogueFile);
             }
         }
         else
