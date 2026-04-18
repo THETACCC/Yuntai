@@ -30,7 +30,33 @@
         "zh": "酒店的霓虹灯吱吱作响，这个酒店看起来有些年头了",
         "ja": ""
       },
-      "nextIndex": 2
+      "nextIndex": 2,
+      "eventCalls": [
+        {
+          "targetObjectID": "dedaee3e-e533-4946-af46-0f4d050d0069",
+          "targetObjectName": "ObjectiveTab",
+          "componentTypeName": "TabManager",
+          "methodName": "RefreshUnlockedTabs",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        },
+        {
+          "targetObjectID": "46ee2e8e-5445-435e-8f46-beddb06edf49",
+          "targetObjectName": "Objective4_1",
+          "componentTypeName": "isThisUnlocked",
+          "methodName": "LockThis",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 2,
