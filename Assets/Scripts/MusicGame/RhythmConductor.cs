@@ -116,7 +116,7 @@ public class RhythmConductor : MonoBehaviour
     new NoteEvent { time = 59.163, lane = 4 },
     new NoteEvent { time = 59.437, lane = 5 },
 
-    new NoteEvent { time = 60.004, lane = 1 },
+    //new NoteEvent { time = 60.004, lane = 1 },
 
     new NoteEvent { time = 66.719, lane = 1 },
     new NoteEvent { time = 67.053, lane = 2 },
