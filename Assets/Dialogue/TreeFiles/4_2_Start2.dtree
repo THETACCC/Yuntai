@@ -2,13 +2,13 @@
     "nodes": [
         {
             "id": "941b1edf-8a75-4a7c-88a6-53e93c007e46",
-            "index": 0,
+            "index": 1,
             "characterId": "62ab0290-d6b7-46d4-b4dc-e22998c5ee88",
             "useContentId": true,
             "contentId": "ch2_1033",
             "content": {
-                "en": "Sect Leader!",
-                "zh": "家主！",
+                "en": "Priestess!",
+                "zh": "祭司大人！",
                 "ja": ""
             },
             "positionX": 5608.66650390625,
@@ -19,7 +19,7 @@
         },
         {
             "id": "5baa8080-1ccd-4221-b85b-83adffd4001d",
-            "index": 1,
+            "index": 2,
             "characterId": "f469ee47-53a3-4da4-b089-6a4e306e38cd",
             "useContentId": true,
             "contentId": "ch2_1034",
@@ -36,7 +36,7 @@
         },
         {
             "id": "f3ed6a9c-2ac9-4e19-8fe8-4d94846b36ec",
-            "index": 2,
+            "index": 3,
             "characterId": "9ea5ff19-c72a-4ce6-9c6b-dfb86c599402",
             "useContentId": true,
             "contentId": "ch2_1035",
@@ -53,7 +53,7 @@
         },
         {
             "id": "f345f36a-d177-43a4-8494-86d879d17dbd",
-            "index": 3,
+            "index": 4,
             "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
             "useContentId": true,
             "contentId": "ch2_1036",
@@ -81,6 +81,23 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "0ab43ed7-8e41-43dd-8f88-2bfe6733ed97",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_1032a",
+            "content": {
+                "en": "Just then, three people in unusual traditional attire hurried over and called out to Noema with anxious looks on their faces.",
+                "zh": "就在这时，三个穿着奇特民族服饰的人匆匆赶来，神色焦急地叫住了沈梦之。",
+                "ja": ""
+            },
+            "positionX": 5243.3330078125,
+            "positionY": 198.6666717529297,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -101,6 +118,13 @@
         {
             "outputNodeId": "f3ed6a9c-2ac9-4e19-8fe8-4d94846b36ec",
             "inputNodeId": "f345f36a-d177-43a4-8494-86d879d17dbd",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "0ab43ed7-8e41-43dd-8f88-2bfe6733ed97",
+            "inputNodeId": "941b1edf-8a75-4a7c-88a6-53e93c007e46",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

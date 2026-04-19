@@ -1,65 +1,17 @@
 {
     "nodes": [
         {
-            "id": "7218aa09-a61b-44c2-a390-2c6ea6add230",
-            "index": 0,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch2_1000",
-            "content": {
-                "en": "Hah… a new day.",
-                "zh": "呼......新的一天。",
-                "ja": ""
-            },
-            "positionX": 100.0,
-            "positionY": 100.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "enableNoteBook",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
-            "index": 1,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch2_1001",
-            "content": {
-                "en": "Thinking back to what happened on the plane yesterday still feels like a dream.",
-                "zh": "昨天飞机上的事，现在想起来还是觉得像梦一样。",
-                "ja": ""
-            },
-            "positionX": 442.0,
-            "positionY": 101.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "b004ea42-5dc0-4228-a307-7f04497ea566",
             "index": 2,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
             "contentId": "ch2_1002",
             "content": {
-                "en": "Ah—Mengzhi texted me. She said she’d wait for me at the entrance to the conference venue.",
-                "zh": "啊。梦之发了消息。她说在大会会场的入口等我。",
+                "en": "That’s a relief... There’s so much I want to ask her in person.",
+                "zh": "太好了……我正好有很多事想当面问她。",
                 "ja": ""
             },
-            "positionX": 845.0,
+            "positionX": 844.6666870117188,
             "positionY": 102.0,
             "choices": [],
             "eventCalls": [],
@@ -76,7 +28,7 @@
                 "zh": "真是好久没见了......也不知道她现在如何了。",
                 "ja": ""
             },
-            "positionX": 1231.0,
+            "positionX": 1230.6666259765625,
             "positionY": 106.0,
             "choices": [],
             "eventCalls": [],
@@ -89,8 +41,8 @@
             "useContentId": true,
             "contentId": "ch2_1004",
             "content": {
-                "en": "The festival grounds should be at the far end on the right. Let’s head that way.",
-                "zh": "大会会场应该就在右边尽头，往那边走吧。",
+                "en": "The venue should be at the far end on the right. Better head that way.",
+                "zh": "会场应该就在右边尽头，往那边走吧。",
                 "ja": ""
             },
             "positionX": 1600.0,
@@ -164,12 +116,132 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1001",
+            "content": {
+                "en": "Oh, it’s a message from Noema. She says she’ll be waiting for me at the entrance to the festival grounds.",
+                "zh": "诶！是梦之的消息。她说在大会会场的入口等我。",
+                "ja": ""
+            },
+            "positionX": 446.0,
+            "positionY": 104.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "efc2635e-8629-4770-9395-f62f85ef4f9d",
+            "index": 6,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_1000b",
+            "content": {
+                "en": "Cant tell whether Page ran into trouble too after going back to that missing flight...",
+                "zh": "也不知道周书后来回到那架失联飞机上，是不是也出了事……",
+                "ja": ""
+            },
+            "positionX": -336.66668701171877,
+            "positionY": 103.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f48a26ca-c483-4ca3-a0c2-46f8bba77e50",
+            "index": 5,
+            "characterId": "032e23aa-1c44-460f-8151-ed6d83b5348c",
+            "useContentId": true,
+            "contentId": "ch2_1000a",
+            "content": {
+                "en": "Getting off that plane safely yesterday was already a miracle.",
+                "zh": "昨天能平安离开那架飞机，已经算万幸了。",
+                "ja": ""
+            },
+            "positionX": -743.3333129882813,
+            "positionY": 100.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7218aa09-a61b-44c2-a390-2c6ea6add230",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_1000",
+            "content": {
+                "en": "Phew... Better get out of the hotel first.",
+                "zh": "呼……先离开酒店吧。",
+                "ja": ""
+            },
+            "positionX": -1164.666748046875,
+            "positionY": 100.66667175292969,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "enableNoteBook",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "be061d38-6131-4dec-bd2c-29624b2f65b5",
+            "index": 7,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1000c",
+            "content": {
+                "en": "Just then, the sudden ring of a phone pulled Veris back from her uneasy thoughts.",
+                "zh": "就在这时，手机铃声忽然响起，将何以真从不安的思绪中拉了回来。",
+                "ja": ""
+            },
+            "positionX": 55.333335876464847,
+            "positionY": 103.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
         {
+            "outputNodeId": "b004ea42-5dc0-4228-a307-7f04497ea566",
+            "inputNodeId": "471594c9-ed98-4903-8cbd-0af88a08c685",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "471594c9-ed98-4903-8cbd-0af88a08c685",
+            "inputNodeId": "44ddfd18-1903-4f80-b1d4-1a2696bf1f52",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
             "outputNodeId": "7218aa09-a61b-44c2-a390-2c6ea6add230",
-            "inputNodeId": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
+            "inputNodeId": "f48a26ca-c483-4ca3-a0c2-46f8bba77e50",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "f48a26ca-c483-4ca3-a0c2-46f8bba77e50",
+            "inputNodeId": "efc2635e-8629-4770-9395-f62f85ef4f9d",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
@@ -182,15 +254,15 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "b004ea42-5dc0-4228-a307-7f04497ea566",
-            "inputNodeId": "471594c9-ed98-4903-8cbd-0af88a08c685",
+            "outputNodeId": "efc2635e-8629-4770-9395-f62f85ef4f9d",
+            "inputNodeId": "be061d38-6131-4dec-bd2c-29624b2f65b5",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
         },
         {
-            "outputNodeId": "471594c9-ed98-4903-8cbd-0af88a08c685",
-            "inputNodeId": "44ddfd18-1903-4f80-b1d4-1a2696bf1f52",
+            "outputNodeId": "be061d38-6131-4dec-bd2c-29624b2f65b5",
+            "inputNodeId": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
