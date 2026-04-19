@@ -3,41 +3,24 @@
         {
             "id": "42885df0-1713-421e-b24f-a54a67edb8f8",
             "index": 0,
-            "characterId": "",
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
             "useContentId": true,
-            "contentId": "ch2_31166",
+            "contentId": "ch2_1061a",
             "content": {
-                "en": "A key? Don’t tell me you’re a thief!",
-                "zh": "门钥匙？你不会是个小偷吧？",
+                "en": "What? No one by that name lives in this building.",
+                "zh": "什么？我这楼里可没这么个人。",
                 "ja": ""
             },
             "positionX": 474.0,
-            "positionY": 431.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "6b14fe3a-a60c-4a9b-abf7-b3629f3c4d99",
-            "index": 1,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_31167",
-            "content": {
-                "en": "Go on, get out of here！If you try to sneak in again, I’m calling the police!",
-                "zh": "去去去，再想溜进来我报警了！",
-                "ja": ""
-            },
-            "positionX": 852.0,
-            "positionY": 431.0,
+            "positionY": 430.6666564941406,
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
-                    "targetObjectName": "LevelManager_4_2_City",
-                    "targetSceneName": "Level4-2City",
-                    "componentTypeName": "LevelManager4_2_City",
-                    "methodName": "ApartmentFailed",
+                    "targetObjectID": "",
+                    "targetObjectName": "",
+                    "targetSceneName": "",
+                    "componentTypeName": "",
+                    "methodName": "",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
@@ -49,13 +32,5 @@
             "conditionalBranches": []
         }
     ],
-    "connections": [
-        {
-            "outputNodeId": "42885df0-1713-421e-b24f-a54a67edb8f8",
-            "inputNodeId": "6b14fe3a-a60c-4a9b-abf7-b3629f3c4d99",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        }
-    ]
+    "connections": []
 }

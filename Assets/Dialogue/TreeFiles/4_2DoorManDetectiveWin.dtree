@@ -3,15 +3,15 @@
         {
             "id": "5e5f0635-a2c1-4e1e-917e-4f76aca8db97",
             "index": 0,
-            "characterId": "",
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
-            "contentId": "ch2_31163",
+            "contentId": "ch2_1061b",
             "content": {
-                "en": "Noema…",
-                "zh": "小沈啊.....",
+                "en": "She gave me this key.",
+                "zh": "这是她给我的钥匙。",
                 "ja": ""
             },
-            "positionX": 415.0,
+            "positionX": 414.6666564941406,
             "positionY": 368.0,
             "choices": [],
             "eventCalls": [
@@ -32,35 +32,69 @@
             "conditionalBranches": []
         },
         {
-            "id": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
-            "index": 1,
-            "characterId": "",
+            "id": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
+            "index": 2,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
             "useContentId": true,
-            "contentId": "ch2_31164",
+            "contentId": "ch2_1062",
             "content": {
                 "en": "Go on in, then. Be careful inside.",
                 "zh": "进去吧。在里面小心点儿。",
                 "ja": ""
             },
-            "positionX": 789.0,
+            "positionX": 1142.6666259765625,
             "positionY": 368.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
-            "id": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
-            "index": 2,
-            "characterId": "",
+            "id": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
+            "index": 1,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
             "useContentId": true,
-            "contentId": "ch2_31165",
+            "contentId": "ch2_1061c",
             "content": {
-                "en": "Huh?",
-                "zh": "嗯？",
+                "en": "...That really is the key to Room 301.",
+                "zh": "……还真是301那把。",
                 "ja": ""
             },
-            "positionX": 1143.0,
+            "positionX": 788.6666870117188,
             "positionY": 368.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "eee32d80-e14b-401d-a14a-5f58d9376a08",
+            "index": 3,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1063",
+            "content": {
+                "en": "Okay, thank you.",
+                "zh": "好，谢谢您。",
+                "ja": ""
+            },
+            "positionX": 1520.6666259765625,
+            "positionY": 374.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "47b5293f-0787-4c4a-94fe-40be23745ad7",
+            "index": 4,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_1064",
+            "content": {
+                "en": "(Something about his reaction just now felt a little strange...)",
+                "zh": "（总觉得他刚才那反应有点奇怪……）",
+                "ja": ""
+            },
+            "positionX": 1889.333251953125,
+            "positionY": 377.3333435058594,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -77,6 +111,20 @@
         {
             "outputNodeId": "29c2364e-774c-48b5-a7b1-3cb96ab8fca7",
             "inputNodeId": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "35cd9030-b9fb-427e-bdd4-af1f1fb05928",
+            "inputNodeId": "eee32d80-e14b-401d-a14a-5f58d9376a08",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "eee32d80-e14b-401d-a14a-5f58d9376a08",
+            "inputNodeId": "47b5293f-0787-4c4a-94fe-40be23745ad7",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

@@ -40,8 +40,8 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Hello. My friend left something for me at home, so I came to—",
-        "zh": "您好。我朋友在家里给我留了东西，我过来",
+        "en": "Hello. A friend left something for me at her apartment, so I came by to pick it up.",
+        "zh": "您好。我朋友在家里给我留了东西，我过来取一下。",
         "ja": ""
       },
       "nextIndex": 2
@@ -60,7 +60,21 @@
         "zh": "朋友？哪一位啊？住几楼的？",
         "ja": ""
       },
-      "nextIndex": 3
+      "nextIndex": 3,
+      "eventCalls": [
+        {
+          "targetObjectID": "",
+          "targetObjectName": "",
+          "componentTypeName": "",
+          "methodName": "",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 3,
@@ -104,8 +118,8 @@
       "avatarAddr": "DialogueImages/大爷_日常",
       "isPlayer": false,
       "content": {
-        "en": "Noema… she has an out-of-town friend?",
-        "zh": "小沈啊......她居然有外地来的朋友？",
+        "en": "Noema? She doesn’t usually bring outsiders back here. Are you really a friend of hers?",
+        "zh": "小沈？她平时可不怎么带外人回来。你真是她朋友？",
         "ja": ""
       },
       "nextIndex": 6
@@ -120,8 +134,8 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Yeah. We’ve known each other since high school.",
-        "zh": "嗯，我们高中就认识了。",
+        "en": "Yeah. We’ve known each other since high school. She’s tied up at the festival right now, so she told me to come by and get something first.",
+        "zh": "嗯，我们高中就认识了。她刚刚还在大会会场那边忙，让我先过来取点东西。",
         "ja": ""
       },
       "nextIndex": 7
@@ -138,54 +152,6 @@
       "content": {
         "en": "......",
         "zh": "......",
-        "ja": ""
-      },
-      "nextIndex": 8
-    },
-    {
-      "index": 8,
-      "name": {
-        "en": "Doorman",
-        "zh": "门卫大爷",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/大爷_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "Go on in, then. Be careful inside.",
-        "zh": "进去吧。在里面小心点儿。",
-        "ja": ""
-      },
-      "nextIndex": 9
-    },
-    {
-      "index": 9,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_思考",
-      "isPlayer": true,
-      "content": {
-        "en": "Huh?",
-        "zh": "嗯？",
-        "ja": ""
-      },
-      "nextIndex": 10
-    },
-    {
-      "index": 10,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_微笑",
-      "isPlayer": true,
-      "content": {
-        "en": "Okay. Thank you.",
-        "zh": "好，谢谢您。",
         "ja": ""
       },
       "nextIndex": -1
