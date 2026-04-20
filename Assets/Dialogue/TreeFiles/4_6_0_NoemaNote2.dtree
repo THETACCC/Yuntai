@@ -1,37 +1,60 @@
 {
     "nodes": [
         {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
+            "index": 1,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
             "useContentId": true,
-            "contentId": "ch2_4029",
+            "contentId": "ch2_4028",
             "content": {
-                "en": "More torn diary pages are scattered here, seemingly placed intentionally.",
-                "zh": "更多残缺的日记页，看起来被有意布置于此。",
+                "en": "...",
+                "zh": "...",
                 "ja": ""
             },
-            "positionX": -960.0,
-            "positionY": 364.79998779296877,
+            "positionX": 4442.400390625,
+            "positionY": 372.0,
             "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
-            "index": 2,
-            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
-            "useContentId": true,
-            "contentId": "ch2_4049",
-            "content": {
-                "en": "",
-                "zh": "“最近我总是在想，",
-                "ja": ""
-            },
-            "positionX": -598.3999633789063,
-            "positionY": 364.79998779296877,
-            "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "bd5fde24-eb12-4c3a-b81e-eac3b69adf35",
+                    "targetObjectName": "Event17_NoemaNote2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -256,9 +279,66 @@
             "conditionalBranches": []
         },
         {
-            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
-            "index": 1,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "id": "acff2b7d-d6aa-4915-be87-cf49cc6e7dcf",
+            "index": 17,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4084",
+            "content": {
+                "en": "",
+                "zh": "沈梦之的日记 中，要阅读吗？",
+                "ja": ""
+            },
+            "positionX": -1132.800048828125,
+            "positionY": 416.0,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch2_4081",
+                    "text": {
+                        "en": "",
+                        "zh": "是",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch2_4082",
+                    "text": {
+                        "en": "",
+                        "zh": "否",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4029",
+            "content": {
+                "en": "More torn diary pages are scattered here, seemingly placed intentionally.",
+                "zh": "更多残缺的日记页，看起来被有意布置于此。",
+                "ja": ""
+            },
+            "positionX": -1481.60009765625,
+            "positionY": 416.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "0e565fd9-8e74-4886-b9fc-3a222773f777",
+            "index": 16,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "useContentId": true,
             "contentId": "ch2_4028",
             "content": {
@@ -266,61 +346,31 @@
                 "zh": "...",
                 "ja": ""
             },
-            "positionX": 4442.400390625,
-            "positionY": 372.0,
+            "positionX": -757.5999755859375,
+            "positionY": 953.5999755859375,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "bd5fde24-eb12-4c3a-b81e-eac3b69adf35",
-                    "targetObjectName": "Event17_NoemaNote2",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-                    "targetObjectName": "EventTab",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
+            "index": 2,
+            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
+            "useContentId": true,
+            "contentId": "ch2_4049",
+            "content": {
+                "en": "",
+                "zh": "“最近我总是在想，",
+                "ja": ""
+            },
+            "positionX": -690.3999633789063,
+            "positionY": 394.3999938964844,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "inputNodeId": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
             "inputNodeId": "c0d679bd-91df-425c-a8a9-12c57d6a333e",
@@ -418,6 +468,27 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+        },
+        {
+            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "inputNodeId": "acff2b7d-d6aa-4915-be87-cf49cc6e7dcf",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "acff2b7d-d6aa-4915-be87-cf49cc6e7dcf",
+            "inputNodeId": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
+            "choiceIndex": 0,
+            "choiceText": "",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "acff2b7d-d6aa-4915-be87-cf49cc6e7dcf",
+            "inputNodeId": "0e565fd9-8e74-4886-b9fc-3a222773f777",
+            "choiceIndex": 1,
+            "choiceText": "",
+            "branchPriority": -3
         }
     ]
 }

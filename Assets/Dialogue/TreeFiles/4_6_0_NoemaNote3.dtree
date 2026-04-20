@@ -1,23 +1,6 @@
 {
     "nodes": [
         {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch2_4030",
-            "content": {
-                "en": "They appear to be the final few pages of the diary.",
-                "zh": "看起来是日记的最后几页。",
-                "ja": ""
-            },
-            "positionX": -455.1999816894531,
-            "positionY": 366.3999938964844,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "68f2739a-55e3-4f63-87eb-34203ad19b96",
             "index": 2,
             "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
@@ -345,16 +328,83 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "02109ad0-a2d2-4429-a792-ee71b9597571",
+            "index": 18,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4085",
+            "content": {
+                "en": "",
+                "zh": "沈梦之的日记 后，要阅读吗？",
+                "ja": ""
+            },
+            "positionX": -580.7999877929688,
+            "positionY": 460.0,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch2_4081",
+                    "text": {
+                        "en": "",
+                        "zh": "是",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch2_4082",
+                    "text": {
+                        "en": "",
+                        "zh": "否",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "692bbc9d-975b-49ef-8a01-998d16fb25bd",
+            "index": 19,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_4028",
+            "content": {
+                "en": "...",
+                "zh": "...",
+                "ja": ""
+            },
+            "positionX": -196.8000030517578,
+            "positionY": 988.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4030",
+            "content": {
+                "en": "They appear to be the final few pages of the diary.",
+                "zh": "看起来是日记的最后几页。",
+                "ja": ""
+            },
+            "positionX": -968.7999877929688,
+            "positionY": 460.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "inputNodeId": "68f2739a-55e3-4f63-87eb-34203ad19b96",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "68f2739a-55e3-4f63-87eb-34203ad19b96",
             "inputNodeId": "371026d9-0aed-4977-af17-b585e4952983",
@@ -466,6 +516,27 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+        },
+        {
+            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "inputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
+            "inputNodeId": "68f2739a-55e3-4f63-87eb-34203ad19b96",
+            "choiceIndex": 0,
+            "choiceText": "",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
+            "inputNodeId": "692bbc9d-975b-49ef-8a01-998d16fb25bd",
+            "choiceIndex": 1,
+            "choiceText": "",
+            "branchPriority": -3
         }
     ]
 }

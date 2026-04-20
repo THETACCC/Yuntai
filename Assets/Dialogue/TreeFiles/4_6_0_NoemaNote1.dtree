@@ -1,20 +1,60 @@
 {
     "nodes": [
         {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
+            "index": 1,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
             "useContentId": true,
-            "contentId": "ch2_4027",
+            "contentId": "ch2_4028",
             "content": {
-                "en": "Torn pages of a diary are scattered across the ground. They appear to belong to Noema.",
-                "zh": "残缺的日记页洒落在地上，看起来是沈梦之的。",
+                "en": "...",
+                "zh": "...",
                 "ja": ""
             },
-            "positionX": -855.2000122070313,
+            "positionX": 4140.0,
             "positionY": 300.79998779296877,
             "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "774cd2c7-b19b-4589-9c13-1932c2fa0556",
+                    "targetObjectName": "Event16_NoemaNote1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
             "conditionalBranches": []
         },
         {
@@ -239,9 +279,26 @@
             "conditionalBranches": []
         },
         {
-            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
-            "index": 1,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4027",
+            "content": {
+                "en": "Torn pages of a diary are scattered across the ground. They appear to belong to Noema.",
+                "zh": "残缺的日记页洒落在地上，看起来是沈梦之的。",
+                "ja": ""
+            },
+            "positionX": -1395.2000732421875,
+            "positionY": 570.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6f51aade-034c-4915-a164-79895db21e54",
+            "index": 16,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
             "useContentId": true,
             "contentId": "ch2_4028",
             "content": {
@@ -249,61 +306,54 @@
                 "zh": "...",
                 "ja": ""
             },
-            "positionX": 4140.0,
-            "positionY": 300.79998779296877,
+            "positionX": -440.0,
+            "positionY": 855.2000122070313,
             "choices": [],
-            "eventCalls": [
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b2a85232-f054-4043-a03d-7fb39a8b439d",
+            "index": 15,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4083",
+            "content": {
+                "en": "",
+                "zh": "沈梦之的日记 前，要阅读吗？",
+                "ja": ""
+            },
+            "positionX": -1007.2000122070313,
+            "positionY": 570.3999633789063,
+            "choices": [
                 {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
+                    "useTextId": true,
+                    "textId": "ch2_4081",
+                    "text": {
+                        "en": "",
+                        "zh": "是",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
                 },
                 {
-                    "targetObjectID": "774cd2c7-b19b-4589-9c13-1932c2fa0556",
-                    "targetObjectName": "Event16_NoemaNote1",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-                    "targetObjectName": "EventTab",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
+                    "useTextId": true,
+                    "textId": "ch2_4082",
+                    "text": {
+                        "en": "",
+                        "zh": "否",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
                 }
             ],
+            "eventCalls": [],
             "conditionalBranches": []
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "inputNodeId": "61c553cc-26f1-4164-aa38-6f2efe6483a4",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "61c553cc-26f1-4164-aa38-6f2efe6483a4",
             "inputNodeId": "994e8b93-3221-46a0-a7f2-52e9ad3100df",
@@ -394,6 +444,27 @@
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
+        },
+        {
+            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "inputNodeId": "b2a85232-f054-4043-a03d-7fb39a8b439d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "b2a85232-f054-4043-a03d-7fb39a8b439d",
+            "inputNodeId": "61c553cc-26f1-4164-aa38-6f2efe6483a4",
+            "choiceIndex": 0,
+            "choiceText": "",
+            "branchPriority": -2
+        },
+        {
+            "outputNodeId": "b2a85232-f054-4043-a03d-7fb39a8b439d",
+            "inputNodeId": "6f51aade-034c-4915-a164-79895db21e54",
+            "choiceIndex": 1,
+            "choiceText": "",
+            "branchPriority": -3
         }
     ]
 }
