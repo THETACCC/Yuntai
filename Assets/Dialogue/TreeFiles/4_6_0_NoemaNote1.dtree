@@ -1,6 +1,23 @@
 {
     "nodes": [
         {
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4027",
+            "content": {
+                "en": "Torn pages of a diary are scattered across the ground. They appear to belong to Noema.",
+                "zh": "残缺的日记页洒落在地上，看起来是沈梦之的。",
+                "ja": ""
+            },
+            "positionX": -1395.2000732421875,
+            "positionY": 570.3999633789063,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
             "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
             "index": 1,
             "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
@@ -53,6 +70,19 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "67413223-53ff-4018-8577-e52bc8ad3a5b",
+                    "targetObjectName": "LevelManager4_6_0",
+                    "targetSceneName": "Level4-6-0NoemaHousePost",
+                    "componentTypeName": "LevelManager4_6_0",
+                    "methodName": "DisableNoemaNotes1",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
             "conditionalBranches": []
@@ -279,40 +309,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch2_4027",
-            "content": {
-                "en": "Torn pages of a diary are scattered across the ground. They appear to belong to Noema.",
-                "zh": "残缺的日记页洒落在地上，看起来是沈梦之的。",
-                "ja": ""
-            },
-            "positionX": -1395.2000732421875,
-            "positionY": 570.3999633789063,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "6f51aade-034c-4915-a164-79895db21e54",
-            "index": 16,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch2_4028",
-            "content": {
-                "en": "...",
-                "zh": "...",
-                "ja": ""
-            },
-            "positionX": -440.0,
-            "positionY": 855.2000122070313,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "b2a85232-f054-4043-a03d-7fb39a8b439d",
             "index": 15,
             "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
@@ -349,6 +345,23 @@
                     "conditionLogic": 0
                 }
             ],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6f51aade-034c-4915-a164-79895db21e54",
+            "index": 16,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_4028",
+            "content": {
+                "en": "...",
+                "zh": "...",
+                "ja": ""
+            },
+            "positionX": -440.0,
+            "positionY": 855.2000122070313,
+            "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }

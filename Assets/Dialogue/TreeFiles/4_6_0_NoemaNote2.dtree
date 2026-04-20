@@ -1,6 +1,23 @@
 {
     "nodes": [
         {
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4029",
+            "content": {
+                "en": "More torn diary pages are scattered here, seemingly placed intentionally.",
+                "zh": "更多残缺的日记页，看起来被有意布置于此。",
+                "ja": ""
+            },
+            "positionX": -1481.60009765625,
+            "positionY": 416.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
             "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
             "index": 1,
             "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
@@ -53,8 +70,38 @@
                     "boolParameter": false,
                     "parameterType": 0,
                     "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "67413223-53ff-4018-8577-e52bc8ad3a5b",
+                    "targetObjectName": "LevelManager4_6_0",
+                    "targetSceneName": "Level4-6-0NoemaHousePost",
+                    "componentTypeName": "LevelManager4_6_0",
+                    "methodName": "DisableNoemaNotes2",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
+            "index": 2,
+            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
+            "useContentId": true,
+            "contentId": "ch2_4049",
+            "content": {
+                "en": "",
+                "zh": "“最近我总是在想，",
+                "ja": ""
+            },
+            "positionX": -690.3999633789063,
+            "positionY": 394.3999938964844,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -279,6 +326,23 @@
             "conditionalBranches": []
         },
         {
+            "id": "0e565fd9-8e74-4886-b9fc-3a222773f777",
+            "index": 16,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_4028",
+            "content": {
+                "en": "...",
+                "zh": "...",
+                "ja": ""
+            },
+            "positionX": -757.5999755859375,
+            "positionY": 953.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
             "id": "acff2b7d-d6aa-4915-be87-cf49cc6e7dcf",
             "index": 17,
             "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
@@ -315,57 +379,6 @@
                     "conditionLogic": 0
                 }
             ],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch2_4029",
-            "content": {
-                "en": "More torn diary pages are scattered here, seemingly placed intentionally.",
-                "zh": "更多残缺的日记页，看起来被有意布置于此。",
-                "ja": ""
-            },
-            "positionX": -1481.60009765625,
-            "positionY": 416.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "0e565fd9-8e74-4886-b9fc-3a222773f777",
-            "index": 16,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch2_4028",
-            "content": {
-                "en": "...",
-                "zh": "...",
-                "ja": ""
-            },
-            "positionX": -757.5999755859375,
-            "positionY": 953.5999755859375,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b9c22865-20d3-447a-af4a-62e5fcdb415d",
-            "index": 2,
-            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
-            "useContentId": true,
-            "contentId": "ch2_4049",
-            "content": {
-                "en": "",
-                "zh": "“最近我总是在想，",
-                "ja": ""
-            },
-            "positionX": -690.3999633789063,
-            "positionY": 394.3999938964844,
-            "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
