@@ -141,9 +141,10 @@ public class DialogueController : MonoBehaviour
 
             //add text history
             // 说话人加粗+颜色，分隔线更清晰
-            NoteBookManager.instance.historyContentText.text += $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
+            NoteBookManager.instance.historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
                                       $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
-                                      $"<color=#DDDDDD>―――――――――――――</color>\n";
+                                      $"<color=#DDDDDD>―――――――――――――</color>\n" +
+                                      NoteBookManager.instance.historyContentText.text;
 
             //check if separate
             if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
