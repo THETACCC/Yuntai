@@ -1,6 +1,80 @@
 {
     "nodes": [
         {
+            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "index": 0,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch2_4030",
+            "content": {
+                "en": "They appear to be the final few pages of the diary.",
+                "zh": "看起来是日记的最后几页。",
+                "ja": ""
+            },
+            "positionX": -968.7999877929688,
+            "positionY": 460.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
+            "index": 1,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch2_4079",
+            "content": {
+                "en": "",
+                "zh": "先去会场找梦之吧。",
+                "ja": ""
+            },
+            "positionX": 5673.60009765625,
+            "positionY": 360.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                },
+                {
+                    "targetObjectID": "622186fa-2a6b-45e1-b204-cad2ca8b831d",
+                    "targetObjectName": "Event18_NoemaNote3",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
             "id": "68f2739a-55e3-4f63-87eb-34203ad19b96",
             "index": 2,
             "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
@@ -273,63 +347,6 @@
             "conditionalBranches": []
         },
         {
-            "id": "b2ea22d3-2307-48d7-a2a0-6085f89370d8",
-            "index": 1,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch2_4079",
-            "content": {
-                "en": "",
-                "zh": "先去会场找梦之吧。",
-                "ja": ""
-            },
-            "positionX": 5673.60009765625,
-            "positionY": 360.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "UnlockEventFeedBack",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
-                    "targetObjectName": "EventTab",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "TabManager",
-                    "methodName": "RefreshUnlockedTabs",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                },
-                {
-                    "targetObjectID": "622186fa-2a6b-45e1-b204-cad2ca8b831d",
-                    "targetObjectName": "Event18_NoemaNote3",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "isThisUnlocked",
-                    "methodName": "UnlockThis",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "02109ad0-a2d2-4429-a792-ee71b9597571",
             "index": 18,
             "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
@@ -382,23 +399,6 @@
             },
             "positionX": -196.8000030517578,
             "positionY": 988.7999877929688,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "index": 0,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch2_4030",
-            "content": {
-                "en": "They appear to be the final few pages of the diary.",
-                "zh": "看起来是日记的最后几页。",
-                "ja": ""
-            },
-            "positionX": -968.7999877929688,
-            "positionY": 460.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -518,13 +518,6 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
-            "inputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
             "outputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
             "inputNodeId": "68f2739a-55e3-4f63-87eb-34203ad19b96",
             "choiceIndex": 0,
@@ -537,6 +530,13 @@
             "choiceIndex": 1,
             "choiceText": "",
             "branchPriority": -3
+        },
+        {
+            "outputNodeId": "40f4384d-ac65-4099-b2cf-fae221c2557c",
+            "inputNodeId": "02109ad0-a2d2-4429-a792-ee71b9597571",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
         }
     ]
 }
