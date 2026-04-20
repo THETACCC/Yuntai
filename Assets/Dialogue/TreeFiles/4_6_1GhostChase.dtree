@@ -1,9 +1,26 @@
 {
     "nodes": [
         {
-            "id": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
+            "id": "cddc4d92-4495-4c88-8bda-58dead4d3ba4",
             "index": 0,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch2_4092",
+            "content": {
+                "en": "",
+                "zh": "那是什么...!",
+                "ja": ""
+            },
+            "positionX": -468.0,
+            "positionY": 21.60000228881836,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
+            "index": 1,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "useContentId": true,
             "contentId": "ch2_2010c",
             "content": {
@@ -19,7 +36,7 @@
         },
         {
             "id": "4a6859d0-a0f6-4eff-8c20-e86713c4a662",
-            "index": 1,
+            "index": 2,
             "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
             "useContentId": true,
             "contentId": "ch2_2010d",
@@ -105,6 +122,13 @@
         {
             "outputNodeId": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
             "inputNodeId": "4a6859d0-a0f6-4eff-8c20-e86713c4a662",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "cddc4d92-4495-4c88-8bda-58dead4d3ba4",
+            "inputNodeId": "8dc25ce0-bd30-47ca-bcb5-ee28052afe8a",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
