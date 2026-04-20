@@ -1,0 +1,143 @@
+{
+    "nodes": [
+        {
+            "id": "fedfd6be-f360-4a51-ba83-a7f10253e350",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4086",
+            "content": {
+                "en": "",
+                "zh": "刚才那是……什么？",
+                "ja": ""
+            },
+            "positionX": 5214.400390625,
+            "positionY": 632.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c99a30e8-0e56-4148-ad78-f41677fc0463",
+            "index": 1,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4087",
+            "content": {
+                "en": "",
+                "zh": "我又回来了？",
+                "ja": ""
+            },
+            "positionX": 5571.2001953125,
+            "positionY": 633.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "9c4e35db-1ba1-4cad-9e32-73926199ccda",
+            "index": 2,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4088",
+            "content": {
+                "en": "",
+                "zh": "……不对。这个房间，刚刚不是这样的。",
+                "ja": ""
+            },
+            "positionX": 5915.2001953125,
+            "positionY": 632.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "faf55ba3-eb6a-4e69-ba14-c3d2d5517ba2",
+            "index": 3,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4089",
+            "content": {
+                "en": "",
+                "zh": "地上什么时候多了这么多纸页？",
+                "ja": ""
+            },
+            "positionX": 6279.2001953125,
+            "positionY": 633.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "379a7ae2-ddf0-4c0b-803e-73b9daefd7e5",
+            "index": 4,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4090",
+            "content": {
+                "en": "",
+                "zh": "像是……梦之写的东西。",
+                "ja": ""
+            },
+            "positionX": 6645.60009765625,
+            "positionY": 633.5999755859375,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "53a34e8d-6b1b-4da7-9638-2753cfa3df91",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4091",
+            "content": {
+                "en": "",
+                "zh": "算了，先看看上面写了什么吧。",
+                "ja": ""
+            },
+            "positionX": 7008.80029296875,
+            "positionY": 632.7999877929688,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "fedfd6be-f360-4a51-ba83-a7f10253e350",
+            "inputNodeId": "c99a30e8-0e56-4148-ad78-f41677fc0463",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "c99a30e8-0e56-4148-ad78-f41677fc0463",
+            "inputNodeId": "9c4e35db-1ba1-4cad-9e32-73926199ccda",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "9c4e35db-1ba1-4cad-9e32-73926199ccda",
+            "inputNodeId": "faf55ba3-eb6a-4e69-ba14-c3d2d5517ba2",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "faf55ba3-eb6a-4e69-ba14-c3d2d5517ba2",
+            "inputNodeId": "379a7ae2-ddf0-4c0b-803e-73b9daefd7e5",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "379a7ae2-ddf0-4c0b-803e-73b9daefd7e5",
+            "inputNodeId": "53a34e8d-6b1b-4da7-9638-2753cfa3df91",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
