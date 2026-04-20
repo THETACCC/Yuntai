@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RhythmConductor : MonoBehaviour
@@ -33,111 +34,170 @@ public class RhythmConductor : MonoBehaviour
     [SerializeField] private DialogueTrigger resultDialogueTrigger;
     [SerializeField] private TextAsset lostDialogueFile;
     [SerializeField] private TextAsset normalDialogueFile;
-    private float resultDelayAfterLastNote = 6.617f;
+    [SerializeField] private float resultDelayAfterLastNote = 6.617f;
+
+    [System.Serializable]
+    public class TimedUIShake
+    {
+        public float time;
+        public float strength = 20f;
+        public float duration = 0.35f;
+    }
+
+    [System.Serializable]
+    public class SustainedUIShake
+    {
+        public float startTime;
+        public float endTime;
+        public float strength = 6f;
+    }
+
+    [Header("UI Shake")]
+    [SerializeField] private RectTransform uiShakeTarget;
+
+    private readonly TimedUIShake[] timedShakes = new TimedUIShake[]
+    {
+        /*
+        new TimedUIShake
+        {
+            time = 5f,
+            strength = 3f,
+            duration = 6f
+        },
+        */
+        new TimedUIShake
+        {
+            time = 44.071f,
+            strength = 17f,
+            duration = 0.4f
+        },
+        new TimedUIShake
+        {
+            time = 61.980f,   // 1m 01.980
+            strength = 17f,
+            duration = 0.4f
+        }
+    };
+
+    private readonly SustainedUIShake[] sustainedShakes = new SustainedUIShake[]
+    {
+        new SustainedUIShake
+        {
+            startTime = 73.895f, // 1m 13.895
+            endTime   = 79.675f, // 1m 19.675
+            strength  = 2.5f
+        }
+    };
+
+    private int nextShakeIndex;
+    private int nextSustainedShakeIndex;
+    private bool isSustainedShaking;
+    private SustainedUIShake currentSustainedShake;
+
+    private Coroutine uiShakeRoutine;
+    private Vector2 uiShakeBasePos;
 
     static readonly NoteEvent[] CHART = new[]
-{
-    new NoteEvent { time = 11.018, lane = 1 },
-    new NoteEvent { time = 11.859, lane = 2 },
-    new NoteEvent { time = 12.735, lane = 3 },
-    new NoteEvent { time = 13.631, lane = 4 },
-    new NoteEvent { time = 14.416, lane = 5 },
+    {
+        new NoteEvent { time = 11.018, lane = 1 },
+        new NoteEvent { time = 11.859, lane = 2 },
+        new NoteEvent { time = 12.735, lane = 3 },
+        new NoteEvent { time = 13.631, lane = 4 },
+        new NoteEvent { time = 14.416, lane = 5 },
 
-    new NoteEvent { time = 16.042, lane = 2 },
-    new NoteEvent { time = 17.778, lane = 3 },
-    new NoteEvent { time = 19.350, lane = 4 },
+        new NoteEvent { time = 16.042, lane = 2 },
+        new NoteEvent { time = 17.778, lane = 3 },
+        new NoteEvent { time = 19.350, lane = 4 },
 
-    new NoteEvent { time = 21.140, lane = 1 },
-    new NoteEvent { time = 21.743, lane = 3 },
-    new NoteEvent { time = 22.035, lane = 4 },
+        new NoteEvent { time = 21.140, lane = 1 },
+        new NoteEvent { time = 21.743, lane = 3 },
+        new NoteEvent { time = 22.035, lane = 4 },
 
-    new NoteEvent { time = 23.479, lane = 3 },
-    new NoteEvent { time = 23.698, lane = 4 },
+        new NoteEvent { time = 23.479, lane = 3 },
+        new NoteEvent { time = 23.698, lane = 4 },
 
-    new NoteEvent { time = 24.502, lane = 1 },
-    new NoteEvent { time = 25.160, lane = 3 },
-    new NoteEvent { time = 25.397, lane = 4 },
+        new NoteEvent { time = 24.502, lane = 1 },
+        new NoteEvent { time = 25.160, lane = 3 },
+        new NoteEvent { time = 25.397, lane = 4 },
 
-    new NoteEvent { time = 26.220, lane = 1 },
-    new NoteEvent { time = 26.877, lane = 3 },
-    new NoteEvent { time = 27.078, lane = 4 },
+        new NoteEvent { time = 26.220, lane = 1 },
+        new NoteEvent { time = 26.877, lane = 3 },
+        new NoteEvent { time = 27.078, lane = 4 },
 
-    new NoteEvent { time = 31.244, lane = 0 },
-    new NoteEvent { time = 32.121, lane = 1 },
-    new NoteEvent { time = 32.980, lane = 2 },
-    new NoteEvent { time = 33.784, lane = 3 },
-    new NoteEvent { time = 34.625, lane = 4 },
-    new NoteEvent { time = 35.483, lane = 5 },
+        new NoteEvent { time = 31.244, lane = 0 },
+        new NoteEvent { time = 32.121, lane = 1 },
+        new NoteEvent { time = 32.980, lane = 2 },
+        new NoteEvent { time = 33.784, lane = 3 },
+        new NoteEvent { time = 34.625, lane = 4 },
+        new NoteEvent { time = 35.483, lane = 5 },
 
-    new NoteEvent { time = 36.306, lane = 0 },
-    new NoteEvent { time = 37.125, lane = 1 },
-    new NoteEvent { time = 37.987, lane = 2 },
-    new NoteEvent { time = 38.864, lane = 3 },
-    new NoteEvent { time = 39.704, lane = 4 },
-    new NoteEvent { time = 40.563, lane = 5 },
+        new NoteEvent { time = 36.306, lane = 0 },
+        new NoteEvent { time = 37.125, lane = 1 },
+        new NoteEvent { time = 37.987, lane = 2 },
+        new NoteEvent { time = 38.864, lane = 3 },
+        new NoteEvent { time = 39.704, lane = 4 },
+        new NoteEvent { time = 40.563, lane = 5 },
 
-    new NoteEvent { time = 46.501, lane = 1 },
-    new NoteEvent { time = 47.049, lane = 3 },
-    new NoteEvent { time = 47.305, lane = 4 },
-    new NoteEvent { time = 47.488, lane = 5 },
+        new NoteEvent { time = 46.501, lane = 1 },
+        new NoteEvent { time = 47.049, lane = 3 },
+        new NoteEvent { time = 47.305, lane = 4 },
+        new NoteEvent { time = 47.488, lane = 5 },
 
-    new NoteEvent { time = 48.145, lane = 1 },
-    new NoteEvent { time = 48.748, lane = 3 },
-    new NoteEvent { time = 49.077, lane = 4 },
-    new NoteEvent { time = 49.242, lane = 5 },
+        new NoteEvent { time = 48.145, lane = 1 },
+        new NoteEvent { time = 48.748, lane = 3 },
+        new NoteEvent { time = 49.077, lane = 4 },
+        new NoteEvent { time = 49.242, lane = 5 },
 
-    new NoteEvent { time = 49.735, lane = 1 },
-    new NoteEvent { time = 50.567, lane = 3 },
-    new NoteEvent { time = 50.740, lane = 4 },
-    new NoteEvent { time = 50.886, lane = 5 },
+        new NoteEvent { time = 49.735, lane = 1 },
+        new NoteEvent { time = 50.567, lane = 3 },
+        new NoteEvent { time = 50.740, lane = 4 },
+        new NoteEvent { time = 50.886, lane = 5 },
 
-    new NoteEvent { time = 51.544, lane = 1 },
-    new NoteEvent { time = 52.384, lane = 3 },
-    new NoteEvent { time = 52.585, lane = 4 },
-    new NoteEvent { time = 52.823, lane = 5 },
+        new NoteEvent { time = 51.544, lane = 1 },
+        new NoteEvent { time = 52.384, lane = 3 },
+        new NoteEvent { time = 52.585, lane = 4 },
+        new NoteEvent { time = 52.823, lane = 5 },
 
-    new NoteEvent { time = 53.261, lane = 1 },
-    new NoteEvent { time = 53.846, lane = 3 },
-    new NoteEvent { time = 54.084, lane = 4 },
-    new NoteEvent { time = 54.321, lane = 5 },
+        new NoteEvent { time = 53.261, lane = 1 },
+        new NoteEvent { time = 53.846, lane = 3 },
+        new NoteEvent { time = 54.084, lane = 4 },
+        new NoteEvent { time = 54.321, lane = 5 },
 
-    new NoteEvent { time = 54.942, lane = 1 },
-    new NoteEvent { time = 55.564, lane = 3 },
-    new NoteEvent { time = 55.763, lane = 4 },
-    new NoteEvent { time = 56.039, lane = 5 },
+        new NoteEvent { time = 54.942, lane = 1 },
+        new NoteEvent { time = 55.564, lane = 3 },
+        new NoteEvent { time = 55.763, lane = 4 },
+        new NoteEvent { time = 56.039, lane = 5 },
 
-    new NoteEvent { time = 56.587, lane = 1 },
-    new NoteEvent { time = 57.172, lane = 3 },
-    new NoteEvent { time = 57.446, lane = 4 },
-    new NoteEvent { time = 57.720, lane = 5 },
+        new NoteEvent { time = 56.587, lane = 1 },
+        new NoteEvent { time = 57.172, lane = 3 },
+        new NoteEvent { time = 57.446, lane = 4 },
+        new NoteEvent { time = 57.720, lane = 5 },
 
-    new NoteEvent { time = 58.286, lane = 1 },
-    new NoteEvent { time = 58.926, lane = 3 },
-    new NoteEvent { time = 59.163, lane = 4 },
-    new NoteEvent { time = 59.437, lane = 5 },
+        new NoteEvent { time = 58.286, lane = 1 },
+        new NoteEvent { time = 58.926, lane = 3 },
+        new NoteEvent { time = 59.163, lane = 4 },
+        new NoteEvent { time = 59.437, lane = 5 },
 
-    //new NoteEvent { time = 60.004, lane = 1 },
+        new NoteEvent { time = 66.719, lane = 1 },
+        new NoteEvent { time = 67.053, lane = 2 },
+        new NoteEvent { time = 67.553, lane = 4 },
+        new NoteEvent { time = 67.971, lane = 5 },
 
-    new NoteEvent { time = 66.719, lane = 1 },
-    new NoteEvent { time = 67.053, lane = 2 },
-    new NoteEvent { time = 67.553, lane = 4 },
-    new NoteEvent { time = 67.971, lane = 5 },
+        new NoteEvent { time = 68.360, lane = 1 },
+        new NoteEvent { time = 68.860, lane = 2 },
+        new NoteEvent { time = 69.277, lane = 4 },
+        new NoteEvent { time = 69.639, lane = 5 },
 
-    new NoteEvent { time = 68.360, lane = 1 },
-    new NoteEvent { time = 68.860, lane = 2 },
-    new NoteEvent { time = 69.277, lane = 4 },
-    new NoteEvent { time = 69.639, lane = 5 },
+        new NoteEvent { time = 70.084, lane = 1 },
+        new NoteEvent { time = 70.528, lane = 2 },
+        new NoteEvent { time = 70.973, lane = 4 },
+        new NoteEvent { time = 71.418, lane = 5 },
 
-    new NoteEvent { time = 70.084, lane = 1 },
-    new NoteEvent { time = 70.528, lane = 2 },
-    new NoteEvent { time = 70.973, lane = 4 },
-    new NoteEvent { time = 71.418, lane = 5 },
-
-    new NoteEvent { time = 71.807, lane = 1 },
-    new NoteEvent { time = 72.196, lane = 2 },
-    new NoteEvent { time = 72.641, lane = 4 },
-    new NoteEvent { time = 73.058, lane = 5 },
-};
+        new NoteEvent { time = 71.807, lane = 1 },
+        new NoteEvent { time = 72.196, lane = 2 },
+        new NoteEvent { time = 72.641, lane = 4 },
+        new NoteEvent { time = 73.058, lane = 5 },
+    };
 
     readonly List<NoteEvent> notes = new();
     readonly List<NoteView> active = new();
@@ -154,9 +214,15 @@ public class RhythmConductor : MonoBehaviour
     float resultCountdownTimer;
     double songDspStart;
 
-    void Awake()
+    void Start()
     {
         BuildNotes();
+
+        if (uiShakeTarget == null)
+            print("No UI Shake assigned!!!");
+
+        if (uiShakeTarget != null)
+            uiShakeBasePos = uiShakeTarget.anchoredPosition;
     }
 
     public void BeginGame()
@@ -166,6 +232,11 @@ public class RhythmConductor : MonoBehaviour
         perfectCount = 0;
         goodCount = 0;
 
+        nextShakeIndex = 0;
+        nextSustainedShakeIndex = 0;
+        isSustainedShaking = false;
+        currentSustainedShake = null;
+
         hasEnded = false;
         isPlaying = true;
         resultCountdownStarted = false;
@@ -174,6 +245,8 @@ public class RhythmConductor : MonoBehaviour
         for (int i = active.Count - 1; i >= 0; i--)
             if (active[i] != null) Destroy(active[i].gameObject);
         active.Clear();
+
+        StopUIShake();
 
         if (music == null)
         {
@@ -204,6 +277,9 @@ public class RhythmConductor : MonoBehaviour
 
         double now = AudioSettings.dspTime;
 
+        CheckTimedUIShake(now);
+        CheckSustainedUIShake(now);
+
         while (spawnIndex < notes.Count)
         {
             var e = notes[spawnIndex];
@@ -225,6 +301,121 @@ public class RhythmConductor : MonoBehaviour
         active.RemoveAll(n => n == null || n.IsJudged);
 
         CheckResultCountdown();
+    }
+
+    void CheckTimedUIShake(double nowDsp)
+    {
+        if (uiShakeTarget == null || timedShakes == null || timedShakes.Length == 0)
+            return;
+
+        while (nextShakeIndex < timedShakes.Length)
+        {
+            var s = timedShakes[nextShakeIndex];
+            double shakeDspTime = songDspStart + s.time + globalOffsetSeconds;
+
+            if (nowDsp >= shakeDspTime)
+            {
+                StartOneShotUIShake(s.strength, s.duration);
+                nextShakeIndex++;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    void CheckSustainedUIShake(double nowDsp)
+    {
+        if (uiShakeTarget == null || sustainedShakes == null || sustainedShakes.Length == 0)
+            return;
+
+        if (isSustainedShaking && currentSustainedShake != null)
+        {
+            double endDspTime = songDspStart + currentSustainedShake.endTime + globalOffsetSeconds;
+
+            if (nowDsp >= endDspTime)
+            {
+                StopUIShake();
+                isSustainedShaking = false;
+                currentSustainedShake = null;
+            }
+        }
+
+        if (!isSustainedShaking && nextSustainedShakeIndex < sustainedShakes.Length)
+        {
+            var s = sustainedShakes[nextSustainedShakeIndex];
+            double startDspTime = songDspStart + s.startTime + globalOffsetSeconds;
+            double endDspTime = songDspStart + s.endTime + globalOffsetSeconds;
+
+            if (nowDsp >= startDspTime && nowDsp < endDspTime)
+            {
+                StartSustainedUIShake(s.strength);
+                currentSustainedShake = s;
+                isSustainedShaking = true;
+                nextSustainedShakeIndex++;
+            }
+        }
+    }
+
+    void StartOneShotUIShake(float strength, float duration)
+    {
+        if (uiShakeTarget == null) return;
+
+        if (uiShakeRoutine != null)
+            StopCoroutine(uiShakeRoutine);
+
+        uiShakeRoutine = StartCoroutine(CoOneShotUIShake(strength, duration));
+    }
+
+    void StartSustainedUIShake(float strength)
+    {
+        if (uiShakeTarget == null) return;
+
+        if (uiShakeRoutine != null)
+            StopCoroutine(uiShakeRoutine);
+
+        uiShakeRoutine = StartCoroutine(CoSustainedUIShake(strength));
+    }
+
+    void StopUIShake()
+    {
+        if (uiShakeRoutine != null)
+            StopCoroutine(uiShakeRoutine);
+
+        uiShakeRoutine = null;
+
+        if (uiShakeTarget != null)
+            uiShakeTarget.anchoredPosition = uiShakeBasePos;
+    }
+
+    IEnumerator CoOneShotUIShake(float strength, float duration)
+    {
+        uiShakeBasePos = uiShakeTarget.anchoredPosition;
+
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            Vector2 offset = Random.insideUnitCircle * strength;
+            uiShakeTarget.anchoredPosition = uiShakeBasePos + offset;
+            yield return null;
+        }
+
+        uiShakeTarget.anchoredPosition = uiShakeBasePos;
+        uiShakeRoutine = null;
+    }
+
+    IEnumerator CoSustainedUIShake(float strength)
+    {
+        uiShakeBasePos = uiShakeTarget.anchoredPosition;
+
+        while (true)
+        {
+            Vector2 offset = Random.insideUnitCircle * strength;
+            uiShakeTarget.anchoredPosition = uiShakeBasePos + offset;
+            yield return null;
+        }
     }
 
     void SpawnOne(NoteEvent e, double noteTime, double spawnTime)
@@ -318,6 +509,7 @@ public class RhythmConductor : MonoBehaviour
         resultCountdownStarted = false;
 
         if (music != null) music.Stop();
+        StopUIShake();
 
         Debug.Log("GAME OVER");
         PlayResultDialogue(lostDialogueFile);
@@ -354,6 +546,7 @@ public class RhythmConductor : MonoBehaviour
                 isPlaying = false;
 
                 if (music != null) music.Stop();
+                StopUIShake();
 
                 Debug.Log("SONG CLEAR -> NORMAL");
                 PlayResultDialogue(normalDialogueFile);
