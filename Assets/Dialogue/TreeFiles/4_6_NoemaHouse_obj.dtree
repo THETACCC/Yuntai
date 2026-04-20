@@ -29,7 +29,7 @@
                 "ja": ""
             },
             "positionX": 456.0,
-            "positionY": 103.19999694824219,
+            "positionY": 102.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,8 +45,8 @@
                 "zh": "就瞥一眼。",
                 "ja": ""
             },
-            "positionX": 798.4000244140625,
-            "positionY": 107.19999694824219,
+            "positionX": 798.0,
+            "positionY": 106.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -62,8 +62,8 @@
                 "zh": "......",
                 "ja": ""
             },
-            "positionX": 1139.199951171875,
-            "positionY": 108.80000305175781,
+            "positionX": 1138.6666259765625,
+            "positionY": 108.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -75,12 +75,12 @@
             "useContentId": true,
             "contentId": "ch2_2014e",
             "content": {
-                "en": "It’s all work-related stuff. She really is busy.",
-                "zh": "似乎全部都是和工作有关的事情，她果然很忙啊。",
+                "en": "It’s full of notes about work and arrangements for the event, packed tightly across the page.",
+                "zh": "上面记了很多工作和会场相关的安排，排得密密麻麻。",
                 "ja": ""
             },
             "positionX": 1484.0,
-            "positionY": 109.60000610351563,
+            "positionY": 109.33332824707031,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -92,12 +92,12 @@
             "useContentId": true,
             "contentId": "ch2_2014f",
             "content": {
-                "en": "Ah—there’s a tiny line of text at the bottom.",
-                "zh": "啊，最底下有一行小字。",
+                "en": "A few lines have been hastily crossed out, like they were changed again and again at the last minute.",
+                "zh": "还有几行被匆匆划掉了，看起来像是临时改过很多次。",
                 "ja": ""
             },
             "positionX": 1828.0,
-            "positionY": 111.19999694824219,
+            "positionY": 110.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -109,11 +109,11 @@
             "useContentId": true,
             "contentId": "ch2_2014g",
             "content": {
-                "en": "......",
-                "zh": "......",
+                "en": "What has she been so busy with lately...?",
+                "zh": "她最近到底在忙什么……",
                 "ja": ""
             },
-            "positionX": 2169.599853515625,
+            "positionX": 2169.33349609375,
             "positionY": 116.0,
             "choices": [],
             "eventCalls": [],
@@ -122,16 +122,50 @@
         {
             "id": "a30adce8-6747-4e0a-9d65-ceccda6c2ccd",
             "index": 7,
-            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
             "useContentId": true,
             "contentId": "ch2_2014h",
             "content": {
-                "en": "She said she’s really looking forward to seeing me again…",
+                "en": "Ah, there’s a small line written at the very bottom.",
+                "zh": "啊，最底下有一行小字。",
+                "ja": ""
+            },
+            "positionX": 2510.666748046875,
+            "positionY": 121.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "eee14548-6992-433b-8e6c-651ca4e3ba56",
+            "index": 8,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_2014i",
+            "content": {
+                "en": "...",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 2871.33349609375,
+            "positionY": 125.33332824707031,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "f0bd1f0f-d158-4a8e-ab0a-f2886fc0c1f9",
+            "index": 9,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch2_2014j",
+            "content": {
+                "en": "She says she’s really looking forward to seeing me again...",
                 "zh": "她说很期待再见到我......",
                 "ja": ""
             },
-            "positionX": 2511.199951171875,
-            "positionY": 121.60000610351563,
+            "positionX": 3234.666748046875,
+            "positionY": 118.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -183,6 +217,20 @@
         {
             "outputNodeId": "719ccdcb-2183-42cf-b1dc-5075b8998977",
             "inputNodeId": "c50b8fc7-2f53-4e01-b004-4241315b4bdc",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a30adce8-6747-4e0a-9d65-ceccda6c2ccd",
+            "inputNodeId": "eee14548-6992-433b-8e6c-651ca4e3ba56",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "eee14548-6992-433b-8e6c-651ca4e3ba56",
+            "inputNodeId": "f0bd1f0f-d158-4a8e-ab0a-f2886fc0c1f9",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
