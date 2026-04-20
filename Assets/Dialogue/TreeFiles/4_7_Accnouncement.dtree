@@ -11,8 +11,8 @@
                 "zh": "金兰观工作人员提醒您，前方通往戏台的路段近期人口失踪事件频发。",
                 "ja": ""
             },
-            "positionX": 6839.2001953125,
-            "positionY": 316.79998779296877,
+            "positionX": 6839.0,
+            "positionY": 317.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -28,8 +28,8 @@
                 "zh": "为保障大会期间的正常秩序与人员安全，请所有游客及工作人员遵守以下规则。",
                 "ja": ""
             },
-            "positionX": 7156.80029296875,
-            "positionY": 316.79998779296877,
+            "positionX": 7157.0,
+            "positionY": 317.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -45,83 +45,55 @@
                 "zh": "1.若您在离开前方街道后，发现自己再次进入相同街道，请保持冷静注意观察。",
                 "ja": ""
             },
-            "positionX": 7491.2001953125,
-            "positionY": 316.79998779296877,
+            "positionX": 7491.0,
+            "positionY": 317.0,
             "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "4e8bf6e5-71ee-4b55-b608-33843207e030",
-            "index": 3,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_3052",
-            "content": {
-                "en": "2. According to survivor testimony, the street you pass through the first time is absolutely safe. Use it as your reference.",
-                "zh": "2.经幸存者证言，您第一次通过的街道为绝对安全的，可以此为参照。",
-                "ja": ""
-            },
-            "positionX": 7824.0,
-            "positionY": 316.79998779296877,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "1b0e3c2e-7096-41f9-832d-785787c98111",
-            "index": 4,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_3053",
-            "content": {
-                "en": "3. If you notice any abnormalities on the street, turn around immediately and leave to the left.",
-                "zh": "3.如果您发现街道中存在有异常现象，请立刻转身，向左离开街道。",
-                "ja": ""
-            },
-            "positionX": 8142.400390625,
-            "positionY": 316.79998779296877,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "62f03528-53a8-4d99-b770-61d92a63afdc",
-            "index": 5,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_3054",
-            "content": {
-                "en": "4. If everything seems normal, continue forward and head right toward the stage.",
-                "zh": "4.如果街道中一切正常，请继续前进，向右前往戏台方向。",
-                "ja": ""
-            },
-            "positionX": 8460.7998046875,
-            "positionY": 316.79998779296877,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e0215da5-f233-41a8-86b8-c32dc49b43e7",
-            "index": 6,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_3055",
-            "content": {
-                "en": "5. This street is only about a hundred meters long. If you find it stretching far into the distance, please…",
-                "zh": "5.本条街道仅有约百米长，若您发现街道延申至极远方向，请......",
-                "ja": ""
-            },
-            "positionX": 8779.2001953125,
-            "positionY": 316.79998779296877,
-            "choices": [],
-            "eventCalls": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "8247d9f7-5bb9-459d-893f-a5dc3864d5da",
+                    "targetObjectName": "Event19_Rule1",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
             "conditionalBranches": []
         },
         {
             "id": "12184823-469a-496f-b7a9-3c64e8b028ed",
-            "index": 7,
+            "index": 3,
             "characterId": "",
             "useContentId": true,
             "contentId": "ch2_3056",
@@ -130,15 +102,15 @@
                 "zh": "遵守规则，享受大会。金兰观全体人员，祝愿您在芸台大会期间游玩愉快。",
                 "ja": ""
             },
-            "positionX": 9097.6005859375,
-            "positionY": 316.79998779296877,
+            "positionX": 9098.0,
+            "positionY": 317.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         },
         {
             "id": "cb2bc2ed-5c04-47a8-b252-9ab6cd0b6a60",
-            "index": 8,
+            "index": 4,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
             "contentId": "ch2_3057",
@@ -148,7 +120,7 @@
                 "ja": ""
             },
             "positionX": 9416.0,
-            "positionY": 316.79998779296877,
+            "positionY": 317.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -179,6 +151,234 @@
                 }
             ],
             "conditionalBranches": []
+        },
+        {
+            "id": "bcb44266-4696-4ffe-b139-c20bdfeeef51",
+            "index": 5,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3052",
+            "content": {
+                "en": "2. According to survivor testimony, the street you pass through the first time is absolutely safe. Use it as your reference.",
+                "zh": "2.经幸存者证言，您第一次通过的街道为绝对安全的，可以此为参照。",
+                "ja": ""
+            },
+            "positionX": 7827.0,
+            "positionY": 769.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "e95b5149-5b35-4018-8e52-6bede7fb366f",
+                    "targetObjectName": "Event20_Rule2",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "4e85fa4e-9979-4d03-80be-8414235edd8e",
+            "index": 6,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3053",
+            "content": {
+                "en": "3. If you notice any abnormalities on the street, turn around immediately and leave to the left.",
+                "zh": "3.如果您发现街道中存在有异常现象，请立刻转身，向左离开街道。",
+                "ja": ""
+            },
+            "positionX": 8145.0,
+            "positionY": 769.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "ee4f8909-09b7-4875-b822-3b0822e34583",
+                    "targetObjectName": "Event21_Rule3",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "1103be2d-62e9-4cc3-b612-be67a975e43d",
+            "index": 7,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3054",
+            "content": {
+                "en": "4. If everything seems normal, continue forward and head right toward the stage.",
+                "zh": "4.如果街道中一切正常，请继续前进，向右前往戏台方向。",
+                "ja": ""
+            },
+            "positionX": 8478.0,
+            "positionY": 769.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "f8bc2df7-6258-4aa3-b2d1-12e5da84e1c8",
+                    "targetObjectName": "Event22_Rule4",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "3e3b36fd-f594-4165-a8a4-e1c846a22614",
+            "index": 8,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_3055",
+            "content": {
+                "en": "5. This street is only about a hundred meters long. If you find it stretching far into the distance, please…",
+                "zh": "5.本条街道仅有约百米长，若您发现街道延申至极远方向，请......",
+                "ja": ""
+            },
+            "positionX": 8824.0,
+            "positionY": 781.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "UnlockEventFeedBack",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "db9e7788-e3e2-4019-9a7c-05b40b77ad44",
+                    "targetObjectName": "EventTab",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "TabManager",
+                    "methodName": "RefreshUnlockedTabs",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                },
+                {
+                    "targetObjectID": "93f51609-a0a3-4351-9373-29bc06fb4137",
+                    "targetObjectName": "Event23_Rule5",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "isThisUnlocked",
+                    "methodName": "UnlockThis",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 0
+                }
+            ],
+            "conditionalBranches": []
         }
     ],
     "connections": [
@@ -197,43 +397,43 @@
             "branchPriority": -1
         },
         {
-            "outputNodeId": "6f506cfb-0a27-4e93-81a2-bf3e6b2037ab",
-            "inputNodeId": "4e8bf6e5-71ee-4b55-b608-33843207e030",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "4e8bf6e5-71ee-4b55-b608-33843207e030",
-            "inputNodeId": "1b0e3c2e-7096-41f9-832d-785787c98111",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "1b0e3c2e-7096-41f9-832d-785787c98111",
-            "inputNodeId": "62f03528-53a8-4d99-b770-61d92a63afdc",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "62f03528-53a8-4d99-b770-61d92a63afdc",
-            "inputNodeId": "e0215da5-f233-41a8-86b8-c32dc49b43e7",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "e0215da5-f233-41a8-86b8-c32dc49b43e7",
-            "inputNodeId": "12184823-469a-496f-b7a9-3c64e8b028ed",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
             "outputNodeId": "12184823-469a-496f-b7a9-3c64e8b028ed",
             "inputNodeId": "cb2bc2ed-5c04-47a8-b252-9ab6cd0b6a60",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6f506cfb-0a27-4e93-81a2-bf3e6b2037ab",
+            "inputNodeId": "bcb44266-4696-4ffe-b139-c20bdfeeef51",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "bcb44266-4696-4ffe-b139-c20bdfeeef51",
+            "inputNodeId": "4e85fa4e-9979-4d03-80be-8414235edd8e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "4e85fa4e-9979-4d03-80be-8414235edd8e",
+            "inputNodeId": "1103be2d-62e9-4cc3-b612-be67a975e43d",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "1103be2d-62e9-4cc3-b612-be67a975e43d",
+            "inputNodeId": "3e3b36fd-f594-4165-a8a4-e1c846a22614",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "3e3b36fd-f594-4165-a8a4-e1c846a22614",
+            "inputNodeId": "12184823-469a-496f-b7a9-3c64e8b028ed",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
