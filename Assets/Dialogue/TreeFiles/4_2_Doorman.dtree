@@ -1,34 +1,64 @@
 {
     "nodes": [
         {
-            "id": "7ce3c8ad-3886-485a-945a-f527d261eb1f",
-            "index": 0,
+            "id": "ace267c1-1e51-46ad-8ed5-19365ee66667",
+            "index": 2,
             "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
             "useContentId": true,
-            "contentId": "ch2_1054",
+            "contentId": "ch2_4117",
             "content": {
-                "en": "Huh? Little girl, why are you back again?",
-                "zh": "咦？小姑娘，怎么又回来了？",
+                "en": "",
+                "zh": "朋友？哪一位啊？住几楼的？",
                 "ja": ""
             },
-            "positionX": 100.0,
-            "positionY": 100.0,
+            "positionX": 789.0,
+            "positionY": 107.0,
             "choices": [],
             "eventCalls": [
                 {
-                    "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
-                    "targetObjectName": "LevelManager_4_2_City",
+                    "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+                    "targetObjectName": "DetectiveSystem",
                     "targetSceneName": "Level4-2City",
-                    "componentTypeName": "LevelManager4_2_City",
-                    "methodName": "SetOpenDoorOpen",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StartDetectiveGame",
                     "stringParameter": "",
                     "intParameter": 0,
                     "floatParameter": 0.0,
                     "boolParameter": false,
                     "parameterType": 0,
-                    "triggerTiming": 1
+                    "triggerTiming": 2
+                },
+                {
+                    "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+                    "targetObjectName": "DetectiveSystem",
+                    "targetSceneName": "Level4-2City",
+                    "componentTypeName": "DetectiveManager",
+                    "methodName": "StopPlayerMovement",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
                 }
             ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "7ce3c8ad-3886-485a-945a-f527d261eb1f",
+            "index": 0,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_4115",
+            "content": {
+                "en": "",
+                "zh": "咦？小姑娘，怎么又回来了？",
+                "ja": ""
+            },
+            "positionX": 100.0,
+            "positionY": 102.0,
+            "choices": [],
+            "eventCalls": [],
             "conditionalBranches": []
         },
         {
@@ -36,130 +66,14 @@
             "index": 1,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
             "useContentId": true,
-            "contentId": "ch2_1055",
+            "contentId": "ch2_4116",
             "content": {
-                "en": "Hello. A friend left something for me at her apartment, so I came by to pick it up.",
+                "en": "",
                 "zh": "您好。我朋友在家里给我留了东西，我过来取一下。",
                 "ja": ""
             },
             "positionX": 448.0,
             "positionY": 102.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ace267c1-1e51-46ad-8ed5-19365ee66667",
-            "index": 2,
-            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
-            "useContentId": true,
-            "contentId": "ch2_1056",
-            "content": {
-                "en": "A friend? Which one? What floor?",
-                "zh": "朋友？哪一位啊？住几楼的？",
-                "ja": ""
-            },
-            "positionX": 788.6666870117188,
-            "positionY": 106.66667175292969,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "",
-                    "targetObjectName": "",
-                    "targetSceneName": "",
-                    "componentTypeName": "",
-                    "methodName": "",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 0
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "993ca425-952a-4c5f-ab64-aca18a17263f",
-            "index": 3,
-            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
-            "useContentId": true,
-            "contentId": "ch2_1057",
-            "content": {
-                "en": "Noema. Room 301.",
-                "zh": "沈梦之，住301。",
-                "ja": ""
-            },
-            "positionX": 1132.6666259765625,
-            "positionY": 108.66667175292969,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "7f4a14ed-f0ff-401a-a421-9278999f0f39",
-            "index": 4,
-            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
-            "useContentId": true,
-            "contentId": "ch2_1058",
-            "content": {
-                "en": "......",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 1468.6666259765625,
-            "positionY": 109.33332824707031,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "83f948c7-b82a-48c8-9745-56fe47b850fe",
-            "index": 5,
-            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
-            "useContentId": true,
-            "contentId": "ch2_1059",
-            "content": {
-                "en": "Noema? She doesn’t usually bring outsiders back here. Are you really a friend of hers?",
-                "zh": "小沈？她平时可不怎么带外人回来。你真是她朋友？",
-                "ja": ""
-            },
-            "positionX": 1812.0,
-            "positionY": 112.66667175292969,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "92b05655-de74-429f-a46a-a2bab02d7775",
-            "index": 6,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch2_1060",
-            "content": {
-                "en": "Yeah. We’ve known each other since high school. She’s tied up at the festival right now, so she told me to come by and get something first.",
-                "zh": "嗯，我们高中就认识了。她刚刚还在大会会场那边忙，让我先过来取点东西。",
-                "ja": ""
-            },
-            "positionX": 2154.666748046875,
-            "positionY": 116.66667175292969,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "3f05b0c5-4804-475f-b16e-fc9d1261f1de",
-            "index": 7,
-            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
-            "useContentId": true,
-            "contentId": "ch2_1061",
-            "content": {
-                "en": "......",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 2497.33349609375,
-            "positionY": 116.66667175292969,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
@@ -176,41 +90,6 @@
         {
             "outputNodeId": "988ee2be-e8c1-46d4-b4b4-2b7f5a6b063d",
             "inputNodeId": "ace267c1-1e51-46ad-8ed5-19365ee66667",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "ace267c1-1e51-46ad-8ed5-19365ee66667",
-            "inputNodeId": "993ca425-952a-4c5f-ab64-aca18a17263f",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "993ca425-952a-4c5f-ab64-aca18a17263f",
-            "inputNodeId": "7f4a14ed-f0ff-401a-a421-9278999f0f39",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "7f4a14ed-f0ff-401a-a421-9278999f0f39",
-            "inputNodeId": "83f948c7-b82a-48c8-9745-56fe47b850fe",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "83f948c7-b82a-48c8-9745-56fe47b850fe",
-            "inputNodeId": "92b05655-de74-429f-a46a-a2bab02d7775",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "92b05655-de74-429f-a46a-a2bab02d7775",
-            "inputNodeId": "3f05b0c5-4804-475f-b16e-fc9d1261f1de",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

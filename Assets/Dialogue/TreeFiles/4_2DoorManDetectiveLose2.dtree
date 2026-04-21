@@ -1,22 +1,109 @@
 {
     "nodes": [
         {
-            "id": "c9369997-68a4-4be6-bacc-e020f3bdb50f",
-            "index": 0,
+            "id": "97f3e8b2-912a-4689-ac96-7cbd9798c550",
+            "index": 1,
             "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
             "useContentId": true,
-            "contentId": "ch2_1064a",
+            "contentId": "ch2_4125",
             "content": {
-                "en": "That doesn’t add up. If you want to go in, you’ll have to show me some proof.",
-                "zh": "这可说不通。想进去，总得拿出点能证明的东西吧？",
+                "en": "",
+                "zh": "这可说不通。你不会是小偷吧？",
                 "ja": ""
             },
-            "positionX": 172.6666717529297,
-            "positionY": 148.0,
+            "positionX": 529.0,
+            "positionY": 135.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "6db9eae9-a2ba-4dbe-a11e-af3f58d48d1e",
+            "index": 2,
+            "characterId": "547590f1-5207-4943-a81f-41ae946214ce",
+            "useContentId": true,
+            "contentId": "ch2_4126",
+            "content": {
+                "en": "",
+                "zh": "啧...",
+                "ja": ""
+            },
+            "positionX": 911.0,
+            "positionY": 135.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": []
+        },
+        {
+            "id": "88cd6b96-65b0-42bf-b944-2ad7ba16f9a7",
+            "index": 3,
+            "characterId": "ec21035f-a4fe-4bb6-b877-eb871a5ec2cf",
+            "useContentId": true,
+            "contentId": "ch2_4127",
+            "content": {
+                "en": "",
+                "zh": "去去去，再想溜进来我报警了！",
+                "ja": ""
+            },
+            "positionX": 1286.0,
+            "positionY": 135.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
+                    "targetObjectName": "LevelManager_4_2_City",
+                    "targetSceneName": "Level4-2City",
+                    "componentTypeName": "LevelManager4_2_City",
+                    "methodName": "ApartmentFailed",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 2
+                }
+            ],
+            "conditionalBranches": []
+        },
+        {
+            "id": "c9369997-68a4-4be6-bacc-e020f3bdb50f",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_4124",
+            "content": {
+                "en": "",
+                "zh": "这是301的门钥匙，人叫沈梦之。",
+                "ja": ""
+            },
+            "positionX": 166.0,
+            "positionY": 135.0,
             "choices": [],
             "eventCalls": [],
             "conditionalBranches": []
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "c9369997-68a4-4be6-bacc-e020f3bdb50f",
+            "inputNodeId": "97f3e8b2-912a-4689-ac96-7cbd9798c550",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "97f3e8b2-912a-4689-ac96-7cbd9798c550",
+            "inputNodeId": "6db9eae9-a2ba-4dbe-a11e-af3f58d48d1e",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "6db9eae9-a2ba-4dbe-a11e-af3f58d48d1e",
+            "inputNodeId": "88cd6b96-65b0-42bf-b944-2ad7ba16f9a7",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }

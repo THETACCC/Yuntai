@@ -3,6 +3,22 @@
     {
       "index": 0,
       "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_日常",
+      "isPlayer": true,
+      "content": {
+        "en": "",
+        "zh": "这是301的门钥匙，人叫沈梦之。",
+        "ja": ""
+      },
+      "nextIndex": 1
+    },
+    {
+      "index": 1,
+      "name": {
         "en": "Doorman",
         "zh": "门卫大爷",
         "ja": ""
@@ -10,11 +26,57 @@
       "avatarAddr": "DialogueImages/大爷_日常",
       "isPlayer": false,
       "content": {
-        "en": "That doesn’t add up. If you want to go in, you’ll have to show me some proof.",
-        "zh": "这可说不通。想进去，总得拿出点能证明的东西吧？",
+        "en": "",
+        "zh": "这可说不通。你不会是小偷吧？",
         "ja": ""
       },
-      "nextIndex": -1
+      "nextIndex": 2
+    },
+    {
+      "index": 2,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_思考",
+      "isPlayer": true,
+      "content": {
+        "en": "",
+        "zh": "啧...",
+        "ja": ""
+      },
+      "nextIndex": 3
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Doorman",
+        "zh": "门卫大爷",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/大爷_日常",
+      "isPlayer": false,
+      "content": {
+        "en": "",
+        "zh": "去去去，再想溜进来我报警了！",
+        "ja": ""
+      },
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
+          "targetObjectName": "LevelManager_4_2_City",
+          "componentTypeName": "LevelManager4_2_City",
+          "methodName": "ApartmentFailed",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
+        }
+      ]
     }
   ],
   "currentIndex": 0

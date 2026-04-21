@@ -10,25 +10,11 @@
       "avatarAddr": "DialogueImages/大爷_日常",
       "isPlayer": false,
       "content": {
-        "en": "Huh? Little girl, why are you back again?",
+        "en": "",
         "zh": "咦？小姑娘，怎么又回来了？",
         "ja": ""
       },
-      "nextIndex": 1,
-      "eventCalls": [
-        {
-          "targetObjectID": "b36887ff-bd98-4489-a8ca-d01da0aa53be",
-          "targetObjectName": "LevelManager_4_2_City",
-          "componentTypeName": "LevelManager4_2_City",
-          "methodName": "SetOpenDoorOpen",
-          "parameterType": "None",
-          "stringParameter": "",
-          "intParameter": 0,
-          "floatParameter": 0,
-          "boolParameter": false,
-          "triggerTiming": 1
-        }
-      ]
+      "nextIndex": 1
     },
     {
       "index": 1,
@@ -40,7 +26,7 @@
       "avatarAddr": "DialogueImages/何以真_日常",
       "isPlayer": true,
       "content": {
-        "en": "Hello. A friend left something for me at her apartment, so I came by to pick it up.",
+        "en": "",
         "zh": "您好。我朋友在家里给我留了东西，我过来取一下。",
         "ja": ""
       },
@@ -56,105 +42,37 @@
       "avatarAddr": "DialogueImages/大爷_日常",
       "isPlayer": false,
       "content": {
-        "en": "A friend? Which one? What floor?",
+        "en": "",
         "zh": "朋友？哪一位啊？住几楼的？",
         "ja": ""
       },
-      "nextIndex": 3,
+      "nextIndex": -1,
       "eventCalls": [
         {
-          "targetObjectID": "",
-          "targetObjectName": "",
-          "componentTypeName": "",
-          "methodName": "",
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StartDetectiveGame",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
           "floatParameter": 0,
           "boolParameter": false,
-          "triggerTiming": 0
+          "triggerTiming": 2
+        },
+        {
+          "targetObjectID": "b05fc535-3c9d-4b5a-a61c-50d8ee2ace1b",
+          "targetObjectName": "DetectiveSystem",
+          "componentTypeName": "DetectiveManager",
+          "methodName": "StopPlayerMovement",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 2
         }
       ]
-    },
-    {
-      "index": 3,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_微笑",
-      "isPlayer": true,
-      "content": {
-        "en": "Noema. Room 301.",
-        "zh": "沈梦之，住301。",
-        "ja": ""
-      },
-      "nextIndex": 4
-    },
-    {
-      "index": 4,
-      "name": {
-        "en": "Doorman",
-        "zh": "门卫大爷",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/大爷_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "......",
-        "zh": "......",
-        "ja": ""
-      },
-      "nextIndex": 5
-    },
-    {
-      "index": 5,
-      "name": {
-        "en": "Doorman",
-        "zh": "门卫大爷",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/大爷_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "Noema? She doesn’t usually bring outsiders back here. Are you really a friend of hers?",
-        "zh": "小沈？她平时可不怎么带外人回来。你真是她朋友？",
-        "ja": ""
-      },
-      "nextIndex": 6
-    },
-    {
-      "index": 6,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "isPlayer": true,
-      "content": {
-        "en": "Yeah. We’ve known each other since high school. She’s tied up at the festival right now, so she told me to come by and get something first.",
-        "zh": "嗯，我们高中就认识了。她刚刚还在大会会场那边忙，让我先过来取点东西。",
-        "ja": ""
-      },
-      "nextIndex": 7
-    },
-    {
-      "index": 7,
-      "name": {
-        "en": "Doorman",
-        "zh": "门卫大爷",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/大爷_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "......",
-        "zh": "......",
-        "ja": ""
-      },
-      "nextIndex": -1
     }
   ],
   "currentIndex": 0
