@@ -52,8 +52,32 @@ public class RhythmConductor : MonoBehaviour
         public float strength = 6f;
     }
 
+    [System.Serializable]
+    public class TimedAnimatorSwitch
+    {
+        public float time;
+        public string stateName;
+    }
+
     [Header("UI Shake")]
     [SerializeField] private RectTransform uiShakeTarget;
+
+    [Header("Timed Animator Switch")]
+    [SerializeField] private Animator targetAnimator;
+
+    private readonly TimedAnimatorSwitch[] timedAnimatorSwitches = new TimedAnimatorSwitch[]
+    {
+        new TimedAnimatorSwitch
+        {
+            time = 42.000f,
+            stateName = "Crowd_SmallSmile"
+        },
+        new TimedAnimatorSwitch
+        {
+            time = 59.780f,
+            stateName = "Crowd_SmileBig"
+        }
+    };
 
     private readonly TimedUIShake[] timedShakes = new TimedUIShake[]
     {
@@ -91,6 +115,8 @@ public class RhythmConductor : MonoBehaviour
 
     private int nextShakeIndex;
     private int nextSustainedShakeIndex;
+    private int nextAnimatorSwitchIndex;
+
     private bool isSustainedShaking;
     private SustainedUIShake currentSustainedShake;
 
@@ -234,6 +260,8 @@ public class RhythmConductor : MonoBehaviour
 
         nextShakeIndex = 0;
         nextSustainedShakeIndex = 0;
+        nextAnimatorSwitchIndex = 0;
+
         isSustainedShaking = false;
         currentSustainedShake = null;
 
@@ -277,6 +305,7 @@ public class RhythmConductor : MonoBehaviour
 
         double now = AudioSettings.dspTime;
 
+        CheckTimedAnimatorSwitch(now);
         CheckTimedUIShake(now);
         CheckSustainedUIShake(now);
 
@@ -301,6 +330,30 @@ public class RhythmConductor : MonoBehaviour
         active.RemoveAll(n => n == null || n.IsJudged);
 
         CheckResultCountdown();
+    }
+
+    void CheckTimedAnimatorSwitch(double nowDsp)
+    {
+        if (targetAnimator == null || timedAnimatorSwitches == null || timedAnimatorSwitches.Length == 0)
+            return;
+
+        while (nextAnimatorSwitchIndex < timedAnimatorSwitches.Length)
+        {
+            var s = timedAnimatorSwitches[nextAnimatorSwitchIndex];
+            double switchDspTime = songDspStart + s.time + globalOffsetSeconds;
+
+            if (nowDsp >= switchDspTime)
+            {
+                if (!string.IsNullOrEmpty(s.stateName))
+                    targetAnimator.Play(s.stateName, 0, 0f);
+
+                nextAnimatorSwitchIndex++;
+            }
+            else
+            {
+                break;
+            }
+        }
     }
 
     void CheckTimedUIShake(double nowDsp)
@@ -560,6 +613,8 @@ public class RhythmConductor : MonoBehaviour
 
     void PlayResultDialogue(TextAsset file)
     {
+        targetAnimator.Play("Base Layer.Crowd", 0, 0f);
+
         if (resultDialogueTrigger == null)
         {
             Debug.LogError("[RhythmConductor] resultDialogueTrigger is not assigned.");
