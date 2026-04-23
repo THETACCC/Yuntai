@@ -163,11 +163,18 @@ public class NoteView : MonoBehaviour
             else if (now > NoteTime + hitWindow) Resolve(HitJudgement.Miss);
         }
 
-        double fadeStart = despawnTime - fadeDuration;
-        if (now >= fadeStart)
+        if (!resolved)
         {
-            double k = (now - fadeStart) / fadeDuration;
-            canvasGroup.alpha = 1f - Mathf.Clamp01((float)k);
+            double fadeStart = despawnTime - fadeDuration;
+            if (now >= fadeStart)
+            {
+                double k = (now - fadeStart) / fadeDuration;
+                canvasGroup.alpha = 1f - Mathf.Clamp01((float)k);
+            }
+        }
+        else
+        {
+            canvasGroup.alpha = 1f;
         }
 
         if (now >= despawnTime)
