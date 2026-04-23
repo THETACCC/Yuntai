@@ -1618,7 +1618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &358486919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7765,6 +7765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BathroomDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 858947615776168625, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2175611662378408352, guid: a38d58e0a07709a43852d05a007f7ed2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -54.45
@@ -7876,7 +7880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1736771210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10256,7 +10260,7 @@ GameObject:
   - component: {fileID: 8306013460936157412}
   - component: {fileID: 6289284201622695398}
   - component: {fileID: 6310612080782052748}
-  - component: {fileID: 4877844548873708787}
+  - component: {fileID: 9142952895334217822}
   m_Layer: 0
   m_Name: DialogueTrigger_ToHotel
   m_TagString: Untagged
@@ -10326,23 +10330,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5823017624867115339, guid: cc1e95791df82400d852a91daa195ce4, type: 3}
   m_PrefabInstance: {fileID: 2120559008278431736}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4877844548873708787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173702576537785092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d706ccf38296f346ada222e93dd31b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractIndicator: {fileID: 0}
-  triggerManagerFunctionOnE: 0
-  onEPressed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6289284201622695398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10360,7 +10347,7 @@ MonoBehaviour:
   isReadyToTrigger: 0
   isMainDialogueFinished: 0
   isDoor: 0
-  isInstantTrigger: 1
+  isInstantTrigger: 0
 --- !u!61 &6310612080782052748
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10393,7 +10380,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03625369, y: 0.063443065}
+  m_Offset: {x: -0.8774377, y: 1.216177}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10404,7 +10391,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.0049114, y: 5.3380756}
+  m_Size: {x: 1.3225434, y: 7.6435432}
   m_EdgeRadius: 0
 --- !u!1001 &8261359106371118591
 PrefabInstance:
@@ -10550,6 +10537,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9142952895334217822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173702576537785092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4300e1bc5ab98ec42b834f12f36496eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  mode: 0
+  oneShot: 1
+  dirSpeedThreshold: 0.05
+  debugLogs: 0
+  OnTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6289284201622695398}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
