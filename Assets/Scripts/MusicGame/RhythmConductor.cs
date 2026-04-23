@@ -69,7 +69,7 @@ public class RhythmConductor : MonoBehaviour
     {
         new TimedAnimatorSwitch
         {
-            time = 42.000f,
+            time = 28.000f,
             stateName = "Crowd_SmallSmile"
         },
         new TimedAnimatorSwitch
