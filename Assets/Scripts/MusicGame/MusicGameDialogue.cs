@@ -21,6 +21,10 @@ public class MusicGameDialogue : MonoBehaviour
     [Header("Refs")]
     public RhythmConductor rhythmConductor;
     public TextMeshProUGUI dialogueTMP;
+    public GameObject dialogueBGObject; // assign the background object here
+
+    [Header("Special Font For This Music Game Only")]
+    public TMP_FontAsset specialFont;
 
     [Header("Display")]
     public bool useFade = true;
@@ -32,71 +36,71 @@ public class MusicGameDialogue : MonoBehaviour
     private int currentCueIndex = -1;
 
     private readonly TimedDialogueCue[] cues = new TimedDialogueCue[]
-{
-    new TimedDialogueCue
     {
-        conversationIndex = 0,
-        showTime = 42.000f,
-        hideTime = 44.071f,
-        textColor = Color.white
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 1,
-        showTime = 44.071f,
-        hideTime = 46.268f,
-        textColor = Color.red
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 2,
-        showTime = 59.780f,
-        hideTime = 61.980f,
-        textColor = Color.white
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 3,
-        showTime = 61.980f,
-        hideTime = 63.883f,
-        textColor = Color.red
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 4,
-        showTime = 63.883f,
-        hideTime = 65.338f,
-        textColor = Color.white
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 5,
-        showTime = 65.338f,
-        hideTime = 66.500f,
-        textColor = Color.white
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 6,
-        showTime = 73.895f,
-        hideTime = 76.144f,
-        textColor = Color.red
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 7,
-        showTime = 76.144f,
-        hideTime = 78.028f,
-        textColor = Color.red
-    },
-    new TimedDialogueCue
-    {
-        conversationIndex = 8,
-        showTime = 78.028f,
-        hideTime = 79.200f,
-        textColor = Color.white
-    }
-};
+        new TimedDialogueCue
+        {
+            conversationIndex = 0,
+            showTime = 42.000f,
+            hideTime = 44.071f,
+            textColor = Color.white
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 1,
+            showTime = 44.071f,
+            hideTime = 46.268f,
+            textColor = Color.red
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 2,
+            showTime = 59.780f,
+            hideTime = 61.980f,
+            textColor = Color.white
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 3,
+            showTime = 61.980f,
+            hideTime = 63.883f,
+            textColor = Color.red
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 4,
+            showTime = 63.883f,
+            hideTime = 65.338f,
+            textColor = Color.white
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 5,
+            showTime = 65.338f,
+            hideTime = 66.500f,
+            textColor = Color.white
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 6,
+            showTime = 73.895f,
+            hideTime = 76.144f,
+            textColor = Color.red
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 7,
+            showTime = 76.144f,
+            hideTime = 78.028f,
+            textColor = Color.red
+        },
+        new TimedDialogueCue
+        {
+            conversationIndex = 8,
+            showTime = 78.028f,
+            hideTime = 79.200f,
+            textColor = Color.white
+        }
+    };
 
     private void Awake()
     {
@@ -108,6 +112,9 @@ public class MusicGameDialogue : MonoBehaviour
             dialogueTMP.text = "";
             SetTMPAlpha(0f);
         }
+
+        if (dialogueBGObject != null)
+            dialogueBGObject.SetActive(false);
     }
 
     private void Start()
@@ -123,6 +130,7 @@ public class MusicGameDialogue : MonoBehaviour
         if (dialogueData == null || cues == null || cues.Length == 0)
         {
             HideTMP();
+            SetBGActive(false);
             return;
         }
 
@@ -140,9 +148,15 @@ public class MusicGameDialogue : MonoBehaviour
         }
 
         if (currentCueIndex >= 0)
+        {
+            SetBGActive(true);
             ShowTMP();
+        }
         else
+        {
+            SetBGActive(false);
             HideTMP();
+        }
     }
 
     public void LoadDialogueFromFile(TextAsset file)
@@ -192,14 +206,18 @@ public class MusicGameDialogue : MonoBehaviour
             return;
         }
 
-        if (Settings.instance != null &&
-            Settings.instance.fontDictionary != null &&
-            Settings.instance.fontDictionary.ContainsKey(Settings.instance.currentLanguage))
+        // Only use the special font if assigned.
+        // Otherwise keep the TMP component's current font/material.
+        if (specialFont != null)
         {
-            dialogueTMP.font = Settings.instance.fontDictionary[Settings.instance.currentLanguage];
+            //dialogueTMP.font = specialFont;
         }
 
-        dialogueTMP.text = conversation.content.GetText(Settings.instance.currentLanguage);
+        if (Settings.instance != null)
+            dialogueTMP.text = conversation.content.GetText(Settings.instance.currentLanguage);
+        else
+            dialogueTMP.text = conversation.content.GetText("English");
+
         SetTMPColor(cue.textColor);
     }
 
@@ -251,6 +269,12 @@ public class MusicGameDialogue : MonoBehaviour
         dialogueTMP.color = c;
     }
 
+    private void SetBGActive(bool active)
+    {
+        if (dialogueBGObject != null && dialogueBGObject.activeSelf != active)
+            dialogueBGObject.SetActive(active);
+    }
+
     public void ResetDialogue()
     {
         currentCueIndex = -1;
@@ -260,5 +284,7 @@ public class MusicGameDialogue : MonoBehaviour
             dialogueTMP.text = "";
             SetTMPAlpha(0f);
         }
+
+        SetBGActive(false);
     }
 }
