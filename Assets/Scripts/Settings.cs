@@ -58,6 +58,8 @@ public class Settings : MonoBehaviour
     {
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
         if (instance == null)
         {
             instance = this;
@@ -124,8 +126,8 @@ public class Settings : MonoBehaviour
         isSettingsOpen = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
 
-        // 清除 EventSystem 选中状态，防止打开时焦点乱跳
         EventSystem.current?.SetSelectedGameObject(null);
 
         if (isInGame)
@@ -157,10 +159,10 @@ public class Settings : MonoBehaviour
     public void CloseSettings()
     {
         isSettingsOpen = false;
-        canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false; // 键盘/手柄 Navigation 也无法进入
 
-        // 清除 EventSystem 选中状态，防止隐藏后语言按钮仍被 Space/Enter 触发
         EventSystem.current?.SetSelectedGameObject(null);
     }
 
