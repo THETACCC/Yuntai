@@ -1,8 +1,8 @@
-﻿using Fungus;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -124,7 +124,10 @@ public class Settings : MonoBehaviour
         isSettingsOpen = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        
+
+        // 清除 EventSystem 选中状态，防止打开时焦点乱跳
+        EventSystem.current?.SetSelectedGameObject(null);
+
         if (isInGame)
         {
             returnToMain.SetActive(true);
@@ -156,6 +159,9 @@ public class Settings : MonoBehaviour
         isSettingsOpen = false;
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0;
+
+        // 清除 EventSystem 选中状态，防止隐藏后语言按钮仍被 Space/Enter 触发
+        EventSystem.current?.SetSelectedGameObject(null);
     }
 
     public void ReturnToMain()
