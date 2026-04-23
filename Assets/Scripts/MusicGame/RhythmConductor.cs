@@ -62,6 +62,13 @@ public class RhythmConductor : MonoBehaviour
     [Header("UI Shake")]
     [SerializeField] private RectTransform uiShakeTarget;
 
+    [Header("Miss Feedback")]
+    [SerializeField] private bool shakeOnMiss = true;
+    [SerializeField] private float missShakeStrength = 14f;
+    [SerializeField] private float missShakeDuration = 0.18f;
+    [SerializeField] private GameObject missFlashObject;
+    [SerializeField] private float missFlashDuration = 0.2f;
+
     [Header("Timed Animator Switch")]
     [SerializeField] private Animator targetAnimator;
 
@@ -121,6 +128,7 @@ public class RhythmConductor : MonoBehaviour
     private SustainedUIShake currentSustainedShake;
 
     private Coroutine uiShakeRoutine;
+    private Coroutine missFlashRoutine;
     private Vector2 uiShakeBasePos;
 
     static readonly NoteEvent[] CHART = new[]
@@ -249,6 +257,9 @@ public class RhythmConductor : MonoBehaviour
 
         if (uiShakeTarget != null)
             uiShakeBasePos = uiShakeTarget.anchoredPosition;
+
+        if (missFlashObject != null)
+            missFlashObject.SetActive(false);
     }
 
     public void BeginGame()
@@ -275,6 +286,7 @@ public class RhythmConductor : MonoBehaviour
         active.Clear();
 
         StopUIShake();
+        StopMissFlash();
 
         if (music == null)
         {
@@ -442,6 +454,39 @@ public class RhythmConductor : MonoBehaviour
             uiShakeTarget.anchoredPosition = uiShakeBasePos;
     }
 
+    void TriggerMissFeedback()
+    {
+        if (shakeOnMiss)
+            StartOneShotUIShake(missShakeStrength, missShakeDuration);
+
+        if (missFlashObject != null)
+        {
+            if (missFlashRoutine != null)
+                StopCoroutine(missFlashRoutine);
+
+            missFlashRoutine = StartCoroutine(CoMissFlash());
+        }
+    }
+
+    void StopMissFlash()
+    {
+        if (missFlashRoutine != null)
+            StopCoroutine(missFlashRoutine);
+
+        missFlashRoutine = null;
+
+        if (missFlashObject != null)
+            missFlashObject.SetActive(false);
+    }
+
+    IEnumerator CoMissFlash()
+    {
+        missFlashObject.SetActive(true);
+        yield return new WaitForSeconds(missFlashDuration);
+        missFlashObject.SetActive(false);
+        missFlashRoutine = null;
+    }
+
     IEnumerator CoOneShotUIShake(float strength, float duration)
     {
         uiShakeBasePos = uiShakeTarget.anchoredPosition;
@@ -542,6 +587,7 @@ public class RhythmConductor : MonoBehaviour
         if (!emptyPressCountsAsMiss) return;
 
         missCount++;
+        TriggerMissFeedback();
         Debug.Log($"EMPTY -> MISS {missCount}/{maxMiss}");
         if (missCount >= maxMiss) GameOver();
     }
@@ -549,6 +595,7 @@ public class RhythmConductor : MonoBehaviour
     void HandleMiss(NoteView _)
     {
         missCount++;
+        TriggerMissFeedback();
         Debug.Log($"MISS {missCount}/{maxMiss}");
         if (missCount >= maxMiss) GameOver();
     }
@@ -563,6 +610,7 @@ public class RhythmConductor : MonoBehaviour
 
         if (music != null) music.Stop();
         StopUIShake();
+        StopMissFlash();
 
         Debug.Log("GAME OVER");
         PlayResultDialogue(lostDialogueFile);
@@ -600,6 +648,7 @@ public class RhythmConductor : MonoBehaviour
 
                 if (music != null) music.Stop();
                 StopUIShake();
+                StopMissFlash();
 
                 Debug.Log("SONG CLEAR -> NORMAL");
                 PlayResultDialogue(normalDialogueFile);
