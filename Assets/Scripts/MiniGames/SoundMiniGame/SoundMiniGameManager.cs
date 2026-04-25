@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static AudioManager;
 
 public class SoundMiniGameManager : MonoBehaviour
 {
@@ -78,6 +79,15 @@ public class SoundMiniGameManager : MonoBehaviour
         bool correct = IsCorrect();
         isPuzzleSolved = correct;
         Debug.Log(correct ? "Correct Answer!" : "Wrong Answer.");
+        if (correct)
+        {
+            //Audio
+            AudioManager.Play("Sound Effects/sndSpeakerRight", AudioGroup.SFX);
+        }
+        else
+        {
+            AudioManager.Play("Sound Effects/sndSpeakerWrong", AudioGroup.SFX);
+        }
 
         if (myPuzzleSolveImage == null)
             return;
