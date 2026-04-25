@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static AudioManager;
 using URPLight2D = UnityEngine.Rendering.Universal.Light2D;
 
 /// <summary>
@@ -88,6 +89,10 @@ public class PuzzleLantern : UI_E
                 Debug.LogWarning("[PuzzleLantern] Lantern not assigned and auto-find failed.", this);
                 return;
             }
+            //Audio
+            AudioManager.Play("Sound Effects/sndLanternPlace", AudioGroup.SFX);
+    
+
 
             StartCoroutine(ToggleLanternRoutine());
         }
