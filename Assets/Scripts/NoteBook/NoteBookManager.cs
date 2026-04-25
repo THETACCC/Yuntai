@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static AudioManager;
 
 public class NoteBookManager : MonoBehaviour
@@ -46,7 +47,7 @@ public class NoteBookManager : MonoBehaviour
     //
     [Header("NoteBook Master Controll")]
     public bool allowOpen = false;
-
+    public Button closeNoteBookButton;
     private void Awake()
     {
         if (instance == null)
@@ -117,9 +118,12 @@ public class NoteBookManager : MonoBehaviour
                 else
                 {
                     EnablePlayerMovement();
+                    /*
                     NoteBook_Canvas.alpha = 0;
                     NoteBook_Canvas.blocksRaycasts = false;
                     NoteBook_Canvas.interactable = false;
+                    */
+                    closeNoteBookButton.onClick.Invoke();
                     isOpen = false;
                 }
             }
