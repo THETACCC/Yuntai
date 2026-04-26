@@ -15,7 +15,8 @@
             "positionY": 216.8000030517578,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "956e2529-5545-498e-8376-a2bec39ce5fa",
@@ -30,57 +31,6 @@
             },
             "positionX": 1356.0,
             "positionY": 220.8000030517578,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
-            "index": 2,
-            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
-            "useContentId": true,
-            "contentId": "ch2_4023",
-            "content": {
-                "en": "Page...? Thank goodness... you’re still alive!",
-                "zh": "周书...？太好了，你还活着！",
-                "ja": ""
-            },
-            "positionX": 1674.39990234375,
-            "positionY": 220.8000030517578,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
-            "index": 3,
-            "characterId": "304b16b6-57c2-4fa3-80f8-7ee82eeb3533",
-            "useContentId": true,
-            "contentId": "ch2_4024",
-            "content": {
-                "en": "What is going on!? Damn it, the ritual was interrupted. Grab her!!",
-                "zh": "什么情况！可恶，仪式竟然被打断了、都给我捉住她！！",
-                "ja": ""
-            },
-            "positionX": 2010.39990234375,
-            "positionY": 222.40000915527345,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
-            "index": 4,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch2_4026",
-            "content": {
-                "en": "Okay! Be careful!",
-                "zh": "好！你千万小心！",
-                "ja": ""
-            },
-            "positionX": 2676.0,
-            "positionY": 222.40000915527345,
             "choices": [],
             "eventCalls": [
                 {
@@ -97,58 +47,14 @@
                     "triggerTiming": 2
                 }
             ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "ff884f25-63c9-46d2-8476-253d256b10ec",
-            "index": 5,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": true,
-            "contentId": "ch2_4025",
-            "content": {
-                "en": "There’s no time, run to Jinlan Temple! I’ll hold them off!",
-                "zh": "来不及了，快跑去金兰观！！我来拦住他们！",
-                "ja": ""
-            },
-            "positionX": 2347.199951171875,
-            "positionY": 220.8000030517578,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         }
     ],
     "connections": [
         {
             "outputNodeId": "f95c5b51-1a5f-4ef0-87ab-2094be9f3723",
             "inputNodeId": "956e2529-5545-498e-8376-a2bec39ce5fa",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "956e2529-5545-498e-8376-a2bec39ce5fa",
-            "inputNodeId": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "405c6cbf-d632-4ea0-bfa8-7e50f79c22b1",
-            "inputNodeId": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "c14382b3-fd21-463a-a1b0-23cf1aec5c77",
-            "inputNodeId": "ff884f25-63c9-46d2-8476-253d256b10ec",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
-        {
-            "outputNodeId": "ff884f25-63c9-46d2-8476-253d256b10ec",
-            "inputNodeId": "eddb1428-4de7-48ea-8787-2b8d563ca5b9",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1

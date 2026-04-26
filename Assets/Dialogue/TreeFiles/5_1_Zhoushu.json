@@ -3,34 +3,50 @@
     {
       "index": 0,
       "name": {
-        "en": "Page",
-        "zh": "周书",
+        "en": "Veris",
+        "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/周书_大笑",
-      "isPlayer": false,
+      "avatarAddr": "DialogueImages/何以真_微笑",
+      "isPlayer": true,
       "content": {
-        "en": "Ah! Veris! Haha, we meet again!",
-        "zh": "啊！何以真！哈哈，又见面了啊！",
+        "en": "Page...? Thank goodness... you’re still alive!",
+        "zh": "周书...？太好了，你还活着！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 1
     },
     {
       "index": 1,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "Troupe Member",
+        "zh": "戏团成员",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_惊讶",
-      "isPlayer": true,
+      "avatarAddr": "DialogueImages/男孩父亲 1",
+      "isPlayer": false,
       "content": {
-        "en": "Page? Right, Jinlan Temple is just ahead. Are you working here?",
-        "zh": "周书？对了，前面是金兰观来着。你是在工作吗？",
+        "en": "What is going on!? Damn it, the ritual was interrupted. Grab her!!",
+        "zh": "什么情况！可恶，仪式竟然被打断了、都给我捉住她！！",
         "ja": ""
       },
-      "nextIndex": 2
+      "textAlignment": 0,
+      "nextIndex": 2,
+      "eventCalls": [
+        {
+          "targetObjectID": "01879d06-8be6-474b-a159-dd00be1e5ae8",
+          "targetObjectName": "CameraShake",
+          "componentTypeName": "CameraShake",
+          "methodName": "Shake",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 2,
@@ -39,13 +55,14 @@
         "zh": "周书",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/周书_日常",
+      "avatarAddr": "DialogueImages/周书_闭眼",
       "isPlayer": false,
       "content": {
-        "en": "Yep! I’m in charge of holding people here and only letting everyone in once the awards officially begin.",
-        "zh": "对啊！我负责在这里拦着人，等到颁奖正式开始的时候再放大家进去。",
+        "en": "There’s no time, run to Jinlan Temple! I’ll hold them off!",
+        "zh": "来不及了，快跑去金兰观！！我来拦住他们！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 3
     },
     {
@@ -55,93 +72,14 @@
         "zh": "何以真",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_微笑",
+      "avatarAddr": "DialogueImages/何以真_惊讶",
       "isPlayer": true,
       "content": {
-        "en": "That sounds tough. Actually, I wanted to head up front to find my friend—her name is Noema, and she’s one of the performers.",
-        "zh": "真是辛苦了。其实我想要去前面找一下我朋友，她叫沈梦之，是这次表演的人员之一。",
+        "en": "Okay! Be careful!",
+        "zh": "好！你千万小心！",
         "ja": ""
       },
-      "nextIndex": 4
-    },
-    {
-      "index": 4,
-      "name": {
-        "en": "Page",
-        "zh": "周书",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/周书_大笑",
-      "isPlayer": false,
-      "content": {
-        "en": "I see... well, I’ll secretly let you through, hehe~ All the performers are waiting up front for the awards anyway. Letting just you in won’t get me scolded by Master.",
-        "zh": "这样啊......那我偷偷放你过去吧嘿嘿嘿~反正表演人员都在前面等颁奖，只放你一个进去师父肯定也不会骂我的。",
-        "ja": ""
-      },
-      "nextIndex": 5
-    },
-    {
-      "index": 5,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_微笑",
-      "isPlayer": true,
-      "content": {
-        "en": "Thanks. If you’re free this afternoon, want to go look around together?",
-        "zh": "谢了，下午有空了要不要一起去逛逛？",
-        "ja": ""
-      },
-      "nextIndex": 6
-    },
-    {
-      "index": 6,
-      "name": {
-        "en": "Page",
-        "zh": "周书",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/周书_日常",
-      "isPlayer": false,
-      "content": {
-        "en": "Sure! My shift ends around noon anyway! I’m telling you, there’s so much good food around Yuntai!",
-        "zh": "好啊！我的工作正好到中午就结束了！我跟你说啊，芸台这边可多好吃的了！",
-        "ja": ""
-      },
-      "nextIndex": 7
-    },
-    {
-      "index": 7,
-      "name": {
-        "en": "Veris",
-        "zh": "何以真",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/何以真_微笑",
-      "isPlayer": true,
-      "content": {
-        "en": "Then it’s a deal. I’ll head ahead first—see you later, Page.",
-        "zh": "那就说定了。我先去前面了，晚点再见，周书。",
-        "ja": ""
-      },
-      "nextIndex": 8
-    },
-    {
-      "index": 8,
-      "name": {
-        "en": "Page",
-        "zh": "周书",
-        "ja": ""
-      },
-      "avatarAddr": "DialogueImages/周书_大笑",
-      "isPlayer": false,
-      "content": {
-        "en": "Mm! I’ll be heading over for the awards too. See you in a bit!",
-        "zh": "嗯！待会儿颁奖我也会过去的，一会儿见啦！",
-        "ja": ""
-      },
+      "textAlignment": 0,
       "nextIndex": -1
     }
   ],

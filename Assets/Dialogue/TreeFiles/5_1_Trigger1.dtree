@@ -3,53 +3,92 @@
         {
             "id": "057a52d9-a53a-4595-bad3-46e846fc4f48",
             "index": 0,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
             "useContentId": true,
-            "contentId": "ch2_3180",
+            "contentId": "ch2_4128",
             "content": {
-                "en": "It’s only been a day since I arrived in Yuntai, but it feels like so much has happened.",
-                "zh": "来到芸台不过短短一天，总感觉经历了好多事啊。",
+                "en": "...Noema?",
+                "zh": "...梦之？",
                 "ja": ""
             },
             "positionX": 2716.800048828125,
             "positionY": 196.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "a372b3ce-5068-4af2-b294-0f2fd5a2b7a0",
             "index": 1,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
             "useContentId": true,
-            "contentId": "ch2_3181",
+            "contentId": "ch2_4129",
             "content": {
-                "en": "The incident on the plane, the monster in the apartment building, and that endless walkway...",
-                "zh": "飞机上的事件，公寓楼里的怪物，还有那条走不出的步道......",
+                "en": "(Out of breath) You... better give me a GOOD explanation.",
+                "zh": "（跑得上气不接下气）你...最好给我一个解释。",
                 "ja": ""
             },
             "positionX": 3034.39990234375,
             "positionY": 196.8000030517578,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "16ad4489-a9fb-4ac5-81c7-bce22628696b",
             "index": 2,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "characterId": "032e23aa-1c44-460f-8151-ed6d83b5348c",
             "useContentId": true,
-            "contentId": "ch2_3182",
+            "contentId": "ch2_4130",
             "content": {
-                "en": "In this city... something is happening. Threads of it all point toward Troupe Elysium, but it feels like there’s more to it than that.",
-                "zh": "这座城市里......有什么阴谋正在发生，千丝万缕都指向了那个戏团，但又似乎不止如此。",
+                "en": "(Scoffs coldly) Vessel? Sacrifice?? What “Troupe Elysium”, what “Xi Mu”...",
+                "zh": "（冷笑）容器？献祭？？什么极乐戏团、什么喜母...",
                 "ja": ""
             },
             "positionX": 3352.800048828125,
             "positionY": 196.8000030517578,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "a3d544f6-a3a2-49d6-a263-a66dea1a1292",
+            "index": 3,
+            "characterId": "8bf512c1-230a-4da9-a433-47d205ee6363",
+            "useContentId": true,
+            "contentId": "ch2_4131",
+            "content": {
+                "en": "......",
+                "zh": "....",
+                "ja": ""
+            },
+            "positionX": 3694.39990234375,
+            "positionY": 196.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "79b60a88-bc4b-4aa8-b9e6-ea5a7fbdda7b",
+            "index": 4,
+            "characterId": "e3614b9a-4789-4305-ac57-4a6bac607584",
+            "useContentId": true,
+            "contentId": "ch2_4132",
+            "content": {
+                "en": "You're finally here...",
+                "zh": "你终于来了...",
+                "ja": ""
+            },
+            "positionX": 4046.39990234375,
+            "positionY": 198.40000915527345,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
         }
     ],
     "connections": [
@@ -63,6 +102,20 @@
         {
             "outputNodeId": "a372b3ce-5068-4af2-b294-0f2fd5a2b7a0",
             "inputNodeId": "16ad4489-a9fb-4ac5-81c7-bce22628696b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "16ad4489-a9fb-4ac5-81c7-bce22628696b",
+            "inputNodeId": "a3d544f6-a3a2-49d6-a263-a66dea1a1292",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "a3d544f6-a3a2-49d6-a263-a66dea1a1292",
+            "inputNodeId": "79b60a88-bc4b-4aa8-b9e6-ea5a7fbdda7b",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
