@@ -34,6 +34,7 @@ public class DialogueController : MonoBehaviour
     public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
 
+
     // Conversation 快速查找字典（index -> Conversation）
     private Dictionary<int, Conversation> conversationDict = new Dictionary<int, Conversation>();
 
@@ -46,8 +47,8 @@ public class DialogueController : MonoBehaviour
     public TextMeshProUGUI NPCName;
 
     //public GameObject historyButton;
-    //public GameObject historyContentUI;
-    //public TextMeshProUGUI historyContentText;
+    public GameObject historyContentUI;
+    public TextMeshProUGUI historyContentText;
 
     private void Awake()
     {
@@ -78,6 +79,11 @@ public class DialogueController : MonoBehaviour
         if (isDialogueActive && !Settings.instance.isSettingsOpen)
         {
             MoveToNextInputCheck();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            OpenCloseHistory();
         }
     }
 
@@ -141,10 +147,10 @@ public class DialogueController : MonoBehaviour
 
             //add text history
             // 说话人加粗+颜色，分隔线更清晰
-            NoteBookManager.instance.historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
+            historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
                                       $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
                                       $"<color=#DDDDDD>―――――――――――――</color>\n" +
-                                      NoteBookManager.instance.historyContentText.text;
+                                      historyContentText.text;
 
             //check if separate
             if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
@@ -764,7 +770,6 @@ public class DialogueController : MonoBehaviour
         return null;
     }
 
-    /**
     public void OpenCloseHistory()
     {
         if (historyContentUI != null)
@@ -772,7 +777,6 @@ public class DialogueController : MonoBehaviour
             historyContentUI.SetActive(!historyContentUI.activeInHierarchy);
         }
     }
-    **/
 }
 
 
