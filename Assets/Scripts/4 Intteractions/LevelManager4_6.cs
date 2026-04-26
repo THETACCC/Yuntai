@@ -52,7 +52,8 @@ public class LevelManager4_6 : BaseLevelManager
     {
         if (cameraShake != null)
             cameraShake.Shake(shakeAmplitude, shakeFrequency, shakeDuration);
-
+        //Audio
+        AudioManager.Play("Sound Effects/sndGiftPickUp", AudioGroup.SFX);
         InitExplosionLight();
 
         if (explosionLight != null)
@@ -97,6 +98,9 @@ public class LevelManager4_6 : BaseLevelManager
 
     private void InitExplosionLight()
     {
+
+
+
         if (explosionLight == null) return;
 
         if (!explosionLight.gameObject.activeInHierarchy)
