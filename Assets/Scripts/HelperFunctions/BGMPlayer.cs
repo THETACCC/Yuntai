@@ -17,15 +17,6 @@ public class BGMPlayer : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton: keep only one BGMPlayer
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static AudioManager;
 
 public class DoorBlock : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class DoorBlock : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentPressCount++;
-
+            AudioManager.PlayOneShot("Sound Effects/sndDoorShuted", AudioGroup.SFX);
             myCameraShake.Shake();
 
 

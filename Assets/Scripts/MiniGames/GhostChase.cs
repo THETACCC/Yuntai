@@ -69,7 +69,10 @@ public class GhostChase : MonoBehaviour
 
 
     }
-
+    public void OnEnable()
+    {
+        AudioManager.Play("Sound Effects/sndMonsterRoar", AudioGroup.SFX);
+    }
     public void EnableGhost()
     {
         isAllowMove = true;
