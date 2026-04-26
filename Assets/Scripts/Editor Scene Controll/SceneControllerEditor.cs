@@ -198,7 +198,8 @@ public enum SceneTitle
     Level4_21CityDead = 44,
     Level3_7Hotel = 45,
     AirplaneCG = 46,
-    Level4_6_0NoemaHousePost = 47,
+    Level4_6_0NoemaHousePost = 47, 
+    FinalCG = 48,
     JasmineTest = 100,
 }
 
