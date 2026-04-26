@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using static AudioManager;
 
 public class NoteView : MonoBehaviour
 {
@@ -123,6 +124,9 @@ public class NoteView : MonoBehaviour
 
         double delta = Math.Abs(nowDsp - NoteTime);
         if (delta > hitWindow) return;
+
+        //Audio
+        //AudioManager.Play("Sound Effects/sndDrumHit", AudioGroup.SFX);
 
         pressedInWindow = true;
         pendingJudgement = judgement;
