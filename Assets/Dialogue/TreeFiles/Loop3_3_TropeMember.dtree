@@ -1,122 +1,6 @@
 {
     "nodes": [
         {
-            "id": "7fd4f637-4619-41a7-96e6-9012ec31b970",
-            "index": 1,
-            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
-            "useContentId": true,
-            "contentId": "ch1_3139",
-            "content": {
-                "en": "...",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 4476.0,
-            "positionY": 194.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "4ae8958b-7ba1-480f-9c89-0529ae6c6d14",
-            "index": 2,
-            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
-            "useContentId": true,
-            "contentId": "ch1_3140",
-            "content": {
-                "en": "Um...",
-                "zh": "那个——",
-                "ja": ""
-            },
-            "positionX": 4812.0,
-            "positionY": 194.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9ebc9826-e106-483b-8496-0c82f1ab5008",
-            "index": 3,
-            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
-            "useContentId": true,
-            "contentId": "ch1_3141",
-            "content": {
-                "en": "I’m busy right now. I don’t have time for people who aren’t involved.",
-                "zh": "我现在很忙，没空理会无关人员。",
-                "ja": ""
-            },
-            "positionX": 5160.66650390625,
-            "positionY": 194.6666717529297,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "6fce638a-1d17-4e68-aa04-ec17ae98f2c5",
-            "index": 4,
-            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
-            "useContentId": true,
-            "contentId": "ch1_3142",
-            "content": {
-                "en": "Go bother someone else.",
-                "zh": "换个人烦去吧。",
-                "ja": ""
-            },
-            "positionX": 5502.0,
-            "positionY": 194.6666717529297,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "5681d006-e171-45c2-87d6-ccb1bd918b87",
-            "index": 5,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3143",
-            "content": {
-                "en": "...",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 5832.66650390625,
-            "positionY": 194.6666717529297,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "05516644-8658-4f9c-a671-9f8deb0843f3",
-            "index": 6,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch1_3144",
-            "content": {
-                "en": "(They clearly have no interest in talking to me any further.)",
-                "zh": "（对方应该不会愿意与我继续交流了。）",
-                "ja": ""
-            },
-            "positionX": 6168.0,
-            "positionY": 194.6666717529297,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
-                    "targetObjectName": "LevelManager3_3",
-                    "targetSceneName": "Level3-3",
-                    "componentTypeName": "LevelManager3_3",
-                    "methodName": "CameraZoomOut_3_3",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "10ea8f9d-e0ed-4bb6-b5a5-c15372f8fe1b",
             "index": 0,
             "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
@@ -128,7 +12,7 @@
                 "ja": ""
             },
             "positionX": 4088.0,
-            "positionY": 631.3333129882813,
+            "positionY": 631.0,
             "choices": [],
             "eventCalls": [
                 {
@@ -145,7 +29,130 @@
                     "triggerTiming": 0
                 }
             ],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "7fd4f637-4619-41a7-96e6-9012ec31b970",
+            "index": 1,
+            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
+            "useContentId": true,
+            "contentId": "ch1_3139",
+            "content": {
+                "en": "...",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 4476.0,
+            "positionY": 194.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "4ae8958b-7ba1-480f-9c89-0529ae6c6d14",
+            "index": 2,
+            "characterId": "3d251560-306a-4584-8903-bebe74011bfc",
+            "useContentId": true,
+            "contentId": "ch1_3140",
+            "content": {
+                "en": "Um...",
+                "zh": "那个——",
+                "ja": ""
+            },
+            "positionX": 4812.0,
+            "positionY": 194.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "9ebc9826-e106-483b-8496-0c82f1ab5008",
+            "index": 3,
+            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
+            "useContentId": true,
+            "contentId": "ch1_3141",
+            "content": {
+                "en": "I’m busy right now. I don’t have time for people who aren’t involved.",
+                "zh": "我现在很忙，没空理会无关人员。",
+                "ja": ""
+            },
+            "positionX": 5161.0,
+            "positionY": 195.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "6fce638a-1d17-4e68-aa04-ec17ae98f2c5",
+            "index": 4,
+            "characterId": "a25fdffd-1f6e-4f61-bc8e-909c14221cf2",
+            "useContentId": true,
+            "contentId": "ch1_3142",
+            "content": {
+                "en": "Go bother someone else.",
+                "zh": "换个人烦去吧。",
+                "ja": ""
+            },
+            "positionX": 5502.0,
+            "positionY": 195.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "5681d006-e171-45c2-87d6-ccb1bd918b87",
+            "index": 5,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3143",
+            "content": {
+                "en": "...",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 5833.0,
+            "positionY": 195.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "05516644-8658-4f9c-a671-9f8deb0843f3",
+            "index": 6,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_3144",
+            "content": {
+                "en": "(They clearly have no interest in talking to me any further.)",
+                "zh": "（对方应该不会愿意与我继续交流了。）",
+                "ja": ""
+            },
+            "positionX": 6168.0,
+            "positionY": 195.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+                    "targetObjectName": "LevelManager3_3",
+                    "targetSceneName": "Level3-3",
+                    "componentTypeName": "LevelManager3_3",
+                    "methodName": "CameraZoomOut_3_3",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "72575c57-0164-41c2-863e-a6ac7b77ffcb",
@@ -158,7 +165,7 @@
                 "zh": "两个蒙面人静静地看着何以真，也不知在他们的面具之下是什么表情。",
                 "ja": ""
             },
-            "positionX": 4530.66650390625,
+            "positionX": 4531.0,
             "positionY": 620.0,
             "choices": [],
             "eventCalls": [
@@ -176,7 +183,8 @@
                     "triggerTiming": 1
                 }
             ],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 1
         }
     ],
     "connections": [

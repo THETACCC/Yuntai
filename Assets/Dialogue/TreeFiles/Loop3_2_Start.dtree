@@ -1,431 +1,6 @@
 {
     "nodes": [
         {
-            "id": "875f1a67-7152-4d2d-bb7f-063d5ca4a1b1",
-            "index": 7,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3035",
-            "content": {
-                "en": "......",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 3030.0,
-            "positionY": 724.0,
-            "choices": [
-                {
-                    "useTextId": true,
-                    "textId": "ch1_3037",
-                    "text": {
-                        "en": "Maybe there’s something I can do.",
-                        "zh": "或许我能帮上忙。",
-                        "ja": ""
-                    },
-                    "conditions": [],
-                    "conditionLogic": 0
-                },
-                {
-                    "useTextId": true,
-                    "textId": "ch1_3036",
-                    "text": {
-                        "en": "Then take care. I should get going.",
-                        "zh": "那你保重，我先走了。",
-                        "ja": ""
-                    },
-                    "conditions": [],
-                    "conditionLogic": 0
-                }
-            ],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "eadce2f4-662a-41dc-90e2-39fe6a608339",
-            "index": 8,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3038",
-            "content": {
-                "en": "Then be careful. Don’t get hurt like that again.",
-                "zh": "那你多多保重，千万别像之前一样重伤了。",
-                "ja": ""
-            },
-            "positionX": 3422.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "f0d22ddd-63ab-42da-8588-66959f51a8f3",
-            "index": 9,
-            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
-            "useContentId": true,
-            "contentId": "ch1_3039",
-            "content": {
-                "en": "Haha, I’ll be careful. Uh... I’m sure I’ll figure something out.",
-                "zh": "哈哈，我会注意点的，呃，应该会有办法吧。",
-                "ja": ""
-            },
-            "positionX": 3772.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "a9be2751-6c41-446c-bf22-b4bc239f37a3",
-            "index": 10,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3040",
-            "content": {
-                "en": "Okay. I still have things to do, so I’ll be on my way.",
-                "zh": "嗯，我还有事，先走一步了。",
-                "ja": ""
-            },
-            "positionX": 4110.0,
-            "positionY": 1602.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "8826ae8e-9920-4ff9-9e82-85d3116a6047",
-            "index": 11,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3041",
-            "content": {
-                "en": "Alright. Hopefully I’ll see you again at the Qiqiao Festival.",
-                "zh": "好嘞，但愿我们乞巧大会时还能见到。",
-                "ja": ""
-            },
-            "positionX": 4469.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "3d2bc0f8-128e-4c1b-b309-eed89d51723b",
-            "index": 12,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3042",
-            "content": {
-                "en": "Oh, I never asked your name.",
-                "zh": "对了，还没问过你的名字来着。",
-                "ja": ""
-            },
-            "positionX": 4814.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "351209b3-113b-4a5d-9c8c-14618f1bcc23",
-            "index": 13,
-            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
-            "useContentId": true,
-            "contentId": "ch1_3043",
-            "content": {
-                "en": "I’m Veris He.",
-                "zh": "我叫何以真。",
-                "ja": ""
-            },
-            "positionX": 5153.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "b5debbea-d82c-4f1f-bf1a-f8145e968ebf",
-            "index": 14,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3044",
-            "content": {
-                "en": "Then, until we meet again, Veris.",
-                "zh": "那么，再会了，何以真。",
-                "ja": ""
-            },
-            "positionX": 5483.0,
-            "positionY": 1603.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
-                    "targetObjectName": "LevelManager3_2",
-                    "targetSceneName": "Level3-2",
-                    "componentTypeName": "LevelManager3_2",
-                    "methodName": "ZhouShuLeave",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "422346ca-7914-4e87-84d4-db6722e91624",
-            "index": 15,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch1_3045",
-            "content": {
-                "en": "Wait, maybe I can help you.",
-                "zh": "等等，或许我能帮上你的忙。",
-                "ja": ""
-            },
-            "positionX": 3422.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fd429be0-c905-493e-87b7-d9284bbc5d80",
-            "index": 16,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "useContentId": true,
-            "contentId": "ch1_3046",
-            "content": {
-                "en": "Huh?",
-                "zh": "啊？",
-                "ja": ""
-            },
-            "positionX": 3759.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "13338727-3834-40b8-8e6c-2ff1080a2177",
-            "index": 17,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_3047",
-            "content": {
-                "en": "I learned a few things over the first two loops. Isn’t this somewhere near the Yuntai Festival grounds?",
-                "zh": "我通过前两个循环收集了一些信息，这里不是芸台大会附近吗？",
-                "ja": ""
-            },
-            "positionX": 4098.0,
-            "positionY": 1197.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "84847ec2-57c5-417d-980e-f65fdc05fffe",
-            "index": 18,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch1_3048",
-            "content": {
-                "en": "Maybe I can ask around and see if I can find a way out of this mess.",
-                "zh": "或许我可以在这里打听一下，看看能不能找到破局的方法。",
-                "ja": ""
-            },
-            "positionX": 4456.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9484dbaa-7ad9-437d-8534-44d6a5fe32ee",
-            "index": 19,
-            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
-            "useContentId": true,
-            "contentId": "ch1_3049",
-            "content": {
-                "en": "Oh my god, you’re incredible! I’m terrible at anything that requires thinking!",
-                "zh": "天呐！你真是太好了！我最不擅长需要动脑子的事情了！",
-                "ja": ""
-            },
-            "positionX": 4802.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "2eb1774e-489c-4f49-977c-d8c4b8989245",
-            "index": 20,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch1_3050",
-            "content": {
-                "en": "(Uh... but isn’t your name Page?)",
-                "zh": "（呃，但你的名字不是叫周书吗？）",
-                "ja": ""
-            },
-            "positionX": 5140.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "769f424a-1fa5-41ca-80b6-464559072f5e",
-            "index": 21,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3051",
-            "content": {
-                "en": "You’re wondering why my name is Page, aren’t you?",
-                "zh": "你是不是在想为啥我叫周书？",
-                "ja": ""
-            },
-            "positionX": 5470.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "458250e0-f463-4715-9bba-157e1c8a53a5",
-            "index": 22,
-            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
-            "useContentId": true,
-            "contentId": "ch1_3052",
-            "content": {
-                "en": "Haha, it’s because my Shifu thought I wasn’t much of a thinker, so she gave me a more bookish name on purpose!",
-                "zh": "哈哈，就是因为我师父嫌我脑袋瓜不灵光，特意给我起的！",
-                "ja": ""
-            },
-            "positionX": 5812.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "fa309f3c-905f-4cd2-aa11-c04997fd0db1",
-            "index": 23,
-            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
-            "useContentId": true,
-            "contentId": "ch1_3053",
-            "content": {
-                "en": "She always hoped I’d wise up someday, but honestly, I don’t see that happening.",
-                "zh": "她一直希望我哪天能开窍，但我觉得够呛了。",
-                "ja": ""
-            },
-            "positionX": 6142.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "a0172110-ebbe-44f3-bcba-b13bd7d11a3f",
-            "index": 24,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
-            "useContentId": true,
-            "contentId": "ch1_3054",
-            "content": {
-                "en": "......",
-                "zh": "......",
-                "ja": ""
-            },
-            "positionX": 6482.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "50386463-6c51-46ba-b79b-2e41e3112313",
-            "index": 25,
-            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
-            "useContentId": true,
-            "contentId": "ch1_3055",
-            "content": {
-                "en": "Ah, right! We have to hurry!",
-                "zh": "啊对！得抓紧时间！",
-                "ja": ""
-            },
-            "positionX": 6818.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "f6b43765-1c28-4a80-940f-4fa3d03b4740",
-            "index": 26,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3056",
-            "content": {
-                "en": "I’ll head back to the temple first. Let’s meet back here later?",
-                "zh": "我先回一趟道观，待会咱们还在这儿集合？",
-                "ja": ""
-            },
-            "positionX": 7154.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "20d5f3ce-5c4c-4dae-9325-7c12b474ecd1",
-            "index": 27,
-            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
-            "useContentId": true,
-            "contentId": "ch1_3057",
-            "content": {
-                "en": "Okay. Safe travels.",
-                "zh": "好，一路顺风。",
-                "ja": ""
-            },
-            "positionX": 7483.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "60fefd67-01b0-4764-9af0-4f649c2fc174",
-            "index": 28,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3058",
-            "content": {
-                "en": "(All right. Gather as much information as possible and find a way to prevent what’s happening on the plane!)",
-                "zh": "（好，尽可能多收集信息，找到解决飞机上事件的办法！）",
-                "ja": ""
-            },
-            "positionX": 7812.0,
-            "positionY": 1198.0,
-            "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
-                    "targetObjectName": "LevelManager3_2",
-                    "targetSceneName": "Level3-2",
-                    "componentTypeName": "LevelManager3_2",
-                    "methodName": "ZhouShuLeave",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
-        },
-        {
             "id": "24780d77-067e-4524-ae90-87dde0265d8f",
             "index": 0,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -493,7 +68,8 @@
                     "triggerTiming": 0
                 }
             ],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "3a8587d0-4fde-4baf-8a5a-e93c1b7ba1db",
@@ -510,7 +86,8 @@
             "positionY": 8.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "b67e4d5b-dc7e-4f66-abb0-f86de173ef9e",
@@ -527,7 +104,8 @@
             "positionY": 8.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "04444b97-6862-424d-87dd-3c2b5cbb1081",
@@ -544,109 +122,8 @@
             "positionY": 8.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e4c77733-3522-4c4b-be96-c354f55bf227",
-            "index": 5,
-            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
-            "useContentId": true,
-            "contentId": "ch1_3033",
-            "content": {
-                "en": "You’re going back to that plane?",
-                "zh": "你还要回那架飞机上去？",
-                "ja": ""
-            },
-            "positionX": 1914.0,
-            "positionY": 8.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "c46b7c43-cb6e-483a-a049-e9d72dd33cd8",
-            "index": 6,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_3034",
-            "content": {
-                "en": "I’m going back to the temple first to see if I can get help, but I can’t just leave those people there to die.",
-                "zh": "我会先回道观看看能不能搬到救兵，但总归不能放着那些人等死。",
-                "ja": ""
-            },
-            "positionX": 2240.0,
-            "positionY": 9.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e50b075c-4280-4bc3-a291-fce9deb15e11",
-            "index": 29,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_4008",
-            "content": {
-                "en": "By the way… I never asked your name.",
-                "zh": "对了，还没问过你的名字来着。",
-                "ja": ""
-            },
-            "positionX": 2605.0,
-            "positionY": 21.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "9d30627f-2f91-4288-a54c-ecb6db168bd7",
-            "index": 30,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch1_4009",
-            "content": {
-                "en": "I'm Veris.",
-                "zh": "我叫何以真。",
-                "ja": ""
-            },
-            "positionX": 2945.0,
-            "positionY": 9.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "1bf66da5-3096-4387-89f4-d434dd655463",
-            "index": 31,
-            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
-            "useContentId": true,
-            "contentId": "ch1_4010",
-            "content": {
-                "en": "Then… farewell, Veris. Take care.",
-                "zh": "那么，再会了，何以真，好好保重。",
-                "ja": ""
-            },
-            "positionX": 3362.0,
-            "positionY": 33.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "e29b5a5e-fbdb-45cf-92cd-12e2897cc9ab",
-            "index": 33,
-            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
-            "useContentId": true,
-            "contentId": "ch1_4003",
-            "content": {
-                "en": "(Page furrows his brows, deep in thought, as if plotting something.)",
-                "zh": "（周书紧皱眉头，若有所思，仿佛在谋划些什么）",
-                "ja": ""
-            },
-            "positionX": 1483.0,
-            "positionY": -423.0,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "92f70190-ec84-4e71-b7e7-e26febced394",
@@ -663,7 +140,545 @@
             "positionY": 6.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "e4c77733-3522-4c4b-be96-c354f55bf227",
+            "index": 5,
+            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "useContentId": true,
+            "contentId": "ch1_3033",
+            "content": {
+                "en": "You’re going back to that plane?",
+                "zh": "你还要回那架飞机上去？",
+                "ja": ""
+            },
+            "positionX": 1914.0,
+            "positionY": 8.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "c46b7c43-cb6e-483a-a049-e9d72dd33cd8",
+            "index": 6,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3034",
+            "content": {
+                "en": "I’m going back to the temple first to see if I can get help, but I can’t just leave those people there to die.",
+                "zh": "我会先回道观看看能不能搬到救兵，但总归不能放着那些人等死。",
+                "ja": ""
+            },
+            "positionX": 2240.0,
+            "positionY": 9.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "875f1a67-7152-4d2d-bb7f-063d5ca4a1b1",
+            "index": 7,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3035",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 3030.0,
+            "positionY": 724.0,
+            "choices": [
+                {
+                    "useTextId": true,
+                    "textId": "ch1_3037",
+                    "text": {
+                        "en": "Maybe there’s something I can do.",
+                        "zh": "或许我能帮上忙。",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                },
+                {
+                    "useTextId": true,
+                    "textId": "ch1_3036",
+                    "text": {
+                        "en": "Then take care. I should get going.",
+                        "zh": "那你保重，我先走了。",
+                        "ja": ""
+                    },
+                    "conditions": [],
+                    "conditionLogic": 0
+                }
+            ],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "eadce2f4-662a-41dc-90e2-39fe6a608339",
+            "index": 8,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3038",
+            "content": {
+                "en": "Then be careful. Don’t get hurt like that again.",
+                "zh": "那你多多保重，千万别像之前一样重伤了。",
+                "ja": ""
+            },
+            "positionX": 3422.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "f0d22ddd-63ab-42da-8588-66959f51a8f3",
+            "index": 9,
+            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
+            "useContentId": true,
+            "contentId": "ch1_3039",
+            "content": {
+                "en": "Haha, I’ll be careful. Uh... I’m sure I’ll figure something out.",
+                "zh": "哈哈，我会注意点的，呃，应该会有办法吧。",
+                "ja": ""
+            },
+            "positionX": 3772.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "a9be2751-6c41-446c-bf22-b4bc239f37a3",
+            "index": 10,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3040",
+            "content": {
+                "en": "Okay. I still have things to do, so I’ll be on my way.",
+                "zh": "嗯，我还有事，先走一步了。",
+                "ja": ""
+            },
+            "positionX": 4110.0,
+            "positionY": 1602.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "8826ae8e-9920-4ff9-9e82-85d3116a6047",
+            "index": 11,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3041",
+            "content": {
+                "en": "Alright. Hopefully I’ll see you again at the Qiqiao Festival.",
+                "zh": "好嘞，但愿我们乞巧大会时还能见到。",
+                "ja": ""
+            },
+            "positionX": 4469.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "3d2bc0f8-128e-4c1b-b309-eed89d51723b",
+            "index": 12,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3042",
+            "content": {
+                "en": "Oh, I never asked your name.",
+                "zh": "对了，还没问过你的名字来着。",
+                "ja": ""
+            },
+            "positionX": 4814.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "351209b3-113b-4a5d-9c8c-14618f1bcc23",
+            "index": 13,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch1_3043",
+            "content": {
+                "en": "I’m Veris He.",
+                "zh": "我叫何以真。",
+                "ja": ""
+            },
+            "positionX": 5153.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "b5debbea-d82c-4f1f-bf1a-f8145e968ebf",
+            "index": 14,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3044",
+            "content": {
+                "en": "Then, until we meet again, Veris.",
+                "zh": "那么，再会了，何以真。",
+                "ja": ""
+            },
+            "positionX": 5483.0,
+            "positionY": 1603.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
+                    "targetObjectName": "LevelManager3_2",
+                    "targetSceneName": "Level3-2",
+                    "componentTypeName": "LevelManager3_2",
+                    "methodName": "ZhouShuLeave",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "422346ca-7914-4e87-84d4-db6722e91624",
+            "index": 15,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_3045",
+            "content": {
+                "en": "Wait, maybe I can help you.",
+                "zh": "等等，或许我能帮上你的忙。",
+                "ja": ""
+            },
+            "positionX": 3422.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "fd429be0-c905-493e-87b7-d9284bbc5d80",
+            "index": 16,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "useContentId": true,
+            "contentId": "ch1_3046",
+            "content": {
+                "en": "Huh?",
+                "zh": "啊？",
+                "ja": ""
+            },
+            "positionX": 3759.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "13338727-3834-40b8-8e6c-2ff1080a2177",
+            "index": 17,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_3047",
+            "content": {
+                "en": "I learned a few things over the first two loops. Isn’t this somewhere near the Yuntai Festival grounds?",
+                "zh": "我通过前两个循环收集了一些信息，这里不是芸台大会附近吗？",
+                "ja": ""
+            },
+            "positionX": 4098.0,
+            "positionY": 1197.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "84847ec2-57c5-417d-980e-f65fdc05fffe",
+            "index": 18,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_3048",
+            "content": {
+                "en": "Maybe I can ask around and see if I can find a way out of this mess.",
+                "zh": "或许我可以在这里打听一下，看看能不能找到破局的方法。",
+                "ja": ""
+            },
+            "positionX": 4456.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "9484dbaa-7ad9-437d-8534-44d6a5fe32ee",
+            "index": 19,
+            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
+            "useContentId": true,
+            "contentId": "ch1_3049",
+            "content": {
+                "en": "Oh my god, you’re incredible! I’m terrible at anything that requires thinking!",
+                "zh": "天呐！你真是太好了！我最不擅长需要动脑子的事情了！",
+                "ja": ""
+            },
+            "positionX": 4802.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "2eb1774e-489c-4f49-977c-d8c4b8989245",
+            "index": 20,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
+            "useContentId": true,
+            "contentId": "ch1_3050",
+            "content": {
+                "en": "(Uh... but isn’t your name Page?)",
+                "zh": "（呃，但你的名字不是叫周书吗？）",
+                "ja": ""
+            },
+            "positionX": 5140.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "769f424a-1fa5-41ca-80b6-464559072f5e",
+            "index": 21,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3051",
+            "content": {
+                "en": "You’re wondering why my name is Page, aren’t you?",
+                "zh": "你是不是在想为啥我叫周书？",
+                "ja": ""
+            },
+            "positionX": 5470.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "458250e0-f463-4715-9bba-157e1c8a53a5",
+            "index": 22,
+            "characterId": "1a519e99-26bd-4cf6-a1eb-a6e92ba8abe5",
+            "useContentId": true,
+            "contentId": "ch1_3052",
+            "content": {
+                "en": "Haha, it’s because my Shifu thought I wasn’t much of a thinker, so she gave me a more bookish name on purpose!",
+                "zh": "哈哈，就是因为我师父嫌我脑袋瓜不灵光，特意给我起的！",
+                "ja": ""
+            },
+            "positionX": 5812.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "fa309f3c-905f-4cd2-aa11-c04997fd0db1",
+            "index": 23,
+            "characterId": "481038d5-cf0b-4d90-b374-cf1fd0c406cd",
+            "useContentId": true,
+            "contentId": "ch1_3053",
+            "content": {
+                "en": "She always hoped I’d wise up someday, but honestly, I don’t see that happening.",
+                "zh": "她一直希望我哪天能开窍，但我觉得够呛了。",
+                "ja": ""
+            },
+            "positionX": 6142.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "a0172110-ebbe-44f3-bcba-b13bd7d11a3f",
+            "index": 24,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_3054",
+            "content": {
+                "en": "......",
+                "zh": "......",
+                "ja": ""
+            },
+            "positionX": 6482.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "50386463-6c51-46ba-b79b-2e41e3112313",
+            "index": 25,
+            "characterId": "7a570009-3eab-4a2f-b216-90c158cfb04f",
+            "useContentId": true,
+            "contentId": "ch1_3055",
+            "content": {
+                "en": "Ah, right! We need to hurry!",
+                "zh": "啊对！得抓紧时间！",
+                "ja": ""
+            },
+            "positionX": 6818.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "f6b43765-1c28-4a80-940f-4fa3d03b4740",
+            "index": 26,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3056",
+            "content": {
+                "en": "I’ll head back to the temple first. Shall we meet here again later?",
+                "zh": "我先回一趟道观，待会咱们还在这儿集合？",
+                "ja": ""
+            },
+            "positionX": 7154.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "20d5f3ce-5c4c-4dae-9325-7c12b474ecd1",
+            "index": 27,
+            "characterId": "c5690423-74d1-4bca-8967-89da828b1a25",
+            "useContentId": true,
+            "contentId": "ch1_3057",
+            "content": {
+                "en": "Okay. Stay safe.",
+                "zh": "好，一路顺风。",
+                "ja": ""
+            },
+            "positionX": 7483.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "60fefd67-01b0-4764-9af0-4f649c2fc174",
+            "index": 28,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_3058",
+            "content": {
+                "en": "(Alright. I need to gather as much information as possible and find a way to stop whatever happened on that plane.)",
+                "zh": "（好，尽可能多收集信息，找到解决飞机上事件的办法！）",
+                "ja": ""
+            },
+            "positionX": 7812.0,
+            "positionY": 1198.0,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "3609a95a-021c-4c82-a718-276109a13088",
+                    "targetObjectName": "LevelManager3_2",
+                    "targetSceneName": "Level3-2",
+                    "componentTypeName": "LevelManager3_2",
+                    "methodName": "ZhouShuLeave",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "e50b075c-4280-4bc3-a291-fce9deb15e11",
+            "index": 29,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_4008",
+            "content": {
+                "en": "By the way… I never asked your name.",
+                "zh": "对了，还没问过你的名字来着。",
+                "ja": ""
+            },
+            "positionX": 2605.0,
+            "positionY": 21.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "9d30627f-2f91-4288-a54c-ecb6db168bd7",
+            "index": 30,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_4009",
+            "content": {
+                "en": "I'm Veris.",
+                "zh": "我叫何以真。",
+                "ja": ""
+            },
+            "positionX": 2945.0,
+            "positionY": 9.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "1bf66da5-3096-4387-89f4-d434dd655463",
+            "index": 31,
+            "characterId": "91eae646-d3d2-46e9-9336-e09e16836545",
+            "useContentId": true,
+            "contentId": "ch1_4010",
+            "content": {
+                "en": "Then… farewell, Veris. Take care.",
+                "zh": "那么，再会了，何以真，好好保重。",
+                "ja": ""
+            },
+            "positionX": 3362.0,
+            "positionY": 33.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "f17f1ccd-7824-4861-b65e-48d5d3508aac",
@@ -694,7 +709,26 @@
                     "triggerTiming": 1
                 }
             ],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 1
+        },
+        {
+            "id": "e29b5a5e-fbdb-45cf-92cd-12e2897cc9ab",
+            "index": 33,
+            "characterId": "7dce9553-65bb-400b-9970-de7217fdd43d",
+            "useContentId": true,
+            "contentId": "ch1_4003",
+            "content": {
+                "en": "(Page furrows his brows, deep in thought, as if plotting something.)",
+                "zh": "（周书紧皱眉头，若有所思，仿佛在谋划些什么）",
+                "ja": ""
+            },
+            "positionX": 1483.0,
+            "positionY": -423.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 1
         }
     ],
     "connections": [
@@ -870,14 +904,14 @@
             "outputNodeId": "875f1a67-7152-4d2d-bb7f-063d5ca4a1b1",
             "inputNodeId": "422346ca-7914-4e87-84d4-db6722e91624",
             "choiceIndex": 0,
-            "choiceText": "Maybe I can help.",
+            "choiceText": "Maybe there’s something I can do.",
             "branchPriority": -2
         },
         {
             "outputNodeId": "875f1a67-7152-4d2d-bb7f-063d5ca4a1b1",
             "inputNodeId": "eadce2f4-662a-41dc-90e2-39fe6a608339",
             "choiceIndex": 1,
-            "choiceText": "Then take care. I’ll go now.",
+            "choiceText": "Then take care. I should get going.",
             "branchPriority": -3
         },
         {
