@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -34,7 +34,6 @@ public class DialogueController : MonoBehaviour
     public DialogueTrigger currentTrigger; //当前触发对话的对象
     public DialogueData dialogueData;
 
-
     // Conversation 快速查找字典（index -> Conversation）
     private Dictionary<int, Conversation> conversationDict = new Dictionary<int, Conversation>();
 
@@ -47,8 +46,8 @@ public class DialogueController : MonoBehaviour
     public TextMeshProUGUI NPCName;
 
     //public GameObject historyButton;
-    public GameObject historyContentUI;
-    public TextMeshProUGUI historyContentText;
+    //public GameObject historyContentUI;
+    //public TextMeshProUGUI historyContentText;
 
     private void Awake()
     {
@@ -79,11 +78,6 @@ public class DialogueController : MonoBehaviour
         if (isDialogueActive && !Settings.instance.isSettingsOpen)
         {
             MoveToNextInputCheck();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            OpenCloseHistory();
         }
     }
 
@@ -135,8 +129,20 @@ public class DialogueController : MonoBehaviour
             }
 
             //****************************update information***************************************
-            
 
+            // Apply text alignment
+            switch (currentConversation.textAlignment)
+            {
+                case TextAlignmentType.Center:
+                    contentText.alignment = TextAlignmentOptions.Center;
+                    break;
+                case TextAlignmentType.Right:
+                    contentText.alignment = TextAlignmentOptions.Right;
+                    break;
+                default: // Left
+                    contentText.alignment = TextAlignmentOptions.Left;
+                    break;
+            }
 
             // stop previous typing if still running
             if (textAnimationCoroutine != null)
@@ -147,10 +153,10 @@ public class DialogueController : MonoBehaviour
 
             //add text history
             // 说话人加粗+颜色，分隔线更清晰
-            historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
+            NoteBookManager.instance.historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
                                       $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
                                       $"<color=#DDDDDD>―――――――――――――</color>\n" +
-                                      historyContentText.text;
+                                      NoteBookManager.instance.historyContentText.text;
 
             //check if separate
             if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
@@ -185,12 +191,6 @@ public class DialogueController : MonoBehaviour
                     {
                         if (DialogueDisplaySettings.instance.separatePlayerAndNPC)
                         {
-                            //Debug.Log(NPCAvatar.sprite != null);
-
-                            //NPCAvatar.gameObject.SetActive(!currentConversation.isPlayer);
-                            //avatar.gameObject.SetActive(currentConversation.isPlayer);
-                            //playerAvatar.gameObject.SetActive(speakerName == DialogueDisplaySettings.instance.playerName);
-                            //NPCAvatar.gameObject.SetActive(speakerName != DialogueDisplaySettings.instance.playerName);
                             if (currentConversation.isPlayer)
                             {
                                 NPCAvatar.color = DialogueDisplaySettings.instance.inactiveAvatarColor;
@@ -431,7 +431,6 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            //Debug.Log("111");
             // 尝试获取属性
             PropertyInfo property = componentType.GetProperty(condition.variableName, BindingFlags.Public | BindingFlags.Instance);
             if (property != null && property.CanRead)
@@ -536,25 +535,7 @@ public class DialogueController : MonoBehaviour
                         Debug.LogWarning($"[Condition Check] Bool only supports == and !=.");
                         return false;
                 }
-
-
             }
-
-            /*
-            else if (currentValue is string stringCurrent)
-            {
-                switch (comparisonType)
-                {
-                    case ComparisonType.Equal:
-                        return stringCurrent == compareValueStr;
-                    case ComparisonType.NotEqual:
-                        return stringCurrent != compareValueStr;
-                    default:
-                        Debug.LogWarning($"[Condition Check] String only supports == and !=.");
-                        return false;
-                }
-            }
-            */
             else
             {
                 Debug.LogWarning($"[Condition Check] Unsupported type: {currentValue.GetType()}");
@@ -570,8 +551,6 @@ public class DialogueController : MonoBehaviour
 
     void EndDialogue()
     {
-        //Debug.Log($"[EndDialogue] lastConversation index: {currentConversation?.index}, nextIndex: {currentConversation?.nextIndex}");
-
         DialogueContinueButton.instance.isActice = false;
         isDialogueFinished = true;
 
@@ -624,16 +603,7 @@ public class DialogueController : MonoBehaviour
                 {
                     conversationDict[conversation.index] = conversation;
                 }
-                //Debug.Log($"[DialogueController] Loaded {conversationDict.Count} conversations");
             }
-
-            /*
-            // 测试输出
-            foreach (var conversation in dialogueData.conversations)
-            {
-                Debug.Log($"{conversation.name}: {conversation.content}");
-            }
-            */
         }
         else
         {
@@ -644,7 +614,6 @@ public class DialogueController : MonoBehaviour
     public void StartDialogue()
     {
         isDialogueActive = true;
-        //StartDialogueAtIndex(0);
         if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
         {
             Debug.LogError("[DialogueController] dialogueData is null or empty. Load a JSON first.");
@@ -666,11 +635,10 @@ public class DialogueController : MonoBehaviour
             }
         }
 
-
         // show UI
         StartCoroutine(Tweening.StartTweening(
-            TweeningCurve.Linear, 
-            1f, 
+            TweeningCurve.Linear,
+            1f,
             t => UIGroup.alpha = t,
             () =>
             {
@@ -698,8 +666,6 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        //Debug.Log(currentConversation.nextIndex);
-
         //excute event on end
         if (currentConversation.eventCalls != null && currentConversation.eventCalls.Count != 0)
         {
@@ -723,41 +689,6 @@ public class DialogueController : MonoBehaviour
 
     }
 
-    /*
-    // 从某个 index 开始（不换 JSON）
-    public void StartDialogueAtIndex(int startIndex)
-    {
-        if (dialogueData == null || dialogueData.conversations == null || dialogueData.conversations.Count == 0)
-        {
-            Debug.LogError("[DialogueController] dialogueData is null or empty. Load a JSON first.");
-            return;
-        }
-
-        dialogueData.currentIndex = startIndex;
-        // show UI
-        StartCoroutine(Tweening.StartTweening(TweeningCurve.Linear, 1f, t => UIGroup.alpha = t));
-        UpdateDialogue();
-    }
-
-    // 从指定 JSON + 指定 index 开始
-    public void StartDialogueFromJson(TextAsset json, int startIndex = 0)
-    {
-        if (json == null)
-        {
-            Debug.LogError("[DialogueController] JSON is null.");
-            return;
-        }
-        LoadDialogueFromFile(json);
-        StartDialogueAtIndex(startIndex);
-    }
-
-    //get current dialogue index
-    public int GetCurrentDialogueIndex()
-    {
-        return dialogueData.currentIndex;
-    }
-    */
-
     // 通过 index 字段查找 conversation
     private Conversation GetConversationByIndex(int index)
     {
@@ -770,6 +701,7 @@ public class DialogueController : MonoBehaviour
         return null;
     }
 
+    /**
     public void OpenCloseHistory()
     {
         if (historyContentUI != null)
@@ -777,6 +709,7 @@ public class DialogueController : MonoBehaviour
             historyContentUI.SetActive(!historyContentUI.activeInHierarchy);
         }
     }
+    **/
 }
 
 
@@ -795,6 +728,7 @@ public class Conversation
     public string avatarAddr; //avatar Address
     public bool isPlayer;
     public LocalizedText content;
+    public TextAlignmentType textAlignment; // 文本对齐方式（0=Left, 1=Center, 2=Right）
     public ConditionalBranch[] conditionalBranches;
     public Choice[] choices;
     public int nextIndex; //default next index if no choice, -1 if there is no next conversation

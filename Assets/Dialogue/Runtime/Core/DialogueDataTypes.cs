@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -258,6 +258,17 @@ namespace DialogueSystem
     }
 
     /// <summary>
+    /// Text alignment options for dialogue content
+    /// </summary>
+    [Serializable]
+    public enum TextAlignmentType
+    {
+        Left = 0,
+        Center = 1,
+        Right = 2
+    }
+
+    /// <summary>
     /// Choice condition for branching dialogue
     /// </summary>
     [Serializable]
@@ -440,6 +451,7 @@ namespace DialogueSystem
         public List<ChoiceData> choices = new List<ChoiceData>();
         public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
         public List<ConditionalBranchData> conditionalBranches = new List<ConditionalBranchData>();
+        public TextAlignmentType textAlignment = TextAlignmentType.Left;  // 文本对齐方式
     }
 
     /// <summary>
@@ -469,6 +481,7 @@ namespace DialogueSystem
         public string avatarAddr;                                // avatar 路径
         public bool isPlayer = false;                            // 是否为玩家角色
         public LocalizedText content = new LocalizedText();     // 对话内容（多语言）
+        public TextAlignmentType textAlignment = TextAlignmentType.Left;  // 文本对齐方式
         public List<RuntimeChoice> choices = new List<RuntimeChoice>();
         public string nextNodeId;
         public List<DialogueEventCall> eventCalls = new List<DialogueEventCall>();
