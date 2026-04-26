@@ -134,13 +134,13 @@ public class DialogueController : MonoBehaviour
             switch (currentConversation.textAlignment)
             {
                 case TextAlignmentType.Center:
-                    contentText.alignment = TextAlignmentOptions.Center;
+                    contentText.alignment = TextAlignmentOptions.Top;
                     break;
                 case TextAlignmentType.Right:
-                    contentText.alignment = TextAlignmentOptions.Right;
+                    contentText.alignment = TextAlignmentOptions.TopRight;
                     break;
                 default: // Left
-                    contentText.alignment = TextAlignmentOptions.Left;
+                    contentText.alignment = TextAlignmentOptions.TopLeft;
                     break;
             }
 
