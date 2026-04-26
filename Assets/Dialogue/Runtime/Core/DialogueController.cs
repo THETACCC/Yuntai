@@ -158,9 +158,9 @@ public class DialogueController : MonoBehaviour
 
             //add text history
             // 说话人加粗+颜色，分隔线更清晰
-            historyContentText.text = $"<b><color=#4A90E2><size=110%>{speakerName}</size></color></b>\n" +
-                                      $"<color=#333333>{currentConversation.content.GetText(languageCode)}</color>\n" +
-                                      $"<color=#DDDDDD>―――――――――――――</color>\n" +
+            historyContentText.text = $"<b><color=#341C12><size=110%>{speakerName}</size></color></b>\n" +
+                                      $"<color=#341C12>{currentConversation.content.GetText(languageCode)}</color>\n" +
+                                      $"<color=#655331>――――――――――――――――――――――――</color>\n" +
                                       historyContentText.text;
 
             //check if separate
