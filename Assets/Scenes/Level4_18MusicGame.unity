@@ -1709,7 +1709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776693206419991306, guid: 0df681dc3804f6f49a530024734e9198, type: 3}
       propertyPath: SpawnPointLocation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776693206419991306, guid: 0df681dc3804f6f49a530024734e9198, type: 3}
       propertyPath: hardTimeoutSeconds
@@ -1955,6 +1955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279740581}
   - component: {fileID: 1279740582}
+  - component: {fileID: 1279740583}
   m_Layer: 0
   m_Name: LevelManager_4_18
   m_TagString: Untagged
@@ -1994,6 +1995,19 @@ MonoBehaviour:
   mainVCam: {fileID: 0}
   zoomInOrthoSize: 6
   zoomDuration: 0.5
+--- !u!114 &1279740583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 0015aadf-eb33-42e1-bbc7-85b54750ed37
 --- !u!1 &1292990814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,6 +2811,7 @@ GameObject:
   - component: {fileID: 1736771212}
   - component: {fileID: 1736771211}
   - component: {fileID: 1736771213}
+  - component: {fileID: 1736771214}
   m_Layer: 0
   m_Name: DialogueTrigger
   m_TagString: Untagged
@@ -2882,6 +2897,19 @@ MonoBehaviour:
   isMainDialogueFinished: 0
   isDoor: 0
   isInstantTrigger: 0
+--- !u!114 &1736771214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736771209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269b30423f73f74e853f86361627afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 8d6447a4-968c-41f8-bdc6-799b60f31f31
 --- !u!1001 &1803819324
 PrefabInstance:
   m_ObjectHideFlags: 0
