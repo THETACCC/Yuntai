@@ -14,6 +14,8 @@ public class PuzzleLanternManager : MonoBehaviour
     [Header("Result")]
     public bool Solved = false;
 
+    private bool solvedApplied = false;
+
     private void Awake()
     {
         ClampArraySizes();
@@ -34,11 +36,6 @@ public class PuzzleLanternManager : MonoBehaviour
     }
 
     public void ForceRecheck() => Recompute(); // still available if you want to call it
-
-    private void Recompute()
-    {
-        Solved = ComputeStrictMatch();
-    }
 
     private bool ComputeStrictMatch()
     {
@@ -87,6 +84,34 @@ public class PuzzleLanternManager : MonoBehaviour
             var arr = new bool[N];
             for (int i = 0; i < Mathf.Min(old.Length, N); i++) arr[i] = old[i];
             correctSlots = arr;
+        }
+    }
+
+    private void Recompute()
+    {
+        Solved = ComputeStrictMatch();
+
+        if (Solved && !solvedApplied)
+        {
+            solvedApplied = true;
+            ApplySolvedState();
+        }
+    }
+
+    private void ApplySolvedState()
+    {
+        for (int i = 0; i < N; i++)
+        {
+            if (lanterns[i] == null) continue;
+
+            // 全部不可互动，E 不再出现
+            lanterns[i].SetInteractable(false);
+
+            // 不是答案的灯，整个 PuzzleLantern object 关闭
+            if (!correctSlots[i])
+            {
+                lanterns[i].CloseWholeLanternObject();
+            }
         }
     }
 }
