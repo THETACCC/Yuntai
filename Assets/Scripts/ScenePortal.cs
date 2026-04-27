@@ -30,7 +30,12 @@ public class ScenePortal : MonoBehaviour
     private void Start()
     {
         myGamemanager = Gamemanager.instance;
-        InteractIndicator.SetActive(false);
+        if(InteractIndicator != null)
+        {
+            Debug.LogWarning("There are portals without Indicator");
+            InteractIndicator.SetActive(false);
+        }
+ 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
