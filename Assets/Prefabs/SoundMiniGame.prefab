@@ -1093,6 +1093,7 @@ GameObject:
   - component: {fileID: 7740844088419783589}
   - component: {fileID: 2365329523574877566}
   - component: {fileID: 7964528001111063242}
+  - component: {fileID: 8501446798651633104}
   m_Layer: 5
   m_Name: TipText
   m_TagString: Untagged
@@ -1156,8 +1157,7 @@ MonoBehaviour:
     the fourth and fifth sliders (from left to right) must be the largest among all
     sliders.
 
-    The second and third sliders (from left to right) must differ by
-    one.'
+    The second silder must set to value 2.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
   m_sharedMaterial: {fileID: -7644465964554899042, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
@@ -1226,6 +1226,35 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8501446798651633104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2666219630432624066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801a1b2fff1f45e4f84fce85928d5fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDifferentFonts: 1
+  UILanguages:
+  - languageCode: en
+    content: 'The first and the last slider must be set to value 5. \n The sum of
+      the values of the three middle sliders must equal 6. \n The difference between
+      the fourth and fifth sliders (from left to right) must be the largest among
+      all sliders. \n The second slider must be set to value 2. '
+    font: {fileID: 11400000, guid: 180bb2ca1031d3d48bbb0abd119a29ae, type: 2}
+  - languageCode: zh
+    content: "\u7B2C\u4E00\u4E2A\u548C\u6700\u540E\u4E00\u4E2A\u6ED1\u5757\u5FC5\u987B\u8BBE\u7F6E\u4E3A\u6570\u503C
+      5\u3002\\n \u4E2D\u95F4\u4E09\u4E2A\u6ED1\u5757\u7684\u6570\u503C\u603B\u548C\u5FC5\u987B\u7B49\u4E8E
+      6\u3002\\n \u7B2C\u56DB\u4E2A\u4E0E\u7B2C\u4E94\u4E2A\u6ED1\u5757\uFF08\u4ECE\u5DE6\u5230\u53F3\uFF09\u7684\u6570\u503C\u5DEE\u503C\uFF0C\u5FC5\u987B\u662F\u6240\u6709\u6ED1\u5757\u4E4B\u95F4\u5DEE\u503C\u4E2D\u6700\u5927\u7684\u3002\\n
+      \u7B2C\u4E8C\u4E2A\u6ED1\u5757\u5FC5\u987B\u8BBE\u7F6E\u4E3A\u6570\u503C 2\u3002 "
+    font: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
+  - languageCode: ja
+    content: What helps Page escpae from the plane?
+    font: {fileID: 11400000, guid: 180bb2ca1031d3d48bbb0abd119a29ae, type: 2}
 --- !u!1 &3073840725335855052
 GameObject:
   m_ObjectHideFlags: 0
