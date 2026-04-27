@@ -11,17 +11,24 @@ public class TimedDialogueCue
     public float showTime;
     public float hideTime;
     public Color textColor = Color.white;
+
+    [Header("Optional Tutorial Image")]
+    public GameObject canvasImageObject;
 }
 
 public class MusicGameDialogue : MonoBehaviour
 {
-    [Header("Dialogue JSON (same old json file)")]
+    [Header("Dialogue JSON")]
     public TextAsset dialogueJsonFile;
 
     [Header("Refs")]
     public RhythmConductor rhythmConductor;
     public TextMeshProUGUI dialogueTMP;
-    public GameObject dialogueBGObject; // assign the background object here
+    public GameObject dialogueBGObject;
+
+    [Header("Tutorial Canvas Images")]
+    public GameObject tutorialImage1;
+    public GameObject tutorialImage2;
 
     [Header("Special Font For This Music Game Only")]
     public TMP_FontAsset specialFont;
@@ -35,72 +42,7 @@ public class MusicGameDialogue : MonoBehaviour
 
     private int currentCueIndex = -1;
 
-    private readonly TimedDialogueCue[] cues = new TimedDialogueCue[]
-    {
-        new TimedDialogueCue
-        {
-            conversationIndex = 0,
-            showTime = 42.000f,
-            hideTime = 44.071f,
-            textColor = Color.white
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 1,
-            showTime = 44.071f,
-            hideTime = 46.268f,
-            textColor = Color.red
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 2,
-            showTime = 59.780f,
-            hideTime = 61.980f,
-            textColor = Color.white
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 3,
-            showTime = 61.980f,
-            hideTime = 63.883f,
-            textColor = Color.red
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 4,
-            showTime = 63.883f,
-            hideTime = 65.338f,
-            textColor = Color.white
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 5,
-            showTime = 65.338f,
-            hideTime = 66.500f,
-            textColor = Color.white
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 6,
-            showTime = 73.895f,
-            hideTime = 76.144f,
-            textColor = Color.red
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 7,
-            showTime = 76.144f,
-            hideTime = 78.028f,
-            textColor = Color.red
-        },
-        new TimedDialogueCue
-        {
-            conversationIndex = 8,
-            showTime = 78.028f,
-            hideTime = 79.200f,
-            textColor = Color.white
-        }
-    };
+    private TimedDialogueCue[] cues;
 
     private void Awake()
     {
@@ -115,6 +57,42 @@ public class MusicGameDialogue : MonoBehaviour
 
         if (dialogueBGObject != null)
             dialogueBGObject.SetActive(false);
+
+        SetTutorialImages(false, false);
+
+        cues = new TimedDialogueCue[]
+{
+    // Tutorial 1
+    new TimedDialogueCue
+    {
+        conversationIndex = 0,
+        showTime = 0.794f,
+        hideTime = 4.500f,
+        textColor = Color.white,
+        canvasImageObject = tutorialImage1
+    },
+
+    // Tutorial 2
+    new TimedDialogueCue
+    {
+        conversationIndex = 9,
+        showTime = 4.500f,
+        hideTime = 9.700f,
+        textColor = Color.white,
+        canvasImageObject = tutorialImage2
+    },
+
+    // Story dialogues
+    new TimedDialogueCue { conversationIndex = 10, showTime = 42.000f, hideTime = 44.071f, textColor = Color.white },
+    new TimedDialogueCue { conversationIndex = 1, showTime = 44.071f, hideTime = 46.268f, textColor = Color.red },
+    new TimedDialogueCue { conversationIndex = 2, showTime = 59.780f, hideTime = 61.980f, textColor = Color.white },
+    new TimedDialogueCue { conversationIndex = 3, showTime = 61.980f, hideTime = 63.883f, textColor = Color.red },
+    new TimedDialogueCue { conversationIndex = 4, showTime = 63.883f, hideTime = 65.338f, textColor = Color.white },
+    new TimedDialogueCue { conversationIndex = 5, showTime = 65.338f, hideTime = 66.500f, textColor = Color.white },
+    new TimedDialogueCue { conversationIndex = 6, showTime = 73.895f, hideTime = 76.144f, textColor = Color.red },
+    new TimedDialogueCue { conversationIndex = 7, showTime = 76.144f, hideTime = 78.028f, textColor = Color.red },
+    new TimedDialogueCue { conversationIndex = 8, showTime = 78.028f, hideTime = 79.200f, textColor = Color.white }
+};
     }
 
     private void Start()
@@ -131,6 +109,7 @@ public class MusicGameDialogue : MonoBehaviour
         {
             HideTMP();
             SetBGActive(false);
+            SetTutorialImages(false, false);
             return;
         }
 
@@ -151,11 +130,13 @@ public class MusicGameDialogue : MonoBehaviour
         {
             SetBGActive(true);
             ShowTMP();
+            UpdateTutorialImages(cues[currentCueIndex]);
         }
         else
         {
             SetBGActive(false);
             HideTMP();
+            SetTutorialImages(false, false);
         }
     }
 
@@ -176,9 +157,7 @@ public class MusicGameDialogue : MonoBehaviour
         if (dialogueData?.conversations != null)
         {
             foreach (var conversation in dialogueData.conversations)
-            {
                 conversationDict[conversation.index] = conversation;
-            }
         }
         else
         {
@@ -206,11 +185,9 @@ public class MusicGameDialogue : MonoBehaviour
             return;
         }
 
-        // Only use the special font if assigned.
-        // Otherwise keep the TMP component's current font/material.
         if (specialFont != null)
         {
-            //dialogueTMP.font = specialFont;
+            // dialogueTMP.font = specialFont;
         }
 
         if (Settings.instance != null)
@@ -219,6 +196,23 @@ public class MusicGameDialogue : MonoBehaviour
             dialogueTMP.text = conversation.content.GetText("English");
 
         SetTMPColor(cue.textColor);
+    }
+
+    private void UpdateTutorialImages(TimedDialogueCue cue)
+    {
+        SetTutorialImages(
+            cue.canvasImageObject == tutorialImage1,
+            cue.canvasImageObject == tutorialImage2
+        );
+    }
+
+    private void SetTutorialImages(bool image1Active, bool image2Active)
+    {
+        if (tutorialImage1 != null && tutorialImage1.activeSelf != image1Active)
+            tutorialImage1.SetActive(image1Active);
+
+        if (tutorialImage2 != null && tutorialImage2.activeSelf != image2Active)
+            tutorialImage2.SetActive(image2Active);
     }
 
     private void HideTextOnly()
@@ -286,5 +280,6 @@ public class MusicGameDialogue : MonoBehaviour
         }
 
         SetBGActive(false);
+        SetTutorialImages(false, false);
     }
 }
