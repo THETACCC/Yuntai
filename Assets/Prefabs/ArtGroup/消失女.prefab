@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5468529645242690624}
   - component: {fileID: 602886589740759260}
   - component: {fileID: 6206743400303558292}
+  - component: {fileID: 3324330186678585250}
   m_Layer: 0
   m_Name: "\u6D88\u5931\u5973"
   m_TagString: Untagged
@@ -186,6 +187,7 @@ MonoBehaviour:
   playerTag: Player
   physicsMode: 0
   duplicateTriggerWindow: 0.05
+  triggerOnlyOnce: 1
   ensureFollowPlayerDuringShake: 0
   freezePlayerDuringShake: 0
   playerBehavioursToDisable: []
@@ -223,3 +225,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3324330186678585250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840367429174905427}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 224c83bd2d5a5094fb69f5f2fb47c64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipName: 
+  group: 1
+  preloadOnStart: 1

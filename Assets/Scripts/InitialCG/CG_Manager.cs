@@ -30,8 +30,13 @@ public class CG_Manager : MonoBehaviour
     private float _lastSpaceTime = -999f;
     private bool _sceneLoaded = false;
 
+    //Get Notebook stuff
+
+
+
     private void Start()
     {
+        NoteBookManager.instance.disableNoteBook();
         if (Settings.instance != null)
         {
             switch (Settings.instance.currentLanguage) 
