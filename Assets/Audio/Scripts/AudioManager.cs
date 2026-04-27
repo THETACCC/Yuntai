@@ -45,6 +45,29 @@ public class AudioManager : MonoBehaviour
 
     #region PubicFunctions
     /// <summary>
+    /// 预加载一个 clip 进缓存，避免首次 Play / PlayOneShot 时同步读盘造成的 hitch。
+    /// 调用多次同一 clip 是安全的（dict 命中直接返回）。
+    /// </summary>
+    public static void Preload(string clipName)
+    {
+        Initialize();
+        if (string.IsNullOrEmpty(clipName)) return;
+        if (audioClipDict.ContainsKey(clipName)) return;
+
+        AudioClip clip = Resources.Load<AudioClip>(clipName);
+        if (clip == null)
+        {
+            Debug.LogWarning($"[AudioManager] Preload failed, clip not found: {clipName}");
+            return;
+        }
+        audioClipDict.Add(clipName, clip);
+
+        // 给压缩+解压在播放时进行的 clip 一个先解压的机会
+        if (clip.loadState == AudioDataLoadState.Unloaded)
+            clip.LoadAudioData();
+    }
+
+    /// <summary>
     /// Play a clip, with default master AudioGroup or with previous used AudioGroup
     /// </summary>
     /// <param name="clipName"></param>
