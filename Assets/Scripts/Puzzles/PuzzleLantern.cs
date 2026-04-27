@@ -34,6 +34,8 @@ public class PuzzleLantern : UI_E
 
     private bool isRunning = false;
 
+    private bool interactionLocked = false;
+
     public bool IsHanged => lanternHanged;
 
     // 灯光组件
@@ -79,7 +81,7 @@ public class PuzzleLantern : UI_E
 
     private void Update()
     {
-        if (!isPlayerInTrigger || isRunning)
+        if (interactionLocked || !isPlayerInTrigger || isRunning)
             return;
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -89,10 +91,8 @@ public class PuzzleLantern : UI_E
                 Debug.LogWarning("[PuzzleLantern] Lantern not assigned and auto-find failed.", this);
                 return;
             }
-            //Audio
-            AudioManager.Play("Sound Effects/sndLanternPlace", AudioGroup.SFX);
-    
 
+            AudioManager.Play("Sound Effects/sndLanternPlace", AudioGroup.SFX);
 
             StartCoroutine(ToggleLanternRoutine());
         }
@@ -288,5 +288,27 @@ public class PuzzleLantern : UI_E
     private void Reset()
     {
         if (!lantern) TryAutoFindLantern();
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        interactionLocked = !interactable;
+
+        // success 后 E 提示不应该再出现
+        if (!interactable && InteractIndicator)
+            InteractIndicator.SetActive(false);
+
+        // 直接禁用触发 collider，避免 UI_E 再检测玩家进入
+        Collider2D col = GetComponent<Collider2D>();
+        if (col)
+            col.enabled = interactable;
+    }
+
+    public void CloseWholeLanternObject()
+    {
+        if (lantern)
+            lantern.SetActive(false);
+
+        gameObject.SetActive(false);
     }
 }

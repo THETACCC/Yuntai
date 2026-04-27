@@ -221,6 +221,8 @@ public class LevelManager3_3 : BaseLevelManager
             LanternStall_wait.SetActive(false);
             LanternStall_wrong.SetActive(false);
             LanternStall_correct.SetActive(true);
+
+            //在这里加
         }
         else
         {
