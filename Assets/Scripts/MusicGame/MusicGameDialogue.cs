@@ -186,14 +186,14 @@ public class MusicGameDialogue : MonoBehaviour
         }
 
         if (specialFont != null)
-        {
-            // dialogueTMP.font = specialFont;
-        }
+            dialogueTMP.font = specialFont;
 
-        if (Settings.instance != null)
-            dialogueTMP.text = conversation.content.GetText(Settings.instance.currentLanguage);
-        else
-            dialogueTMP.text = conversation.content.GetText("English");
+        string lang = "zh";
+
+        if (Settings.instance != null && !string.IsNullOrEmpty(Settings.instance.currentLanguage))
+            lang = Settings.instance.currentLanguage;
+
+        dialogueTMP.text = conversation.content.GetText(lang);
 
         SetTMPColor(cue.textColor);
     }
