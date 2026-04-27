@@ -592,6 +592,19 @@ public class DialogueController : MonoBehaviour
             }));
     }
 
+    //won't trigger any event.
+    public void CloseDialogueImmediately()
+    {
+        DialogueContinueButton.instance.isActice = false;
+        isDialogueFinished = true;
+        UIGroup.alpha = 0;
+        UIGroup.blocksRaycasts = false;
+        Gamemanager.instance?.EndDialogue();
+        if (currentTrigger != null) currentTrigger.isMainDialogueFinished = true;
+        isDialogueActive = false;
+        isDialogueFinished = false;
+    }
+
 
     public void LoadDialogueFromFile(TextAsset dialogueJsonFile)
     {

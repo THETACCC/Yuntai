@@ -51,18 +51,6 @@ public class Title_Scene : MonoBehaviour
         //open save slots UI
         defaultOptions.SetActive(false);
         SaveManager.instance.gameSavesUI.SetActive(true);
-        SaveManager.instance.UpdateSlotInfo();
-
-        /*
-        int slotNum = SaveManager.instance.FindEmptySlot();
-        if (slotNum != 0)
-        {
-            SaveManager.instance.SlotButtonHit(slotNum);
-        } else
-        {
-            LoadGame();
-        }
-        */
     }
 
     public void LoadGame()
@@ -71,7 +59,6 @@ public class Title_Scene : MonoBehaviour
         //open save slots UI
         defaultOptions.SetActive(false);
         SaveManager.instance.gameSavesUI.SetActive(true);
-        SaveManager.instance.UpdateSlotInfo();
     }
 
 

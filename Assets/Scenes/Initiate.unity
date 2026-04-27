@@ -767,6 +767,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7936914145297208958, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenGameSaves
+      objectReference: {fileID: 0}
     - target: {fileID: 8647263524412810217, guid: bba9115d62425914a86cb5051a74d79a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -820,7 +824,6 @@ RectTransform:
   - {fileID: 1331517285}
   - {fileID: 819737620}
   - {fileID: 1846936847}
-  - {fileID: 300157889}
   m_Father: {fileID: 1399517007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1334,7 +1337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &300157889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1342,20 +1345,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300157888}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 831871247}
   - {fileID: 1111798237}
   - {fileID: 379831325}
   - {fileID: 1446956538}
-  m_Father: {fileID: 107166291}
+  m_Father: {fileID: 1399517007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -650}
+  m_AnchoredPosition: {x: 1360, y: -724}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &304162422
@@ -4837,19 +4840,11 @@ PrefabInstance:
     - {fileID: 686085508113543494, guid: 1349403212a59df49b71963b93ee077b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8769563284812532137, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 819737624}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1349403212a59df49b71963b93ee077b, type: 3}
 --- !u!224 &819737620 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-  m_PrefabInstance: {fileID: 819737619}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &819737621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8769563284812532137, guid: 1349403212a59df49b71963b93ee077b, type: 3}
   m_PrefabInstance: {fileID: 819737619}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &819737622 stripped
@@ -4868,32 +4863,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1669916644945379900, guid: 1349403212a59df49b71963b93ee077b, type: 3}
   m_PrefabInstance: {fileID: 819737619}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819737621}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &819737624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819737621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 801a1b2fff1f45e4f84fce85928d5fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useDifferentFonts: 0
-  UILanguages:
-  - languageCode: zh
-    content: "2. \u7A7A\u4F4D"
-    font: {fileID: 0}
-  - languageCode: en
-    content: 2. Empty Slot
-    font: {fileID: 0}
 --- !u!1 &831871246
 GameObject:
   m_ObjectHideFlags: 0
@@ -5966,6 +5941,7 @@ RectTransform:
   - {fileID: 2033273910}
   - {fileID: 107166291}
   - {fileID: 593135276}
+  - {fileID: 300157889}
   - {fileID: 168683844}
   m_Father: {fileID: 334066467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7054,19 +7030,11 @@ PrefabInstance:
     - {fileID: 686085508113543494, guid: 1349403212a59df49b71963b93ee077b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8769563284812532137, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1846936851}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1349403212a59df49b71963b93ee077b, type: 3}
 --- !u!224 &1846936847 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-  m_PrefabInstance: {fileID: 1846936846}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1846936848 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8769563284812532137, guid: 1349403212a59df49b71963b93ee077b, type: 3}
   m_PrefabInstance: {fileID: 1846936846}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1846936849 stripped
@@ -7085,32 +7053,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1669916644945379900, guid: 1349403212a59df49b71963b93ee077b, type: 3}
   m_PrefabInstance: {fileID: 1846936846}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846936848}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1846936851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846936848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 801a1b2fff1f45e4f84fce85928d5fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useDifferentFonts: 0
-  UILanguages:
-  - languageCode: en
-    content: 3. Empty Slot
-    font: {fileID: 0}
-  - languageCode: zh
-    content: "3. \u7A7A\u4F4D"
-    font: {fileID: 0}
 --- !u!1 &1864365876
 GameObject:
   m_ObjectHideFlags: 0

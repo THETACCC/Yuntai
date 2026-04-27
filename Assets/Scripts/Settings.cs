@@ -169,11 +169,9 @@ public class Settings : MonoBehaviour
     public void ReturnToMain()
     {
         SaveManager.instance.SaveGame();
-        if (SaveManager.instance.saveSlot != 0)
-        {
-            SceneController.instance.LoadScene("TitleScene");
-            CloseSettings();
-        }
+        SceneController.instance.LoadScene("TitleScene");
+        CloseSettings();
+        DialogueController.instance.CloseDialogueImmediately();
     }
 
     public void Save()

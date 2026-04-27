@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections;
 
-public class ButtonHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Highlight Object")]
     [SerializeField] private GameObject highlightObject;  // e.g. glow image under the button
@@ -89,6 +89,18 @@ public class ButtonHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (label != null)
             label.color = normalTextColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // 点击时立即还原位置
+        if (enableMoveAnimation && rectTransform != null)
+        {
+            if (currentAnimation != null)
+                StopCoroutine(currentAnimation);
+
+            rectTransform.anchoredPosition = originalPosition;
+        }
     }
 
     private IEnumerator AnimatePosition(Vector2 targetPosition)

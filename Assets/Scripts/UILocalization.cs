@@ -92,6 +92,53 @@ public class UILocalization : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 设置指定语言的内容并更新显示
+    /// </summary>
+    /// <param name="languageCode">语言代码（如 "zh-CN", "en-US"）</param>
+    /// <param name="content">要设置的文本内容</param>
+    public void SetLanguageContent(string languageCode, string content)
+    {
+        if (string.IsNullOrEmpty(languageCode))
+        {
+            Debug.LogWarning("Language code cannot be null or empty!");
+            return;
+        }
+
+        // 查找并更新UILanguages列表中的对应项
+        bool found = false;
+        for (int i = 0; i < UILanguages.Count; i++)
+        {
+            if (UILanguages[i].languageCode == languageCode)
+            {
+                UILanguages[i].content = content;
+                found = true;
+                break;
+            }
+        }
+
+        // 如果没找到对应语言，添加新的语言项
+        if (!found)
+        {
+            UILanguages.Add(new UILanguage
+            {
+                languageCode = languageCode,
+                content = content,
+                font = null
+            });
+            Debug.Log($"Added new language entry: {languageCode}");
+        }
+
+        // 重新初始化字典以确保同步
+        InitializeDictionaries();
+
+        // 如果当前语言就是这个语言，立即更新显示
+        if (Settings.instance != null && Settings.instance.currentLanguage == languageCode)
+        {
+            UpdateText(languageCode);
+        }
+    }
+
     public void UpdateText(string languageCode)
     {
         if (string.IsNullOrEmpty(languageCode) ||

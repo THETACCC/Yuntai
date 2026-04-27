@@ -48,10 +48,12 @@ public class SaveManager : MonoBehaviour
         CheckExistingSaves();
         gameSavesUI.SetActive(false);
         warningWindow.SetActive(false);
+        UpdateSlotInfo();
     }
 
     public void Return()
     {
+        gameSavesUI.SetActive(false);
         if (!Settings.instance.isInGame)
         {
             if (Title_Scene.instance != null)
@@ -60,24 +62,41 @@ public class SaveManager : MonoBehaviour
                 Title_Scene.instance.isCreatingGame = false;
                 Title_Scene.instance.isLoadingGame = false;
             }
+        } else
+        {
+            Settings.instance.OpenSettings();
         }
-        gameSavesUI.SetActive(false);
     }
 
     public void UpdateSlotInfo()
     {
         for (int i = 0; i < saveList.Length; i++)
         {
+            UILocalization nameText = slotsNames[i].GetComponent<UILocalization>();
+            UILocalization timeText = slotsTimes[i].GetComponent<UILocalization>();
             if (saveList[i])
             {
                 DateTime lastModified = File.GetLastWriteTime(Path.Combine(Application.persistentDataPath, $"GameSave{i + 1}.json"));
-                slotsNames[i].text = $"{i + 1}. Save #{i + 1}";
-                slotsTimes[i].text = "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss");
+                nameText.SetLanguageContent("en", $"{i + 1}. Save #{i + 1}");
+                nameText.SetLanguageContent("zh", $"{i + 1}. 存档 #{i + 1}");
+                nameText.SetLanguageContent("ja", $"{i + 1}. Save #{i + 1}");
+                timeText.SetLanguageContent("en", "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss"));
+                timeText.SetLanguageContent("zh", "上次修改: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss"));
+                timeText.SetLanguageContent("ja", "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                //slotsNames[i].text = $"{i + 1}. Save #{i + 1}";
+                //slotsTimes[i].text = "Last Modified: " + lastModified.ToString("yyyy-MM-dd HH:mm:ss");
             }
             else
             {
-                slotsNames[i].text = $"{i + 1}. Empty";
-                slotsTimes[i].text = "";
+                nameText.SetLanguageContent("en", $"{i + 1}. Empty");
+                nameText.SetLanguageContent("zh", $"{i + 1}. 空位");
+                nameText.SetLanguageContent("ja", $"{i + 1}. Empty");
+                timeText.SetLanguageContent("en", "");
+                timeText.SetLanguageContent("zh", "");
+                timeText.SetLanguageContent("ja", "");
+                //slotsNames[i].text = $"{i + 1}. Empty";
+                //slotsTimes[i].text = "";
             }
         }
     }
@@ -98,15 +117,21 @@ public class SaveManager : MonoBehaviour
                 saveList[i] = false;
             }
         }
+
     }
 
     public void SaveGame(bool isAutoSave = false)
     {
-        SaveManager.instance.UpdateSlotInfo();
+        UpdateSlotInfo();
+        //Settings.instance.OpenGameSaves();
+        
+        
         if (!hasGameSave)
         {
             hasGameSave = true;
         }
+
+        /*
         if (saveSlot == 0)
         {
             saveSlot = FindEmptySlot();
@@ -125,6 +150,7 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
+        */
         
         // 确保 savePath 被正确初始化
         savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
@@ -150,10 +176,12 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(savePath, json);
 
         Debug.Log("存档完成：" + savePath);
+        UpdateSlotInfo();
     }
 
     public void LoadGame()
     {
+        //UpdateSlotInfo();
         if (!File.Exists(savePath))
         {
             Debug.LogWarning("没有存档文件！");
@@ -195,16 +223,15 @@ public class SaveManager : MonoBehaviour
                 } else
                 {
                     //create a new game directly
-                    SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
+                    gameSavesUI.SetActive(false);
                     saveList[saveSlot - 1] = true;
                     Settings.instance.isInGame = true;
                     Title_Scene.instance.isCreatingGame = false;
-                    gameSavesUI.SetActive(false);
+                    SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
                 }
-                
             }
 
-            if (Title_Scene.instance.isLoadingGame)
+            else if (Title_Scene.instance.isLoadingGame)
             {
                 saveSlot = slotNum;
                 savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
@@ -220,6 +247,8 @@ public class SaveManager : MonoBehaviour
                     //do nothing as this is loading game and slot is empty
                 }
             }
+
+            return;
         }
         
 
@@ -239,7 +268,6 @@ public class SaveManager : MonoBehaviour
             {
                 //save game directly
                 SaveGame();
-                gameSavesUI.SetActive(false);
             }
         }
     }
@@ -252,17 +280,21 @@ public class SaveManager : MonoBehaviour
     public void ConfirmReplace()
     {
         warningWindow.SetActive(false);
-        if (!Settings.instance.isInGame && Title_Scene.instance.isCreatingGame)
-        {
-            SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
-            Settings.instance.isInGame = true;
-            Title_Scene.instance.isCreatingGame = false;
-        }
+
         if (Settings.instance.isInGame)
         {
             SaveGame();
+        } else
+        {
+            gameSavesUI.SetActive(false);
+            if (Title_Scene.instance.isCreatingGame)
+            {
+                Settings.instance.isInGame = true;
+                Title_Scene.instance.isCreatingGame = false;
+                SceneController.instance.LoadSceneAndTeleport("InitialCGScene", 0);
+            }          
         }
-        gameSavesUI.SetActive(false);
+        
     }
 
     public int FindEmptySlot()
@@ -299,6 +331,8 @@ public class SaveManager : MonoBehaviour
             }
 
         }
+
+        UpdateSlotInfo();
     }
 }
 

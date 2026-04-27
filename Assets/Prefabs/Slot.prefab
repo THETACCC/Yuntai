@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 1402738050904966983}
   - component: {fileID: 5386696799641010309}
   - component: {fileID: 2898171511878714013}
+  - component: {fileID: 7991679200567359719}
   m_Layer: 5
   m_Name: SaveTime
   m_TagString: Untagged
@@ -266,6 +267,29 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7991679200567359719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4563836028001218505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801a1b2fff1f45e4f84fce85928d5fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDifferentFonts: 0
+  UILanguages:
+  - languageCode: en
+    content: 
+    font: {fileID: 11400000, guid: 9dca74f4fab6f554d8938d25ec27c6b7, type: 2}
+  - languageCode: zh
+    content: 
+    font: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
+  - languageCode: ja
+    content: 
+    font: {fileID: 11400000, guid: d29a1c5978bf37b43b6abb207617fe37, type: 2}
 --- !u!1 &6881059242057391875
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +635,6 @@ MonoBehaviour:
   - languageCode: zh
     content: "1. \u7A7A\u4F4D"
     font: {fileID: 0}
-  - languageCode: zh
+  - languageCode: ja
     content: 
     font: {fileID: 0}
