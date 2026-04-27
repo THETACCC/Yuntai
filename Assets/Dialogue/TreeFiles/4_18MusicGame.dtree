@@ -1,23 +1,6 @@
 {
     "nodes": [
         {
-            "id": "7fd834bb-8a0b-4689-9a87-52cccaeea4ee",
-            "index": 0,
-            "characterId": "",
-            "useContentId": true,
-            "contentId": "ch2_4011",
-            "content": {
-                "en": "Why does my head... feel more and more dizzy...",
-                "zh": "怎么感觉头...越来越晕...",
-                "ja": ""
-            },
-            "positionX": -63.20000076293945,
-            "positionY": 52.79999923706055,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
             "id": "f1de1110-3993-4327-b7a0-67c6e73823b0",
             "index": 1,
             "characterId": "",
@@ -32,7 +15,8 @@
             "positionY": 62.39999771118164,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "7207051b-b688-475a-8941-c3b70ccaf31d",
@@ -49,7 +33,8 @@
             "positionY": 67.19999694824219,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "fd12513b-1a55-413a-b80f-d6c0585d6bf6",
@@ -66,7 +51,8 @@
             "positionY": 69.60000610351563,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "1460538d-02b9-4b85-b574-7146dd60675d",
@@ -83,7 +69,8 @@
             "positionY": 70.39999389648438,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "7b4bb227-2bb7-4312-9eb5-b7285d450d28",
@@ -100,7 +87,8 @@
             "positionY": 69.60000610351563,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "c0c07db8-9999-4fa4-88ca-82622a02010f",
@@ -117,7 +105,8 @@
             "positionY": 70.39999389648438,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "254ac561-0647-46fd-8829-591ef262acc7",
@@ -134,7 +123,8 @@
             "positionY": 84.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "8117db60-7eeb-4c03-9a1b-21b54438048c",
@@ -151,17 +141,65 @@
             "positionY": 88.0,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "7fd834bb-8a0b-4689-9a87-52cccaeea4ee",
+            "index": 0,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31170",
+            "content": {
+                "en": "Follow the rhythm and press SPACE on the beat.",
+                "zh": "跟随节奏，在节拍点按下【空格】",
+                "ja": ""
+            },
+            "positionX": -711.2000122070313,
+            "positionY": 49.60000228881836,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "590f019c-bfc4-4873-9cc1-44371d444057",
+            "index": 9,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_31171",
+            "content": {
+                "en": "Press when the outer ring matches the center.",
+                "zh": "当外圈与中心重合时按下",
+                "ja": ""
+            },
+            "positionX": -365.5999755859375,
+            "positionY": 49.60000228881836,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "dcc13804-5750-44bc-ab41-4d584d909a88",
+            "index": 10,
+            "characterId": "",
+            "useContentId": true,
+            "contentId": "ch2_4011",
+            "content": {
+                "en": "What’s happening... my head... it’s getting dizzier and dizzier...",
+                "zh": "怎么回事...头...越来越晕...",
+                "ja": ""
+            },
+            "positionX": -36.79999923706055,
+            "positionY": 62.39999771118164,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
         }
     ],
     "connections": [
-        {
-            "outputNodeId": "7fd834bb-8a0b-4689-9a87-52cccaeea4ee",
-            "inputNodeId": "f1de1110-3993-4327-b7a0-67c6e73823b0",
-            "choiceIndex": -1,
-            "choiceText": "",
-            "branchPriority": -1
-        },
         {
             "outputNodeId": "f1de1110-3993-4327-b7a0-67c6e73823b0",
             "inputNodeId": "7207051b-b688-475a-8941-c3b70ccaf31d",
@@ -207,6 +245,27 @@
         {
             "outputNodeId": "254ac561-0647-46fd-8829-591ef262acc7",
             "inputNodeId": "8117db60-7eeb-4c03-9a1b-21b54438048c",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "7fd834bb-8a0b-4689-9a87-52cccaeea4ee",
+            "inputNodeId": "590f019c-bfc4-4873-9cc1-44371d444057",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "590f019c-bfc4-4873-9cc1-44371d444057",
+            "inputNodeId": "dcc13804-5750-44bc-ab41-4d584d909a88",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        },
+        {
+            "outputNodeId": "dcc13804-5750-44bc-ab41-4d584d909a88",
+            "inputNodeId": "f1de1110-3993-4327-b7a0-67c6e73823b0",
             "choiceIndex": -1,
             "choiceText": "",
             "branchPriority": -1
