@@ -1,6 +1,56 @@
 {
     "nodes": [
         {
+            "id": "7218aa09-a61b-44c2-a390-2c6ea6add230",
+            "index": 0,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch2_1000",
+            "content": {
+                "en": "Phew... Better get out of the hotel first.",
+                "zh": "呼……先离开酒店吧。",
+                "ja": ""
+            },
+            "positionX": -1164.800048828125,
+            "positionY": 100.80000305175781,
+            "choices": [],
+            "eventCalls": [
+                {
+                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
+                    "targetObjectName": "NoteBook",
+                    "targetSceneName": "Initiate",
+                    "componentTypeName": "NoteBookManager",
+                    "methodName": "enableNoteBook",
+                    "stringParameter": "",
+                    "intParameter": 0,
+                    "floatParameter": 0.0,
+                    "boolParameter": false,
+                    "parameterType": 0,
+                    "triggerTiming": 1
+                }
+            ],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
+            "index": 1,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch2_1001",
+            "content": {
+                "en": "Oh, it’s a message from Noema. She says she’ll be waiting for me at the entrance to the festival grounds.",
+                "zh": "诶！是梦之的消息。她说在大会会场的入口等我。",
+                "ja": ""
+            },
+            "positionX": 446.4000244140625,
+            "positionY": 104.80000305175781,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
             "id": "b004ea42-5dc0-4228-a307-7f04497ea566",
             "index": 2,
             "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
@@ -11,11 +61,12 @@
                 "zh": "太好了……我正好有很多事想当面问她。",
                 "ja": ""
             },
-            "positionX": 844.6666870117188,
-            "positionY": 102.0,
+            "positionX": 844.7999877929688,
+            "positionY": 101.60000610351563,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "471594c9-ed98-4903-8cbd-0af88a08c685",
@@ -28,11 +79,12 @@
                 "zh": "真是好久没见了......也不知道她现在如何了。",
                 "ja": ""
             },
-            "positionX": 1230.6666259765625,
-            "positionY": 106.0,
+            "positionX": 1231.199951171875,
+            "positionY": 105.60000610351563,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "44ddfd18-1903-4f80-b1d4-1a2696bf1f52",
@@ -46,7 +98,7 @@
                 "ja": ""
             },
             "positionX": 1600.0,
-            "positionY": 110.0,
+            "positionY": 109.60000610351563,
             "choices": [],
             "eventCalls": [
                 {
@@ -115,41 +167,8 @@
                     "triggerTiming": 0
                 }
             ],
-            "conditionalBranches": []
-        },
-        {
-            "id": "65326c16-626b-406f-a6ce-6dd718ad3a9e",
-            "index": 1,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
-            "useContentId": true,
-            "contentId": "ch2_1001",
-            "content": {
-                "en": "Oh, it’s a message from Noema. She says she’ll be waiting for me at the entrance to the festival grounds.",
-                "zh": "诶！是梦之的消息。她说在大会会场的入口等我。",
-                "ja": ""
-            },
-            "positionX": 446.0,
-            "positionY": 104.66667175292969,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
-        },
-        {
-            "id": "efc2635e-8629-4770-9395-f62f85ef4f9d",
-            "index": 6,
-            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
-            "useContentId": true,
-            "contentId": "ch2_1000b",
-            "content": {
-                "en": "Cant tell whether Page ran into trouble too after going back to that missing flight...",
-                "zh": "也不知道周书后来回到那架失联飞机上，是不是也出了事……",
-                "ja": ""
-            },
-            "positionX": -336.66668701171877,
-            "positionY": 103.33332824707031,
-            "choices": [],
-            "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "f48a26ca-c483-4ca3-a0c2-46f8bba77e50",
@@ -162,47 +181,35 @@
                 "zh": "昨天能平安离开那架飞机，已经算万幸了。",
                 "ja": ""
             },
-            "positionX": -743.3333129882813,
-            "positionY": 100.66667175292969,
+            "positionX": -743.2000122070313,
+            "positionY": 100.80000305175781,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
-            "id": "7218aa09-a61b-44c2-a390-2c6ea6add230",
-            "index": 0,
-            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "id": "efc2635e-8629-4770-9395-f62f85ef4f9d",
+            "index": 6,
+            "characterId": "9bf1f67d-ba62-4b57-a9cc-3ce252972f0f",
             "useContentId": true,
-            "contentId": "ch2_1000",
+            "contentId": "ch2_1000b",
             "content": {
-                "en": "Phew... Better get out of the hotel first.",
-                "zh": "呼……先离开酒店吧。",
+                "en": "Cant tell whether Page ran into trouble too after going back to that missing flight...",
+                "zh": "也不知道周书后来回到那架失联飞机上，是不是也出了事……",
                 "ja": ""
             },
-            "positionX": -1164.666748046875,
-            "positionY": 100.66667175292969,
+            "positionX": -336.79998779296877,
+            "positionY": 103.19999694824219,
             "choices": [],
-            "eventCalls": [
-                {
-                    "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-                    "targetObjectName": "NoteBook",
-                    "targetSceneName": "Initiate",
-                    "componentTypeName": "NoteBookManager",
-                    "methodName": "enableNoteBook",
-                    "stringParameter": "",
-                    "intParameter": 0,
-                    "floatParameter": 0.0,
-                    "boolParameter": false,
-                    "parameterType": 0,
-                    "triggerTiming": 1
-                }
-            ],
-            "conditionalBranches": []
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
         },
         {
             "id": "be061d38-6131-4dec-bd2c-29624b2f65b5",
             "index": 7,
-            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "characterId": "",
             "useContentId": true,
             "contentId": "ch2_1000c",
             "content": {
@@ -210,11 +217,12 @@
                 "zh": "就在这时，手机铃声忽然响起，将何以真从不安的思绪中拉了回来。",
                 "ja": ""
             },
-            "positionX": 55.333335876464847,
-            "positionY": 103.33332824707031,
+            "positionX": 55.20000076293945,
+            "positionY": 103.19999694824219,
             "choices": [],
             "eventCalls": [],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
         }
     ],
     "connections": [
