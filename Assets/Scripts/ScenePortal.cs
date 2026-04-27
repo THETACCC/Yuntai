@@ -16,6 +16,16 @@ public class ScenePortal : MonoBehaviour
     public bool isInstant = false;
     public Gamemanager myGamemanager;
 
+    [Header("Audio")]
+    [Tooltip("留空则用默认 sndSceneTransition / sndNextScene；填 Resources 下的相对路径则覆盖本 portal 的过场音效")]
+    [SerializeField] private string transitionSfxOverride = "";
+
+    private const string DefaultTransitionSfx = "Sound Effects/Henk/sndSceneTransition";
+    private const string DefaultInstantSfx = "Sound Effects/Henk/sndNextScene";
+
+    private string ResolveSfx(string fallback)
+        => string.IsNullOrEmpty(transitionSfxOverride) ? fallback : transitionSfxOverride;
+
 
     private void Start()
     {
@@ -34,7 +44,7 @@ public class ScenePortal : MonoBehaviour
             }
             else
             {
-                AudioManager.PlayOneShot("Sound Effects/Henk/sndNextScene", AudioGroup.SFX);
+                AudioManager.PlayOneShot(ResolveSfx(DefaultInstantSfx), AudioGroup.SFX);
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
 
@@ -59,7 +69,7 @@ public class ScenePortal : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                AudioManager.PlayOneShot("Sound Effects/Henk/sndSceneTransition", AudioGroup.SFX);
+                AudioManager.PlayOneShot(ResolveSfx(DefaultTransitionSfx), AudioGroup.SFX);
 
                 SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
             }
