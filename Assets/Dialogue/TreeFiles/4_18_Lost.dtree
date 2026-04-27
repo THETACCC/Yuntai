@@ -3,12 +3,12 @@
         {
             "id": "cf0cbf27-8007-426a-a102-ca41babb520a",
             "index": 2,
-            "characterId": "066100ef-5e3a-4a3f-8313-9da8c2998323",
+            "characterId": "032e23aa-1c44-460f-8151-ed6d83b5348c",
             "useContentId": true,
-            "contentId": "ch2_3115",
+            "contentId": "ch2_4017",
             "content": {
-                "en": "Wait... (My throat hurts so much—why—)",
-                "zh": "等等......（嗓子好痛，为什么——）",
+                "en": "Damn it, even hitting the wrong beat won’t stop it? This endless loop...!?",
+                "zh": "该死，敲错也阻止不了吗，这个死循环——！？",
                 "ja": ""
             },
             "positionX": 1380.7999267578125,
@@ -29,8 +29,35 @@
                     "triggerTiming": 2
                 }
             ],
-            "conditionalBranches": []
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "6d36e7c9-d5ea-4a35-a721-200fd1c63b63",
+            "index": 3,
+            "characterId": "ed1baf90-69f0-402f-959a-2683ad667ded",
+            "useContentId": true,
+            "contentId": "ch2_3115",
+            "content": {
+                "en": "Wait... (My throat hurts so much—why—)",
+                "zh": "等等......（嗓子好痛，为什么——）",
+                "ja": ""
+            },
+            "positionX": 1000.0,
+            "positionY": 164.8000030517578,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "outputNodeId": "6d36e7c9-d5ea-4a35-a721-200fd1c63b63",
+            "inputNodeId": "cf0cbf27-8007-426a-a102-ca41babb520a",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
 }
