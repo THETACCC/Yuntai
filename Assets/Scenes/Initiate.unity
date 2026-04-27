@@ -817,9 +817,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1846936847}
   - {fileID: 1331517285}
   - {fileID: 819737620}
+  - {fileID: 1846936847}
   - {fileID: 300157889}
   m_Father: {fileID: 1399517007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4621,6 +4621,14 @@ PrefabInstance:
       propertyPath: managedReferences[5612186088201781262].m_TrackedProperties.items.Array.data[1]
       value: 5612186088201781266
       objectReference: {fileID: 0}
+    - target: {fileID: 1402738050904966983, guid: 1349403212a59df49b71963b93ee077b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 387.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402738050904966983, guid: 1349403212a59df49b71963b93ee077b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1669916644945379900, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_text
       value: 2. Empty Slot
@@ -4699,7 +4707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4707,7 +4715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219468078667850962, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4785,6 +4793,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5956259199573632744, guid: 1349403212a59df49b71963b93ee077b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1016.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956259199573632744, guid: 1349403212a59df49b71963b93ee077b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -59
+      objectReference: {fileID: 0}
+    - target: {fileID: 6656974531080490965, guid: 1349403212a59df49b71963b93ee077b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08e6c170b40370c45ba1920729ede9ad, type: 3}
     - target: {fileID: 6881059242057391875, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_Name
       value: Slot 2
@@ -5674,14 +5694,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 107166291}
     m_Modifications:
-    - target: {fileID: 1402738050904966983, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -304
-      objectReference: {fileID: 0}
-    - target: {fileID: 1402738050904966983, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 217
-      objectReference: {fileID: 0}
     - target: {fileID: 1912270612767891073, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -5838,18 +5850,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 5956259199573632744, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 5956259199573632744, guid: 1349403212a59df49b71963b93ee077b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 222
-      objectReference: {fileID: 0}
     - target: {fileID: 6656974531080490965, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 08e6c170b40370c45ba1920729ede9ad, type: 3}
+      objectReference: {fileID: 21300000, guid: 26f45c3c10c7af0458bfd42367e14e4c, type: 3}
     - target: {fileID: 6656974531080490965, guid: 1349403212a59df49b71963b93ee077b, type: 3}
       propertyPath: m_Color.b
       value: 1

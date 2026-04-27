@@ -16,7 +16,6 @@ public class SaveManager : MonoBehaviour
     public bool hasGameSave = false;
     public bool[] saveList;
 
-    public float slotAniMoveUpDistance;
     //public bool isSaving = false;
 
     [Header("References")]
@@ -300,11 +299,6 @@ public class SaveManager : MonoBehaviour
             }
 
         }
-    }
-
-    public void SlotMoveUpAnimation()
-    {
-
     }
 }
 
