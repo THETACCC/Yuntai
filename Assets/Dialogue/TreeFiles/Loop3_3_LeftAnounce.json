@@ -3,19 +3,19 @@
     {
       "index": 0,
       "name": {
-        "en": "Veris",
-        "zh": "何以真",
+        "en": "",
+        "zh": "",
         "ja": ""
       },
-      "avatarAddr": "DialogueImages/何以真_日常",
-      "isPlayer": true,
+      "avatarAddr": "",
+      "isPlayer": false,
       "content": {
-        "en": "(There’s a notice posted on the fence here.)",
-        "zh": "（这里的围栏上贴了一张告示。）",
+        "en": "Qiqiao Festival Venue →\nGolden Gate Hotel →\nJinlan Temple →",
+        "zh": "乞巧大会会场  →\n金门酒店  →\n金兰观  →",
         "ja": ""
       },
       "textAlignment": 1,
-      "nextIndex": 1,
+      "nextIndex": 3,
       "eventCalls": [
         {
           "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
@@ -63,6 +63,37 @@
         "ja": ""
       },
       "textAlignment": 1,
+      "nextIndex": -1,
+      "eventCalls": [
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomOut_3_3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 1
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": {
+        "en": "Veris",
+        "zh": "何以真",
+        "ja": ""
+      },
+      "avatarAddr": "DialogueImages/何以真_闭眼",
+      "isPlayer": true,
+      "content": {
+        "en": "I should head left toward the hotel.",
+        "zh": "我应该往左走，去金门酒店。",
+        "ja": ""
+      },
+      "textAlignment": 0,
       "nextIndex": -1,
       "eventCalls": [
         {
