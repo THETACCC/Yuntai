@@ -152,7 +152,9 @@ public class UILocalization : MonoBehaviour
         {
             if (contentDictionary.ContainsKey(languageCode))
             {
-                tmp.text = contentDictionary[languageCode];
+                tmp.text = contentDictionary[languageCode]
+                .Replace("\\n", "\n")
+                .Replace("/n", "\n");
             }
             else
             {
