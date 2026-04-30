@@ -842,11 +842,11 @@ PrefabInstance:
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: mainDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 31cd16b039654144d84b70d405dd9853, type: 3}
+      objectReference: {fileID: 4900000, guid: b3b56a893645f014180ef6642a08d2eb, type: 3}
     - target: {fileID: 2921966396280651360, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: postDialogueJsonFile
       value: 
-      objectReference: {fileID: 4900000, guid: 31cd16b039654144d84b70d405dd9853, type: 3}
+      objectReference: {fileID: 4900000, guid: b3b56a893645f014180ef6642a08d2eb, type: 3}
     - target: {fileID: 3415938358529677299, guid: 4f299ff7db2c1cd4989933a046474ff3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1029,6 +1029,10 @@ PrefabInstance:
     - target: {fileID: 3376826607944415462, guid: e68d10090641b0f448e95363fdc5cb96, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 3789826886834041533, guid: e68d10090641b0f448e95363fdc5cb96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6331903069180065613, guid: e68d10090641b0f448e95363fdc5cb96, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1534,7 +1538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1736771211
 BoxCollider2D:
   m_ObjectHideFlags: 0
