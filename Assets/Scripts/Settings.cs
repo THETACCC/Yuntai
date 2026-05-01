@@ -169,6 +169,7 @@ public class Settings : MonoBehaviour
     public void ReturnToMain()
     {
         SaveManager.instance.SaveGame();
+        SaveManager.instance.gameSavesUI.SetActive(false);
         SceneController.instance.LoadScene("TitleScene");
         CloseSettings();
         DialogueController.instance.CloseDialogueImmediately();

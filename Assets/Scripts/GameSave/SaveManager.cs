@@ -123,61 +123,64 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame(bool isAutoSave = false)
     {
-        UpdateSlotInfo();
-        //Settings.instance.OpenGameSaves();
-        
-        
-        if (!hasGameSave)
+        if (saveSlot != 0)
         {
-            hasGameSave = true;
-        }
+            UpdateSlotInfo();
+            //Settings.instance.OpenGameSaves();
 
-        /*
-        if (saveSlot == 0)
-        {
-            saveSlot = FindEmptySlot();
-            //没有空存档
+
+            if (!hasGameSave)
+            {
+                hasGameSave = true;
+            }
+
+            /*
             if (saveSlot == 0)
             {
-                if (isAutoSave)
+                saveSlot = FindEmptySlot();
+                //没有空存档
+                if (saveSlot == 0)
                 {
-                    Debug.Log("AutoSave skipped: no slot selected and all slots full.");
-                    return;
-                }
-                else
-                {
-                    Settings.instance.OpenGameSaves();
-                    return;
+                    if (isAutoSave)
+                    {
+                        Debug.Log("AutoSave skipped: no slot selected and all slots full.");
+                        return;
+                    }
+                    else
+                    {
+                        Settings.instance.OpenGameSaves();
+                        return;
+                    }
                 }
             }
+            */
+
+            // 确保 savePath 被正确初始化
+            savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
+
+            saveList[saveSlot - 1] = true;
+
+            SaveData data = new SaveData();
+
+            // 存场景名字
+            data.sceneName = SceneManager.GetActiveScene().name;
+
+            // 存玩家位置
+
+            //存Notebook
+            data.objectiveUnlocked = NoteBookManager.instance.objectiveTab.GetUnlockedStatusArray();
+            data.characterUnlocked = NoteBookManager.instance.characterTab.GetUnlockedStatusArray();
+            data.eventUnlocked = NoteBookManager.instance.eventTab.GetUnlockedStatusArray();
+
+            // 转换为 JSON
+            string json = JsonUtility.ToJson(data, true);
+
+            // 写入文件
+            File.WriteAllText(savePath, json);
+
+            Debug.Log("存档完成：" + savePath);
+            UpdateSlotInfo();
         }
-        */
-        
-        // 确保 savePath 被正确初始化
-        savePath = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
-        
-        saveList[saveSlot - 1] = true;
-
-        SaveData data = new SaveData();
-
-        // 存场景名字
-        data.sceneName = SceneManager.GetActiveScene().name;
-
-        // 存玩家位置
-
-        //存Notebook
-        data.objectiveUnlocked = NoteBookManager.instance.objectiveTab.GetUnlockedStatusArray();
-        data.characterUnlocked = NoteBookManager.instance.characterTab.GetUnlockedStatusArray();
-        data.eventUnlocked = NoteBookManager.instance.eventTab.GetUnlockedStatusArray();
-
-        // 转换为 JSON
-        string json = JsonUtility.ToJson(data, true);
-
-        // 写入文件
-        File.WriteAllText(savePath, json);
-
-        Debug.Log("存档完成：" + savePath);
-        UpdateSlotInfo();
     }
 
     public void LoadGame()
