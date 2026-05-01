@@ -16,6 +16,7 @@ public class SaveManager : MonoBehaviour
     public bool hasGameSave = false;
     public bool[] saveList;
 
+    //[HideInInspector] public int deletingSlot;
     //public bool isSaving = false;
 
     [Header("References")]
@@ -272,6 +273,11 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void SetSlotNum(int slotNum)
+    {
+        saveSlot = slotNum;
+    }
+
     public void CancelReplace()
     {
         warningWindow.SetActive(false);
@@ -310,14 +316,14 @@ public class SaveManager : MonoBehaviour
         return 0;
     }
 
-    public void DeleteFileSave(int slotNum)
+    public void DeleteFileSave()
     {
-        string path = Path.Combine(Application.persistentDataPath, $"GameSave{slotNum}.json");
+        string path = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
 
         if (File.Exists(path))
         {
             File.Delete(path);
-            saveList[slotNum - 1] = false;
+            saveList[saveSlot - 1] = false;
 
             // 检查是否还有其他存档
             hasGameSave = false;
