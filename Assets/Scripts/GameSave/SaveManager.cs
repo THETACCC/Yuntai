@@ -211,6 +211,7 @@ public class SaveManager : MonoBehaviour
 
     public void SlotButtonHit(int slotNum)
     {
+        UILocalization warningLocalization = warningText.GetComponent<UILocalization>();
         //titlescene
         if (!Settings.instance.isInGame && Title_Scene.instance != null)
         {
@@ -223,7 +224,10 @@ public class SaveManager : MonoBehaviour
                 {
                     //ask for replace as a new game
                     warningWindow.SetActive(true);
-                    warningText.text = "You are creating a new Game by replacing File " + slotNum;
+                    warningLocalization.SetLanguageContent("en", "You are creating a new Game by replacing File " + slotNum);
+                    warningLocalization.SetLanguageContent("zh", "你正在通过替换文件" + slotNum + "来创建一个新游戏文件。");
+                    warningLocalization.SetLanguageContent("ja", "You are creating a new Game by replacing File " + slotNum);
+                    //warningText.text = "You are creating a new Game by replacing File " + slotNum;
                 } else
                 {
                     //create a new game directly
@@ -266,7 +270,9 @@ public class SaveManager : MonoBehaviour
             {
                 //ask for replace
                 warningWindow.SetActive(true);
-                warningText.text = "You are saving the progress by replacing File " + slotNum;
+                warningLocalization.SetLanguageContent("en", "You are saving the progress by replacing File " + slotNum);
+                warningLocalization.SetLanguageContent("zh", "你正在通过替换文件" + slotNum + "来保存当前的进度。");
+                warningLocalization.SetLanguageContent("ja", "You are saving the progress by replacing File " + slotNum);
             }
             else
             {
