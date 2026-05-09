@@ -14,7 +14,22 @@
         "zh": "您好，我看到摊位旁边似乎堆着不少花灯？",
         "ja": ""
       },
-      "nextIndex": 3
+      "textAlignment": 0,
+      "nextIndex": 3,
+      "eventCalls": [
+        {
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomIn_3_3",
+          "parameterType": "None",
+          "stringParameter": "",
+          "intParameter": 0,
+          "floatParameter": 0,
+          "boolParameter": false,
+          "triggerTiming": 0
+        }
+      ]
     },
     {
       "index": 1,
@@ -26,15 +41,16 @@
       "avatarAddr": "DialogueImages/花灯摊主_日常",
       "isPlayer": false,
       "content": {
-        "en": "Ah! Really? That’s such perfect timing!",
+        "en": "Ah! Really? That would be a huge help!",
         "zh": "啊！可以吗！这可真是太及时了！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "choices": [
         {
           "text": {
-            "en": "My pleasure. Where do they need to be hung?",
+            "en": "It’s no trouble. Where should they be hung?",
             "zh": "没事的，请问需要挂到哪里呢？",
             "ja": ""
           },
@@ -52,10 +68,11 @@
       "avatarAddr": "DialogueImages/花灯摊主_日常",
       "isPlayer": false,
       "content": {
-        "en": "Ah! There’s a <color=orange>diagram</color> here. Just follow it and <color=orange>hang them under the eaves over on the left</color>.",
+        "en": "Ah! There’s a <color=orange>diagram</color> here. Just follow it and <color=orange>hang them under the eaves on the left</color>.",
         "zh": "啊！这里有张<color=orange>示意图</color>，照着这个去<color=orange>左边那里的屋檐处挂上</color>就好。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "eventCalls": [
         {
@@ -158,6 +175,7 @@
         "zh": "啊，挡着您路了吗？",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 4
     },
     {
@@ -170,10 +188,11 @@
       "avatarAddr": "DialogueImages/花灯摊主_日常",
       "isPlayer": false,
       "content": {
-        "en": "(The vendor leans on a cane, one foot still in a cast.)",
+        "en": "(The vendor is leaning on a crutch, and one leg is in a cast.)",
         "zh": "（摊主拄着拐杖，一只脚上还打着石膏。）",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 5
     },
     {
@@ -190,6 +209,7 @@
         "zh": "前两天因为意外扭伤了脚，家里人都忙着别处店铺的准备，抽不开身来帮忙。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 6
     },
     {
@@ -206,6 +226,7 @@
         "zh": "我只好自己慢慢悠悠架摊子，还好相邻的摊主们帮了我不少忙，现在也就差这点花灯没挂上了。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "choices": [
         {
@@ -236,10 +257,11 @@
       "avatarAddr": "DialogueImages/何以真_思考",
       "isPlayer": true,
       "content": {
-        "en": "(I can’t just keep waiting like this. According to the info I had, the troupe should also have a stall at the fair.)",
+        "en": "(I can’t just keep waiting around like this. Based on what I learned earlier, the troupe should have a stall somewhere at the festival grounds too.)",
         "zh": "（这样等下去也不是办法，根据之前的情报，戏团应该在大会会场也有摊位。）",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 8
     },
     {
@@ -252,10 +274,11 @@
       "avatarAddr": "DialogueImages/何以真_思考",
       "isPlayer": true,
       "content": {
-        "en": "(I want to find their stall as soon as possible and see if I can gather some important information.)",
+        "en": "(I want to find their stall as soon as possible and see if I can gather some useful information.)",
         "zh": "（我想尽快找到它们的摊位，看看能不能收集到比较重要的信息。）",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 9
     },
     {
@@ -272,6 +295,7 @@
         "zh": "嗯，不如由我来帮您把花灯挂上吧。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 1
     },
     {
@@ -288,6 +312,7 @@
         "zh": "那我来帮您把花灯挂上吧。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 11
     },
     {
@@ -304,6 +329,7 @@
         "zh": "不错，就等着你这句呢！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 12
     },
     {
@@ -320,6 +346,7 @@
         "zh": "（摊主喜笑颜开，起身翻找着什么）",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 13
     },
     {
@@ -336,6 +363,7 @@
         "zh": "没事的，请问需要挂到哪里呢？",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 14
     },
     {
@@ -352,13 +380,14 @@
         "zh": "这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "eventCalls": [
         {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomOut_3_3",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
@@ -454,6 +483,7 @@
         "zh": "现在的年轻人真是不知礼节！你看不到我腿脚不便吗？",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 16
     },
     {
@@ -470,6 +500,7 @@
         "zh": "（摊主投来了愤怒与不屑的目光）",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "choices": [
         {
@@ -504,6 +535,7 @@
         "zh": "真是无法无天了，别人的东西可不是你说动就动的！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "choices": [
         {
@@ -530,6 +562,7 @@
         "zh": "那我来帮您把花灯挂上吧。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 19
     },
     {
@@ -546,6 +579,7 @@
         "zh": "哼，这还差不多！",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": 20
     },
     {
@@ -562,13 +596,14 @@
         "zh": "这里有张示意图，照着这个去左边那里的屋檐处挂上就好。",
         "ja": ""
       },
+      "textAlignment": 0,
       "nextIndex": -1,
       "eventCalls": [
         {
-          "targetObjectID": "02651c1e-be9d-46c9-9cc1-b817e9aeef45",
-          "targetObjectName": "NoteBook",
-          "componentTypeName": "NoteBookManager",
-          "methodName": "UnlockEventFeedBack",
+          "targetObjectID": "f3c78097-f6b9-4192-82c6-457003e8c026",
+          "targetObjectName": "LevelManager3_3",
+          "componentTypeName": "LevelManager3_3",
+          "methodName": "CameraZoomOut_3_3",
           "parameterType": "None",
           "stringParameter": "",
           "intParameter": 0,
