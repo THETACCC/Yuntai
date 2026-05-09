@@ -1,0 +1,49 @@
+{
+    "nodes": [
+        {
+            "id": "7dddfb39-8e66-4df7-a955-fdf2b833fbdd",
+            "index": 0,
+            "characterId": "443ed651-99c1-456e-8295-e76ba2741aa7",
+            "useContentId": true,
+            "contentId": "ch1_4014",
+            "content": {
+                "en": "I’d better head to the hotel I booked. At least it’ll be safer there.",
+                "zh": "我最好现在就去定好的酒店，起码安全一点。",
+                "ja": ""
+            },
+            "positionX": 50.0,
+            "positionY": 94.66667175292969,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        },
+        {
+            "id": "ddb4d581-f87d-4ee4-98dc-de56a9eb9a7b",
+            "index": 1,
+            "characterId": "d5be2dcf-87aa-4ebc-afce-674209069707",
+            "useContentId": true,
+            "contentId": "ch1_4015",
+            "content": {
+                "en": "If I remember correctly, the hotel is on the other side.",
+                "zh": "我记得酒店在另一侧。",
+                "ja": ""
+            },
+            "positionX": 439.33331298828127,
+            "positionY": 98.0,
+            "choices": [],
+            "eventCalls": [],
+            "conditionalBranches": [],
+            "textAlignment": 0
+        }
+    ],
+    "connections": [
+        {
+            "outputNodeId": "7dddfb39-8e66-4df7-a955-fdf2b833fbdd",
+            "inputNodeId": "ddb4d581-f87d-4ee4-98dc-de56a9eb9a7b",
+            "choiceIndex": -1,
+            "choiceText": "",
+            "branchPriority": -1
+        }
+    ]
+}
