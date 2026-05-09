@@ -23,6 +23,15 @@ public class CG_Manager : MonoBehaviour
     public VideoClip clip_en;
     public VideoClip clip_ja;
 
+    [Header("Initial CG Content Warning")]
+    [Tooltip("Only turn this on for the first / initial CG.")]
+    [SerializeField] private bool isInitialCG = false;
+
+    [Tooltip("The UI object that shows the content warning.")]
+    [SerializeField] private GameObject contentWarningRoot;
+
+    private bool _waitingForContentWarningInput = false;
+
     [Header("Skip Settings")]
     [Tooltip("Max delay (seconds) between two Space presses to count as double-tap.")]
     [SerializeField, Min(0f)] private float doubleTapMaxDelay = 0.4f;
@@ -37,35 +46,79 @@ public class CG_Manager : MonoBehaviour
     private void Start()
     {
         NoteBookManager.instance.disableNoteBook();
-        if (Settings.instance != null)
-        {
-            switch (Settings.instance.currentLanguage) 
-            {
-                case "zh":
-                    videoPlayer.clip = clip_zh;
-                    break;
-                case "en":
-                    videoPlayer.clip = clip_en;
-                    break;
-                case "ja":
-                    videoPlayer.clip = clip_ja;
-                    break;
-            }
-        }
+
         if (videoPlayer == null)
         {
             Debug.LogError("[CG_Manager] VideoPlayer not assigned in the Inspector.", this);
             return;
         }
 
+        // Important: stop Play On Awake / first frame showing before warning
+        videoPlayer.playOnAwake = false;
+        videoPlayer.Stop();
+
+        // Apply once at start, but also apply again right before Play().
+        ApplyLanguageClip();
+
         // Subscribe to the event that triggers when the video finishes
         videoPlayer.loopPointReached += OnVideoFinished;
+
+        // Only the first / initial CG needs to wait on the content warning.
+        if (isInitialCG)
+        {
+            _waitingForContentWarningInput = true;
+
+            if (contentWarningRoot != null)
+            {
+                contentWarningRoot.SetActive(true);
+            }
+
+            // Hide the video object completely so the first frame will not show behind the warning.
+            videoPlayer.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (contentWarningRoot != null)
+            {
+                contentWarningRoot.SetActive(false);
+            }
+
+            videoPlayer.gameObject.SetActive(true);
+
+            // Re-apply right before playing, in case language was changed before this CG starts.
+            ApplyLanguageClip();
+            videoPlayer.Play();
+        }
     }
 
     private void Update()
     {
         if (_sceneLoaded) return;                    // 已经跳过/结束就不再检测
         if (videoPlayer == null) return;
+
+        // If this is the initial CG, only Space starts the video.
+        // This prevents Esc/settings/language UI clicks from accidentally starting the video.
+        if (_waitingForContentWarningInput)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _waitingForContentWarningInput = false;
+
+                if (contentWarningRoot != null)
+                {
+                    contentWarningRoot.SetActive(false);
+                }
+
+                videoPlayer.gameObject.SetActive(true);
+
+                // Important: apply current language again right before video starts.
+                // This fixes changing language from Esc/settings while on the content warning page.
+                ApplyLanguageClip();
+                videoPlayer.Play();
+            }
+
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -84,6 +137,30 @@ public class CG_Manager : MonoBehaviour
                 _lastSpaceTime = now;
             }
         }
+    }
+
+    private void ApplyLanguageClip()
+    {
+        if (videoPlayer == null) return;
+        if (Settings.instance == null) return;
+
+        switch (Settings.instance.currentLanguage)
+        {
+            case "zh":
+                videoPlayer.clip = clip_zh;
+                break;
+            case "en":
+                videoPlayer.clip = clip_en;
+                break;
+            case "ja":
+                videoPlayer.clip = clip_ja;
+                break;
+            default:
+                videoPlayer.clip = clip_en;
+                break;
+        }
+
+        Debug.Log("[CG_Manager] Applied video language clip: " + Settings.instance.currentLanguage);
     }
 
     // Called when the video finishes playing normally
@@ -120,7 +197,7 @@ public class CG_Manager : MonoBehaviour
             SceneController.instance.LoadSceneAndTeleport(scenename, SpawnPointLocation);
         }
         else
-        {   
+        {
             AudioManager.PlayOneShot("Sound Effects/sndOpeningGong", AudioGroup.SFX);
             StartCoroutine(Tweening.StartTweening(
             TweeningCurve.Linear,
