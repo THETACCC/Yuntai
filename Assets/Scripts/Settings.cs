@@ -123,6 +123,7 @@ public class Settings : MonoBehaviour
 
     public void OpenSettings()
     {
+        Time.timeScale = 0f;
         isSettingsOpen = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
@@ -158,6 +159,7 @@ public class Settings : MonoBehaviour
 
     public void CloseSettings()
     {
+        Time.timeScale = 1f;
         isSettingsOpen = false;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
