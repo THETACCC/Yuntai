@@ -327,6 +327,11 @@ public class SaveManager : MonoBehaviour
 
     public void DeleteFileSave()
     {
+        if (NoteBookManager.instance != null)
+        {
+            NoteBookManager.instance.ResetAllProgress();
+        }
+
         string path = Path.Combine(Application.persistentDataPath, $"GameSave{saveSlot}.json");
 
         if (File.Exists(path))
