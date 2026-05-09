@@ -22,6 +22,11 @@ public class SceneController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool verboseLog = false;
 
+    //Note Book Ref
+    public NoteBookManager noteBookManager;
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -37,6 +42,15 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+
+        GameObject myNoteBook = GameObject.FindGameObjectWithTag("NoteBook");
+        if (myNoteBook != null)
+        {
+            noteBookManager = myNoteBook.GetComponent<NoteBookManager>();
+        }
+
+
+
         RefreshCameraBound();
     }
 
@@ -87,8 +101,15 @@ public class SceneController : MonoBehaviour
         // 1) 黑屏
         if (transitionAnim != null)
         {
+            noteBookManager.disableNoteBook();
+
+
             transitionAnim.SetTrigger("End");
+
+
+
             yield return new WaitForSeconds(1.5f);
+
         }
 
         // 2) 异步加载新场景
@@ -159,7 +180,10 @@ public class SceneController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
 
+
+
             transitionAnim.SetTrigger("Start");
+            noteBookManager.enableNoteBook();
             if (gm != null)
             {
                 gm.phase = GamePhase.Moving;
