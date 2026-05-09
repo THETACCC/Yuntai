@@ -146,6 +146,36 @@ public class NoteBookManager : MonoBehaviour
         isOpen = false;
     }
 
+    /// <summary>
+    /// 重置Notebook所有进度（Tab解锁状态 + 当前分页/打开状态）
+    /// 可直接绑定到UI按钮OnClick。
+    /// </summary>
+    public void ResetAllProgress()
+    {
+        ResetTabProgress(objectiveTab);
+        ResetTabProgress(characterTab);
+        ResetTabProgress(eventTab);
+
+        if (historyContentText != null)
+        {
+            historyContentText.text = string.Empty;
+        }
+        Debug.Log("[NoteBookManager] All notebook progress has been reset.");
+    }
+
+    private void ResetTabProgress(TabManager tabManager)
+    {
+        if (tabManager == null || tabManager.myTabs == null)
+        {
+            return;
+        }
+
+        var resetStatus = new bool[tabManager.myTabs.Length];
+        tabManager.LoadUnlockedStatusArray(resetStatus);
+        tabManager.RefreshUnlockedTabs();
+        tabManager.CloseInventory();
+    }
+
     //Audio Related
     public void NoteBookInteraction()
     {
