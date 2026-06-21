@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -12,11 +12,11 @@ public class NoteBookLocalization : MonoBehaviour
     public static event Action OnLanguageChanged;
 
     [Header("Localization Settings")]
-    [Tooltip("本地化表CSV文件（如果使用本地文件）")]
-    public TextAsset localizationTable;
-
-    [Tooltip("Google Sheets发布的CSV URL（如果使用在线表格）")]
+    [Tooltip("Google Sheets 发布的 CSV URL（编辑器拉取来源，运行时不会访问）")]
     public string googleSheetsURL = "";
+
+    [Tooltip("本地本地化表（由编辑器「拉取并保存到本地」生成）")]
+    public TextAsset localizationTable;
 
     [Tooltip("当前语言（zh, en, ja等）")]
     public string currentLanguage = "zh";
@@ -70,37 +70,14 @@ public class NoteBookLocalization : MonoBehaviour
         // 开始加载时先标记为未就绪
         IsDataReady = false;
 
-        // 优先使用Google Sheets URL
-        if (!string.IsNullOrEmpty(googleSheetsURL))
-        {
-            StartCoroutine(LoadFromURL(googleSheetsURL));
-        }
-        // 否则使用本地文件
-        else if (localizationTable != null)
+        // 运行时只读取本地文件
+        if (localizationTable != null)
         {
             LoadFromTextAsset(localizationTable.text);
         }
         else
         {
-            Debug.LogError("[NoteBookLocalization] No localization source assigned!");
-        }
-    }
-
-    private System.Collections.IEnumerator LoadFromURL(string url)
-    {
-        using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
-            {
-                Debug.LogError($"[NoteBookLocalization] Failed to load from URL: {www.error}");
-            }
-            else
-            {
-                string csvText = www.downloadHandler.text;
-                LoadFromTextAsset(csvText);
-            }
+            Debug.LogError("[NoteBookLocalization] 本地 LocalizationTable 未配置！请在 Inspector 中填写 Google Sheets URL 后点击「拉取并保存到本地」。");
         }
     }
 

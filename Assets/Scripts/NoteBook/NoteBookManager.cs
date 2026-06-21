@@ -1,5 +1,4 @@
-﻿using MoreMountains.Feedbacks;
-using System.Collections;
+using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,11 +14,11 @@ public class NoteBookManager : MonoBehaviour
     public bool isOpen = false;
 
     [Header("Data Source")]
-    [Tooltip("NoteBook数据表CSV文件（如果使用本地文件）")]
-    public TextAsset noteBookData;
-
-    [Tooltip("Google Sheets发布的CSV URL（如果使用在线表格）")]
+    [Tooltip("Google Sheets 发布的 CSV URL（编辑器拉取来源，运行时不会访问）")]
     public string googleSheetsURL = "";
+
+    [Tooltip("本地 NoteBook 索引表（由编辑器「拉取并保存到本地」生成）")]
+    public TextAsset noteBookData;
 
     private string noteBookDataText = "";
 
@@ -69,34 +68,27 @@ public class NoteBookManager : MonoBehaviour
         NoteBook_Canvas.interactable = false;
         isOpen = false;
 
-        // 加载NoteBookData
-        if (!string.IsNullOrEmpty(googleSheetsURL))
-        {
-            StartCoroutine(LoadNoteBookDataFromURL(googleSheetsURL));
-        }
-        else if (noteBookData != null)
-        {
-            noteBookDataText = noteBookData.text;
-            IsDataReady = true;  // 本地数据立即就绪
-        }
+        LoadLocalNoteBookData();
     }
 
-    private System.Collections.IEnumerator LoadNoteBookDataFromURL(string url)
+    private void LoadLocalNoteBookData()
     {
-        using (UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(url))
-        {
-            yield return www.SendWebRequest();
+        IsDataReady = false;
 
-            if (www.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
-            {
-                Debug.LogError($"[NoteBookManager] Failed to load from URL: {www.error}");
-            }
-            else
-            {
-                noteBookDataText = www.downloadHandler.text;
-                IsDataReady = true;
-            }
+        if (noteBookData == null)
+        {
+            Debug.LogError("[NoteBookManager] 本地 NoteBookData 未配置！请在 Inspector 中填写 Google Sheets URL 后点击「拉取并保存到本地」。");
+            return;
         }
+
+        noteBookDataText = noteBookData.text;
+        if (string.IsNullOrEmpty(noteBookDataText))
+        {
+            Debug.LogError("[NoteBookManager] 本地 NoteBookData 内容为空！请重新拉取。");
+            return;
+        }
+
+        IsDataReady = true;
     }
 
     // Update is called once per frame
@@ -222,7 +214,7 @@ public class NoteBookManager : MonoBehaviour
             return noteBookData.text;
         }
 
-        Debug.LogWarning("[NoteBookManager] No noteBookData available!");
+        Debug.LogError("[NoteBookManager] 本地 NoteBookData 不可用！请先拉取并保存到本地。");
         return string.Empty;
     }
 
