@@ -8,7 +8,8 @@ public class DialogueTrigger : MonoBehaviour
     public bool isReadyToTrigger = false; //是否可以触发对话
     public bool isMainDialogueFinished = false; //主要对话是否结束
 
-    [SerializeField] bool isDoor = false;
+    [SerializeField] private bool isDoor = false;
+    public bool IsDoor => isDoor;
 
     public bool isInstantTrigger = false;
 

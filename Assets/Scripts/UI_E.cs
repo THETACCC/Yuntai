@@ -13,10 +13,14 @@ public class UI_E : MonoBehaviour
     [SerializeField] private bool triggerManagerFunctionOnE = false;
     [SerializeField] private UnityEvent onEPressed;
 
+    private DialogueTrigger dialogueTrigger;
+
     protected bool isPlayerInTrigger = false;
 
     protected virtual void Start()
     {
+        dialogueTrigger = GetComponent<DialogueTrigger>();
+
         if (InteractIndicator) InteractIndicator.SetActive(false);
     }
 
@@ -24,7 +28,13 @@ public class UI_E : MonoBehaviour
     {
         if (!isPlayerInTrigger) return;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.W))
+        bool isDoor = dialogueTrigger != null && dialogueTrigger.IsDoor;
+
+        bool pressedCorrectKey =
+            (!isDoor && Input.GetKeyDown(KeyCode.E)) ||
+            (isDoor && Input.GetKeyDown(KeyCode.W));
+
+        if (pressedCorrectKey)
         {
             SetIndicator(false);
 
